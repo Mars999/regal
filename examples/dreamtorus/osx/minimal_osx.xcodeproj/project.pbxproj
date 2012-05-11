@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		256AC3DA0F4B6AC300CF3369 /* minimal_osxAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* minimal_osxAppDelegate.mm */; };
+		43085426148B0F3400AE231A /* RGLOpenGLContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 43085425148B0F3400AE231A /* RGLOpenGLContext.m */; };
+		4326D4D0153486A0009EF3ED /* Regal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4326D4C1153486A0009EF3ED /* Regal.cpp */; };
+		4326D4D1153486A0009EF3ED /* RegalEmuDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4326D4C6153486A0009EF3ED /* RegalEmuDispatch.cpp */; };
+		4326D4D2153486A0009EF3ED /* RegalErrorDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4326D4C7153486A0009EF3ED /* RegalErrorDispatch.cpp */; };
+		4326D4D3153486A0009EF3ED /* RegalIff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4326D4C8153486A0009EF3ED /* RegalIff.cpp */; };
+		4326D4D4153486A0009EF3ED /* RegalLoaderDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4326D4CA153486A0009EF3ED /* RegalLoaderDispatch.cpp */; };
+		4326D4D5153486A0009EF3ED /* RegalLookup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4326D4CB153486A0009EF3ED /* RegalLookup.cpp */; };
+		4344FC911332A8BA006F07E8 /* nv.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4344FC901332A8BA006F07E8 /* nv.icns */; };
+		43787F5014E8512400636639 /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43787F4E14E8512400636639 /* render.cpp */; };
+		43E244C6133066AF0040E20D /* RegalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43E244C5133066AF0040E20D /* RegalView.mm */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		256AC3D80F4B6AC300CF3369 /* minimal_osxAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minimal_osxAppDelegate.h; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* minimal_osxAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = minimal_osxAppDelegate.mm; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* minimal_osx_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minimal_osx_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		43085424148B0F3400AE231A /* RGLOpenGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGLOpenGLContext.h; sourceTree = "<group>"; };
+		43085425148B0F3400AE231A /* RGLOpenGLContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGLOpenGLContext.m; sourceTree = "<group>"; };
+		4326D4C0153486A0009EF3ED /* linear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linear.h; path = ../../../src/regal/linear.h; sourceTree = "<group>"; };
+		4326D4C1153486A0009EF3ED /* Regal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Regal.cpp; path = ../../../src/regal/Regal.cpp; sourceTree = "<group>"; };
+		4326D4C3153486A0009EF3ED /* RegalBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalBin.h; path = ../../../src/regal/RegalBin.h; sourceTree = "<group>"; };
+		4326D4C4153486A0009EF3ED /* RegalDsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalDsa.h; path = ../../../src/regal/RegalDsa.h; sourceTree = "<group>"; };
+		4326D4C5153486A0009EF3ED /* RegalEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalEmu.h; path = ../../../src/regal/RegalEmu.h; sourceTree = "<group>"; };
+		4326D4C6153486A0009EF3ED /* RegalEmuDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalEmuDispatch.cpp; path = ../../../src/regal/RegalEmuDispatch.cpp; sourceTree = "<group>"; };
+		4326D4C7153486A0009EF3ED /* RegalErrorDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalErrorDispatch.cpp; path = ../../../src/regal/RegalErrorDispatch.cpp; sourceTree = "<group>"; };
+		4326D4C8153486A0009EF3ED /* RegalIff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalIff.cpp; path = ../../../src/regal/RegalIff.cpp; sourceTree = "<group>"; };
+		4326D4C9153486A0009EF3ED /* RegalIff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalIff.h; path = ../../../src/regal/RegalIff.h; sourceTree = "<group>"; };
+		4326D4CA153486A0009EF3ED /* RegalLoaderDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalLoaderDispatch.cpp; path = ../../../src/regal/RegalLoaderDispatch.cpp; sourceTree = "<group>"; };
+		4326D4CB153486A0009EF3ED /* RegalLookup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalLookup.cpp; path = ../../../src/regal/RegalLookup.cpp; sourceTree = "<group>"; };
+		4326D4CC153486A0009EF3ED /* RegalLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalLookup.h; path = ../../../src/regal/RegalLookup.h; sourceTree = "<group>"; };
+		4326D4CD153486A0009EF3ED /* RegalObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalObj.h; path = ../../../src/regal/RegalObj.h; sourceTree = "<group>"; };
+		4326D4CE153486A0009EF3ED /* RegalPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalPrivate.h; path = ../../../src/regal/RegalPrivate.h; sourceTree = "<group>"; };
+		4326D4CF153486A0009EF3ED /* RegalVao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalVao.h; path = ../../../src/regal/RegalVao.h; sourceTree = "<group>"; };
+		4344FC901332A8BA006F07E8 /* nv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nv.icns; sourceTree = "<group>"; };
+		43787F4E14E8512400636639 /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = render.cpp; path = ../src/render.cpp; sourceTree = "<group>"; };
+		43787F4F14E8512400636639 /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = render.h; path = ../src/render.h; sourceTree = "<group>"; };
+		43E244C4133066AF0040E20D /* RegalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegalView.h; sourceTree = "<group>"; };
+		43E244C5133066AF0040E20D /* RegalView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RegalView.mm; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* minimal_osx-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "minimal_osx-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* minimal_osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = minimal_osx.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* minimal_osx.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* minimal_osx */ = {
+			isa = PBXGroup;
+			children = (
+				29B97315FDCFA39411CA2CEA /* code */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = minimal_osx;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* code */ = {
+			isa = PBXGroup;
+			children = (
+				43787F4E14E8512400636639 /* render.cpp */,
+				43787F4F14E8512400636639 /* render.h */,
+				43FFED88149524D7004FAD3A /* Regal */,
+				43085424148B0F3400AE231A /* RGLOpenGLContext.h */,
+				43085425148B0F3400AE231A /* RGLOpenGLContext.m */,
+				256AC3D80F4B6AC300CF3369 /* minimal_osxAppDelegate.h */,
+				256AC3D90F4B6AC300CF3369 /* minimal_osxAppDelegate.mm */,
+				43E244C4133066AF0040E20D /* RegalView.h */,
+				43E244C5133066AF0040E20D /* RegalView.mm */,
+				256AC3F00F4B6AF500CF3369 /* minimal_osx_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.mm */,
+			);
+			name = code;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4344FC901332A8BA006F07E8 /* nv.icns */,
+				8D1107310486CEB800E47090 /* minimal_osx-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43FFED88149524D7004FAD3A /* Regal */ = {
+			isa = PBXGroup;
+			children = (
+				4326D4C0153486A0009EF3ED /* linear.h */,
+				4326D4C1153486A0009EF3ED /* Regal.cpp */,
+				4326D4C3153486A0009EF3ED /* RegalBin.h */,
+				4326D4C4153486A0009EF3ED /* RegalDsa.h */,
+				4326D4C5153486A0009EF3ED /* RegalEmu.h */,
+				4326D4C6153486A0009EF3ED /* RegalEmuDispatch.cpp */,
+				4326D4C7153486A0009EF3ED /* RegalErrorDispatch.cpp */,
+				4326D4C8153486A0009EF3ED /* RegalIff.cpp */,
+				4326D4C9153486A0009EF3ED /* RegalIff.h */,
+				4326D4CA153486A0009EF3ED /* RegalLoaderDispatch.cpp */,
+				4326D4CB153486A0009EF3ED /* RegalLookup.cpp */,
+				4326D4CC153486A0009EF3ED /* RegalLookup.h */,
+				4326D4CD153486A0009EF3ED /* RegalObj.h */,
+				4326D4CE153486A0009EF3ED /* RegalPrivate.h */,
+				4326D4CF153486A0009EF3ED /* RegalVao.h */,
+			);
+			name = Regal;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* minimal_osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "minimal_osx" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = minimal_osx;
+			productInstallPath = "$(HOME)/Applications";
+			productName = minimal_osx;
+			productReference = 8D1107320486CEB800E47090 /* minimal_osx.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "minimal_osx" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* minimal_osx */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* minimal_osx */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				4344FC911332A8BA006F07E8 /* nv.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.mm in Sources */,
+				256AC3DA0F4B6AC300CF3369 /* minimal_osxAppDelegate.mm in Sources */,
+				43E244C6133066AF0040E20D /* RegalView.mm in Sources */,
+				43085426148B0F3400AE231A /* RGLOpenGLContext.m in Sources */,
+				43787F5014E8512400636639 /* render.cpp in Sources */,
+				4326D4D0153486A0009EF3ED /* Regal.cpp in Sources */,
+				4326D4D1153486A0009EF3ED /* RegalEmuDispatch.cpp in Sources */,
+				4326D4D2153486A0009EF3ED /* RegalErrorDispatch.cpp in Sources */,
+				4326D4D3153486A0009EF3ED /* RegalIff.cpp in Sources */,
+				4326D4D4153486A0009EF3ED /* RegalLoaderDispatch.cpp in Sources */,
+				4326D4D5153486A0009EF3ED /* RegalLookup.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = minimal_osx_Prefix.pch;
+				INFOPLIST_FILE = "minimal_osx-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = minimal_osx;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = minimal_osx_Prefix.pch;
+				INFOPLIST_FILE = "minimal_osx-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = minimal_osx;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "../../../include/**";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "../../../include/**";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "minimal_osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "minimal_osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

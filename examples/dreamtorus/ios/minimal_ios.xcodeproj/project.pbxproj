@@ -1,0 +1,417 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4316DE2E155B324300E70FC9 /* Regal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE1E155B324300E70FC9 /* Regal.cpp */; };
+		4316DE2F155B324300E70FC9 /* RegalDllMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE20155B324300E70FC9 /* RegalDllMain.cpp */; };
+		4316DE30155B324300E70FC9 /* RegalEmuDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE23155B324300E70FC9 /* RegalEmuDispatch.cpp */; };
+		4316DE31155B324300E70FC9 /* RegalErrorDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE24155B324300E70FC9 /* RegalErrorDispatch.cpp */; };
+		4316DE32155B324300E70FC9 /* RegalIff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE25155B324300E70FC9 /* RegalIff.cpp */; };
+		4316DE33155B324300E70FC9 /* RegalLoaderDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE27155B324300E70FC9 /* RegalLoaderDispatch.cpp */; };
+		4316DE34155B324300E70FC9 /* RegalLookup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4316DE28155B324300E70FC9 /* RegalLookup.cpp */; };
+		43787F6A14E8539C00636639 /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43787F6814E8539C00636639 /* render.cpp */; };
+		43B7EEE314D05D8500737488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7EEE214D05D8500737488 /* UIKit.framework */; };
+		43B7EEE514D05D8500737488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7EEE414D05D8500737488 /* Foundation.framework */; };
+		43B7EEE714D05D8500737488 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7EEE614D05D8500737488 /* CoreGraphics.framework */; };
+		43B7EEE914D05D8500737488 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7EEE814D05D8500737488 /* QuartzCore.framework */; };
+		43B7EEEB14D05D8500737488 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7EEEA14D05D8500737488 /* OpenGLES.framework */; };
+		43B7EEF114D05D8500737488 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EEEF14D05D8500737488 /* InfoPlist.strings */; };
+		43B7EEF314D05D8500737488 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7EEF214D05D8500737488 /* main.m */; };
+		43B7EEF714D05D8500737488 /* minimal_iosAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7EEF614D05D8500737488 /* minimal_iosAppDelegate.m */; };
+		43B7EEFA14D05D8500737488 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EEF814D05D8500737488 /* MainWindow.xib */; };
+		43B7EEFC14D05D8500737488 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EEFB14D05D8500737488 /* Shader.fsh */; };
+		43B7EEFE14D05D8500737488 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EEFD14D05D8500737488 /* Shader.vsh */; };
+		43B7EF0114D05D8500737488 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43B7EF0014D05D8500737488 /* EAGLView.mm */; };
+		43B7EF0414D05D8500737488 /* minimal_iosViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43B7EF0314D05D8500737488 /* minimal_iosViewController.mm */; };
+		43B7EF0714D05D8500737488 /* minimal_iosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EF0514D05D8500737488 /* minimal_iosViewController.xib */; };
+		43B7EF1014D05DE300737488 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EF0E14D05DE300737488 /* MainWindow-iPad.xib */; };
+		43B7EF3314D0938F00737488 /* RGLOpenGLContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7EF3214D0938F00737488 /* RGLOpenGLContext.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4316DE1D155B324300E70FC9 /* linear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linear.h; path = ../../../../src/regal/linear.h; sourceTree = "<group>"; };
+		4316DE1E155B324300E70FC9 /* Regal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Regal.cpp; path = ../../../../src/regal/Regal.cpp; sourceTree = "<group>"; };
+		4316DE1F155B324300E70FC9 /* RegalBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalBin.h; path = ../../../../src/regal/RegalBin.h; sourceTree = "<group>"; };
+		4316DE20155B324300E70FC9 /* RegalDllMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalDllMain.cpp; path = ../../../../src/regal/RegalDllMain.cpp; sourceTree = "<group>"; };
+		4316DE21155B324300E70FC9 /* RegalDsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalDsa.h; path = ../../../../src/regal/RegalDsa.h; sourceTree = "<group>"; };
+		4316DE22155B324300E70FC9 /* RegalEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalEmu.h; path = ../../../../src/regal/RegalEmu.h; sourceTree = "<group>"; };
+		4316DE23155B324300E70FC9 /* RegalEmuDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalEmuDispatch.cpp; path = ../../../../src/regal/RegalEmuDispatch.cpp; sourceTree = "<group>"; };
+		4316DE24155B324300E70FC9 /* RegalErrorDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalErrorDispatch.cpp; path = ../../../../src/regal/RegalErrorDispatch.cpp; sourceTree = "<group>"; };
+		4316DE25155B324300E70FC9 /* RegalIff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalIff.cpp; path = ../../../../src/regal/RegalIff.cpp; sourceTree = "<group>"; };
+		4316DE26155B324300E70FC9 /* RegalIff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalIff.h; path = ../../../../src/regal/RegalIff.h; sourceTree = "<group>"; };
+		4316DE27155B324300E70FC9 /* RegalLoaderDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalLoaderDispatch.cpp; path = ../../../../src/regal/RegalLoaderDispatch.cpp; sourceTree = "<group>"; };
+		4316DE28155B324300E70FC9 /* RegalLookup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalLookup.cpp; path = ../../../../src/regal/RegalLookup.cpp; sourceTree = "<group>"; };
+		4316DE29155B324300E70FC9 /* RegalLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalLookup.h; path = ../../../../src/regal/RegalLookup.h; sourceTree = "<group>"; };
+		4316DE2A155B324300E70FC9 /* RegalObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalObj.h; path = ../../../../src/regal/RegalObj.h; sourceTree = "<group>"; };
+		4316DE2B155B324300E70FC9 /* RegalPpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalPpc.h; path = ../../../../src/regal/RegalPpc.h; sourceTree = "<group>"; };
+		4316DE2C155B324300E70FC9 /* RegalPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalPrivate.h; path = ../../../../src/regal/RegalPrivate.h; sourceTree = "<group>"; };
+		4316DE2D155B324300E70FC9 /* RegalVao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalVao.h; path = ../../../../src/regal/RegalVao.h; sourceTree = "<group>"; };
+		4316DE35155B324F00E70FC9 /* Regal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Regal.h; path = ../../../../include/GL/Regal.h; sourceTree = "<group>"; };
+		43787F6814E8539C00636639 /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = render.cpp; path = ../../src/render.cpp; sourceTree = "<group>"; };
+		43787F6914E8539C00636639 /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = render.h; path = ../../src/render.h; sourceTree = "<group>"; };
+		43B7EEDE14D05D8500737488 /* minimal_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = minimal_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		43B7EEE214D05D8500737488 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		43B7EEE414D05D8500737488 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		43B7EEE614D05D8500737488 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		43B7EEE814D05D8500737488 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		43B7EEEA14D05D8500737488 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		43B7EEEE14D05D8500737488 /* minimal_ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "minimal_ios-Info.plist"; sourceTree = "<group>"; };
+		43B7EEF014D05D8500737488 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		43B7EEF214D05D8500737488 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		43B7EEF514D05D8500737488 /* minimal_iosAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = minimal_iosAppDelegate.h; sourceTree = "<group>"; };
+		43B7EEF614D05D8500737488 /* minimal_iosAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = minimal_iosAppDelegate.m; sourceTree = "<group>"; };
+		43B7EEF914D05D8500737488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		43B7EEFB14D05D8500737488 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		43B7EEFD14D05D8500737488 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		43B7EEFF14D05D8500737488 /* EAGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		43B7EF0014D05D8500737488 /* EAGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
+		43B7EF0214D05D8500737488 /* minimal_iosViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = minimal_iosViewController.h; sourceTree = "<group>"; };
+		43B7EF0314D05D8500737488 /* minimal_iosViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = minimal_iosViewController.mm; sourceTree = "<group>"; };
+		43B7EF0614D05D8500737488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/minimal_iosViewController.xib; sourceTree = "<group>"; };
+		43B7EF0F14D05DE300737488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		43B7EF3114D0938F00737488 /* RGLOpenGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGLOpenGLContext.h; sourceTree = SOURCE_ROOT; };
+		43B7EF3214D0938F00737488 /* RGLOpenGLContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGLOpenGLContext.m; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		43B7EEDB14D05D8500737488 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43B7EEE314D05D8500737488 /* UIKit.framework in Frameworks */,
+				43B7EEE514D05D8500737488 /* Foundation.framework in Frameworks */,
+				43B7EEE714D05D8500737488 /* CoreGraphics.framework in Frameworks */,
+				43B7EEE914D05D8500737488 /* QuartzCore.framework in Frameworks */,
+				43B7EEEB14D05D8500737488 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		43B7EED314D05D8400737488 = {
+			isa = PBXGroup;
+			children = (
+				43B7EEEC14D05D8500737488 /* minimal_ios */,
+				43B7EEE114D05D8500737488 /* Frameworks */,
+				43B7EEDF14D05D8500737488 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		43B7EEDF14D05D8500737488 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43B7EEDE14D05D8500737488 /* minimal_ios.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		43B7EEE114D05D8500737488 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				43B7EEE214D05D8500737488 /* UIKit.framework */,
+				43B7EEE414D05D8500737488 /* Foundation.framework */,
+				43B7EEE614D05D8500737488 /* CoreGraphics.framework */,
+				43B7EEE814D05D8500737488 /* QuartzCore.framework */,
+				43B7EEEA14D05D8500737488 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43B7EEEC14D05D8500737488 /* minimal_ios */ = {
+			isa = PBXGroup;
+			children = (
+				43787F6814E8539C00636639 /* render.cpp */,
+				43787F6914E8539C00636639 /* render.h */,
+				43B7EF3114D0938F00737488 /* RGLOpenGLContext.h */,
+				43B7EF3214D0938F00737488 /* RGLOpenGLContext.m */,
+				43B7EF1114D05F3600737488 /* Regal */,
+				43B7EEF514D05D8500737488 /* minimal_iosAppDelegate.h */,
+				43B7EEF614D05D8500737488 /* minimal_iosAppDelegate.m */,
+				43B7EEF814D05D8500737488 /* MainWindow.xib */,
+				43B7EEFB14D05D8500737488 /* Shader.fsh */,
+				43B7EEFD14D05D8500737488 /* Shader.vsh */,
+				43B7EEFF14D05D8500737488 /* EAGLView.h */,
+				43B7EF0014D05D8500737488 /* EAGLView.mm */,
+				43B7EF0214D05D8500737488 /* minimal_iosViewController.h */,
+				43B7EF0314D05D8500737488 /* minimal_iosViewController.mm */,
+				43B7EF0514D05D8500737488 /* minimal_iosViewController.xib */,
+				43B7EF0D14D05DDE00737488 /* iPad */,
+				43B7EEED14D05D8500737488 /* Supporting Files */,
+			);
+			path = minimal_ios;
+			sourceTree = "<group>";
+		};
+		43B7EEED14D05D8500737488 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				43B7EEEE14D05D8500737488 /* minimal_ios-Info.plist */,
+				43B7EEEF14D05D8500737488 /* InfoPlist.strings */,
+				43B7EEF214D05D8500737488 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		43B7EF0D14D05DDE00737488 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				43B7EF0E14D05DE300737488 /* MainWindow-iPad.xib */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+		43B7EF1114D05F3600737488 /* Regal */ = {
+			isa = PBXGroup;
+			children = (
+				4316DE35155B324F00E70FC9 /* Regal.h */,
+				4316DE1D155B324300E70FC9 /* linear.h */,
+				4316DE1E155B324300E70FC9 /* Regal.cpp */,
+				4316DE1F155B324300E70FC9 /* RegalBin.h */,
+				4316DE20155B324300E70FC9 /* RegalDllMain.cpp */,
+				4316DE21155B324300E70FC9 /* RegalDsa.h */,
+				4316DE22155B324300E70FC9 /* RegalEmu.h */,
+				4316DE23155B324300E70FC9 /* RegalEmuDispatch.cpp */,
+				4316DE24155B324300E70FC9 /* RegalErrorDispatch.cpp */,
+				4316DE25155B324300E70FC9 /* RegalIff.cpp */,
+				4316DE26155B324300E70FC9 /* RegalIff.h */,
+				4316DE27155B324300E70FC9 /* RegalLoaderDispatch.cpp */,
+				4316DE28155B324300E70FC9 /* RegalLookup.cpp */,
+				4316DE29155B324300E70FC9 /* RegalLookup.h */,
+				4316DE2A155B324300E70FC9 /* RegalObj.h */,
+				4316DE2B155B324300E70FC9 /* RegalPpc.h */,
+				4316DE2C155B324300E70FC9 /* RegalPrivate.h */,
+				4316DE2D155B324300E70FC9 /* RegalVao.h */,
+			);
+			name = Regal;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		43B7EEDD14D05D8500737488 /* minimal_ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43B7EF0A14D05D8500737488 /* Build configuration list for PBXNativeTarget "minimal_ios" */;
+			buildPhases = (
+				43B7EEDA14D05D8500737488 /* Sources */,
+				43B7EEDB14D05D8500737488 /* Frameworks */,
+				43B7EEDC14D05D8500737488 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = minimal_ios;
+			productName = minimal_ios;
+			productReference = 43B7EEDE14D05D8500737488 /* minimal_ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		43B7EED514D05D8400737488 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = n/a;
+			};
+			buildConfigurationList = 43B7EED814D05D8400737488 /* Build configuration list for PBXProject "minimal_ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 43B7EED314D05D8400737488;
+			productRefGroup = 43B7EEDF14D05D8500737488 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				43B7EEDD14D05D8500737488 /* minimal_ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		43B7EEDC14D05D8500737488 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43B7EEF114D05D8500737488 /* InfoPlist.strings in Resources */,
+				43B7EEFA14D05D8500737488 /* MainWindow.xib in Resources */,
+				43B7EEFC14D05D8500737488 /* Shader.fsh in Resources */,
+				43B7EEFE14D05D8500737488 /* Shader.vsh in Resources */,
+				43B7EF0714D05D8500737488 /* minimal_iosViewController.xib in Resources */,
+				43B7EF1014D05DE300737488 /* MainWindow-iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		43B7EEDA14D05D8500737488 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43B7EEF314D05D8500737488 /* main.m in Sources */,
+				43B7EEF714D05D8500737488 /* minimal_iosAppDelegate.m in Sources */,
+				43B7EF0114D05D8500737488 /* EAGLView.mm in Sources */,
+				43B7EF0414D05D8500737488 /* minimal_iosViewController.mm in Sources */,
+				43B7EF3314D0938F00737488 /* RGLOpenGLContext.m in Sources */,
+				43787F6A14E8539C00636639 /* render.cpp in Sources */,
+				4316DE2E155B324300E70FC9 /* Regal.cpp in Sources */,
+				4316DE2F155B324300E70FC9 /* RegalDllMain.cpp in Sources */,
+				4316DE30155B324300E70FC9 /* RegalEmuDispatch.cpp in Sources */,
+				4316DE31155B324300E70FC9 /* RegalErrorDispatch.cpp in Sources */,
+				4316DE32155B324300E70FC9 /* RegalIff.cpp in Sources */,
+				4316DE33155B324300E70FC9 /* RegalLoaderDispatch.cpp in Sources */,
+				4316DE34155B324300E70FC9 /* RegalLookup.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		43B7EEEF14D05D8500737488 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43B7EEF014D05D8500737488 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		43B7EEF814D05D8500737488 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43B7EEF914D05D8500737488 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		43B7EF0514D05D8500737488 /* minimal_iosViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43B7EF0614D05D8500737488 /* en */,
+			);
+			name = minimal_iosViewController.xib;
+			sourceTree = "<group>";
+		};
+		43B7EF0E14D05DE300737488 /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43B7EF0F14D05DE300737488 /* en */,
+			);
+			name = "MainWindow-iPad.xib";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		43B7EF0814D05D8500737488 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../include;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		43B7EF0914D05D8500737488 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../include;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		43B7EF0B14D05D8500737488 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "minimal_ios/minimal_ios-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "minimal_ios/minimal_ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		43B7EF0C14D05D8500737488 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "minimal_ios/minimal_ios-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "minimal_ios/minimal_ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		43B7EED814D05D8400737488 /* Build configuration list for PBXProject "minimal_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43B7EF0814D05D8500737488 /* Debug */,
+				43B7EF0914D05D8500737488 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43B7EF0A14D05D8500737488 /* Build configuration list for PBXNativeTarget "minimal_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43B7EF0B14D05D8500737488 /* Debug */,
+				43B7EF0C14D05D8500737488 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 43B7EED514D05D8400737488 /* Project object */;
+}
