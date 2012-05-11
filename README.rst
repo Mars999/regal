@@ -9,10 +9,11 @@ From an application developer's perspective, Regal just looks like an OpenGL imp
 You link with it instead of your platform's OpenGL library or framework, and that's really
 all you have to do to use Regal.  The rest of your code can remain unchanged.
 
-**Warning**
-   Regal is pre-alpha software, it is provided here to look at
-   and to play with the examples.  Don't use it in your projects yet.
-   You have been warned. 
++--------------------------------------------------------------------------------------+
+|  **Warning**  |  Regal is pre-alpha software, it is provided here to look at         |
+|               |  and to play with the examples.  Don't use it in your projects yet.  |
+|               |  You have been warned.                                               |
++--------------------------------------------------------------------------------------+
 
 Why use Regal? (Once it's ready, I mean.)
 
