@@ -33,16 +33,20 @@ struct Torus {
         float z = sin( rho ) * tubeRadius;
         float nx = cos( rho ) * cos(theta);
         float ny = cos( rho ) * sin(theta);
-        float nz = sin( rho );	
-        
+        float nz = sin( rho );
+
         glNormal3f( nx, ny, nz );
         glMultiTexCoord2f( texunit, u, v );
-        glVertex3f( x, y, z );        
+        glVertex3f( x, y, z );
     }
-    
+
 };
 
-static void drawAnObject() {
+static void drawAnObject()
+{
+
+    glPushGroupMarkerEXT(0, "drawAnObject");
+
     Torus t( 0.7f, 0.2f );
     int I = 30;
     int J = 30;
@@ -51,25 +55,29 @@ static void drawAnObject() {
         float v0 = (j+0)/(J-1.0f);
         float v1 = (j+1)/(J-1.0f);
         glBegin( GL_TRIANGLE_STRIP );
-		for(int i = 0; i < I; i++) {
-			float u = i/(I-1.0);
-            t.Vertex( u, v1 );            
+    for(int i = 0; i < I; i++) {
+      float u = i/(I-1.0);
+            t.Vertex( u, v1 );
             t.Vertex( u, v0 );
-		}
+    }
         glEnd();
     }
+
+    glPopGroupMarkerEXT();
 }
 
 
-int width; 
+int width;
 int height;
 
 void reshape( int w, int h ) {
     width = w;
     height = h;
-    
+
     float a = float(w)/float(h);
-    
+
+    glPushGroupMarkerEXT(0, "reshape");
+
     glViewport(0, 0, width, height);
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
@@ -81,6 +89,8 @@ void reshape( int w, int h ) {
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     glTranslatef( 0, 0, -2 );
+
+    glPopGroupMarkerEXT();
 }
 
 
@@ -103,7 +113,10 @@ static void regalerr( GLenum err ) {
 GLuint tex;
 void init();
 
-void init() {
+void init()
+{
+    glPushGroupMarkerEXT(0, "init");
+
     glGenTextures( 1, &tex );
     GLubyte pix[] = {
         0x60, 0xff, 0x00, 0xff,  0xff, 0x00, 0x00, 0xff,  0xff, 0x00, 0xff, 0xff,  0x00, 0xff, 0xff, 0xff,
@@ -115,7 +128,7 @@ void init() {
     glTextureParameteriEXT( tex, GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     glTextureParameteriEXT( tex, GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
     glBindMultiTextureEXT( texunit, GL_TEXTURE_2D, tex );
-    
+
     GLfloat mat_specular[] = { 0.0, 0.0, 1.0, 1.0 };
     GLfloat mat_shininess[] = { 50.0 };
     GLfloat light_position[] = { 1.0, 1.0, 0.2, 1.0 };
@@ -127,10 +140,10 @@ void init() {
     GLfloat light_spotexp[] = { 3 };
     glClearColor (0.0, 0.0, 0.0, 0.0);
     //glShadeModel (GL_SMOOTH);
-    
+
     glMatrixPushEXT( GL_MODELVIEW );
     glMatrixLoadIdentityEXT( GL_MODELVIEW );
-    
+
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess);
     //glMaterialfv(GL_BACK, GL_SHININESS, mat_shininess);
@@ -144,40 +157,44 @@ void init() {
     glLightfv( GL_LIGHT0, GL_SPOT_EXPONENT, light_spotexp );
     //GLfloat light_ambient[] = { 0.0, -1.0, 0.0, 0.0 };
     //glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-    
+
     glMatrixPopEXT( GL_MODELVIEW );
-    
+
     glLightModeli( GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE );
     glLightModelf( GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR );
-    
+
     glEnable( GL_COLOR_MATERIAL ) ;
     glColorMaterial( GL_BACK, GL_SPECULAR );
-    
+
     glLightModeli( GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE );
-    
+
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    
+
     glFogi( GL_FOG_MODE, GL_LINEAR );
     glFogf( GL_FOG_START, 2.0f );
     glFogf( GL_FOG_END, 4.0f );
     GLfloat fog_color[] = { 1.0, 1.0, 0.0, 0.0 };
     glFogfv( GL_FOG_COLOR, fog_color );
-    
+
     glEnable( GL_CLIP_PLANE3 );
     GLdouble clip[] = { 1, 1, -1, 0 };
     glClipPlane( GL_CLIP_PLANE3, clip );
-    
+
+    glPopGroupMarkerEXT();
 }
 
 
-void display( bool clear ) {
-	static float r = 0.0f;
+void display( bool clear )
+{
+    static float r = 0.0f;
     static int count = 0;
 
     if( count == 0 ) {
         init();
     }
+
+    glPushGroupMarkerEXT(0, "display");
 
 #if 1
     if( count == 0 ) {
@@ -187,7 +204,7 @@ void display( bool clear ) {
     }
     count++;
 #endif
-	
+
     glUseProgram( 0 );
     if( clear ) {
         glClearDepth( 1.0 );
@@ -205,17 +222,17 @@ void display( bool clear ) {
     glActiveTexture( texunit );
     glEnable( GL_TEXTURE_2D );
 
-    
+
     float sc = 2.0f * fabs( ( count % 800 ) / 400.0f - 1.0f ) + 1.0f;
-    
+
     glMatrixLoadIdentityEXT( texunit );
     glMatrixScalefEXT( texunit, sc, 1, 1 );
 
     float osc = sc * 0.5f;
-    
-    
+
+
     glEnable( GL_FOG );
-    
+
     if( ( count % 7 ) == 0 || ( count % 17 ) == 0 ) {
         glDisable( GL_NORMALIZE );
         glEnable( GL_RESCALE_NORMAL );
@@ -236,11 +253,13 @@ void display( bool clear ) {
         drawAnObject();
         glMatrixPopEXT( GL_MODELVIEW );
     }
-    
-	r += 1.0f;
-	if( r > 399 ) {
-		r = 0.0f;
-	}
-	//printf( "Draw with r=%f\n", r );
-}
 
+    r += 1.0f;
+    if( r > 399 ) {
+        r = 0.0f;
+    }
+
+    glPopGroupMarkerEXT();
+
+  //printf( "Draw with r=%f\n", r );
+}

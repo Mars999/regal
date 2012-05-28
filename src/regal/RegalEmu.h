@@ -34,12 +34,20 @@
 
  */
 
-#if ! __REGAL_EMU_H__
-#define __REGAL_EMU_H__ 1
+#ifndef __REGAL_EMU_H__
+#define __REGAL_EMU_H__
+
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
+#include <assert.h>
 
 #include "RegalPrivate.h"  // not required, but I think it may help syntax highlighting and auto-completion...
 
-#include <assert.h>
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
 
 #define REGAL_EMU_MAX_TEXTURE_UNITS 16
 
@@ -121,7 +129,7 @@ struct RegalEmuScopedActivate {
     }
 };
 
-
+REGAL_NAMESPACE_END
 
 #endif // ! __REGAL_EMU_H__
 

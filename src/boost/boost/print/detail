@@ -1,0 +1,154 @@
+/* Copyright 2010 Nigel T Stewart, Nvidia Corporation
+ * Distributed under the Boost Software License, Version 1.0.
+ * (See accompanying file LICENSE_1_0.txt or copy at
+ * http://www.boost.org/LICENSE_1_0.txt)
+ *
+ * See http://www.boost.org/libs/print for library home page.
+ *
+ * boost::print is a library for string conversion.
+ */
+
+#ifndef BOOST_PRINT_DETAIL_HPP
+#define BOOST_PRINT_DETAIL_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER>=1200)
+#pragma once
+#endif
+
+#include <cstddef>  // diffptr_t, size_t
+#include <cassert>  // assert
+
+//
+// boost::print::detail namespace for internal implementation purposes
+//
+
+namespace boost { namespace print { namespace detail {
+
+using std::size_t;
+
+// Formatting types for binary and hex output
+
+template<typename T> struct binaryFormat { binaryFormat(const T &val) : _val(val) {} const T &_val; };
+template<typename T> struct hexFormat    { hexFormat   (const T &val) : _val(val) {} const T &_val; };
+
+// Determine the number of digits of an unsigned integer
+// Use binary search to minimise comparisons.
+
+template<typename T>
+inline size_t unsigned_length(T val)
+{
+  switch (sizeof(T)) {
+    // 8-bit unsigned integer
+    case 1:
+      return val<10 ? 1 : (val<100 ? 2 : 3);
+
+    // 16-bit unsigned integer
+    case 2: {
+      if (val<1000)
+        return val<10 ? 1 : (val<100 ? 2 : 3);
+      else
+          return val<10000 ? 4 : 5;
+    }
+
+    // 32-bit unsigned integer
+    case 4: {
+      if (val<10000)
+          return val<100 ? (val<10 ? 1 : 2) : (val<1000 ? 3 : 4);
+      else
+        return val<10000000 ?
+          ( val < 100000 ? 5 : (val<1000000 ? 6 : 7)) :
+          ( val < 100000000 ? 8 : (val<1000000000 ? 9 : 10));
+    }
+
+    // 64-bit unsigned integer
+
+    default:
+      // compile-time assertion?
+      assert(0);
+      return 0;
+  }
+}
+
+// Determine the number of digits of a signed integer
+
+template<typename U, typename S>
+inline size_t signed_length(S val)
+{
+  const bool negative = val<0;
+  if (negative)
+    val = -val;
+  return unsigned_length(static_cast<U>(val)) + (negative ? 1 : 0);
+}
+
+// Output unsigned integer
+
+template<typename Iterator, typename T>
+inline void write_unsigned(Iterator &i, T val)
+{
+  if (val==0) {
+    *i = '0';
+    ++i;
+    return;
+  }
+
+  const size_t len = unsigned_length(val);
+
+  i += len;
+  while (val) {
+    --i;
+    *i = '0' + (val%10);
+    val /= 10;
+  }
+  i += len;
+}
+
+// Output signed integer
+// Corresponding unsigned type U needs to be specified
+
+template<typename U, typename Iterator, typename S>
+inline void write_signed(Iterator &i, S val)
+{
+  if (val<0) {
+    *i = '-';
+    ++i;
+    val = -val;
+  }
+
+  write_unsigned(i,static_cast<U>(val));
+}
+
+// Output string of binary zeros and ones
+
+template<typename Iterator> inline
+void write_binary(Iterator &i, const size_t &val, const size_t n)
+{
+  for (size_t j=0; j<n; ++j, ++i)
+    *i = val & (1<<(n-1-j)) ? '1' : '0';
+}
+
+// Output string of hexadecimal 0123456789ABCDEF digits
+
+template<typename Iterator> inline
+void write_hex(Iterator &i, const size_t &val, const size_t n)
+{
+  for (size_t j=0; j<n; ++j, ++i)
+  {
+    const size_t hex = (val>>((n-1-j)<<2))&15;
+    *i = hex<10 ? '0' + hex : 'A' + hex - 10;
+  }
+}
+
+// Write characters from a [begin,end) iterator pair
+// For example: std::string::begin(), std::string::end()
+
+template<typename Iterator, typename ConstInputIterator>
+inline void write_iterator(Iterator &i, const ConstInputIterator &begin, const ConstInputIterator &end)
+{
+  for (ConstInputIterator j=begin; j!=end; ++i,++j)
+    *i = *j;
+}
+
+}}}
+
+#endif
+

@@ -53,6 +53,8 @@
 #include <assert.h>
 #include <algorithm>
 
+REGAL_NAMESPACE_BEGIN
+
 #ifdef _WIN32
 # define TEMPLATE_FUNCTION
 #else
@@ -1910,11 +1912,17 @@ namespace r3 {
 			assert(i < 4);
 			return q[i];
 		}
-
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable: 4201) //warning C4201: nonstandard extension used : nameless struct/union	
+#endif
 		union {
 			struct { T q[4]; };
 			struct { T x, y, z, w; };
 		};
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif
 
 	protected:
 
@@ -2172,7 +2180,7 @@ namespace r3 {
 	template <typename T> inline
 	Matrix4<T> Ortho( T left, T right, T bottom, T top, T zNear, T zFar ) {
 		Matrix4<T> m;
-		Vec3<T> s( 1 / ( right - left ), 1 / ( top - bottom ), 1 / ( zFar - zNear ) );
+		Vec3<T> s( 1 / ( right - left ), 1 / ( top - bottom ), -1 / ( zFar - zNear ) );
 		m.SetScale( s * T(2) );
 		m.SetTranslate( s * Vec3<T>( -( right + left ), -( top + bottom ), zFar + zNear ) );
 		return m;
@@ -2216,7 +2224,7 @@ namespace r3 {
 
 }  // namespace r3
 
-
+REGAL_NAMESPACE_END
 
 #endif
 

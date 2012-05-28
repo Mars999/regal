@@ -55,9 +55,9 @@ enum {
     else if (![EAGLContext setCurrentContext:aContext])
         NSLog(@"Failed to set ES context current");
     
-	self.context = aContext;
-	[aContext release];
-	
+  self.context = aContext;
+  [aContext release];
+  
     [(EAGLView *)self.view setContext:context];
     [(EAGLView *)self.view setFramebuffer];
     
@@ -109,8 +109,8 @@ enum {
 
 - (void)viewDidUnload
 {
-	[super viewDidUnload];
-	
+  [super viewDidUnload];
+  
     if (program) {
         glDeleteProgram(program);
         program = 0;
@@ -119,7 +119,7 @@ enum {
     // Tear down context.
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
-	self.context = nil;	
+  self.context = nil; 
 }
 
 - (NSInteger)animationFrameInterval
@@ -130,9 +130,9 @@ enum {
 - (void)setAnimationFrameInterval:(NSInteger)frameInterval
 {
     /*
-	 Frame interval defines how many display frames must pass between each time the display link fires.
-	 The display link will only fire 30 times a second when the frame internal is two on a display that refreshes 60 times a second. The default frame interval setting of one will fire 60 times a second when the display refreshes at 60 times a second. A frame interval setting of less than one results in undefined behavior.
-	 */
+   Frame interval defines how many display frames must pass between each time the display link fires.
+   The display link will only fire 30 times a second when the frame internal is two on a display that refreshes 60 times a second. The default frame interval setting of one will fire 60 times a second when the display refreshes at 60 times a second. A frame interval setting of less than one results in undefined behavior.
+   */
     if (frameInterval >= 1) {
         animationFrameInterval = frameInterval;
         
@@ -196,7 +196,7 @@ enum {
         
         // Update uniform value.
         glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);
-        transY += 0.075f;	
+        transY += 0.075f; 
         
         // Update attribute values.
         glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, 0, 0, squareVertices);

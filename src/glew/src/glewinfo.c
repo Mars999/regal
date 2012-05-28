@@ -2734,6 +2734,14 @@ static void _glewInfo_GL_ATI_vertex_streams (void)
   glewInfoFunc("glNormalStream3svATI", glNormalStream3svATI == NULL);
   glewInfoFunc("glVertexBlendEnvfATI", glVertexBlendEnvfATI == NULL);
   glewInfoFunc("glVertexBlendEnviATI", glVertexBlendEnviATI == NULL);
+  glewInfoFunc("glVertexStream1dATI", glVertexStream1dATI == NULL);
+  glewInfoFunc("glVertexStream1dvATI", glVertexStream1dvATI == NULL);
+  glewInfoFunc("glVertexStream1fATI", glVertexStream1fATI == NULL);
+  glewInfoFunc("glVertexStream1fvATI", glVertexStream1fvATI == NULL);
+  glewInfoFunc("glVertexStream1iATI", glVertexStream1iATI == NULL);
+  glewInfoFunc("glVertexStream1ivATI", glVertexStream1ivATI == NULL);
+  glewInfoFunc("glVertexStream1sATI", glVertexStream1sATI == NULL);
+  glewInfoFunc("glVertexStream1svATI", glVertexStream1svATI == NULL);
   glewInfoFunc("glVertexStream2dATI", glVertexStream2dATI == NULL);
   glewInfoFunc("glVertexStream2dvATI", glVertexStream2dvATI == NULL);
   glewInfoFunc("glVertexStream2fATI", glVertexStream2fATI == NULL);

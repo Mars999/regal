@@ -30,6 +30,7 @@ EXPORTS
   glBeginQuery
   glBeginQueryARB
   glBeginQueryIndexed
+  glBeginSceneEXT
   glBeginTransformFeedback
   glBeginTransformFeedbackEXT
   glBeginTransformFeedbackNV
@@ -302,12 +303,16 @@ EXPORTS
   glCreateShaderObjectARB
   glCreateShaderProgramEXT
   glCreateShaderProgramv
+  glCreateSyncFromCLeventARB
   glCullFace
   glCullParameterdvEXT
   glCullParameterfvEXT
   glCurrentPaletteMatrixARB
+  glDebugMessageCallbackAMD
   glDebugMessageCallbackARB
   glDebugMessageControlARB
+  glDebugMessageEnableAMD
+  glDebugMessageInsertAMD
   glDebugMessageInsertARB
   glDeformSGIX
   glDeformationMap3dSGIX
@@ -323,6 +328,7 @@ EXPORTS
   glDeleteFramebuffersEXT
   glDeleteLists
   glDeleteNamedStringARB
+  glDeleteNamesAMD
   glDeleteObjectARB
   glDeleteOcclusionQueriesNV
   glDeletePathsNV
@@ -371,6 +377,7 @@ EXPORTS
   glDrawArraysIndirect
   glDrawArraysInstanced
   glDrawArraysInstancedARB
+  glDrawArraysInstancedBaseInstance
   glDrawArraysInstancedEXT
   glDrawBuffer
   glDrawBufferRegionEXT
@@ -384,7 +391,9 @@ EXPORTS
   glDrawElementsIndirect
   glDrawElementsInstanced
   glDrawElementsInstancedARB
+  glDrawElementsInstancedBaseInstance
   glDrawElementsInstancedBaseVertex
+  glDrawElementsInstancedBaseVertexBaseInstance
   glDrawElementsInstancedEXT
   glDrawMeshArraysSUN
   glDrawPixels
@@ -394,8 +403,10 @@ EXPORTS
   glDrawRangeElementsBaseVertex
   glDrawRangeElementsEXT
   glDrawTransformFeedback
+  glDrawTransformFeedbackInstanced
   glDrawTransformFeedbackNV
   glDrawTransformFeedbackStream
+  glDrawTransformFeedbackStreamInstanced
   glEdgeFlag
   glEdgeFlagFormatNV
   glEdgeFlagPointer
@@ -423,6 +434,7 @@ EXPORTS
   glEndQuery
   glEndQueryARB
   glEndQueryIndexed
+  glEndSceneEXT
   glEndTransformFeedback
   glEndTransformFeedbackEXT
   glEndTransformFeedbackNV
@@ -479,18 +491,31 @@ EXPORTS
   glFogfv
   glFogi
   glFogiv
+  glFragmentColorMaterialEXT
   glFragmentColorMaterialSGIX
+  glFragmentLightModelfEXT
   glFragmentLightModelfSGIX
+  glFragmentLightModelfvEXT
   glFragmentLightModelfvSGIX
+  glFragmentLightModeliEXT
   glFragmentLightModeliSGIX
+  glFragmentLightModelivEXT
   glFragmentLightModelivSGIX
+  glFragmentLightfEXT
   glFragmentLightfSGIX
+  glFragmentLightfvEXT
   glFragmentLightfvSGIX
+  glFragmentLightiEXT
   glFragmentLightiSGIX
+  glFragmentLightivEXT
   glFragmentLightivSGIX
+  glFragmentMaterialfEXT
   glFragmentMaterialfSGIX
+  glFragmentMaterialfvEXT
   glFragmentMaterialfvSGIX
+  glFragmentMaterialiEXT
   glFragmentMaterialiSGIX
+  glFragmentMaterialivEXT
   glFragmentMaterialivSGIX
   glFrameTerminatorGREMEDY
   glFrameZoomSGIX
@@ -526,6 +551,7 @@ EXPORTS
   glGenFramebuffers
   glGenFramebuffersEXT
   glGenLists
+  glGenNamesAMD
   glGenOcclusionQueriesNV
   glGenPathsNV
   glGenPerfMonitorsAMD
@@ -603,12 +629,14 @@ EXPORTS
   glGetConvolutionParameterfvEXT
   glGetConvolutionParameteriv
   glGetConvolutionParameterivEXT
+  glGetDebugMessageLogAMD
   glGetDebugMessageLogARB
   glGetDetailTexFuncSGIS
   glGetDoubleIndexedvEXT
   glGetDoublei_v
   glGetDoublev
   glGetError
+  glGetExtensionREGAL
   glGetFenceivNV
   glGetFinalCombinerInputParameterfvNV
   glGetFinalCombinerInputParameterivNV
@@ -619,9 +647,13 @@ EXPORTS
   glGetFragDataIndex
   glGetFragDataLocation
   glGetFragDataLocationEXT
+  glGetFragmentLightfvEXT
   glGetFragmentLightfvSGIX
+  glGetFragmentLightivEXT
   glGetFragmentLightivSGIX
+  glGetFragmentMaterialfvEXT
   glGetFragmentMaterialfvSGIX
+  glGetFragmentMaterialivEXT
   glGetFragmentMaterialivSGIX
   glGetFramebufferAttachmentParameteriv
   glGetFramebufferAttachmentParameterivEXT
@@ -634,6 +666,7 @@ EXPORTS
   glGetHistogramParameterfvEXT
   glGetHistogramParameteriv
   glGetHistogramParameterivEXT
+  glGetImageHandleNV
   glGetImageTransformParameterfvHP
   glGetImageTransformParameterivHP
   glGetInfoLogARB
@@ -645,6 +678,7 @@ EXPORTS
   glGetIntegerui64i_vNV
   glGetIntegerui64vNV
   glGetIntegerv
+  glGetInternalformativ
   glGetInvariantBooleanvEXT
   glGetInvariantFloatvEXT
   glGetInvariantIntegervEXT
@@ -804,6 +838,7 @@ EXPORTS
   glGetTexParameterPointervAPPLE
   glGetTexParameterfv
   glGetTexParameteriv
+  glGetTextureHandleNV
   glGetTextureImageEXT
   glGetTextureLevelParameterfvEXT
   glGetTextureLevelParameterivEXT
@@ -811,6 +846,7 @@ EXPORTS
   glGetTextureParameterIuivEXT
   glGetTextureParameterfvEXT
   glGetTextureParameterivEXT
+  glGetTextureSamplerHandleNV
   glGetTrackMatrixivNV
   glGetTransformFeedbackVarying
   glGetTransformFeedbackVaryingEXT
@@ -903,6 +939,7 @@ EXPORTS
   glImageTransformParameterfvHP
   glImageTransformParameteriHP
   glImageTransformParameterivHP
+  glImportSyncEXT
   glIndexFormatNV
   glIndexFuncEXT
   glIndexMask
@@ -922,6 +959,7 @@ EXPORTS
   glIndexubv
   glInitNames
   glInsertComponentEXT
+  glInsertEventMarkerEXT
   glInstrumentsBufferSGIX
   glInterleavedArrays
   glInterpolatePathsNV
@@ -936,7 +974,9 @@ EXPORTS
   glIsFenceNV
   glIsFramebuffer
   glIsFramebufferEXT
+  glIsImageHandleResidentNV
   glIsList
+  glIsNameAMD
   glIsNamedBufferResidentNV
   glIsNamedStringARB
   glIsObjectBufferATI
@@ -954,15 +994,18 @@ EXPORTS
   glIsRenderbufferEXT
   glIsSampler
   glIsShader
+  glIsSupportedREGAL
   glIsSync
   glIsTexture
   glIsTextureEXT
+  glIsTextureHandleResidentNV
   glIsTransformFeedback
   glIsTransformFeedbackNV
   glIsVariantEnabledEXT
   glIsVertexArray
   glIsVertexArrayAPPLE
   glIsVertexAttribEnabledAPPLE
+  glLightEnviEXT
   glLightEnviSGIX
   glLightModelf
   glLightModelfv
@@ -995,8 +1038,12 @@ EXPORTS
   glLogicOp
   glMakeBufferNonResidentNV
   glMakeBufferResidentNV
+  glMakeImageHandleNonResidentNV
+  glMakeImageHandleResidentNV
   glMakeNamedBufferNonResidentNV
   glMakeNamedBufferResidentNV
+  glMakeTextureHandleNonResidentNV
+  glMakeTextureHandleResidentNV
   glMap1d
   glMap1f
   glMap2d
@@ -1059,10 +1106,12 @@ EXPORTS
   glMultTransposeMatrixfARB
   glMultiDrawArrays
   glMultiDrawArraysEXT
+  glMultiDrawArraysIndirectAMD
   glMultiDrawElementArrayAPPLE
   glMultiDrawElements
   glMultiDrawElementsBaseVertex
   glMultiDrawElementsEXT
+  glMultiDrawElementsIndirectAMD
   glMultiDrawRangeElementArrayAPPLE
   glMultiModeDrawArraysIBM
   glMultiModeDrawElementsIBM
@@ -1300,6 +1349,7 @@ EXPORTS
   glPolygonStipple
   glPopAttrib
   glPopClientAttrib
+  glPopGroupMarkerEXT
   glPopMatrix
   glPopName
   glPresentFrameDualFillNV
@@ -1429,6 +1479,8 @@ EXPORTS
   glProgramUniform4uiEXT
   glProgramUniform4uiv
   glProgramUniform4uivEXT
+  glProgramUniformHandleui64NV
+  glProgramUniformHandleui64vNV
   glProgramUniformMatrix2dv
   glProgramUniformMatrix2dvEXT
   glProgramUniformMatrix2fv
@@ -1473,6 +1525,7 @@ EXPORTS
   glPushAttrib
   glPushClientAttrib
   glPushClientAttribDefaultEXT
+  glPushGroupMarkerEXT
   glPushMatrix
   glPushName
   glQueryCounter
@@ -1504,6 +1557,7 @@ EXPORTS
   glReadBufferRegionEXT
   glReadInstrumentsSGIX
   glReadPixels
+  glReadVideoPixelsSUN
   glReadnPixelsARB
   glRectd
   glRectdv
@@ -1624,6 +1678,7 @@ EXPORTS
   glSetFragmentShaderConstantATI
   glSetInvariantEXT
   glSetLocalConstantEXT
+  glSetMultisamplefvAMD
   glShadeModel
   glShaderBinary
   glShaderOp1EXT
@@ -1648,6 +1703,7 @@ EXPORTS
   glStencilOp
   glStencilOpSeparate
   glStencilOpSeparateATI
+  glStencilOpValueAMD
   glStencilStrokePathInstancedNV
   glStencilStrokePathNV
   glStopInstrumentsSGIX
@@ -1757,9 +1813,11 @@ EXPORTS
   glTexImage1D
   glTexImage2D
   glTexImage2DMultisample
+  glTexImage2DMultisampleCoverageNV
   glTexImage3D
   glTexImage3DEXT
   glTexImage3DMultisample
+  glTexImage3DMultisampleCoverageNV
   glTexImage4DSGIS
   glTexParameterIiv
   glTexParameterIivEXT
@@ -1770,6 +1828,11 @@ EXPORTS
   glTexParameteri
   glTexParameteriv
   glTexRenderbufferNV
+  glTexScissorFuncINTEL
+  glTexScissorINTEL
+  glTexStorage1D
+  glTexStorage2D
+  glTexStorage3D
   glTexSubImage1D
   glTexSubImage1DEXT
   glTexSubImage2D
@@ -1783,7 +1846,11 @@ EXPORTS
   glTextureFogSGIX
   glTextureImage1DEXT
   glTextureImage2DEXT
+  glTextureImage2DMultisampleCoverageNV
+  glTextureImage2DMultisampleNV
   glTextureImage3DEXT
+  glTextureImage3DMultisampleCoverageNV
+  glTextureImage3DMultisampleNV
   glTextureLightEXT
   glTextureMaterialEXT
   glTextureNormalEXT
@@ -1795,6 +1862,9 @@ EXPORTS
   glTextureParameterivEXT
   glTextureRangeAPPLE
   glTextureRenderbufferEXT
+  glTextureStorage1DEXT
+  glTextureStorage2DEXT
+  glTextureStorage3DEXT
   glTextureSubImage1DEXT
   glTextureSubImage2DEXT
   glTextureSubImage3DEXT
@@ -1880,6 +1950,8 @@ EXPORTS
   glUniform4uivEXT
   glUniformBlockBinding
   glUniformBufferEXT
+  glUniformHandleui64NV
+  glUniformHandleui64vNV
   glUniformMatrix2dv
   glUniformMatrix2fv
   glUniformMatrix2fvARB

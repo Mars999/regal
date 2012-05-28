@@ -3,19 +3,20 @@
 */
 
 /*
-Copyright (c) 2011 NVIDIA Corporation
-Copyright (c) 2011-2012 Cass Everitt
-Copyright (c) 2012 Scott Nations
-Copyright (c) 2012 Mathias Schott
-Copyright (c) 2012 Nigel Stewart
-All rights reserved.
+  Copyright (c) 2011 NVIDIA Corporation
+  Copyright (c) 2011-2012 Cass Everitt
+  Copyright (c) 2012 Scott Nations
+  Copyright (c) 2012 Mathias Schott
+  Copyright (c) 2012 Nigel Stewart
+  All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+  Redistribution and use in source and binary forms, with or without modification,
+  are permitted provided that the following conditions are met:
 
-  Redistributions of source code must retain the above copyright notice, this
+    Redistributions of source code must retain the above copyright notice, this
     list of conditions and the following disclaimer.
-  Redistributions in binary form must reproduce the above copyright notice,
+
+    Redistributions in binary form must reproduce the above copyright notice,
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
@@ -31,7 +32,33 @@ are permitted provided that the following conditions are met:
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "pch.h" /* For MS precompiled header support */
+
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
+#include <string>
+using namespace std;
+
+#include "RegalLog.h"
+#include "RegalToken.h"
 #include "RegalPrivate.h"
+#include "RegalContext.h"
+
+RegalErrorCallback RegalSetErrorCallback( RegalErrorCallback callback )
+{
+   ::REGAL_NAMESPACE_INTERNAL::RegalContext * ctx = GET_REGAL_CONTEXT();
+   RegalAssert(ctx);
+   return ctx->err.Set( ctx, callback );
+}
+
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
+
+using namespace Logging;
+using Token::toString;
 
 RegalErrorCallback RegalErrorState::Set( RegalContext * ctx, RegalErrorCallback newCallback )
 {
@@ -47,12 +74,6 @@ RegalErrorCallback RegalErrorState::Set( RegalContext * ctx, RegalErrorCallback 
   }
   callback = newCallback;
   return oldCallback;
-}
-
-RegalErrorCallback RegalSetErrorCallback( RegalErrorCallback callback )
-{
-   RegalContext * ctx = GET_REGAL_CONTEXT();
-   return ctx->err.Set( ctx, callback );
 }
 
 // GL_VERSION_1_0
@@ -5534,6 +5555,8 @@ static void REGAL_CALL error_glCopyTexSubImage3D(GLenum target, GLint level, GLi
     }
 }
 
+// GL_ARB_imaging
+
 static void REGAL_CALL error_glColorTable(GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const GLvoid *table)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -5934,14 +5957,14 @@ static void REGAL_CALL error_glGetHistogramParameteriv(GLenum target, GLenum pna
     }
 }
 
-static void REGAL_CALL error_glGetMinmax(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
+static void REGAL_CALL error_glGetMinmax(GLenum target, GLboolean reset, GLenum format, GLenum types, GLvoid *values)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetMinmax(target, reset, format, type, values);
+    rCtx->dsp.CurrTable()->glGetMinmax(target, reset, format, types, values);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -9444,6 +9467,8 @@ static void REGAL_CALL error_glGetBooleani_v(GLenum target, GLuint index, GLbool
     }
 }
 
+// GL_ARB_uniform_buffer_object
+
 static void REGAL_CALL error_glGetIntegeri_v(GLenum target, GLuint index, GLint *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -9459,6 +9484,8 @@ static void REGAL_CALL error_glGetIntegeri_v(GLenum target, GLuint index, GLint 
         }
     }
 }
+
+// GL_VERSION_3_0
 
 static void REGAL_CALL error_glEnablei(GLenum cap, GLuint index)
 {
@@ -9541,6 +9568,8 @@ static void REGAL_CALL error_glEndTransformFeedback(void)
     }
 }
 
+// GL_ARB_uniform_buffer_object
+
 static void REGAL_CALL error_glBindBufferRange(GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -9572,6 +9601,8 @@ static void REGAL_CALL error_glBindBufferBase(GLenum target, GLuint index, GLuin
         }
     }
 }
+
+// GL_VERSION_3_0
 
 static void REGAL_CALL error_glTransformFeedbackVaryings(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode)
 {
@@ -10475,7 +10506,7 @@ static void REGAL_CALL error_glFramebufferTextureFace(GLenum target, GLenum atta
     }
 }
 
-// GL_VERSION_3_3
+// GL_ARB_sampler_objects
 
 static void REGAL_CALL error_glGenSamplers(GLsizei count, GLuint *samplers)
 {
@@ -10702,14 +10733,16 @@ static void REGAL_CALL error_glGetSamplerParameterIuiv(GLuint sampler, GLenum pn
     }
 }
 
-static void REGAL_CALL error_glBindFragDataLocationIndexed(GLuint program, GLuint color, GLuint index, const GLchar *name)
+// GL_ARB_blend_func_extended
+
+static void REGAL_CALL error_glBindFragDataLocationIndexed(GLuint program, GLuint colorNumber, GLuint index, const GLchar *name)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glBindFragDataLocationIndexed(program, color, index, name);
+    rCtx->dsp.CurrTable()->glBindFragDataLocationIndexed(program, colorNumber, index, name);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -10734,6 +10767,8 @@ static GLint REGAL_CALL error_glGetFragDataIndex(GLuint program, const GLchar *n
     }
 return ret;
 }
+
+// GL_ARB_timer_query
 
 static void REGAL_CALL error_glGetQueryObjecti64v(GLuint id, GLenum pname, GLint64 *params)
 {
@@ -10783,6 +10818,8 @@ static void REGAL_CALL error_glQueryCounter(GLuint id, GLenum target)
     }
 }
 
+// GL_VERSION_3_3
+
 static void REGAL_CALL error_glVertexAttribDivisor(GLuint index, GLuint divisor)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -10798,6 +10835,8 @@ static void REGAL_CALL error_glVertexAttribDivisor(GLuint index, GLuint divisor)
         }
     }
 }
+
+// GL_ARB_vertex_type_2_10_10_10_rev
 
 static void REGAL_CALL error_glVertexP2ui(GLenum type, GLuint coords)
 {
@@ -11023,14 +11062,14 @@ static void REGAL_CALL error_glTexCoordP4uiv(GLenum type, const GLuint *coords)
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP1ui(GLenum target, GLenum type, GLuint coords)
+static void REGAL_CALL error_glMultiTexCoordP1ui(GLenum texture, GLenum type, GLuint coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP1ui(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP1ui(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11039,14 +11078,14 @@ static void REGAL_CALL error_glMultiTexCoordP1ui(GLenum target, GLenum type, GLu
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP1uiv(GLenum target, GLenum type, const GLuint *coords)
+static void REGAL_CALL error_glMultiTexCoordP1uiv(GLenum texture, GLenum type, const GLuint *coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP1uiv(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP1uiv(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11055,14 +11094,14 @@ static void REGAL_CALL error_glMultiTexCoordP1uiv(GLenum target, GLenum type, co
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP2ui(GLenum target, GLenum type, GLuint coords)
+static void REGAL_CALL error_glMultiTexCoordP2ui(GLenum texture, GLenum type, GLuint coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP2ui(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP2ui(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11071,14 +11110,14 @@ static void REGAL_CALL error_glMultiTexCoordP2ui(GLenum target, GLenum type, GLu
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP2uiv(GLenum target, GLenum type, const GLuint *coords)
+static void REGAL_CALL error_glMultiTexCoordP2uiv(GLenum texture, GLenum type, const GLuint *coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP2uiv(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP2uiv(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11087,14 +11126,14 @@ static void REGAL_CALL error_glMultiTexCoordP2uiv(GLenum target, GLenum type, co
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP3ui(GLenum target, GLenum type, GLuint coords)
+static void REGAL_CALL error_glMultiTexCoordP3ui(GLenum texture, GLenum type, GLuint coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP3ui(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP3ui(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11103,14 +11142,14 @@ static void REGAL_CALL error_glMultiTexCoordP3ui(GLenum target, GLenum type, GLu
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP3uiv(GLenum target, GLenum type, const GLuint *coords)
+static void REGAL_CALL error_glMultiTexCoordP3uiv(GLenum texture, GLenum type, const GLuint *coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP3uiv(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP3uiv(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11119,14 +11158,14 @@ static void REGAL_CALL error_glMultiTexCoordP3uiv(GLenum target, GLenum type, co
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP4ui(GLenum target, GLenum type, GLuint coords)
+static void REGAL_CALL error_glMultiTexCoordP4ui(GLenum texture, GLenum type, GLuint coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP4ui(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP4ui(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11135,14 +11174,14 @@ static void REGAL_CALL error_glMultiTexCoordP4ui(GLenum target, GLenum type, GLu
     }
 }
 
-static void REGAL_CALL error_glMultiTexCoordP4uiv(GLenum target, GLenum type, const GLuint *coords)
+static void REGAL_CALL error_glMultiTexCoordP4uiv(GLenum texture, GLenum type, const GLuint *coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexCoordP4uiv(target, type, coords);
+    rCtx->dsp.CurrTable()->glMultiTexCoordP4uiv(texture, type, coords);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -11473,6 +11512,8 @@ static void REGAL_CALL error_glBlendFuncSeparatei(GLuint buf, GLenum srcRGB, GLe
     }
 }
 
+// GL_ARB_draw_indirect
+
 static void REGAL_CALL error_glDrawArraysIndirect(GLenum mode, const GLvoid *indirect)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -11504,6 +11545,8 @@ static void REGAL_CALL error_glDrawElementsIndirect(GLenum mode, GLenum type, co
         }
     }
 }
+
+// GL_ARB_gpu_shader_fp64
 
 static void REGAL_CALL error_glUniform1d(GLint location, GLdouble x)
 {
@@ -11811,7 +11854,7 @@ static void REGAL_CALL error_glMinSampleShading(GLclampf value)
     }
 }
 
-// GL_VERSION_4_0
+// GL_ARB_tessellation_shader
 
 static void REGAL_CALL error_glPatchParameteri(GLenum pname, GLint value)
 {
@@ -11844,6 +11887,8 @@ static void REGAL_CALL error_glPatchParameterfv(GLenum pname, const GLfloat *val
         }
     }
 }
+
+// GL_ARB_transform_feedback2
 
 static void REGAL_CALL error_glGenTransformFeedbacks(GLsizei n, GLuint *ids)
 {
@@ -11958,6 +12003,8 @@ static void REGAL_CALL error_glDrawTransformFeedback(GLenum mode, GLuint name)
     }
 }
 
+// GL_ARB_transform_feedback3
+
 static void REGAL_CALL error_glDrawTransformFeedbackStream(GLenum mode, GLuint id, GLuint stream)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -12021,6 +12068,8 @@ static void REGAL_CALL error_glGetQueryIndexediv(GLenum target, GLuint index, GL
         }
     }
 }
+
+// GL_ARB_shader_subroutine
 
 static GLint REGAL_CALL error_glGetSubroutineUniformLocation(GLuint program, GLenum shaderType, const GLchar *name)
 {
@@ -12152,7 +12201,7 @@ static void REGAL_CALL error_glGetProgramStageiv(GLuint program, GLenum shaderTy
     }
 }
 
-// GL_VERSION_4_1
+// GL_ARB_vertex_attrib_64bit
 
 static void REGAL_CALL error_glVertexAttribL1d(GLuint index, GLdouble x)
 {
@@ -12314,6 +12363,8 @@ static void REGAL_CALL error_glGetVertexAttribLdv(GLuint index, GLenum pname, GL
     }
 }
 
+// GL_ARB_ES2_compatibility
+
 static void REGAL_CALL error_glReleaseShaderCompiler(void)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -12362,14 +12413,14 @@ static void REGAL_CALL error_glGetShaderPrecisionFormat(GLenum shadertype, GLenu
     }
 }
 
-static void REGAL_CALL error_glDepthRangef(GLclampf zNear, GLclampf zFar)
+static void REGAL_CALL error_glDepthRangef(GLclampf n, GLclampf f)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glDepthRangef(zNear, zFar);
+    rCtx->dsp.CurrTable()->glDepthRangef(n, f);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12378,14 +12429,14 @@ static void REGAL_CALL error_glDepthRangef(GLclampf zNear, GLclampf zFar)
     }
 }
 
-static void REGAL_CALL error_glClearDepthf(GLclampf depth)
+static void REGAL_CALL error_glClearDepthf(GLclampf d)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glClearDepthf(depth);
+    rCtx->dsp.CurrTable()->glClearDepthf(d);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12393,6 +12444,8 @@ static void REGAL_CALL error_glClearDepthf(GLclampf depth)
         }
     }
 }
+
+// GL_ARB_get_program_binary
 
 static void REGAL_CALL error_glGetProgramBinary(GLuint program, GLsizei bufSize, GLsizei *length, GLenum *binaryFormat, GLvoid *binary)
 {
@@ -12441,6 +12494,8 @@ static void REGAL_CALL error_glProgramParameteri(GLuint program, GLenum pname, G
         }
     }
 }
+
+// GL_ARB_viewport_array
 
 static void REGAL_CALL error_glViewportArrayv(GLuint first, GLsizei count, const GLfloat *v)
 {
@@ -12601,6 +12656,8 @@ static void REGAL_CALL error_glGetDoublei_v(GLenum target, GLuint index, GLdoubl
         }
     }
 }
+
+// GL_ARB_separate_shader_objects
 
 static void REGAL_CALL error_glActiveShaderProgram(GLuint pipeline, GLuint program)
 {
@@ -12764,14 +12821,14 @@ static void REGAL_CALL error_glGetProgramPipelineInfoLog(GLuint pipeline, GLsize
     }
 }
 
-static void REGAL_CALL error_glProgramUniform1f(GLuint program, GLint location, GLfloat v0)
+static void REGAL_CALL error_glProgramUniform1f(GLuint program, GLint location, GLfloat x)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform1f(program, location, v0);
+    rCtx->dsp.CurrTable()->glProgramUniform1f(program, location, x);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12780,14 +12837,14 @@ static void REGAL_CALL error_glProgramUniform1f(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform2f(GLuint program, GLint location, GLfloat v0, GLfloat v1)
+static void REGAL_CALL error_glProgramUniform2f(GLuint program, GLint location, GLfloat x, GLfloat y)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform2f(program, location, v0, v1);
+    rCtx->dsp.CurrTable()->glProgramUniform2f(program, location, x, y);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12796,14 +12853,14 @@ static void REGAL_CALL error_glProgramUniform2f(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform3f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2)
+static void REGAL_CALL error_glProgramUniform3f(GLuint program, GLint location, GLfloat x, GLfloat y, GLfloat z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform3f(program, location, v0, v1, v2);
+    rCtx->dsp.CurrTable()->glProgramUniform3f(program, location, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12812,14 +12869,14 @@ static void REGAL_CALL error_glProgramUniform3f(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform4f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
+static void REGAL_CALL error_glProgramUniform4f(GLuint program, GLint location, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform4f(program, location, v0, v1, v2, v3);
+    rCtx->dsp.CurrTable()->glProgramUniform4f(program, location, x, y, z, w);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12828,14 +12885,14 @@ static void REGAL_CALL error_glProgramUniform4f(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform1i(GLuint program, GLint location, GLint v0)
+static void REGAL_CALL error_glProgramUniform1i(GLuint program, GLint location, GLint x)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform1i(program, location, v0);
+    rCtx->dsp.CurrTable()->glProgramUniform1i(program, location, x);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12844,14 +12901,14 @@ static void REGAL_CALL error_glProgramUniform1i(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform2i(GLuint program, GLint location, GLint v0, GLint v1)
+static void REGAL_CALL error_glProgramUniform2i(GLuint program, GLint location, GLint x, GLint y)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform2i(program, location, v0, v1);
+    rCtx->dsp.CurrTable()->glProgramUniform2i(program, location, x, y);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12860,14 +12917,14 @@ static void REGAL_CALL error_glProgramUniform2i(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform3i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2)
+static void REGAL_CALL error_glProgramUniform3i(GLuint program, GLint location, GLint x, GLint y, GLint z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform3i(program, location, v0, v1, v2);
+    rCtx->dsp.CurrTable()->glProgramUniform3i(program, location, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -12876,14 +12933,14 @@ static void REGAL_CALL error_glProgramUniform3i(GLuint program, GLint location, 
     }
 }
 
-static void REGAL_CALL error_glProgramUniform4i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3)
+static void REGAL_CALL error_glProgramUniform4i(GLuint program, GLint location, GLint x, GLint y, GLint z, GLint w)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform4i(program, location, v0, v1, v2, v3);
+    rCtx->dsp.CurrTable()->glProgramUniform4i(program, location, x, y, z, w);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -13180,14 +13237,14 @@ static void REGAL_CALL error_glProgramUniform1ui(GLuint program, GLint location,
     }
 }
 
-static void REGAL_CALL error_glProgramUniform2ui(GLuint program, GLint location, GLuint v0, GLuint v1)
+static void REGAL_CALL error_glProgramUniform2ui(GLuint program, GLint location, GLuint x, GLuint y)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform2ui(program, location, v0, v1);
+    rCtx->dsp.CurrTable()->glProgramUniform2ui(program, location, x, y);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -13196,14 +13253,14 @@ static void REGAL_CALL error_glProgramUniform2ui(GLuint program, GLint location,
     }
 }
 
-static void REGAL_CALL error_glProgramUniform3ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2)
+static void REGAL_CALL error_glProgramUniform3ui(GLuint program, GLint location, GLuint x, GLuint y, GLuint z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform3ui(program, location, v0, v1, v2);
+    rCtx->dsp.CurrTable()->glProgramUniform3ui(program, location, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -13212,14 +13269,14 @@ static void REGAL_CALL error_glProgramUniform3ui(GLuint program, GLint location,
     }
 }
 
-static void REGAL_CALL error_glProgramUniform4ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3)
+static void REGAL_CALL error_glProgramUniform4ui(GLuint program, GLint location, GLuint x, GLuint y, GLuint z, GLuint w)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glProgramUniform4ui(program, location, v0, v1, v2, v3);
+    rCtx->dsp.CurrTable()->glProgramUniform4ui(program, location, x, y, z, w);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -14344,7 +14401,7 @@ static void REGAL_CALL error_glPointParameterfvARB(GLenum pname, const GLfloat *
 
 // GL_ARB_vertex_blend
 
-static void REGAL_CALL error_glWeightbvARB(GLint size, const GLbyte *weights)
+static void REGAL_CALL error_glWeightbvARB(GLint size, GLbyte *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14360,7 +14417,7 @@ static void REGAL_CALL error_glWeightbvARB(GLint size, const GLbyte *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightsvARB(GLint size, const GLshort *weights)
+static void REGAL_CALL error_glWeightsvARB(GLint size, GLshort *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14376,7 +14433,7 @@ static void REGAL_CALL error_glWeightsvARB(GLint size, const GLshort *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightivARB(GLint size, const GLint *weights)
+static void REGAL_CALL error_glWeightivARB(GLint size, GLint *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14392,7 +14449,7 @@ static void REGAL_CALL error_glWeightivARB(GLint size, const GLint *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightfvARB(GLint size, const GLfloat *weights)
+static void REGAL_CALL error_glWeightfvARB(GLint size, GLfloat *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14408,7 +14465,7 @@ static void REGAL_CALL error_glWeightfvARB(GLint size, const GLfloat *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightdvARB(GLint size, const GLdouble *weights)
+static void REGAL_CALL error_glWeightdvARB(GLint size, GLdouble *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14424,7 +14481,7 @@ static void REGAL_CALL error_glWeightdvARB(GLint size, const GLdouble *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightubvARB(GLint size, const GLubyte *weights)
+static void REGAL_CALL error_glWeightubvARB(GLint size, GLubyte *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14440,7 +14497,7 @@ static void REGAL_CALL error_glWeightubvARB(GLint size, const GLubyte *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightusvARB(GLint size, const GLushort *weights)
+static void REGAL_CALL error_glWeightusvARB(GLint size, GLushort *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14456,7 +14513,7 @@ static void REGAL_CALL error_glWeightusvARB(GLint size, const GLushort *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightuivARB(GLint size, const GLuint *weights)
+static void REGAL_CALL error_glWeightuivARB(GLint size, GLuint *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14472,7 +14529,7 @@ static void REGAL_CALL error_glWeightuivARB(GLint size, const GLuint *weights)
     }
 }
 
-static void REGAL_CALL error_glWeightPointerARB(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+static void REGAL_CALL error_glWeightPointerARB(GLint size, GLenum type, GLsizei stride, GLvoid *pointer)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14522,7 +14579,7 @@ static void REGAL_CALL error_glCurrentPaletteMatrixARB(GLint index)
     }
 }
 
-static void REGAL_CALL error_glMatrixIndexubvARB(GLint size, const GLubyte *indices)
+static void REGAL_CALL error_glMatrixIndexubvARB(GLint size, GLubyte *indices)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14538,7 +14595,7 @@ static void REGAL_CALL error_glMatrixIndexubvARB(GLint size, const GLubyte *indi
     }
 }
 
-static void REGAL_CALL error_glMatrixIndexusvARB(GLint size, const GLushort *indices)
+static void REGAL_CALL error_glMatrixIndexusvARB(GLint size, GLushort *indices)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14554,7 +14611,7 @@ static void REGAL_CALL error_glMatrixIndexusvARB(GLint size, const GLushort *ind
     }
 }
 
-static void REGAL_CALL error_glMatrixIndexuivARB(GLint size, const GLuint *indices)
+static void REGAL_CALL error_glMatrixIndexuivARB(GLint size, GLuint *indices)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -14570,7 +14627,7 @@ static void REGAL_CALL error_glMatrixIndexuivARB(GLint size, const GLuint *indic
     }
 }
 
-static void REGAL_CALL error_glMatrixIndexPointerARB(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+static void REGAL_CALL error_glMatrixIndexPointerARB(GLint size, GLenum type, GLsizei stride, GLvoid *pointer)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -16268,14 +16325,14 @@ static GLhandleARB REGAL_CALL error_glCreateProgramObjectARB(void)
 return ret;
 }
 
-static void REGAL_CALL error_glAttachObjectARB(GLhandleARB containerObj, GLhandleARB attachedObj)
+static void REGAL_CALL error_glAttachObjectARB(GLhandleARB containerObj, GLhandleARB obj)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glAttachObjectARB(containerObj, attachedObj);
+    rCtx->dsp.CurrTable()->glAttachObjectARB(containerObj, obj);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -17115,14 +17172,14 @@ static void REGAL_CALL error_glFramebufferTexture2D(GLenum target, GLenum attach
     }
 }
 
-static void REGAL_CALL error_glFramebufferTexture3D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset)
+static void REGAL_CALL error_glFramebufferTexture3D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint layer)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glFramebufferTexture3D(target, attachment, textarget, texture, level, zoffset);
+    rCtx->dsp.CurrTable()->glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -17548,14 +17605,14 @@ static void REGAL_CALL error_glUniformBlockBinding(GLuint program, GLuint unifor
 
 // GL_ARB_copy_buffer
 
-static void REGAL_CALL error_glCopyBufferSubData(GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size)
+static void REGAL_CALL error_glCopyBufferSubData(GLenum readtarget, GLenum writetarget, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glCopyBufferSubData(readTarget, writeTarget, readOffset, writeOffset, size);
+    rCtx->dsp.CurrTable()->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -17566,7 +17623,7 @@ static void REGAL_CALL error_glCopyBufferSubData(GLenum readTarget, GLenum write
 
 // GL_ARB_draw_elements_base_vertex
 
-static void REGAL_CALL error_glDrawElementsBaseVertex(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLint basevertex)
+static void REGAL_CALL error_glDrawElementsBaseVertex(GLenum mode, GLsizei count, GLenum type, GLvoid *indices, GLint basevertex)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -17582,7 +17639,7 @@ static void REGAL_CALL error_glDrawElementsBaseVertex(GLenum mode, GLsizei count
     }
 }
 
-static void REGAL_CALL error_glDrawRangeElementsBaseVertex(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const GLvoid *indices, GLint basevertex)
+static void REGAL_CALL error_glDrawRangeElementsBaseVertex(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, GLvoid *indices, GLint basevertex)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -17614,7 +17671,7 @@ static void REGAL_CALL error_glDrawElementsInstancedBaseVertex(GLenum mode, GLsi
     }
 }
 
-static void REGAL_CALL error_glMultiDrawElementsBaseVertex(GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount, const GLint *basevertex)
+static void REGAL_CALL error_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *count, GLenum type, GLvoid **indices, GLsizei primcount, GLint *basevertex)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -18064,14 +18121,14 @@ static void REGAL_CALL error_glDebugMessageCallbackARB(GLDEBUGPROCARB callback, 
     }
 }
 
-static GLuint REGAL_CALL error_glGetDebugMessageLogARB(GLuint count, GLsizei logsize, GLenum *sources, GLenum *types, GLuint *ids, GLenum *severities, GLsizei *lengths, GLchar *messageLog)
+static GLuint REGAL_CALL error_glGetDebugMessageLogARB(GLuint count, GLsizei bufsize, GLenum *sources, GLenum *types, GLuint *ids, GLenum *severities, GLsizei *lengths, GLchar *messageLog)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    GLuint  ret = rCtx->dsp.CurrTable()->glGetDebugMessageLogARB(count, logsize, sources, types, ids, severities, lengths, messageLog);
+    GLuint  ret = rCtx->dsp.CurrTable()->glGetDebugMessageLogARB(count, bufsize, sources, types, ids, severities, lengths, messageLog);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -18196,14 +18253,14 @@ static void REGAL_CALL error_glGetnPixelMapusvARB(GLenum map, GLsizei bufSize, G
     }
 }
 
-static void REGAL_CALL error_glGetnPolygonStippleARB(GLsizei bufSize, GLubyte *mask)
+static void REGAL_CALL error_glGetnPolygonStippleARB(GLsizei bufSize, GLubyte *pattern)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetnPolygonStippleARB(bufSize, mask);
+    rCtx->dsp.CurrTable()->glGetnPolygonStippleARB(bufSize, pattern);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -18212,14 +18269,14 @@ static void REGAL_CALL error_glGetnPolygonStippleARB(GLsizei bufSize, GLubyte *m
     }
 }
 
-static void REGAL_CALL error_glGetnTexImageARB(GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, GLvoid *pixels)
+static void REGAL_CALL error_glGetnTexImageARB(GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, GLvoid *img)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetnTexImageARB(target, level, format, type, bufSize, pixels);
+    rCtx->dsp.CurrTable()->glGetnTexImageARB(target, level, format, type, bufSize, img);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -18228,14 +18285,14 @@ static void REGAL_CALL error_glGetnTexImageARB(GLenum target, GLint level, GLenu
     }
 }
 
-static void REGAL_CALL error_glReadnPixelsARB(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, GLvoid *pixels)
+static void REGAL_CALL error_glReadnPixelsARB(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glReadnPixelsARB(x, y, width, height, format, type, bufSize, pixels);
+    rCtx->dsp.CurrTable()->glReadnPixelsARB(x, y, width, height, format, type, bufSize, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -18458,22 +18515,6 @@ static void REGAL_CALL error_glTexImage3DEXT(GLenum target, GLint level, GLenum 
     }
 }
 
-static void REGAL_CALL error_glTexSubImage3DEXT(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
-{
-    RegalContext * rCtx = GET_REGAL_CONTEXT();
-    RegalDspScopedStepDown stepDown( rCtx->dsp );
-    if (rCtx->err.inBeginEnd == false) {
-        rCtx->dsp.CurrTable()->glGetError();
-    }
-    rCtx->dsp.CurrTable()->glTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
-    if (rCtx->err.inBeginEnd == false) {
-        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
-        if (err1 != GL_NO_ERROR) {
-            rCtx->err.callback( err1 );
-        }
-    }
-}
-
 // GL_SGIS_texture_filter4
 
 static void REGAL_CALL error_glGetTexFilterFuncSGIS(GLenum target, GLenum filter, GLfloat *weights)
@@ -18534,6 +18575,22 @@ static void REGAL_CALL error_glTexSubImage2DEXT(GLenum target, GLint level, GLin
         rCtx->dsp.CurrTable()->glGetError();
     }
     rCtx->dsp.CurrTable()->glTexSubImage2DEXT(target, level, xoffset, yoffset, width, height, format, type, pixels);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTexSubImage3DEXT(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -18820,14 +18877,14 @@ static void REGAL_CALL error_glConvolutionFilter2DEXT(GLenum target, GLenum inte
     }
 }
 
-static void REGAL_CALL error_glConvolutionParameterfEXT(GLenum target, GLenum pname, GLfloat params)
+static void REGAL_CALL error_glConvolutionParameterfEXT(GLenum target, GLenum pname, GLfloat param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glConvolutionParameterfEXT(target, pname, params);
+    rCtx->dsp.CurrTable()->glConvolutionParameterfEXT(target, pname, param);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -18852,14 +18909,14 @@ static void REGAL_CALL error_glConvolutionParameterfvEXT(GLenum target, GLenum p
     }
 }
 
-static void REGAL_CALL error_glConvolutionParameteriEXT(GLenum target, GLenum pname, GLint params)
+static void REGAL_CALL error_glConvolutionParameteriEXT(GLenum target, GLenum pname, GLint param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glConvolutionParameteriEXT(target, pname, params);
+    rCtx->dsp.CurrTable()->glConvolutionParameteriEXT(target, pname, param);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -20184,14 +20241,14 @@ static void REGAL_CALL error_glHintPGI(GLenum target, GLint mode)
 
 // GL_EXT_paletted_texture
 
-static void REGAL_CALL error_glColorTableEXT(GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const GLvoid *table)
+static void REGAL_CALL error_glColorTableEXT(GLenum target, GLenum internalFormat, GLsizei width, GLenum format, GLenum type, const GLvoid *table)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glColorTableEXT(target, internalformat, width, format, type, table);
+    rCtx->dsp.CurrTable()->glColorTableEXT(target, internalFormat, width, format, type, table);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -20200,14 +20257,14 @@ static void REGAL_CALL error_glColorTableEXT(GLenum target, GLenum internalforma
     }
 }
 
-static void REGAL_CALL error_glGetColorTableEXT(GLenum target, GLenum format, GLenum type, GLvoid *table)
+static void REGAL_CALL error_glGetColorTableEXT(GLenum target, GLenum format, GLenum type, GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetColorTableEXT(target, format, type, table);
+    rCtx->dsp.CurrTable()->glGetColorTableEXT(target, format, type, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -20366,7 +20423,7 @@ static void REGAL_CALL error_glIndexMaterialEXT(GLenum face, GLenum mode)
 
 // GL_EXT_index_func
 
-static void REGAL_CALL error_glIndexFuncEXT(GLenum func, GLclampf ref)
+static void REGAL_CALL error_glIndexFuncEXT(GLenum func, GLfloat ref)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -20808,6 +20865,40 @@ static void REGAL_CALL error_glTextureMaterialEXT(GLenum face, GLenum mode)
     }
 }
 
+// GL_EXT_scene_marker
+
+static void REGAL_CALL error_glBeginSceneEXT(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glBeginSceneEXT();
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glEndSceneEXT(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glEndSceneEXT();
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
 // GL_SGIX_async
 
 static void REGAL_CALL error_glAsyncMarkerSGIX(GLuint marker)
@@ -20978,7 +21069,7 @@ static void REGAL_CALL error_glTexCoordPointervINTEL(GLint size, GLenum type, co
 
 // GL_EXT_pixel_transform
 
-static void REGAL_CALL error_glPixelTransformParameteriEXT(GLenum target, GLenum pname, GLint param)
+static void REGAL_CALL error_glPixelTransformParameteriEXT(GLenum target, GLenum pname, const GLint param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -20994,7 +21085,7 @@ static void REGAL_CALL error_glPixelTransformParameteriEXT(GLenum target, GLenum
     }
 }
 
-static void REGAL_CALL error_glPixelTransformParameterfEXT(GLenum target, GLenum pname, GLfloat param)
+static void REGAL_CALL error_glPixelTransformParameterfEXT(GLenum target, GLenum pname, const GLfloat param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -21352,7 +21443,7 @@ static void REGAL_CALL error_glMultiDrawArraysEXT(GLenum mode, const GLint *firs
     }
 }
 
-static void REGAL_CALL error_glMultiDrawElementsEXT(GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount)
+static void REGAL_CALL error_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -24810,14 +24901,14 @@ static void REGAL_CALL error_glVertexAttrib4ubvNV(GLuint index, const GLubyte *v
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs1dvNV(GLuint index, GLsizei count, const GLdouble *v)
+static void REGAL_CALL error_glVertexAttribs1dvNV(GLuint index, GLsizei n, const GLdouble *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs1dvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs1dvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24826,14 +24917,14 @@ static void REGAL_CALL error_glVertexAttribs1dvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs1fvNV(GLuint index, GLsizei count, const GLfloat *v)
+static void REGAL_CALL error_glVertexAttribs1fvNV(GLuint index, GLsizei n, const GLfloat *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs1fvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs1fvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24842,14 +24933,14 @@ static void REGAL_CALL error_glVertexAttribs1fvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs1svNV(GLuint index, GLsizei count, const GLshort *v)
+static void REGAL_CALL error_glVertexAttribs1svNV(GLuint index, GLsizei n, const GLshort *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs1svNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs1svNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24858,14 +24949,14 @@ static void REGAL_CALL error_glVertexAttribs1svNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs2dvNV(GLuint index, GLsizei count, const GLdouble *v)
+static void REGAL_CALL error_glVertexAttribs2dvNV(GLuint index, GLsizei n, const GLdouble *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs2dvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs2dvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24874,14 +24965,14 @@ static void REGAL_CALL error_glVertexAttribs2dvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs2fvNV(GLuint index, GLsizei count, const GLfloat *v)
+static void REGAL_CALL error_glVertexAttribs2fvNV(GLuint index, GLsizei n, const GLfloat *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs2fvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs2fvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24890,14 +24981,14 @@ static void REGAL_CALL error_glVertexAttribs2fvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs2svNV(GLuint index, GLsizei count, const GLshort *v)
+static void REGAL_CALL error_glVertexAttribs2svNV(GLuint index, GLsizei n, const GLshort *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs2svNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs2svNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24906,14 +24997,14 @@ static void REGAL_CALL error_glVertexAttribs2svNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs3dvNV(GLuint index, GLsizei count, const GLdouble *v)
+static void REGAL_CALL error_glVertexAttribs3dvNV(GLuint index, GLsizei n, const GLdouble *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs3dvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs3dvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24922,14 +25013,14 @@ static void REGAL_CALL error_glVertexAttribs3dvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs3fvNV(GLuint index, GLsizei count, const GLfloat *v)
+static void REGAL_CALL error_glVertexAttribs3fvNV(GLuint index, GLsizei n, const GLfloat *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs3fvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs3fvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24938,14 +25029,14 @@ static void REGAL_CALL error_glVertexAttribs3fvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs3svNV(GLuint index, GLsizei count, const GLshort *v)
+static void REGAL_CALL error_glVertexAttribs3svNV(GLuint index, GLsizei n, const GLshort *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs3svNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs3svNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24954,14 +25045,14 @@ static void REGAL_CALL error_glVertexAttribs3svNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs4dvNV(GLuint index, GLsizei count, const GLdouble *v)
+static void REGAL_CALL error_glVertexAttribs4dvNV(GLuint index, GLsizei n, const GLdouble *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs4dvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs4dvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24970,14 +25061,14 @@ static void REGAL_CALL error_glVertexAttribs4dvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs4fvNV(GLuint index, GLsizei count, const GLfloat *v)
+static void REGAL_CALL error_glVertexAttribs4fvNV(GLuint index, GLsizei n, const GLfloat *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs4fvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs4fvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -24986,14 +25077,14 @@ static void REGAL_CALL error_glVertexAttribs4fvNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs4svNV(GLuint index, GLsizei count, const GLshort *v)
+static void REGAL_CALL error_glVertexAttribs4svNV(GLuint index, GLsizei n, const GLshort *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs4svNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs4svNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -25002,14 +25093,14 @@ static void REGAL_CALL error_glVertexAttribs4svNV(GLuint index, GLsizei count, c
     }
 }
 
-static void REGAL_CALL error_glVertexAttribs4ubvNV(GLuint index, GLsizei count, const GLubyte *v)
+static void REGAL_CALL error_glVertexAttribs4ubvNV(GLuint index, GLsizei n, const GLubyte *v)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glVertexAttribs4ubvNV(index, count, v);
+    rCtx->dsp.CurrTable()->glVertexAttribs4ubvNV(index, n, v);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -25020,7 +25111,7 @@ static void REGAL_CALL error_glVertexAttribs4ubvNV(GLuint index, GLsizei count, 
 
 // GL_ATI_envmap_bumpmap
 
-static void REGAL_CALL error_glTexBumpParameterivATI(GLenum pname, const GLint *param)
+static void REGAL_CALL error_glTexBumpParameterivATI(GLenum pname, GLint *param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -25036,7 +25127,7 @@ static void REGAL_CALL error_glTexBumpParameterivATI(GLenum pname, const GLint *
     }
 }
 
-static void REGAL_CALL error_glTexBumpParameterfvATI(GLenum pname, const GLfloat *param)
+static void REGAL_CALL error_glTexBumpParameterfvATI(GLenum pname, GLfloat *param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -26737,14 +26828,14 @@ static void REGAL_CALL error_glVertexStream4dvATI(GLenum stream, const GLdouble 
     }
 }
 
-static void REGAL_CALL error_glNormalStream3bATI(GLenum stream, GLbyte nx, GLbyte ny, GLbyte nz)
+static void REGAL_CALL error_glNormalStream3bATI(GLenum stream, GLbyte x, GLbyte y, GLbyte z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glNormalStream3bATI(stream, nx, ny, nz);
+    rCtx->dsp.CurrTable()->glNormalStream3bATI(stream, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -26769,14 +26860,14 @@ static void REGAL_CALL error_glNormalStream3bvATI(GLenum stream, const GLbyte *c
     }
 }
 
-static void REGAL_CALL error_glNormalStream3sATI(GLenum stream, GLshort nx, GLshort ny, GLshort nz)
+static void REGAL_CALL error_glNormalStream3sATI(GLenum stream, GLshort x, GLshort y, GLshort z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glNormalStream3sATI(stream, nx, ny, nz);
+    rCtx->dsp.CurrTable()->glNormalStream3sATI(stream, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -26801,14 +26892,14 @@ static void REGAL_CALL error_glNormalStream3svATI(GLenum stream, const GLshort *
     }
 }
 
-static void REGAL_CALL error_glNormalStream3iATI(GLenum stream, GLint nx, GLint ny, GLint nz)
+static void REGAL_CALL error_glNormalStream3iATI(GLenum stream, GLint x, GLint y, GLint z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glNormalStream3iATI(stream, nx, ny, nz);
+    rCtx->dsp.CurrTable()->glNormalStream3iATI(stream, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -26833,14 +26924,14 @@ static void REGAL_CALL error_glNormalStream3ivATI(GLenum stream, const GLint *co
     }
 }
 
-static void REGAL_CALL error_glNormalStream3fATI(GLenum stream, GLfloat nx, GLfloat ny, GLfloat nz)
+static void REGAL_CALL error_glNormalStream3fATI(GLenum stream, GLfloat x, GLfloat y, GLfloat z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glNormalStream3fATI(stream, nx, ny, nz);
+    rCtx->dsp.CurrTable()->glNormalStream3fATI(stream, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -26865,14 +26956,14 @@ static void REGAL_CALL error_glNormalStream3fvATI(GLenum stream, const GLfloat *
     }
 }
 
-static void REGAL_CALL error_glNormalStream3dATI(GLenum stream, GLdouble nx, GLdouble ny, GLdouble nz)
+static void REGAL_CALL error_glNormalStream3dATI(GLenum stream, GLdouble x, GLdouble y, GLdouble z)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glNormalStream3dATI(stream, nx, ny, nz);
+    rCtx->dsp.CurrTable()->glNormalStream3dATI(stream, x, y, z);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -27429,7 +27520,7 @@ static void REGAL_CALL error_glDeleteVertexArraysAPPLE(GLsizei n, const GLuint *
     }
 }
 
-static void REGAL_CALL error_glGenVertexArraysAPPLE(GLsizei n, GLuint *arrays)
+static void REGAL_CALL error_glGenVertexArraysAPPLE(GLsizei n, const GLuint *arrays)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -29332,22 +29423,6 @@ static void REGAL_CALL error_glFramebufferTextureEXT(GLenum target, GLenum attac
     }
 }
 
-static void REGAL_CALL error_glFramebufferTextureLayerEXT(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
-{
-    RegalContext * rCtx = GET_REGAL_CONTEXT();
-    RegalDspScopedStepDown stepDown( rCtx->dsp );
-    if (rCtx->err.inBeginEnd == false) {
-        rCtx->dsp.CurrTable()->glGetError();
-    }
-    rCtx->dsp.CurrTable()->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
-    if (rCtx->err.inBeginEnd == false) {
-        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
-        if (err1 != GL_NO_ERROR) {
-            rCtx->err.callback( err1 );
-        }
-    }
-}
-
 static void REGAL_CALL error_glFramebufferTextureFaceEXT(GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -29965,6 +30040,24 @@ static void REGAL_CALL error_glDrawElementsInstancedEXT(GLenum mode, GLsizei cou
     }
 }
 
+// GL_EXT_texture_array
+
+static void REGAL_CALL error_glFramebufferTextureLayerEXT(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
 // GL_EXT_texture_buffer_object
 
 static void REGAL_CALL error_glTexBufferEXT(GLenum target, GLenum internalformat, GLuint buffer)
@@ -30103,14 +30196,14 @@ static void REGAL_CALL error_glProgramBufferParametersIuivNV(GLenum target, GLui
 
 // GL_EXT_draw_buffers2
 
-static void REGAL_CALL error_glColorMaskIndexedEXT(GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a)
+static void REGAL_CALL error_glColorMaskIndexedEXT(GLuint buf, GLboolean r, GLboolean g, GLboolean b, GLboolean a)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glColorMaskIndexedEXT(index, r, g, b, a);
+    rCtx->dsp.CurrTable()->glColorMaskIndexedEXT(buf, r, g, b, a);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -30119,14 +30212,14 @@ static void REGAL_CALL error_glColorMaskIndexedEXT(GLuint index, GLboolean r, GL
     }
 }
 
-static void REGAL_CALL error_glGetBooleanIndexedvEXT(GLenum target, GLuint index, GLboolean *data)
+static void REGAL_CALL error_glGetBooleanIndexedvEXT(GLenum value, GLuint index, GLboolean *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetBooleanIndexedvEXT(target, index, data);
+    rCtx->dsp.CurrTable()->glGetBooleanIndexedvEXT(value, index, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -30135,14 +30228,14 @@ static void REGAL_CALL error_glGetBooleanIndexedvEXT(GLenum target, GLuint index
     }
 }
 
-static void REGAL_CALL error_glGetIntegerIndexedvEXT(GLenum target, GLuint index, GLint *data)
+static void REGAL_CALL error_glGetIntegerIndexedvEXT(GLenum value, GLuint index, GLint *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetIntegerIndexedvEXT(target, index, data);
+    rCtx->dsp.CurrTable()->glGetIntegerIndexedvEXT(value, index, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -31147,14 +31240,14 @@ static void REGAL_CALL error_glTextureParameterfEXT(GLuint texture, GLenum targe
     }
 }
 
-static void REGAL_CALL error_glTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, const GLfloat *params)
+static void REGAL_CALL error_glTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, const GLfloat *param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glTextureParameterfvEXT(texture, target, pname, params);
+    rCtx->dsp.CurrTable()->glTextureParameterfvEXT(texture, target, pname, param);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -31179,14 +31272,14 @@ static void REGAL_CALL error_glTextureParameteriEXT(GLuint texture, GLenum targe
     }
 }
 
-static void REGAL_CALL error_glTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, const GLint *params)
+static void REGAL_CALL error_glTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, const GLint *param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glTextureParameterivEXT(texture, target, pname, params);
+    rCtx->dsp.CurrTable()->glTextureParameterivEXT(texture, target, pname, param);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -31195,7 +31288,7 @@ static void REGAL_CALL error_glTextureParameterivEXT(GLuint texture, GLenum targ
     }
 }
 
-static void REGAL_CALL error_glTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL error_glTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -31211,7 +31304,7 @@ static void REGAL_CALL error_glTextureImage1DEXT(GLuint texture, GLenum target, 
     }
 }
 
-static void REGAL_CALL error_glTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL error_glTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -31403,7 +31496,7 @@ static void REGAL_CALL error_glGetTextureLevelParameterivEXT(GLuint texture, GLe
     }
 }
 
-static void REGAL_CALL error_glTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL error_glTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -31467,14 +31560,14 @@ static void REGAL_CALL error_glMultiTexParameterfEXT(GLenum texunit, GLenum targ
     }
 }
 
-static void REGAL_CALL error_glMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, const GLfloat *params)
+static void REGAL_CALL error_glMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, const GLfloat *param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexParameterfvEXT(texunit, target, pname, params);
+    rCtx->dsp.CurrTable()->glMultiTexParameterfvEXT(texunit, target, pname, param);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -31499,14 +31592,14 @@ static void REGAL_CALL error_glMultiTexParameteriEXT(GLenum texunit, GLenum targ
     }
 }
 
-static void REGAL_CALL error_glMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *params)
+static void REGAL_CALL error_glMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *param)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glMultiTexParameterivEXT(texunit, target, pname, params);
+    rCtx->dsp.CurrTable()->glMultiTexParameterivEXT(texunit, target, pname, param);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -31515,7 +31608,7 @@ static void REGAL_CALL error_glMultiTexParameterivEXT(GLenum texunit, GLenum tar
     }
 }
 
-static void REGAL_CALL error_glMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL error_glMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -31531,7 +31624,7 @@ static void REGAL_CALL error_glMultiTexImage1DEXT(GLenum texunit, GLenum target,
     }
 }
 
-static void REGAL_CALL error_glMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL error_glMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -31723,7 +31816,7 @@ static void REGAL_CALL error_glGetMultiTexLevelParameterivEXT(GLenum texunit, GL
     }
 }
 
-static void REGAL_CALL error_glMultiTexImage3DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL error_glMultiTexImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -32267,14 +32360,14 @@ static void REGAL_CALL error_glCompressedMultiTexImage2DEXT(GLenum texunit, GLen
     }
 }
 
-static void REGAL_CALL error_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *bits)
+static void REGAL_CALL error_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, bits);
+    rCtx->dsp.CurrTable()->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -32283,14 +32376,14 @@ static void REGAL_CALL error_glCompressedMultiTexImage1DEXT(GLenum texunit, GLen
     }
 }
 
-static void REGAL_CALL error_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *bits)
+static void REGAL_CALL error_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
+    rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -32299,14 +32392,14 @@ static void REGAL_CALL error_glCompressedMultiTexSubImage3DEXT(GLenum texunit, G
     }
 }
 
-static void REGAL_CALL error_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *bits)
+static void REGAL_CALL error_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
+    rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -32315,14 +32408,14 @@ static void REGAL_CALL error_glCompressedMultiTexSubImage2DEXT(GLenum texunit, G
     }
 }
 
-static void REGAL_CALL error_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *bits)
+static void REGAL_CALL error_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, bits);
+    rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -34278,14 +34371,14 @@ static void REGAL_CALL error_glGetPerfMonitorGroupsAMD(GLint *numGroups, GLsizei
     }
 }
 
-static void REGAL_CALL error_glGetPerfMonitorCountersAMD(GLuint group, GLint *numCounters, GLint *maxActiveCounters, GLsizei counterSize, GLuint *counters)
+static void REGAL_CALL error_glGetPerfMonitorCountersAMD(GLuint group, GLint *numCounters, GLint *maxActiveCounters, GLsizei countersSize, GLuint *counters)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
     if (rCtx->err.inBeginEnd == false) {
         rCtx->dsp.CurrTable()->glGetError();
     }
-    rCtx->dsp.CurrTable()->glGetPerfMonitorCountersAMD(group, numCounters, maxActiveCounters, counterSize, counters);
+    rCtx->dsp.CurrTable()->glGetPerfMonitorCountersAMD(group, numCounters, maxActiveCounters, countersSize, counters);
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -34326,7 +34419,7 @@ static void REGAL_CALL error_glGetPerfMonitorCounterStringAMD(GLuint group, GLui
     }
 }
 
-static void REGAL_CALL error_glGetPerfMonitorCounterInfoAMD(GLuint group, GLuint counter, GLenum pname, void *data)
+static void REGAL_CALL error_glGetPerfMonitorCounterInfoAMD(GLuint group, GLuint counter, GLenum pname, GLvoid *data)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -34438,7 +34531,7 @@ static void REGAL_CALL error_glGetPerfMonitorCounterDataAMD(GLuint monitor, GLen
     }
 }
 
-// GL_AMD_vertex_shader_tesselator
+// GL_AMD_vertex_shader_tessellator
 
 static void REGAL_CALL error_glTessellationFactorAMD(GLfloat factor)
 {
@@ -34558,7 +34651,7 @@ static void REGAL_CALL error_glBlendEquationSeparateIndexedAMD(GLuint buf, GLenu
 
 // GL_APPLE_texture_range
 
-static void REGAL_CALL error_glTextureRangeAPPLE(GLenum target, GLsizei length, const GLvoid *pointer)
+static void REGAL_CALL error_glTextureRangeAPPLE(GLenum target, GLsizei length, GLvoid *pointer)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36692,7 +36785,7 @@ static void REGAL_CALL error_glCopyPathNV(GLuint resultPath, GLuint srcPath)
     }
 }
 
-static void REGAL_CALL error_glCoverFillPathInstancedNV(GLsizei numPaths, GLenum pathNameType, const void*paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat *transformValues)
+static void REGAL_CALL error_glCoverFillPathInstancedNV(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat *transformValues)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36724,7 +36817,7 @@ static void REGAL_CALL error_glCoverFillPathNV(GLuint path, GLenum coverMode)
     }
 }
 
-static void REGAL_CALL error_glCoverStrokePathInstancedNV(GLsizei numPaths, GLenum pathNameType, const void*paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat *transformValues)
+static void REGAL_CALL error_glCoverStrokePathInstancedNV(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat *transformValues)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36805,7 +36898,7 @@ static void REGAL_CALL error_glGetPathColorGenfvNV(GLenum color, GLenum pname, G
     }
 }
 
-static void REGAL_CALL error_glGetPathColorGenivNV(GLenum color, GLenum pname, GLint*value)
+static void REGAL_CALL error_glGetPathColorGenivNV(GLenum color, GLenum pname, GLint *value)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36821,7 +36914,7 @@ static void REGAL_CALL error_glGetPathColorGenivNV(GLenum color, GLenum pname, G
     }
 }
 
-static void REGAL_CALL error_glGetPathCommandsNV(GLuint name, GLubyte*commands)
+static void REGAL_CALL error_glGetPathCommandsNV(GLuint name, GLubyte *commands)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36853,7 +36946,7 @@ static void REGAL_CALL error_glGetPathCoordsNV(GLuint name, GLfloat*coords)
     }
 }
 
-static void REGAL_CALL error_glGetPathDashArrayNV(GLuint name, GLfloat*dashArray)
+static void REGAL_CALL error_glGetPathDashArrayNV(GLuint name, GLfloat *dashArray)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36902,7 +36995,7 @@ static void REGAL_CALL error_glGetPathMetricRangeNV(GLbitfield metricQueryMask, 
     }
 }
 
-static void REGAL_CALL error_glGetPathMetricsNV(GLbitfield metricQueryMask, GLsizei numPaths, GLenum pathNameType, const void*paths, GLuint pathBase, GLsizei stride, GLfloat *metrics)
+static void REGAL_CALL error_glGetPathMetricsNV(GLbitfield metricQueryMask, GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLsizei stride, GLfloat *metrics)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -36950,7 +37043,7 @@ static void REGAL_CALL error_glGetPathParameterivNV(GLuint name, GLenum param, G
     }
 }
 
-static void REGAL_CALL error_glGetPathSpacingNV(GLenum pathListMode, GLsizei numPaths, GLenum pathNameType, const void*paths, GLuint pathBase, GLfloat advanceScale, GLfloat kerningScale, GLenum transformType, GLfloat *returnedSpacing)
+static void REGAL_CALL error_glGetPathSpacingNV(GLenum pathListMode, GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLfloat advanceScale, GLfloat kerningScale, GLenum transformType, GLfloat *returnedSpacing)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37065,7 +37158,7 @@ static GLboolean REGAL_CALL error_glIsPointInStrokePathNV(GLuint path, GLfloat x
 return ret;
 }
 
-static void REGAL_CALL error_glPathColorGenNV(GLenum color, GLenum genMode, GLenum colorFormat, const GLfloat*coeffs)
+static void REGAL_CALL error_glPathColorGenNV(GLenum color, GLenum genMode, GLenum colorFormat, const GLfloat *coeffs)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37097,7 +37190,7 @@ static void REGAL_CALL error_glPathCommandsNV(GLuint path, GLsizei numCommands, 
     }
 }
 
-static void REGAL_CALL error_glPathCoordsNV(GLuint path, GLsizei numCoords, GLenum coordType, const void*coords)
+static void REGAL_CALL error_glPathCoordsNV(GLuint path, GLsizei numCoords, GLenum coordType, const GLvoid *coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37129,7 +37222,7 @@ static void REGAL_CALL error_glPathCoverDepthFuncNV(GLenum zfunc)
     }
 }
 
-static void REGAL_CALL error_glPathDashArrayNV(GLuint path, GLsizei dashCount, const GLfloat*dashArray)
+static void REGAL_CALL error_glPathDashArrayNV(GLuint path, GLsizei dashCount, const GLfloat *dashArray)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37161,7 +37254,7 @@ static void REGAL_CALL error_glPathFogGenNV(GLenum genMode)
     }
 }
 
-static void REGAL_CALL error_glPathGlyphRangeNV(GLuint firstPathName, GLenum fontTarget, const void*fontName, GLbitfield fontStyle, GLuint firstGlyph, GLsizei numGlyphs, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale)
+static void REGAL_CALL error_glPathGlyphRangeNV(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLuint firstGlyph, GLsizei numGlyphs, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37177,7 +37270,7 @@ static void REGAL_CALL error_glPathGlyphRangeNV(GLuint firstPathName, GLenum fon
     }
 }
 
-static void REGAL_CALL error_glPathGlyphsNV(GLuint firstPathName, GLenum fontTarget, const void*fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const GLvoid*charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale)
+static void REGAL_CALL error_glPathGlyphsNV(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const GLvoid*charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37209,7 +37302,7 @@ static void REGAL_CALL error_glPathParameterfNV(GLuint path, GLenum pname, GLflo
     }
 }
 
-static void REGAL_CALL error_glPathParameterfvNV(GLuint path, GLenum pname, const GLfloat*value)
+static void REGAL_CALL error_glPathParameterfvNV(GLuint path, GLenum pname, const GLfloat *value)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37241,7 +37334,7 @@ static void REGAL_CALL error_glPathParameteriNV(GLuint path, GLenum pname, GLint
     }
 }
 
-static void REGAL_CALL error_glPathParameterivNV(GLuint path, GLenum pname, const GLint*value)
+static void REGAL_CALL error_glPathParameterivNV(GLuint path, GLenum pname, const GLint *value)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37289,7 +37382,7 @@ static void REGAL_CALL error_glPathStencilFuncNV(GLenum func, GLint ref, GLuint 
     }
 }
 
-static void REGAL_CALL error_glPathStringNV(GLuint path, GLenum format, GLsizei length, const void*pathString)
+static void REGAL_CALL error_glPathStringNV(GLuint path, GLenum format, GLsizei length, const GLvoid *pathString)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37321,7 +37414,7 @@ static void REGAL_CALL error_glPathSubCommandsNV(GLuint path, GLsizei commandSta
     }
 }
 
-static void REGAL_CALL error_glPathSubCoordsNV(GLuint path, GLsizei coordStart, GLsizei numCoords, GLenum coordType, const void*coords)
+static void REGAL_CALL error_glPathSubCoordsNV(GLuint path, GLsizei coordStart, GLsizei numCoords, GLenum coordType, const GLvoid *coords)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37337,7 +37430,7 @@ static void REGAL_CALL error_glPathSubCoordsNV(GLuint path, GLsizei coordStart, 
     }
 }
 
-static void REGAL_CALL error_glPathTexGenNV(GLenum texCoordSet, GLenum genMode, GLint components, const GLfloat*coeffs)
+static void REGAL_CALL error_glPathTexGenNV(GLenum texCoordSet, GLenum genMode, GLint components, const GLfloat *coeffs)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37370,7 +37463,7 @@ static GLboolean REGAL_CALL error_glPointAlongPathNV(GLuint path, GLsizei startS
 return ret;
 }
 
-static void REGAL_CALL error_glStencilFillPathInstancedNV(GLsizei numPaths, GLenum pathNameType, const void*paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum transformType, const GLfloat *transformValues)
+static void REGAL_CALL error_glStencilFillPathInstancedNV(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum transformType, const GLfloat *transformValues)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37402,7 +37495,7 @@ static void REGAL_CALL error_glStencilFillPathNV(GLuint path, GLenum fillMode, G
     }
 }
 
-static void REGAL_CALL error_glStencilStrokePathInstancedNV(GLsizei numPaths, GLenum pathNameType, const void*paths, GLuint pathBase, GLint reference, GLuint mask, GLenum transformType, const GLfloat *transformValues)
+static void REGAL_CALL error_glStencilStrokePathInstancedNV(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLint reference, GLuint mask, GLenum transformType, const GLfloat *transformValues)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37434,7 +37527,7 @@ static void REGAL_CALL error_glStencilStrokePathNV(GLuint path, GLint reference,
     }
 }
 
-static void REGAL_CALL error_glTransformPathNV(GLuint resultPath, GLuint srcPath, GLenum transformType, const GLfloat*transformValues)
+static void REGAL_CALL error_glTransformPathNV(GLuint resultPath, GLuint srcPath, GLenum transformType, const GLfloat *transformValues)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37450,7 +37543,7 @@ static void REGAL_CALL error_glTransformPathNV(GLuint resultPath, GLuint srcPath
     }
 }
 
-static void REGAL_CALL error_glWeightPathsNV(GLuint resultPath, GLsizei numPaths, const GLuint paths[], const GLfloat weights[])
+static void REGAL_CALL error_glWeightPathsNV(GLuint resultPath, GLsizei numPaths, const GLuint *paths, const GLfloat *weights)
 {
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalDspScopedStepDown stepDown( rCtx->dsp );
@@ -37458,6 +37551,1173 @@ static void REGAL_CALL error_glWeightPathsNV(GLuint resultPath, GLsizei numPaths
         rCtx->dsp.CurrTable()->glGetError();
     }
     rCtx->dsp.CurrTable()->glWeightPathsNV(resultPath, numPaths, paths, weights);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_REGAL_extension_query
+
+static GLboolean REGAL_CALL error_glGetExtensionREGAL(const GLchar *ext)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLboolean  ret = rCtx->dsp.CurrTable()->glGetExtensionREGAL(ext);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static GLboolean REGAL_CALL error_glIsSupportedREGAL(const GLchar *ext)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLboolean  ret = rCtx->dsp.CurrTable()->glIsSupportedREGAL(ext);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+// GL_AMD_debug_output
+
+static GLuint REGAL_CALL error_glGetDebugMessageLogAMD(GLuint count, GLsizei bufsize, GLenum *categories, GLuint *severities, GLuint *ids, GLsizei *lengths, GLchar *message)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLuint  ret = rCtx->dsp.CurrTable()->glGetDebugMessageLogAMD(count, bufsize, categories, severities, ids, lengths, message);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static void REGAL_CALL error_glDebugMessageCallbackAMD(GLDEBUGPROCAMD callback, GLvoid *userParam)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDebugMessageCallbackAMD(callback, userParam);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glDebugMessageEnableAMD(GLenum category, GLenum severity, GLsizei count, const GLuint *ids, GLboolean enabled)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDebugMessageEnableAMD(category, severity, count, ids, enabled);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glDebugMessageInsertAMD(GLenum category, GLenum severity, GLuint id, GLsizei length, const GLchar *buf)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDebugMessageInsertAMD(category, severity, id, length, buf);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_AMD_multi_draw_indirect
+
+static void REGAL_CALL error_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoid *indirect, GLsizei primcount, GLsizei stride)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum type, const GLvoid *indirect, GLsizei primcount, GLsizei stride)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_AMD_name_gen_delete
+
+static GLboolean REGAL_CALL error_glIsNameAMD(GLenum identifier, GLuint name)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLboolean  ret = rCtx->dsp.CurrTable()->glIsNameAMD(identifier, name);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static void REGAL_CALL error_glDeleteNamesAMD(GLenum identifier, GLuint num, const GLuint *names)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDeleteNamesAMD(identifier, num, names);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glGenNamesAMD(GLenum identifier, GLuint num, GLuint *names)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glGenNamesAMD(identifier, num, names);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_AMD_sample_positions
+
+static void REGAL_CALL error_glSetMultisamplefvAMD(GLenum pname, GLuint index, const GLfloat *val)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glSetMultisamplefvAMD(pname, index, val);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_AMD_stencil_operation_extended
+
+static void REGAL_CALL error_glStencilOpValueAMD(GLenum face, GLuint value)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glStencilOpValueAMD(face, value);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_ARB_base_instance
+
+static void REGAL_CALL error_glDrawArraysInstancedBaseInstance(GLenum mode, GLint first, GLsizei count, GLsizei primcount, GLuint baseinstance)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDrawArraysInstancedBaseInstance(mode, first, count, primcount, baseinstance);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glDrawElementsInstancedBaseInstance(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount, GLuint baseinstance)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDrawElementsInstancedBaseInstance(mode, count, type, indices, primcount, baseinstance);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glDrawElementsInstancedBaseVertexBaseInstance(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount, GLint basevertex, GLuint baseinstance)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDrawElementsInstancedBaseVertexBaseInstance(mode, count, type, indices, primcount, basevertex, baseinstance);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_ARB_cl_event
+
+static GLsync REGAL_CALL error_glCreateSyncFromCLeventARB(cl_context context, cl_event event, GLbitfield flags)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLsync  ret = rCtx->dsp.CurrTable()->glCreateSyncFromCLeventARB(context, event, flags);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+// GL_ARB_internalformat_query
+
+static void REGAL_CALL error_glGetInternalformativ(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glGetInternalformativ(target, internalformat, pname, bufSize, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_ARB_texture_storage
+
+static void REGAL_CALL error_glTexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexStorage1D(target, levels, internalformat, width);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTexStorage2D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexStorage2D(target, levels, internalformat, width, height);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTexStorage3D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexStorage3D(target, levels, internalformat, width, height, depth);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureStorage1DEXT(GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureStorage1DEXT(texture, target, levels, internalformat, width);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureStorage2DEXT(GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureStorage2DEXT(texture, target, levels, internalformat, width, height);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureStorage3DEXT(GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureStorage3DEXT(texture, target, levels, internalformat, width, height, depth);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_ARB_transform_feedback_instanced
+
+static void REGAL_CALL error_glDrawTransformFeedbackInstanced(GLenum mode, GLuint id, GLsizei primcount)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDrawTransformFeedbackInstanced(mode, id, primcount);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glDrawTransformFeedbackStreamInstanced(GLenum mode, GLuint id, GLuint stream, GLsizei primcount)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glDrawTransformFeedbackStreamInstanced(mode, id, stream, primcount);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_EXT_x11_sync_object
+
+static GLsync REGAL_CALL error_glImportSyncEXT(GLenum external_sync_type, GLintptr external_sync, GLbitfield flags)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLsync  ret = rCtx->dsp.CurrTable()->glImportSyncEXT(external_sync_type, external_sync, flags);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+// GL_INTEL_texture_scissor
+
+static void REGAL_CALL error_glTexScissorFuncINTEL(GLenum target, GLenum lfunc, GLenum hfunc)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexScissorFuncINTEL(target, lfunc, hfunc);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTexScissorINTEL(GLenum target, GLclampf tlow, GLclampf thigh)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexScissorINTEL(target, tlow, thigh);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_NV_bindless_texture
+
+static GLboolean REGAL_CALL error_glIsImageHandleResidentNV(GLuint64 handle)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLboolean  ret = rCtx->dsp.CurrTable()->glIsImageHandleResidentNV(handle);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static GLboolean REGAL_CALL error_glIsTextureHandleResidentNV(GLuint64 handle)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLboolean  ret = rCtx->dsp.CurrTable()->glIsTextureHandleResidentNV(handle);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static GLuint64 REGAL_CALL error_glGetImageHandleNV(GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLuint64  ret = rCtx->dsp.CurrTable()->glGetImageHandleNV(texture, level, layered, layer, format);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static GLuint64 REGAL_CALL error_glGetTextureHandleNV(GLuint texture)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLuint64  ret = rCtx->dsp.CurrTable()->glGetTextureHandleNV(texture);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static GLuint64 REGAL_CALL error_glGetTextureSamplerHandleNV(GLuint texture, GLuint sampler)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    GLuint64  ret = rCtx->dsp.CurrTable()->glGetTextureSamplerHandleNV(texture, sampler);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+return ret;
+}
+
+static void REGAL_CALL error_glMakeImageHandleNonResidentNV(GLuint64 handle)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glMakeImageHandleNonResidentNV(handle);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glMakeImageHandleResidentNV(GLuint64 handle, GLenum access)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glMakeImageHandleResidentNV(handle, access);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glMakeTextureHandleNonResidentNV(GLuint64 handle)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glMakeTextureHandleNonResidentNV(handle);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glMakeTextureHandleResidentNV(GLuint64 handle)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glMakeTextureHandleResidentNV(handle);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glProgramUniformHandleui64NV(GLuint program, GLint location, GLuint64 value)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glProgramUniformHandleui64NV(program, location, value);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glProgramUniformHandleui64vNV(GLuint program, GLint location, GLsizei count, const GLuint64 *values)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glProgramUniformHandleui64vNV(program, location, count, values);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glUniformHandleui64NV(GLint location, GLuint64 value)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glUniformHandleui64NV(location, value);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glUniformHandleui64vNV(GLint location, GLsizei count, const GLuint64 *value)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glUniformHandleui64vNV(location, count, value);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_NV_texture_multisample
+
+static void REGAL_CALL error_glTexImage2DMultisampleCoverageNV(GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTexImage3DMultisampleCoverageNV(GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureImage2DMultisampleCoverageNV(GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureImage2DMultisampleCoverageNV(texture, target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureImage2DMultisampleNV(GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureImage2DMultisampleNV(texture, target, samples, internalFormat, width, height, fixedSampleLocations);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureImage3DMultisampleCoverageNV(GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureImage3DMultisampleCoverageNV(texture, target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glTextureImage3DMultisampleNV(GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glTextureImage3DMultisampleNV(texture, target, samples, internalFormat, width, height, depth, fixedSampleLocations);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_SUN_read_video_pixels
+
+static void REGAL_CALL error_glReadVideoPixelsSUN(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glReadVideoPixelsSUN(x, y, width, height, format, type, pixels);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_EXT_fragment_lighting
+
+static void REGAL_CALL error_glFragmentColorMaterialEXT(GLenum face, GLenum mode)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentColorMaterialEXT(face, mode);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightModelfEXT(GLenum pname, GLfloat param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightModelfEXT(pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightModelfvEXT(GLenum pname, GLfloat *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightModelfvEXT(pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightModeliEXT(GLenum pname, GLint param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightModeliEXT(pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightModelivEXT(GLenum pname, GLint *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightModelivEXT(pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightfEXT(GLenum light, GLenum pname, GLfloat param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightfEXT(light, pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightfvEXT(GLenum light, GLenum pname, GLfloat *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightfvEXT(light, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightiEXT(GLenum light, GLenum pname, GLint param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightiEXT(light, pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentLightivEXT(GLenum light, GLenum pname, GLint *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentLightivEXT(light, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentMaterialfEXT(GLenum face, GLenum pname, const GLfloat param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentMaterialfEXT(face, pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentMaterialfvEXT(GLenum face, GLenum pname, const GLfloat *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentMaterialfvEXT(face, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentMaterialiEXT(GLenum face, GLenum pname, const GLint param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentMaterialiEXT(face, pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFragmentMaterialivEXT(GLenum face, GLenum pname, const GLint *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glFragmentMaterialivEXT(face, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glGetFragmentLightfvEXT(GLenum light, GLenum pname, GLfloat *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glGetFragmentLightfvEXT(light, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glGetFragmentLightivEXT(GLenum light, GLenum pname, GLint *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glGetFragmentLightivEXT(light, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glGetFragmentMaterialfvEXT(GLenum face, GLenum pname, const GLfloat *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glGetFragmentMaterialfvEXT(face, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glGetFragmentMaterialivEXT(GLenum face, GLenum pname, const GLint *params)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glGetFragmentMaterialivEXT(face, pname, params);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glLightEnviEXT(GLenum pname, GLint param)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glLightEnviEXT(pname, param);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+// GL_EXT_debug_marker
+
+static void REGAL_CALL error_glInsertEventMarkerEXT(GLsizei length, const GLchar *marker)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glInsertEventMarkerEXT(length, marker);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glPushGroupMarkerEXT(GLsizei length, const GLchar *marker)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glPushGroupMarkerEXT(length, marker);
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glPopGroupMarkerEXT(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.CurrTable()->glGetError();
+    }
+    rCtx->dsp.CurrTable()->glPopGroupMarkerEXT();
     if (rCtx->err.inBeginEnd == false) {
         GLenum err1 = rCtx->dsp.CurrTable()->glGetError();
         if (err1 != GL_NO_ERROR) {
@@ -37586,7 +38846,7 @@ static void REGAL_CALL error_glAddSwapHintRectWIN(GLint x, GLint y, GLsizei widt
     }
 }
 
-void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
+void RegalPrivateInitErrorDispatchTable( DispatchTable & tbl )
 {
 
 // GL_VERSION_1_0
@@ -37939,6 +39199,9 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glTexImage3D = error_glTexImage3D;
    tbl.glTexSubImage3D = error_glTexSubImage3D;
    tbl.glCopyTexSubImage3D = error_glCopyTexSubImage3D;
+
+// GL_ARB_imaging
+
    tbl.glColorTable = error_glColorTable;
    tbl.glColorTableParameterfv = error_glColorTableParameterfv;
    tbl.glColorTableParameteriv = error_glColorTableParameteriv;
@@ -38200,14 +39463,26 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
 
    tbl.glColorMaski = error_glColorMaski;
    tbl.glGetBooleani_v = error_glGetBooleani_v;
+
+// GL_ARB_uniform_buffer_object
+
    tbl.glGetIntegeri_v = error_glGetIntegeri_v;
+
+// GL_VERSION_3_0
+
    tbl.glEnablei = error_glEnablei;
    tbl.glDisablei = error_glDisablei;
    tbl.glIsEnabledi = error_glIsEnabledi;
    tbl.glBeginTransformFeedback = error_glBeginTransformFeedback;
    tbl.glEndTransformFeedback = error_glEndTransformFeedback;
+
+// GL_ARB_uniform_buffer_object
+
    tbl.glBindBufferRange = error_glBindBufferRange;
    tbl.glBindBufferBase = error_glBindBufferBase;
+
+// GL_VERSION_3_0
+
    tbl.glTransformFeedbackVaryings = error_glTransformFeedbackVaryings;
    tbl.glGetTransformFeedbackVarying = error_glGetTransformFeedbackVarying;
    tbl.glClampColor = error_glClampColor;
@@ -38271,7 +39546,7 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glFramebufferTexture = error_glFramebufferTexture;
    tbl.glFramebufferTextureFace = error_glFramebufferTextureFace;
 
-// GL_VERSION_3_3
+// GL_ARB_sampler_objects
 
    tbl.glGenSamplers = error_glGenSamplers;
    tbl.glDeleteSamplers = error_glDeleteSamplers;
@@ -38287,12 +39562,24 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glGetSamplerParameterfv = error_glGetSamplerParameterfv;
    tbl.glGetSamplerParameterIiv = error_glGetSamplerParameterIiv;
    tbl.glGetSamplerParameterIuiv = error_glGetSamplerParameterIuiv;
+
+// GL_ARB_blend_func_extended
+
    tbl.glBindFragDataLocationIndexed = error_glBindFragDataLocationIndexed;
    tbl.glGetFragDataIndex = error_glGetFragDataIndex;
+
+// GL_ARB_timer_query
+
    tbl.glGetQueryObjecti64v = error_glGetQueryObjecti64v;
    tbl.glGetQueryObjectui64v = error_glGetQueryObjectui64v;
    tbl.glQueryCounter = error_glQueryCounter;
+
+// GL_VERSION_3_3
+
    tbl.glVertexAttribDivisor = error_glVertexAttribDivisor;
+
+// GL_ARB_vertex_type_2_10_10_10_rev
+
    tbl.glVertexP2ui = error_glVertexP2ui;
    tbl.glVertexP2uiv = error_glVertexP2uiv;
    tbl.glVertexP3ui = error_glVertexP3ui;
@@ -38338,8 +39625,14 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glBlendEquationSeparatei = error_glBlendEquationSeparatei;
    tbl.glBlendFunci = error_glBlendFunci;
    tbl.glBlendFuncSeparatei = error_glBlendFuncSeparatei;
+
+// GL_ARB_draw_indirect
+
    tbl.glDrawArraysIndirect = error_glDrawArraysIndirect;
    tbl.glDrawElementsIndirect = error_glDrawElementsIndirect;
+
+// GL_ARB_gpu_shader_fp64
+
    tbl.glUniform1d = error_glUniform1d;
    tbl.glUniform2d = error_glUniform2d;
    tbl.glUniform3d = error_glUniform3d;
@@ -38363,10 +39656,13 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
 
    tbl.glMinSampleShading = error_glMinSampleShading;
 
-// GL_VERSION_4_0
+// GL_ARB_tessellation_shader
 
    tbl.glPatchParameteri = error_glPatchParameteri;
    tbl.glPatchParameterfv = error_glPatchParameterfv;
+
+// GL_ARB_transform_feedback2
+
    tbl.glGenTransformFeedbacks = error_glGenTransformFeedbacks;
    tbl.glDeleteTransformFeedbacks = error_glDeleteTransformFeedbacks;
    tbl.glBindTransformFeedback = error_glBindTransformFeedback;
@@ -38374,10 +39670,16 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glPauseTransformFeedback = error_glPauseTransformFeedback;
    tbl.glResumeTransformFeedback = error_glResumeTransformFeedback;
    tbl.glDrawTransformFeedback = error_glDrawTransformFeedback;
+
+// GL_ARB_transform_feedback3
+
    tbl.glDrawTransformFeedbackStream = error_glDrawTransformFeedbackStream;
    tbl.glBeginQueryIndexed = error_glBeginQueryIndexed;
    tbl.glEndQueryIndexed = error_glEndQueryIndexed;
    tbl.glGetQueryIndexediv = error_glGetQueryIndexediv;
+
+// GL_ARB_shader_subroutine
+
    tbl.glGetSubroutineUniformLocation = error_glGetSubroutineUniformLocation;
    tbl.glGetSubroutineIndex = error_glGetSubroutineIndex;
    tbl.glGetActiveSubroutineUniformiv = error_glGetActiveSubroutineUniformiv;
@@ -38387,7 +39689,7 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glGetUniformSubroutineuiv = error_glGetUniformSubroutineuiv;
    tbl.glGetProgramStageiv = error_glGetProgramStageiv;
 
-// GL_VERSION_4_1
+// GL_ARB_vertex_attrib_64bit
 
    tbl.glVertexAttribL1d = error_glVertexAttribL1d;
    tbl.glVertexAttribL2d = error_glVertexAttribL2d;
@@ -38399,14 +39701,23 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glVertexAttribL4dv = error_glVertexAttribL4dv;
    tbl.glVertexAttribLPointer = error_glVertexAttribLPointer;
    tbl.glGetVertexAttribLdv = error_glGetVertexAttribLdv;
+
+// GL_ARB_ES2_compatibility
+
    tbl.glReleaseShaderCompiler = error_glReleaseShaderCompiler;
    tbl.glShaderBinary = error_glShaderBinary;
    tbl.glGetShaderPrecisionFormat = error_glGetShaderPrecisionFormat;
    tbl.glDepthRangef = error_glDepthRangef;
    tbl.glClearDepthf = error_glClearDepthf;
+
+// GL_ARB_get_program_binary
+
    tbl.glGetProgramBinary = error_glGetProgramBinary;
    tbl.glProgramBinary = error_glProgramBinary;
    tbl.glProgramParameteri = error_glProgramParameteri;
+
+// GL_ARB_viewport_array
+
    tbl.glViewportArrayv = error_glViewportArrayv;
    tbl.glViewportIndexedf = error_glViewportIndexedf;
    tbl.glViewportIndexedfv = error_glViewportIndexedfv;
@@ -38417,6 +39728,9 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glDepthRangeIndexed = error_glDepthRangeIndexed;
    tbl.glGetFloati_v = error_glGetFloati_v;
    tbl.glGetDoublei_v = error_glGetDoublei_v;
+
+// GL_ARB_separate_shader_objects
+
    tbl.glActiveShaderProgram = error_glActiveShaderProgram;
    tbl.glUseProgramStages = error_glUseProgramStages;
    tbl.glCreateShaderProgramv = error_glCreateShaderProgramv;
@@ -38885,7 +40199,6 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
 // GL_EXT_texture3D
 
    tbl.glTexImage3DEXT = error_glTexImage3DEXT;
-   tbl.glTexSubImage3DEXT = error_glTexSubImage3DEXT;
 
 // GL_SGIS_texture_filter4
 
@@ -38896,6 +40209,7 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
 
    tbl.glTexSubImage1DEXT = error_glTexSubImage1DEXT;
    tbl.glTexSubImage2DEXT = error_glTexSubImage2DEXT;
+   tbl.glTexSubImage3DEXT = error_glTexSubImage3DEXT;
 
 // GL_EXT_copy_texture
 
@@ -39138,6 +40452,11 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glApplyTextureEXT = error_glApplyTextureEXT;
    tbl.glTextureLightEXT = error_glTextureLightEXT;
    tbl.glTextureMaterialEXT = error_glTextureMaterialEXT;
+
+// GL_EXT_scene_marker
+
+   tbl.glBeginSceneEXT = error_glBeginSceneEXT;
+   tbl.glEndSceneEXT = error_glEndSceneEXT;
 
 // GL_SGIX_async
 
@@ -39853,7 +41172,6 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
 
    tbl.glProgramVertexLimitNV = error_glProgramVertexLimitNV;
    tbl.glFramebufferTextureEXT = error_glFramebufferTextureEXT;
-   tbl.glFramebufferTextureLayerEXT = error_glFramebufferTextureLayerEXT;
    tbl.glFramebufferTextureFaceEXT = error_glFramebufferTextureFaceEXT;
 
 // GL_EXT_geometry_shader4
@@ -39904,6 +41222,10 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
 
    tbl.glDrawArraysInstancedEXT = error_glDrawArraysInstancedEXT;
    tbl.glDrawElementsInstancedEXT = error_glDrawElementsInstancedEXT;
+
+// GL_EXT_texture_array
+
+   tbl.glFramebufferTextureLayerEXT = error_glFramebufferTextureLayerEXT;
 
 // GL_EXT_texture_buffer_object
 
@@ -40230,7 +41552,7 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glEndPerfMonitorAMD = error_glEndPerfMonitorAMD;
    tbl.glGetPerfMonitorCounterDataAMD = error_glGetPerfMonitorCounterDataAMD;
 
-// GL_AMD_vertex_shader_tesselator
+// GL_AMD_vertex_shader_tessellator
 
    tbl.glTessellationFactorAMD = error_glTessellationFactorAMD;
    tbl.glTessellationModeAMD = error_glTessellationModeAMD;
@@ -40470,6 +41792,130 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glTransformPathNV = error_glTransformPathNV;
    tbl.glWeightPathsNV = error_glWeightPathsNV;
 
+// GL_REGAL_extension_query
+
+   tbl.glGetExtensionREGAL = error_glGetExtensionREGAL;
+   tbl.glIsSupportedREGAL = error_glIsSupportedREGAL;
+
+// GL_AMD_debug_output
+
+   tbl.glGetDebugMessageLogAMD = error_glGetDebugMessageLogAMD;
+   tbl.glDebugMessageCallbackAMD = error_glDebugMessageCallbackAMD;
+   tbl.glDebugMessageEnableAMD = error_glDebugMessageEnableAMD;
+   tbl.glDebugMessageInsertAMD = error_glDebugMessageInsertAMD;
+
+// GL_AMD_multi_draw_indirect
+
+   tbl.glMultiDrawArraysIndirectAMD = error_glMultiDrawArraysIndirectAMD;
+   tbl.glMultiDrawElementsIndirectAMD = error_glMultiDrawElementsIndirectAMD;
+
+// GL_AMD_name_gen_delete
+
+   tbl.glIsNameAMD = error_glIsNameAMD;
+   tbl.glDeleteNamesAMD = error_glDeleteNamesAMD;
+   tbl.glGenNamesAMD = error_glGenNamesAMD;
+
+// GL_AMD_sample_positions
+
+   tbl.glSetMultisamplefvAMD = error_glSetMultisamplefvAMD;
+
+// GL_AMD_stencil_operation_extended
+
+   tbl.glStencilOpValueAMD = error_glStencilOpValueAMD;
+
+// GL_ARB_base_instance
+
+   tbl.glDrawArraysInstancedBaseInstance = error_glDrawArraysInstancedBaseInstance;
+   tbl.glDrawElementsInstancedBaseInstance = error_glDrawElementsInstancedBaseInstance;
+   tbl.glDrawElementsInstancedBaseVertexBaseInstance = error_glDrawElementsInstancedBaseVertexBaseInstance;
+
+// GL_ARB_cl_event
+
+   tbl.glCreateSyncFromCLeventARB = error_glCreateSyncFromCLeventARB;
+
+// GL_ARB_internalformat_query
+
+   tbl.glGetInternalformativ = error_glGetInternalformativ;
+
+// GL_ARB_texture_storage
+
+   tbl.glTexStorage1D = error_glTexStorage1D;
+   tbl.glTexStorage2D = error_glTexStorage2D;
+   tbl.glTexStorage3D = error_glTexStorage3D;
+   tbl.glTextureStorage1DEXT = error_glTextureStorage1DEXT;
+   tbl.glTextureStorage2DEXT = error_glTextureStorage2DEXT;
+   tbl.glTextureStorage3DEXT = error_glTextureStorage3DEXT;
+
+// GL_ARB_transform_feedback_instanced
+
+   tbl.glDrawTransformFeedbackInstanced = error_glDrawTransformFeedbackInstanced;
+   tbl.glDrawTransformFeedbackStreamInstanced = error_glDrawTransformFeedbackStreamInstanced;
+
+// GL_EXT_x11_sync_object
+
+   tbl.glImportSyncEXT = error_glImportSyncEXT;
+
+// GL_INTEL_texture_scissor
+
+   tbl.glTexScissorFuncINTEL = error_glTexScissorFuncINTEL;
+   tbl.glTexScissorINTEL = error_glTexScissorINTEL;
+
+// GL_NV_bindless_texture
+
+   tbl.glIsImageHandleResidentNV = error_glIsImageHandleResidentNV;
+   tbl.glIsTextureHandleResidentNV = error_glIsTextureHandleResidentNV;
+   tbl.glGetImageHandleNV = error_glGetImageHandleNV;
+   tbl.glGetTextureHandleNV = error_glGetTextureHandleNV;
+   tbl.glGetTextureSamplerHandleNV = error_glGetTextureSamplerHandleNV;
+   tbl.glMakeImageHandleNonResidentNV = error_glMakeImageHandleNonResidentNV;
+   tbl.glMakeImageHandleResidentNV = error_glMakeImageHandleResidentNV;
+   tbl.glMakeTextureHandleNonResidentNV = error_glMakeTextureHandleNonResidentNV;
+   tbl.glMakeTextureHandleResidentNV = error_glMakeTextureHandleResidentNV;
+   tbl.glProgramUniformHandleui64NV = error_glProgramUniformHandleui64NV;
+   tbl.glProgramUniformHandleui64vNV = error_glProgramUniformHandleui64vNV;
+   tbl.glUniformHandleui64NV = error_glUniformHandleui64NV;
+   tbl.glUniformHandleui64vNV = error_glUniformHandleui64vNV;
+
+// GL_NV_texture_multisample
+
+   tbl.glTexImage2DMultisampleCoverageNV = error_glTexImage2DMultisampleCoverageNV;
+   tbl.glTexImage3DMultisampleCoverageNV = error_glTexImage3DMultisampleCoverageNV;
+   tbl.glTextureImage2DMultisampleCoverageNV = error_glTextureImage2DMultisampleCoverageNV;
+   tbl.glTextureImage2DMultisampleNV = error_glTextureImage2DMultisampleNV;
+   tbl.glTextureImage3DMultisampleCoverageNV = error_glTextureImage3DMultisampleCoverageNV;
+   tbl.glTextureImage3DMultisampleNV = error_glTextureImage3DMultisampleNV;
+
+// GL_SUN_read_video_pixels
+
+   tbl.glReadVideoPixelsSUN = error_glReadVideoPixelsSUN;
+
+// GL_EXT_fragment_lighting
+
+   tbl.glFragmentColorMaterialEXT = error_glFragmentColorMaterialEXT;
+   tbl.glFragmentLightModelfEXT = error_glFragmentLightModelfEXT;
+   tbl.glFragmentLightModelfvEXT = error_glFragmentLightModelfvEXT;
+   tbl.glFragmentLightModeliEXT = error_glFragmentLightModeliEXT;
+   tbl.glFragmentLightModelivEXT = error_glFragmentLightModelivEXT;
+   tbl.glFragmentLightfEXT = error_glFragmentLightfEXT;
+   tbl.glFragmentLightfvEXT = error_glFragmentLightfvEXT;
+   tbl.glFragmentLightiEXT = error_glFragmentLightiEXT;
+   tbl.glFragmentLightivEXT = error_glFragmentLightivEXT;
+   tbl.glFragmentMaterialfEXT = error_glFragmentMaterialfEXT;
+   tbl.glFragmentMaterialfvEXT = error_glFragmentMaterialfvEXT;
+   tbl.glFragmentMaterialiEXT = error_glFragmentMaterialiEXT;
+   tbl.glFragmentMaterialivEXT = error_glFragmentMaterialivEXT;
+   tbl.glGetFragmentLightfvEXT = error_glGetFragmentLightfvEXT;
+   tbl.glGetFragmentLightivEXT = error_glGetFragmentLightivEXT;
+   tbl.glGetFragmentMaterialfvEXT = error_glGetFragmentMaterialfvEXT;
+   tbl.glGetFragmentMaterialivEXT = error_glGetFragmentMaterialivEXT;
+   tbl.glLightEnviEXT = error_glLightEnviEXT;
+
+// GL_EXT_debug_marker
+
+   tbl.glInsertEventMarkerEXT = error_glInsertEventMarkerEXT;
+   tbl.glPushGroupMarkerEXT = error_glPushGroupMarkerEXT;
+   tbl.glPopGroupMarkerEXT = error_glPopGroupMarkerEXT;
+
 // GL_KTX_buffer_region
 
    tbl.glBufferRegionEnabledEXT = error_glBufferRegionEnabledEXT;
@@ -40487,3 +41933,5 @@ void RegalPrivateInitErrorDispatchTable( RegalDispatchTable & tbl )
    tbl.glAddSwapHintRectWIN = error_glAddSwapHintRectWIN;
 
 }
+
+REGAL_NAMESPACE_END

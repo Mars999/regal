@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -27,10 +27,23 @@
  OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "pch.h" /* For MS precompiled header support */
 
+#include "RegalUtil.h"
 
-#include "RegalPrivate.h"
-#include <sstream>
+REGAL_GLOBAL_BEGIN
+
+#include <string>
+using std::string;
+
+#include <boost/print/string_list.hpp>
+typedef boost::print::string_list<string> string_list;
+
+#include "RegalIff.h"
+
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
 
 namespace {
     static int progcount = -1;
@@ -75,7 +88,7 @@ namespace {
 
 
 
-    void GenerateVertexShaderSource( const RFF * rff, const RFF::State & state, std::stringstream & src ) {
+    void GenerateVertexShaderSource( const RFF * rff, const RFF::State & state, string_list & src ) {
         const bool es = rff->es;
         const bool legacy = rff->legacy;
         const Store & st = state.processed;
@@ -83,14 +96,14 @@ namespace {
         bool hasNormalMap = false;
         bool hasSphereMap = false;
         bool hasReflectionMap = false;
-		bool hasEyeLinearTexGen = false;
+        bool hasEyeLinearTexGen = false;
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
             for( int j = 0; j < 4; j++ ) {
                 RFF::TexgenMode mode = st.tex[i].texgen[j].mode;
                 hasNormalMap = hasNormalMap || mode == RFF::TG_NormalMap;
                 hasSphereMap = hasSphereMap || mode == RFF::TG_SphereMap;
                 hasReflectionMap = hasReflectionMap || mode == RFF::TG_ReflectionMap;
-				hasEyeLinearTexGen = hasEyeLinearTexGen || mode == RFF::TG_EyeLinear;
+                hasEyeLinearTexGen = hasEyeLinearTexGen || mode == RFF::TG_EyeLinear;
             }
         }
         bool hasClipPlanes = false;
@@ -110,6 +123,12 @@ namespace {
         if( es || legacy ) {
             src << "#define in attribute\n";
             src << "#define out varying\n";
+        }
+
+        if( st.shadeModelFlat && ! legacy && ! es ) {
+            src << "#define FLAT flat\n";
+        } else {
+            src << "#define FLAT  \n";
         }
 
         if( es ) {
@@ -137,7 +156,7 @@ namespace {
         //src << "in vec4 rglWeight;\n";
         if( st.lighting || hasNormalMap || hasSphereMap || hasReflectionMap ) {
             src << "uniform mat4 rglModelviewInverseTranspose;\n";
-            src << "in vec3 rglNormal;\n";            
+            src << "in vec3 rglNormal;\n";
         }
         if( st.lighting ) {
             src << "uniform vec4 rglLightModelAmbient;\n";
@@ -170,10 +189,10 @@ namespace {
             }
             src << "in vec4 rglMultiTexCoord" << i << ";\n";
         }
-        src << "out vec4 rglCOL0;\n";
+        src << "FLAT out vec4 rglCOL0;\n";
         if( st.lighting ) {
             if( st.lightModelTwoSide ) {
-                src << "out vec4 rglCOL1;\n";
+                src << "FLAT out vec4 rglCOL1;\n";
             }
             if( st.lightModelSeparateSpecular ) {
                 src << "out vec4 rglSCOL0;\n";
@@ -199,9 +218,13 @@ namespace {
                 switch( g.mode ) {
                     case RFF::TG_EyeLinear:
                         src << "uniform vec4 rglTexGen" << i << "Eye" << tc[j] << ";\n";
+                        break;
                     case RFF::TG_ObjectLinear:
                         src << "uniform vec4 rglTexGen" << i << "Obj" << tc[j] << ";\n";
-                    default: break;
+                        break;
+                    default:
+                        src << "//ERROR: unsupported gen mode\n";
+                        break;
                 }
             }
             src << "out vec4 rglTEXCOORD" << i << ";\n";
@@ -258,27 +281,47 @@ namespace {
             }
             if( st.colorMaterial ) {
                 switch( st.colorMaterialTarget[0] ) {
-                    case RFF::CM_Ambient: src << "    mFront[" << ME_Ambient << "] = rglColor;\n"; break;
-                    case RFF::CM_Diffuse: src << "    mFront[" << ME_Diffuse << "] = rglColor;\n"; break;
-                    case RFF::CM_Specular: src << "    mFront[" << ME_Specular << "] = rglColor;\n"; break;
-                    case RFF::CM_Emission: src << "    mFront[" << ME_Emission << "] = rglColor;\n"; break;
+                    case RFF::CM_Ambient:
+                        src << "    mFront[" << ME_Ambient << "] = rglColor;\n";
+                        break;
+                    case RFF::CM_Diffuse:
+                        src << "    mFront[" << ME_Diffuse << "] = rglColor;\n";
+                        break;
+                    case RFF::CM_Specular:
+                        src << "    mFront[" << ME_Specular << "] = rglColor;\n";
+                        break;
+                    case RFF::CM_Emission:
+                        src << "    mFront[" << ME_Emission << "] = rglColor;\n";
+                        break;
                     case RFF::CM_AmbientAndDiffuse:
                         src << "    mFront[" << ME_Ambient << "] = rglColor;\n";
                         src << "    mFront[" << ME_Diffuse << "] = rglColor;\n";
                         break;
-                    default: break;
+                    default:
+                        src << "//ERROR: unsupported color material[0] target\n";
+                        break;
                 }
                 if( st.lightModelTwoSide ) {
                     switch( st.colorMaterialTarget[1] ) {
-                        case RFF::CM_Ambient: src << "    mBack[" << ME_Ambient << "] = rglColor;\n"; break;
-                        case RFF::CM_Diffuse: src << "    mBack[" << ME_Diffuse << "] = rglColor;\n"; break;
-                        case RFF::CM_Specular: src << "    mBack[" << ME_Specular << "] = rglColor;\n"; break;
-                        case RFF::CM_Emission: src << "    mBack[" << ME_Emission << "] = rglColor;\n"; break;
+                        case RFF::CM_Ambient:
+                            src << "    mBack[" << ME_Ambient << "] = rglColor;\n";
+                            break;
+                        case RFF::CM_Diffuse:
+                            src << "    mBack[" << ME_Diffuse << "] = rglColor;\n";
+                            break;
+                        case RFF::CM_Specular:
+                            src << "    mBack[" << ME_Specular << "] = rglColor;\n";
+                            break;
+                        case RFF::CM_Emission:
+                            src << "    mBack[" << ME_Emission << "] = rglColor;\n";
+                            break;
                         case RFF::CM_AmbientAndDiffuse:
                             src << "    mBack[" << ME_Ambient << "] = rglColor;\n";
                             src << "    mBack[" << ME_Diffuse << "] = rglColor;\n";
                             break;
-                        default: break;
+                        default:
+                            src << "//ERROR: unsupported color material[1] target\n";
+                            break;
                     }
                 }
             }
@@ -307,7 +350,7 @@ namespace {
                     src << "        vec3 h = normalize( l + e );\n";
                     src << "        float S = D > 0.0 ? pow( dot( h, n ), mFront[" << ME_Shininess << "].x ) : 0.0;\n";
                     src << "        vec3 specular = S * rglLight" << i << "[" << LE_Specular << "].xyz * mFront[" << ME_Specular << "].xyz;\n";
-                    std::string attenmul = "";
+                    string attenmul = "";
                     if( st.light[ i ].attenuate ) {
                         src << "        float d = length( p.xyz / p.w  - lpos.xyz / lpos.w );\n";
                         src << "        vec3 dist = vec3( 1.0, d, d * d );\n";
@@ -397,7 +440,9 @@ namespace {
                     case RFF::TG_SphereMap:
                         src << "    tc." << comp[j] << " = smTc." << comp[j] << ";\n";
                         break;
-                    default: break;
+                    default:
+                        src << "//ERROR: unsupported tex gen mode\n";
+                        break;
                 }
             }
             if( t.useMatrix ) {
@@ -417,34 +462,14 @@ namespace {
             }
         }
         src << "}\n";
-        //<> RegalOutput( "Vertex shader:\n\n%s\n", src.str().c_str() );
-
+        GTrace( "Vertex shader:\n", src.str() );
     }
 
 
 
-    void AddTexEnv( RFF::TexenvMode env, GLenum fmt,  std::stringstream & s ) {
+    void AddTexEnv( int i, RFF::TexenvMode env, GLenum fmt,  string_list & s )
+    {
         switch( env ) {
-            case RFF::TEM_Modulate:
-                switch( fmt ) {
-                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
-                    case GL_LUMINANCE:
-                    case GL_RGB:             s << "    p.xyz = p.xyz * s.xyz;\n"; break;
-                    case GL_LUMINANCE_ALPHA:
-                    case GL_RGBA:            s << "    p = p * s;\n"; break;
-                    default: break;
-                }
-                break;
-            case RFF::TEM_Add:
-                switch( fmt ) {
-                    case GL_ALPHA:           s << "    p.w = p.w + s.w;\n"; break;
-                    case GL_LUMINANCE:
-                    case GL_RGB:             s << "    p.xyz = p.xyz + s.xyz;\n"; break;
-                    case GL_LUMINANCE_ALPHA:
-                    case GL_RGBA:            s << "    p = p + s;\n"; break;
-                    default: break;
-                }
-                break;
             case RFF::TEM_Replace:
                 switch( fmt ) {
                     case GL_ALPHA:           s << "    p.w = s.w;\n"; break;
@@ -452,101 +477,235 @@ namespace {
                     case GL_RGB:             s << "    p.xyz = s.xyz;\n"; break;
                     case GL_LUMINANCE_ALPHA:
                     case GL_RGBA:            s << "    p = s;\n"; break;
-                    default: break;
+                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                }
+                break;
+            case RFF::TEM_Modulate:
+                switch( fmt ) {
+                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
+                    case GL_LUMINANCE:
+                    case GL_RGB:             s << "    p.xyz = p.xyz * s.xyz;\n"; break;
+                    case GL_LUMINANCE_ALPHA:
+                    case GL_RGBA:            s << "    p = p * s;\n"; break;
+                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                }
+                break;
+            case RFF::TEM_Blend:
+                switch( fmt ) {
+                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
+                    case GL_LUMINANCE:
+                    case GL_RGB:             s << "    p.xyz *= (1.0 - s.xyz);\n";
+                                             s << "    p.xyz += (rglTexEnvColor" << i << ".xyz * s.xyz);\n"; break;
+                    case GL_LUMINANCE_ALPHA:
+                    case GL_RGBA:            s << "    p.xyz *= (1.0 - s.xyz);\n";
+                                             s << "    p.xyz += (rglTexEnvColor" << i << ".xyz * s.xyz);\n";
+                                             s << "    p.w *= s.w;\n"; break;
+                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                }
+                break;
+            case RFF::TEM_Add:
+                switch( fmt ) {
+                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
+                    case GL_LUMINANCE:
+                    case GL_RGB:             s << "    p.xyz = p.xyz + s.xyz;\n"; break;
+                    case GL_LUMINANCE_ALPHA:
+                    case GL_RGBA:            s << "    p = p + s;\n"; break;
+                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                }
+                break;
+            case RFF::TEM_Decal:
+                switch( fmt ) {
+                    case GL_ALPHA:
+                    case GL_LUMINANCE:
+                    case GL_LUMINANCE_ALPHA: s << "    //ERROR: tex env mode undefined for this texture format\n"; break;
+                    case GL_RGB:             s << "    p.xyz = s.xyz;\n"; break;
+                    case GL_RGBA:            s << "    p.xyz = p.xyz * (1.0 - s.w);\n";
+                                             s << "    p.xyz += s.xyz * s.w;\n"; break;
+                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
                 }
                 break;
             default:
+                s << "    //ERROR: Unsupported tex env mode\n"; break;
                 break;
         }
     }
 
-    void AddTexEnvCombine( RFF::TextureEnv & env, std::stringstream & s ) {
+    void AddTexEnvCombine( RFF::TextureEnv & env, string_list & s )
+    {
         bool skipAlpha = env.rgb.mode == RFF::TEC_Dot3Rgba;
         int rgbSources = 0;
         int aSources = 0;
         s << "    {\n";
         switch( env.rgb.mode ) {
-            case RFF::TEC_Replace: rgbSources = 1; break;
-            case RFF::TEC_Modulate: case RFF::TEC_Add: case RFF::TEC_AddSigned:
-            case RFF::TEC_Dot3Rgb: case RFF::TEC_Dot3Rgba: rgbSources = 2; break;
-            case RFF::TEC_Interpolate: rgbSources = 3; break;
-            default: break;
+            case RFF::TEC_Replace:
+                rgbSources = 1;
+                break;
+            case RFF::TEC_Modulate:
+            case RFF::TEC_Add:
+            case RFF::TEC_AddSigned:
+            case RFF::TEC_Dot3Rgb:
+            case RFF::TEC_Dot3Rgba:
+                rgbSources = 2;
+                break;
+            case RFF::TEC_Interpolate:
+                rgbSources = 3;
+                break;
+            default:
+                break;
         }
         if( skipAlpha == false ) {
             switch( env.a.mode ) {
-                case RFF::TEC_Replace: aSources = 1; break;
-                case RFF::TEC_Modulate: case RFF::TEC_Add: case RFF::TEC_AddSigned:
-                case RFF::TEC_Subtract: case RFF::TEC_Dot3Rgb: case RFF::TEC_Dot3Rgba: aSources = 2; break;
-                case RFF::TEC_Interpolate: aSources = 3; break;
-                default: break;
+                case RFF::TEC_Replace:
+                    aSources = 1;
+                    break;
+                case RFF::TEC_Modulate:
+                case RFF::TEC_Add:
+                case RFF::TEC_AddSigned:
+                case RFF::TEC_Subtract:
+                case RFF::TEC_Dot3Rgb:
+                case RFF::TEC_Dot3Rgba:
+                    aSources = 2;
+                    break;
+                case RFF::TEC_Interpolate:
+                    aSources = 3;
+                    break;
+                default:
+                    break;
             }
         }
         for( int i = 0; i < rgbSources; i++ ) {
-            s << "        vec3 csrc" << i << " = ";
-            std::string source;
+            bool skip = false;
+            string source;
             switch( env.rgb.src[i] ) {
-                case RFF::TCS_PrimaryColor: source = "rglCOL0"; break;
-                case RFF::TCS_Constant:     source = "rglConstantColor"; break;
-                case RFF::TCS_Previous:     source = "p"; break;
-                case RFF::TCS_Texture:      source = "s"; break;
-                default:break;
+                case RFF::TCS_PrimaryColor:
+                    source = "rglCOL0";
+                    break;
+                case RFF::TCS_Constant:
+                    source = "rglConstantColor";
+                    break;
+                case RFF::TCS_Previous:
+                    source = "p";
+                    break;
+                case RFF::TCS_Texture:
+                    source = "s";
+                    break;
+                default:
+                    skip = true;
+                    break;
             }
-            std::string suffix;
+            string suffix;
             switch( env.rgb.op[i] ) {
-                case RFF::TCO_Alpha: case RFF::TCO_OneMinusAlpha: suffix = ".www"; break;
-                case RFF::TCO_Color: case RFF::TCO_OneMinusColor: suffix = ".xyz"; break;
-                default: break;
+                case RFF::TCO_Alpha:
+                case RFF::TCO_OneMinusAlpha:
+                    suffix = ".www";
+                    break;
+                case RFF::TCO_Color:
+                case RFF::TCO_OneMinusColor:
+                    suffix = ".xyz";
+                    break;
+                default:
+                    skip = true;
+                    break;
             }
-            if( env.rgb.op[i] == RFF::TCO_OneMinusColor || env.rgb.op[i] == RFF::TCO_OneMinusAlpha ) {
-                s << "1 - ";
+            if ( skip ) {
+                s << "        vec3 csrc" << i << " = vec3(0.0f, 0.0f, 0.0f);\n";
+            } else {
+                s << "        vec3 csrc" << i << " = ";
+                if( env.rgb.op[i] == RFF::TCO_OneMinusColor ||
+                    env.rgb.op[i] == RFF::TCO_OneMinusAlpha ) {
+                    s << "1 - ";
+                }
+                s << source << suffix << ";\n";
             }
-            s << source << suffix << ";\n";
         }
-        s << "        p.xyz = ";
         switch( env.rgb.mode ) {
-            case RFF::TEC_Replace:     s << "csrc0;\n"; break;
-            case RFF::TEC_Modulate:    s << "csrc0 * csrc1;\n"; break;
-            case RFF::TEC_Add:         s << "csrc0 + csrc1;\n"; break;
-            case RFF::TEC_AddSigned:   s << "csrc0 + csrc1 - 0.5;\n"; break;
-            case RFF::TEC_Subtract:    s << "csrc0 - csrc1;\n"; break;
+            case RFF::TEC_Replace:
+                s << "        p.xyz = csrc0;\n";
+                break;
+            case RFF::TEC_Modulate:
+                s << "        p.xyz = csrc0 * csrc1;\n";
+                break;
+            case RFF::TEC_Add:
+                s << "        p.xyz = csrc0 + csrc1;\n";
+                break;
+            case RFF::TEC_AddSigned:
+                s << "        p.xyz = csrc0 + csrc1 - 0.5;\n";
+                break;
+            case RFF::TEC_Subtract:
+                s << "        p.xyz = csrc0 - csrc1;\n";
+                break;
             case RFF::TEC_Dot3Rgb:
-            case RFF::TEC_Dot3Rgba:    s << "dot( ( 2.0 * csrc0 - 1.0 ), ( 2.0 * csrc1 - 1.0 ) );\n"; break;
-            case RFF::TEC_Interpolate: s << "mix( csrc0, csrc1, csrc2);\n"; break;
-            default: break;
+            case RFF::TEC_Dot3Rgba:
+                s << "        p.xyz = dot( ( 2.0 * csrc0 - 1.0 ), ( 2.0 * csrc1 - 1.0 ) );\n";
+                break;
+            case RFF::TEC_Interpolate:
+                s << "        p.xyz = mix( csrc0, csrc1, csrc2);\n";
+                break;
+            default:
+                s << "//ERROR: Unsupported tex env combine rgb mode\n"; break;
+                break;
         }
         if( skipAlpha ) {
             s << "        p.w = p.x;\n";
         } else {
             for( int i = 0; i < aSources; i++ ) {
-                s << "        float asrc" << i << " = ";
-                std::string source;
+                bool skip = false;
+                string source;
                 switch( env.a.src[i] ) {
-                    case RFF::TCS_PrimaryColor: source = "rglCOL0"; break;
-                    case RFF::TCS_Constant:     source = "rglConstantColor"; break;
-                    case RFF::TCS_Previous:     source = "p"; break;
-                    case RFF::TCS_Texture:      source = "s"; break;
-                    default:break;
+                    case RFF::TCS_PrimaryColor:
+                        source = "rglCOL0";
+                        break;
+                    case RFF::TCS_Constant:
+                            source = "rglConstantColor";
+                        break;
+                    case RFF::TCS_Previous:
+                            source = "p";
+                        break;
+                    case RFF::TCS_Texture:
+                             source = "s";
+                        break;
+                    default:
+                        skip = true;
+                        break;
                 }
-                if( env.a.op[i] == RFF::TCO_OneMinusAlpha ) {
-                    s << "1 - ";
+                if ( skip ) {
+                    s << "        float asrc" << i << " = 0.0f;\n";
+                } else {
+                    s << "        float asrc" << i << " = ";
+                    if( env.a.op[i] == RFF::TCO_OneMinusAlpha ) {
+                        s << "1 - ";
+                    }
+                    s << source << ".w;\n";
                 }
-                s << source << ".w;\n";
             }
-            s << "        p.w = ";
             switch( env.a.mode ) {
-                case RFF::TEC_Replace:     s << "asrc0;\n"; break;
-                case RFF::TEC_Modulate:    s << "asrc0 * asrc1;\n"; break;
-                case RFF::TEC_Add:         s << "asrc0 + asrc1;\n"; break;
-                case RFF::TEC_AddSigned:   s << "asrc0 + asrc1 - 0.5;\n"; break;
-                case RFF::TEC_Subtract:    s << "asrc0 - asrc1;\n"; break;
-                case RFF::TEC_Interpolate: s << "mix( asrc0, asrc1, asrc2 );\n"; break;
-                default: break;
+                case RFF::TEC_Replace:
+                    s << "        p.w = asrc0;\n";
+                    break;
+                case RFF::TEC_Modulate:
+                    s << "        p.w = asrc0 * asrc1;\n";
+                    break;
+                case RFF::TEC_Add:
+                    s << "        p.w = asrc0 + asrc1;\n";
+                    break;
+                case RFF::TEC_AddSigned:
+                    s << "        p.w = asrc0 + asrc1 - 0.5;\n";
+                    break;
+                case RFF::TEC_Subtract:
+                    s << "        p.w = asrc0 - asrc1;\n";
+                    break;
+                case RFF::TEC_Interpolate:
+                    s << "        p.w = mix( asrc0, asrc1, asrc2 );\n";
+                    break;
+                default:
+                    s << "//ERROR: Unsupported tex env combine alpha mode\n"; break;
+                    break;
             }
         }
         s << "    }\n";
     }
 
-    std::string TexEnvModeName( GLenum mode ) {
+    string TexEnvModeName( GLenum mode ) {
         switch( mode ) {
             case GL_MODULATE:    return "Modulate";
             case GL_ADD:         return "Add";
@@ -556,7 +715,7 @@ namespace {
         }
         return "";
     }
-    std::string TexFormatName( GLenum format ) {
+    string TexFormatName( GLenum format ) {
         switch( format ) {
             case GL_ALPHA:           return "A";
             case GL_LUMINANCE:       return "L";
@@ -567,15 +726,17 @@ namespace {
         }
         return "";
     }
-    std::string TexEnvFuncName( GLenum mode, GLenum format ) {
-        std::string s;
+#if 0
+    string TexEnvFuncName( GLenum mode, GLenum format ) {
+        string s;
         s += "TexEnv";
         s += TexEnvModeName( mode );
         s += TexFormatName( format );
         return s;
     }
+#endif
 
-    std::string TargetSuffix( GLubyte ttb ) {
+    string TargetSuffix( GLubyte ttb ) {
         switch( ttb ) {
             case RFF::TT_1D: return "1D";
             case RFF::TT_2D: return "2D";
@@ -587,7 +748,7 @@ namespace {
         return "";
     }
 
-    std::string TextureFetch( bool es, bool legacy, RFF::TextureTargetBitfield b ) {
+    string TextureFetch( bool es, bool legacy, RFF::TextureTargetBitfield b ) {
         if( es || legacy ) {
             switch( b ) {
                 case RFF::TT_1D:      return "texture1D";
@@ -598,7 +759,7 @@ namespace {
         }
         return "texture";
     }
-    std::string TextureFetchSwizzle( RFF::TextureTargetBitfield b ) {
+    string TextureFetchSwizzle( RFF::TextureTargetBitfield b ) {
         switch( b ) {
             case RFF::TT_1D:      return ".x";
             case RFF::TT_2D:      return ".xy";
@@ -610,7 +771,8 @@ namespace {
         return "";
     }
 
-    void GenerateFragmentShaderSource( bool es, bool legacy, const RFF::State & state, std::stringstream & src ) {
+    void GenerateFragmentShaderSource( bool es, bool legacy, std::map<GLuint, GLint> obj2fmt, const RFF::State & state, string_list & src ) {
+
         const Store & st = state.processed;
         if( es ) {
             src << "#version 100\n";
@@ -626,13 +788,19 @@ namespace {
         } else {
             src << "out vec4 rglFragColor;\n";
         }
+        if( st.shadeModelFlat & ! legacy & ! es ) {
+            src << "#define FLAT flat\n";
+        } else {
+            src << "#define FLAT  \n";
+        }
+
         if( es ) {
             src << "precision highp float;\n";
         }
-        src << "in vec4 rglCOL0;\n";
+        src << "FLAT in vec4 rglCOL0;\n";
         if( st.lighting ) {
             if( st.lightModelTwoSide ) {
-                src << "in vec4 rglCOL1;\n";
+                src << "FLAT in vec4 rglCOL1;\n";
             }
             if( st.lightModelSeparateSpecular ) {
                 src << "in vec4 rglSCOL0;\n";
@@ -661,6 +829,9 @@ namespace {
                     needsConstantColor = needsConstantColor || ( env.rgb.src[i] == RFF::TCS_Constant );
                 }
             }
+            if( env.mode == RFF::TEM_Blend ) {
+                src << "uniform vec4 rglTexEnvColor" << i << ";\n";
+            }
         }
         if( needsConstantColor ) {
             src << "uniform vec4 rglConstantColor;\n";
@@ -687,7 +858,7 @@ namespace {
         } else {
             src << "    vec4 p = rglCOL0;\n";
         }
-        src << "    vec4 s;\n";
+        src << "    vec4 s = vec4(0.0f, 0.0f, 0.0f, 0.0f);\n";
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
             Texture t = state.processed.tex[ i ];
             RFF::TextureTargetBitfield b = state.GetTextureEnable( i );
@@ -707,16 +878,24 @@ namespace {
                     src << "    s = " << TextureFetch( es, legacy, b ) << "( rglSampler" << i << ", rglTEXCOORD" << i << TextureFetchSwizzle( b ) << " );\n";
                     break;
                 }
-                default: src << "// ERROR: Unsupported texture target\n"; break;
+                default:
+                    src << "// ERROR: Unsupported texture target\n";
+                    break;
             }
             switch( t.unit.env.mode ) {
-                case RFF::TEM_Replace: case RFF::TEM_Modulate: case RFF::TEM_Add:
-                    AddTexEnv( t.unit.env.mode, t.unit.fmt, src );
+                case RFF::TEM_Replace:
+                case RFF::TEM_Modulate:
+                case RFF::TEM_Add:
+                case RFF::TEM_Decal:
+                case RFF::TEM_Blend:
+                    AddTexEnv( i, t.unit.env.mode, obj2fmt[t.unit.obj], src );
                     break;
                 case RFF::TEM_Combine:
                     AddTexEnvCombine( t.unit.env, src );
                     break;
-                default: src << "//ERROR: Unsupported texture env mode\n"; break;
+                default:
+                    src << "//ERROR: Unsupported texture env mode\n";
+                    break;
             }
         }
         src << "    rglFragColor = p;\n";
@@ -736,7 +915,7 @@ namespace {
                 case RFF::FG_Linear: src << "    float fogFactor = ( rglFog[0].z - rglFOG ) / ( rglFog[0].z - rglFog[0].y );\n"; break;
                 case RFF::FG_Exp: src << "    float fogFactor = exp( -rglFog[0].x * rglFOG );\n"; break;
                 case RFF::FG_Exp2: src << "    float fogFactor = exp( -( rglFog[0].x * rglFog[0].x * rglFOG * rglFOG ) );\n";
-                default: break;
+                default:           src << "//ERROR: Unsupported fog mode\n"; break;
             }
             src << "    fogFactor = clamp( fogFactor, 0.0, 1.0 );\n";
             src << "    rglFragColor = mix( rglFog[1], rglFragColor, fogFactor );\n";
@@ -750,16 +929,21 @@ namespace {
                 case RFF::CF_Gequal:   src << "    if( rglFragColor.w < rglAlphaRef ) discard;\n"; break;
                 case RFF::CF_Equal:    src << "    if( rglFragColor.w != rglAlphaRef ) discard;\n"; break;
                 case RFF::CF_NotEqual: src << "    if( rglFragColor.w == rglAlphaRef ) discard;\n"; break;
-                default: break; // CF_Always
+                case RFF::CF_Always: break;
+                default: src << "//ERROR: Unsupported alpha comp func\n"; break;
             }
         }
 
         src << "}\n";
-        //<> RegalOutput( "Fragment shader:\n\n%s\n", src.str().c_str() );
+        GTrace( "Fragment shader:\n", src.str() );
     }
 
     void Copy( RegalFloat4 & dst, const GLfloat * src ) {
         dst.x = src[0]; dst.y = src[1]; dst.z = src[2]; dst.w = src[3];
+    }
+
+    void Copy( GLfloat * dst, RegalFloat4 & src ) {
+        dst[0] = src.x; dst[1] = src.y; dst[2] = src.z; dst[3] = src.w;
     }
 
     void Transform( RegalFloat4 & dst, const r3::Matrix4f & m, const GLfloat * src ) {
@@ -788,16 +972,6 @@ namespace {
     // debug
     GLchar dbgLog[1<<15];
     GLsizei dbgLogLen;
-}
-
-Store::Store()
-{
-  memset(this,0,sizeof(Store));
-
-  light[0].diffuse = light[0].specular = RegalFloat4( 1, 1, 1, 1 );
-  lightModelAmbient = mat[0].ambient = mat[1].ambient = RegalFloat4( 0.2f, 0.2f, 0.2f, 1.0f );
-  mat[0].diffuse = mat[1].diffuse = RegalFloat4( 0.8f, 0.8f, 0.8f, 1.0f );
-  colorMaterialTarget[0] = colorMaterialTarget[1] = CM_AmbientAndDiffuse;
 }
 
 bool State::SetEnable( RFF * ffn, bool enable, GLenum cap ) {
@@ -840,7 +1014,10 @@ bool State::SetEnable( RFF * ffn, bool enable, GLenum cap ) {
         case GL_CLIP_PLANE4:
         case GL_CLIP_PLANE5:
         case GL_CLIP_PLANE0+6:
-        case GL_CLIP_PLANE0+7: raw.ver = ver.Update(); raw.clip[ cap - GL_CLIP_PLANE0 ].enable = enable; return false;
+        case GL_CLIP_PLANE0+7:
+            raw.ver = ver.Update();
+            raw.clip[ cap - GL_CLIP_PLANE0 ].enable = enable;
+            return true;
         case GL_ALPHA_TEST: raw.ver = ver.Update(); raw.alphaTest.enable = enable; return true;
         default:
             return false;
@@ -855,7 +1032,7 @@ bool State::SetEnable( RFF * ffn, bool enable, GLenum cap ) {
     } else {
        t.enables &= ~v;
     }
-    //RegalOutput( "%d %d\n", activeTex, t.enables );
+    //Logging::Output( "%d %d\n", activeTex, t.enables );
     raw.ver = ver.Update();
     return true;
 }
@@ -903,16 +1080,58 @@ void State::SetMaterial( RFF * ffn, GLenum face, GLenum pname, const GLfloat * p
     }
 }
 
-void State::SetTexgen( RegalIff * ffn, int coord, GLenum space, const GLfloat * params ) {
+void State::GetMaterial( RFF * ffn, GLenum face, GLenum pname, GLfloat * params )
+{
+    UNUSED_PARAMETER(ffn);
+
+    for( int i = 0; i < 2; i++ ) {
+        if( ( i == 0 && face == GL_BACK ) || ( i == 1 && face == GL_FRONT ) ) {
+            continue;
+        }
+        State::Material & m = raw.mat[ i ];
+        switch( pname ) {
+            case GL_AMBIENT: Copy( params, m.ambient ); break;
+            case GL_DIFFUSE: Copy( params, m.diffuse ); break;
+            case GL_SPECULAR: Copy( params, m.specular ); break;
+            case GL_EMISSION: Copy( params, m.emission ); break;
+            case GL_SHININESS: params[0] = m.shininess.x; break;
+            default: return;
+        }
+    }
+}
+
+void State::SetTexgen( RegalIff * ffn, int coord, GLenum space, const GLfloat * params )
+{
     r3::Matrix4f ident;
     Texgen & tg = raw.tex[ ffn->activeTextureIndex ].texgen[ coord ];
     GLuint64 *tgver = NULL;
     switch( space ) {
         case GL_OBJECT_PLANE: Transform( tg.obj, ident, params ); tgver = & tg.objVer; break;
-        case GL_EYE_PLANE: Transform( tg.obj, ffn->modelview.Top().Inverse().Transpose(), params ); tgver = & tg.eyeVer; break;
+        case GL_EYE_PLANE: Transform( tg.eye, ffn->modelview.Top().Inverse().Transpose(), params ); tgver = & tg.eyeVer; break;
         default: return;
     }
     *tgver = raw.ver = ffn->ver.Update();
+}
+
+void State::GetTexgen( RegalIff * ffn, int coord, GLenum space, GLfloat * params )
+{
+    Texgen & tg = raw.tex[ ffn->activeTextureIndex ].texgen[ coord ];
+    switch( space ) {
+        case GL_OBJECT_PLANE:
+            params[0] = tg.obj.x;
+            params[1] = tg.obj.y;
+            params[2] = tg.obj.z;
+            params[3] = tg.obj.w;
+            break;
+        case GL_EYE_PLANE:
+            params[0] = tg.eye.x;
+            params[1] = tg.eye.y;
+            params[2] = tg.eye.z;
+            params[3] = tg.eye.w;
+            break;
+        default:
+            break;
+    }
 }
 
 void State::SetAlphaFunc( RegalIff * ffn, RegalIff::CompareFunc comp, GLfloat alphaRef ) {
@@ -931,9 +1150,11 @@ void State::SetClip( RegalIff * ffn, GLenum plane, const GLfloat * equation ) {
 }
 
 void Program::Init( RegalContext * ctx, const Store & sstore, const GLchar *vsSrc, const GLchar *fsSrc ) {
+    //<> Logging::Output( "vsSrc:\n%s\n", vsSrc );
+    //<> Logging::Output( "fsSrc:\n%s\n", fsSrc );
     ver = 0;
     progcount = 0;
-    RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp.emuTbl;
     store = sstore;
     pg = tbl.glCreateProgram();
     Shader( tbl, GL_VERTEX_SHADER, vs, vsSrc );
@@ -943,7 +1164,7 @@ void Program::Init( RegalContext * ctx, const Store & sstore, const GLchar *vsSr
     tbl.glGetProgramInfoLog( pg, (1<<15) - 2, &dbgLogLen, dbgLog );
     dbgLog[ dbgLogLen ] = 0;
     if( dbgLogLen > 0 ) {
-        RegalOutput( "%s\n", dbgLog );
+        ITrace( dbgLog );
     }
 
     tbl.glUseProgram( pg );
@@ -954,7 +1175,7 @@ void Program::Init( RegalContext * ctx, const Store & sstore, const GLchar *vsSr
 void Program::Init( RegalContext * ctx, const Store & sstore ) {
     ver = 0;
     progcount = 0;
-    RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp.emuTbl;
     store = sstore;
     Attribs( ctx );
     ctx->dsp.emuTbl.glLinkProgram( pg );
@@ -964,7 +1185,7 @@ void Program::Init( RegalContext * ctx, const Store & sstore ) {
     ctx->dsp.emuTbl.glUseProgram( ctx->iff->program );
 }
 
-void Program::Shader( RegalDispatchTable & tbl, GLenum type, GLuint & shader, const GLchar *src ) {
+void Program::Shader( DispatchTable & tbl, GLenum type, GLuint & shader, const GLchar *src ) {
     const GLchar *srcs[] = { src };
     GLint len[] = { 0 };
     len[0] = (GLint)strlen( src );
@@ -974,12 +1195,12 @@ void Program::Shader( RegalDispatchTable & tbl, GLenum type, GLuint & shader, co
     tbl.glGetShaderInfoLog( shader, (1<<15) - 2, &dbgLogLen, dbgLog );
     dbgLog[ dbgLogLen ] = 0;
     if( dbgLogLen > 0 ) {
-        RegalOutput( "%s\n", dbgLog );
+        ITrace( dbgLog );
     }
     tbl.glAttachShader( pg, shader );
 }
 void Program::Attribs( RegalContext * ctx ) {
-    RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp.emuTbl;
 
     tbl.glBindAttribLocation( pg, ctx->iff->ffAttrMap[ RFF2A_Vertex ], "rglVertex" );
     //tbl.glBindAttribLocation( pg, 1, "rglWeight" );
@@ -1000,16 +1221,16 @@ void Program::Attribs( RegalContext * ctx ) {
         if( store.tex[i].enables == 0 ) {
             continue;
         }
-        std::stringstream ss( std::stringstream::out );
+        string_list ss;
         ss << "rglMultiTexCoord" << i;
         tbl.glBindAttribLocation( pg, ctx->iff->ffAttrTexBegin + i, ss.str().c_str() );
     }
 }
-void Program::Samplers( RegalDispatchTable & tbl ) {
+void Program::Samplers( DispatchTable & tbl ) {
     GLchar samp[64];
     strcpy( samp, "rglSamplerN" );
     int len = (int)strlen( samp );
-    for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
+    for( GLchar i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
         samp[ len - 1 ] = '0' + i;
         GLint slot = tbl.glGetUniformLocation( pg, samp );
         if( slot >= 0 ) {
@@ -1018,7 +1239,7 @@ void Program::Samplers( RegalDispatchTable & tbl ) {
     }
 }
 
-void Program::Uniforms( RegalDispatchTable & tbl ) {
+void Program::Uniforms( DispatchTable & tbl ) {
     for( size_t i = 1; i < sizeof(regalFFUniformInfo)/sizeof(regalFFUniformInfo[0]); i++ ) {
         const RegalFFUniformInfo & ri = regalFFUniformInfo[i];
         GLint slot = tbl.glGetUniformLocation( pg, ri.name );
@@ -1039,10 +1260,10 @@ void RFF::InitFixedFunction( RegalContext * ctx ) {
 #else
     es = RegalGetProcAddress( "glClearDepth" ) == NULL;
 #endif
-    std::string v = (const char *)ctx->dsp.emuTbl.glGetString( GL_VERSION );
+    string v = (const char *)ctx->dsp.emuTbl.glGetString( GL_VERSION );
     // FIXME: Handle detecting legacy more generally...
     legacy = v[0] == '2' && v[1] == '.';
-    //legacy = v.find( "2.1 " ) != std::string::npos;
+    //legacy = v.find( "2.1 " ) != string::npos;
 
     shadowMatrixMode = GL_MODELVIEW;
     currMatrixStack = &modelview;
@@ -1058,6 +1279,10 @@ void RFF::InitFixedFunction( RegalContext * ctx ) {
     currVao = 0;
     vaoAttrMap[0] = 0;
 
+    fmtmap[ 1 ] = GL_LUMINANCE;
+    fmtmap[ 2 ] = GL_LUMINANCE_ALPHA;
+    fmtmap[ 3 ] = GL_RGB;
+    fmtmap[ 4 ] = GL_RGBA;
     fmtmap[ GL_ALPHA ] = GL_ALPHA;
     fmtmap[ GL_ALPHA4 ] = GL_ALPHA;
     fmtmap[ GL_ALPHA8 ] = GL_ALPHA;
@@ -1096,6 +1321,10 @@ void RFF::InitFixedFunction( RegalContext * ctx ) {
     fmtmap[ GL_RGBA12 ] = GL_RGBA;
     fmtmap[ GL_RGBA16 ] = GL_RGBA;
 
+	fmtmap[ GL_RGBA16F ] = GL_RGBA16F;
+	fmtmap[ GL_SRGB8_ALPHA8 ] = GL_SRGB8_ALPHA8;
+	
+
 }
 
 void RFF::ShadowMultiTexBinding( GLenum texunit, GLenum target, GLuint obj ) {
@@ -1108,14 +1337,16 @@ void RFF::ShadowMultiTexBinding( GLenum texunit, GLenum target, GLuint obj ) {
     TextureUnit & tu = textureUnit[ activeTextureIndex ];
     tu.obj = obj;
     tu.fmt = fmt;
-    tu.ttb = TargetToBitfield( target );
+    tu.ttb = static_cast<GLubyte>(TargetToBitfield( target ));
     tu.ver = ffstate.raw.ver = ver.Update();
 }
 
-void RFF::ShadowTextureInfo( GLuint obj, GLenum target, GLint internalFormat ) {
+void RFF::ShadowTextureInfo( GLuint obj, GLenum target, GLint internalFormat )
+{
+    UNUSED_PARAMETER(target);
     // assert( target == tip->tgt );
     if( fmtmap.count( internalFormat ) == 0 ) {
-        RegalOutput( "Unknown internal format: %d\n", internalFormat );
+        Warning( "Unknown internal format: ", internalFormat );
     }
     GLint fmt = fmtmap[ internalFormat ];
     textureObjToFmt[ obj ] = fmt;
@@ -1136,7 +1367,24 @@ void RFF::ShadowTexInfo( GLenum target, GLint internalFormat ) {
 
 void RFF::TexEnv( GLenum texunit, GLenum target, GLenum pname, const GLfloat *v ) {
     activeTextureIndex = texunit - GL_TEXTURE0;
-    // FIXME: implement
+    switch( target ) {
+        case GL_TEXTURE_ENV:
+            switch( pname ) {
+                case GL_TEXTURE_ENV_COLOR: {
+                    TextureUnit *tup = & textureUnit[ activeTextureIndex ];
+                    TextureEnv & env = tup->env;
+                    Copy( env.color, v );
+                    ffstate.SetTexInfo( ver, activeTextureIndex, *tup );
+                    return;
+                }
+            }
+    }
+    GLint iv[4];
+    iv[0] = static_cast<GLint>(v[0]);
+    iv[1] = static_cast<GLint>(v[1]);
+    iv[2] = static_cast<GLint>(v[2]);
+    iv[3] = static_cast<GLint>(v[3]);
+    TexEnv( texunit, target, pname, iv );
 }
 
 void RFF::TexEnv( GLenum texunit, GLenum target, GLenum pname, const GLint *v ) {
@@ -1303,7 +1551,7 @@ void RFF::State::Process( RegalIff * ffn ) {
 
 void RFF::UpdateUniforms( RegalContext * ctx ) {
     Program & pgm = *currprog;
-    RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp.emuTbl;
     if( pgm.ver != ffstate.Ver() ) {
         pgm.ver = ffstate.Ver();
         const State::Store & p = ffstate.processed;
@@ -1349,11 +1597,46 @@ void RFF::UpdateUniforms( RegalContext * ctx ) {
                 case FFU_TextureMatrix0:
                 case FFU_TextureMatrix1:
                 case FFU_TextureMatrix2:
-                case FFU_TextureMatrix3: {
+                case FFU_TextureMatrix3:
+                case FFU_TextureMatrix4:
+                case FFU_TextureMatrix5:
+                case FFU_TextureMatrix6:
+                case FFU_TextureMatrix7:
+                case FFU_TextureMatrix8:
+                case FFU_TextureMatrix9:
+                case FFU_TextureMatrix10:
+                case FFU_TextureMatrix11:
+                case FFU_TextureMatrix12:
+                case FFU_TextureMatrix13:
+                case FFU_TextureMatrix14:
+                case FFU_TextureMatrix15: {
                     int idx = ( ((*i).first) - FFU_TextureMatrix0 );
                     if( ui.ver != texture[ idx ].Ver() ) {
                         ui.ver = texture[ idx ].Ver();
                         tbl.glUniformMatrix4fv( ui.slot, 1, GL_FALSE, texture[ idx ].Top().m );
+                    }
+                    break;
+                }
+                case FFU_TextureEnvColor0:
+                case FFU_TextureEnvColor1:
+                case FFU_TextureEnvColor2:
+                case FFU_TextureEnvColor3:
+                case FFU_TextureEnvColor4:
+                case FFU_TextureEnvColor5:
+                case FFU_TextureEnvColor6:
+                case FFU_TextureEnvColor7:
+                case FFU_TextureEnvColor8:
+                case FFU_TextureEnvColor9:
+                case FFU_TextureEnvColor10:
+                case FFU_TextureEnvColor11:
+                case FFU_TextureEnvColor12:
+                case FFU_TextureEnvColor13:
+                case FFU_TextureEnvColor14:
+                case FFU_TextureEnvColor15: {
+                    int idx = ( ((*i).first) - FFU_TextureEnvColor0 );
+                    if( ui.ver != textureUnit[ idx ].ver ) {
+                        ui.ver = textureUnit[ idx ].ver;
+                        tbl.glUniform4fv( ui.slot, 1, &p.tex[ idx ].unit.env.color.x);
                     }
                     break;
                 }
@@ -1455,19 +1738,19 @@ void RFF::UseFixedFunctionProgram( RegalContext * ctx ) {
     if( ffprogmap.count( ffstate ) == 0 ) {
         Program & p = ffprogmap[ ffstate ];
         progcount++;
-        std::stringstream vsSrc( std::stringstream::out );
+        string_list vsSrc;
         GenerateVertexShaderSource( this, ffstate, vsSrc );
-        std::stringstream fsSrc( std::stringstream::out );
-        GenerateFragmentShaderSource( es, legacy, ffstate, fsSrc );
+        string_list fsSrc;
+        GenerateFragmentShaderSource( es, legacy, textureObjToFmt, ffstate, fsSrc );
         p.Init( ctx, ffstate.processed, vsSrc.str().c_str(), fsSrc.str().c_str() );
         p.progcount = progcount;
         if( p.pg == 0 ) {
-            RegalOutput( "The program is 0. That can't be right.\n" );
+            Warning( "The program is 0. That can't be right.\n" );
         }
     }
     currprog = & ffprogmap[ ffstate ];
     if( currprog->pg == 0 ) {
-        RegalOutput( "The program is 0. That can't be right.\n" );
+        Warning( "The program is 0. That can't be right.\n" );
     }
     ctx->dsp.emuTbl.glUseProgram( currprog->pg );
     UpdateUniforms( ctx );
@@ -1485,14 +1768,16 @@ void RFF::UseShaderProgram( RegalContext * ctx ) {
     }
     currprog = & shprogmap[ program ];
     if( currprog->pg == 0 ) {
-        RegalOutput( "The program is 0. That can't be right.\n" );
+        Warning( "The program is 0. That can't be right.\n" );
     }
     UpdateUniforms( ctx );
 }
 
 void RFF::ShaderSource( RegalContext *ctx, GLuint shader, GLsizei count, const GLchar **string, const GLint *length) {
-    // FIXME: What to do about the #version in the original shader?
-    // For now, let's assume there isn't one.
+	if( string[0][0] == '#' && string[0][1] == 'v' ) {
+		ctx->dsp.emuTbl.glShaderSource( shader, count, string, length );
+		return;
+	}
     std::vector< const GLchar * > s;
     s.resize( count + 1 );
     std::vector< GLint > l;
@@ -1502,9 +1787,9 @@ void RFF::ShaderSource( RegalContext *ctx, GLuint shader, GLsizei count, const G
         if (string) {
             s[i] = string[i - 1];
         }
-        l[i] = length ? length[i - 1] : strlen( string[ i - 1 ] );
+        l[i] = length ? length[i - 1] : static_cast<GLint>( strlen( string[ i - 1 ] ));
     }
-    std::stringstream ss( std::stringstream::out );
+    string_list ss;
     if( es ) {
         ss << "#version 100\n";
     } else if ( legacy ) {
@@ -1539,10 +1824,10 @@ void RFF::ShaderSource( RegalContext *ctx, GLuint shader, GLsizei count, const G
     ss << "#define gl_TextureMatrix0 rglTextureMatrix0\n";
     ss << "#define gl_Sampler0 rglSampler0\n\n";
 
-    //RegalOutput( "foo:\n%s", ss.str().c_str() );
+    //Logging::Output( "foo:\n%s", ss.str().c_str() );
     std::string preamble = ss.str();
     s[0] = preamble.c_str();
-    l[0] = strlen( s[0] );
+    l[0] = static_cast<GLint>( strlen( s[0] ) );
     ctx->dsp.emuTbl.glShaderSource( shader, count + 1, &s[0], &l[0] );
 }
 
@@ -1550,6 +1835,4 @@ void RFF::LinkProgram( RegalContext *ctx, GLuint program ) {
     ctx->dsp.emuTbl.glLinkProgram( program );
 }
 
-
-
-
+REGAL_NAMESPACE_END

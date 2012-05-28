@@ -34,13 +34,21 @@
 
  */
 
-#if ! __REGAL_OBJ_H__
-#define __REGAL_OBJ_H__ 1
+#ifndef __REGAL_OBJ_H__
+#define __REGAL_OBJ_H__
+
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
+#include <map>
 
 #include "RegalPrivate.h"
 #include "RegalEmu.h"
 
-#include <map>
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
 
 struct RegalName {
     GLuint app;
@@ -54,7 +62,7 @@ struct RegalNameTranslator {
     void (REGAL_CALL *gen)( GLsizei n, GLuint * objs );
     void (REGAL_CALL *del)( GLsizei n, const GLuint * objs );
     
-    RegalNameTranslator() : gen( NULL ) {
+    RegalNameTranslator() : gen( NULL ), del ( NULL ) {
         drv2app[ 0 ] = & app2drv[ 0 ];  // special case 0
     }
 
@@ -128,45 +136,51 @@ struct RegalObj : public RegalEmu {
     }
 
 	void BindBuffer( RegalContext * ctx, GLenum target, GLuint bufferBinding ) {
-		RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+		DispatchTable & tbl = ctx->dsp.emuTbl;
 		tbl.glBindBuffer( target, bufferNames.ToDriverName( bufferBinding ) );
 	}
 
 	void GenBuffers( RegalContext * ctx, GLsizei n, GLuint * buffers ) {
+		UNUSED_PARAMETER(ctx);
 		for( int i = 0; i < n; i++ ) {
 			buffers[ i ] = bufferNames.Gen();
 		}
 	}
 
 	void DeleteBuffers( RegalContext * ctx, GLsizei n, const GLuint * buffers ) {
+		UNUSED_PARAMETER(ctx);
 		for( int i = 0; i < n; i++ ) {
 			bufferNames.Delete( buffers[ i ] );
 		}
 	}
 
     GLboolean IsBuffer( RegalContext * ctx, GLuint appName ) {
+		UNUSED_PARAMETER(ctx);
         return bufferNames.IsObject( appName );
     }
 
 
 	void BindVertexArray( RegalContext * ctx, GLuint vao ) {
-		RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+		DispatchTable & tbl = ctx->dsp.emuTbl;
 		tbl.glBindVertexArray( vaoNames.ToDriverName( vao ) );
 	}
 
 	void GenVertexArrays( RegalContext * ctx, GLsizei n, GLuint * vaos ) {
+		UNUSED_PARAMETER(ctx);
 		for( int i = 0; i < n; i++ ) {
 			vaos[ i ] = vaoNames.Gen();
 		}
 	}
 
 	void DeleteVertexArrays( RegalContext * ctx, GLsizei n, const GLuint * vaos ) {
+		UNUSED_PARAMETER(ctx);
 		for( int i = 0; i < n; i++ ) {
 			vaoNames.Delete( vaos[ i ] );
 		}
 	}
 
     GLboolean IsVertexArray( RegalContext * ctx, GLuint appName ) {
+		UNUSED_PARAMETER(ctx);
         return vaoNames.IsObject( appName );
     }
 
@@ -174,7 +188,7 @@ struct RegalObj : public RegalEmu {
 
 };
 
-
+REGAL_NAMESPACE_END
 
 #endif // ! __REGAL_VAO_H__
 

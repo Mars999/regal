@@ -34,23 +34,27 @@
 
  */
 
-#if ! __REGAL_BIN_H__
-#define __REGAL_BIN_H__ 1
+#ifndef __REGAL_BIN_H__
+#define __REGAL_BIN_H__
 
+#include "RegalUtil.h"
 #include "RegalEmu.h"
+
+REGAL_NAMESPACE_BEGIN
 
 struct RegalBin : public RegalEmu {
 
     void Init( RegalContext * ctx ) {
+		UNUSED_PARAMETER(ctx);
     }
 
     void ShaderBinary( RegalContext * ctx, GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void * binary, GLsizei length) {
-        RegalDispatchTable & tbl = ctx->dsp.emuTbl;
+        DispatchTable & tbl = ctx->dsp.emuTbl;
         tbl.glShaderBinary( count, shaders, binaryFormat, binary, length );
     }
 };
 
-
+REGAL_NAMESPACE_END
 
 #endif // ! __REGAL_VAO_H__
 

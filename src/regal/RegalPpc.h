@@ -34,27 +34,32 @@
 
  TODO:
 
-   complete state & routines using spec
+   check vertex-array state against spec
    track dsa versions of routines
    are we handling all ARB version of routines
-   alias vertex arrays
    what do do about deletebuffers
-   additional extensions
-    - support for element routines from ARB_element_array
    journal changes
 
 */
 
-#if ! __REGAL_PPC_H__
-#define __REGAL_PPC_H__ 1
+#ifndef __REGAL_PPC_H__
+#define __REGAL_PPC_H__
 
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
+#include "RegalUtil.h"
 #include "RegalPrivate.h"
 #include "RegalEmu.h"
 
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
 
 #define REGAL_PPC_MAX_CLIENT_ATTRIB_STACK_DEPTH 16
 #define REGAL_PPC_MAX_VERTEX_ATTRIBS 16
-#define REGAL_PPC_MAX_TEXTURE_COORDS 8
+#define REGAL_PPC_MAX_TEXTURE_COORDS 16
 
 
 struct RegalPpc : public RegalEmu {
@@ -87,11 +92,10 @@ struct RegalPpc : public RegalEmu {
         {
             RegalAssert( ctx );
 
-            RegalDispatchTable &tbl = ctx->dsp.emuTbl;
+            DispatchTable &tbl = ctx->dsp.emuTbl;
 
-            tbl.glBindBuffer( GL_PIXEL_PACK_BUFFER_BINDING, pixelPackBufferBinding );
-
-            tbl.glBindBuffer( GL_PIXEL_UNPACK_BUFFER_BINDING, pixelUnpackBufferBinding );
+            tbl.glBindBuffer( GL_PIXEL_PACK_BUFFER, pixelPackBufferBinding );
+            tbl.glBindBuffer( GL_PIXEL_UNPACK_BUFFER, pixelUnpackBufferBinding );
 
             tbl.glPixelStorei( GL_PACK_ALIGNMENT, packAlignment );
             tbl.glPixelStorei( GL_PACK_IMAGE_HEIGHT, packImageHeight );
@@ -131,14 +135,14 @@ struct RegalPpc : public RegalEmu {
         GLint unpackAlignment;
     };
 
-    struct ClientArrayState {
+    struct VertexArrayState {
 
-        ClientArrayState()
+        VertexArrayState()
         {
             Init( GL_NONE );
         }
 
-        ClientArrayState(GLenum _cap)
+        VertexArrayState(GLenum _cap)
         {
             Init( _cap );
         }
@@ -146,42 +150,19 @@ struct RegalPpc : public RegalEmu {
         void Init(GLenum _cap)
         {
             cap = _cap;
-            enabled = GL_FALSE;
-            integer = GL_FALSE;
-            bufferBinding = 0;
             index = 0;
+            enabled = GL_FALSE;
+            buffer = 0;
+            size = 4;
             type = GL_FLOAT;
             normalized = GL_FALSE;
-            integer = GL_FALSE;
             stride = 0;
             pointer = NULL;
-            size = ( cap == GL_SECONDARY_COLOR_ARRAY ) ? 3 : 4;
+            integer = GL_FALSE;
             divisor = 0;
         }
 
-        ClientArrayState&
-        operator= (const ClientArrayState &rhs)
-        {
-            if (this == &rhs)
-                return *this;
-
-            cap           = rhs.cap;
-            enabled       = rhs.enabled;
-            integer       = rhs.integer;
-            bufferBinding = rhs.bufferBinding;
-            index         = rhs.index;
-            size          = rhs.size;
-            divisor       = rhs.divisor;
-            type          = rhs.type;
-            normalized    = rhs.normalized;
-            integer       = rhs.integer;
-            stride        = rhs.stride;
-            pointer       = rhs.pointer;
-
-            return *this;
-        }
-
-        void SetPointer( GLuint _bufferBinding,
+        void SetPointer( GLuint _buffer,
                          GLuint _index,
                          GLint _size,
                          GLenum _type,
@@ -190,30 +171,28 @@ struct RegalPpc : public RegalEmu {
                          GLsizei _stride,
                          const GLvoid * _pointer )
         {
-            bufferBinding = _bufferBinding;
-            index         = _index;
-            size          = _size;
-            type          = _type;
-            normalized    = _normalized;
-            integer       = integer;
-            stride        = _stride;
-            pointer       = _pointer;
+            buffer = _buffer;
+            index = _index;
+            size = _size;
+            type = _type;
+            normalized = _normalized;
+            integer = integer;
+            stride = _stride;
+            pointer = _pointer;
         }
 
         void Restore(RegalContext * ctx)
         {
             RegalAssert( ctx );
 
-            RegalDispatchTable &tbl = ctx->dsp.emuTbl;
+            DispatchTable &tbl = ctx->dsp.emuTbl;
+
+            tbl.glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
             switch (cap)
             {
-                tbl.glBindBuffer(GL_ARRAY_BUFFER, bufferBinding);
-                tbl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementArrayBufferBinding);
-
-                tbl.glVertexAttribDivisor(index, divisor);
-
                 case GL_NONE:
+                    tbl.glVertexAttribDivisor(index, divisor);
                     tbl.glVertexAttribPointer(index, size, type, normalized,
                                               stride, pointer);
                     break;
@@ -247,66 +226,57 @@ struct RegalPpc : public RegalEmu {
             }
 
             if ( enabled == GL_TRUE ) {
-                tbl.glEnableClientState( cap );
+                if ( cap == GL_NONE ) {
+                    tbl.glEnableVertexAttribArray( index );
+                } else {
+                    tbl.glEnableClientState( cap );
+                }
             } else {
-                tbl.glDisableClientState( cap );
+                if ( cap == GL_NONE ) {
+                    tbl.glDisableVertexAttribArray( index );
+                } else {
+                    tbl.glDisableClientState( cap );
+                }
             }
         }
 
         GLenum cap;
-        GLboolean enabled;
-        GLboolean normalized;
-        GLboolean integer;
-        GLint bufferBinding;
-        GLint elementArrayBufferBinding;
         GLuint index;
+        GLboolean enabled;
+        GLint buffer;
         GLint size;
-        GLint divisor;
         GLenum type;
+        GLboolean normalized;
         GLsizei stride;
         const GLvoid * pointer;
+        GLboolean integer;
+        GLint divisor;
     };
 
     struct ClientVertexArrayState {
 
         ClientVertexArrayState()
-        : arrayBufferBinding( 0 )
-        , elementArrayBufferBinding( 0 )
-        , vertexArrayBinding( 0 )
+        : vertexBuffer( 0 )
+        , indexBuffer( 0 )
+        , vertexArrayObject( 0 )
         , clientActiveTexture( GL_TEXTURE0 )
         , primitiveRestart( GL_FALSE )
         , primitiveRestartIndex( 0 )
-        , colorArrayState( GL_COLOR_ARRAY )
         , edgeFlagArrayState( GL_EDGE_FLAG_ARRAY )
-        , fogCoordArrayState( GL_FOG_COORD_ARRAY )
         , indexArrayState( GL_INDEX_ARRAY )
-        , normalArrayState( GL_NORMAL_ARRAY )
-        , secondaryColorArrayState( GL_SECONDARY_COLOR_ARRAY )
-        , vertexArrayState( GL_VERTEX_ARRAY )
         {
-            for (int ii=0; ii<REGAL_PPC_MAX_TEXTURE_COORDS; ii++) {
-                textureCoordArrayState[ii].cap = GL_TEXTURE_COORD_ARRAY;
-            }
         }
 
         ClientVertexArrayState(const ClientVertexArrayState &rhs)
-        : arrayBufferBinding( rhs.arrayBufferBinding )
-        , elementArrayBufferBinding( rhs.elementArrayBufferBinding )
-        , vertexArrayBinding( rhs.vertexArrayBinding )
+        : vertexBuffer( rhs.vertexBuffer )
+        , indexBuffer( rhs.indexBuffer )
+        , vertexArrayObject( rhs.vertexArrayObject )
         , clientActiveTexture( rhs.clientActiveTexture )
         , primitiveRestart( rhs.primitiveRestart )
         , primitiveRestartIndex( rhs.primitiveRestartIndex )
-        , colorArrayState( rhs.colorArrayState )
         , edgeFlagArrayState( rhs.edgeFlagArrayState )
-        , fogCoordArrayState( rhs.fogCoordArrayState )
         , indexArrayState( rhs.indexArrayState )
-        , normalArrayState( rhs.normalArrayState )
-        , secondaryColorArrayState( rhs.secondaryColorArrayState )
-        , vertexArrayState( rhs.vertexArrayState )
         {
-            for (int ii=0; ii<REGAL_PPC_MAX_TEXTURE_COORDS; ii++) {
-                textureCoordArrayState[ii] = rhs.textureCoordArrayState[ii];
-            }
             for (int ii=0; ii<REGAL_PPC_MAX_VERTEX_ATTRIBS; ii++) {
                 genericArrayState[ii] = rhs.genericArrayState[ii];
             }
@@ -318,23 +288,14 @@ struct RegalPpc : public RegalEmu {
             if (this == &rhs)
                 return *this;
 
-            arrayBufferBinding        = rhs.arrayBufferBinding;
-            elementArrayBufferBinding = rhs.elementArrayBufferBinding;
-            vertexArrayBinding        = rhs.vertexArrayBinding;
-            clientActiveTexture       = rhs.clientActiveTexture;
-            primitiveRestart          = rhs.primitiveRestart;
-            primitiveRestartIndex     = rhs.primitiveRestartIndex;
-            colorArrayState           = rhs.colorArrayState;
-            edgeFlagArrayState        = rhs.edgeFlagArrayState;
-            fogCoordArrayState        = rhs.fogCoordArrayState;
-            indexArrayState           = rhs.indexArrayState;
-            normalArrayState          = rhs.normalArrayState;
-            secondaryColorArrayState  = rhs.secondaryColorArrayState;
-            vertexArrayState          = rhs.vertexArrayState;
-
-            for (int ii=0; ii<REGAL_PPC_MAX_TEXTURE_COORDS; ii++) {
-                textureCoordArrayState[ii] = rhs.textureCoordArrayState[ii];
-            }
+            vertexBuffer = rhs.vertexBuffer;
+            indexBuffer = rhs.indexBuffer;
+            vertexArrayObject = rhs.vertexArrayObject;
+            clientActiveTexture = rhs.clientActiveTexture;
+            primitiveRestart = rhs.primitiveRestart;
+            primitiveRestartIndex = rhs.primitiveRestartIndex;
+            edgeFlagArrayState = rhs.edgeFlagArrayState;
+            indexArrayState = rhs.indexArrayState;
 
             for (int ii=0; ii<REGAL_PPC_MAX_VERTEX_ATTRIBS; ii++) {
                 genericArrayState[ii] = rhs.genericArrayState[ii];
@@ -347,54 +308,92 @@ struct RegalPpc : public RegalEmu {
         {
             RegalAssert( ctx );
 
-            colorArrayState.Restore( ctx );
-            edgeFlagArrayState.Restore( ctx );
-            fogCoordArrayState.Restore( ctx );
-            indexArrayState.Restore( ctx );
-            normalArrayState.Restore( ctx );
-            secondaryColorArrayState.Restore( ctx );
-            vertexArrayState.Restore( ctx );
-
-            for (int ii=0; ii<REGAL_PPC_MAX_TEXTURE_COORDS; ii++) {
-                textureCoordArrayState[ii].Restore( ctx );
-            }
-
-            for (int ii=0; ii<REGAL_PPC_MAX_VERTEX_ATTRIBS; ii++) {
-                genericArrayState[ii].Restore( ctx );
-            }
-
             ctx->dsp.emuTbl.glClientActiveTexture( clientActiveTexture );
+
+            ctx->dsp.emuTbl.glBindBuffer( GL_ARRAY_BUFFER, vertexBuffer );
 
             if ( primitiveRestart == GL_TRUE ) {
                 ctx->dsp.emuTbl.glEnable( GL_PRIMITIVE_RESTART );
             } else {
                 ctx->dsp.emuTbl.glDisable( GL_PRIMITIVE_RESTART );
             }
-
             ctx->dsp.emuTbl.glPrimitiveRestartIndex( primitiveRestartIndex );
 
-            ctx->dsp.emuTbl.glBindBuffer( GL_ARRAY_BUFFER, arrayBufferBinding );
+            ctx->dsp.emuTbl.glBindVertexArray( vertexArrayObject );
 
-            ctx->dsp.emuTbl.glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, elementArrayBufferBinding );
+            if (vertexArrayObject != 0) {
 
-            ctx->dsp.emuTbl.glBindVertexArray( vertexArrayBinding );
+                LoadStateFromGL( ctx );
+
+            } else {
+
+                edgeFlagArrayState.Restore( ctx );
+                indexArrayState.Restore( ctx );
+
+                ctx->dsp.emuTbl.glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, indexBuffer );
+
+                for (int ii=0; ii<REGAL_PPC_MAX_VERTEX_ATTRIBS; ii++) {
+                    genericArrayState[ii].Restore( ctx );
+                }
+
+                ctx->dsp.emuTbl.glBindBuffer( GL_ARRAY_BUFFER, vertexBuffer );
+            }
         }
 
-        GLuint arrayBufferBinding;
-        GLuint elementArrayBufferBinding;
-        GLuint vertexArrayBinding;
+        void LoadStateFromGL( RegalContext * ctx )
+        {
+            GLint bah = 0;
+            GLvoid* bah2 = NULL;
+
+            DispatchTable &tbl = ctx->dsp.emuTbl;
+
+            for (int ii=0; ii<REGAL_PPC_MAX_VERTEX_ATTRIBS; ii++) {
+                VertexArrayState &gas = genericArrayState[ii];
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING, &gas.buffer );
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &bah );
+                gas.enabled = bah;
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_SIZE, &gas.size );
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_DIVISOR, &gas.divisor );
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_STRIDE, &gas.stride );
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_TYPE, &bah );
+                gas.type = bah;
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_NORMALIZED, &bah );
+                gas.normalized = bah;
+                tbl.glGetVertexAttribiv( ii, GL_VERTEX_ATTRIB_ARRAY_INTEGER, &bah );
+                gas.integer = bah;
+                tbl.glGetVertexAttribPointerv( ii, GL_VERTEX_ATTRIB_ARRAY_POINTER, &bah2 );
+                gas.pointer = bah2;
+            }
+
+            VertexArrayState &gas = indexArrayState;
+            gas.enabled = tbl.glIsEnabled( GL_INDEX_ARRAY  );
+            tbl.glGetIntegerv( GL_INDEX_ARRAY_TYPE, &bah );
+            gas.type = bah;
+            tbl.glGetIntegerv( GL_INDEX_ARRAY_STRIDE, &gas.stride );
+            tbl.glGetPointerv( GL_INDEX_ARRAY_POINTER, &bah2 );
+            gas.pointer = bah2;
+            tbl.glGetIntegerv( GL_INDEX_ARRAY_BUFFER_BINDING, &gas.buffer );
+
+            gas = edgeFlagArrayState;
+            gas.enabled = tbl.glIsEnabled( GL_EDGE_FLAG_ARRAY );
+            tbl.glGetIntegerv( GL_EDGE_FLAG_ARRAY_STRIDE, &gas.stride );
+            tbl.glGetPointerv( GL_EDGE_FLAG_ARRAY_POINTER, &bah2 );
+            gas.pointer = bah2;
+            tbl.glGetIntegerv( GL_EDGE_FLAG_ARRAY_BUFFER_BINDING, &gas.buffer );
+
+            tbl.glGetIntegerv( GL_ELEMENT_ARRAY_BUFFER_BINDING, &bah );
+            indexBuffer = bah;
+        }
+
+        GLuint vertexBuffer;
+        GLuint indexBuffer;
+        GLuint vertexArrayObject;
         GLenum clientActiveTexture;
         GLboolean primitiveRestart;
         GLint primitiveRestartIndex;
-        ClientArrayState colorArrayState;
-        ClientArrayState edgeFlagArrayState;
-        ClientArrayState fogCoordArrayState;
-        ClientArrayState indexArrayState;
-        ClientArrayState normalArrayState;
-        ClientArrayState secondaryColorArrayState;
-        ClientArrayState vertexArrayState;
-        ClientArrayState textureCoordArrayState[REGAL_PPC_MAX_TEXTURE_COORDS];
-        ClientArrayState genericArrayState[REGAL_PPC_MAX_VERTEX_ATTRIBS];
+        VertexArrayState edgeFlagArrayState;
+        VertexArrayState indexArrayState;
+        VertexArrayState genericArrayState[REGAL_PPC_MAX_VERTEX_ATTRIBS];
     };
 
     struct ClientState {
@@ -429,13 +428,129 @@ struct RegalPpc : public RegalEmu {
         ClientVertexArrayState vertexArrayState;
     };
 
+    bool insideBeginEnd;
     int topOfStack;
     ClientState stack[REGAL_PPC_MAX_CLIENT_ATTRIB_STACK_DEPTH];
     ClientState currentClientState;
 
+    // to alias vertex arrays to generic attribs
+    GLuint ffAttrMap[ REGAL_PPC_MAX_VERTEX_ATTRIBS ];
+    GLuint ffAttrInvMap[ REGAL_PPC_MAX_VERTEX_ATTRIBS ];
+    GLuint ffAttrTexBegin;
+    GLuint ffAttrTexEnd;
+    GLuint ffAttrNumTex;
+    GLuint maxVertexAttribs;
+    
     void Init( RegalContext * ctx )
     {
+        insideBeginEnd = false;
         topOfStack = -1;
+
+        maxVertexAttribs = ctx->ctxInf->maxVertexAttribs;
+        
+        // we have RFF2A maps for sets of 8 and 16 attributes. if
+        // REGAL_PPC_MAX_VERTEX_ATTRIBS > 16 a new map needs to be added
+
+        RegalAssert( REGAL_PPC_MAX_VERTEX_ATTRIBS <= 16 );
+
+        if ( maxVertexAttribs >= 16 ) {
+            RegalAssert( REGAL_PPC_MAX_VERTEX_ATTRIBS == 16);
+            //RegalOutput( "Setting up for %d Vertex Attribs\n", maxVertexAttribs );
+            for( int i = 0; i < 16; i++ ) {
+                ffAttrMap[i] = RFF2AMap16[i];
+                ffAttrInvMap[i] = RFF2AInvMap16[i];
+            }
+            ffAttrTexBegin = RFF2ATexBegin16;
+            ffAttrTexEnd = RFF2ATexEnd16;
+        } else {
+            RegalAssert( maxVertexAttribs >= 8 );
+            //RegalOutput( "Setting up for 8 Vertex Attribs" );
+            for( int i = 0; i < 8; i++ ) {
+                ffAttrMap[i] = RFF2AMap8[i];
+                ffAttrInvMap[i] = RFF2AInvMap8[i];
+            }
+            for( int i = 8; i < REGAL_PPC_MAX_VERTEX_ATTRIBS; i++ ) {
+                ffAttrMap[i] = -1;
+                ffAttrInvMap[i] = -1;
+            }
+            ffAttrTexBegin = RFF2ATexBegin8;
+            ffAttrTexEnd = RFF2ATexEnd8;
+        }
+        ffAttrNumTex = ffAttrTexEnd - ffAttrTexBegin;
+    }
+    
+    GLuint ClientStateToAttribIndex( GLenum array )
+    {
+        switch ( array )
+        {
+            case GL_VERTEX_ARRAY:
+                return ffAttrMap[ RFF2A_Vertex ];
+            case GL_NORMAL_ARRAY:
+                return ffAttrMap[ RFF2A_Normal ];
+            case GL_COLOR_ARRAY:
+                 return ffAttrMap[ RFF2A_Color ];
+            case GL_SECONDARY_COLOR_ARRAY:
+                return ffAttrMap[ RFF2A_SecondaryColor ];
+            case GL_FOG_COORD_ARRAY:
+                return ffAttrMap[ RFF2A_FogCoord ];
+            case GL_TEXTURE_COORD_ARRAY:
+                {
+                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
+                    RegalAssert(index >= 0);
+                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
+                    if ( index < ffAttrNumTex )
+                        return ffAttrTexBegin + index;
+                }
+                break;
+            default:
+                break;
+        }
+        return ~0;
+    }
+
+    VertexArrayState*
+    ClientStateToAttribState( GLenum array )
+    {
+        VertexArrayState* pAS = NULL;
+        switch ( array )
+        {
+            case GL_EDGE_FLAG_ARRAY:
+                pAS = &currentClientState.vertexArrayState.edgeFlagArrayState;
+                break;
+            case GL_INDEX_ARRAY:
+                pAS = &currentClientState.vertexArrayState.indexArrayState;
+                break;
+            case GL_NORMAL_ARRAY:
+            case GL_FOG_COORD_ARRAY:
+            case GL_COLOR_ARRAY:
+            case GL_SECONDARY_COLOR_ARRAY:
+            case GL_VERTEX_ARRAY:
+            case GL_TEXTURE_COORD_ARRAY:
+                {
+                    const GLuint index = ClientStateToAttribIndex( array );
+                    if ( index != GLuint(~0) )
+                        pAS = &currentClientState.vertexArrayState.genericArrayState[index];
+                }
+                break;
+            default:
+                RegalAssert( !"unhandled state value" );
+                break;
+        }
+        return pAS;
+    }
+    
+    void Begin( RegalContext * ctx, GLenum mode )
+    {
+        if ( insideBeginEnd == false ) {
+            insideBeginEnd = true;
+        }
+    }
+
+    void End( RegalContext * ctx )
+    {
+        if ( insideBeginEnd == true ) {
+            insideBeginEnd = false;
+        }
     }
 
     void BindBuffer( RegalContext * ctx, GLenum target, GLuint buffer)
@@ -443,10 +558,10 @@ struct RegalPpc : public RegalEmu {
         switch (target)
         {
             case GL_ARRAY_BUFFER:
-                currentClientState.vertexArrayState.arrayBufferBinding = buffer;
+                currentClientState.vertexArrayState.vertexBuffer = buffer;
                 break;
             case GL_ELEMENT_ARRAY_BUFFER:
-                currentClientState.vertexArrayState.elementArrayBufferBinding = buffer;
+                currentClientState.vertexArrayState.indexBuffer = buffer;
                 break;
             case GL_PIXEL_PACK_BUFFER_BINDING:
                 currentClientState.pixelStoreState.pixelPackBufferBinding = buffer;
@@ -466,7 +581,10 @@ struct RegalPpc : public RegalEmu {
 
     void BindVertexArray( RegalContext * ctx, GLuint array)
     {
-        currentClientState.vertexArrayState.vertexArrayBinding = array;
+        currentClientState.vertexArrayState.vertexArrayObject = array;
+        ctx->dsp.emuTbl.glBindVertexArray( array );
+        if ( array != 0 )
+            currentClientState.vertexArrayState.LoadStateFromGL( ctx );
     }
 
     void DeleteVertexArrays( RegalContext * ctx, GLsizei n, const GLuint *arrays )
@@ -476,14 +594,251 @@ struct RegalPpc : public RegalEmu {
 
     void ClientActiveTexture( RegalContext * ctx, GLenum _texture)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         GLint index = _texture - GL_TEXTURE0;
 
         if (index >= 0 && index < REGAL_PPC_MAX_TEXTURE_COORDS)
             currentClientState.vertexArrayState.clientActiveTexture = _texture;
     }
 
+    void InterleavedArrays( RegalContext * ctx, GLenum format,
+                            GLsizei stride, const GLvoid *pointer)
+    {
+        if ( insideBeginEnd == true )
+            return;
+
+        //<> how can stride be invalid?
+        //<> if ( stride is invalid )
+            //<> return;
+
+        switch ( format )
+        {
+            case GL_V2F:
+            case GL_V3F:
+            case GL_C4UB_V2F:
+            case GL_C4UB_V3F:
+            case GL_C3F_V3F:
+            case GL_N3F_V3F:
+            case GL_C4F_N3F_V3F:
+            case GL_T2F_V3F:
+            case GL_T4F_V4F:
+            case GL_T2F_C4UB_V3F:
+            case GL_T2F_C3F_V3F:
+            case GL_T2F_N3F_V3F:
+            case GL_T2F_C4F_N3F_V3F:
+            case GL_T4F_C4F_N3F_V4F:
+                break;
+            default:
+                RegalAssert( !"unhandled format value" );
+                return;
+        }
+
+        GLsizei f = sizeof(GL_FLOAT);
+        GLsizei c = 4 * sizeof(GL_UNSIGNED_BYTE);
+        //<> need to round up c to the nearest multiple of f
+
+        GLsizei pc = 0;
+        GLsizei pn = 0;
+        GLsizei pv = 0;
+        GLsizei s  = 0;
+
+        switch ( format )
+        {
+            case GL_V2F:
+                pc = 0;
+                pn = 0;
+                pv = 0;
+                s  = 2 * f;
+                break;
+            case GL_V3F:
+                pc = 0;
+                pn = 0;
+                pv = 0;
+                s  = 3 * f;
+                break;
+            case GL_C4UB_V2F:
+                pc = 0;
+                pn = 0;
+                pv = c + 0;
+                s  = c + 2 * f;
+                break;
+            case GL_C4UB_V3F:
+                pc = 0;
+                pn = 0;
+                pv = c + 0;
+                s  = c + 3 * f;
+                break;
+            case GL_C3F_V3F:
+                pc = 0;
+                pn = 0;
+                pv = 3 * f;
+                s  = 6 * f;
+                break;
+            case GL_N3F_V3F:
+                pc = 0;
+                pn = 0;
+                pv = 3 * f;
+                s  = 6 * f;
+                break;
+            case GL_C4F_N3F_V3F:
+                pc = 0;
+                pn = 4 * f;
+                pv = 7 * f;
+                s  = 10;
+                break;
+            case GL_T2F_V3F:
+                pc = 0;
+                pn = 0;
+                pv = 2 * f;
+                s  = 5 * f;
+                break;
+            case GL_T4F_V4F:
+                pc = 0;
+                pn = 0;
+                pv = 4 * f;
+                s  = 8 * f;
+                break;
+            case GL_T2F_C4UB_V3F:
+                pc = 2 * f;
+                pn = 0;
+                pv = c + 2 * f;
+                s  = c + 5 * f;
+                break;
+            case GL_T2F_C3F_V3F:
+                pc = 2 * f;
+                pn = 0;
+                pv = 5 * f;
+                s  = 8 * f;
+                break;
+            case GL_T2F_N3F_V3F:
+                pc = 0;
+                pn = 2 * f;
+                pv = 5 * f;
+                s  = 8 * f;
+                break;
+            case GL_T2F_C4F_N3F_V3F:
+                pc = 2 * f;
+                pn = 6 * f;
+                pv = 9 * f;
+                s  = 12 * f;
+                break;
+            case GL_T4F_C4F_N3F_V4F:
+                pc = 4 * f;
+                pn = 8 * f;
+                pv = 11 * f;
+                s  = 15 * f;
+                break;
+            default:
+                RegalAssert( !"unhandled format value" );
+                break;
+        }
+
+        GLubyte* pointerc = static_cast<GLubyte*>( const_cast<GLvoid *>(pointer) ) + pc;
+        GLubyte* pointern = static_cast<GLubyte*>( const_cast<GLvoid *>(pointer) ) + pn;
+        GLubyte* pointerv = static_cast<GLubyte*>( const_cast<GLvoid *>(pointer) ) + pv;
+
+        if ( stride == 0 ) {
+            stride = s;
+        }
+
+        ShadowEnableDisableClientState( ctx, GL_EDGE_FLAG_ARRAY, GL_FALSE );
+        ShadowEnableDisableClientState( ctx, GL_INDEX_ARRAY, GL_FALSE );
+        ShadowEnableDisableClientState( ctx, GL_SECONDARY_COLOR_ARRAY, GL_FALSE );
+        ShadowEnableDisableClientState( ctx, GL_FOG_COORD_ARRAY, GL_FALSE );
+
+        GLint size = 0;
+        GLenum type = GL_FLOAT;
+
+        switch ( format )
+        {
+            case GL_T2F_V3F:
+            case GL_T4F_V4F:
+            case GL_T2F_C4UB_V3F:
+            case GL_T2F_C3F_V3F:
+            case GL_T2F_N3F_V3F:
+            case GL_T2F_C4F_N3F_V3F:
+            case GL_T4F_C4F_N3F_V4F:
+                size = ((format == GL_T4F_V4F) || (format == GL_T4F_C4F_N3F_V4F)) ? 4 : 2;
+                ShadowEnableDisableClientState( ctx, GL_TEXTURE_COORD_ARRAY, GL_TRUE );
+                TexCoordPointer(ctx, size, GL_FLOAT, stride, pointer);
+                break;
+            default:
+                ShadowEnableDisableClientState( ctx, GL_TEXTURE_COORD_ARRAY, GL_FALSE );
+                break;
+        }
+
+        switch ( format )
+        {
+            case GL_C4UB_V2F:
+            case GL_C4UB_V3F:
+            case GL_C3F_V3F:
+            case GL_C4F_N3F_V3F:
+            case GL_T2F_C4UB_V3F:
+            case GL_T2F_C3F_V3F:
+            case GL_T2F_C4F_N3F_V3F:
+            case GL_T4F_C4F_N3F_V4F:
+                size = ((format == GL_C3F_V3F) || (format == GL_T2F_C3F_V3F)) ? 3 : 4;
+                ShadowEnableDisableClientState( ctx, GL_COLOR_ARRAY, GL_TRUE );
+                ColorPointer(ctx, size, type, stride, pointerc);
+                break;
+            default:
+                ShadowEnableDisableClientState( ctx, GL_COLOR_ARRAY, GL_FALSE );
+                break;
+        }
+
+        switch ( format )
+        {
+            case GL_N3F_V3F:
+            case GL_C4F_N3F_V3F:
+            case GL_T2F_N3F_V3F:
+            case GL_T2F_C4F_N3F_V3F:
+            case GL_T4F_C4F_N3F_V4F:
+                ShadowEnableDisableClientState( ctx, GL_NORMAL_ARRAY, GL_TRUE );
+                NormalPointer(ctx, GL_FLOAT, stride, pointern);
+                break;
+            default:
+                ShadowEnableDisableClientState( ctx, GL_NORMAL_ARRAY, GL_FALSE );
+                break;
+        }
+
+        switch ( format )
+        {
+            case GL_V2F:
+            case GL_C4UB_V2F:
+                size = 2;
+                break;
+            case GL_V3F:
+            case GL_C4UB_V3F:
+            case GL_C3F_V3F:
+            case GL_N3F_V3F:
+            case GL_C4F_N3F_V3F:
+            case GL_T2F_V3F:
+            case GL_T2F_C4UB_V3F:
+            case GL_T2F_C3F_V3F:
+            case GL_T2F_N3F_V3F:
+            case GL_T2F_C4F_N3F_V3F:
+                size = 3;
+                break;
+            case GL_T4F_V4F:
+            case GL_T4F_C4F_N3F_V4F:
+                size = 4;
+                break;
+            default:
+                RegalAssert( !"unhandled format value" );
+                break;
+        }
+
+        ShadowEnableDisableClientState( ctx, GL_VERTEX_ARRAY, GL_TRUE );
+        VertexPointer(ctx, size, GL_FLOAT, stride, pointerv);
+    }
+
     template <typename T> void PixelStore( RegalContext * ctx, GLenum pname, T param )
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (pname)
         {
             case GL_PACK_SWAP_BYTES:
@@ -618,59 +973,27 @@ struct RegalPpc : public RegalEmu {
         ShadowEnableDisable( ctx, target, GL_FALSE );
     }
 
-    void ShadowEnableDisableClientState( RegalContext * ctx, GLenum cap,
-                                         GLboolean enabled )
+    void ShadowEnableDisableClientState( RegalContext * ctx, GLenum array, GLboolean enabled )
     {
-        ClientArrayState* pAS = NULL;
-        switch (cap)
-        {
-            case GL_COLOR_ARRAY:
-                pAS = &currentClientState.vertexArrayState.colorArrayState;
-                break;
-            case GL_EDGE_FLAG_ARRAY:
-                pAS = &currentClientState.vertexArrayState.edgeFlagArrayState;
-                break;
-            case GL_FOG_COORD_ARRAY:
-                pAS = &currentClientState.vertexArrayState.fogCoordArrayState;
-                break;
-            case GL_INDEX_ARRAY:
-                pAS = &currentClientState.vertexArrayState.indexArrayState;
-                break;
-            case GL_NORMAL_ARRAY:
-                pAS = &currentClientState.vertexArrayState.normalArrayState;
-                break;
-            case GL_SECONDARY_COLOR_ARRAY:
-                pAS = &currentClientState.vertexArrayState.secondaryColorArrayState;
-                break;
-            case GL_TEXTURE_COORD_ARRAY:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    pAS = &currentClientState.vertexArrayState.textureCoordArrayState[index];
-                }
-                break;
-            case GL_VERTEX_ARRAY:
-                pAS = &currentClientState.vertexArrayState.vertexArrayState;
-                break;
-            default: 
-                RegalAssert( !"unhandled cap value" );
-                break;
-        }
-
+        VertexArrayState* pAS = ClientStateToAttribState( array );
         if (pAS)
             pAS->enabled = enabled;
-
     }
 
-    void EnableClientState( RegalContext * ctx, GLenum cap )
+    void EnableClientState( RegalContext * ctx, GLenum array )
     {
-        ShadowEnableDisableClientState( ctx, cap, GL_TRUE );
+        if ( insideBeginEnd == true )
+            return;
+
+        ShadowEnableDisableClientState( ctx, array, GL_TRUE );
     }
 
-    void DisableClientState( RegalContext * ctx, GLenum cap )
+    void DisableClientState( RegalContext * ctx, GLenum array )
     {
-        ShadowEnableDisableClientState( ctx, cap, GL_FALSE );
+        if ( insideBeginEnd == true )
+            return;
+
+        ShadowEnableDisableClientState( ctx, array, GL_FALSE );
     }
 
     void ShadowEnableDisableVertexAttribArray( RegalContext * ctx, GLuint index,
@@ -701,6 +1024,9 @@ struct RegalPpc : public RegalEmu {
     {
         // do nothing for these various error conditions
 
+        if ( insideBeginEnd == true )
+            return;
+
         if (_index >= REGAL_PPC_MAX_VERTEX_ATTRIBS)
             return;
 
@@ -718,11 +1044,11 @@ struct RegalPpc : public RegalEmu {
                     case GL_INT_2_10_10_10_REV:
                     case GL_UNSIGNED_INT_2_10_10_10_REV:
                         break;
-                    default: 
+                    default:
                         return;
                 }
                 break;
-            default: 
+            default:
                 return;
         }
 
@@ -742,7 +1068,7 @@ struct RegalPpc : public RegalEmu {
                 if (_size != 4 && _size != GL_BGRA)
                     return;
                 break;
-            default: 
+            default:
                 return;
         }
 
@@ -754,10 +1080,16 @@ struct RegalPpc : public RegalEmu {
             return;
         }
 
+        if ( ( currentClientState.vertexArrayState.vertexArrayObject != 0 ) &&
+             ( currentClientState.vertexArrayState.vertexBuffer == 0 ) &&
+             ( _pointer != NULL ) ) {
+            return;
+        }
+
         // otherwise shadow the generic vertex array state
 
         currentClientState.vertexArrayState.genericArrayState[_index].SetPointer(
-             currentClientState.vertexArrayState.arrayBufferBinding,
+             currentClientState.vertexArrayState.vertexBuffer,
              _index, _size, _type, _normalized, _integer, _stride, _pointer );
     }
 
@@ -797,59 +1129,35 @@ struct RegalPpc : public RegalEmu {
             currentClientState.vertexArrayState.primitiveRestartIndex = index;
     }
 
-    void ShadowClientArrayState( RegalContext * ctx, GLenum cap, GLint size, GLenum type,
-                                 GLsizei stride, const GLvoid * pointer)
+    void ShadowVertexArrayPointer( RegalContext * ctx, GLenum array, GLint size,
+                                 GLenum type, GLsizei stride, const GLvoid * pointer)
     {
-        ClientArrayState* pAS = NULL;
-        switch (cap)
-        {
-            case GL_COLOR_ARRAY:
-                pAS = &currentClientState.vertexArrayState.colorArrayState;
-                break;
-            case GL_EDGE_FLAG_ARRAY:
-                pAS = &currentClientState.vertexArrayState.edgeFlagArrayState;
-                break;
-            case GL_FOG_COORD_ARRAY:
-                pAS = &currentClientState.vertexArrayState.fogCoordArrayState;
-                break;
-            case GL_INDEX_ARRAY:
-                pAS = &currentClientState.vertexArrayState.indexArrayState;
-                break;
-            case GL_NORMAL_ARRAY:
-                pAS = &currentClientState.vertexArrayState.normalArrayState;
-                break;
-            case GL_SECONDARY_COLOR_ARRAY:
-                pAS = &currentClientState.vertexArrayState.secondaryColorArrayState;
-                break;
-            case GL_TEXTURE_COORD_ARRAY:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    pAS = &currentClientState.vertexArrayState.textureCoordArrayState[index];
-                }
-                break;
-            case GL_VERTEX_ARRAY:
-                pAS = &currentClientState.vertexArrayState.vertexArrayState;
-                break;
-            default: 
-                RegalAssert( !"unhandled cap value" );
-                break;
+        if ( ( currentClientState.vertexArrayState.vertexArrayObject != 0 ) &&
+             ( currentClientState.vertexArrayState.vertexBuffer == 0 ) &&
+             ( pointer != NULL ) ) {
+            return;
         }
 
+        VertexArrayState* pAS = ClientStateToAttribState( array );
+        GLuint index = ClientStateToAttribIndex( array );
+
         if (pAS)
-            pAS->SetPointer( 0, 0, size, type, GL_TRUE, GL_FALSE, stride, pointer );
+            pAS->SetPointer( currentClientState.vertexArrayState.vertexBuffer,
+                             index, size, type, GL_TRUE, GL_FALSE, stride, pointer );
 
     }
 
     void ColorPointer(RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (size)
         {
             case 3:
             case 4:
                 break;
-            default: 
+            default:
                 return;
         }
 
@@ -864,18 +1172,21 @@ struct RegalPpc : public RegalEmu {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_COLOR_ARRAY, size, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_COLOR_ARRAY, size, type, stride, pointer);
     }
 
     void SecondaryColorPointer(RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         if (size != 3)
             return;
 
@@ -890,18 +1201,21 @@ struct RegalPpc : public RegalEmu {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_SECONDARY_COLOR_ARRAY, size, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_SECONDARY_COLOR_ARRAY, size, type, stride, pointer);
     }
 
     void TexCoordPointer(RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (size)
         {
             case 1:
@@ -909,7 +1223,7 @@ struct RegalPpc : public RegalEmu {
             case 3:
             case 4:
                 break;
-            default: 
+            default:
                 return;
         }
 
@@ -920,25 +1234,28 @@ struct RegalPpc : public RegalEmu {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_TEXTURE_COORD_ARRAY, size, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_TEXTURE_COORD_ARRAY, size, type, stride, pointer);
     }
 
     void VertexPointer(RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (size)
         {
             case 2:
             case 3:
             case 4:
                 break;
-            default: 
+            default:
                 return;
         }
 
@@ -949,18 +1266,21 @@ struct RegalPpc : public RegalEmu {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_VERTEX_ARRAY, size, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_VERTEX_ARRAY, size, type, stride, pointer);
     }
 
     void IndexPointer(RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (type)
         {
             case GL_UNSIGNED_BYTE:
@@ -969,18 +1289,21 @@ struct RegalPpc : public RegalEmu {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_INDEX_ARRAY, 0, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_INDEX_ARRAY, 0, type, stride, pointer);
     }
 
     void NormalPointer(RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (type)
         {
             case GL_BYTE:
@@ -989,43 +1312,52 @@ struct RegalPpc : public RegalEmu {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_NORMAL_ARRAY, 0, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_NORMAL_ARRAY, 0, type, stride, pointer);
     }
 
     void FogCoordPointer(RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         switch (type)
         {
             case GL_FLOAT:
             case GL_DOUBLE:
                 break;
-            default: 
+            default:
                 return;
         }
 
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_FOG_COORD_ARRAY, 0, type, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_FOG_COORD_ARRAY, 0, type, stride, pointer);
     }
 
     void EdgeFlagPointer(RegalContext * ctx, GLsizei stride, const GLvoid * pointer)
     {
+        if ( insideBeginEnd == true )
+            return;
+
         if (stride < 0)
             return;
 
-        ShadowClientArrayState(ctx, GL_EDGE_FLAG_ARRAY, 0, GL_FLOAT, stride, pointer);
+        ShadowVertexArrayPointer(ctx, GL_EDGE_FLAG_ARRAY, 0, GL_FLOAT, stride, pointer);
     }
 
     void PushClientAttrib( RegalContext * ctx, GLbitfield mask )
     {
+        if ( insideBeginEnd == true )
+            return;
+
         if (topOfStack >= REGAL_PPC_MAX_CLIENT_ATTRIB_STACK_DEPTH-1) {
             // GL_STACK_OVERFLOW. Don't do anything
             return;
@@ -1050,6 +1382,9 @@ struct RegalPpc : public RegalEmu {
 
     void PopClientAttrib( RegalContext * ctx )
     {
+        if ( insideBeginEnd == true )
+            return;
+
         if (topOfStack < 0) {
             // GL_STACK_UNDERFLOW. Don't do anything
             return;
@@ -1076,383 +1411,333 @@ struct RegalPpc : public RegalEmu {
         currentClientState.Restore( ctx );
     }
 
-    template <typename T> void Get( GLenum pname, T * params )
+    template <typename T> bool Get( GLenum pname, T * params )
     {
+        VertexArrayState* pAS = NULL;
+
         switch (pname)
         {
             case GL_PACK_SWAP_BYTES:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packSwapBytes );
-                return;
+                break;
 
             case GL_PACK_LSB_FIRST:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packLsbFirst );
-                return;
+                break;
 
             case GL_PACK_ROW_LENGTH:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packRowLength );
-                return;
+                break;
 
             case GL_PACK_IMAGE_HEIGHT:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packImageHeight );
-                return;
+                break;
 
             case GL_PACK_SKIP_ROWS:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packSkipRows );
-                return;
+                break;
 
             case GL_PACK_SKIP_PIXELS:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packSkipPixels );
-                return;
+                break;
 
             case GL_PACK_SKIP_IMAGES:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packSkipImages );
-                return;
+                break;
 
             case GL_PACK_ALIGNMENT:
                 *params = static_cast<T>(currentClientState.pixelStoreState.packAlignment );
-                return;
+                break;
 
             case GL_UNPACK_SWAP_BYTES:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackSwapBytes );
-                return;
+                break;
 
             case GL_UNPACK_LSB_FIRST:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackLsbFirst );
-                return;
+                break;
 
             case GL_UNPACK_ROW_LENGTH:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackRowLength );
-                return;
+                break;
 
             case GL_UNPACK_IMAGE_HEIGHT:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackImageHeight );
-                return;
+                break;
 
             case GL_UNPACK_SKIP_ROWS:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackSkipRows );
-                return;
+                break;
 
             case GL_UNPACK_SKIP_PIXELS:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackSkipPixels );
-                return;
+                break;
 
             case GL_UNPACK_SKIP_IMAGES:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackSkipImages );
-                return;
+                break;
 
             case GL_UNPACK_ALIGNMENT:
                 *params = static_cast<T>(currentClientState.pixelStoreState.unpackAlignment );
-                return;
+                break;
 
             case GL_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.arrayBufferBinding);
-                return;
+                *params = static_cast<T>(currentClientState.vertexArrayState.vertexBuffer);
+                break;
 
             case GL_ELEMENT_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.elementArrayBufferBinding);
-                return;
+                *params = static_cast<T>(currentClientState.vertexArrayState.indexBuffer);
+                break;
 
             case GL_PIXEL_PACK_BUFFER_BINDING:
                 *params = static_cast<T>(currentClientState.pixelStoreState.pixelPackBufferBinding);
-                return;
+                break;
 
             case GL_PIXEL_UNPACK_BUFFER_BINDING:
                 *params = static_cast<T>(currentClientState.pixelStoreState.pixelUnpackBufferBinding);
-                return;
+                break;
 
             case GL_ATTRIB_STACK_DEPTH:
                 *params = static_cast<T>(topOfStack+1);
-                return;
+                break;
 
             case GL_MAX_VERTEX_ATTRIBS:
                 *params = static_cast<T>(REGAL_PPC_MAX_VERTEX_ATTRIBS);
-                return;
+                break;
 
             case GL_MAX_CLIENT_ATTRIB_STACK_DEPTH:
                 *params = static_cast<T>(REGAL_PPC_MAX_CLIENT_ATTRIB_STACK_DEPTH);
-                return;
+                break;
 
             case GL_MAX_TEXTURE_COORDS:
-                *params = static_cast<T>(REGAL_PPC_MAX_TEXTURE_COORDS);
-                return;
+                *params = static_cast<T>(ffAttrNumTex);
+                break;
 
             case GL_CLIENT_ACTIVE_TEXTURE:
                 *params = static_cast<T>(currentClientState.vertexArrayState.clientActiveTexture);
-                return;
-
-            case GL_VERTEX_ARRAY_SIZE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.vertexArrayState.size);
-                return;
-
-            case GL_VERTEX_ARRAY_TYPE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.vertexArrayState.type);
-                return;
-
-            case GL_VERTEX_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.vertexArrayState.stride);
-                return;
+                break;
 
             case GL_VERTEX_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.vertexArrayState.bufferBinding);
-                return;
-
-            case GL_COLOR_ARRAY_SIZE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.colorArrayState.size);
-                return;
-
-            case GL_COLOR_ARRAY_TYPE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.colorArrayState.type);
-                return;
-
-            case GL_COLOR_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.colorArrayState.stride);
-                return;
+                pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
             case GL_COLOR_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.colorArrayState.bufferBinding);
-                return;
-
-            case GL_SECONDARY_COLOR_ARRAY_SIZE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.secondaryColorArrayState.size);
-                return;
-
-            case GL_SECONDARY_COLOR_ARRAY_TYPE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.secondaryColorArrayState.type);
-                return;
-
-            case GL_SECONDARY_COLOR_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.secondaryColorArrayState.stride);
-                return;
+                pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
             case GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.secondaryColorArrayState.bufferBinding);
-                return;
-
-            case GL_TEXTURE_COORD_ARRAY_SIZE:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].size);
-                }
-                return;
-
-            case GL_TEXTURE_COORD_ARRAY_TYPE:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].type);
-                }
-                return;
-
-            case GL_TEXTURE_COORD_ARRAY_STRIDE:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].stride);
-                }
-                return;
+                pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
             case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].bufferBinding);
-                }
-                return;
-
-            case GL_FOG_COORD_ARRAY_TYPE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.fogCoordArrayState.type);
-                return;
-
-            case GL_FOG_COORD_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.fogCoordArrayState.stride);
-                return;
+                pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
             case GL_FOG_COORD_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.fogCoordArrayState.bufferBinding);
-                return;
-
-            case GL_INDEX_ARRAY_TYPE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.indexArrayState.type);
-                return;
-
-            case GL_INDEX_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.indexArrayState.stride);
-                return;
-
-            case GL_INDEX_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.indexArrayState.bufferBinding);
-                return;
-
-            case GL_NORMAL_ARRAY_TYPE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.normalArrayState.type);
-                return;
-
-            case GL_NORMAL_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.normalArrayState.stride);
-                return;
+                pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
             case GL_NORMAL_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.normalArrayState.bufferBinding);
-                return;
+                pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
-            case GL_EDGE_FLAG_ARRAY_STRIDE:
-                *params = static_cast<T>(currentClientState.vertexArrayState.edgeFlagArrayState.stride);
-                return;
+            case GL_INDEX_ARRAY_BUFFER_BINDING:
+                pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
 
             case GL_EDGE_FLAG_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(currentClientState.vertexArrayState.edgeFlagArrayState.bufferBinding);
-                return;
+                pAS = ClientStateToAttribState( GL_EDGE_FLAG_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->buffer);
+                break;
+
+            case GL_COLOR_ARRAY_SIZE:
+                pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->size);
+                break;
+
+            case GL_VERTEX_ARRAY_SIZE:
+                pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->size);
+                break;
+
+            case GL_SECONDARY_COLOR_ARRAY_SIZE:
+                *params = static_cast<T>(3);
+                break;
+
+            case GL_TEXTURE_COORD_ARRAY_SIZE:
+                pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->size);
+                break;
+
+            case GL_SECONDARY_COLOR_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_COLOR_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_VERTEX_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_TEXTURE_COORD_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_FOG_COORD_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_NORMAL_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_SECONDARY_COLOR_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_COLOR_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_VERTEX_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_FOG_COORD_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_TEXTURE_COORD_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_NORMAL_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_INDEX_ARRAY_TYPE:
+                pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->type);
+                break;
+
+            case GL_INDEX_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
+
+            case GL_EDGE_FLAG_ARRAY_STRIDE:
+                pAS = ClientStateToAttribState( GL_EDGE_FLAG_ARRAY );
+                if (pAS) 
+                    *params = static_cast<T>(pAS->stride);
+                break;
 
             case GL_PRIMITIVE_RESTART_INDEX:
                 *params = static_cast<T>(currentClientState.vertexArrayState.primitiveRestartIndex);
-                return;
+                break;
+
+            case GL_VERTEX_ARRAY_BINDING:
+                *params = static_cast<T>(currentClientState.vertexArrayState.vertexArrayObject);
+                break;
 
             default:
-                RegalAssert( !"unhandled pname value" );
-                break;
+                return false;
         }
+        return true;
     }
 
-    bool HandlesGet( GLenum pname )
+    template <typename T> bool GetIndexed( GLenum pname, GLuint index, T * params )
     {
-        switch (pname)
-        {
-            case GL_ARRAY_BUFFER_BINDING:
-            case GL_ATTRIB_STACK_DEPTH:
-            case GL_MAX_VERTEX_ATTRIBS:
-            case GL_MAX_CLIENT_ATTRIB_STACK_DEPTH:
-            case GL_COLOR_ARRAY_SIZE:
-            case GL_COLOR_ARRAY_TYPE:
-            case GL_COLOR_ARRAY_STRIDE:
-            case GL_COLOR_ARRAY_BUFFER_BINDING:
-            case GL_SECONDARY_COLOR_ARRAY_SIZE:
-            case GL_SECONDARY_COLOR_ARRAY_TYPE:
-            case GL_SECONDARY_COLOR_ARRAY_STRIDE:
-            case GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING:
-            case GL_TEXTURE_COORD_ARRAY_SIZE:
-            case GL_TEXTURE_COORD_ARRAY_TYPE:
-            case GL_TEXTURE_COORD_ARRAY_STRIDE:
-            case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
-            case GL_FOG_COORD_ARRAY_TYPE:
-            case GL_FOG_COORD_ARRAY_STRIDE:
-            case GL_FOG_COORD_ARRAY_BUFFER_BINDING:
-            case GL_INDEX_ARRAY_TYPE:
-            case GL_INDEX_ARRAY_STRIDE:
-            case GL_INDEX_ARRAY_BUFFER_BINDING:
-            case GL_NORMAL_ARRAY_TYPE:
-            case GL_NORMAL_ARRAY_STRIDE:
-            case GL_NORMAL_ARRAY_BUFFER_BINDING:
-            case GL_EDGE_FLAG_ARRAY_STRIDE:
-            case GL_EDGE_FLAG_ARRAY_BUFFER_BINDING:
-            case GL_PRIMITIVE_RESTART_INDEX:
-                return true;
-            default:
-                break;
-        }
-        return false;
-    }
+        RegalAssert(index >= 0);
+        RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
 
-    template <typename T> void GetIndexed( GLenum pname, GLuint index, T * params )
-    {
+        if ( index >= ffAttrNumTex )
+            return false;
+
+        index += ffAttrTexBegin;
+
+        VertexArrayState* pAS =
+             &currentClientState.vertexArrayState.genericArrayState[index];
+
         switch (pname)
         {
             case GL_TEXTURE_COORD_ARRAY_SIZE:
-                RegalAssert(index >= 0);
-                RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].size);
-                return;
+                *params = static_cast<T>(pAS->size);
+                break;
 
             case GL_TEXTURE_COORD_ARRAY_TYPE:
-                RegalAssert(index >= 0);
-                RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].type);
-                return;
+                *params = static_cast<T>(pAS->type);
+                break;
 
             case GL_TEXTURE_COORD_ARRAY_STRIDE:
-                RegalAssert(index >= 0);
-                RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].stride);
-                return;
+                *params = static_cast<T>(pAS->stride);
+                break;
 
             case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
-                RegalAssert(index >= 0);
-                RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                *params = static_cast<T>(currentClientState.vertexArrayState.textureCoordArrayState[index].bufferBinding);
-                return;
+                *params = static_cast<T>(pAS->buffer);
+                break;
 
             default:
-                RegalAssert( !"unhandled pname value" );
-                break;
+                return false;
         }
+        return true;
     }
 
-    bool HandlesGetIndexed( GLenum pname, GLuint index )
+    bool IsEnabled( GLenum cap, GLboolean &enabled )
     {
-        switch (pname)
-        {
-            case GL_TEXTURE_COORD_ARRAY_SIZE:
-            case GL_TEXTURE_COORD_ARRAY_TYPE:
-            case GL_TEXTURE_COORD_ARRAY_STRIDE:
-            case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
-                return true;
-            default:
-                break;
-        }
-        return false;
-    }
+        VertexArrayState* pAS = NULL;
 
-    GLboolean IsEnabled( GLenum cap )
-    {
         switch (cap)
         {
             case GL_PRIMITIVE_RESTART:
-                return currentClientState.vertexArrayState.primitiveRestart;
-
-            case GL_EDGE_FLAG_ARRAY:
-                return currentClientState.vertexArrayState.edgeFlagArrayState.enabled;
-
-            case GL_NORMAL_ARRAY:
-                return currentClientState.vertexArrayState.normalArrayState.enabled;
-
-            case GL_INDEX_ARRAY:
-                return currentClientState.vertexArrayState.indexArrayState.enabled;
-
-            case GL_FOG_COORD_ARRAY:
-                return currentClientState.vertexArrayState.fogCoordArrayState.enabled;
-
-            case GL_VERTEX_ARRAY:
-                return currentClientState.vertexArrayState.vertexArrayState.enabled;
-
-            case GL_COLOR_ARRAY:
-                return currentClientState.vertexArrayState.colorArrayState.enabled;
-
-            case GL_SECONDARY_COLOR_ARRAY:
-                return currentClientState.vertexArrayState.secondaryColorArrayState.enabled;
-
-            case GL_TEXTURE_COORD_ARRAY:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    return currentClientState.vertexArrayState.textureCoordArrayState[index].enabled;
-                }
-
-            default:
-                RegalAssert( !"unhandled cap value" );
+                enabled = currentClientState.vertexArrayState.primitiveRestart;
                 break;
-        }
-        return GL_FALSE;
-    }
 
-    bool HandlesIsEnabled( GLenum cap )
-    {
-        switch (cap)
-        {
             case GL_EDGE_FLAG_ARRAY:
             case GL_NORMAL_ARRAY:
             case GL_INDEX_ARRAY:
@@ -1461,133 +1746,110 @@ struct RegalPpc : public RegalEmu {
             case GL_COLOR_ARRAY:
             case GL_SECONDARY_COLOR_ARRAY:
             case GL_TEXTURE_COORD_ARRAY:
-                return true;
-            default:
+                pAS = ClientStateToAttribState( cap );
+                if ( pAS == NULL ) 
+                    return false;
+                enabled = pAS->enabled;
                 break;
+
+            default:
+                return false;
         }
-        return false;
+        return true;
     }
 
-    GLboolean IsEnabledIndexed( GLenum cap, GLuint index )
+    bool IsEnabledIndexed( GLenum array, GLuint index, GLboolean &enabled )
     {
-        switch (cap)
+        switch ( array )
         {
             case GL_TEXTURE_COORD_ARRAY:
                 RegalAssert(index >= 0);
                 RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                return currentClientState.vertexArrayState.textureCoordArrayState[index].enabled;
+                if ( index >= ffAttrNumTex )
+                    return false;
+                index += ffAttrTexBegin;
+                enabled = currentClientState.vertexArrayState.genericArrayState[index].enabled;
+                break;
 
             default:
-                RegalAssert( !"unhandled cap value" );
-                break;
+                return false;
         }
-        return GL_FALSE;
+        return true;
     }
 
-    bool HandlesIsEnabledIndexed( GLenum cap, GLuint index )
+    bool GetPointerv( GLenum pname, GLvoid ** params)
     {
-        switch (cap)
+        VertexArrayState* pAS = NULL;
+
+        switch (pname)
         {
-            case GL_TEXTURE_COORD_ARRAY:
-                return true;
-            default:
+            case GL_EDGE_FLAG_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_EDGE_FLAG_ARRAY );
                 break;
+
+            case GL_INDEX_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
+                break;
+
+            case GL_NORMAL_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
+                break;
+
+            case GL_FOG_COORD_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
+                break;
+
+            case GL_VERTEX_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
+                break;
+
+            case GL_COLOR_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
+                break;
+
+            case GL_SECONDARY_COLOR_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
+                break;
+
+            case GL_TEXTURE_COORD_ARRAY_POINTER:
+                pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
+                break;
+
+            default:
+                return false;
+        }
+
+        if ( pAS == NULL )
+            return false;
+
+        *params = const_cast<GLvoid *>(pAS->pointer);
+        return true;
+    }
+
+    bool GetVertexAttribPointerv( GLuint index, GLenum pname, GLvoid ** pointer)
+    {
+        if ( ( pname == GL_VERTEX_ATTRIB_ARRAY_POINTER ) &&
+                 ( index < REGAL_PPC_MAX_VERTEX_ATTRIBS ) ) {
+            *pointer = const_cast<GLvoid *>(currentClientState.vertexArrayState.genericArrayState[index].pointer);
+            return true;
         }
         return false;
     }
 
-    void GetPointerv( GLenum pname, GLvoid ** params)
+    template <typename T> bool GetVertexAttribv( GLuint index, GLenum pname, T * params )
     {
-        switch (pname)
-        {
-            case GL_EDGE_FLAG_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.edgeFlagArrayState.pointer);
-                break;
+        if ( index >= REGAL_PPC_MAX_VERTEX_ATTRIBS )
+            return false;
 
-            case GL_NORMAL_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.normalArrayState.pointer);
-                break;
-
-            case GL_INDEX_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.indexArrayState.pointer);
-                break;
-
-            case GL_FOG_COORD_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.fogCoordArrayState.pointer);
-                break;
-
-            case GL_VERTEX_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.vertexArrayState.pointer);
-                break;
-
-            case GL_COLOR_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.colorArrayState.pointer);
-                break;
-
-            case GL_SECONDARY_COLOR_ARRAY_POINTER:
-                *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.secondaryColorArrayState.pointer);
-                break;
-
-            case GL_TEXTURE_COORD_ARRAY_POINTER:
-                {
-                    GLuint index = currentClientState.vertexArrayState.clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
-                    RegalAssert(index < REGAL_PPC_MAX_TEXTURE_COORDS);
-                    *params = const_cast<GLvoid *>(currentClientState.vertexArrayState.textureCoordArrayState[index].pointer);
-                }
-                break;
-
-            default:
-                RegalAssert( !"unhandled pname value" );
-                *params = NULL;
-                break;
-        }
-    }
-
-    bool HandlesGetPointerv( GLenum pname )
-    {
-        switch (pname)
-        {
-            case GL_EDGE_FLAG_ARRAY_POINTER:
-            case GL_NORMAL_ARRAY_POINTER:
-            case GL_INDEX_ARRAY_POINTER:
-            case GL_FOG_COORD_ARRAY_POINTER:
-            case GL_VERTEX_ARRAY_POINTER:
-            case GL_COLOR_ARRAY_POINTER:
-            case GL_SECONDARY_COLOR_ARRAY_POINTER:
-            case GL_TEXTURE_COORD_ARRAY_POINTER:
-                return true;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    void GetVertexAttribPointerv( GLuint index, GLenum pname, GLvoid ** pointer)
-    {
-        RegalAssert( pname == GL_VERTEX_ATTRIB_ARRAY_POINTER );
-        RegalAssert( index < REGAL_PPC_MAX_VERTEX_ATTRIBS );
-
-        *pointer = const_cast<GLvoid *>(currentClientState.vertexArrayState.genericArrayState[index].pointer);
-    }
-
-    bool HandlesGetVertexAttribPointerv( GLuint index, GLenum pname )
-    {
-        return ( ( pname == GL_VERTEX_ATTRIB_ARRAY_POINTER ) &&
-                 ( index < REGAL_PPC_MAX_VERTEX_ATTRIBS ) );
-    }
-
-    template <typename T> void GetVertexAttribv( GLuint index, GLenum pname, T * params )
-    {
-        RegalAssert( index < REGAL_PPC_MAX_VERTEX_ATTRIBS );
-        RegalAssert( !(index == 0 && pname == GL_CURRENT_VERTEX_ATTRIB) );
-
-        ClientArrayState &gas = currentClientState.vertexArrayState.genericArrayState[index];
+        if ( index == 0 && pname == GL_CURRENT_VERTEX_ATTRIB)
+            return false;
+        
+        VertexArrayState &gas = currentClientState.vertexArrayState.genericArrayState[index];
 
         switch (pname)
         {
             case GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING:
-                *params = static_cast<T>(gas.bufferBinding);
+                *params = static_cast<T>(gas.buffer);
                 break;
 
             case GL_VERTEX_ATTRIB_ARRAY_ENABLED:
@@ -1619,36 +1881,12 @@ struct RegalPpc : public RegalEmu {
                 break;
 
             default:
-                RegalAssert( !"unhandled pname value" );
-                break;
+                return false;
         }
-    }
-
-    bool HandlesGetVertexAttribv( GLuint index, GLenum pname )
-    {
-        if ( index >= REGAL_PPC_MAX_VERTEX_ATTRIBS )
-            return false;
-
-        if ( index == 0 && pname == GL_CURRENT_VERTEX_ATTRIB)
-            return false;
-        
-        switch (pname)
-        {
-            case GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING:
-            case GL_VERTEX_ATTRIB_ARRAY_ENABLED:
-            case GL_VERTEX_ATTRIB_ARRAY_SIZE:
-            case GL_VERTEX_ATTRIB_ARRAY_DIVISOR:
-            case GL_VERTEX_ATTRIB_ARRAY_STRIDE:
-            case GL_VERTEX_ATTRIB_ARRAY_TYPE:
-            case GL_VERTEX_ATTRIB_ARRAY_NORMALIZED:
-                return true;
-
-            default:
-                break;
-        }
-        return false;
-
+        return true;
     }
 };
+
+REGAL_NAMESPACE_END
 
 #endif // ! __REGAL_PPC_H__

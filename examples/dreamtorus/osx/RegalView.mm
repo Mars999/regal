@@ -22,38 +22,42 @@ NSTimer *timer = nil;
 - (id)initWithCoder:(NSCoder *)aDecoder {
 
     [super initWithCoder: aDecoder];
-	NSOpenGLPixelFormatAttribute attr[] = {
-        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,      //   pick this 
-        //NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,   //   or this
-		NSOpenGLPFADoubleBuffer,
-		NSOpenGLPFAAccelerated,
-		NSOpenGLPFAAlphaSize, 8,
-		NSOpenGLPFAColorSize, 32,
-		NSOpenGLPFADepthSize, 24,
-		NSOpenGLPFAStencilSize, 0,
-		0 
-	};	
-	NSOpenGLPixelFormat *fmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
+  NSOpenGLPixelFormatAttribute attr[] = {
+#if 0
+        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
+#else
+        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
+#endif
+    NSOpenGLPFADoubleBuffer,
+    NSOpenGLPFAAccelerated,
+    NSOpenGLPFAAlphaSize, 8,
+    NSOpenGLPFAColorSize, 32,
+    NSOpenGLPFADepthSize, 24,
+    NSOpenGLPFAStencilSize, 0,
+    0
+  };
+  NSOpenGLPixelFormat *fmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
     [self setPixelFormat: fmt];
     RGLOpenGLContext *rglCtx = [[RGLOpenGLContext alloc] initWithFormat:fmt shareContext:nil];
     [self setOpenGLContext: rglCtx];
     [rglCtx setView:self];
-	timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector	(render) userInfo:nil repeats:YES];
+  timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector (render) userInfo:nil repeats:YES];
     resized = false;
     return self;
 }
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    if( resized == false ) {
-        return;
-    }
-	display( true );
-	[[self openGLContext] flushBuffer];
+  if( resized == false ) {
+    [self windowResized:NULL];
+    resized = true;
+  }
+  display( true );
+  [[self openGLContext] flushBuffer];
 }
 
 - (void) render {
-	[self setNeedsDisplay:YES];
+  [self setNeedsDisplay:YES];
 }
 
 - (void)viewDidMoveToWindow

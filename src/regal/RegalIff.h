@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -34,12 +34,12 @@
 
  */
 
-#ifndef __REGAL_FIXED_FUNCTION_H__
-#define __REGAL_FIXED_FUNCTION_H__
+#ifndef __REGAL_IFF_H__
+#define __REGAL_IFF_H__
 
-#include "RegalPrivate.h"
-#include "RegalEmu.h"
-#include "linear.h"
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
 
 #include <climits>
 #include <cstring>
@@ -49,10 +49,20 @@
 #include <string>
 #include <algorithm>
 
+#include "RegalPrivate.h"
+#include "RegalContextInfo.h"
+#include "RegalEmu.h"
+#include "linear.h"
+
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
+
 #define REGAL_MAX_VERTEX_ATTRIBS 16
 #define REGAL_IMMEDIATE_BUFFER_SIZE 8192
 
 template <typename T> inline float RegalImmediateConvert( GLboolean normalize, T v ) {
+  UNUSED_PARAMETER(normalize);
     return float( v );
 }
 
@@ -84,8 +94,18 @@ template <> inline float RegalImmediateConvert( GLboolean normalize, GLshort v )
     return float( v );
 }
 
+const GLenum texenvModeGL[] = {
+    GL_FALSE,
+    GL_REPLACE,
+    GL_MODULATE,
+    GL_ADD,
+    GL_DECAL,
+    GL_BLEND,
+    GL_COMBINE
+};
 
-#define REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS 4
+
+#define REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS 16
 #define REGAL_FIXED_FUNCTION_NUM_TEXTURE_TARGETS 5
 #define REGAL_FIXED_FUNCTION_MATRIX_STACK_DEPTH 128
 #define REGAL_FIXED_FUNCTION_MAX_LIGHTS 8
@@ -104,6 +124,34 @@ enum RegalFFUniformEnum {
     FFU_TextureMatrix1,
     FFU_TextureMatrix2,
     FFU_TextureMatrix3,
+    FFU_TextureMatrix4,
+    FFU_TextureMatrix5,
+    FFU_TextureMatrix6,
+    FFU_TextureMatrix7,
+    FFU_TextureMatrix8,
+    FFU_TextureMatrix9,
+    FFU_TextureMatrix10,
+    FFU_TextureMatrix11,
+    FFU_TextureMatrix12,
+    FFU_TextureMatrix13,
+    FFU_TextureMatrix14,
+    FFU_TextureMatrix15,
+    FFU_TextureEnvColor0,
+    FFU_TextureEnvColor1,
+    FFU_TextureEnvColor2,
+    FFU_TextureEnvColor3,
+    FFU_TextureEnvColor4,
+    FFU_TextureEnvColor5,
+    FFU_TextureEnvColor6,
+    FFU_TextureEnvColor7,
+    FFU_TextureEnvColor8,
+    FFU_TextureEnvColor9,
+    FFU_TextureEnvColor10,
+    FFU_TextureEnvColor11,
+    FFU_TextureEnvColor12,
+    FFU_TextureEnvColor13,
+    FFU_TextureEnvColor14,
+    FFU_TextureEnvColor15,
     FFU_Texgen0ObjS,
     FFU_Texgen0ObjT,
     FFU_Texgen0ObjR,
@@ -179,6 +227,34 @@ static const RegalFFUniformInfo regalFFUniformInfo[] = {
     { FFU_TextureMatrix1, "rglTextureMatrix1" },
     { FFU_TextureMatrix2, "rglTextureMatrix2" },
     { FFU_TextureMatrix3, "rglTextureMatrix3" },
+    { FFU_TextureMatrix4, "rglTextureMatrix4" },
+    { FFU_TextureMatrix5, "rglTextureMatrix5" },
+    { FFU_TextureMatrix6, "rglTextureMatrix6" },
+    { FFU_TextureMatrix7, "rglTextureMatrix7" },
+    { FFU_TextureMatrix8, "rglTextureMatrix8" },
+    { FFU_TextureMatrix9, "rglTextureMatrix9" },
+    { FFU_TextureMatrix10, "rglTextureMatrix10" },
+    { FFU_TextureMatrix11, "rglTextureMatrix11" },
+    { FFU_TextureMatrix12, "rglTextureMatrix12" },
+    { FFU_TextureMatrix13, "rglTextureMatrix13" },
+    { FFU_TextureMatrix14, "rglTextureMatrix14" },
+    { FFU_TextureMatrix15, "rglTextureMatrix15" },
+    { FFU_TextureEnvColor0, "rglTexEnvColor0" },
+    { FFU_TextureEnvColor1, "rglTexEnvColor1" },
+    { FFU_TextureEnvColor2, "rglTexEnvColor2" },
+    { FFU_TextureEnvColor3, "rglTexEnvColor3" },
+    { FFU_TextureEnvColor4, "rglTexEnvColor4" },
+    { FFU_TextureEnvColor5, "rglTexEnvColor5" },
+    { FFU_TextureEnvColor6, "rglTexEnvColor6" },
+    { FFU_TextureEnvColor7, "rglTexEnvColor7" },
+    { FFU_TextureEnvColor8, "rglTexEnvColor8" },
+    { FFU_TextureEnvColor9, "rglTexEnvColor9" },
+    { FFU_TextureEnvColor10, "rglTexEnvColor10" },
+    { FFU_TextureEnvColor11, "rglTexEnvColor11" },
+    { FFU_TextureEnvColor12, "rglTexEnvColor12" },
+    { FFU_TextureEnvColor13, "rglTexEnvColor13" },
+    { FFU_TextureEnvColor14, "rglTexEnvColor14" },
+    { FFU_TextureEnvColor15, "rglTexEnvColor15" },
     { FFU_Texgen0ObjS, "rglTexgen0ObjS" },
     { FFU_Texgen0ObjT, "rglTexgen0ObjT" },
     { FFU_Texgen0ObjR, "rglTexgen0ObjR" },
@@ -236,20 +312,20 @@ static const RegalFFUniformInfo regalFFUniformInfo[] = {
     { FFU_AlphaRef, "rglAlphaRef" },
 };
 
-template <typename T> bool RFFIsVector( const T p ) { return false; }
-template <typename T> bool RFFIsVector( const T * p ) { return true; }
+template <typename T> bool RFFIsVector( const T p ) { UNUSED_PARAMETER(p); return false; }
+template <typename T> bool RFFIsVector( const T * p ) { UNUSED_PARAMETER(p); return true; }
 
-template <typename T> GLfloat RFFToFloat( int i, const T p ) { return GLfloat( p ); }
+template <typename T> GLfloat RFFToFloat( int i, const T p ) { UNUSED_PARAMETER(i); return GLfloat( p ); }
 template <typename T> GLfloat RFFToFloat( int i, const T * p ) { return GLfloat( p[i] ); }
-template <typename T> GLfloat RFFToFloatN( int i, const T p ) { return GLfloat( p ); }
+template <typename T> GLfloat RFFToFloatN( int i, const T p ) { UNUSED_PARAMETER(i); return GLfloat( p ); }
 template <typename T> GLfloat RFFToFloatN( int i, const T * p ) { return GLfloat( p[i] ); }
-template <> inline GLfloat RFFToFloatN( int i, const GLint p ) { return GLfloat( double( p ) / double( INT_MAX ) ); }
+template <> inline GLfloat RFFToFloatN( int i, const GLint p ) { UNUSED_PARAMETER(i); return GLfloat( double( p ) / double( INT_MAX ) ); }
 template <> inline GLfloat RFFToFloatN( int i, const int * p ) { return GLfloat( double( p[i] ) / double( INT_MAX ) ); }
 
 
 
 struct RegalIff : public RegalEmu {
-    
+
 
     // Vertex arrays
     GLuint catIndex;
@@ -259,10 +335,10 @@ struct RegalIff : public RegalEmu {
     GLuint ffAttrTexEnd;
     GLuint ffAttrNumTex;
     GLuint maxVertexAttribs;
-    
+
     void InitVertexArray( RegalContext * ctx ) {
-        maxVertexAttribs = ctx->ctxInf->maxVertexAttribs;
-        
+        maxVertexAttribs = ctx->info->maxVertexAttribs;
+
         if( maxVertexAttribs >= 16 ) {
             RegalAssert( REGAL_MAX_VERTEX_ATTRIBS == 16);
             //RegalOutput( "Setting up for %d Vertex Attribs\n", maxVertexAttribs );
@@ -280,8 +356,8 @@ struct RegalIff : public RegalEmu {
                 ffAttrInvMap[i] = RFF2AInvMap8[i];
             }
             for( int i = 8; i < REGAL_MAX_VERTEX_ATTRIBS; i++ ) {
-                ffAttrMap[i] = -1;
-                ffAttrInvMap[i] = -1;
+                ffAttrMap[i] = GLuint(-1);
+                ffAttrInvMap[i] = GLuint(-1);
             }
             ffAttrTexBegin = RFF2ATexBegin8;
             ffAttrTexEnd = RFF2ATexEnd8;
@@ -289,7 +365,7 @@ struct RegalIff : public RegalEmu {
         ffAttrNumTex = ffAttrTexEnd - ffAttrTexBegin;
         catIndex = 0;
     }
-    
+
     GLuint ClientStateToIndex( GLenum state ) {
         switch( state ) {
             case GL_VERTEX_ARRAY: return ffAttrMap[ RFF2A_Vertex ];
@@ -297,6 +373,7 @@ struct RegalIff : public RegalEmu {
             case GL_COLOR_ARRAY:  return ffAttrMap[ RFF2A_Color ];
             case GL_SECONDARY_COLOR_ARRAY: return ffAttrMap[ RFF2A_SecondaryColor ];
             case GL_FOG_COORD_ARRAY: return ffAttrMap[ RFF2A_FogCoord ];
+            case GL_EDGE_FLAG_ARRAY: return ffAttrMap[ RFF2A_EdgeFlag ];
             case GL_TEXTURE_COORD_ARRAY: {
                 if( catIndex < ffAttrNumTex ) {
                     return ffAttrTexBegin + catIndex;
@@ -305,20 +382,22 @@ struct RegalIff : public RegalEmu {
             }
             default: break;
         }
-        return ~0;
+        return ~0u;
     }
-    
+
     void EnableClientState( RegalContext * ctx, GLenum state ) {
-        const GLuint idx = ClientStateToIndex( state );    
+        const GLuint idx = ClientStateToIndex( state );
         if( idx == GLuint(~0) ) {
             return;
         }
         RestoreVao( ctx );
         RegalAssert( idx < maxVertexAttribs );
-        ctx->dsp.emuTbl.glEnableVertexAttribArray( idx );
-        EnableArray( ctx, idx ); // keep ffn up to date
+        if ( idx < maxVertexAttribs ) {
+            ctx->dsp.emuTbl.glEnableVertexAttribArray( idx );
+            EnableArray( ctx, idx ); // keep ffn up to date
+        }
     }
-    
+
     void DisableClientState( RegalContext * ctx, GLenum state ) {
         const GLuint idx = ClientStateToIndex( state );
         if( idx == GLuint(~0) ) {
@@ -326,38 +405,68 @@ struct RegalIff : public RegalEmu {
         }
         RestoreVao( ctx );
         RegalAssert( idx < maxVertexAttribs );
-        ctx->dsp.emuTbl.glDisableVertexAttribArray( idx );
-        DisableArray( ctx, idx ); // keep ffn up to date
+        if ( idx < maxVertexAttribs ) {
+            ctx->dsp.emuTbl.glDisableVertexAttribArray( idx );
+            DisableArray( ctx, idx ); // keep ffn up to date
+        }
     }
-    
-    void VertexPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
+
+    void VertexPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+    {
+        //<> if ( insideBeginEnd == true )
+            //<> return;
+
+        switch (size)
+        {
+            case 2:
+            case 3:
+            case 4:
+                break;
+            default:
+                return;
+        }
+
+        switch (type)
+        {
+            case GL_SHORT:
+            case GL_INT:
+            case GL_FLOAT:
+            case GL_DOUBLE:
+                break;
+            default:
+                return;
+        }
+
+        if (stride < 0)
+            return;
+
         RestoreVao( ctx );
         ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Vertex ], size, type, GL_FALSE, stride, pointer );
     }
-    
+
     void NormalPointer( RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLboolean n = type == GL_FLOAT ? GL_FALSE : GL_TRUE;
         ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Normal ], 3, type, n, stride, pointer );
     }
-    
+
     void ColorPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLboolean n = type == GL_FLOAT ? GL_FALSE : GL_TRUE;
         ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Color ], size, type, n, stride, pointer );
     }
-    
+
     void SecondaryColorPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLboolean n = type == GL_FLOAT ? GL_FALSE : GL_TRUE;
         ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_SecondaryColor ], size, type, n, stride, pointer );
     }
-    
+
     void FogCoordPointer( RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_FogCoord ], 1, type, GL_FALSE, stride, pointer );
     }
-    
+
     void EdgeFlagPointer( RegalContext * ctx, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLuint index = ffAttrMap[ RFF2A_EdgeFlag ];
@@ -366,30 +475,30 @@ struct RegalIff : public RegalEmu {
         }
         ctx->dsp.emuTbl.glVertexAttribPointer( index, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride, pointer );
     }
-    
+
     void TexCoordPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         if( catIndex >= ffAttrNumTex ) {
             // FIXME: set an error here!
             return;
         }
         RestoreVao( ctx );
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrNumTex + catIndex, size, type, GL_FALSE, stride, pointer );
+        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrTexBegin + catIndex, size, type, GL_FALSE, stride, pointer );
     }
-    
+
     void GetAttrib( RegalContext * ctx, GLuint index, GLenum pname, GLdouble * d ) {
         ctx->dsp.emuTbl.glGetVertexAttribdv( index, pname, d );
     }
-    
+
     void GetAttrib( RegalContext * ctx, GLuint index, GLenum pname, GLfloat * f ) {
         ctx->dsp.emuTbl.glGetVertexAttribfv( index, pname, f );
     }
-    
+
     void GetAttrib( RegalContext * ctx, GLuint index, GLenum pname, GLint * i ) {
         ctx->dsp.emuTbl.glGetVertexAttribiv( index, pname, i );
     }
-    
-    template <typename T> void VaGet( RegalContext * ctx, GLenum pname, T * params ) {
-        
+
+    template <typename T> bool VaGet( RegalContext * ctx, GLenum pname, T * params ) {
+
         GLuint index = 0;
         switch (pname) {
             case GL_VERTEX_ARRAY_BUFFER_BINDING:
@@ -416,8 +525,7 @@ struct RegalIff : public RegalEmu {
             case GL_SECONDARY_COLOR_ARRAY_SIZE:
                 // This is a convenient lie. --Cass
                 *params = 3;
-                return;
-
+                break;
             case GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING:
             case GL_SECONDARY_COLOR_ARRAY_TYPE:
             case GL_SECONDARY_COLOR_ARRAY_STRIDE:
@@ -430,13 +538,13 @@ struct RegalIff : public RegalEmu {
             case GL_FOG_COORD_ARRAY_POINTER:
                 index = ffAttrMap[ RFF2A_FogCoord ];
                 break;
-                
+
             case GL_EDGE_FLAG_ARRAY_BUFFER_BINDING:
             case GL_EDGE_FLAG_ARRAY_STRIDE:
             case GL_EDGE_FLAG_ARRAY_POINTER:
                 index = ffAttrMap[ RFF2A_EdgeFlag ];
                 break;
-                
+
             case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
             case GL_TEXTURE_COORD_ARRAY_SIZE:
             case GL_TEXTURE_COORD_ARRAY_TYPE:
@@ -444,25 +552,23 @@ struct RegalIff : public RegalEmu {
             case GL_TEXTURE_COORD_ARRAY_POINTER: {
                 if( catIndex >= ffAttrNumTex ) {
                     // FIXME need to set an error here!
-                    return;
+                    return false;
                 }
                 index = ffAttrTexBegin + catIndex;
             }
                 break;
-                
+
             // INDEX arrays are not supported
+            case GL_INDEX_ARRAY_TYPE:
+                *params = GL_FLOAT;
+                break;
             case GL_INDEX_ARRAY_BUFFER_BINDING:
             case GL_INDEX_ARRAY_STRIDE:
             case GL_INDEX_ARRAY_POINTER:
-                *params = 0;
-                return;
-            case GL_INDEX_ARRAY_TYPE:
-                *params = GL_FLOAT;
-                return;
             default:
-                break;
+                return false;
         }
-        
+
         switch (pname) {
             case GL_VERTEX_ARRAY_BUFFER_BINDING:
             case GL_NORMAL_ARRAY_BUFFER_BINDING:
@@ -475,11 +581,10 @@ struct RegalIff : public RegalEmu {
                 break;
             case GL_VERTEX_ARRAY_SIZE:
             case GL_COLOR_ARRAY_SIZE:
-            case GL_SECONDARY_COLOR_ARRAY_SIZE:
             case GL_TEXTURE_COORD_ARRAY_SIZE:
                 pname = GL_VERTEX_ATTRIB_ARRAY_SIZE;
                 break;
-                
+
             case GL_VERTEX_ARRAY_TYPE:
             case GL_NORMAL_ARRAY_TYPE:
             case GL_COLOR_ARRAY_TYPE:
@@ -488,7 +593,7 @@ struct RegalIff : public RegalEmu {
             case GL_TEXTURE_COORD_ARRAY_TYPE:
                 pname = GL_VERTEX_ATTRIB_ARRAY_TYPE;
                 break;
-                
+
             case GL_VERTEX_ARRAY_STRIDE:
             case GL_NORMAL_ARRAY_STRIDE:
             case GL_COLOR_ARRAY_STRIDE:
@@ -498,7 +603,7 @@ struct RegalIff : public RegalEmu {
             case GL_TEXTURE_COORD_ARRAY_STRIDE:
                 pname = GL_VERTEX_ATTRIB_ARRAY_STRIDE;
                 break;
-                
+
             case GL_VERTEX_ARRAY_POINTER:
             case GL_NORMAL_ARRAY_POINTER:
             case GL_COLOR_ARRAY_POINTER:
@@ -508,95 +613,52 @@ struct RegalIff : public RegalEmu {
             case GL_TEXTURE_COORD_ARRAY_POINTER:
                 pname = GL_VERTEX_ATTRIB_ARRAY_POINTER;
                 break;
-                
+
             default:
-                break;
+                return false;
         }
         RestoreVao( ctx );
         if( index == RFF2A_Invalid ) {
             // What to return in this case?
-            return;
+            return false;
         }
         GetAttrib( ctx, index, pname, params );
+        return true;
     }
-    
-    // pick back up here
-    bool VaHandlesGet( GLenum pname ) {
-        switch (pname) {
-            case GL_VERTEX_ARRAY_BUFFER_BINDING:
-            case GL_VERTEX_ARRAY_SIZE:
-            case GL_VERTEX_ARRAY_TYPE:
-            case GL_VERTEX_ARRAY_STRIDE:
-            case GL_VERTEX_ARRAY_POINTER:
-            case GL_NORMAL_ARRAY_BUFFER_BINDING:
-            case GL_NORMAL_ARRAY_TYPE:
-            case GL_NORMAL_ARRAY_STRIDE:
-            case GL_NORMAL_ARRAY_POINTER:
-            case GL_COLOR_ARRAY_BUFFER_BINDING:
-            case GL_COLOR_ARRAY_SIZE:
-            case GL_COLOR_ARRAY_TYPE:
-            case GL_COLOR_ARRAY_STRIDE:
-            case GL_COLOR_ARRAY_POINTER:
-            case GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING:
-            case GL_SECONDARY_COLOR_ARRAY_SIZE:
-            case GL_SECONDARY_COLOR_ARRAY_TYPE:
-            case GL_SECONDARY_COLOR_ARRAY_STRIDE:
-            case GL_SECONDARY_COLOR_ARRAY_POINTER:
-            case GL_FOG_COORD_ARRAY_BUFFER_BINDING:
-            case GL_FOG_COORD_ARRAY_TYPE:
-            case GL_FOG_COORD_ARRAY_STRIDE:
-            case GL_FOG_COORD_ARRAY_POINTER:
-            case GL_EDGE_FLAG_ARRAY_BUFFER_BINDING:
-            case GL_EDGE_FLAG_ARRAY_STRIDE:
-            case GL_EDGE_FLAG_ARRAY_POINTER:
-            case GL_INDEX_ARRAY_BUFFER_BINDING:
-            case GL_INDEX_ARRAY_STRIDE:
-            case GL_INDEX_ARRAY_TYPE:
-            case GL_INDEX_ARRAY_POINTER:
-            case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
-            case GL_TEXTURE_COORD_ARRAY_SIZE:
-            case GL_TEXTURE_COORD_ARRAY_TYPE:
-            case GL_TEXTURE_COORD_ARRAY_STRIDE:
-            case GL_TEXTURE_COORD_ARRAY_POINTER:
+
+    bool IsEnabled( RegalContext * ctx, GLenum pname, GLboolean &enabled )
+    {
+        State::Store & st = ffstate.raw;
+        int idx = 0;
+        switch( pname ) {
+            case GL_TEXTURE_GEN_S:
+            case GL_TEXTURE_GEN_T:
+            case GL_TEXTURE_GEN_R:
+            case GL_TEXTURE_GEN_Q:
+                idx = pname - GL_TEXTURE_GEN_S;
+                if( activeTextureIndex >= REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS ) {
+                    return false;
+                }
+                enabled = st.tex[ activeTextureIndex ].texgen[ idx ].enable;
                 return true;
-                break;
-                
             default:
+                //<> return false;
                 break;
         }
-        return false;
-    }
-    
-    GLboolean IsEnabled( RegalContext * ctx, GLenum pname ) {
+
         const GLuint index = ClientStateToIndex( pname );
         if( index == GLuint(~0) ) {
-            return GL_FALSE;
+            return false;
         }
         RegalAssert( index < maxVertexAttribs );
         GLint ret;
         GetAttrib( ctx, index, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &ret );
-        return ret != 0 ? GL_TRUE : GL_FALSE;
-    }
-    
-    bool HandlesIsEnabled( GLenum pname ) {
-        switch (pname) {
-            case GL_VERTEX_ARRAY:
-            case GL_NORMAL_ARRAY:
-            case GL_COLOR_ARRAY:
-            case GL_SECONDARY_COLOR_ARRAY:
-            case GL_FOG_COORD_ARRAY:
-            case GL_TEXTURE_COORD_ARRAY:
-                return true;
-                break;
-                
-            default:
-                break;
-        }
-        return false;
+        enabled = static_cast<GLboolean>(ret);
+        return true;
     }
 
-    // immediate mode 
-    
+    // immediate mode
+
     struct Attributes { RegalFloat4 attr[ REGAL_MAX_VERTEX_ATTRIBS ]; };
 
     bool immActive;
@@ -611,18 +673,23 @@ struct RegalIff : public RegalEmu {
     GLuint immQuadsVbo;
     GLuint immShadowVao;
 
-    void InitImmediate( RegalContext * ctx ) {
+    void InitImmediate( RegalContext * ctx )
+    {
         immActive = false;
         immProvoking = 0;
         immCurrent = 0;
-        immShadowVao = 0;
-        catIndex = 0;
-
+        immPrim = GL_POINTS;
         for( GLuint i = 0; i < maxVertexAttribs; i++ ) {
             RegalFloat4 & a = immVab.attr[i];
             a.x = a.y = a.z = 0.0f; a.w = 1.0f;
         }
-        RegalDispatchTable &tbl = ctx->dsp.emuTbl;
+
+        memset(immArray,0,sizeof(immArray));
+        memset(&immVab, 0, sizeof(immVab));
+
+        immShadowVao = 0;
+
+        DispatchTable &tbl = ctx->dsp.emuTbl;
         tbl.glGenVertexArrays( 1, & immVao );
         tbl.glBindVertexArray( immVao );
         BindVertexArray( ctx, immVao ); // to keep ffn current
@@ -636,7 +703,7 @@ struct RegalIff : public RegalEmu {
         }
         tbl.glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, immQuadsVbo );
         GLushort quadIndexes[ REGAL_IMMEDIATE_BUFFER_SIZE * 3 / 2 ];
-        for ( int i = 0; i < REGAL_IMMEDIATE_BUFFER_SIZE / 4; i++ )  {
+        for ( GLushort i = 0; i < REGAL_IMMEDIATE_BUFFER_SIZE / 4; i++ )  {
             quadIndexes[ i * 6 + 0 ] = i * 4 + 0;  // first triangle
             quadIndexes[ i * 6 + 1 ] = i * 4 + 1;
             quadIndexes[ i * 6 + 2 ] = i * 4 + 2;
@@ -647,6 +714,50 @@ struct RegalIff : public RegalEmu {
         tbl.glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( quadIndexes ), quadIndexes, GL_STATIC_DRAW );
         tbl.glBindVertexArray( 0 );
         BindVertexArray( ctx, 0 ); // to keep ffn current
+
+        // The initial texture coordinates are (s; t; r; q) = (0; 0; 0; 1)
+        // for each texture coordinate set.
+
+        for( catIndex = 0; catIndex < REGAL_EMU_MAX_TEXTURE_UNITS; catIndex++ ) {
+            Attr<4>( ctx, AttrIndex( RFF2A_TexCoord ), 0, 0, 0, 1 );
+        }
+        catIndex = 0;
+
+        // The initial current normal has coordinates (0; 0; 1).
+
+        Attr<3>( ctx, AttrIndex( RFF2A_Normal ), 0, 0, 1 );
+
+        // The initial RGBA color is (R;G;B;A) = (1; 1; 1; 1) and
+        // the initial RGBA secondary color is (0; 0; 0; 1).
+
+        Attr<4>( ctx, AttrIndex( RFF2A_Color ), 1, 1, 1, 1 );
+        Attr<4>( ctx, AttrIndex( RFF2A_SecondaryColor ), 0, 0, 0, 1 );
+
+        // The initial fog coordinate is zero.
+
+        // ... so nothing to do for fog coordinate
+
+        // The initial color index is 1.
+        // The initial values for all generic vertex attributes are (0:0; 0:0; 0:0; 1:0).
+    }
+
+    void DeleteVertexArrays( RegalContext * ctx, GLsizei n, const GLuint * arrays )
+    {
+        RegalAssert( ctx != NULL );
+        for( GLsizei i = 0; i < n; i++ ) {
+            GLuint name = arrays[ i ];
+            if( name != immVao ) {
+                ctx->dsp.emuTbl.glDeleteVertexArrays( 1, &name );
+            }
+        }
+    }
+
+    GLboolean IsVertexArray( RegalContext * ctx, GLuint name )
+    {
+        RegalAssert( ctx != NULL );
+        if (name == immVao )
+            return GL_FALSE;
+        return ctx->dsp.emuTbl.glIsVertexArray( name );
     }
 
     void ShadowVao( RegalContext *ctx, GLuint vao ) {
@@ -685,13 +796,13 @@ struct RegalIff : public RegalEmu {
     }
 
     void Flush( RegalContext * ctx ) {
-        RegalDispatchTable &tbl = ctx->dsp.emuTbl;
-        
+        DispatchTable &tbl = ctx->dsp.emuTbl;
+
         tbl.glBufferData( GL_ARRAY_BUFFER, immCurrent * sizeof( Attributes ), immArray, GL_DYNAMIC_DRAW );
-        if( immPrim != GL_QUADS ) {
-            tbl.glDrawArrays( immPrim, 0, immCurrent );
-        } else {
+        if( ctx->info->core == true && immPrim == GL_QUADS ) {
             tbl.glDrawElements( GL_TRIANGLES, immCurrent * 3 / 2, GL_UNSIGNED_SHORT, 0 );
+        } else {
+            tbl.glDrawArrays( immPrim, 0, immCurrent );
         }
     }
 
@@ -776,12 +887,12 @@ struct RegalIff : public RegalEmu {
         if( attr == RFF2A_TexCoord && GLuint(cat) < ffAttrNumTex ) {
             return ffAttrTexBegin + cat;
         }
-        return ~0;
+        return ~0u;
     }
 
-    
+
     // fixed function
-    
+
     enum CompareFunc {
         CF_Invalid,
         CF_Never,
@@ -844,6 +955,7 @@ struct RegalIff : public RegalEmu {
         TEM_Combine
     };
 
+
     enum TexenvCombine {
         TEC_Invalid,
         TEC_Replace,
@@ -887,23 +999,35 @@ struct RegalIff : public RegalEmu {
     };
 
     struct TextureEnv {
-        TextureEnv() : mode( TEM_Replace ) {}
+        TextureEnv()
+        : mode( TEM_Modulate )
+        , color( 0, 0, 0, 0 )
+        {}
         TexenvMode mode;
         TexenvCombineState rgb, a;
+        RegalFloat4 color;
     };
 
     struct TextureUnit {
-        TextureUnit() : ttb( 0 ), fmt( 0 ) {}
+        TextureUnit()
+        : ttb( 0 )
+        , fmt( 0 )
+        , obj( 0 )
+        , ver( 0 )
+        {}
         GLubyte ttb;
         GLint fmt;
         GLuint obj;
         TextureEnv env;
-        RegalFloat4 col;
+        //RegalFloat4 col;
         GLuint64 ver;
     };
 
     struct Version {
-        Version() : val( 0 ), updated( false ) {}
+        Version()
+        : val( 0 )
+        , updated( false )
+        {}
         GLuint64 Current() const {
             return val;
         }
@@ -924,7 +1048,14 @@ struct RegalIff : public RegalEmu {
     struct State {
 
         struct Texgen {
-            Texgen() : enable( false ), mode( TG_EyeLinear ), obj( 0, 0, 0, 0 ), eye( 0, 0, 0, 0 ), objVer( 0 ), eyeVer( 0 ) {}
+            Texgen()
+            : enable( false )
+            , mode( TG_EyeLinear )
+            , obj( 0, 0, 0, 0 )
+            , eye( 0, 0, 0, 0 )
+            , objVer( 0 )
+            , eyeVer( 0 )
+            {}
             bool enable;
             TexgenMode mode;
             RegalFloat4 obj;
@@ -934,7 +1065,10 @@ struct RegalIff : public RegalEmu {
         };
 
         struct Texture {
-            Texture() : enables( 0 ), useMatrix( false ) {
+            Texture()
+            : enables( 0 )
+            , useMatrix( false )
+            {
                 texgen[0].obj = texgen[0].eye = RegalFloat4( 1, 0, 0, 0 );
                 texgen[1].obj = texgen[1].eye = RegalFloat4( 0, 1, 0, 0 );
             }
@@ -945,7 +1079,12 @@ struct RegalIff : public RegalEmu {
         };
 
         struct AlphaTest {
-            AlphaTest() : enable( false ), comp( CF_Always ), alphaRef( 0 ) {}
+            AlphaTest()
+            : enable( false )
+            , comp( CF_Always )
+            , alphaRef( 0 )
+            , ver( 0 )
+            {}
             bool enable;
             CompareFunc comp;
             GLfloat alphaRef;
@@ -953,14 +1092,25 @@ struct RegalIff : public RegalEmu {
         };
 
         struct Clip {
-            Clip() : enable( false ), plane( 0, 0, 0, 0 ), ver( 0 ) {}
+            Clip()
+            : enable( false )
+            , plane( 0, 0, 0, 0 )
+            , ver( 0 )
+            {}
             bool enable;
             RegalFloat4 plane;
             GLuint64 ver;
         };
 
         struct Fog {
-            Fog() : enable( false ), useDepth( true ), mode( FG_Exp ), params( 1, 0, 1, 0 ), color( 0, 0, 0, 0 ), ver( 0 ) {}
+            Fog()
+            : enable( false )
+            , useDepth( true )
+            , mode( FG_Exp )
+            , params( 1, 0, 1, 0 )
+            , color( 0, 0, 0, 0 )
+            , ver( 0 )
+            {}
             bool enable;
             bool useDepth;
             FogMode mode;
@@ -970,32 +1120,72 @@ struct RegalIff : public RegalEmu {
         };
 
         struct Light {
-            Light() : enable( false ), position( 0, 0, 1, 0 ), spotDirection( 0.0f, 0.0f, -1.0f, 180.0f )
-            , attenuation( 1, 0, 0, 0 ) {}
+            Light()
+            : enable( false )
+            , spotlight( false )
+            , attenuate( false )
+            , position( 0, 0, 1, 0 )
+            , spotDirection( 0.0f, 0.0f, -1.0f, 180.0f )
+            , attenuation( 1, 0, 0, 0 )
+            , ver( 0 )
+            {}
             bool enable;
             bool spotlight;
             bool attenuate;
-            GLuint64 ver;
             RegalFloat4 ambient;
             RegalFloat4 diffuse;
             RegalFloat4 specular;
             RegalFloat4 position;
             RegalFloat4 spotDirection; // spotCutoff is in .w
             RegalFloat4 attenuation;   // spotExponent   is in .w
+            GLuint64 ver;
         };
 
         struct Material {
-            Material() : ambient( 0.2f, 0.2f, 0.2f, 1.0f ), diffuse( 0.8f, 0.8f, 0.8f, 1.0f ) {}
-            GLuint64 ver;
+            Material()
+            : ambient( 0.2f, 0.2f, 0.2f, 1.0f )
+            , diffuse( 0.8f, 0.8f, 0.8f, 1.0f )
+            , ver( 0 )
+            {}
             RegalFloat4 ambient;
             RegalFloat4 diffuse;
             RegalFloat4 specular;
             RegalFloat4 emission;
             RegalFloat4 shininess;  // shininess is in .x
+            GLuint64 ver;
         };
 
         struct Store {
-            Store();
+            Store()
+            : colorSum( false )
+            , rescaleNormal( false )
+            , normalize( false )
+            , shadeModelFlat( false )
+            , lighting( false )
+            , lightModelLocalViewer( false )
+            , lightModelTwoSide( false )
+            , lightModelSeparateSpecular( false )
+            , colorMaterial( false )
+            , attrArrayFlags( 0 )
+            , vabVer( 0 )
+            , ver( 0 )
+            {
+                for (int ii=0; ii<REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; ii++) {
+                    for (int jj=0; jj<4; jj++) {
+                        tex[ii].texgen[jj].enable = false;
+                        tex[ii].texgen[jj].mode = TG_EyeLinear;
+                    }
+                }
+                for (int ii=0; ii<REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; ii++) {
+                    tex[ii].texgen[0].obj = tex[ii].texgen[0].eye = RegalFloat4( 1, 0, 0, 0 );
+                    tex[ii].texgen[1].obj = tex[ii].texgen[1].eye = RegalFloat4( 0, 1, 0, 0 );
+                }
+                light[0].diffuse = light[0].specular = RegalFloat4( 1, 1, 1, 1 );
+                lightModelAmbient = mat[0].ambient = mat[1].ambient = RegalFloat4( 0.2f, 0.2f, 0.2f, 1.0f );
+                mat[0].diffuse = mat[1].diffuse = RegalFloat4( 0.8f, 0.8f, 0.8f, 1.0f );
+                colorMaterialTarget[0] = colorMaterialTarget[1] = CM_AmbientAndDiffuse;
+            }
+
             Texture tex[ REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS ];
             AlphaTest alphaTest;
             Clip clip[ REGAL_FIXED_FUNCTION_MAX_CLIP_PLANES ];
@@ -1005,6 +1195,7 @@ struct RegalIff : public RegalEmu {
             bool colorSum;
             bool rescaleNormal;
             bool normalize;
+            bool shadeModelFlat;
             bool lighting;
             bool lightModelLocalViewer;
             bool lightModelTwoSide;
@@ -1022,17 +1213,19 @@ struct RegalIff : public RegalEmu {
 
         bool SetEnable( RegalIff * ffn, bool enable, GLenum cap );
 
-        void SetTexInfo( Version & ver, GLuint activeTex, const TextureUnit & unit ) {
+        void SetTexInfo( Version & ver, GLuint activeTex, TextureUnit & unit ) {
             if( activeTex >= REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS ) {
                 return;
             }
             raw.tex[ activeTex ].unit = unit;
-            raw.ver = ver.Update();
+            raw.ver = unit.ver = ver.Update();
         }
 
         void SetLight( RegalIff * ffn, GLenum light, GLenum pname, const GLfloat * params );
         void SetMaterial( RegalIff * ffn, GLenum face, GLenum pname, const GLfloat * params );
+        void GetMaterial( RegalIff * ffn, GLenum face, GLenum pname, GLfloat * params );
         void SetTexgen( RegalIff * ffn, int coord, GLenum space, const GLfloat * params );
+        void GetTexgen( RegalIff * ffn, int coord, GLenum space, GLfloat * params );
         void SetAlphaFunc( RegalIff * ffn, CompareFunc comp, GLfloat ref );
         void SetClip( RegalIff * ffn, GLenum plane, const GLfloat * equation );
 
@@ -1047,7 +1240,7 @@ struct RegalIff : public RegalEmu {
         GLubyte HighestPriorityTextureEnable( GLubyte enables ) {
             for( int i = TP_CubeMap; i >= 0; i-- ) {
                 if( enables & ( 1 << i ) ) {
-                    return 1 << i;
+                    return static_cast<GLubyte>(1 << i);
                 }
             }
             return 0;
@@ -1061,7 +1254,9 @@ struct RegalIff : public RegalEmu {
 
     struct MatrixStack {
         struct El {
-            El() : ver( 1 ) {}
+            El()
+            : ver( 1 )
+            {}
             r3::Matrix4f mat;
             GLuint64 ver;
         };
@@ -1083,7 +1278,7 @@ struct RegalIff : public RegalEmu {
               GLuint64 &Ver()       { RegalAssert( stack.size() ); return stack.back().ver; }
         const GLuint64 &Ver() const { RegalAssert( stack.size() ); return stack.back().ver; }
 
-        const std::size_t size() const { return stack.size(); }
+              std::size_t size() const { return stack.size(); }
 
               El &operator[](const std::size_t i)       { RegalAssert( stack.size() ); return stack[i]; }
         const El &operator[](const std::size_t i) const { RegalAssert( stack.size() ); return stack[i]; }
@@ -1099,19 +1294,25 @@ struct RegalIff : public RegalEmu {
             GLuint64 ver;
         };
 
+        Program()
+        : pg( 0 )
+        , vs( 0 )
+        , fs( 0 )
+        , ver( 0 )
+        , progcount( 0 )
+        {}
         GLuint pg;
         GLuint vs, fs;
         GLuint64 ver;
         std::map< RegalFFUniformEnum, UniformInfo> uniforms;
         State::Store store;
         int progcount;
-        Program() {}
         void Init( RegalContext * ctx, const State::Store & sstore, const GLchar *vsSrc, const GLchar *fsSrc );
         void Init( RegalContext * ctx, const State::Store & sstore );
-        void Shader( RegalDispatchTable & tbl, GLenum type, GLuint & shader, const GLchar *src );
+        void Shader( DispatchTable & tbl, GLenum type, GLuint & shader, const GLchar *src );
         void Attribs( RegalContext * ctx );
-        void Samplers( RegalDispatchTable & tbl );
-        void Uniforms( RegalDispatchTable & tbl );
+        void Samplers( DispatchTable & tbl );
+        void Uniforms( DispatchTable & tbl );
     };
 
     MatrixStack modelview;
@@ -1232,6 +1433,50 @@ struct RegalIff : public RegalEmu {
     template <typename T>
     void TexEnv( GLenum target, GLenum pname, T v ) { TexEnv( GL_TEXTURE0 + shadowActiveTextureIndex, target, pname, v ); }
 
+    template <typename T>
+    void GetTexEnv( GLenum target, GLenum pname, T * params ) {
+        if( target != GL_TEXTURE_ENV ) {
+            return;
+        }
+        switch( pname ) {
+            case GL_TEXTURE_ENV_MODE: {
+                RegalAssert(activeTextureIndex<REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS);
+                *params =  static_cast<T>(texenvModeGL[ textureUnit[ activeTextureIndex ].env.mode ]);
+                break;
+            }
+            case GL_TEXTURE_ENV_COLOR: {
+                RegalAssert(activeTextureIndex<REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS);
+                RegalFloat4 c = textureUnit[ activeTextureIndex ].env.color;
+                params[0] = T( c.x );
+                params[1] = T( c.y );
+                params[2] = T( c.z );
+                params[3] = T( c.w );
+                break;
+            }
+
+            default:
+                break;
+        }
+    }
+
+    void ShadeModel( GLenum mode ) {
+        State::Store & r = ffstate.raw;
+        switch( mode ) {
+            case GL_FLAT:
+                if ( r.shadeModelFlat == false ) {
+                    r.shadeModelFlat = true;
+                    r.ver = ver.Update();
+                }
+                break;
+            case GL_SMOOTH:
+                if ( r.shadeModelFlat == true ) {
+                    r.shadeModelFlat = false;
+                    r.ver = ver.Update();
+                }
+                break;
+        }
+    }
+
     template <typename T> void Light( GLenum light, GLenum pname, const T param ) {
         int comp = 4;
         switch( pname ) {
@@ -1258,6 +1503,19 @@ struct RegalIff : public RegalEmu {
         GLfloat v[4];
         for( int i = 0; i < comp; i++ ) v[ i ] = RFFToFloatN( i, param );
         ffstate.SetMaterial( this, face, pname, v );
+    }
+
+    template <typename T> void GetMaterial( GLenum face, GLenum pname, T *params ) {
+        int comp = 4;
+        switch( pname ) {
+            case GL_AMBIENT: case GL_DIFFUSE: case GL_SPECULAR:
+            case GL_AMBIENT_AND_DIFFUSE: case GL_EMISSION: break;
+            case GL_SHININESS: comp = 1; break;
+            default: return;
+        }
+        GLfloat v[4];
+        ffstate.GetMaterial( this, face, pname, v );
+        for( int i = 0; i < comp; i++ ) params[i] = static_cast<T>(v[i]);
     }
 
     template <typename T> void LightModel( GLenum pname, const T param ) {
@@ -1402,6 +1660,8 @@ struct RegalIff : public RegalEmu {
     template <typename T> bool GetIndexedTexGenv( RegalContext * ctx, GLuint textureIndex,
                                                   GLenum coord, GLenum pname, T * params )
     {
+        UNUSED_PARAMETER(ctx);
+
         if( textureIndex >= REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS ) {
             return false;
         }
@@ -1448,18 +1708,23 @@ struct RegalIff : public RegalEmu {
                         return false;
                 }
                 *params = static_cast<T>(glmode);
-                return true;
+                break;
             }
             case GL_OBJECT_PLANE:
             case GL_EYE_PLANE:
             {
-                // FIXME: implement these
+                RegalFloat4 plane;
+                ffstate.GetTexgen( this, idx, pname, & plane.x );
+                *(params+0) = static_cast<T>(plane.x);
+                *(params+1) = static_cast<T>(plane.y);
+                *(params+2) = static_cast<T>(plane.z);
+                *(params+3) = static_cast<T>(plane.w);
                 break;
             }
             default:
-                break;
+                return false;
         }
-        return false;
+        return true;
     }
 
     template <typename T> bool GetTexGenv( RegalContext * ctx, GLenum coord,
@@ -1468,18 +1733,18 @@ struct RegalIff : public RegalEmu {
         return GetIndexedTexGenv( ctx, shadowActiveTextureIndex, coord, pname, params );
     }
 
-    template <typename T> bool GetMultiTexGenv( RegalContext * ctx, GLenum texunit, 
+    template <typename T> bool GetMultiTexGenv( RegalContext * ctx, GLenum texunit,
                                                 GLenum coord, GLenum pname, T * params )
     {
         return GetIndexedTexGenv( ctx, texunit - GL_TEXTURE0, coord, pname, params );
     }
 
-    template <typename T> bool Get( RegalContext * ctx, GLenum pname, T * params ) {
+    template <typename T> bool Get( RegalContext * ctx, GLenum pname, T * params )
+    {
         // FIXME: implement all FF gets!
-        if( VaHandlesGet( pname ) ) {
-            VaGet( ctx, pname, params );
+        if( VaGet( ctx, pname, params ) )
             return true;
-        }
+
         switch( pname ) {
             case GL_CURRENT_PROGRAM:
                 *params = static_cast<T>(program);
@@ -1605,6 +1870,7 @@ struct RegalIff : public RegalEmu {
 
 
     void BindVertexArray( RegalContext * ctx, GLuint vao ) {
+    UNUSED_PARAMETER(ctx);
         vaoAttrMap[ currVao ] = ffstate.raw.attrArrayFlags;
         currVao = vao;
         ffstate.raw.attrArrayFlags = vaoAttrMap[ currVao ];
@@ -1639,9 +1905,19 @@ struct RegalIff : public RegalEmu {
     //
     void Init( RegalContext * ctx ) {
         RegalEmuScopedActivate activate( ctx, this );
+
+        shadowMatrixMode = 0;
+        shadowActiveTextureIndex = 0;
+        activeTextureIndex = 0;
+        program = 0;
+        currprog = NULL;
+        currVao = 0;
+        es = false;
+        legacy = false;
+
         InitVertexArray( ctx );
-        InitImmediate( ctx );
         InitFixedFunction( ctx );
+        InitImmediate( ctx );
     }
 };
 
@@ -1777,6 +2053,8 @@ inline bool operator < ( const RegalIff::State::Store & lhs, const RegalIff::Sta
     if( rhs.fog < lhs.fog ) return false;
     if( lhs.colorSum < rhs.colorSum ) return true;
     if( rhs.colorSum < lhs.colorSum ) return false;
+    if( lhs.shadeModelFlat < rhs.shadeModelFlat ) return true;
+    if( rhs.shadeModelFlat < lhs.shadeModelFlat ) return false;
     if( lhs.lighting < rhs.lighting ) return true;
     if( rhs.lighting < lhs.lighting ) return false;
     if( lhs.normalize < rhs.normalize ) return true;
@@ -1801,5 +2079,7 @@ inline bool operator < ( const RegalIff::State::Store & lhs, const RegalIff::Sta
 inline bool operator < ( const RegalIff::State & lhs, const RegalIff::State & rhs ) {
     return lhs.processed < rhs.processed;
 }
+
+REGAL_NAMESPACE_END
 
 #endif // __REGAL_FIXED_FUNCTION_H__

@@ -16,6 +16,7 @@
 
 #include "render.h"
 
+#include <cstdio>
 #include <cstdlib>
 
 static void myDisplay()
@@ -26,8 +27,8 @@ static void myDisplay()
 
 static void myTick(int dummy)
 {
-	glutPostRedisplay();
-	glutTimerFunc( 16, myTick, 0 );
+  glutPostRedisplay();
+  glutTimerFunc( 16, myTick, 0 );
 }
 
 static void myKeyboard(unsigned char c, int x, int y)
@@ -53,6 +54,17 @@ int main(int argc, const char *argv[])
   #ifdef __APPLE__
   RegalMakeCurrent(CGLGetCurrentContext());
   #endif
+
+  // Exercise REGAL_extension_query extension, just 'coz
+
+  if (!glIsSupportedREGAL("GL_EXT_framebuffer_object"))
+    printf("GL_EXT_framebuffer_object is not supported.\n");
+
+  if (!glIsSupportedREGAL("GL_EXT_direct_state_access"))
+    printf("GL_EXT_direct_state_access is not supported.\n");
+
+  if (!glIsSupportedREGAL("GL_NV_path_rendering"))
+    printf("GL_NV_path_rendering is not supported.\n");
 
   glutTimerFunc(16, myTick, 0);
   glutDisplayFunc(myDisplay);

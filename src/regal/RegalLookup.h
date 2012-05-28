@@ -3,19 +3,20 @@
 */
 
 /*
-Copyright (c) 2011 NVIDIA Corporation
-Copyright (c) 2011-2012 Cass Everitt
-Copyright (c) 2012 Scott Nations
-Copyright (c) 2012 Mathias Schott
-Copyright (c) 2012 Nigel Stewart
-All rights reserved.
+  Copyright (c) 2011 NVIDIA Corporation
+  Copyright (c) 2011-2012 Cass Everitt
+  Copyright (c) 2012 Scott Nations
+  Copyright (c) 2012 Mathias Schott
+  Copyright (c) 2012 Nigel Stewart
+  All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+  Redistribution and use in source and binary forms, with or without modification,
+  are permitted provided that the following conditions are met:
 
-  Redistributions of source code must retain the above copyright notice, this
+    Redistributions of source code must retain the above copyright notice, this
     list of conditions and the following disclaimer.
-  Redistributions in binary form must reproduce the above copyright notice,
+
+    Redistributions in binary form must reproduce the above copyright notice,
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
@@ -31,88 +32,100 @@ are permitted provided that the following conditions are met:
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef REGAL_LOOKUP_H
-#define REGAL_LOOKUP_H
+#ifndef __REGAL_LOOKUP_H__
+#define __REGAL_LOOKUP_H__
 
-#include "RegalPrivate.h"
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
 
 #include <cstdlib>
 #include <cstring>
 
-inline int RegalNameCmp(const void *a, const void *b)
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
+
+namespace Lookup {
+
+inline int NameCmp(const void *a, const void *b)
 {
   return std::strcmp(*(const char **) a, *(const char **) b);
 }
 
-extern const char * const Regal_gl_LookupName[2316];
-extern const void *Regal_gl_LookupValue[2316];
+extern const char * const gl_Name[2388];
+extern const void *gl_Value[2388];
 
 template<typename T>
 T
-Regal_gl_Lookup(const char *name, T def = NULL)
+gl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, Regal_gl_LookupName, 2315, sizeof(const char *), RegalNameCmp);
-  return res ? reinterpret_cast<T>(const_cast<void *>(Regal_gl_LookupValue[(size_t) (res - Regal_gl_LookupName)])) : def;
+  const char **res = (const char **) std::bsearch(&name, gl_Name, 2387, sizeof(const char *), NameCmp);
+  return res ? reinterpret_cast<T>(const_cast<void *>(gl_Value[(size_t) (res - gl_Name)])) : def;
 }
 
 #ifdef REGAL_SYS_WGL
 
-extern const char * const Regal_wgl_LookupName[136];
-extern const void *Regal_wgl_LookupValue[136];
+extern const char * const wgl_Name[136];
+extern const void *wgl_Value[136];
 
 template<typename T>
 T
-Regal_wgl_Lookup(const char *name, T def = NULL)
+wgl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, Regal_wgl_LookupName, 135, sizeof(const char *), RegalNameCmp);
-  return res ? reinterpret_cast<T>(const_cast<void *>(Regal_wgl_LookupValue[(size_t) (res - Regal_wgl_LookupName)])) : def;
+  const char **res = (const char **) std::bsearch(&name, wgl_Name, 135, sizeof(const char *), NameCmp);
+  return res ? reinterpret_cast<T>(const_cast<void *>(wgl_Value[(size_t) (res - wgl_Name)])) : def;
 }
 
 #endif
 
 #ifdef REGAL_SYS_GLX
 
-extern const char * const Regal_glx_LookupName[107];
-extern const void *Regal_glx_LookupValue[107];
+extern const char * const glx_Name[107];
+extern const void *glx_Value[107];
 
 template<typename T>
 T
-Regal_glx_Lookup(const char *name, T def = NULL)
+glx_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, Regal_glx_LookupName, 106, sizeof(const char *), RegalNameCmp);
-  return res ? reinterpret_cast<T>(const_cast<void *>(Regal_glx_LookupValue[(size_t) (res - Regal_glx_LookupName)])) : def;
+  const char **res = (const char **) std::bsearch(&name, glx_Name, 106, sizeof(const char *), NameCmp);
+  return res ? reinterpret_cast<T>(const_cast<void *>(glx_Value[(size_t) (res - glx_Name)])) : def;
 }
 
 #endif
 
 #ifdef REGAL_SYS_OSX
 
-extern const char * const Regal_cgl_LookupName[50];
-extern const void *Regal_cgl_LookupValue[50];
+extern const char * const cgl_Name[52];
+extern const void *cgl_Value[52];
 
 template<typename T>
 T
-Regal_cgl_Lookup(const char *name, T def = NULL)
+cgl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, Regal_cgl_LookupName, 49, sizeof(const char *), RegalNameCmp);
-  return res ? reinterpret_cast<T>(const_cast<void *>(Regal_cgl_LookupValue[(size_t) (res - Regal_cgl_LookupName)])) : def;
+  const char **res = (const char **) std::bsearch(&name, cgl_Name, 51, sizeof(const char *), NameCmp);
+  return res ? reinterpret_cast<T>(const_cast<void *>(cgl_Value[(size_t) (res - cgl_Name)])) : def;
 }
 
 #endif
 
 #ifdef REGAL_SYS_ANDROID
 
-extern const char * const Regal_egl_LookupName[35];
-extern const void *Regal_egl_LookupValue[35];
+extern const char * const egl_Name[35];
+extern const void *egl_Value[35];
 
 template<typename T>
 T
-Regal_egl_Lookup(const char *name, T def = NULL)
+egl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, Regal_egl_LookupName, 34, sizeof(const char *), RegalNameCmp);
-  return res ? reinterpret_cast<T>(const_cast<void *>(Regal_egl_LookupValue[(size_t) (res - Regal_egl_LookupName)])) : def;
+  const char **res = (const char **) std::bsearch(&name, egl_Name, 34, sizeof(const char *), NameCmp);
+  return res ? reinterpret_cast<T>(const_cast<void *>(egl_Value[(size_t) (res - egl_Name)])) : def;
 }
 
 #endif
+
+}
+
+REGAL_NAMESPACE_END
 
 #endif

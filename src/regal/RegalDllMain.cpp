@@ -1,5 +1,11 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 
+#include "pch.h" /* For MS precompiled header support */
+
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
 #ifdef _WIN32
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -7,19 +13,17 @@
 #endif
 
 #include <windows.h>
-#include <stdio.h>
+#endif
+
+REGAL_GLOBAL_END
+
+#ifdef _WIN32
+
+REGAL_NAMESPACE_BEGIN
 
 extern void *RegalGetProcAddress(const char *entry);
 
-void RegalOutputWin32( const char *fmt, ... ) {
-	char str[1<<14];
-	va_list args;
-	va_start( args, fmt );
-	vsprintf_s( str, sizeof( str ), fmt, args );
-	va_end( args );
-	OutputDebugStringA( str ); 
-	fprintf( stderr, "%s", str );
-}
+REGAL_NAMESPACE_END
 
 BOOL APIENTRY
 DllMain
@@ -29,6 +33,9 @@ DllMain
   LPVOID  reserved
 )
 {
+  UNUSED_PARAMETER(module);
+  UNUSED_PARAMETER(reserved);
+
   switch (reason)
   {
     case DLL_PROCESS_ATTACH:

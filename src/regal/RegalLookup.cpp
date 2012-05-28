@@ -3,19 +3,20 @@
 */
 
 /*
-Copyright (c) 2011 NVIDIA Corporation
-Copyright (c) 2011-2012 Cass Everitt
-Copyright (c) 2012 Scott Nations
-Copyright (c) 2012 Mathias Schott
-Copyright (c) 2012 Nigel Stewart
-All rights reserved.
+  Copyright (c) 2011 NVIDIA Corporation
+  Copyright (c) 2011-2012 Cass Everitt
+  Copyright (c) 2012 Scott Nations
+  Copyright (c) 2012 Mathias Schott
+  Copyright (c) 2012 Nigel Stewart
+  All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+  Redistribution and use in source and binary forms, with or without modification,
+  are permitted provided that the following conditions are met:
 
-  Redistributions of source code must retain the above copyright notice, this
+    Redistributions of source code must retain the above copyright notice, this
     list of conditions and the following disclaimer.
-  Redistributions in binary form must reproduce the above copyright notice,
+
+    Redistributions in binary form must reproduce the above copyright notice,
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
@@ -31,10 +32,22 @@ are permitted provided that the following conditions are met:
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "pch.h" /* For MS precompiled header support */
+
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
 #include "RegalPrivate.h"
 #include "RegalLookup.h"
 
-const char * const Regal_gl_LookupName[2316] = {
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
+
+namespace Lookup {
+
+const char * const gl_Name[2388] = {
   "glAccum",
   "glActiveProgramEXT",
   "glActiveShaderProgram",
@@ -66,6 +79,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glBeginQuery",
   "glBeginQueryARB",
   "glBeginQueryIndexed",
+  "glBeginSceneEXT",
   "glBeginTransformFeedback",
   "glBeginTransformFeedbackEXT",
   "glBeginTransformFeedbackNV",
@@ -338,12 +352,16 @@ const char * const Regal_gl_LookupName[2316] = {
   "glCreateShaderObjectARB",
   "glCreateShaderProgramEXT",
   "glCreateShaderProgramv",
+  "glCreateSyncFromCLeventARB",
   "glCullFace",
   "glCullParameterdvEXT",
   "glCullParameterfvEXT",
   "glCurrentPaletteMatrixARB",
+  "glDebugMessageCallbackAMD",
   "glDebugMessageCallbackARB",
   "glDebugMessageControlARB",
+  "glDebugMessageEnableAMD",
+  "glDebugMessageInsertAMD",
   "glDebugMessageInsertARB",
   "glDeformSGIX",
   "glDeformationMap3dSGIX",
@@ -359,6 +377,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glDeleteFramebuffersEXT",
   "glDeleteLists",
   "glDeleteNamedStringARB",
+  "glDeleteNamesAMD",
   "glDeleteObjectARB",
   "glDeleteOcclusionQueriesNV",
   "glDeletePathsNV",
@@ -407,6 +426,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glDrawArraysIndirect",
   "glDrawArraysInstanced",
   "glDrawArraysInstancedARB",
+  "glDrawArraysInstancedBaseInstance",
   "glDrawArraysInstancedEXT",
   "glDrawBuffer",
   "glDrawBufferRegionEXT",
@@ -420,7 +440,9 @@ const char * const Regal_gl_LookupName[2316] = {
   "glDrawElementsIndirect",
   "glDrawElementsInstanced",
   "glDrawElementsInstancedARB",
+  "glDrawElementsInstancedBaseInstance",
   "glDrawElementsInstancedBaseVertex",
+  "glDrawElementsInstancedBaseVertexBaseInstance",
   "glDrawElementsInstancedEXT",
   "glDrawMeshArraysSUN",
   "glDrawPixels",
@@ -430,8 +452,10 @@ const char * const Regal_gl_LookupName[2316] = {
   "glDrawRangeElementsBaseVertex",
   "glDrawRangeElementsEXT",
   "glDrawTransformFeedback",
+  "glDrawTransformFeedbackInstanced",
   "glDrawTransformFeedbackNV",
   "glDrawTransformFeedbackStream",
+  "glDrawTransformFeedbackStreamInstanced",
   "glEdgeFlag",
   "glEdgeFlagFormatNV",
   "glEdgeFlagPointer",
@@ -459,6 +483,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glEndQuery",
   "glEndQueryARB",
   "glEndQueryIndexed",
+  "glEndSceneEXT",
   "glEndTransformFeedback",
   "glEndTransformFeedbackEXT",
   "glEndTransformFeedbackNV",
@@ -515,18 +540,31 @@ const char * const Regal_gl_LookupName[2316] = {
   "glFogfv",
   "glFogi",
   "glFogiv",
+  "glFragmentColorMaterialEXT",
   "glFragmentColorMaterialSGIX",
+  "glFragmentLightModelfEXT",
   "glFragmentLightModelfSGIX",
+  "glFragmentLightModelfvEXT",
   "glFragmentLightModelfvSGIX",
+  "glFragmentLightModeliEXT",
   "glFragmentLightModeliSGIX",
+  "glFragmentLightModelivEXT",
   "glFragmentLightModelivSGIX",
+  "glFragmentLightfEXT",
   "glFragmentLightfSGIX",
+  "glFragmentLightfvEXT",
   "glFragmentLightfvSGIX",
+  "glFragmentLightiEXT",
   "glFragmentLightiSGIX",
+  "glFragmentLightivEXT",
   "glFragmentLightivSGIX",
+  "glFragmentMaterialfEXT",
   "glFragmentMaterialfSGIX",
+  "glFragmentMaterialfvEXT",
   "glFragmentMaterialfvSGIX",
+  "glFragmentMaterialiEXT",
   "glFragmentMaterialiSGIX",
+  "glFragmentMaterialivEXT",
   "glFragmentMaterialivSGIX",
   "glFrameTerminatorGREMEDY",
   "glFrameZoomSGIX",
@@ -562,6 +600,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGenFramebuffers",
   "glGenFramebuffersEXT",
   "glGenLists",
+  "glGenNamesAMD",
   "glGenOcclusionQueriesNV",
   "glGenPathsNV",
   "glGenPerfMonitorsAMD",
@@ -639,12 +678,14 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGetConvolutionParameterfvEXT",
   "glGetConvolutionParameteriv",
   "glGetConvolutionParameterivEXT",
+  "glGetDebugMessageLogAMD",
   "glGetDebugMessageLogARB",
   "glGetDetailTexFuncSGIS",
   "glGetDoubleIndexedvEXT",
   "glGetDoublei_v",
   "glGetDoublev",
   "glGetError",
+  "glGetExtensionREGAL",
   "glGetFenceivNV",
   "glGetFinalCombinerInputParameterfvNV",
   "glGetFinalCombinerInputParameterivNV",
@@ -655,9 +696,13 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGetFragDataIndex",
   "glGetFragDataLocation",
   "glGetFragDataLocationEXT",
+  "glGetFragmentLightfvEXT",
   "glGetFragmentLightfvSGIX",
+  "glGetFragmentLightivEXT",
   "glGetFragmentLightivSGIX",
+  "glGetFragmentMaterialfvEXT",
   "glGetFragmentMaterialfvSGIX",
+  "glGetFragmentMaterialivEXT",
   "glGetFragmentMaterialivSGIX",
   "glGetFramebufferAttachmentParameteriv",
   "glGetFramebufferAttachmentParameterivEXT",
@@ -670,6 +715,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGetHistogramParameterfvEXT",
   "glGetHistogramParameteriv",
   "glGetHistogramParameterivEXT",
+  "glGetImageHandleNV",
   "glGetImageTransformParameterfvHP",
   "glGetImageTransformParameterivHP",
   "glGetInfoLogARB",
@@ -681,6 +727,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGetIntegerui64i_vNV",
   "glGetIntegerui64vNV",
   "glGetIntegerv",
+  "glGetInternalformativ",
   "glGetInvariantBooleanvEXT",
   "glGetInvariantFloatvEXT",
   "glGetInvariantIntegervEXT",
@@ -840,6 +887,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGetTexParameterPointervAPPLE",
   "glGetTexParameterfv",
   "glGetTexParameteriv",
+  "glGetTextureHandleNV",
   "glGetTextureImageEXT",
   "glGetTextureLevelParameterfvEXT",
   "glGetTextureLevelParameterivEXT",
@@ -847,6 +895,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glGetTextureParameterIuivEXT",
   "glGetTextureParameterfvEXT",
   "glGetTextureParameterivEXT",
+  "glGetTextureSamplerHandleNV",
   "glGetTrackMatrixivNV",
   "glGetTransformFeedbackVarying",
   "glGetTransformFeedbackVaryingEXT",
@@ -939,6 +988,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glImageTransformParameterfvHP",
   "glImageTransformParameteriHP",
   "glImageTransformParameterivHP",
+  "glImportSyncEXT",
   "glIndexFormatNV",
   "glIndexFuncEXT",
   "glIndexMask",
@@ -958,6 +1008,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glIndexubv",
   "glInitNames",
   "glInsertComponentEXT",
+  "glInsertEventMarkerEXT",
   "glInstrumentsBufferSGIX",
   "glInterleavedArrays",
   "glInterpolatePathsNV",
@@ -972,7 +1023,9 @@ const char * const Regal_gl_LookupName[2316] = {
   "glIsFenceNV",
   "glIsFramebuffer",
   "glIsFramebufferEXT",
+  "glIsImageHandleResidentNV",
   "glIsList",
+  "glIsNameAMD",
   "glIsNamedBufferResidentNV",
   "glIsNamedStringARB",
   "glIsObjectBufferATI",
@@ -990,15 +1043,18 @@ const char * const Regal_gl_LookupName[2316] = {
   "glIsRenderbufferEXT",
   "glIsSampler",
   "glIsShader",
+  "glIsSupportedREGAL",
   "glIsSync",
   "glIsTexture",
   "glIsTextureEXT",
+  "glIsTextureHandleResidentNV",
   "glIsTransformFeedback",
   "glIsTransformFeedbackNV",
   "glIsVariantEnabledEXT",
   "glIsVertexArray",
   "glIsVertexArrayAPPLE",
   "glIsVertexAttribEnabledAPPLE",
+  "glLightEnviEXT",
   "glLightEnviSGIX",
   "glLightModelf",
   "glLightModelfv",
@@ -1031,8 +1087,12 @@ const char * const Regal_gl_LookupName[2316] = {
   "glLogicOp",
   "glMakeBufferNonResidentNV",
   "glMakeBufferResidentNV",
+  "glMakeImageHandleNonResidentNV",
+  "glMakeImageHandleResidentNV",
   "glMakeNamedBufferNonResidentNV",
   "glMakeNamedBufferResidentNV",
+  "glMakeTextureHandleNonResidentNV",
+  "glMakeTextureHandleResidentNV",
   "glMap1d",
   "glMap1f",
   "glMap2d",
@@ -1095,10 +1155,12 @@ const char * const Regal_gl_LookupName[2316] = {
   "glMultTransposeMatrixfARB",
   "glMultiDrawArrays",
   "glMultiDrawArraysEXT",
+  "glMultiDrawArraysIndirectAMD",
   "glMultiDrawElementArrayAPPLE",
   "glMultiDrawElements",
   "glMultiDrawElementsBaseVertex",
   "glMultiDrawElementsEXT",
+  "glMultiDrawElementsIndirectAMD",
   "glMultiDrawRangeElementArrayAPPLE",
   "glMultiModeDrawArraysIBM",
   "glMultiModeDrawElementsIBM",
@@ -1336,6 +1398,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glPolygonStipple",
   "glPopAttrib",
   "glPopClientAttrib",
+  "glPopGroupMarkerEXT",
   "glPopMatrix",
   "glPopName",
   "glPresentFrameDualFillNV",
@@ -1465,6 +1528,8 @@ const char * const Regal_gl_LookupName[2316] = {
   "glProgramUniform4uiEXT",
   "glProgramUniform4uiv",
   "glProgramUniform4uivEXT",
+  "glProgramUniformHandleui64NV",
+  "glProgramUniformHandleui64vNV",
   "glProgramUniformMatrix2dv",
   "glProgramUniformMatrix2dvEXT",
   "glProgramUniformMatrix2fv",
@@ -1509,6 +1574,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glPushAttrib",
   "glPushClientAttrib",
   "glPushClientAttribDefaultEXT",
+  "glPushGroupMarkerEXT",
   "glPushMatrix",
   "glPushName",
   "glQueryCounter",
@@ -1540,6 +1606,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glReadBufferRegionEXT",
   "glReadInstrumentsSGIX",
   "glReadPixels",
+  "glReadVideoPixelsSUN",
   "glReadnPixelsARB",
   "glRectd",
   "glRectdv",
@@ -1660,6 +1727,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glSetFragmentShaderConstantATI",
   "glSetInvariantEXT",
   "glSetLocalConstantEXT",
+  "glSetMultisamplefvAMD",
   "glShadeModel",
   "glShaderBinary",
   "glShaderOp1EXT",
@@ -1684,6 +1752,7 @@ const char * const Regal_gl_LookupName[2316] = {
   "glStencilOp",
   "glStencilOpSeparate",
   "glStencilOpSeparateATI",
+  "glStencilOpValueAMD",
   "glStencilStrokePathInstancedNV",
   "glStencilStrokePathNV",
   "glStopInstrumentsSGIX",
@@ -1793,9 +1862,11 @@ const char * const Regal_gl_LookupName[2316] = {
   "glTexImage1D",
   "glTexImage2D",
   "glTexImage2DMultisample",
+  "glTexImage2DMultisampleCoverageNV",
   "glTexImage3D",
   "glTexImage3DEXT",
   "glTexImage3DMultisample",
+  "glTexImage3DMultisampleCoverageNV",
   "glTexImage4DSGIS",
   "glTexParameterIiv",
   "glTexParameterIivEXT",
@@ -1806,6 +1877,11 @@ const char * const Regal_gl_LookupName[2316] = {
   "glTexParameteri",
   "glTexParameteriv",
   "glTexRenderbufferNV",
+  "glTexScissorFuncINTEL",
+  "glTexScissorINTEL",
+  "glTexStorage1D",
+  "glTexStorage2D",
+  "glTexStorage3D",
   "glTexSubImage1D",
   "glTexSubImage1DEXT",
   "glTexSubImage2D",
@@ -1819,7 +1895,11 @@ const char * const Regal_gl_LookupName[2316] = {
   "glTextureFogSGIX",
   "glTextureImage1DEXT",
   "glTextureImage2DEXT",
+  "glTextureImage2DMultisampleCoverageNV",
+  "glTextureImage2DMultisampleNV",
   "glTextureImage3DEXT",
+  "glTextureImage3DMultisampleCoverageNV",
+  "glTextureImage3DMultisampleNV",
   "glTextureLightEXT",
   "glTextureMaterialEXT",
   "glTextureNormalEXT",
@@ -1831,6 +1911,9 @@ const char * const Regal_gl_LookupName[2316] = {
   "glTextureParameterivEXT",
   "glTextureRangeAPPLE",
   "glTextureRenderbufferEXT",
+  "glTextureStorage1DEXT",
+  "glTextureStorage2DEXT",
+  "glTextureStorage3DEXT",
   "glTextureSubImage1DEXT",
   "glTextureSubImage2DEXT",
   "glTextureSubImage3DEXT",
@@ -1916,6 +1999,8 @@ const char * const Regal_gl_LookupName[2316] = {
   "glUniform4uivEXT",
   "glUniformBlockBinding",
   "glUniformBufferEXT",
+  "glUniformHandleui64NV",
+  "glUniformHandleui64vNV",
   "glUniformMatrix2dv",
   "glUniformMatrix2fv",
   "glUniformMatrix2fvARB",
@@ -2353,7 +2438,7 @@ const char * const Regal_gl_LookupName[2316] = {
   NULL
 };
 
-const void *Regal_gl_LookupValue[2316] = {
+const void *gl_Value[2388] = {
   reinterpret_cast<void *>(glAccum),
   reinterpret_cast<void *>(glActiveProgramEXT),
   reinterpret_cast<void *>(glActiveShaderProgram),
@@ -2385,6 +2470,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glBeginQuery),
   reinterpret_cast<void *>(glBeginQueryARB),
   reinterpret_cast<void *>(glBeginQueryIndexed),
+  reinterpret_cast<void *>(glBeginSceneEXT),
   reinterpret_cast<void *>(glBeginTransformFeedback),
   reinterpret_cast<void *>(glBeginTransformFeedbackEXT),
   reinterpret_cast<void *>(glBeginTransformFeedbackNV),
@@ -2657,12 +2743,16 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glCreateShaderObjectARB),
   reinterpret_cast<void *>(glCreateShaderProgramEXT),
   reinterpret_cast<void *>(glCreateShaderProgramv),
+  reinterpret_cast<void *>(glCreateSyncFromCLeventARB),
   reinterpret_cast<void *>(glCullFace),
   reinterpret_cast<void *>(glCullParameterdvEXT),
   reinterpret_cast<void *>(glCullParameterfvEXT),
   reinterpret_cast<void *>(glCurrentPaletteMatrixARB),
+  reinterpret_cast<void *>(glDebugMessageCallbackAMD),
   reinterpret_cast<void *>(glDebugMessageCallbackARB),
   reinterpret_cast<void *>(glDebugMessageControlARB),
+  reinterpret_cast<void *>(glDebugMessageEnableAMD),
+  reinterpret_cast<void *>(glDebugMessageInsertAMD),
   reinterpret_cast<void *>(glDebugMessageInsertARB),
   reinterpret_cast<void *>(glDeformSGIX),
   reinterpret_cast<void *>(glDeformationMap3dSGIX),
@@ -2678,6 +2768,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glDeleteFramebuffersEXT),
   reinterpret_cast<void *>(glDeleteLists),
   reinterpret_cast<void *>(glDeleteNamedStringARB),
+  reinterpret_cast<void *>(glDeleteNamesAMD),
   reinterpret_cast<void *>(glDeleteObjectARB),
   reinterpret_cast<void *>(glDeleteOcclusionQueriesNV),
   reinterpret_cast<void *>(glDeletePathsNV),
@@ -2726,6 +2817,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glDrawArraysIndirect),
   reinterpret_cast<void *>(glDrawArraysInstanced),
   reinterpret_cast<void *>(glDrawArraysInstancedARB),
+  reinterpret_cast<void *>(glDrawArraysInstancedBaseInstance),
   reinterpret_cast<void *>(glDrawArraysInstancedEXT),
   reinterpret_cast<void *>(glDrawBuffer),
   reinterpret_cast<void *>(glDrawBufferRegionEXT),
@@ -2739,7 +2831,9 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glDrawElementsIndirect),
   reinterpret_cast<void *>(glDrawElementsInstanced),
   reinterpret_cast<void *>(glDrawElementsInstancedARB),
+  reinterpret_cast<void *>(glDrawElementsInstancedBaseInstance),
   reinterpret_cast<void *>(glDrawElementsInstancedBaseVertex),
+  reinterpret_cast<void *>(glDrawElementsInstancedBaseVertexBaseInstance),
   reinterpret_cast<void *>(glDrawElementsInstancedEXT),
   reinterpret_cast<void *>(glDrawMeshArraysSUN),
   reinterpret_cast<void *>(glDrawPixels),
@@ -2749,8 +2843,10 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glDrawRangeElementsBaseVertex),
   reinterpret_cast<void *>(glDrawRangeElementsEXT),
   reinterpret_cast<void *>(glDrawTransformFeedback),
+  reinterpret_cast<void *>(glDrawTransformFeedbackInstanced),
   reinterpret_cast<void *>(glDrawTransformFeedbackNV),
   reinterpret_cast<void *>(glDrawTransformFeedbackStream),
+  reinterpret_cast<void *>(glDrawTransformFeedbackStreamInstanced),
   reinterpret_cast<void *>(glEdgeFlag),
   reinterpret_cast<void *>(glEdgeFlagFormatNV),
   reinterpret_cast<void *>(glEdgeFlagPointer),
@@ -2778,6 +2874,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glEndQuery),
   reinterpret_cast<void *>(glEndQueryARB),
   reinterpret_cast<void *>(glEndQueryIndexed),
+  reinterpret_cast<void *>(glEndSceneEXT),
   reinterpret_cast<void *>(glEndTransformFeedback),
   reinterpret_cast<void *>(glEndTransformFeedbackEXT),
   reinterpret_cast<void *>(glEndTransformFeedbackNV),
@@ -2834,18 +2931,31 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glFogfv),
   reinterpret_cast<void *>(glFogi),
   reinterpret_cast<void *>(glFogiv),
+  reinterpret_cast<void *>(glFragmentColorMaterialEXT),
   reinterpret_cast<void *>(glFragmentColorMaterialSGIX),
+  reinterpret_cast<void *>(glFragmentLightModelfEXT),
   reinterpret_cast<void *>(glFragmentLightModelfSGIX),
+  reinterpret_cast<void *>(glFragmentLightModelfvEXT),
   reinterpret_cast<void *>(glFragmentLightModelfvSGIX),
+  reinterpret_cast<void *>(glFragmentLightModeliEXT),
   reinterpret_cast<void *>(glFragmentLightModeliSGIX),
+  reinterpret_cast<void *>(glFragmentLightModelivEXT),
   reinterpret_cast<void *>(glFragmentLightModelivSGIX),
+  reinterpret_cast<void *>(glFragmentLightfEXT),
   reinterpret_cast<void *>(glFragmentLightfSGIX),
+  reinterpret_cast<void *>(glFragmentLightfvEXT),
   reinterpret_cast<void *>(glFragmentLightfvSGIX),
+  reinterpret_cast<void *>(glFragmentLightiEXT),
   reinterpret_cast<void *>(glFragmentLightiSGIX),
+  reinterpret_cast<void *>(glFragmentLightivEXT),
   reinterpret_cast<void *>(glFragmentLightivSGIX),
+  reinterpret_cast<void *>(glFragmentMaterialfEXT),
   reinterpret_cast<void *>(glFragmentMaterialfSGIX),
+  reinterpret_cast<void *>(glFragmentMaterialfvEXT),
   reinterpret_cast<void *>(glFragmentMaterialfvSGIX),
+  reinterpret_cast<void *>(glFragmentMaterialiEXT),
   reinterpret_cast<void *>(glFragmentMaterialiSGIX),
+  reinterpret_cast<void *>(glFragmentMaterialivEXT),
   reinterpret_cast<void *>(glFragmentMaterialivSGIX),
   reinterpret_cast<void *>(glFrameTerminatorGREMEDY),
   reinterpret_cast<void *>(glFrameZoomSGIX),
@@ -2881,6 +2991,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGenFramebuffers),
   reinterpret_cast<void *>(glGenFramebuffersEXT),
   reinterpret_cast<void *>(glGenLists),
+  reinterpret_cast<void *>(glGenNamesAMD),
   reinterpret_cast<void *>(glGenOcclusionQueriesNV),
   reinterpret_cast<void *>(glGenPathsNV),
   reinterpret_cast<void *>(glGenPerfMonitorsAMD),
@@ -2958,12 +3069,14 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGetConvolutionParameterfvEXT),
   reinterpret_cast<void *>(glGetConvolutionParameteriv),
   reinterpret_cast<void *>(glGetConvolutionParameterivEXT),
+  reinterpret_cast<void *>(glGetDebugMessageLogAMD),
   reinterpret_cast<void *>(glGetDebugMessageLogARB),
   reinterpret_cast<void *>(glGetDetailTexFuncSGIS),
   reinterpret_cast<void *>(glGetDoubleIndexedvEXT),
   reinterpret_cast<void *>(glGetDoublei_v),
   reinterpret_cast<void *>(glGetDoublev),
   reinterpret_cast<void *>(glGetError),
+  reinterpret_cast<void *>(glGetExtensionREGAL),
   reinterpret_cast<void *>(glGetFenceivNV),
   reinterpret_cast<void *>(glGetFinalCombinerInputParameterfvNV),
   reinterpret_cast<void *>(glGetFinalCombinerInputParameterivNV),
@@ -2974,9 +3087,13 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGetFragDataIndex),
   reinterpret_cast<void *>(glGetFragDataLocation),
   reinterpret_cast<void *>(glGetFragDataLocationEXT),
+  reinterpret_cast<void *>(glGetFragmentLightfvEXT),
   reinterpret_cast<void *>(glGetFragmentLightfvSGIX),
+  reinterpret_cast<void *>(glGetFragmentLightivEXT),
   reinterpret_cast<void *>(glGetFragmentLightivSGIX),
+  reinterpret_cast<void *>(glGetFragmentMaterialfvEXT),
   reinterpret_cast<void *>(glGetFragmentMaterialfvSGIX),
+  reinterpret_cast<void *>(glGetFragmentMaterialivEXT),
   reinterpret_cast<void *>(glGetFragmentMaterialivSGIX),
   reinterpret_cast<void *>(glGetFramebufferAttachmentParameteriv),
   reinterpret_cast<void *>(glGetFramebufferAttachmentParameterivEXT),
@@ -2989,6 +3106,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGetHistogramParameterfvEXT),
   reinterpret_cast<void *>(glGetHistogramParameteriv),
   reinterpret_cast<void *>(glGetHistogramParameterivEXT),
+  reinterpret_cast<void *>(glGetImageHandleNV),
   reinterpret_cast<void *>(glGetImageTransformParameterfvHP),
   reinterpret_cast<void *>(glGetImageTransformParameterivHP),
   reinterpret_cast<void *>(glGetInfoLogARB),
@@ -3000,6 +3118,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGetIntegerui64i_vNV),
   reinterpret_cast<void *>(glGetIntegerui64vNV),
   reinterpret_cast<void *>(glGetIntegerv),
+  reinterpret_cast<void *>(glGetInternalformativ),
   reinterpret_cast<void *>(glGetInvariantBooleanvEXT),
   reinterpret_cast<void *>(glGetInvariantFloatvEXT),
   reinterpret_cast<void *>(glGetInvariantIntegervEXT),
@@ -3159,6 +3278,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGetTexParameterPointervAPPLE),
   reinterpret_cast<void *>(glGetTexParameterfv),
   reinterpret_cast<void *>(glGetTexParameteriv),
+  reinterpret_cast<void *>(glGetTextureHandleNV),
   reinterpret_cast<void *>(glGetTextureImageEXT),
   reinterpret_cast<void *>(glGetTextureLevelParameterfvEXT),
   reinterpret_cast<void *>(glGetTextureLevelParameterivEXT),
@@ -3166,6 +3286,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glGetTextureParameterIuivEXT),
   reinterpret_cast<void *>(glGetTextureParameterfvEXT),
   reinterpret_cast<void *>(glGetTextureParameterivEXT),
+  reinterpret_cast<void *>(glGetTextureSamplerHandleNV),
   reinterpret_cast<void *>(glGetTrackMatrixivNV),
   reinterpret_cast<void *>(glGetTransformFeedbackVarying),
   reinterpret_cast<void *>(glGetTransformFeedbackVaryingEXT),
@@ -3258,6 +3379,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glImageTransformParameterfvHP),
   reinterpret_cast<void *>(glImageTransformParameteriHP),
   reinterpret_cast<void *>(glImageTransformParameterivHP),
+  reinterpret_cast<void *>(glImportSyncEXT),
   reinterpret_cast<void *>(glIndexFormatNV),
   reinterpret_cast<void *>(glIndexFuncEXT),
   reinterpret_cast<void *>(glIndexMask),
@@ -3277,6 +3399,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glIndexubv),
   reinterpret_cast<void *>(glInitNames),
   reinterpret_cast<void *>(glInsertComponentEXT),
+  reinterpret_cast<void *>(glInsertEventMarkerEXT),
   reinterpret_cast<void *>(glInstrumentsBufferSGIX),
   reinterpret_cast<void *>(glInterleavedArrays),
   reinterpret_cast<void *>(glInterpolatePathsNV),
@@ -3291,7 +3414,9 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glIsFenceNV),
   reinterpret_cast<void *>(glIsFramebuffer),
   reinterpret_cast<void *>(glIsFramebufferEXT),
+  reinterpret_cast<void *>(glIsImageHandleResidentNV),
   reinterpret_cast<void *>(glIsList),
+  reinterpret_cast<void *>(glIsNameAMD),
   reinterpret_cast<void *>(glIsNamedBufferResidentNV),
   reinterpret_cast<void *>(glIsNamedStringARB),
   reinterpret_cast<void *>(glIsObjectBufferATI),
@@ -3309,15 +3434,18 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glIsRenderbufferEXT),
   reinterpret_cast<void *>(glIsSampler),
   reinterpret_cast<void *>(glIsShader),
+  reinterpret_cast<void *>(glIsSupportedREGAL),
   reinterpret_cast<void *>(glIsSync),
   reinterpret_cast<void *>(glIsTexture),
   reinterpret_cast<void *>(glIsTextureEXT),
+  reinterpret_cast<void *>(glIsTextureHandleResidentNV),
   reinterpret_cast<void *>(glIsTransformFeedback),
   reinterpret_cast<void *>(glIsTransformFeedbackNV),
   reinterpret_cast<void *>(glIsVariantEnabledEXT),
   reinterpret_cast<void *>(glIsVertexArray),
   reinterpret_cast<void *>(glIsVertexArrayAPPLE),
   reinterpret_cast<void *>(glIsVertexAttribEnabledAPPLE),
+  reinterpret_cast<void *>(glLightEnviEXT),
   reinterpret_cast<void *>(glLightEnviSGIX),
   reinterpret_cast<void *>(glLightModelf),
   reinterpret_cast<void *>(glLightModelfv),
@@ -3350,8 +3478,12 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glLogicOp),
   reinterpret_cast<void *>(glMakeBufferNonResidentNV),
   reinterpret_cast<void *>(glMakeBufferResidentNV),
+  reinterpret_cast<void *>(glMakeImageHandleNonResidentNV),
+  reinterpret_cast<void *>(glMakeImageHandleResidentNV),
   reinterpret_cast<void *>(glMakeNamedBufferNonResidentNV),
   reinterpret_cast<void *>(glMakeNamedBufferResidentNV),
+  reinterpret_cast<void *>(glMakeTextureHandleNonResidentNV),
+  reinterpret_cast<void *>(glMakeTextureHandleResidentNV),
   reinterpret_cast<void *>(glMap1d),
   reinterpret_cast<void *>(glMap1f),
   reinterpret_cast<void *>(glMap2d),
@@ -3414,10 +3546,12 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glMultTransposeMatrixfARB),
   reinterpret_cast<void *>(glMultiDrawArrays),
   reinterpret_cast<void *>(glMultiDrawArraysEXT),
+  reinterpret_cast<void *>(glMultiDrawArraysIndirectAMD),
   reinterpret_cast<void *>(glMultiDrawElementArrayAPPLE),
   reinterpret_cast<void *>(glMultiDrawElements),
   reinterpret_cast<void *>(glMultiDrawElementsBaseVertex),
   reinterpret_cast<void *>(glMultiDrawElementsEXT),
+  reinterpret_cast<void *>(glMultiDrawElementsIndirectAMD),
   reinterpret_cast<void *>(glMultiDrawRangeElementArrayAPPLE),
   reinterpret_cast<void *>(glMultiModeDrawArraysIBM),
   reinterpret_cast<void *>(glMultiModeDrawElementsIBM),
@@ -3655,6 +3789,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glPolygonStipple),
   reinterpret_cast<void *>(glPopAttrib),
   reinterpret_cast<void *>(glPopClientAttrib),
+  reinterpret_cast<void *>(glPopGroupMarkerEXT),
   reinterpret_cast<void *>(glPopMatrix),
   reinterpret_cast<void *>(glPopName),
   reinterpret_cast<void *>(glPresentFrameDualFillNV),
@@ -3784,6 +3919,8 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glProgramUniform4uiEXT),
   reinterpret_cast<void *>(glProgramUniform4uiv),
   reinterpret_cast<void *>(glProgramUniform4uivEXT),
+  reinterpret_cast<void *>(glProgramUniformHandleui64NV),
+  reinterpret_cast<void *>(glProgramUniformHandleui64vNV),
   reinterpret_cast<void *>(glProgramUniformMatrix2dv),
   reinterpret_cast<void *>(glProgramUniformMatrix2dvEXT),
   reinterpret_cast<void *>(glProgramUniformMatrix2fv),
@@ -3828,6 +3965,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glPushAttrib),
   reinterpret_cast<void *>(glPushClientAttrib),
   reinterpret_cast<void *>(glPushClientAttribDefaultEXT),
+  reinterpret_cast<void *>(glPushGroupMarkerEXT),
   reinterpret_cast<void *>(glPushMatrix),
   reinterpret_cast<void *>(glPushName),
   reinterpret_cast<void *>(glQueryCounter),
@@ -3859,6 +3997,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glReadBufferRegionEXT),
   reinterpret_cast<void *>(glReadInstrumentsSGIX),
   reinterpret_cast<void *>(glReadPixels),
+  reinterpret_cast<void *>(glReadVideoPixelsSUN),
   reinterpret_cast<void *>(glReadnPixelsARB),
   reinterpret_cast<void *>(glRectd),
   reinterpret_cast<void *>(glRectdv),
@@ -3979,6 +4118,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glSetFragmentShaderConstantATI),
   reinterpret_cast<void *>(glSetInvariantEXT),
   reinterpret_cast<void *>(glSetLocalConstantEXT),
+  reinterpret_cast<void *>(glSetMultisamplefvAMD),
   reinterpret_cast<void *>(glShadeModel),
   reinterpret_cast<void *>(glShaderBinary),
   reinterpret_cast<void *>(glShaderOp1EXT),
@@ -4003,6 +4143,7 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glStencilOp),
   reinterpret_cast<void *>(glStencilOpSeparate),
   reinterpret_cast<void *>(glStencilOpSeparateATI),
+  reinterpret_cast<void *>(glStencilOpValueAMD),
   reinterpret_cast<void *>(glStencilStrokePathInstancedNV),
   reinterpret_cast<void *>(glStencilStrokePathNV),
   reinterpret_cast<void *>(glStopInstrumentsSGIX),
@@ -4112,9 +4253,11 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glTexImage1D),
   reinterpret_cast<void *>(glTexImage2D),
   reinterpret_cast<void *>(glTexImage2DMultisample),
+  reinterpret_cast<void *>(glTexImage2DMultisampleCoverageNV),
   reinterpret_cast<void *>(glTexImage3D),
   reinterpret_cast<void *>(glTexImage3DEXT),
   reinterpret_cast<void *>(glTexImage3DMultisample),
+  reinterpret_cast<void *>(glTexImage3DMultisampleCoverageNV),
   reinterpret_cast<void *>(glTexImage4DSGIS),
   reinterpret_cast<void *>(glTexParameterIiv),
   reinterpret_cast<void *>(glTexParameterIivEXT),
@@ -4125,6 +4268,11 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glTexParameteri),
   reinterpret_cast<void *>(glTexParameteriv),
   reinterpret_cast<void *>(glTexRenderbufferNV),
+  reinterpret_cast<void *>(glTexScissorFuncINTEL),
+  reinterpret_cast<void *>(glTexScissorINTEL),
+  reinterpret_cast<void *>(glTexStorage1D),
+  reinterpret_cast<void *>(glTexStorage2D),
+  reinterpret_cast<void *>(glTexStorage3D),
   reinterpret_cast<void *>(glTexSubImage1D),
   reinterpret_cast<void *>(glTexSubImage1DEXT),
   reinterpret_cast<void *>(glTexSubImage2D),
@@ -4138,7 +4286,11 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glTextureFogSGIX),
   reinterpret_cast<void *>(glTextureImage1DEXT),
   reinterpret_cast<void *>(glTextureImage2DEXT),
+  reinterpret_cast<void *>(glTextureImage2DMultisampleCoverageNV),
+  reinterpret_cast<void *>(glTextureImage2DMultisampleNV),
   reinterpret_cast<void *>(glTextureImage3DEXT),
+  reinterpret_cast<void *>(glTextureImage3DMultisampleCoverageNV),
+  reinterpret_cast<void *>(glTextureImage3DMultisampleNV),
   reinterpret_cast<void *>(glTextureLightEXT),
   reinterpret_cast<void *>(glTextureMaterialEXT),
   reinterpret_cast<void *>(glTextureNormalEXT),
@@ -4150,6 +4302,9 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glTextureParameterivEXT),
   reinterpret_cast<void *>(glTextureRangeAPPLE),
   reinterpret_cast<void *>(glTextureRenderbufferEXT),
+  reinterpret_cast<void *>(glTextureStorage1DEXT),
+  reinterpret_cast<void *>(glTextureStorage2DEXT),
+  reinterpret_cast<void *>(glTextureStorage3DEXT),
   reinterpret_cast<void *>(glTextureSubImage1DEXT),
   reinterpret_cast<void *>(glTextureSubImage2DEXT),
   reinterpret_cast<void *>(glTextureSubImage3DEXT),
@@ -4235,6 +4390,8 @@ const void *Regal_gl_LookupValue[2316] = {
   reinterpret_cast<void *>(glUniform4uivEXT),
   reinterpret_cast<void *>(glUniformBlockBinding),
   reinterpret_cast<void *>(glUniformBufferEXT),
+  reinterpret_cast<void *>(glUniformHandleui64NV),
+  reinterpret_cast<void *>(glUniformHandleui64vNV),
   reinterpret_cast<void *>(glUniformMatrix2dv),
   reinterpret_cast<void *>(glUniformMatrix2fv),
   reinterpret_cast<void *>(glUniformMatrix2fvARB),
@@ -4673,7 +4830,7 @@ const void *Regal_gl_LookupValue[2316] = {
 };
 
 #ifdef REGAL_SYS_WGL
-const char * const Regal_wgl_LookupName[136] = {
+const char * const wgl_Name[136] = {
   "wglAllocateMemoryNV",
   "wglAssociateImageBufferEventsI3D",
   "wglBeginFrameTrackingI3D",
@@ -4812,7 +4969,7 @@ const char * const Regal_wgl_LookupName[136] = {
   NULL
 };
 
-const void *Regal_wgl_LookupValue[136] = {
+const void *wgl_Value[136] = {
   reinterpret_cast<void *>(wglAllocateMemoryNV),
   reinterpret_cast<void *>(wglAssociateImageBufferEventsI3D),
   reinterpret_cast<void *>(wglBeginFrameTrackingI3D),
@@ -4954,7 +5111,7 @@ const void *Regal_wgl_LookupValue[136] = {
 #endif
 
 #ifdef REGAL_SYS_GLX
-const char * const Regal_glx_LookupName[107] = {
+const char * const glx_Name[107] = {
   "glXAllocateMemoryNV",
   "glXBindChannelToWindowSGIX",
   "glXBindSwapBarrierNV",
@@ -5064,7 +5221,7 @@ const char * const Regal_glx_LookupName[107] = {
   NULL
 };
 
-const void *Regal_glx_LookupValue[107] = {
+const void *glx_Value[107] = {
   reinterpret_cast<void *>(glXAllocateMemoryNV),
   reinterpret_cast<void *>(glXBindChannelToWindowSGIX),
   reinterpret_cast<void *>(glXBindSwapBarrierNV),
@@ -5177,7 +5334,7 @@ const void *Regal_glx_LookupValue[107] = {
 #endif
 
 #ifdef REGAL_SYS_OSX
-const char * const Regal_cgl_LookupName[50] = {
+const char * const cgl_Name[52] = {
   "CGLChoosePixelFormat",
   "CGLClearDrawable",
   "CGLCopyContext",
@@ -5205,6 +5362,7 @@ const char * const Regal_cgl_LookupName[50] = {
   "CGLGetPixelFormat",
   "CGLGetPixelFormatRetainCount",
   "CGLGetShareGroup",
+  "CGLGetSurface",
   "CGLGetVersion",
   "CGLGetVirtualScreen",
   "CGLIsEnabled",
@@ -5223,6 +5381,7 @@ const char * const Regal_cgl_LookupName[50] = {
   "CGLSetOption",
   "CGLSetPBuffer",
   "CGLSetParameter",
+  "CGLSetSurface",
   "CGLSetVirtualScreen",
   "CGLTexImagePBuffer",
   "CGLUnlockContext",
@@ -5230,7 +5389,7 @@ const char * const Regal_cgl_LookupName[50] = {
   NULL
 };
 
-const void *Regal_cgl_LookupValue[50] = {
+const void *cgl_Value[52] = {
   reinterpret_cast<void *>(CGLChoosePixelFormat),
   reinterpret_cast<void *>(CGLClearDrawable),
   reinterpret_cast<void *>(CGLCopyContext),
@@ -5258,6 +5417,7 @@ const void *Regal_cgl_LookupValue[50] = {
   reinterpret_cast<void *>(CGLGetPixelFormat),
   reinterpret_cast<void *>(CGLGetPixelFormatRetainCount),
   reinterpret_cast<void *>(CGLGetShareGroup),
+  reinterpret_cast<void *>(CGLGetSurface),
   reinterpret_cast<void *>(CGLGetVersion),
   reinterpret_cast<void *>(CGLGetVirtualScreen),
   reinterpret_cast<void *>(CGLIsEnabled),
@@ -5276,6 +5436,7 @@ const void *Regal_cgl_LookupValue[50] = {
   reinterpret_cast<void *>(CGLSetOption),
   reinterpret_cast<void *>(CGLSetPBuffer),
   reinterpret_cast<void *>(CGLSetParameter),
+  reinterpret_cast<void *>(CGLSetSurface),
   reinterpret_cast<void *>(CGLSetVirtualScreen),
   reinterpret_cast<void *>(CGLTexImagePBuffer),
   reinterpret_cast<void *>(CGLUnlockContext),
@@ -5286,7 +5447,7 @@ const void *Regal_cgl_LookupValue[50] = {
 #endif
 
 #ifdef REGAL_SYS_ANDROID
-const char * const Regal_egl_LookupName[35] = {
+const char * const egl_Name[35] = {
   "eglBindAPI",
   "eglBindTexImage",
   "eglChooseConfig",
@@ -5324,7 +5485,7 @@ const char * const Regal_egl_LookupName[35] = {
   NULL
 };
 
-const void *Regal_egl_LookupValue[35] = {
+const void *egl_Value[35] = {
   reinterpret_cast<void *>(eglBindAPI),
   reinterpret_cast<void *>(eglBindTexImage),
   reinterpret_cast<void *>(eglChooseConfig),
@@ -5363,3 +5524,7 @@ const void *Regal_egl_LookupValue[35] = {
 };
 
 #endif
+
+}
+
+REGAL_NAMESPACE_END

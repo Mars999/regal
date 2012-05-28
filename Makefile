@@ -49,17 +49,23 @@ LIB.LIBS           := $(GL_LDFLAGS)
 LIB.SRCS           :=
 LIB.SRCS           += src/regal/RegalIff.cpp
 LIB.SRCS           += src/regal/Regal.cpp
+LIB.SRCS           += src/regal/RegalToken.cpp
+LIB.SRCS           += src/regal/RegalLog.cpp
 LIB.SRCS           += src/regal/RegalLookup.cpp
+LIB.SRCS           += src/regal/RegalContext.cpp
+LIB.SRCS           += src/regal/RegalContextInfo.cpp
 LIB.SRCS           += src/regal/RegalEmuDispatch.cpp
 LIB.SRCS           += src/regal/RegalErrorDispatch.cpp
 LIB.SRCS           += src/regal/RegalLoaderDispatch.cpp
 
 LIB.SRCS.NAMES     := $(notdir $(LIB.SRCS))
 
+LIB.INCLUDE        := -Isrc/boost
+
 LIB.DEPS           :=
 LIB.DEPS           += include/GL/Regal.h
 LIB.DEPS           += src/regal/RegalPrivate.h
- 
+
 LIB.OBJS           := $(addprefix tmp/$(SYSTEM)/regal/static/,$(LIB.SRCS.NAMES))
 LIB.OBJS           := $(LIB.OBJS:.cpp=.o)
 LIB.SOBJS          := $(addprefix tmp/$(SYSTEM)/regal/shared/,$(LIB.SRCS.NAMES))
@@ -91,11 +97,11 @@ endif
 
 tmp/$(SYSTEM)/regal/static/%.o: src/regal/%.cpp $(LIB.DEPS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 tmp/$(SYSTEM)/regal/shared/%.o: src/regal/%.cpp $(LIB.DEPS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
+	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 #
 # RegalGLEW
@@ -207,7 +213,7 @@ endif
 
 # Examples
 
-regal.bin: bin bin/dreamtorus bin/tiger bin/byte_code_shaders
+regal.bin: bin bin/dreamtorus bin/tiger
 
 bin:
 	mkdir bin
@@ -255,46 +261,6 @@ tmp/$(SYSTEM)/tiger/static/%.o: examples/tiger/%.c
 
 bin/tiger: $(TIGER.OBJS)
 	$(LD) -o $@ $^ -Llib -l$(NAME) -lRegalGLEW $(LDFLAGS.GLUT) -lm -lpthread
-ifneq ($(STRIP),)
-	$(STRIP) -x $@
-endif
-
-#
-# byte_code_shaders
-#
-
-BYTE_CODE_SHADERS.SRCS += examples/byte_code_shaders/main.cpp
-BYTE_CODE_SHADERS.SRCS += examples/byte_code_shaders/xform.cpp
-
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_assembler.c
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader.c
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_common.c
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_compiler.c
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_effects.c
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_lexer.c
-#BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_opengl.c
-BYTE_CODE_SHADERS.SRCS += src/mojoshader/mojoshader_preprocessor.c
-
-BYTE_CODE_SHADERS.SRCS.NAMES := $(notdir $(BYTE_CODE_SHADERS.SRCS))
-BYTE_CODE_SHADERS.OBJS       := $(addprefix tmp/$(SYSTEM)/byte_code_shaders/static/,$(BYTE_CODE_SHADERS.SRCS.NAMES))
-BYTE_CODE_SHADERS.OBJS       := $(BYTE_CODE_SHADERS.OBJS:.c=.o)
-BYTE_CODE_SHADERS.OBJS       := $(BYTE_CODE_SHADERS.OBJS:.cpp=.o)
-BYTE_CODE_SHADERS.CFLAGS     := -Iinclude
-BYTE_CODE_SHADERS.CFLAGS     += -Isrc/mojoshader/
-BYTE_CODE_SHADERS.CFLAGS     += -DMOJOSHADER_NO_VERSION_INCLUDE 
-#BYTE_CODE_SHADERS.CFLAGS     += -DREGAL_NO_TYPEDEF_GL_VERSION_1_0
-#BYTE_CODE_SHADERS.CFLAGS     += -DREGAL_NO_DECLARATION_GL_VERSION_1_0
-
-tmp/$(SYSTEM)/byte_code_shaders/static/%.o: examples/byte_code_shaders/%.cpp
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(BYTE_CODE_SHADERS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-tmp/$(SYSTEM)/byte_code_shaders/static/%.o: src/mojoshader/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(BYTE_CODE_SHADERS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-bin/byte_code_shaders: $(BYTE_CODE_SHADERS.OBJS)
-	$(LD) -o $@ $^ -Llib -l$(NAME) -lRegalGLEW $(LDFLAGS.GLUT) -lstdc++ -lm -lpthread
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif

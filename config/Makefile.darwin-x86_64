@@ -2,7 +2,7 @@ NAME = $(REGAL_NAME)
 CC = cc
 LD = cc
 EXT.DYNAMIC = dylib
-CFLAGS.EXTRA = -arch x86_64 -no-cpp-precomp -dynamic -fno-common
+CFLAGS.EXTRA = -arch x86_64 -dynamic -fno-common
 PICFLAG = -fPIC
 LDFLAGS.EXTRA = -arch x86_64
 ifneq (undefined, $(origin REGAL_APPLE_GLX))

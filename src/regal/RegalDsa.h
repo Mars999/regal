@@ -34,18 +34,27 @@
 
  */
 
-#if ! __REGAL_DSA_H__
-#define __REGAL_DSA_H__ 1
+#ifndef __REGAL_DSA_H__
+#define __REGAL_DSA_H__
 
+#include "RegalUtil.h"
+
+REGAL_GLOBAL_BEGIN
+
+#include "RegalUtil.h"
 #include "RegalEmu.h"
+
+REGAL_GLOBAL_END
+
+REGAL_NAMESPACE_BEGIN
 
 #define REGAL_DSA_NUM_ASM_PROG_TYPES 5
 #define REGAL_DSA_NUM_BUFFER_TYPES 2
 #define REGAL_DSA_INVALID 0xffffffff
 
-template<typename T> inline void DsaGetv( RegalDispatchTable & tbl, GLenum pname, T * params ) {}
-template<> inline void DsaGetv( RegalDispatchTable & tbl, GLenum pname, GLfloat * params ) { tbl.glGetFloatv( pname, params ); }
-template<> inline void DsaGetv( RegalDispatchTable & tbl, GLenum pname, GLdouble * params ) { tbl.glGetDoublev( pname, params ); }
+template<typename T> inline void DsaGetv( DispatchTable & tbl, GLenum pname, T * params ) { UNUSED_PARAMETER(tbl); UNUSED_PARAMETER(pname); UNUSED_PARAMETER(params);}
+template<> inline void DsaGetv( DispatchTable & tbl, GLenum pname, GLfloat * params ) { tbl.glGetFloatv( pname, params ); }
+template<> inline void DsaGetv( DispatchTable & tbl, GLenum pname, GLdouble * params ) { tbl.glGetDoublev( pname, params ); }
 
 
 struct RegalDsa : public RegalEmu {
@@ -118,7 +127,7 @@ struct RegalDsa : public RegalEmu {
     // state shadow/dirty/restore methods
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotMatrixMode( GLenum mode ) {
+    bool NotMatrixMode( GLenum mode ) const {
         return mode != ( dsa.matrixMode != REGAL_DSA_INVALID ? dsa.matrixMode : drv.matrixMode );
     }
     bool ShadowMatrixMode( GLenum realMatrixMode ) {
@@ -146,7 +155,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotActiveTexture( GLenum tex ) {
+    bool NotActiveTexture( GLenum tex ) const {
         return tex != ( dsa.activeTexture != REGAL_DSA_INVALID ? dsa.activeTexture : drv.activeTexture );
     }
     bool ShadowActiveTexture( GLenum realActiveTexture ) {
@@ -168,7 +177,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotClientActiveTexture( GLenum tex ) {
+    bool NotClientActiveTexture( GLenum tex ) const {
         return tex != ( dsa.clientActiveTexture != REGAL_DSA_INVALID ? dsa.clientActiveTexture : drv.clientActiveTexture );
     }
     bool ShadowClientActiveTexture( GLenum realClientActiveTexture ) {
@@ -189,7 +198,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotGlslProgram( GLuint program ) {
+    bool NotGlslProgram( GLuint program ) const {
         return program != ( dsa.glslProgram != REGAL_DSA_INVALID ? dsa.glslProgram : drv.glslProgram );
     }
     bool ShadowGlslProgram( GLuint realGlslProgram ) {
@@ -210,7 +219,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotFramebuffer( GLenum target, GLuint framebuffer ) {
+    bool NotFramebuffer( GLenum target, GLuint framebuffer ) const {
         return dsa.framebuffer != REGAL_DSA_INVALID ?
         ( ( target != dsa.framebufferTarget ) || ( framebuffer != dsa.framebuffer ) ) :
         ( ( target != drv.framebufferTarget ) || ( framebuffer != drv.framebuffer ) ) ;
@@ -251,7 +260,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotAsmProgram( GLenum target, GLuint prog ) {
+    bool NotAsmProgram( GLenum target, GLuint prog ) const {
         int idx = AsmTargetIndex( target );
         return prog != ( dsa.asmProgram[idx] != REGAL_DSA_INVALID ? dsa.asmProgram[idx] : drv.asmProgram[idx] );
     }
@@ -276,7 +285,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotVao( GLuint vao ) {
+    bool NotVao( GLuint vao ) const {
         return vao != ( dsa.vao != REGAL_DSA_INVALID ? dsa.vao : drv.vao );
     }
     bool ShadowVao( GLuint vao ) {
@@ -299,7 +308,7 @@ struct RegalDsa : public RegalEmu {
 
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotBuffer( GLuint buf ) {
+    bool NotBuffer( GLuint buf ) const {
         return buf != ( dsa.buffer != REGAL_DSA_INVALID ? dsa.buffer : drv.buffer );
     }
     bool ShadowBuffer( GLenum target, GLuint buf ) {
@@ -323,7 +332,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     ////////////////////////////////////////////////////////////////////////
-    bool NotTexture( GLenum target, GLuint texture ) {
+    bool NotTexture( GLenum target, GLuint texture ) const {
         return dsa.texture != REGAL_DSA_INVALID ?
         ( target != dsa.textureTarget || texture != dsa.texture ) :
         ( target != drv.textureTarget || texture != drv.texture ) ;
@@ -362,7 +371,7 @@ struct RegalDsa : public RegalEmu {
 
 
     void ClientAttribDefault( RegalContext * ctx, GLbitfield mask ) {
-        RegalDispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp.emuTbl;
         if( mask & GL_CLIENT_PIXEL_STORE_BIT ) {
             tbl.glPixelStorei( GL_UNPACK_SWAP_BYTES, 0 );
             tbl.glPixelStorei( GL_UNPACK_LSB_FIRST, 0 );
@@ -426,8 +435,8 @@ struct RegalDsa : public RegalEmu {
     }
 
     template< typename T >
-    void GetIndexedv( RegalContext * ctx, GLenum pname, GLuint index, T * params ) {
-        RegalDispatchTable &tbl = ctx->dsp.emuTbl;
+    bool GetIndexedv( RegalContext * ctx, GLenum pname, GLuint index, T * params ) {
+        DispatchTable &tbl = ctx->dsp.emuTbl;
         switch( pname ) {
             case GL_PROGRAM_MATRIX_EXT:
                 ctx->dsa->DsaMatrixMode( ctx, GL_MATRIX0_ARB + index );
@@ -482,8 +491,9 @@ struct RegalDsa : public RegalEmu {
                 DsaGetv( tbl, pname, params );
                 break;
             default:
-                break;
+                return false;
         }
+        return true;
     }
 
     void RestoreGet( RegalContext * ctx, GLenum pname ) {
@@ -563,7 +573,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     GLboolean IsEnabledIndexed( RegalContext * ctx, GLenum pname, GLuint index ) {
-        RegalDispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp.emuTbl;
         switch( pname ) {
             case GL_TEXTURE_1D:
             case GL_TEXTURE_2D:
@@ -608,7 +618,7 @@ struct RegalDsa : public RegalEmu {
 
 };
 
-
+REGAL_NAMESPACE_END
 
 #endif // ! __REGAL_DSA_H__
 
