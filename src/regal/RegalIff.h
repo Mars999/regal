@@ -642,7 +642,6 @@ struct RegalIff : public RegalEmu {
                 enabled = st.tex[ activeTextureIndex ].texgen[ idx ].enable;
                 return true;
             default:
-                //<> return false;
                 break;
         }
 
@@ -1107,15 +1106,15 @@ struct RegalIff : public RegalEmu {
             : enable( false )
             , useDepth( true )
             , mode( FG_Exp )
-            , params( 1, 0, 1, 0 )
-            , color( 0, 0, 0, 0 )
             , ver( 0 )
-            {}
+            {
+                params[0] = RegalFloat4( 1, 0, 1, 0 );
+                params[1] = RegalFloat4( 0, 0, 0, 0 );
+            }
             bool enable;
             bool useDepth;
             FogMode mode;
-            RegalFloat4 params; // .x = density, .y = start, .z = end, .w = d/c
-            RegalFloat4 color;
+            RegalFloat4 params[2]; // .x = density, .y = start, .z = end, .w = d/c
             GLuint64 ver;
         };
 
@@ -1145,6 +1144,9 @@ struct RegalIff : public RegalEmu {
             Material()
             : ambient( 0.2f, 0.2f, 0.2f, 1.0f )
             , diffuse( 0.8f, 0.8f, 0.8f, 1.0f )
+            , specular( 0, 0, 0, 1 )
+            , emission( 0, 0, 0, 1 )
+            , shininess( 0, 0, 0, 0 )
             , ver( 0 )
             {}
             RegalFloat4 ambient;
@@ -1180,7 +1182,11 @@ struct RegalIff : public RegalEmu {
                     tex[ii].texgen[0].obj = tex[ii].texgen[0].eye = RegalFloat4( 1, 0, 0, 0 );
                     tex[ii].texgen[1].obj = tex[ii].texgen[1].eye = RegalFloat4( 0, 1, 0, 0 );
                 }
+                light[0].ambient = RegalFloat4( 0, 0, 0, 1 );
                 light[0].diffuse = light[0].specular = RegalFloat4( 1, 1, 1, 1 );
+                for (int ii=1; ii<REGAL_FIXED_FUNCTION_MAX_LIGHTS; ii++) {
+                    light[ii].ambient = light[ii].diffuse = light[ii].specular = RegalFloat4( 0, 0, 0, 1 );
+                }
                 lightModelAmbient = mat[0].ambient = mat[1].ambient = RegalFloat4( 0.2f, 0.2f, 0.2f, 1.0f );
                 mat[0].diffuse = mat[1].diffuse = RegalFloat4( 0.8f, 0.8f, 0.8f, 1.0f );
                 colorMaterialTarget[0] = colorMaterialTarget[1] = CM_AmbientAndDiffuse;
@@ -1630,25 +1636,36 @@ struct RegalIff : public RegalEmu {
                 break;
             }
             case GL_FOG_DENSITY: {
-                r.fog.params.x = RFFToFloat( 0, param );
+                r.fog.params[0].x = RFFToFloat( 0, param );
                 r.fog.ver = ver.Update();
                 break;
             }
             case GL_FOG_START: {
-                r.fog.params.y = RFFToFloat( 0, param );
+                r.fog.params[0].y = RFFToFloat( 0, param );
                 r.fog.ver = ver.Update();
                 break;
             }
             case GL_FOG_END: {
-                r.fog.params.z = RFFToFloat( 0, param );
+                r.fog.params[0].z = RFFToFloat( 0, param );
                 r.fog.ver = ver.Update();
                 break;
             }
             case GL_FOG_COLOR: {
-                r.fog.color.x = RFFToFloat( 0, param );
-                r.fog.color.y = RFFToFloat( 1, param );
-                r.fog.color.z = RFFToFloat( 2, param );
-                r.fog.color.w = RFFToFloat( 3, param );
+                r.fog.params[1].x = RFFToFloat( 0, param );
+                r.fog.params[1].y = RFFToFloat( 1, param );
+                r.fog.params[1].z = RFFToFloat( 2, param );
+                r.fog.params[1].w = RFFToFloat( 3, param );
+                r.fog.ver = ver.Update();
+                break;
+            }
+            case GL_FOG_COORD_SRC: {
+                bool d = true;
+                switch( GLenum( RFFToFloat( 0, param ) ) ) {
+                    case GL_FRAGMENT_DEPTH: d = true; break;
+                    case GL_FOG_COORD: d = false; break;
+                    default: return;
+                }
+                r.fog.useDepth = d;
                 r.fog.ver = ver.Update();
                 break;
             }

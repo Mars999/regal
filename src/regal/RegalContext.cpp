@@ -39,6 +39,7 @@
 REGAL_GLOBAL_BEGIN
 
 #include "RegalContext.h"
+#include "RegalDebugInfo.h"
 #include "RegalContextInfo.h"
 #include "RegalObj.h"
 #include "RegalMarker.h"
@@ -58,6 +59,12 @@ void RegalContext::Init()
    ITrace("RegalContext::Init()");
    dsp.Init();
    err.Init();
+   if( RegalGetEnv( "REGAL_DEBUG" ) ) {
+      dbg = new DebugInfo();
+      dbg->Init(this);
+   } else {
+      dbg = NULL;
+   }
    info = new ContextInfo();
    RegalAssert(this);
    RegalAssert(info);

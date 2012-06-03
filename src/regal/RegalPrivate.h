@@ -152,11 +152,13 @@ extern DispatchTableGlobal dispatchTableGlobal;
 void RegalPrivateInitErrorDispatchTable( DispatchTable & tbl );
 void RegalPrivateInitLoaderDispatchTable( DispatchTable & tbl );
 void RegalPrivateInitEmuDispatchTable( DispatchTable & tbl );
+void RegalPrivateInitDebugDispatchTable( DispatchTable & tbl );
 
 enum RegalDispatchTableEnum {
    RDT_Driver = 1,
    RDT_Emu = 2,
-   RDT_Error  = 3
+   RDT_Error  = 3,
+   RDT_Debug  = 4
 };
 
 struct RegalDispatchState {
@@ -166,29 +168,35 @@ struct RegalDispatchState {
         stack[i] = NULL;
       }
       stackSize = 0;
-      stackCurr = 0;
+      stackCurr = 0; // todo: remove stackCurr 
+      curr = stack[ stackCurr ];
       RegalPrivateInitErrorDispatchTable( errorTbl );
       RegalPrivateInitLoaderDispatchTable( driverTbl );
       RegalPrivateInitLoaderDispatchTable( emuTbl );
       RegalPrivateInitEmuDispatchTable( emuTbl ); // overrides emulated functions only
+      RegalPrivateInitDebugDispatchTable( dbgTbl );
+      if( RegalGetEnv( "REGAL_DEBUG" ) ) {
+         Insert( 0, RDT_Debug );
+      }
       Insert( 0, RDT_Emu );
       Insert( 0, RDT_Driver );
    }
    void StepDown()
    {
+      RegalAssert( stackCurr > 0 );
       stackCurr--;
+      curr = stack[stackCurr];
    }
    void StepUp()
    {
+      RegalAssert( stackCurr < REGAL_MAX_DISPATCH_TABLE_STACK_SIZE );
       stackCurr++;
-   }
-   DispatchTable *CurrTable()
-   {
-      return stack[stackCurr];
+      curr = stack[stackCurr];
    }
    DispatchTable *Table( RegalDispatchTableEnum dt )
    {
       switch( dt ) {
+        case RDT_Debug: return &dbgTbl;
         case RDT_Emu: return &emuTbl;
         case RDT_Error:  return &errorTbl;
         case RDT_Driver: return &driverTbl;
@@ -212,6 +220,7 @@ struct RegalDispatchState {
          stack[ i ] = stack[ i - 1 ];
       }
       stack[ loc ] = tbl;
+      curr = stack[stackCurr];
    }
 
    void Erase( RegalDispatchTableEnum dt )
@@ -232,14 +241,17 @@ struct RegalDispatchState {
       }
       stackSize--;
       stackCurr = stackSize - 1;
+      curr = stack[stackCurr];
    }
 
    DispatchTable *stack[ REGAL_MAX_DISPATCH_TABLE_STACK_SIZE + 1 ];
+   DispatchTable *curr;
    int stackSize;
    int stackCurr;
    DispatchTable driverTbl;
    DispatchTable emuTbl;
    DispatchTable errorTbl;
+   DispatchTable dbgTbl;
 };
 
 struct RegalDspScopedStepDown {

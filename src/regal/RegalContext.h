@@ -45,6 +45,7 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
+struct DebugInfo;
 struct ContextInfo;
 
 struct RegalObj;
@@ -59,6 +60,7 @@ struct RegalContext {
    void Cleanup();
    RegalDispatchState dsp;
    RegalErrorState    err;
+   DebugInfo         *dbg;
    ContextInfo       *info;
    // emu
    int emuLevel;

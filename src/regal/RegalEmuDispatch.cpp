@@ -106,7 +106,7 @@ static void REGAL_CALL emu_glBegin(GLenum mode)
        default: {
            GTrace("glBegin(", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBegin(mode);
+           rCtx->dsp.curr->glBegin(mode);
            break;
        }
 
@@ -149,7 +149,7 @@ static void REGAL_CALL emu_glColor3b(GLbyte red, GLbyte green, GLbyte blue)
        default: {
            GTrace("glColor3b(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3b(red, green, blue);
+           rCtx->dsp.curr->glColor3b(red, green, blue);
            break;
        }
 
@@ -190,9 +190,9 @@ static void REGAL_CALL emu_glColor3bv(const GLbyte *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3bv(", v, ")");
+           GTrace("glColor3bv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3bv(v);
+           rCtx->dsp.curr->glColor3bv(v);
            break;
        }
 
@@ -235,7 +235,7 @@ static void REGAL_CALL emu_glColor3d(GLdouble red, GLdouble green, GLdouble blue
        default: {
            GTrace("glColor3d(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3d(red, green, blue);
+           rCtx->dsp.curr->glColor3d(red, green, blue);
            break;
        }
 
@@ -276,9 +276,9 @@ static void REGAL_CALL emu_glColor3dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3dv(", v, ")");
+           GTrace("glColor3dv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3dv(v);
+           rCtx->dsp.curr->glColor3dv(v);
            break;
        }
 
@@ -321,7 +321,7 @@ static void REGAL_CALL emu_glColor3f(GLfloat red, GLfloat green, GLfloat blue)
        default: {
            GTrace("glColor3f(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3f(red, green, blue);
+           rCtx->dsp.curr->glColor3f(red, green, blue);
            break;
        }
 
@@ -362,9 +362,9 @@ static void REGAL_CALL emu_glColor3fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3fv(", v, ")");
+           GTrace("glColor3fv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3fv(v);
+           rCtx->dsp.curr->glColor3fv(v);
            break;
        }
 
@@ -407,7 +407,7 @@ static void REGAL_CALL emu_glColor3i(GLint red, GLint green, GLint blue)
        default: {
            GTrace("glColor3i(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3i(red, green, blue);
+           rCtx->dsp.curr->glColor3i(red, green, blue);
            break;
        }
 
@@ -448,9 +448,9 @@ static void REGAL_CALL emu_glColor3iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3iv(", v, ")");
+           GTrace("glColor3iv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3iv(v);
+           rCtx->dsp.curr->glColor3iv(v);
            break;
        }
 
@@ -493,7 +493,7 @@ static void REGAL_CALL emu_glColor3s(GLshort red, GLshort green, GLshort blue)
        default: {
            GTrace("glColor3s(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3s(red, green, blue);
+           rCtx->dsp.curr->glColor3s(red, green, blue);
            break;
        }
 
@@ -534,9 +534,9 @@ static void REGAL_CALL emu_glColor3sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3sv(", v, ")");
+           GTrace("glColor3sv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3sv(v);
+           rCtx->dsp.curr->glColor3sv(v);
            break;
        }
 
@@ -579,7 +579,7 @@ static void REGAL_CALL emu_glColor3ub(GLubyte red, GLubyte green, GLubyte blue)
        default: {
            GTrace("glColor3ub(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3ub(red, green, blue);
+           rCtx->dsp.curr->glColor3ub(red, green, blue);
            break;
        }
 
@@ -620,9 +620,9 @@ static void REGAL_CALL emu_glColor3ubv(const GLubyte *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3ubv(", v, ")");
+           GTrace("glColor3ubv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3ubv(v);
+           rCtx->dsp.curr->glColor3ubv(v);
            break;
        }
 
@@ -665,7 +665,7 @@ static void REGAL_CALL emu_glColor3ui(GLuint red, GLuint green, GLuint blue)
        default: {
            GTrace("glColor3ui(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3ui(red, green, blue);
+           rCtx->dsp.curr->glColor3ui(red, green, blue);
            break;
        }
 
@@ -706,9 +706,9 @@ static void REGAL_CALL emu_glColor3uiv(const GLuint *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3uiv(", v, ")");
+           GTrace("glColor3uiv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3uiv(v);
+           rCtx->dsp.curr->glColor3uiv(v);
            break;
        }
 
@@ -751,7 +751,7 @@ static void REGAL_CALL emu_glColor3us(GLushort red, GLushort green, GLushort blu
        default: {
            GTrace("glColor3us(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3us(red, green, blue);
+           rCtx->dsp.curr->glColor3us(red, green, blue);
            break;
        }
 
@@ -792,9 +792,9 @@ static void REGAL_CALL emu_glColor3usv(const GLushort *v)
            }
        case 1 :
        default: {
-           GTrace("glColor3usv(", v, ")");
+           GTrace("glColor3usv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor3usv(v);
+           rCtx->dsp.curr->glColor3usv(v);
            break;
        }
 
@@ -837,7 +837,7 @@ static void REGAL_CALL emu_glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLby
        default: {
            GTrace("glColor4b(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4b(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4b(red, green, blue, alpha);
            break;
        }
 
@@ -878,9 +878,9 @@ static void REGAL_CALL emu_glColor4bv(const GLbyte *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4bv(", v, ")");
+           GTrace("glColor4bv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4bv(v);
+           rCtx->dsp.curr->glColor4bv(v);
            break;
        }
 
@@ -923,7 +923,7 @@ static void REGAL_CALL emu_glColor4d(GLdouble red, GLdouble green, GLdouble blue
        default: {
            GTrace("glColor4d(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4d(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4d(red, green, blue, alpha);
            break;
        }
 
@@ -964,9 +964,9 @@ static void REGAL_CALL emu_glColor4dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4dv(", v, ")");
+           GTrace("glColor4dv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4dv(v);
+           rCtx->dsp.curr->glColor4dv(v);
            break;
        }
 
@@ -1009,7 +1009,7 @@ static void REGAL_CALL emu_glColor4f(GLfloat red, GLfloat green, GLfloat blue, G
        default: {
            GTrace("glColor4f(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4f(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4f(red, green, blue, alpha);
            break;
        }
 
@@ -1050,9 +1050,9 @@ static void REGAL_CALL emu_glColor4fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4fv(", v, ")");
+           GTrace("glColor4fv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4fv(v);
+           rCtx->dsp.curr->glColor4fv(v);
            break;
        }
 
@@ -1095,7 +1095,7 @@ static void REGAL_CALL emu_glColor4i(GLint red, GLint green, GLint blue, GLint a
        default: {
            GTrace("glColor4i(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4i(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4i(red, green, blue, alpha);
            break;
        }
 
@@ -1136,9 +1136,9 @@ static void REGAL_CALL emu_glColor4iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4iv(", v, ")");
+           GTrace("glColor4iv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4iv(v);
+           rCtx->dsp.curr->glColor4iv(v);
            break;
        }
 
@@ -1181,7 +1181,7 @@ static void REGAL_CALL emu_glColor4s(GLshort red, GLshort green, GLshort blue, G
        default: {
            GTrace("glColor4s(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4s(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4s(red, green, blue, alpha);
            break;
        }
 
@@ -1222,9 +1222,9 @@ static void REGAL_CALL emu_glColor4sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4sv(", v, ")");
+           GTrace("glColor4sv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4sv(v);
+           rCtx->dsp.curr->glColor4sv(v);
            break;
        }
 
@@ -1267,7 +1267,7 @@ static void REGAL_CALL emu_glColor4ub(GLubyte red, GLubyte green, GLubyte blue, 
        default: {
            GTrace("glColor4ub(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4ub(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4ub(red, green, blue, alpha);
            break;
        }
 
@@ -1308,9 +1308,9 @@ static void REGAL_CALL emu_glColor4ubv(const GLubyte *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4ubv(", v, ")");
+           GTrace("glColor4ubv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4ubv(v);
+           rCtx->dsp.curr->glColor4ubv(v);
            break;
        }
 
@@ -1353,7 +1353,7 @@ static void REGAL_CALL emu_glColor4ui(GLuint red, GLuint green, GLuint blue, GLu
        default: {
            GTrace("glColor4ui(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4ui(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4ui(red, green, blue, alpha);
            break;
        }
 
@@ -1394,9 +1394,9 @@ static void REGAL_CALL emu_glColor4uiv(const GLuint *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4uiv(", v, ")");
+           GTrace("glColor4uiv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4uiv(v);
+           rCtx->dsp.curr->glColor4uiv(v);
            break;
        }
 
@@ -1439,7 +1439,7 @@ static void REGAL_CALL emu_glColor4us(GLushort red, GLushort green, GLushort blu
        default: {
            GTrace("glColor4us(", red, ", ", green, ", ", blue, ", ", alpha, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4us(red, green, blue, alpha);
+           rCtx->dsp.curr->glColor4us(red, green, blue, alpha);
            break;
        }
 
@@ -1480,9 +1480,9 @@ static void REGAL_CALL emu_glColor4usv(const GLushort *v)
            }
        case 1 :
        default: {
-           GTrace("glColor4usv(", v, ")");
+           GTrace("glColor4usv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColor4usv(v);
+           rCtx->dsp.curr->glColor4usv(v);
            break;
        }
 
@@ -1529,7 +1529,7 @@ static void REGAL_CALL emu_glEnd(void)
        default: {
            GTrace("glEnd()");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnd();
+           rCtx->dsp.curr->glEnd();
            break;
        }
 
@@ -1572,7 +1572,7 @@ static void REGAL_CALL emu_glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz)
        default: {
            GTrace("glNormal3b(", nx, ", ", ny, ", ", nz, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3b(nx, ny, nz);
+           rCtx->dsp.curr->glNormal3b(nx, ny, nz);
            break;
        }
 
@@ -1613,9 +1613,9 @@ static void REGAL_CALL emu_glNormal3bv(const GLbyte *v)
            }
        case 1 :
        default: {
-           GTrace("glNormal3bv(", v, ")");
+           GTrace("glNormal3bv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3bv(v);
+           rCtx->dsp.curr->glNormal3bv(v);
            break;
        }
 
@@ -1658,7 +1658,7 @@ static void REGAL_CALL emu_glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz)
        default: {
            GTrace("glNormal3d(", nx, ", ", ny, ", ", nz, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3d(nx, ny, nz);
+           rCtx->dsp.curr->glNormal3d(nx, ny, nz);
            break;
        }
 
@@ -1699,9 +1699,9 @@ static void REGAL_CALL emu_glNormal3dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glNormal3dv(", v, ")");
+           GTrace("glNormal3dv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3dv(v);
+           rCtx->dsp.curr->glNormal3dv(v);
            break;
        }
 
@@ -1744,7 +1744,7 @@ static void REGAL_CALL emu_glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz)
        default: {
            GTrace("glNormal3f(", nx, ", ", ny, ", ", nz, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3f(nx, ny, nz);
+           rCtx->dsp.curr->glNormal3f(nx, ny, nz);
            break;
        }
 
@@ -1785,9 +1785,9 @@ static void REGAL_CALL emu_glNormal3fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glNormal3fv(", v, ")");
+           GTrace("glNormal3fv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3fv(v);
+           rCtx->dsp.curr->glNormal3fv(v);
            break;
        }
 
@@ -1830,7 +1830,7 @@ static void REGAL_CALL emu_glNormal3i(GLint nx, GLint ny, GLint nz)
        default: {
            GTrace("glNormal3i(", nx, ", ", ny, ", ", nz, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3i(nx, ny, nz);
+           rCtx->dsp.curr->glNormal3i(nx, ny, nz);
            break;
        }
 
@@ -1871,9 +1871,9 @@ static void REGAL_CALL emu_glNormal3iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glNormal3iv(", v, ")");
+           GTrace("glNormal3iv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3iv(v);
+           rCtx->dsp.curr->glNormal3iv(v);
            break;
        }
 
@@ -1916,7 +1916,7 @@ static void REGAL_CALL emu_glNormal3s(GLshort nx, GLshort ny, GLshort nz)
        default: {
            GTrace("glNormal3s(", nx, ", ", ny, ", ", nz, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3s(nx, ny, nz);
+           rCtx->dsp.curr->glNormal3s(nx, ny, nz);
            break;
        }
 
@@ -1957,9 +1957,9 @@ static void REGAL_CALL emu_glNormal3sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glNormal3sv(", v, ")");
+           GTrace("glNormal3sv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormal3sv(v);
+           rCtx->dsp.curr->glNormal3sv(v);
            break;
        }
 
@@ -2002,7 +2002,7 @@ static void REGAL_CALL emu_glTexCoord1d(GLdouble s)
        default: {
            GTrace("glTexCoord1d(", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1d(s);
+           rCtx->dsp.curr->glTexCoord1d(s);
            break;
        }
 
@@ -2043,9 +2043,9 @@ static void REGAL_CALL emu_glTexCoord1dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord1dv(", v, ")");
+           GTrace("glTexCoord1dv(", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1dv(v);
+           rCtx->dsp.curr->glTexCoord1dv(v);
            break;
        }
 
@@ -2088,7 +2088,7 @@ static void REGAL_CALL emu_glTexCoord1f(GLfloat s)
        default: {
            GTrace("glTexCoord1f(", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1f(s);
+           rCtx->dsp.curr->glTexCoord1f(s);
            break;
        }
 
@@ -2129,9 +2129,9 @@ static void REGAL_CALL emu_glTexCoord1fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord1fv(", v, ")");
+           GTrace("glTexCoord1fv(", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1fv(v);
+           rCtx->dsp.curr->glTexCoord1fv(v);
            break;
        }
 
@@ -2174,7 +2174,7 @@ static void REGAL_CALL emu_glTexCoord1i(GLint s)
        default: {
            GTrace("glTexCoord1i(", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1i(s);
+           rCtx->dsp.curr->glTexCoord1i(s);
            break;
        }
 
@@ -2215,9 +2215,9 @@ static void REGAL_CALL emu_glTexCoord1iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord1iv(", v, ")");
+           GTrace("glTexCoord1iv(", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1iv(v);
+           rCtx->dsp.curr->glTexCoord1iv(v);
            break;
        }
 
@@ -2260,7 +2260,7 @@ static void REGAL_CALL emu_glTexCoord1s(GLshort s)
        default: {
            GTrace("glTexCoord1s(", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1s(s);
+           rCtx->dsp.curr->glTexCoord1s(s);
            break;
        }
 
@@ -2301,9 +2301,9 @@ static void REGAL_CALL emu_glTexCoord1sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord1sv(", v, ")");
+           GTrace("glTexCoord1sv(", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord1sv(v);
+           rCtx->dsp.curr->glTexCoord1sv(v);
            break;
        }
 
@@ -2346,7 +2346,7 @@ static void REGAL_CALL emu_glTexCoord2d(GLdouble s, GLdouble t)
        default: {
            GTrace("glTexCoord2d(", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2d(s, t);
+           rCtx->dsp.curr->glTexCoord2d(s, t);
            break;
        }
 
@@ -2387,9 +2387,9 @@ static void REGAL_CALL emu_glTexCoord2dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord2dv(", v, ")");
+           GTrace("glTexCoord2dv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2dv(v);
+           rCtx->dsp.curr->glTexCoord2dv(v);
            break;
        }
 
@@ -2432,7 +2432,7 @@ static void REGAL_CALL emu_glTexCoord2f(GLfloat s, GLfloat t)
        default: {
            GTrace("glTexCoord2f(", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2f(s, t);
+           rCtx->dsp.curr->glTexCoord2f(s, t);
            break;
        }
 
@@ -2473,9 +2473,9 @@ static void REGAL_CALL emu_glTexCoord2fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord2fv(", v, ")");
+           GTrace("glTexCoord2fv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2fv(v);
+           rCtx->dsp.curr->glTexCoord2fv(v);
            break;
        }
 
@@ -2518,7 +2518,7 @@ static void REGAL_CALL emu_glTexCoord2i(GLint s, GLint t)
        default: {
            GTrace("glTexCoord2i(", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2i(s, t);
+           rCtx->dsp.curr->glTexCoord2i(s, t);
            break;
        }
 
@@ -2559,9 +2559,9 @@ static void REGAL_CALL emu_glTexCoord2iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord2iv(", v, ")");
+           GTrace("glTexCoord2iv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2iv(v);
+           rCtx->dsp.curr->glTexCoord2iv(v);
            break;
        }
 
@@ -2604,7 +2604,7 @@ static void REGAL_CALL emu_glTexCoord2s(GLshort s, GLshort t)
        default: {
            GTrace("glTexCoord2s(", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2s(s, t);
+           rCtx->dsp.curr->glTexCoord2s(s, t);
            break;
        }
 
@@ -2645,9 +2645,9 @@ static void REGAL_CALL emu_glTexCoord2sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord2sv(", v, ")");
+           GTrace("glTexCoord2sv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord2sv(v);
+           rCtx->dsp.curr->glTexCoord2sv(v);
            break;
        }
 
@@ -2690,7 +2690,7 @@ static void REGAL_CALL emu_glTexCoord3d(GLdouble s, GLdouble t, GLdouble r)
        default: {
            GTrace("glTexCoord3d(", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3d(s, t, r);
+           rCtx->dsp.curr->glTexCoord3d(s, t, r);
            break;
        }
 
@@ -2731,9 +2731,9 @@ static void REGAL_CALL emu_glTexCoord3dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord3dv(", v, ")");
+           GTrace("glTexCoord3dv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3dv(v);
+           rCtx->dsp.curr->glTexCoord3dv(v);
            break;
        }
 
@@ -2776,7 +2776,7 @@ static void REGAL_CALL emu_glTexCoord3f(GLfloat s, GLfloat t, GLfloat r)
        default: {
            GTrace("glTexCoord3f(", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3f(s, t, r);
+           rCtx->dsp.curr->glTexCoord3f(s, t, r);
            break;
        }
 
@@ -2817,9 +2817,9 @@ static void REGAL_CALL emu_glTexCoord3fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord3fv(", v, ")");
+           GTrace("glTexCoord3fv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3fv(v);
+           rCtx->dsp.curr->glTexCoord3fv(v);
            break;
        }
 
@@ -2862,7 +2862,7 @@ static void REGAL_CALL emu_glTexCoord3i(GLint s, GLint t, GLint r)
        default: {
            GTrace("glTexCoord3i(", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3i(s, t, r);
+           rCtx->dsp.curr->glTexCoord3i(s, t, r);
            break;
        }
 
@@ -2903,9 +2903,9 @@ static void REGAL_CALL emu_glTexCoord3iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord3iv(", v, ")");
+           GTrace("glTexCoord3iv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3iv(v);
+           rCtx->dsp.curr->glTexCoord3iv(v);
            break;
        }
 
@@ -2948,7 +2948,7 @@ static void REGAL_CALL emu_glTexCoord3s(GLshort s, GLshort t, GLshort r)
        default: {
            GTrace("glTexCoord3s(", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3s(s, t, r);
+           rCtx->dsp.curr->glTexCoord3s(s, t, r);
            break;
        }
 
@@ -2989,9 +2989,9 @@ static void REGAL_CALL emu_glTexCoord3sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord3sv(", v, ")");
+           GTrace("glTexCoord3sv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord3sv(v);
+           rCtx->dsp.curr->glTexCoord3sv(v);
            break;
        }
 
@@ -3034,7 +3034,7 @@ static void REGAL_CALL emu_glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdo
        default: {
            GTrace("glTexCoord4d(", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4d(s, t, r, q);
+           rCtx->dsp.curr->glTexCoord4d(s, t, r, q);
            break;
        }
 
@@ -3075,9 +3075,9 @@ static void REGAL_CALL emu_glTexCoord4dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord4dv(", v, ")");
+           GTrace("glTexCoord4dv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4dv(v);
+           rCtx->dsp.curr->glTexCoord4dv(v);
            break;
        }
 
@@ -3120,7 +3120,7 @@ static void REGAL_CALL emu_glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat
        default: {
            GTrace("glTexCoord4f(", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4f(s, t, r, q);
+           rCtx->dsp.curr->glTexCoord4f(s, t, r, q);
            break;
        }
 
@@ -3161,9 +3161,9 @@ static void REGAL_CALL emu_glTexCoord4fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord4fv(", v, ")");
+           GTrace("glTexCoord4fv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4fv(v);
+           rCtx->dsp.curr->glTexCoord4fv(v);
            break;
        }
 
@@ -3206,7 +3206,7 @@ static void REGAL_CALL emu_glTexCoord4i(GLint s, GLint t, GLint r, GLint q)
        default: {
            GTrace("glTexCoord4i(", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4i(s, t, r, q);
+           rCtx->dsp.curr->glTexCoord4i(s, t, r, q);
            break;
        }
 
@@ -3247,9 +3247,9 @@ static void REGAL_CALL emu_glTexCoord4iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord4iv(", v, ")");
+           GTrace("glTexCoord4iv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4iv(v);
+           rCtx->dsp.curr->glTexCoord4iv(v);
            break;
        }
 
@@ -3292,7 +3292,7 @@ static void REGAL_CALL emu_glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort
        default: {
            GTrace("glTexCoord4s(", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4s(s, t, r, q);
+           rCtx->dsp.curr->glTexCoord4s(s, t, r, q);
            break;
        }
 
@@ -3333,9 +3333,9 @@ static void REGAL_CALL emu_glTexCoord4sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glTexCoord4sv(", v, ")");
+           GTrace("glTexCoord4sv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoord4sv(v);
+           rCtx->dsp.curr->glTexCoord4sv(v);
            break;
        }
 
@@ -3378,7 +3378,7 @@ static void REGAL_CALL emu_glVertex2d(GLdouble x, GLdouble y)
        default: {
            GTrace("glVertex2d(", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2d(x, y);
+           rCtx->dsp.curr->glVertex2d(x, y);
            break;
        }
 
@@ -3419,9 +3419,9 @@ static void REGAL_CALL emu_glVertex2dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex2dv(", v, ")");
+           GTrace("glVertex2dv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2dv(v);
+           rCtx->dsp.curr->glVertex2dv(v);
            break;
        }
 
@@ -3464,7 +3464,7 @@ static void REGAL_CALL emu_glVertex2f(GLfloat x, GLfloat y)
        default: {
            GTrace("glVertex2f(", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2f(x, y);
+           rCtx->dsp.curr->glVertex2f(x, y);
            break;
        }
 
@@ -3505,9 +3505,9 @@ static void REGAL_CALL emu_glVertex2fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex2fv(", v, ")");
+           GTrace("glVertex2fv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2fv(v);
+           rCtx->dsp.curr->glVertex2fv(v);
            break;
        }
 
@@ -3550,7 +3550,7 @@ static void REGAL_CALL emu_glVertex2i(GLint x, GLint y)
        default: {
            GTrace("glVertex2i(", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2i(x, y);
+           rCtx->dsp.curr->glVertex2i(x, y);
            break;
        }
 
@@ -3591,9 +3591,9 @@ static void REGAL_CALL emu_glVertex2iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex2iv(", v, ")");
+           GTrace("glVertex2iv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2iv(v);
+           rCtx->dsp.curr->glVertex2iv(v);
            break;
        }
 
@@ -3636,7 +3636,7 @@ static void REGAL_CALL emu_glVertex2s(GLshort x, GLshort y)
        default: {
            GTrace("glVertex2s(", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2s(x, y);
+           rCtx->dsp.curr->glVertex2s(x, y);
            break;
        }
 
@@ -3677,9 +3677,9 @@ static void REGAL_CALL emu_glVertex2sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex2sv(", v, ")");
+           GTrace("glVertex2sv(", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex2sv(v);
+           rCtx->dsp.curr->glVertex2sv(v);
            break;
        }
 
@@ -3722,7 +3722,7 @@ static void REGAL_CALL emu_glVertex3d(GLdouble x, GLdouble y, GLdouble z)
        default: {
            GTrace("glVertex3d(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3d(x, y, z);
+           rCtx->dsp.curr->glVertex3d(x, y, z);
            break;
        }
 
@@ -3763,9 +3763,9 @@ static void REGAL_CALL emu_glVertex3dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex3dv(", v, ")");
+           GTrace("glVertex3dv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3dv(v);
+           rCtx->dsp.curr->glVertex3dv(v);
            break;
        }
 
@@ -3808,7 +3808,7 @@ static void REGAL_CALL emu_glVertex3f(GLfloat x, GLfloat y, GLfloat z)
        default: {
            GTrace("glVertex3f(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3f(x, y, z);
+           rCtx->dsp.curr->glVertex3f(x, y, z);
            break;
        }
 
@@ -3849,9 +3849,9 @@ static void REGAL_CALL emu_glVertex3fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex3fv(", v, ")");
+           GTrace("glVertex3fv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3fv(v);
+           rCtx->dsp.curr->glVertex3fv(v);
            break;
        }
 
@@ -3894,7 +3894,7 @@ static void REGAL_CALL emu_glVertex3i(GLint x, GLint y, GLint z)
        default: {
            GTrace("glVertex3i(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3i(x, y, z);
+           rCtx->dsp.curr->glVertex3i(x, y, z);
            break;
        }
 
@@ -3935,9 +3935,9 @@ static void REGAL_CALL emu_glVertex3iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex3iv(", v, ")");
+           GTrace("glVertex3iv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3iv(v);
+           rCtx->dsp.curr->glVertex3iv(v);
            break;
        }
 
@@ -3980,7 +3980,7 @@ static void REGAL_CALL emu_glVertex3s(GLshort x, GLshort y, GLshort z)
        default: {
            GTrace("glVertex3s(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3s(x, y, z);
+           rCtx->dsp.curr->glVertex3s(x, y, z);
            break;
        }
 
@@ -4021,9 +4021,9 @@ static void REGAL_CALL emu_glVertex3sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex3sv(", v, ")");
+           GTrace("glVertex3sv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex3sv(v);
+           rCtx->dsp.curr->glVertex3sv(v);
            break;
        }
 
@@ -4066,7 +4066,7 @@ static void REGAL_CALL emu_glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdoub
        default: {
            GTrace("glVertex4d(", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4d(x, y, z, w);
+           rCtx->dsp.curr->glVertex4d(x, y, z, w);
            break;
        }
 
@@ -4107,9 +4107,9 @@ static void REGAL_CALL emu_glVertex4dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex4dv(", v, ")");
+           GTrace("glVertex4dv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4dv(v);
+           rCtx->dsp.curr->glVertex4dv(v);
            break;
        }
 
@@ -4152,7 +4152,7 @@ static void REGAL_CALL emu_glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w
        default: {
            GTrace("glVertex4f(", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4f(x, y, z, w);
+           rCtx->dsp.curr->glVertex4f(x, y, z, w);
            break;
        }
 
@@ -4193,9 +4193,9 @@ static void REGAL_CALL emu_glVertex4fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex4fv(", v, ")");
+           GTrace("glVertex4fv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4fv(v);
+           rCtx->dsp.curr->glVertex4fv(v);
            break;
        }
 
@@ -4238,7 +4238,7 @@ static void REGAL_CALL emu_glVertex4i(GLint x, GLint y, GLint z, GLint w)
        default: {
            GTrace("glVertex4i(", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4i(x, y, z, w);
+           rCtx->dsp.curr->glVertex4i(x, y, z, w);
            break;
        }
 
@@ -4279,9 +4279,9 @@ static void REGAL_CALL emu_glVertex4iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex4iv(", v, ")");
+           GTrace("glVertex4iv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4iv(v);
+           rCtx->dsp.curr->glVertex4iv(v);
            break;
        }
 
@@ -4324,7 +4324,7 @@ static void REGAL_CALL emu_glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w
        default: {
            GTrace("glVertex4s(", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4s(x, y, z, w);
+           rCtx->dsp.curr->glVertex4s(x, y, z, w);
            break;
        }
 
@@ -4365,9 +4365,9 @@ static void REGAL_CALL emu_glVertex4sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertex4sv(", v, ")");
+           GTrace("glVertex4sv(", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertex4sv(v);
+           rCtx->dsp.curr->glVertex4sv(v);
            break;
        }
 
@@ -4408,9 +4408,9 @@ static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
            }
        case 1 :
        default: {
-           GTrace("glClipPlane(", toString(plane), ", ", equation, ")");
+           GTrace("glClipPlane(", toString(plane), ", ", boost::print::iterator(equation,equation+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glClipPlane(plane, equation);
+           rCtx->dsp.curr->glClipPlane(plane, equation);
            break;
        }
 
@@ -4453,7 +4453,7 @@ static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
        default: {
            GTrace("glColorMaterial(", toString(face), ", ", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColorMaterial(face, mode);
+           rCtx->dsp.curr->glColorMaterial(face, mode);
            break;
        }
 
@@ -4496,7 +4496,7 @@ static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
        default: {
            GTrace("glFogf(", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFogf(pname, param);
+           rCtx->dsp.curr->glFogf(pname, param);
            break;
        }
 
@@ -4539,7 +4539,7 @@ static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
        default: {
            GTrace("glFogfv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFogfv(pname, params);
+           rCtx->dsp.curr->glFogfv(pname, params);
            break;
        }
 
@@ -4582,7 +4582,7 @@ static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
        default: {
            GTrace("glFogi(", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFogi(pname, param);
+           rCtx->dsp.curr->glFogi(pname, param);
            break;
        }
 
@@ -4625,7 +4625,7 @@ static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
        default: {
            GTrace("glFogiv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFogiv(pname, params);
+           rCtx->dsp.curr->glFogiv(pname, params);
            break;
        }
 
@@ -4668,7 +4668,7 @@ static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
        default: {
            GTrace("glLightf(", toString(light), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightf(light, pname, param);
+           rCtx->dsp.curr->glLightf(light, pname, param);
            break;
        }
 
@@ -4711,7 +4711,7 @@ static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *
        default: {
            GTrace("glLightfv(", toString(light), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightfv(light, pname, params);
+           rCtx->dsp.curr->glLightfv(light, pname, params);
            break;
        }
 
@@ -4754,7 +4754,7 @@ static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
        default: {
            GTrace("glLighti(", toString(light), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLighti(light, pname, param);
+           rCtx->dsp.curr->glLighti(light, pname, param);
            break;
        }
 
@@ -4797,7 +4797,7 @@ static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *pa
        default: {
            GTrace("glLightiv(", toString(light), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightiv(light, pname, params);
+           rCtx->dsp.curr->glLightiv(light, pname, params);
            break;
        }
 
@@ -4840,7 +4840,7 @@ static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
        default: {
            GTrace("glLightModelf(", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightModelf(pname, param);
+           rCtx->dsp.curr->glLightModelf(pname, param);
            break;
        }
 
@@ -4883,7 +4883,7 @@ static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
        default: {
            GTrace("glLightModelfv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightModelfv(pname, params);
+           rCtx->dsp.curr->glLightModelfv(pname, params);
            break;
        }
 
@@ -4926,7 +4926,7 @@ static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
        default: {
            GTrace("glLightModeli(", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightModeli(pname, param);
+           rCtx->dsp.curr->glLightModeli(pname, param);
            break;
        }
 
@@ -4969,7 +4969,7 @@ static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
        default: {
            GTrace("glLightModeliv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLightModeliv(pname, params);
+           rCtx->dsp.curr->glLightModeliv(pname, params);
            break;
        }
 
@@ -5012,7 +5012,7 @@ static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
        default: {
            GTrace("glMaterialf(", toString(face), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMaterialf(face, pname, param);
+           rCtx->dsp.curr->glMaterialf(face, pname, param);
            break;
        }
 
@@ -5055,7 +5055,7 @@ static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat
        default: {
            GTrace("glMaterialfv(", toString(face), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMaterialfv(face, pname, params);
+           rCtx->dsp.curr->glMaterialfv(face, pname, params);
            break;
        }
 
@@ -5098,7 +5098,7 @@ static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
        default: {
            GTrace("glMateriali(", toString(face), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMateriali(face, pname, param);
+           rCtx->dsp.curr->glMateriali(face, pname, param);
            break;
        }
 
@@ -5141,7 +5141,7 @@ static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *
        default: {
            GTrace("glMaterialiv(", toString(face), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMaterialiv(face, pname, params);
+           rCtx->dsp.curr->glMaterialiv(face, pname, params);
            break;
        }
 
@@ -5182,7 +5182,7 @@ static void REGAL_CALL emu_glShadeModel(GLenum mode)
        default: {
            GTrace("glShadeModel(", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glShadeModel(mode);
+           rCtx->dsp.curr->glShadeModel(mode);
            break;
        }
 
@@ -5224,7 +5224,7 @@ static void REGAL_CALL emu_glTexParameterf(GLenum target, GLenum pname, GLfloat 
        default: {
            GTrace("glTexParameterf(", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexParameterf(target, pname, param);
+           rCtx->dsp.curr->glTexParameterf(target, pname, param);
            break;
        }
 
@@ -5266,7 +5266,7 @@ static void REGAL_CALL emu_glTexParameterfv(GLenum target, GLenum pname, const G
        default: {
            GTrace("glTexParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexParameterfv(target, pname, params);
+           rCtx->dsp.curr->glTexParameterfv(target, pname, params);
            break;
        }
 
@@ -5308,7 +5308,7 @@ static void REGAL_CALL emu_glTexParameteri(GLenum target, GLenum pname, GLint pa
        default: {
            GTrace("glTexParameteri(", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexParameteri(target, pname, param);
+           rCtx->dsp.curr->glTexParameteri(target, pname, param);
            break;
        }
 
@@ -5350,7 +5350,7 @@ static void REGAL_CALL emu_glTexParameteriv(GLenum target, GLenum pname, const G
        default: {
            GTrace("glTexParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexParameteriv(target, pname, params);
+           rCtx->dsp.curr->glTexParameteriv(target, pname, params);
            break;
        }
 
@@ -5391,7 +5391,7 @@ static void REGAL_CALL emu_glTexImage1D(GLenum target, GLint level, GLint intern
        default: {
            GTrace("glTexImage1D(", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+           rCtx->dsp.curr->glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
            break;
        }
 
@@ -5432,7 +5432,7 @@ static void REGAL_CALL emu_glTexImage2D(GLenum target, GLint level, GLint intern
        default: {
            GTrace("glTexImage2D(", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+           rCtx->dsp.curr->glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
            break;
        }
 
@@ -5480,7 +5480,7 @@ static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
        default: {
            GTrace("glTexEnvf(", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexEnvf(target, pname, param);
+           rCtx->dsp.curr->glTexEnvf(target, pname, param);
            break;
        }
 
@@ -5528,7 +5528,7 @@ static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat
        default: {
            GTrace("glTexEnvfv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexEnvfv(target, pname, params);
+           rCtx->dsp.curr->glTexEnvfv(target, pname, params);
            break;
        }
 
@@ -5576,7 +5576,7 @@ static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
        default: {
            GTrace("glTexEnvi(", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexEnvi(target, pname, param);
+           rCtx->dsp.curr->glTexEnvi(target, pname, param);
            break;
        }
 
@@ -5624,7 +5624,7 @@ static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *
        default: {
            GTrace("glTexEnviv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexEnviv(target, pname, params);
+           rCtx->dsp.curr->glTexEnviv(target, pname, params);
            break;
        }
 
@@ -5667,7 +5667,7 @@ static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
        default: {
            GTrace("glTexGend(", toString(coord), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexGend(coord, pname, param);
+           rCtx->dsp.curr->glTexGend(coord, pname, param);
            break;
        }
 
@@ -5710,7 +5710,7 @@ static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble
        default: {
            GTrace("glTexGendv(", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexGendv(coord, pname, params);
+           rCtx->dsp.curr->glTexGendv(coord, pname, params);
            break;
        }
 
@@ -5757,7 +5757,7 @@ static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
        default: {
            GTrace("glTexGenf(", toString(coord), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexGenf(coord, pname, param);
+           rCtx->dsp.curr->glTexGenf(coord, pname, param);
            break;
        }
 
@@ -5804,7 +5804,7 @@ static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat 
        default: {
            GTrace("glTexGenfv(", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexGenfv(coord, pname, params);
+           rCtx->dsp.curr->glTexGenfv(coord, pname, params);
            break;
        }
 
@@ -5851,7 +5851,7 @@ static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
        default: {
            GTrace("glTexGeni(", toString(coord), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexGeni(coord, pname, param);
+           rCtx->dsp.curr->glTexGeni(coord, pname, param);
            break;
        }
 
@@ -5898,7 +5898,7 @@ static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *p
        default: {
            GTrace("glTexGeniv(", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexGeniv(coord, pname, params);
+           rCtx->dsp.curr->glTexGeniv(coord, pname, params);
            break;
        }
 
@@ -5947,7 +5947,7 @@ static void REGAL_CALL emu_glDisable(GLenum cap)
        default: {
            GTrace("glDisable(", toString(cap), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisable(cap);
+           rCtx->dsp.curr->glDisable(cap);
            break;
        }
 
@@ -5996,7 +5996,7 @@ static void REGAL_CALL emu_glEnable(GLenum cap)
        default: {
            GTrace("glEnable(", toString(cap), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnable(cap);
+           rCtx->dsp.curr->glEnable(cap);
            break;
        }
 
@@ -6039,7 +6039,7 @@ static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
        default: {
            GTrace("glAlphaFunc(", toString(func), ", ", ref, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glAlphaFunc(func, ref);
+           rCtx->dsp.curr->glAlphaFunc(func, ref);
            break;
        }
 
@@ -6088,7 +6088,7 @@ static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
        default: {
            GTrace("glGetBooleanv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetBooleanv(pname, params);
+           rCtx->dsp.curr->glGetBooleanv(pname, params);
            break;
        }
 
@@ -6146,7 +6146,7 @@ static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
        default: {
            GTrace("glGetDoublev(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetDoublev(pname, params);
+           rCtx->dsp.curr->glGetDoublev(pname, params);
            break;
        }
 
@@ -6204,7 +6204,7 @@ static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
        default: {
            GTrace("glGetFloatv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetFloatv(pname, params);
+           rCtx->dsp.curr->glGetFloatv(pname, params);
            break;
        }
 
@@ -6262,7 +6262,7 @@ static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
        default: {
            GTrace("glGetIntegerv(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetIntegerv(pname, params);
+           rCtx->dsp.curr->glGetIntegerv(pname, params);
            break;
        }
 
@@ -6305,7 +6305,7 @@ static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *p
        default: {
            GTrace("glGetMaterialfv(", toString(face), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMaterialfv(face, pname, params);
+           rCtx->dsp.curr->glGetMaterialfv(face, pname, params);
            break;
        }
 
@@ -6348,7 +6348,7 @@ static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *par
        default: {
            GTrace("glGetMaterialiv(", toString(face), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMaterialiv(face, pname, params);
+           rCtx->dsp.curr->glGetMaterialiv(face, pname, params);
            break;
        }
 
@@ -6396,7 +6396,7 @@ static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *p
        default: {
            GTrace("glGetTexEnvfv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexEnvfv(target, pname, params);
+           rCtx->dsp.curr->glGetTexEnvfv(target, pname, params);
            break;
        }
 
@@ -6444,7 +6444,7 @@ static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *par
        default: {
            GTrace("glGetTexEnviv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexEnviv(target, pname, params);
+           rCtx->dsp.curr->glGetTexEnviv(target, pname, params);
            break;
        }
 
@@ -6490,7 +6490,7 @@ static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *p
        default: {
            GTrace("glGetTexGendv(", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexGendv(coord, pname, params);
+           rCtx->dsp.curr->glGetTexGendv(coord, pname, params);
            break;
        }
 
@@ -6536,7 +6536,7 @@ static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *pa
        default: {
            GTrace("glGetTexGenfv(", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexGenfv(coord, pname, params);
+           rCtx->dsp.curr->glGetTexGenfv(coord, pname, params);
            break;
        }
 
@@ -6582,7 +6582,7 @@ static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *para
        default: {
            GTrace("glGetTexGeniv(", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexGeniv(coord, pname, params);
+           rCtx->dsp.curr->glGetTexGeniv(coord, pname, params);
            break;
        }
 
@@ -6624,7 +6624,7 @@ static void REGAL_CALL emu_glGetTexParameterfv(GLenum target, GLenum pname, GLfl
        default: {
            GTrace("glGetTexParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexParameterfv(target, pname, params);
+           rCtx->dsp.curr->glGetTexParameterfv(target, pname, params);
            break;
        }
 
@@ -6666,7 +6666,7 @@ static void REGAL_CALL emu_glGetTexParameteriv(GLenum target, GLenum pname, GLin
        default: {
            GTrace("glGetTexParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTexParameteriv(target, pname, params);
+           rCtx->dsp.curr->glGetTexParameteriv(target, pname, params);
            break;
        }
 
@@ -6717,7 +6717,7 @@ static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
        default: {
            GTrace("glIsEnabled(", toString(cap), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glIsEnabled(cap);
+           return rCtx->dsp.curr->glIsEnabled(cap);
        }
 
    }
@@ -6759,7 +6759,7 @@ static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bot
        default: {
            GTrace("glFrustum(", left, ", ", right, ", ", bottom, ", ", top, ", ", zNear, ", ", zFar, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFrustum(left, right, bottom, top, zNear, zFar);
+           rCtx->dsp.curr->glFrustum(left, right, bottom, top, zNear, zFar);
            break;
        }
 
@@ -6806,7 +6806,7 @@ static void REGAL_CALL emu_glLoadIdentity(void)
        default: {
            GTrace("glLoadIdentity()");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLoadIdentity();
+           rCtx->dsp.curr->glLoadIdentity();
            break;
        }
 
@@ -6851,9 +6851,9 @@ static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
            }
        case 1 :
        default: {
-           GTrace("glLoadMatrixd(", m, ")");
+           GTrace("glLoadMatrixd(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLoadMatrixd(m);
+           rCtx->dsp.curr->glLoadMatrixd(m);
            break;
        }
 
@@ -6898,9 +6898,9 @@ static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
            }
        case 1 :
        default: {
-           GTrace("glLoadMatrixf(", m, ")");
+           GTrace("glLoadMatrixf(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLoadMatrixf(m);
+           rCtx->dsp.curr->glLoadMatrixf(m);
            break;
        }
 
@@ -6953,7 +6953,7 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
        default: {
            GTrace("glMatrixMode(", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixMode(mode);
+           rCtx->dsp.curr->glMatrixMode(mode);
            break;
        }
 
@@ -6998,9 +6998,9 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
            }
        case 1 :
        default: {
-           GTrace("glMultMatrixd(", m, ")");
+           GTrace("glMultMatrixd(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultMatrixd(m);
+           rCtx->dsp.curr->glMultMatrixd(m);
            break;
        }
 
@@ -7045,9 +7045,9 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
            }
        case 1 :
        default: {
-           GTrace("glMultMatrixf(", m, ")");
+           GTrace("glMultMatrixf(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultMatrixf(m);
+           rCtx->dsp.curr->glMultMatrixf(m);
            break;
        }
 
@@ -7090,7 +7090,7 @@ static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble botto
        default: {
            GTrace("glOrtho(", left, ", ", right, ", ", bottom, ", ", top, ", ", zNear, ", ", zFar, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glOrtho(left, right, bottom, top, zNear, zFar);
+           rCtx->dsp.curr->glOrtho(left, right, bottom, top, zNear, zFar);
            break;
        }
 
@@ -7137,7 +7137,7 @@ static void REGAL_CALL emu_glPopMatrix(void)
        default: {
            GTrace("glPopMatrix()");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glPopMatrix();
+           rCtx->dsp.curr->glPopMatrix();
            break;
        }
 
@@ -7184,7 +7184,7 @@ static void REGAL_CALL emu_glPushMatrix(void)
        default: {
            GTrace("glPushMatrix()");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glPushMatrix();
+           rCtx->dsp.curr->glPushMatrix();
            break;
        }
 
@@ -7231,7 +7231,7 @@ static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLd
        default: {
            GTrace("glRotated(", angle, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRotated(angle, x, y, z);
+           rCtx->dsp.curr->glRotated(angle, x, y, z);
            break;
        }
 
@@ -7278,7 +7278,7 @@ static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloa
        default: {
            GTrace("glRotatef(", angle, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRotatef(angle, x, y, z);
+           rCtx->dsp.curr->glRotatef(angle, x, y, z);
            break;
        }
 
@@ -7325,7 +7325,7 @@ static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
        default: {
            GTrace("glScaled(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glScaled(x, y, z);
+           rCtx->dsp.curr->glScaled(x, y, z);
            break;
        }
 
@@ -7372,7 +7372,7 @@ static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
        default: {
            GTrace("glScalef(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glScalef(x, y, z);
+           rCtx->dsp.curr->glScalef(x, y, z);
            break;
        }
 
@@ -7419,7 +7419,7 @@ static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
        default: {
            GTrace("glTranslated(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTranslated(x, y, z);
+           rCtx->dsp.curr->glTranslated(x, y, z);
            break;
        }
 
@@ -7466,7 +7466,7 @@ static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
        default: {
            GTrace("glTranslatef(", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTranslatef(x, y, z);
+           rCtx->dsp.curr->glTranslatef(x, y, z);
            break;
        }
 
@@ -7517,7 +7517,7 @@ static void REGAL_CALL emu_glDrawArrays(GLenum mode, GLint first, GLsizei count)
        default: {
            GTrace("glDrawArrays(", toString(mode), ", ", first, ", ", count, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawArrays(mode, first, count);
+           rCtx->dsp.curr->glDrawArrays(mode, first, count);
            break;
        }
 
@@ -7566,7 +7566,7 @@ static void REGAL_CALL emu_glDrawElements(GLenum mode, GLsizei count, GLenum typ
        default: {
            GTrace("glDrawElements(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElements(mode, count, type, indices);
+           rCtx->dsp.curr->glDrawElements(mode, count, type, indices);
            break;
        }
 
@@ -7609,7 +7609,7 @@ static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, co
        default: {
            GTrace("glInterleavedArrays(", toString(format), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glInterleavedArrays(format, stride, pointer);
+           rCtx->dsp.curr->glInterleavedArrays(format, stride, pointer);
            break;
        }
 
@@ -7663,7 +7663,7 @@ static void REGAL_CALL emu_glDisableClientState(GLenum cap)
        default: {
            GTrace("glDisableClientState(", toString(cap), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisableClientState(cap);
+           rCtx->dsp.curr->glDisableClientState(cap);
            break;
        }
 
@@ -7717,7 +7717,7 @@ static void REGAL_CALL emu_glEnableClientState(GLenum cap)
        default: {
            GTrace("glEnableClientState(", toString(cap), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnableClientState(cap);
+           rCtx->dsp.curr->glEnableClientState(cap);
            break;
        }
 
@@ -7770,7 +7770,7 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
        default: {
            GTrace("glColorPointer(", size, ", ", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glColorPointer(size, type, stride, pointer);
+           rCtx->dsp.curr->glColorPointer(size, type, stride, pointer);
            break;
        }
 
@@ -7813,7 +7813,7 @@ static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *point
        default: {
            GTrace("glEdgeFlagPointer(", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEdgeFlagPointer(stride, pointer);
+           rCtx->dsp.curr->glEdgeFlagPointer(stride, pointer);
            break;
        }
 
@@ -7866,7 +7866,7 @@ static void REGAL_CALL emu_glNormalPointer(GLenum type, GLsizei stride, const GL
        default: {
            GTrace("glNormalPointer(", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNormalPointer(type, stride, pointer);
+           rCtx->dsp.curr->glNormalPointer(type, stride, pointer);
            break;
        }
 
@@ -7920,7 +7920,7 @@ static void REGAL_CALL emu_glTexCoordPointer(GLint size, GLenum type, GLsizei st
        default: {
            GTrace("glTexCoordPointer(", size, ", ", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexCoordPointer(size, type, stride, pointer);
+           rCtx->dsp.curr->glTexCoordPointer(size, type, stride, pointer);
            break;
        }
 
@@ -7973,7 +7973,7 @@ static void REGAL_CALL emu_glVertexPointer(GLint size, GLenum type, GLsizei stri
        default: {
            GTrace("glVertexPointer(", size, ", ", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexPointer(size, type, stride, pointer);
+           rCtx->dsp.curr->glVertexPointer(size, type, stride, pointer);
            break;
        }
 
@@ -8022,7 +8022,7 @@ static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
        default: {
            GTrace("glBindTexture(", toString(target), ", ", texture, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindTexture(target, texture);
+           rCtx->dsp.curr->glBindTexture(target, texture);
            break;
        }
 
@@ -8065,7 +8065,7 @@ static void REGAL_CALL emu_glTexImage3D(GLenum target, GLint level, GLint intern
        default: {
            GTrace("glTexImage3D(", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ", ", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
+           rCtx->dsp.curr->glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
            break;
        }
 
@@ -8122,7 +8122,7 @@ static void REGAL_CALL emu_glActiveTexture(GLenum texture)
        default: {
            GTrace("glActiveTexture(", toString(texture), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glActiveTexture(texture);
+           rCtx->dsp.curr->glActiveTexture(texture);
            break;
        }
 
@@ -8175,7 +8175,7 @@ static void REGAL_CALL emu_glClientActiveTexture(GLenum texture)
        default: {
            GTrace("glClientActiveTexture(", toString(texture), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glClientActiveTexture(texture);
+           rCtx->dsp.curr->glClientActiveTexture(texture);
            break;
        }
 
@@ -8218,7 +8218,7 @@ static void REGAL_CALL emu_glMultiTexCoord1d(GLenum target, GLdouble s)
        default: {
            GTrace("glMultiTexCoord1d(", toString(target), ", ", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1d(target, s);
+           rCtx->dsp.curr->glMultiTexCoord1d(target, s);
            break;
        }
 
@@ -8259,9 +8259,9 @@ static void REGAL_CALL emu_glMultiTexCoord1dv(GLenum target, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord1dv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord1dv(", toString(target), ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1dv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord1dv(target, v);
            break;
        }
 
@@ -8304,7 +8304,7 @@ static void REGAL_CALL emu_glMultiTexCoord1f(GLenum target, GLfloat s)
        default: {
            GTrace("glMultiTexCoord1f(", toString(target), ", ", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1f(target, s);
+           rCtx->dsp.curr->glMultiTexCoord1f(target, s);
            break;
        }
 
@@ -8345,9 +8345,9 @@ static void REGAL_CALL emu_glMultiTexCoord1fv(GLenum target, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord1fv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord1fv(", toString(target), ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1fv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord1fv(target, v);
            break;
        }
 
@@ -8390,7 +8390,7 @@ static void REGAL_CALL emu_glMultiTexCoord1i(GLenum target, GLint s)
        default: {
            GTrace("glMultiTexCoord1i(", toString(target), ", ", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1i(target, s);
+           rCtx->dsp.curr->glMultiTexCoord1i(target, s);
            break;
        }
 
@@ -8431,9 +8431,9 @@ static void REGAL_CALL emu_glMultiTexCoord1iv(GLenum target, const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord1iv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord1iv(", toString(target), ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1iv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord1iv(target, v);
            break;
        }
 
@@ -8476,7 +8476,7 @@ static void REGAL_CALL emu_glMultiTexCoord1s(GLenum target, GLshort s)
        default: {
            GTrace("glMultiTexCoord1s(", toString(target), ", ", s, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1s(target, s);
+           rCtx->dsp.curr->glMultiTexCoord1s(target, s);
            break;
        }
 
@@ -8517,9 +8517,9 @@ static void REGAL_CALL emu_glMultiTexCoord1sv(GLenum target, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord1sv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord1sv(", toString(target), ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord1sv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord1sv(target, v);
            break;
        }
 
@@ -8562,7 +8562,7 @@ static void REGAL_CALL emu_glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble
        default: {
            GTrace("glMultiTexCoord2d(", toString(target), ", ", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2d(target, s, t);
+           rCtx->dsp.curr->glMultiTexCoord2d(target, s, t);
            break;
        }
 
@@ -8603,9 +8603,9 @@ static void REGAL_CALL emu_glMultiTexCoord2dv(GLenum target, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord2dv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord2dv(", toString(target), ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2dv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord2dv(target, v);
            break;
        }
 
@@ -8648,7 +8648,7 @@ static void REGAL_CALL emu_glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t
        default: {
            GTrace("glMultiTexCoord2f(", toString(target), ", ", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2f(target, s, t);
+           rCtx->dsp.curr->glMultiTexCoord2f(target, s, t);
            break;
        }
 
@@ -8689,9 +8689,9 @@ static void REGAL_CALL emu_glMultiTexCoord2fv(GLenum target, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord2fv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord2fv(", toString(target), ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2fv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord2fv(target, v);
            break;
        }
 
@@ -8734,7 +8734,7 @@ static void REGAL_CALL emu_glMultiTexCoord2i(GLenum target, GLint s, GLint t)
        default: {
            GTrace("glMultiTexCoord2i(", toString(target), ", ", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2i(target, s, t);
+           rCtx->dsp.curr->glMultiTexCoord2i(target, s, t);
            break;
        }
 
@@ -8775,9 +8775,9 @@ static void REGAL_CALL emu_glMultiTexCoord2iv(GLenum target, const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord2iv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord2iv(", toString(target), ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2iv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord2iv(target, v);
            break;
        }
 
@@ -8820,7 +8820,7 @@ static void REGAL_CALL emu_glMultiTexCoord2s(GLenum target, GLshort s, GLshort t
        default: {
            GTrace("glMultiTexCoord2s(", toString(target), ", ", s, ", ", t, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2s(target, s, t);
+           rCtx->dsp.curr->glMultiTexCoord2s(target, s, t);
            break;
        }
 
@@ -8861,9 +8861,9 @@ static void REGAL_CALL emu_glMultiTexCoord2sv(GLenum target, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord2sv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord2sv(", toString(target), ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord2sv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord2sv(target, v);
            break;
        }
 
@@ -8906,7 +8906,7 @@ static void REGAL_CALL emu_glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble
        default: {
            GTrace("glMultiTexCoord3d(", toString(target), ", ", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3d(target, s, t, r);
+           rCtx->dsp.curr->glMultiTexCoord3d(target, s, t, r);
            break;
        }
 
@@ -8947,9 +8947,9 @@ static void REGAL_CALL emu_glMultiTexCoord3dv(GLenum target, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord3dv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord3dv(", toString(target), ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3dv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord3dv(target, v);
            break;
        }
 
@@ -8992,7 +8992,7 @@ static void REGAL_CALL emu_glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t
        default: {
            GTrace("glMultiTexCoord3f(", toString(target), ", ", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3f(target, s, t, r);
+           rCtx->dsp.curr->glMultiTexCoord3f(target, s, t, r);
            break;
        }
 
@@ -9033,9 +9033,9 @@ static void REGAL_CALL emu_glMultiTexCoord3fv(GLenum target, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord3fv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord3fv(", toString(target), ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3fv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord3fv(target, v);
            break;
        }
 
@@ -9078,7 +9078,7 @@ static void REGAL_CALL emu_glMultiTexCoord3i(GLenum target, GLint s, GLint t, GL
        default: {
            GTrace("glMultiTexCoord3i(", toString(target), ", ", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3i(target, s, t, r);
+           rCtx->dsp.curr->glMultiTexCoord3i(target, s, t, r);
            break;
        }
 
@@ -9119,9 +9119,9 @@ static void REGAL_CALL emu_glMultiTexCoord3iv(GLenum target, const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord3iv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord3iv(", toString(target), ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3iv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord3iv(target, v);
            break;
        }
 
@@ -9164,7 +9164,7 @@ static void REGAL_CALL emu_glMultiTexCoord3s(GLenum target, GLshort s, GLshort t
        default: {
            GTrace("glMultiTexCoord3s(", toString(target), ", ", s, ", ", t, ", ", r, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3s(target, s, t, r);
+           rCtx->dsp.curr->glMultiTexCoord3s(target, s, t, r);
            break;
        }
 
@@ -9205,9 +9205,9 @@ static void REGAL_CALL emu_glMultiTexCoord3sv(GLenum target, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord3sv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord3sv(", toString(target), ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord3sv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord3sv(target, v);
            break;
        }
 
@@ -9250,7 +9250,7 @@ static void REGAL_CALL emu_glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble
        default: {
            GTrace("glMultiTexCoord4d(", toString(target), ", ", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4d(target, s, t, r, q);
+           rCtx->dsp.curr->glMultiTexCoord4d(target, s, t, r, q);
            break;
        }
 
@@ -9291,9 +9291,9 @@ static void REGAL_CALL emu_glMultiTexCoord4dv(GLenum target, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord4dv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord4dv(", toString(target), ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4dv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord4dv(target, v);
            break;
        }
 
@@ -9336,7 +9336,7 @@ static void REGAL_CALL emu_glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t
        default: {
            GTrace("glMultiTexCoord4f(", toString(target), ", ", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4f(target, s, t, r, q);
+           rCtx->dsp.curr->glMultiTexCoord4f(target, s, t, r, q);
            break;
        }
 
@@ -9377,9 +9377,9 @@ static void REGAL_CALL emu_glMultiTexCoord4fv(GLenum target, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord4fv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord4fv(", toString(target), ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4fv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord4fv(target, v);
            break;
        }
 
@@ -9422,7 +9422,7 @@ static void REGAL_CALL emu_glMultiTexCoord4i(GLenum target, GLint s, GLint t, GL
        default: {
            GTrace("glMultiTexCoord4i(", toString(target), ", ", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4i(target, s, t, r, q);
+           rCtx->dsp.curr->glMultiTexCoord4i(target, s, t, r, q);
            break;
        }
 
@@ -9463,9 +9463,9 @@ static void REGAL_CALL emu_glMultiTexCoord4iv(GLenum target, const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord4iv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord4iv(", toString(target), ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4iv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord4iv(target, v);
            break;
        }
 
@@ -9508,7 +9508,7 @@ static void REGAL_CALL emu_glMultiTexCoord4s(GLenum target, GLshort s, GLshort t
        default: {
            GTrace("glMultiTexCoord4s(", toString(target), ", ", s, ", ", t, ", ", r, ", ", q, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4s(target, s, t, r, q);
+           rCtx->dsp.curr->glMultiTexCoord4s(target, s, t, r, q);
            break;
        }
 
@@ -9549,9 +9549,9 @@ static void REGAL_CALL emu_glMultiTexCoord4sv(GLenum target, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glMultiTexCoord4sv(", toString(target), ", ", v, ")");
+           GTrace("glMultiTexCoord4sv(", toString(target), ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoord4sv(target, v);
+           rCtx->dsp.curr->glMultiTexCoord4sv(target, v);
            break;
        }
 
@@ -9596,9 +9596,9 @@ static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
            }
        case 1 :
        default: {
-           GTrace("glLoadTransposeMatrixf(", m, ")");
+           GTrace("glLoadTransposeMatrixf(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLoadTransposeMatrixf(m);
+           rCtx->dsp.curr->glLoadTransposeMatrixf(m);
            break;
        }
 
@@ -9643,9 +9643,9 @@ static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
            }
        case 1 :
        default: {
-           GTrace("glLoadTransposeMatrixd(", m, ")");
+           GTrace("glLoadTransposeMatrixd(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLoadTransposeMatrixd(m);
+           rCtx->dsp.curr->glLoadTransposeMatrixd(m);
            break;
        }
 
@@ -9690,9 +9690,9 @@ static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
            }
        case 1 :
        default: {
-           GTrace("glMultTransposeMatrixf(", m, ")");
+           GTrace("glMultTransposeMatrixf(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultTransposeMatrixf(m);
+           rCtx->dsp.curr->glMultTransposeMatrixf(m);
            break;
        }
 
@@ -9737,9 +9737,9 @@ static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
            }
        case 1 :
        default: {
-           GTrace("glMultTransposeMatrixd(", m, ")");
+           GTrace("glMultTransposeMatrixd(", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultTransposeMatrixd(m);
+           rCtx->dsp.curr->glMultTransposeMatrixd(m);
            break;
        }
 
@@ -9788,9 +9788,9 @@ static void REGAL_CALL emu_glMultiDrawArrays(GLenum mode, const GLint *first, co
        case 2 :
        case 1 :
        default: {
-           GTrace("glMultiDrawArrays(", toString(mode), ", ", first, ", ", count, ", ", primcount, ")");
+           GTrace("glMultiDrawArrays(", toString(mode), ", ", boost::print::iterator(first,first+(primcount)), ", ", boost::print::iterator(count,count+(primcount)), ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawArrays(mode, first, count, primcount);
+           rCtx->dsp.curr->glMultiDrawArrays(mode, first, count, primcount);
            break;
        }
 
@@ -9837,9 +9837,9 @@ static void REGAL_CALL emu_glMultiDrawElements(GLenum mode, const GLsizei *count
        case 2 :
        case 1 :
        default: {
-           GTrace("glMultiDrawElements(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ")");
+           GTrace("glMultiDrawElements(", toString(mode), ", ", boost::print::iterator(count,count+(primcount)), ", ", toString(type), ", ", indices, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawElements(mode, count, type, indices, primcount);
+           rCtx->dsp.curr->glMultiDrawElements(mode, count, type, indices, primcount);
            break;
        }
 
@@ -9888,7 +9888,7 @@ static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const 
        default: {
            GTrace("glFogCoordPointer(", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFogCoordPointer(type, stride, pointer);
+           rCtx->dsp.curr->glFogCoordPointer(type, stride, pointer);
            break;
        }
 
@@ -9931,7 +9931,7 @@ static void REGAL_CALL emu_glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte b
        default: {
            GTrace("glSecondaryColor3b(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3b(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3b(red, green, blue);
            break;
        }
 
@@ -9972,9 +9972,9 @@ static void REGAL_CALL emu_glSecondaryColor3bv(const GLbyte *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3bv(", v, ")");
+           GTrace("glSecondaryColor3bv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3bv(v);
+           rCtx->dsp.curr->glSecondaryColor3bv(v);
            break;
        }
 
@@ -10017,7 +10017,7 @@ static void REGAL_CALL emu_glSecondaryColor3d(GLdouble red, GLdouble green, GLdo
        default: {
            GTrace("glSecondaryColor3d(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3d(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3d(red, green, blue);
            break;
        }
 
@@ -10058,9 +10058,9 @@ static void REGAL_CALL emu_glSecondaryColor3dv(const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3dv(", v, ")");
+           GTrace("glSecondaryColor3dv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3dv(v);
+           rCtx->dsp.curr->glSecondaryColor3dv(v);
            break;
        }
 
@@ -10103,7 +10103,7 @@ static void REGAL_CALL emu_glSecondaryColor3f(GLfloat red, GLfloat green, GLfloa
        default: {
            GTrace("glSecondaryColor3f(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3f(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3f(red, green, blue);
            break;
        }
 
@@ -10144,9 +10144,9 @@ static void REGAL_CALL emu_glSecondaryColor3fv(const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3fv(", v, ")");
+           GTrace("glSecondaryColor3fv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3fv(v);
+           rCtx->dsp.curr->glSecondaryColor3fv(v);
            break;
        }
 
@@ -10189,7 +10189,7 @@ static void REGAL_CALL emu_glSecondaryColor3i(GLint red, GLint green, GLint blue
        default: {
            GTrace("glSecondaryColor3i(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3i(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3i(red, green, blue);
            break;
        }
 
@@ -10230,9 +10230,9 @@ static void REGAL_CALL emu_glSecondaryColor3iv(const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3iv(", v, ")");
+           GTrace("glSecondaryColor3iv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3iv(v);
+           rCtx->dsp.curr->glSecondaryColor3iv(v);
            break;
        }
 
@@ -10275,7 +10275,7 @@ static void REGAL_CALL emu_glSecondaryColor3s(GLshort red, GLshort green, GLshor
        default: {
            GTrace("glSecondaryColor3s(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3s(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3s(red, green, blue);
            break;
        }
 
@@ -10316,9 +10316,9 @@ static void REGAL_CALL emu_glSecondaryColor3sv(const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3sv(", v, ")");
+           GTrace("glSecondaryColor3sv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3sv(v);
+           rCtx->dsp.curr->glSecondaryColor3sv(v);
            break;
        }
 
@@ -10361,7 +10361,7 @@ static void REGAL_CALL emu_glSecondaryColor3ub(GLubyte red, GLubyte green, GLuby
        default: {
            GTrace("glSecondaryColor3ub(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3ub(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3ub(red, green, blue);
            break;
        }
 
@@ -10402,9 +10402,9 @@ static void REGAL_CALL emu_glSecondaryColor3ubv(const GLubyte *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3ubv(", v, ")");
+           GTrace("glSecondaryColor3ubv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3ubv(v);
+           rCtx->dsp.curr->glSecondaryColor3ubv(v);
            break;
        }
 
@@ -10447,7 +10447,7 @@ static void REGAL_CALL emu_glSecondaryColor3ui(GLuint red, GLuint green, GLuint 
        default: {
            GTrace("glSecondaryColor3ui(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3ui(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3ui(red, green, blue);
            break;
        }
 
@@ -10488,9 +10488,9 @@ static void REGAL_CALL emu_glSecondaryColor3uiv(const GLuint *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3uiv(", v, ")");
+           GTrace("glSecondaryColor3uiv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3uiv(v);
+           rCtx->dsp.curr->glSecondaryColor3uiv(v);
            break;
        }
 
@@ -10533,7 +10533,7 @@ static void REGAL_CALL emu_glSecondaryColor3us(GLushort red, GLushort green, GLu
        default: {
            GTrace("glSecondaryColor3us(", red, ", ", green, ", ", blue, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3us(red, green, blue);
+           rCtx->dsp.curr->glSecondaryColor3us(red, green, blue);
            break;
        }
 
@@ -10574,9 +10574,9 @@ static void REGAL_CALL emu_glSecondaryColor3usv(const GLushort *v)
            }
        case 1 :
        default: {
-           GTrace("glSecondaryColor3usv(", v, ")");
+           GTrace("glSecondaryColor3usv(", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColor3usv(v);
+           rCtx->dsp.curr->glSecondaryColor3usv(v);
            break;
        }
 
@@ -10629,7 +10629,7 @@ static void REGAL_CALL emu_glSecondaryColorPointer(GLint size, GLenum type, GLsi
        default: {
            GTrace("glSecondaryColorPointer(", size, ", ", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glSecondaryColorPointer(size, type, stride, pointer);
+           rCtx->dsp.curr->glSecondaryColorPointer(size, type, stride, pointer);
            break;
        }
 
@@ -10690,7 +10690,7 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
        default: {
            GTrace("glBindBuffer(", toString(target), ", ", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindBuffer(target, buffer);
+           rCtx->dsp.curr->glBindBuffer(target, buffer);
            break;
        }
 
@@ -10731,9 +10731,9 @@ static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
        case 2 :
        case 1 :
        default: {
-           GTrace("glDeleteBuffers(", n, ", ", buffers, ")");
+           GTrace("glDeleteBuffers(", n, ", ", boost::print::iterator(buffers,buffers+(n)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDeleteBuffers(n, buffers);
+           rCtx->dsp.curr->glDeleteBuffers(n, buffers);
            break;
        }
 
@@ -10776,7 +10776,7 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
        default: {
            GTrace("glGenBuffers(", n, ", ", buffers, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenBuffers(n, buffers);
+           rCtx->dsp.curr->glGenBuffers(n, buffers);
            break;
        }
 
@@ -10818,7 +10818,7 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
        default: {
            GTrace("glIsBuffer(", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glIsBuffer(buffer);
+           return rCtx->dsp.curr->glIsBuffer(buffer);
        }
 
    }
@@ -10858,7 +10858,7 @@ static void REGAL_CALL emu_glBufferData(GLenum target, GLsizeiptr size, const GL
        default: {
            GTrace("glBufferData(", toString(target), ", ", size, ", ", data, ", ", toString(usage), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBufferData(target, size, data, usage);
+           rCtx->dsp.curr->glBufferData(target, size, data, usage);
            break;
        }
 
@@ -10899,7 +10899,7 @@ static void REGAL_CALL emu_glBufferSubData(GLenum target, GLintptr offset, GLsiz
        default: {
            GTrace("glBufferSubData(", toString(target), ", ", offset, ", ", size, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBufferSubData(target, offset, size, data);
+           rCtx->dsp.curr->glBufferSubData(target, offset, size, data);
            break;
        }
 
@@ -10940,7 +10940,7 @@ static void REGAL_CALL emu_glGetBufferSubData(GLenum target, GLintptr offset, GL
        default: {
            GTrace("glGetBufferSubData(", toString(target), ", ", offset, ", ", size, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetBufferSubData(target, offset, size, data);
+           rCtx->dsp.curr->glGetBufferSubData(target, offset, size, data);
            break;
        }
 
@@ -10981,7 +10981,7 @@ static GLvoid *REGAL_CALL emu_glMapBuffer(GLenum target, GLenum access)
        default: {
            GTrace("glMapBuffer(", toString(target), ", ", toString(access), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glMapBuffer(target, access);
+           return rCtx->dsp.curr->glMapBuffer(target, access);
        }
 
    }
@@ -11021,7 +11021,7 @@ static GLboolean REGAL_CALL emu_glUnmapBuffer(GLenum target)
        default: {
            GTrace("glUnmapBuffer(", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glUnmapBuffer(target);
+           return rCtx->dsp.curr->glUnmapBuffer(target);
        }
 
    }
@@ -11061,7 +11061,7 @@ static void REGAL_CALL emu_glGetBufferParameteriv(GLenum target, GLenum pname, G
        default: {
            GTrace("glGetBufferParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetBufferParameteriv(target, pname, params);
+           rCtx->dsp.curr->glGetBufferParameteriv(target, pname, params);
            break;
        }
 
@@ -11102,7 +11102,7 @@ static void REGAL_CALL emu_glGetBufferPointerv(GLenum target, GLenum pname, GLvo
        default: {
            GTrace("glGetBufferPointerv(", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetBufferPointerv(target, pname, params);
+           rCtx->dsp.curr->glGetBufferPointerv(target, pname, params);
            break;
        }
 
@@ -11146,7 +11146,7 @@ static GLuint REGAL_CALL emu_glCreateShader(GLenum type)
        default: {
            GTrace("glCreateShader(", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glCreateShader(type);
+           return rCtx->dsp.curr->glCreateShader(type);
        }
 
    }
@@ -11192,7 +11192,7 @@ static void REGAL_CALL emu_glDisableVertexAttribArray(GLuint index)
        default: {
            GTrace("glDisableVertexAttribArray(", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisableVertexAttribArray(index);
+           rCtx->dsp.curr->glDisableVertexAttribArray(index);
            break;
        }
 
@@ -11239,7 +11239,7 @@ static void REGAL_CALL emu_glEnableVertexAttribArray(GLuint index)
        default: {
            GTrace("glEnableVertexAttribArray(", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnableVertexAttribArray(index);
+           rCtx->dsp.curr->glEnableVertexAttribArray(index);
            break;
        }
 
@@ -11286,7 +11286,7 @@ static void REGAL_CALL emu_glGetVertexAttribdv(GLuint index, GLenum pname, GLdou
        default: {
            GTrace("glGetVertexAttribdv(", index, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribdv(index, pname, params);
+           rCtx->dsp.curr->glGetVertexAttribdv(index, pname, params);
            break;
        }
 
@@ -11333,7 +11333,7 @@ static void REGAL_CALL emu_glGetVertexAttribfv(GLuint index, GLenum pname, GLflo
        default: {
            GTrace("glGetVertexAttribfv(", index, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribfv(index, pname, params);
+           rCtx->dsp.curr->glGetVertexAttribfv(index, pname, params);
            break;
        }
 
@@ -11380,7 +11380,7 @@ static void REGAL_CALL emu_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
        default: {
            GTrace("glGetVertexAttribiv(", index, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribiv(index, pname, params);
+           rCtx->dsp.curr->glGetVertexAttribiv(index, pname, params);
            break;
        }
 
@@ -11427,7 +11427,7 @@ static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname,
        default: {
            GTrace("glGetVertexAttribPointerv(", index, ", ", toString(pname), ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribPointerv(index, pname, pointer);
+           rCtx->dsp.curr->glGetVertexAttribPointerv(index, pname, pointer);
            break;
        }
 
@@ -11470,7 +11470,7 @@ static void REGAL_CALL emu_glLinkProgram(GLuint program)
        default: {
            GTrace("glLinkProgram(", program, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glLinkProgram(program);
+           rCtx->dsp.curr->glLinkProgram(program);
            break;
        }
 
@@ -11511,9 +11511,9 @@ static void REGAL_CALL emu_glShaderSource(GLuint shader, GLsizei count, const GL
            }
        case 1 :
        default: {
-           GTrace("glShaderSource(", shader, ", ", count, ", ", string, ", ", length, ")");
+           GTrace("glShaderSource(", shader, ", ", count, ", ", boost::print::iterator(string,string+(string ? count : 0)), ", ", boost::print::iterator(length,length+(length ? count : 0)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glShaderSource(shader, count, string, length);
+           rCtx->dsp.curr->glShaderSource(shader, count, string, length);
            break;
        }
 
@@ -11566,7 +11566,7 @@ static void REGAL_CALL emu_glUseProgram(GLuint program)
        default: {
            GTrace("glUseProgram(", program, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUseProgram(program);
+           rCtx->dsp.curr->glUseProgram(program);
            break;
        }
 
@@ -11607,7 +11607,7 @@ static void REGAL_CALL emu_glUniform1f(GLint location, GLfloat v0)
        default: {
            GTrace("glUniform1f(", location, ", ", v0, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1f(location, v0);
+           rCtx->dsp.curr->glUniform1f(location, v0);
            break;
        }
 
@@ -11648,7 +11648,7 @@ static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
        default: {
            GTrace("glUniform2f(", location, ", ", v0, ", ", v1, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2f(location, v0, v1);
+           rCtx->dsp.curr->glUniform2f(location, v0, v1);
            break;
        }
 
@@ -11689,7 +11689,7 @@ static void REGAL_CALL emu_glUniform3f(GLint location, GLfloat v0, GLfloat v1, G
        default: {
            GTrace("glUniform3f(", location, ", ", v0, ", ", v1, ", ", v2, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3f(location, v0, v1, v2);
+           rCtx->dsp.curr->glUniform3f(location, v0, v1, v2);
            break;
        }
 
@@ -11730,7 +11730,7 @@ static void REGAL_CALL emu_glUniform4f(GLint location, GLfloat v0, GLfloat v1, G
        default: {
            GTrace("glUniform4f(", location, ", ", v0, ", ", v1, ", ", v2, ", ", v3, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4f(location, v0, v1, v2, v3);
+           rCtx->dsp.curr->glUniform4f(location, v0, v1, v2, v3);
            break;
        }
 
@@ -11771,7 +11771,7 @@ static void REGAL_CALL emu_glUniform1i(GLint location, GLint v0)
        default: {
            GTrace("glUniform1i(", location, ", ", v0, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1i(location, v0);
+           rCtx->dsp.curr->glUniform1i(location, v0);
            break;
        }
 
@@ -11812,7 +11812,7 @@ static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
        default: {
            GTrace("glUniform2i(", location, ", ", v0, ", ", v1, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2i(location, v0, v1);
+           rCtx->dsp.curr->glUniform2i(location, v0, v1);
            break;
        }
 
@@ -11853,7 +11853,7 @@ static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint
        default: {
            GTrace("glUniform3i(", location, ", ", v0, ", ", v1, ", ", v2, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3i(location, v0, v1, v2);
+           rCtx->dsp.curr->glUniform3i(location, v0, v1, v2);
            break;
        }
 
@@ -11894,7 +11894,7 @@ static void REGAL_CALL emu_glUniform4i(GLint location, GLint v0, GLint v1, GLint
        default: {
            GTrace("glUniform4i(", location, ", ", v0, ", ", v1, ", ", v2, ", ", v3, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4i(location, v0, v1, v2, v3);
+           rCtx->dsp.curr->glUniform4i(location, v0, v1, v2, v3);
            break;
        }
 
@@ -11933,9 +11933,9 @@ static void REGAL_CALL emu_glUniform1fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform1fv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform1fv(", location, ", ", count, ", ", boost::print::iterator(value,value+(1 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1fv(location, count, value);
+           rCtx->dsp.curr->glUniform1fv(location, count, value);
            break;
        }
 
@@ -11974,9 +11974,9 @@ static void REGAL_CALL emu_glUniform2fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform2fv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform2fv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2fv(location, count, value);
+           rCtx->dsp.curr->glUniform2fv(location, count, value);
            break;
        }
 
@@ -12015,9 +12015,9 @@ static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform3fv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform3fv(", location, ", ", count, ", ", boost::print::iterator(value,value+(3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3fv(location, count, value);
+           rCtx->dsp.curr->glUniform3fv(location, count, value);
            break;
        }
 
@@ -12056,9 +12056,9 @@ static void REGAL_CALL emu_glUniform4fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform4fv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform4fv(", location, ", ", count, ", ", boost::print::iterator(value,value+(4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4fv(location, count, value);
+           rCtx->dsp.curr->glUniform4fv(location, count, value);
            break;
        }
 
@@ -12097,9 +12097,9 @@ static void REGAL_CALL emu_glUniform1iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform1iv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform1iv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1iv(location, count, value);
+           rCtx->dsp.curr->glUniform1iv(location, count, value);
            break;
        }
 
@@ -12138,9 +12138,9 @@ static void REGAL_CALL emu_glUniform2iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform2iv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform2iv(", location, ", ", count, ", ", boost::print::iterator(value,value+(2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2iv(location, count, value);
+           rCtx->dsp.curr->glUniform2iv(location, count, value);
            break;
        }
 
@@ -12179,9 +12179,9 @@ static void REGAL_CALL emu_glUniform3iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform3iv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform3iv(", location, ", ", count, ", ", boost::print::iterator(value,value+(3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3iv(location, count, value);
+           rCtx->dsp.curr->glUniform3iv(location, count, value);
            break;
        }
 
@@ -12220,9 +12220,9 @@ static void REGAL_CALL emu_glUniform4iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform4iv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform4iv(", location, ", ", count, ", ", boost::print::iterator(value,value+(4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4iv(location, count, value);
+           rCtx->dsp.curr->glUniform4iv(location, count, value);
            break;
        }
 
@@ -12261,9 +12261,9 @@ static void REGAL_CALL emu_glUniformMatrix2fv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix2fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix2fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(2 * 2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix2fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix2fv(location, count, transpose, value);
            break;
        }
 
@@ -12302,9 +12302,9 @@ static void REGAL_CALL emu_glUniformMatrix3fv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix3fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix3fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(3 * 3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix3fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix3fv(location, count, transpose, value);
            break;
        }
 
@@ -12343,9 +12343,9 @@ static void REGAL_CALL emu_glUniformMatrix4fv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix4fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix4fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(4 * 4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix4fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix4fv(location, count, transpose, value);
            break;
        }
 
@@ -12388,7 +12388,7 @@ static void REGAL_CALL emu_glVertexAttrib1d(GLuint index, GLdouble x)
        default: {
            GTrace("glVertexAttrib1d(", index, ", ", x, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib1d(index, x);
+           rCtx->dsp.curr->glVertexAttrib1d(index, x);
            break;
        }
 
@@ -12429,9 +12429,9 @@ static void REGAL_CALL emu_glVertexAttrib1dv(GLuint index, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib1dv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib1dv(", index, ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib1dv(index, v);
+           rCtx->dsp.curr->glVertexAttrib1dv(index, v);
            break;
        }
 
@@ -12474,7 +12474,7 @@ static void REGAL_CALL emu_glVertexAttrib1f(GLuint index, GLfloat x)
        default: {
            GTrace("glVertexAttrib1f(", index, ", ", x, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib1f(index, x);
+           rCtx->dsp.curr->glVertexAttrib1f(index, x);
            break;
        }
 
@@ -12515,9 +12515,9 @@ static void REGAL_CALL emu_glVertexAttrib1fv(GLuint index, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib1fv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib1fv(", index, ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib1fv(index, v);
+           rCtx->dsp.curr->glVertexAttrib1fv(index, v);
            break;
        }
 
@@ -12560,7 +12560,7 @@ static void REGAL_CALL emu_glVertexAttrib1s(GLuint index, GLshort x)
        default: {
            GTrace("glVertexAttrib1s(", index, ", ", x, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib1s(index, x);
+           rCtx->dsp.curr->glVertexAttrib1s(index, x);
            break;
        }
 
@@ -12601,9 +12601,9 @@ static void REGAL_CALL emu_glVertexAttrib1sv(GLuint index, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib1sv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib1sv(", index, ", ", boost::print::iterator(v,v+1), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib1sv(index, v);
+           rCtx->dsp.curr->glVertexAttrib1sv(index, v);
            break;
        }
 
@@ -12646,7 +12646,7 @@ static void REGAL_CALL emu_glVertexAttrib2d(GLuint index, GLdouble x, GLdouble y
        default: {
            GTrace("glVertexAttrib2d(", index, ", ", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib2d(index, x, y);
+           rCtx->dsp.curr->glVertexAttrib2d(index, x, y);
            break;
        }
 
@@ -12687,9 +12687,9 @@ static void REGAL_CALL emu_glVertexAttrib2dv(GLuint index, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib2dv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib2dv(", index, ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib2dv(index, v);
+           rCtx->dsp.curr->glVertexAttrib2dv(index, v);
            break;
        }
 
@@ -12732,7 +12732,7 @@ static void REGAL_CALL emu_glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
        default: {
            GTrace("glVertexAttrib2f(", index, ", ", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib2f(index, x, y);
+           rCtx->dsp.curr->glVertexAttrib2f(index, x, y);
            break;
        }
 
@@ -12773,9 +12773,9 @@ static void REGAL_CALL emu_glVertexAttrib2fv(GLuint index, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib2fv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib2fv(", index, ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib2fv(index, v);
+           rCtx->dsp.curr->glVertexAttrib2fv(index, v);
            break;
        }
 
@@ -12818,7 +12818,7 @@ static void REGAL_CALL emu_glVertexAttrib2s(GLuint index, GLshort x, GLshort y)
        default: {
            GTrace("glVertexAttrib2s(", index, ", ", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib2s(index, x, y);
+           rCtx->dsp.curr->glVertexAttrib2s(index, x, y);
            break;
        }
 
@@ -12859,9 +12859,9 @@ static void REGAL_CALL emu_glVertexAttrib2sv(GLuint index, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib2sv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib2sv(", index, ", ", boost::print::iterator(v,v+2), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib2sv(index, v);
+           rCtx->dsp.curr->glVertexAttrib2sv(index, v);
            break;
        }
 
@@ -12904,7 +12904,7 @@ static void REGAL_CALL emu_glVertexAttrib3d(GLuint index, GLdouble x, GLdouble y
        default: {
            GTrace("glVertexAttrib3d(", index, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib3d(index, x, y, z);
+           rCtx->dsp.curr->glVertexAttrib3d(index, x, y, z);
            break;
        }
 
@@ -12945,9 +12945,9 @@ static void REGAL_CALL emu_glVertexAttrib3dv(GLuint index, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib3dv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib3dv(", index, ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib3dv(index, v);
+           rCtx->dsp.curr->glVertexAttrib3dv(index, v);
            break;
        }
 
@@ -12990,7 +12990,7 @@ static void REGAL_CALL emu_glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, 
        default: {
            GTrace("glVertexAttrib3f(", index, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib3f(index, x, y, z);
+           rCtx->dsp.curr->glVertexAttrib3f(index, x, y, z);
            break;
        }
 
@@ -13031,9 +13031,9 @@ static void REGAL_CALL emu_glVertexAttrib3fv(GLuint index, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib3fv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib3fv(", index, ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib3fv(index, v);
+           rCtx->dsp.curr->glVertexAttrib3fv(index, v);
            break;
        }
 
@@ -13076,7 +13076,7 @@ static void REGAL_CALL emu_glVertexAttrib3s(GLuint index, GLshort x, GLshort y, 
        default: {
            GTrace("glVertexAttrib3s(", index, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib3s(index, x, y, z);
+           rCtx->dsp.curr->glVertexAttrib3s(index, x, y, z);
            break;
        }
 
@@ -13117,9 +13117,9 @@ static void REGAL_CALL emu_glVertexAttrib3sv(GLuint index, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib3sv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib3sv(", index, ", ", boost::print::iterator(v,v+3), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib3sv(index, v);
+           rCtx->dsp.curr->glVertexAttrib3sv(index, v);
            break;
        }
 
@@ -13160,9 +13160,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nbv(GLuint index, const GLbyte *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4Nbv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4Nbv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4Nbv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4Nbv(index, v);
            break;
        }
 
@@ -13203,9 +13203,9 @@ static void REGAL_CALL emu_glVertexAttrib4Niv(GLuint index, const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4Niv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4Niv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4Niv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4Niv(index, v);
            break;
        }
 
@@ -13246,9 +13246,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nsv(GLuint index, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4Nsv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4Nsv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4Nsv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4Nsv(index, v);
            break;
        }
 
@@ -13291,7 +13291,7 @@ static void REGAL_CALL emu_glVertexAttrib4Nub(GLuint index, GLubyte x, GLubyte y
        default: {
            GTrace("glVertexAttrib4Nub(", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4Nub(index, x, y, z, w);
+           rCtx->dsp.curr->glVertexAttrib4Nub(index, x, y, z, w);
            break;
        }
 
@@ -13332,9 +13332,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nubv(GLuint index, const GLubyte *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4Nubv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4Nubv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4Nubv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4Nubv(index, v);
            break;
        }
 
@@ -13375,9 +13375,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nusv(GLuint index, const GLushort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4Nusv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4Nusv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4Nusv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4Nusv(index, v);
            break;
        }
 
@@ -13418,9 +13418,9 @@ static void REGAL_CALL emu_glVertexAttrib4bv(GLuint index, const GLbyte *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4bv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4bv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4bv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4bv(index, v);
            break;
        }
 
@@ -13463,7 +13463,7 @@ static void REGAL_CALL emu_glVertexAttrib4d(GLuint index, GLdouble x, GLdouble y
        default: {
            GTrace("glVertexAttrib4d(", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4d(index, x, y, z, w);
+           rCtx->dsp.curr->glVertexAttrib4d(index, x, y, z, w);
            break;
        }
 
@@ -13504,9 +13504,9 @@ static void REGAL_CALL emu_glVertexAttrib4dv(GLuint index, const GLdouble *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4dv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4dv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4dv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4dv(index, v);
            break;
        }
 
@@ -13549,7 +13549,7 @@ static void REGAL_CALL emu_glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, 
        default: {
            GTrace("glVertexAttrib4f(", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4f(index, x, y, z, w);
+           rCtx->dsp.curr->glVertexAttrib4f(index, x, y, z, w);
            break;
        }
 
@@ -13590,9 +13590,9 @@ static void REGAL_CALL emu_glVertexAttrib4fv(GLuint index, const GLfloat *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4fv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4fv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4fv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4fv(index, v);
            break;
        }
 
@@ -13633,9 +13633,9 @@ static void REGAL_CALL emu_glVertexAttrib4iv(GLuint index, const GLint *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4iv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4iv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4iv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4iv(index, v);
            break;
        }
 
@@ -13678,7 +13678,7 @@ static void REGAL_CALL emu_glVertexAttrib4s(GLuint index, GLshort x, GLshort y, 
        default: {
            GTrace("glVertexAttrib4s(", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4s(index, x, y, z, w);
+           rCtx->dsp.curr->glVertexAttrib4s(index, x, y, z, w);
            break;
        }
 
@@ -13719,9 +13719,9 @@ static void REGAL_CALL emu_glVertexAttrib4sv(GLuint index, const GLshort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4sv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4sv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4sv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4sv(index, v);
            break;
        }
 
@@ -13762,9 +13762,9 @@ static void REGAL_CALL emu_glVertexAttrib4ubv(GLuint index, const GLubyte *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4ubv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4ubv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4ubv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4ubv(index, v);
            break;
        }
 
@@ -13805,9 +13805,9 @@ static void REGAL_CALL emu_glVertexAttrib4usv(GLuint index, const GLushort *v)
            }
        case 1 :
        default: {
-           GTrace("glVertexAttrib4usv(", index, ", ", v, ")");
+           GTrace("glVertexAttrib4usv(", index, ", ", boost::print::iterator(v,v+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttrib4usv(index, v);
+           rCtx->dsp.curr->glVertexAttrib4usv(index, v);
            break;
        }
 
@@ -13853,7 +13853,7 @@ static void REGAL_CALL emu_glVertexAttribPointer(GLuint index, GLint size, GLenu
        default: {
            GTrace("glVertexAttribPointer(", index, ", ", size, ", ", toString(type), ", ", normalized, ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttribPointer(index, size, type, normalized, stride, pointer);
+           rCtx->dsp.curr->glVertexAttribPointer(index, size, type, normalized, stride, pointer);
            break;
        }
 
@@ -13894,9 +13894,9 @@ static void REGAL_CALL emu_glUniformMatrix2x3fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix2x3fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix2x3fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(2 * 3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix2x3fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix2x3fv(location, count, transpose, value);
            break;
        }
 
@@ -13935,9 +13935,9 @@ static void REGAL_CALL emu_glUniformMatrix3x2fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix3x2fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix3x2fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(3 * 2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix3x2fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix3x2fv(location, count, transpose, value);
            break;
        }
 
@@ -13976,9 +13976,9 @@ static void REGAL_CALL emu_glUniformMatrix2x4fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix2x4fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix2x4fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(2 * 4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix2x4fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix2x4fv(location, count, transpose, value);
            break;
        }
 
@@ -14017,9 +14017,9 @@ static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix4x2fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix4x2fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(4 * 2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix4x2fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix4x2fv(location, count, transpose, value);
            break;
        }
 
@@ -14058,9 +14058,9 @@ static void REGAL_CALL emu_glUniformMatrix3x4fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix3x4fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix3x4fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(3 * 4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix3x4fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix3x4fv(location, count, transpose, value);
            break;
        }
 
@@ -14099,9 +14099,9 @@ static void REGAL_CALL emu_glUniformMatrix4x3fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix4x3fv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix4x3fv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(4 * 3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix4x3fv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix4x3fv(location, count, transpose, value);
            break;
        }
 
@@ -14150,7 +14150,7 @@ static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
        default: {
            GTrace("glEnablei(", toString(cap), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnablei(cap, index);
+           rCtx->dsp.curr->glEnablei(cap, index);
            break;
        }
 
@@ -14193,7 +14193,7 @@ static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
        default: {
            GTrace("glDisablei(", toString(cap), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisablei(cap, index);
+           rCtx->dsp.curr->glDisablei(cap, index);
            break;
        }
 
@@ -14238,7 +14238,7 @@ static void REGAL_CALL emu_glUniform1ui(GLint location, GLuint v0)
        default: {
            GTrace("glUniform1ui(", location, ", ", v0, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1ui(location, v0);
+           rCtx->dsp.curr->glUniform1ui(location, v0);
            break;
        }
 
@@ -14279,7 +14279,7 @@ static void REGAL_CALL emu_glUniform2ui(GLint location, GLuint v0, GLuint v1)
        default: {
            GTrace("glUniform2ui(", location, ", ", v0, ", ", v1, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2ui(location, v0, v1);
+           rCtx->dsp.curr->glUniform2ui(location, v0, v1);
            break;
        }
 
@@ -14320,7 +14320,7 @@ static void REGAL_CALL emu_glUniform3ui(GLint location, GLuint v0, GLuint v1, GL
        default: {
            GTrace("glUniform3ui(", location, ", ", v0, ", ", v1, ", ", v2, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3ui(location, v0, v1, v2);
+           rCtx->dsp.curr->glUniform3ui(location, v0, v1, v2);
            break;
        }
 
@@ -14361,7 +14361,7 @@ static void REGAL_CALL emu_glUniform4ui(GLint location, GLuint v0, GLuint v1, GL
        default: {
            GTrace("glUniform4ui(", location, ", ", v0, ", ", v1, ", ", v2, ", ", v3, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4ui(location, v0, v1, v2, v3);
+           rCtx->dsp.curr->glUniform4ui(location, v0, v1, v2, v3);
            break;
        }
 
@@ -14400,9 +14400,9 @@ static void REGAL_CALL emu_glUniform1uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform1uiv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform1uiv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1uiv(location, count, value);
+           rCtx->dsp.curr->glUniform1uiv(location, count, value);
            break;
        }
 
@@ -14441,9 +14441,9 @@ static void REGAL_CALL emu_glUniform2uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform2uiv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform2uiv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 2)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2uiv(location, count, value);
+           rCtx->dsp.curr->glUniform2uiv(location, count, value);
            break;
        }
 
@@ -14482,9 +14482,9 @@ static void REGAL_CALL emu_glUniform3uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform3uiv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform3uiv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 3)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3uiv(location, count, value);
+           rCtx->dsp.curr->glUniform3uiv(location, count, value);
            break;
        }
 
@@ -14523,9 +14523,9 @@ static void REGAL_CALL emu_glUniform4uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform4uiv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform4uiv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4uiv(location, count, value);
+           rCtx->dsp.curr->glUniform4uiv(location, count, value);
            break;
        }
 
@@ -14576,7 +14576,7 @@ static void REGAL_CALL emu_glDrawArraysInstanced(GLenum mode, GLint start, GLsiz
        default: {
            GTrace("glDrawArraysInstanced(", toString(mode), ", ", start, ", ", count, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawArraysInstanced(mode, start, count, primcount);
+           rCtx->dsp.curr->glDrawArraysInstanced(mode, start, count, primcount);
            break;
        }
 
@@ -14625,7 +14625,7 @@ static void REGAL_CALL emu_glDrawElementsInstanced(GLenum mode, GLsizei count, G
        default: {
            GTrace("glDrawElementsInstanced(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementsInstanced(mode, count, type, indices, primcount);
+           rCtx->dsp.curr->glDrawElementsInstanced(mode, count, type, indices, primcount);
            break;
        }
 
@@ -14667,7 +14667,7 @@ static void REGAL_CALL emu_glTexBuffer(GLenum target, GLenum internalformat, GLu
        default: {
            GTrace("glTexBuffer(", toString(target), ", ", toString(internalformat), ", ", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexBuffer(target, internalformat, buffer);
+           rCtx->dsp.curr->glTexBuffer(target, internalformat, buffer);
            break;
        }
 
@@ -14710,7 +14710,7 @@ static void REGAL_CALL emu_glFramebufferTexture(GLenum target, GLenum attachment
        default: {
            GTrace("glFramebufferTexture(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture(target, attachment, texture, level);
+           rCtx->dsp.curr->glFramebufferTexture(target, attachment, texture, level);
            break;
        }
 
@@ -14751,7 +14751,7 @@ static void REGAL_CALL emu_glFramebufferTextureFace(GLenum target, GLenum attach
        default: {
            GTrace("glFramebufferTextureFace(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ", ", toString(face), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureFace(target, attachment, texture, level, face);
+           rCtx->dsp.curr->glFramebufferTextureFace(target, attachment, texture, level, face);
            break;
        }
 
@@ -14814,7 +14814,7 @@ static void REGAL_CALL emu_glDrawArraysIndirect(GLenum mode, const GLvoid *indir
        default: {
            GTrace("glDrawArraysIndirect(", toString(mode), ", ", indirect, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawArraysIndirect(mode, indirect);
+           rCtx->dsp.curr->glDrawArraysIndirect(mode, indirect);
            break;
        }
 
@@ -14863,7 +14863,7 @@ static void REGAL_CALL emu_glDrawElementsIndirect(GLenum mode, GLenum type, cons
        default: {
            GTrace("glDrawElementsIndirect(", toString(mode), ", ", toString(type), ", ", indirect, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementsIndirect(mode, type, indirect);
+           rCtx->dsp.curr->glDrawElementsIndirect(mode, type, indirect);
            break;
        }
 
@@ -14906,7 +14906,7 @@ static void REGAL_CALL emu_glUniform1d(GLint location, GLdouble x)
        default: {
            GTrace("glUniform1d(", location, ", ", x, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1d(location, x);
+           rCtx->dsp.curr->glUniform1d(location, x);
            break;
        }
 
@@ -14947,7 +14947,7 @@ static void REGAL_CALL emu_glUniform2d(GLint location, GLdouble x, GLdouble y)
        default: {
            GTrace("glUniform2d(", location, ", ", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2d(location, x, y);
+           rCtx->dsp.curr->glUniform2d(location, x, y);
            break;
        }
 
@@ -14988,7 +14988,7 @@ static void REGAL_CALL emu_glUniform3d(GLint location, GLdouble x, GLdouble y, G
        default: {
            GTrace("glUniform3d(", location, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3d(location, x, y, z);
+           rCtx->dsp.curr->glUniform3d(location, x, y, z);
            break;
        }
 
@@ -15029,7 +15029,7 @@ static void REGAL_CALL emu_glUniform4d(GLint location, GLdouble x, GLdouble y, G
        default: {
            GTrace("glUniform4d(", location, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4d(location, x, y, z, w);
+           rCtx->dsp.curr->glUniform4d(location, x, y, z, w);
            break;
        }
 
@@ -15068,9 +15068,9 @@ static void REGAL_CALL emu_glUniform1dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform1dv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform1dv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform1dv(location, count, value);
+           rCtx->dsp.curr->glUniform1dv(location, count, value);
            break;
        }
 
@@ -15109,9 +15109,9 @@ static void REGAL_CALL emu_glUniform2dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform2dv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform2dv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 2)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform2dv(location, count, value);
+           rCtx->dsp.curr->glUniform2dv(location, count, value);
            break;
        }
 
@@ -15150,9 +15150,9 @@ static void REGAL_CALL emu_glUniform3dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform3dv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform3dv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 3)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform3dv(location, count, value);
+           rCtx->dsp.curr->glUniform3dv(location, count, value);
            break;
        }
 
@@ -15191,9 +15191,9 @@ static void REGAL_CALL emu_glUniform4dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniform4dv(", location, ", ", count, ", ", value, ")");
+           GTrace("glUniform4dv(", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniform4dv(location, count, value);
+           rCtx->dsp.curr->glUniform4dv(location, count, value);
            break;
        }
 
@@ -15232,9 +15232,9 @@ static void REGAL_CALL emu_glUniformMatrix2dv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix2dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix2dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(2 * 2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix2dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix2dv(location, count, transpose, value);
            break;
        }
 
@@ -15273,9 +15273,9 @@ static void REGAL_CALL emu_glUniformMatrix3dv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix3dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix3dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(3 * 3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix3dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix3dv(location, count, transpose, value);
            break;
        }
 
@@ -15314,9 +15314,9 @@ static void REGAL_CALL emu_glUniformMatrix4dv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix4dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix4dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(4 * 4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix4dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix4dv(location, count, transpose, value);
            break;
        }
 
@@ -15355,9 +15355,9 @@ static void REGAL_CALL emu_glUniformMatrix2x3dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix2x3dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix2x3dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(2 * 3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix2x3dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix2x3dv(location, count, transpose, value);
            break;
        }
 
@@ -15396,9 +15396,9 @@ static void REGAL_CALL emu_glUniformMatrix2x4dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix2x4dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix2x4dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(2 * 4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix2x4dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix2x4dv(location, count, transpose, value);
            break;
        }
 
@@ -15437,9 +15437,9 @@ static void REGAL_CALL emu_glUniformMatrix3x2dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix3x2dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix3x2dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(3 * 2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix3x2dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix3x2dv(location, count, transpose, value);
            break;
        }
 
@@ -15478,9 +15478,9 @@ static void REGAL_CALL emu_glUniformMatrix3x4dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix3x4dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix3x4dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(3 * 4 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix3x4dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix3x4dv(location, count, transpose, value);
            break;
        }
 
@@ -15519,9 +15519,9 @@ static void REGAL_CALL emu_glUniformMatrix4x2dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix4x2dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix4x2dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(4 * 2 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix4x2dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix4x2dv(location, count, transpose, value);
            break;
        }
 
@@ -15560,9 +15560,9 @@ static void REGAL_CALL emu_glUniformMatrix4x3dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glUniformMatrix4x3dv(", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glUniformMatrix4x3dv(", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(4 * 3 * count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glUniformMatrix4x3dv(location, count, transpose, value);
+           rCtx->dsp.curr->glUniformMatrix4x3dv(location, count, transpose, value);
            break;
        }
 
@@ -15617,9 +15617,9 @@ static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, 
        case 2 :
        case 1 :
        default: {
-           GTrace("glShaderBinary(", count, ", ", shaders, ", ", toString(binaryformat), ", ", binary, ", ", length, ")");
+           GTrace("glShaderBinary(", count, ", ", boost::print::iterator(shaders,shaders+(count)), ", ", toString(binaryformat), ", ", binary, ", ", length, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glShaderBinary(count, shaders, binaryformat, binary, length);
+           rCtx->dsp.curr->glShaderBinary(count, shaders, binaryformat, binary, length);
            break;
        }
 
@@ -15668,7 +15668,7 @@ static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v
        default: {
            GTrace("glGetFloati_v(", toString(target), ", ", index, ", ", v, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetFloati_v(target, index, v);
+           rCtx->dsp.curr->glGetFloati_v(target, index, v);
            break;
        }
 
@@ -15713,7 +15713,7 @@ static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble 
        default: {
            GTrace("glGetDoublei_v(", toString(target), ", ", index, ", ", v, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetDoublei_v(target, index, v);
+           rCtx->dsp.curr->glGetDoublei_v(target, index, v);
            break;
        }
 
@@ -15762,7 +15762,7 @@ static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
        default: {
            GTrace("glActiveTextureARB(", toString(texture), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glActiveTextureARB(texture);
+           rCtx->dsp.curr->glActiveTextureARB(texture);
            break;
        }
 
@@ -15803,7 +15803,7 @@ static void REGAL_CALL emu_glClientActiveTextureARB(GLenum texture)
        default: {
            GTrace("glClientActiveTextureARB(", toString(texture), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glClientActiveTextureARB(texture);
+           rCtx->dsp.curr->glClientActiveTextureARB(texture);
            break;
        }
 
@@ -15865,7 +15865,7 @@ static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GL
        default: {
            GTrace("glVertexAttribPointerARB(", index, ", ", size, ", ", toString(type), ", ", normalized, ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
+           rCtx->dsp.curr->glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
            break;
        }
 
@@ -15912,7 +15912,7 @@ static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
        default: {
            GTrace("glEnableVertexAttribArrayARB(", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnableVertexAttribArrayARB(index);
+           rCtx->dsp.curr->glEnableVertexAttribArrayARB(index);
            break;
        }
 
@@ -15959,7 +15959,7 @@ static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
        default: {
            GTrace("glDisableVertexAttribArrayARB(", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisableVertexAttribArrayARB(index);
+           rCtx->dsp.curr->glDisableVertexAttribArrayARB(index);
            break;
        }
 
@@ -16004,7 +16004,7 @@ static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
        default: {
            GTrace("glBindProgramARB(", toString(target), ", ", program, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindProgramARB(target, program);
+           rCtx->dsp.curr->glBindProgramARB(target, program);
            break;
        }
 
@@ -16045,7 +16045,7 @@ static void REGAL_CALL emu_glProgramEnvParameter4dARB(GLenum target, GLuint inde
        default: {
            GTrace("glProgramEnvParameter4dARB(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameter4dARB(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramEnvParameter4dARB(target, index, x, y, z, w);
            break;
        }
 
@@ -16084,9 +16084,9 @@ static void REGAL_CALL emu_glProgramEnvParameter4dvARB(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramEnvParameter4dvARB(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramEnvParameter4dvARB(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameter4dvARB(target, index, params);
+           rCtx->dsp.curr->glProgramEnvParameter4dvARB(target, index, params);
            break;
        }
 
@@ -16127,7 +16127,7 @@ static void REGAL_CALL emu_glProgramEnvParameter4fARB(GLenum target, GLuint inde
        default: {
            GTrace("glProgramEnvParameter4fARB(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameter4fARB(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramEnvParameter4fARB(target, index, x, y, z, w);
            break;
        }
 
@@ -16166,9 +16166,9 @@ static void REGAL_CALL emu_glProgramEnvParameter4fvARB(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramEnvParameter4fvARB(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramEnvParameter4fvARB(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameter4fvARB(target, index, params);
+           rCtx->dsp.curr->glProgramEnvParameter4fvARB(target, index, params);
            break;
        }
 
@@ -16209,7 +16209,7 @@ static void REGAL_CALL emu_glProgramLocalParameter4dARB(GLenum target, GLuint in
        default: {
            GTrace("glProgramLocalParameter4dARB(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameter4dARB(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramLocalParameter4dARB(target, index, x, y, z, w);
            break;
        }
 
@@ -16248,9 +16248,9 @@ static void REGAL_CALL emu_glProgramLocalParameter4dvARB(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramLocalParameter4dvARB(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramLocalParameter4dvARB(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameter4dvARB(target, index, params);
+           rCtx->dsp.curr->glProgramLocalParameter4dvARB(target, index, params);
            break;
        }
 
@@ -16291,7 +16291,7 @@ static void REGAL_CALL emu_glProgramLocalParameter4fARB(GLenum target, GLuint in
        default: {
            GTrace("glProgramLocalParameter4fARB(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameter4fARB(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramLocalParameter4fARB(target, index, x, y, z, w);
            break;
        }
 
@@ -16330,9 +16330,9 @@ static void REGAL_CALL emu_glProgramLocalParameter4fvARB(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramLocalParameter4fvARB(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramLocalParameter4fvARB(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameter4fvARB(target, index, params);
+           rCtx->dsp.curr->glProgramLocalParameter4fvARB(target, index, params);
            break;
        }
 
@@ -16373,7 +16373,7 @@ static void REGAL_CALL emu_glGetProgramEnvParameterdvARB(GLenum target, GLuint i
        default: {
            GTrace("glGetProgramEnvParameterdvARB(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramEnvParameterdvARB(target, index, params);
+           rCtx->dsp.curr->glGetProgramEnvParameterdvARB(target, index, params);
            break;
        }
 
@@ -16414,7 +16414,7 @@ static void REGAL_CALL emu_glGetProgramEnvParameterfvARB(GLenum target, GLuint i
        default: {
            GTrace("glGetProgramEnvParameterfvARB(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramEnvParameterfvARB(target, index, params);
+           rCtx->dsp.curr->glGetProgramEnvParameterfvARB(target, index, params);
            break;
        }
 
@@ -16455,7 +16455,7 @@ static void REGAL_CALL emu_glGetProgramLocalParameterdvARB(GLenum target, GLuint
        default: {
            GTrace("glGetProgramLocalParameterdvARB(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramLocalParameterdvARB(target, index, params);
+           rCtx->dsp.curr->glGetProgramLocalParameterdvARB(target, index, params);
            break;
        }
 
@@ -16496,7 +16496,7 @@ static void REGAL_CALL emu_glGetProgramLocalParameterfvARB(GLenum target, GLuint
        default: {
            GTrace("glGetProgramLocalParameterfvARB(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramLocalParameterfvARB(target, index, params);
+           rCtx->dsp.curr->glGetProgramLocalParameterfvARB(target, index, params);
            break;
        }
 
@@ -16543,7 +16543,7 @@ static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GL
        default: {
            GTrace("glGetVertexAttribdvARB(", index, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribdvARB(index, pname, params);
+           rCtx->dsp.curr->glGetVertexAttribdvARB(index, pname, params);
            break;
        }
 
@@ -16590,7 +16590,7 @@ static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GL
        default: {
            GTrace("glGetVertexAttribfvARB(", index, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribfvARB(index, pname, params);
+           rCtx->dsp.curr->glGetVertexAttribfvARB(index, pname, params);
            break;
        }
 
@@ -16637,7 +16637,7 @@ static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GL
        default: {
            GTrace("glGetVertexAttribivARB(", index, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribivARB(index, pname, params);
+           rCtx->dsp.curr->glGetVertexAttribivARB(index, pname, params);
            break;
        }
 
@@ -16684,7 +16684,7 @@ static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pna
        default: {
            GTrace("glGetVertexAttribPointervARB(", index, ", ", toString(pname), ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetVertexAttribPointervARB(index, pname, pointer);
+           rCtx->dsp.curr->glGetVertexAttribPointervARB(index, pname, pointer);
            break;
        }
 
@@ -16733,7 +16733,7 @@ static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
        default: {
            GTrace("glBindBufferARB(", toString(target), ", ", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindBufferARB(target, buffer);
+           rCtx->dsp.curr->glBindBufferARB(target, buffer);
            break;
        }
 
@@ -16774,9 +16774,9 @@ static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
        case 2 :
        case 1 :
        default: {
-           GTrace("glDeleteBuffersARB(", n, ", ", buffers, ")");
+           GTrace("glDeleteBuffersARB(", n, ", ", boost::print::iterator(buffers,buffers+(n)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDeleteBuffersARB(n, buffers);
+           rCtx->dsp.curr->glDeleteBuffersARB(n, buffers);
            break;
        }
 
@@ -16819,7 +16819,7 @@ static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
        default: {
            GTrace("glGenBuffersARB(", n, ", ", buffers, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenBuffersARB(n, buffers);
+           rCtx->dsp.curr->glGenBuffersARB(n, buffers);
            break;
        }
 
@@ -16861,7 +16861,7 @@ static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
        default: {
            GTrace("glIsBufferARB(", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glIsBufferARB(buffer);
+           return rCtx->dsp.curr->glIsBufferARB(buffer);
        }
 
    }
@@ -16901,7 +16901,7 @@ static GLvoid *REGAL_CALL emu_glMapBufferARB(GLenum target, GLenum access)
        default: {
            GTrace("glMapBufferARB(", toString(target), ", ", toString(access), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glMapBufferARB(target, access);
+           return rCtx->dsp.curr->glMapBufferARB(target, access);
        }
 
    }
@@ -16941,7 +16941,7 @@ static GLboolean REGAL_CALL emu_glUnmapBufferARB(GLenum target)
        default: {
            GTrace("glUnmapBufferARB(", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glUnmapBufferARB(target);
+           return rCtx->dsp.curr->glUnmapBufferARB(target);
        }
 
    }
@@ -17001,7 +17001,7 @@ static void REGAL_CALL emu_glDrawArraysInstancedARB(GLenum mode, GLint start, GL
        default: {
            GTrace("glDrawArraysInstancedARB(", toString(mode), ", ", start, ", ", count, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawArraysInstancedARB(mode, start, count, primcount);
+           rCtx->dsp.curr->glDrawArraysInstancedARB(mode, start, count, primcount);
            break;
        }
 
@@ -17050,7 +17050,7 @@ static void REGAL_CALL emu_glDrawElementsInstancedARB(GLenum mode, GLsizei count
        default: {
            GTrace("glDrawElementsInstancedARB(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementsInstancedARB(mode, count, type, indices, primcount);
+           rCtx->dsp.curr->glDrawElementsInstancedARB(mode, count, type, indices, primcount);
            break;
        }
 
@@ -17093,7 +17093,7 @@ static void REGAL_CALL emu_glRenderbufferStorage(GLenum target, GLenum internalf
        default: {
            GTrace("glRenderbufferStorage(", toString(target), ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRenderbufferStorage(target, internalformat, width, height);
+           rCtx->dsp.curr->glRenderbufferStorage(target, internalformat, width, height);
            break;
        }
 
@@ -17138,7 +17138,7 @@ static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
        default: {
            GTrace("glBindFramebuffer(", toString(target), ", ", framebuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindFramebuffer(target, framebuffer);
+           rCtx->dsp.curr->glBindFramebuffer(target, framebuffer);
            break;
        }
 
@@ -17179,7 +17179,7 @@ static void REGAL_CALL emu_glFramebufferTexture1D(GLenum target, GLenum attachme
        default: {
            GTrace("glFramebufferTexture1D(", toString(target), ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture1D(target, attachment, textarget, texture, level);
+           rCtx->dsp.curr->glFramebufferTexture1D(target, attachment, textarget, texture, level);
            break;
        }
 
@@ -17220,7 +17220,7 @@ static void REGAL_CALL emu_glFramebufferTexture2D(GLenum target, GLenum attachme
        default: {
            GTrace("glFramebufferTexture2D(", toString(target), ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture2D(target, attachment, textarget, texture, level);
+           rCtx->dsp.curr->glFramebufferTexture2D(target, attachment, textarget, texture, level);
            break;
        }
 
@@ -17261,7 +17261,7 @@ static void REGAL_CALL emu_glFramebufferTexture3D(GLenum target, GLenum attachme
        default: {
            GTrace("glFramebufferTexture3D(", toString(target), ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ", ", layer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
+           rCtx->dsp.curr->glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
            break;
        }
 
@@ -17302,7 +17302,7 @@ static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attac
        default: {
            GTrace("glFramebufferRenderbuffer(", toString(target), ", ", toString(attachment), ", ", toString(renderbuffertarget), ", ", renderbuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
+           rCtx->dsp.curr->glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
            break;
        }
 
@@ -17344,7 +17344,7 @@ static void REGAL_CALL emu_glGenerateMipmap(GLenum target)
        default: {
            GTrace("glGenerateMipmap(", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenerateMipmap(target);
+           rCtx->dsp.curr->glGenerateMipmap(target);
            break;
        }
 
@@ -17385,7 +17385,7 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisample(GLenum target, GLsiz
        default: {
            GTrace("glRenderbufferStorageMultisample(", toString(target), ", ", samples, ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
+           rCtx->dsp.curr->glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
            break;
        }
 
@@ -17426,7 +17426,7 @@ static void REGAL_CALL emu_glFramebufferTextureLayer(GLenum target, GLenum attac
        default: {
            GTrace("glFramebufferTextureLayer(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ", ", layer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureLayer(target, attachment, texture, level, layer);
+           rCtx->dsp.curr->glFramebufferTextureLayer(target, attachment, texture, level, layer);
            break;
        }
 
@@ -17469,7 +17469,7 @@ static void REGAL_CALL emu_glFramebufferTextureARB(GLenum target, GLenum attachm
        default: {
            GTrace("glFramebufferTextureARB(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureARB(target, attachment, texture, level);
+           rCtx->dsp.curr->glFramebufferTextureARB(target, attachment, texture, level);
            break;
        }
 
@@ -17510,7 +17510,7 @@ static void REGAL_CALL emu_glFramebufferTextureLayerARB(GLenum target, GLenum at
        default: {
            GTrace("glFramebufferTextureLayerARB(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ", ", layer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
+           rCtx->dsp.curr->glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
            break;
        }
 
@@ -17551,7 +17551,7 @@ static void REGAL_CALL emu_glFramebufferTextureFaceARB(GLenum target, GLenum att
        default: {
            GTrace("glFramebufferTextureFaceARB(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ", ", toString(face), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureFaceARB(target, attachment, texture, level, face);
+           rCtx->dsp.curr->glFramebufferTextureFaceARB(target, attachment, texture, level, face);
            break;
        }
 
@@ -17596,7 +17596,7 @@ static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, G
        default: {
            GTrace("glMapBufferRange(", toString(target), ", ", offset, ", ", length, ", ", access, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glMapBufferRange(target, offset, length, access);
+           return rCtx->dsp.curr->glMapBufferRange(target, offset, length, access);
        }
 
    }
@@ -17636,7 +17636,7 @@ static void REGAL_CALL emu_glFlushMappedBufferRange(GLenum target, GLintptr offs
        default: {
            GTrace("glFlushMappedBufferRange(", toString(target), ", ", offset, ", ", length, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFlushMappedBufferRange(target, offset, length);
+           rCtx->dsp.curr->glFlushMappedBufferRange(target, offset, length);
            break;
        }
 
@@ -17701,7 +17701,7 @@ static void REGAL_CALL emu_glBindVertexArray(GLuint array)
        default: {
            GTrace("glBindVertexArray(", array, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindVertexArray(array);
+           rCtx->dsp.curr->glBindVertexArray(array);
            break;
        }
 
@@ -17754,9 +17754,9 @@ static void REGAL_CALL emu_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
                return;
            }
        default: {
-           GTrace("glDeleteVertexArrays(", n, ", ", arrays, ")");
+           GTrace("glDeleteVertexArrays(", n, ", ", boost::print::iterator(arrays,arrays+(n)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDeleteVertexArrays(n, arrays);
+           rCtx->dsp.curr->glDeleteVertexArrays(n, arrays);
            break;
        }
 
@@ -17805,7 +17805,7 @@ static void REGAL_CALL emu_glGenVertexArrays(GLsizei n, GLuint *arrays)
        default: {
            GTrace("glGenVertexArrays(", n, ", ", arrays, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenVertexArrays(n, arrays);
+           rCtx->dsp.curr->glGenVertexArrays(n, arrays);
            break;
        }
 
@@ -17857,7 +17857,7 @@ static GLboolean REGAL_CALL emu_glIsVertexArray(GLuint array)
        default: {
            GTrace("glIsVertexArray(", array, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glIsVertexArray(array);
+           return rCtx->dsp.curr->glIsVertexArray(array);
        }
 
    }
@@ -17901,7 +17901,7 @@ static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writeta
        default: {
            GTrace("glCopyBufferSubData(", toString(readtarget), ", ", toString(writetarget), ", ", readoffset, ", ", writeoffset, ", ", size, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
+           rCtx->dsp.curr->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
            break;
        }
 
@@ -17952,7 +17952,7 @@ static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, 
        default: {
            GTrace("glDrawElementsBaseVertex(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", basevertex, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
+           rCtx->dsp.curr->glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
            break;
        }
 
@@ -18001,7 +18001,7 @@ static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsize
        default: {
            GTrace("glDrawElementsInstancedBaseVertex(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ", ", basevertex, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
+           rCtx->dsp.curr->glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
            break;
        }
 
@@ -18048,9 +18048,9 @@ static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *c
        case 2 :
        case 1 :
        default: {
-           GTrace("glMultiDrawElementsBaseVertex(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ", ", basevertex, ")");
+           GTrace("glMultiDrawElementsBaseVertex(", toString(mode), ", ", boost::print::iterator(count,count+(primcount)), ", ", toString(type), ", ", indices, ", ", primcount, ", ", boost::print::iterator(basevertex,basevertex+(primcount)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
+           rCtx->dsp.curr->glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
            break;
        }
 
@@ -18099,7 +18099,7 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
        default: {
            GTrace("glGetInteger64v(", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetInteger64v(pname, params);
+           rCtx->dsp.curr->glGetInteger64v(pname, params);
            break;
        }
 
@@ -18142,7 +18142,7 @@ static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei sample
        default: {
            GTrace("glTexImage2DMultisample(", toString(target), ", ", samples, ", ", internalformat, ", ", width, ", ", height, ", ", fixedsamplelocations, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
+           rCtx->dsp.curr->glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
            break;
        }
 
@@ -18183,7 +18183,7 @@ static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei sample
        default: {
            GTrace("glTexImage3DMultisample(", toString(target), ", ", samples, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", fixedsamplelocations, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
+           rCtx->dsp.curr->glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
            break;
        }
 
@@ -18240,7 +18240,7 @@ static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum in
        default: {
            GTrace("glTexImage3DEXT(", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ", ", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
+           rCtx->dsp.curr->glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
            break;
        }
 
@@ -18299,7 +18299,7 @@ static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum i
        default: {
            GTrace("glTexImage4DSGIS(", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", size4d, ", ", border, ", ", toString(format), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, border, format, type, pixels);
+           rCtx->dsp.curr->glTexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, border, format, type, pixels);
            break;
        }
 
@@ -18342,7 +18342,7 @@ static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
        default: {
            GTrace("glBindTextureEXT(", toString(target), ", ", texture, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindTextureEXT(target, texture);
+           rCtx->dsp.curr->glBindTextureEXT(target, texture);
            break;
        }
 
@@ -18399,7 +18399,7 @@ static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei cou
        default: {
            GTrace("glDrawArraysEXT(", toString(mode), ", ", first, ", ", count, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawArraysEXT(mode, first, count);
+           rCtx->dsp.curr->glDrawArraysEXT(mode, first, count);
            break;
        }
 
@@ -18506,9 +18506,9 @@ static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first,
        case 2 :
        case 1 :
        default: {
-           GTrace("glMultiDrawArraysEXT(", toString(mode), ", ", first, ", ", count, ", ", primcount, ")");
+           GTrace("glMultiDrawArraysEXT(", toString(mode), ", ", boost::print::iterator(first,first+(primcount)), ", ", boost::print::iterator(count,count+(primcount)), ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawArraysEXT(mode, first, count, primcount);
+           rCtx->dsp.curr->glMultiDrawArraysEXT(mode, first, count, primcount);
            break;
        }
 
@@ -18555,9 +18555,9 @@ static void REGAL_CALL emu_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glMultiDrawElementsEXT(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ")");
+           GTrace("glMultiDrawElementsEXT(", toString(mode), ", ", boost::print::iterator(count,count+(primcount)), ", ", toString(type), ", ", indices, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawElementsEXT(mode, count, type, indices, primcount);
+           rCtx->dsp.curr->glMultiDrawElementsEXT(mode, count, type, indices, primcount);
            break;
        }
 
@@ -18666,7 +18666,7 @@ static void REGAL_CALL emu_glDrawElementArrayATI(GLenum mode, GLsizei count)
        default: {
            GTrace("glDrawElementArrayATI(", toString(mode), ", ", count, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementArrayATI(mode, count);
+           rCtx->dsp.curr->glDrawElementArrayATI(mode, count);
            break;
        }
 
@@ -18725,7 +18725,7 @@ static void REGAL_CALL emu_glDrawElementArrayAPPLE(GLenum mode, GLint first, GLs
        default: {
            GTrace("glDrawElementArrayAPPLE(", toString(mode), ", ", first, ", ", count, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementArrayAPPLE(mode, first, count);
+           rCtx->dsp.curr->glDrawElementArrayAPPLE(mode, first, count);
            break;
        }
 
@@ -18774,7 +18774,7 @@ static void REGAL_CALL emu_glMultiDrawElementArrayAPPLE(GLenum mode, const GLint
        default: {
            GTrace("glMultiDrawElementArrayAPPLE(", toString(mode), ", ", first, ", ", count, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
+           rCtx->dsp.curr->glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
            break;
        }
 
@@ -18819,7 +18819,7 @@ static void REGAL_CALL emu_glBindVertexArrayAPPLE(GLuint array)
        default: {
            GTrace("glBindVertexArrayAPPLE(", array, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindVertexArrayAPPLE(array);
+           rCtx->dsp.curr->glBindVertexArrayAPPLE(array);
            break;
        }
 
@@ -18884,7 +18884,7 @@ static void REGAL_CALL emu_glRenderbufferStorageEXT(GLenum target, GLenum intern
        default: {
            GTrace("glRenderbufferStorageEXT(", toString(target), ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRenderbufferStorageEXT(target, internalformat, width, height);
+           rCtx->dsp.curr->glRenderbufferStorageEXT(target, internalformat, width, height);
            break;
        }
 
@@ -18925,7 +18925,7 @@ static void REGAL_CALL emu_glFramebufferTexture1DEXT(GLenum target, GLenum attac
        default: {
            GTrace("glFramebufferTexture1DEXT(", toString(target), ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
+           rCtx->dsp.curr->glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
            break;
        }
 
@@ -18966,7 +18966,7 @@ static void REGAL_CALL emu_glFramebufferTexture2DEXT(GLenum target, GLenum attac
        default: {
            GTrace("glFramebufferTexture2DEXT(", toString(target), ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
+           rCtx->dsp.curr->glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
            break;
        }
 
@@ -19007,7 +19007,7 @@ static void REGAL_CALL emu_glFramebufferTexture3DEXT(GLenum target, GLenum attac
        default: {
            GTrace("glFramebufferTexture3DEXT(", toString(target), ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ", ", zoffset, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
+           rCtx->dsp.curr->glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
            break;
        }
 
@@ -19048,7 +19048,7 @@ static void REGAL_CALL emu_glFramebufferRenderbufferEXT(GLenum target, GLenum at
        default: {
            GTrace("glFramebufferRenderbufferEXT(", toString(target), ", ", toString(attachment), ", ", toString(renderbuffertarget), ", ", renderbuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
+           rCtx->dsp.curr->glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
            break;
        }
 
@@ -19090,7 +19090,7 @@ static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
        default: {
            GTrace("glGenerateMipmapEXT(", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenerateMipmapEXT(target);
+           rCtx->dsp.curr->glGenerateMipmapEXT(target);
            break;
        }
 
@@ -19139,7 +19139,7 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GL
        default: {
            GTrace("glRenderbufferStorageMultisampleEXT(", toString(target), ", ", samples, ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
+           rCtx->dsp.curr->glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
            break;
        }
 
@@ -19188,7 +19188,7 @@ static void REGAL_CALL emu_glProgramLocalParameterI4iNV(GLenum target, GLuint in
        default: {
            GTrace("glProgramLocalParameterI4iNV(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameterI4iNV(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramLocalParameterI4iNV(target, index, x, y, z, w);
            break;
        }
 
@@ -19227,9 +19227,9 @@ static void REGAL_CALL emu_glProgramLocalParameterI4ivNV(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramLocalParameterI4ivNV(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramLocalParameterI4ivNV(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameterI4ivNV(target, index, params);
+           rCtx->dsp.curr->glProgramLocalParameterI4ivNV(target, index, params);
            break;
        }
 
@@ -19268,9 +19268,9 @@ static void REGAL_CALL emu_glProgramLocalParametersI4ivNV(GLenum target, GLuint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramLocalParametersI4ivNV(", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glProgramLocalParametersI4ivNV(", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParametersI4ivNV(target, index, count, params);
+           rCtx->dsp.curr->glProgramLocalParametersI4ivNV(target, index, count, params);
            break;
        }
 
@@ -19311,7 +19311,7 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uiNV(GLenum target, GLuint i
        default: {
            GTrace("glProgramLocalParameterI4uiNV(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
            break;
        }
 
@@ -19350,9 +19350,9 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uivNV(GLenum target, GLuint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramLocalParameterI4uivNV(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramLocalParameterI4uivNV(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParameterI4uivNV(target, index, params);
+           rCtx->dsp.curr->glProgramLocalParameterI4uivNV(target, index, params);
            break;
        }
 
@@ -19391,9 +19391,9 @@ static void REGAL_CALL emu_glProgramLocalParametersI4uivNV(GLenum target, GLuint
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramLocalParametersI4uivNV(", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glProgramLocalParametersI4uivNV(", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramLocalParametersI4uivNV(target, index, count, params);
+           rCtx->dsp.curr->glProgramLocalParametersI4uivNV(target, index, count, params);
            break;
        }
 
@@ -19434,7 +19434,7 @@ static void REGAL_CALL emu_glProgramEnvParameterI4iNV(GLenum target, GLuint inde
        default: {
            GTrace("glProgramEnvParameterI4iNV(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameterI4iNV(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramEnvParameterI4iNV(target, index, x, y, z, w);
            break;
        }
 
@@ -19473,9 +19473,9 @@ static void REGAL_CALL emu_glProgramEnvParameterI4ivNV(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramEnvParameterI4ivNV(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramEnvParameterI4ivNV(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameterI4ivNV(target, index, params);
+           rCtx->dsp.curr->glProgramEnvParameterI4ivNV(target, index, params);
            break;
        }
 
@@ -19514,9 +19514,9 @@ static void REGAL_CALL emu_glProgramEnvParametersI4ivNV(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramEnvParametersI4ivNV(", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glProgramEnvParametersI4ivNV(", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParametersI4ivNV(target, index, count, params);
+           rCtx->dsp.curr->glProgramEnvParametersI4ivNV(target, index, count, params);
            break;
        }
 
@@ -19557,7 +19557,7 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uiNV(GLenum target, GLuint ind
        default: {
            GTrace("glProgramEnvParameterI4uiNV(", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
+           rCtx->dsp.curr->glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
            break;
        }
 
@@ -19596,9 +19596,9 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uivNV(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramEnvParameterI4uivNV(", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glProgramEnvParameterI4uivNV(", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParameterI4uivNV(target, index, params);
+           rCtx->dsp.curr->glProgramEnvParameterI4uivNV(target, index, params);
            break;
        }
 
@@ -19637,9 +19637,9 @@ static void REGAL_CALL emu_glProgramEnvParametersI4uivNV(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramEnvParametersI4uivNV(", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glProgramEnvParametersI4uivNV(", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramEnvParametersI4uivNV(target, index, count, params);
+           rCtx->dsp.curr->glProgramEnvParametersI4uivNV(target, index, count, params);
            break;
        }
 
@@ -19680,7 +19680,7 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIivNV(GLenum target, GLuint
        default: {
            GTrace("glGetProgramLocalParameterIivNV(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramLocalParameterIivNV(target, index, params);
+           rCtx->dsp.curr->glGetProgramLocalParameterIivNV(target, index, params);
            break;
        }
 
@@ -19721,7 +19721,7 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIuivNV(GLenum target, GLuin
        default: {
            GTrace("glGetProgramLocalParameterIuivNV(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramLocalParameterIuivNV(target, index, params);
+           rCtx->dsp.curr->glGetProgramLocalParameterIuivNV(target, index, params);
            break;
        }
 
@@ -19762,7 +19762,7 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIivNV(GLenum target, GLuint i
        default: {
            GTrace("glGetProgramEnvParameterIivNV(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramEnvParameterIivNV(target, index, params);
+           rCtx->dsp.curr->glGetProgramEnvParameterIivNV(target, index, params);
            break;
        }
 
@@ -19803,7 +19803,7 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIuivNV(GLenum target, GLuint 
        default: {
            GTrace("glGetProgramEnvParameterIuivNV(", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetProgramEnvParameterIuivNV(target, index, params);
+           rCtx->dsp.curr->glGetProgramEnvParameterIuivNV(target, index, params);
            break;
        }
 
@@ -19846,7 +19846,7 @@ static void REGAL_CALL emu_glFramebufferTextureEXT(GLenum target, GLenum attachm
        default: {
            GTrace("glFramebufferTextureEXT(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureEXT(target, attachment, texture, level);
+           rCtx->dsp.curr->glFramebufferTextureEXT(target, attachment, texture, level);
            break;
        }
 
@@ -19887,7 +19887,7 @@ static void REGAL_CALL emu_glFramebufferTextureFaceEXT(GLenum target, GLenum att
        default: {
            GTrace("glFramebufferTextureFaceEXT(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ", ", toString(face), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
+           rCtx->dsp.curr->glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
            break;
        }
 
@@ -19944,7 +19944,7 @@ static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GL
        default: {
            GTrace("glDrawArraysInstancedEXT(", toString(mode), ", ", start, ", ", count, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawArraysInstancedEXT(mode, start, count, primcount);
+           rCtx->dsp.curr->glDrawArraysInstancedEXT(mode, start, count, primcount);
            break;
        }
 
@@ -19993,7 +19993,7 @@ static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count
        default: {
            GTrace("glDrawElementsInstancedEXT(", toString(mode), ", ", count, ", ", toString(type), ", ", indices, ", ", primcount, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
+           rCtx->dsp.curr->glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
            break;
        }
 
@@ -20036,7 +20036,7 @@ static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum at
        default: {
            GTrace("glFramebufferTextureLayerEXT(", toString(target), ", ", toString(attachment), ", ", texture, ", ", level, ", ", layer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
+           rCtx->dsp.curr->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
            break;
        }
 
@@ -20083,7 +20083,7 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum tar
        default: {
            GTrace("glRenderbufferStorageMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
+           rCtx->dsp.curr->glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
            break;
        }
 
@@ -20137,7 +20137,7 @@ static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
        default: {
            GTrace("glEnableIndexedEXT(", toString(target), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnableIndexedEXT(target, index);
+           rCtx->dsp.curr->glEnableIndexedEXT(target, index);
            break;
        }
 
@@ -20187,7 +20187,7 @@ static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
        default: {
            GTrace("glDisableIndexedEXT(", toString(target), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisableIndexedEXT(target, index);
+           rCtx->dsp.curr->glDisableIndexedEXT(target, index);
            break;
        }
 
@@ -20231,7 +20231,7 @@ static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint inde
        default: {
            GTrace("glIsEnabledIndexedEXT(", toString(target), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glIsEnabledIndexedEXT(target, index);
+           return rCtx->dsp.curr->glIsEnabledIndexedEXT(target, index);
        }
 
    }
@@ -20289,7 +20289,7 @@ static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
        default: {
            GTrace("glClientAttribDefaultEXT(", mask, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glClientAttribDefaultEXT(mask);
+           rCtx->dsp.curr->glClientAttribDefaultEXT(mask);
            break;
        }
 
@@ -20333,7 +20333,7 @@ static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
        default: {
            GTrace("glPushClientAttribDefaultEXT(", mask, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glPushClientAttribDefaultEXT(mask);
+           rCtx->dsp.curr->glPushClientAttribDefaultEXT(mask);
            break;
        }
 
@@ -20381,9 +20381,9 @@ static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
            }
        case 1 :
        default: {
-           GTrace("glMatrixLoadfEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixLoadfEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixLoadfEXT(mode, m);
+           rCtx->dsp.curr->glMatrixLoadfEXT(mode, m);
            break;
        }
 
@@ -20431,9 +20431,9 @@ static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
            }
        case 1 :
        default: {
-           GTrace("glMatrixLoaddEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixLoaddEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixLoaddEXT(mode, m);
+           rCtx->dsp.curr->glMatrixLoaddEXT(mode, m);
            break;
        }
 
@@ -20481,9 +20481,9 @@ static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
            }
        case 1 :
        default: {
-           GTrace("glMatrixMultfEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixMultfEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixMultfEXT(mode, m);
+           rCtx->dsp.curr->glMatrixMultfEXT(mode, m);
            break;
        }
 
@@ -20531,9 +20531,9 @@ static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
            }
        case 1 :
        default: {
-           GTrace("glMatrixMultdEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixMultdEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixMultdEXT(mode, m);
+           rCtx->dsp.curr->glMatrixMultdEXT(mode, m);
            break;
        }
 
@@ -20583,7 +20583,7 @@ static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
        default: {
            GTrace("glMatrixLoadIdentityEXT(", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixLoadIdentityEXT(mode);
+           rCtx->dsp.curr->glMatrixLoadIdentityEXT(mode);
            break;
        }
 
@@ -20633,7 +20633,7 @@ static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloa
        default: {
            GTrace("glMatrixRotatefEXT(", toString(mode), ", ", angle, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixRotatefEXT(mode, angle, x, y, z);
+           rCtx->dsp.curr->glMatrixRotatefEXT(mode, angle, x, y, z);
            break;
        }
 
@@ -20683,7 +20683,7 @@ static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdou
        default: {
            GTrace("glMatrixRotatedEXT(", toString(mode), ", ", angle, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixRotatedEXT(mode, angle, x, y, z);
+           rCtx->dsp.curr->glMatrixRotatedEXT(mode, angle, x, y, z);
            break;
        }
 
@@ -20733,7 +20733,7 @@ static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, 
        default: {
            GTrace("glMatrixScalefEXT(", toString(mode), ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixScalefEXT(mode, x, y, z);
+           rCtx->dsp.curr->glMatrixScalefEXT(mode, x, y, z);
            break;
        }
 
@@ -20783,7 +20783,7 @@ static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y
        default: {
            GTrace("glMatrixScaledEXT(", toString(mode), ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixScaledEXT(mode, x, y, z);
+           rCtx->dsp.curr->glMatrixScaledEXT(mode, x, y, z);
            break;
        }
 
@@ -20833,7 +20833,7 @@ static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat
        default: {
            GTrace("glMatrixTranslatefEXT(", toString(mode), ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixTranslatefEXT(mode, x, y, z);
+           rCtx->dsp.curr->glMatrixTranslatefEXT(mode, x, y, z);
            break;
        }
 
@@ -20883,7 +20883,7 @@ static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdoub
        default: {
            GTrace("glMatrixTranslatedEXT(", toString(mode), ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixTranslatedEXT(mode, x, y, z);
+           rCtx->dsp.curr->glMatrixTranslatedEXT(mode, x, y, z);
            break;
        }
 
@@ -20933,7 +20933,7 @@ static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdoub
        default: {
            GTrace("glMatrixFrustumEXT(", toString(mode), ", ", left, ", ", right, ", ", bottom, ", ", top, ", ", zNear, ", ", zFar, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
+           rCtx->dsp.curr->glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
            break;
        }
 
@@ -20983,7 +20983,7 @@ static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble
        default: {
            GTrace("glMatrixOrthoEXT(", toString(mode), ", ", left, ", ", right, ", ", bottom, ", ", top, ", ", zNear, ", ", zFar, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
+           rCtx->dsp.curr->glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
            break;
        }
 
@@ -21033,7 +21033,7 @@ static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
        default: {
            GTrace("glMatrixPopEXT(", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixPopEXT(mode);
+           rCtx->dsp.curr->glMatrixPopEXT(mode);
            break;
        }
 
@@ -21083,7 +21083,7 @@ static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
        default: {
            GTrace("glMatrixPushEXT(", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixPushEXT(mode);
+           rCtx->dsp.curr->glMatrixPushEXT(mode);
            break;
        }
 
@@ -21131,9 +21131,9 @@ static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat 
            }
        case 1 :
        default: {
-           GTrace("glMatrixLoadTransposefEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixLoadTransposefEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixLoadTransposefEXT(mode, m);
+           rCtx->dsp.curr->glMatrixLoadTransposefEXT(mode, m);
            break;
        }
 
@@ -21181,9 +21181,9 @@ static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble
            }
        case 1 :
        default: {
-           GTrace("glMatrixLoadTransposedEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixLoadTransposedEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixLoadTransposedEXT(mode, m);
+           rCtx->dsp.curr->glMatrixLoadTransposedEXT(mode, m);
            break;
        }
 
@@ -21231,9 +21231,9 @@ static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat 
            }
        case 1 :
        default: {
-           GTrace("glMatrixMultTransposefEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixMultTransposefEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixMultTransposefEXT(mode, m);
+           rCtx->dsp.curr->glMatrixMultTransposefEXT(mode, m);
            break;
        }
 
@@ -21281,9 +21281,9 @@ static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble
            }
        case 1 :
        default: {
-           GTrace("glMatrixMultTransposedEXT(", toString(mode), ", ", m, ")");
+           GTrace("glMatrixMultTransposedEXT(", toString(mode), ", ", boost::print::iterator(m,m+16), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMatrixMultTransposedEXT(mode, m);
+           rCtx->dsp.curr->glMatrixMultTransposedEXT(mode, m);
            break;
        }
 
@@ -21327,7 +21327,7 @@ static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target,
        default: {
            GTrace("glTextureParameterfEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureParameterfEXT(texture, target, pname, param);
+           rCtx->dsp.curr->glTextureParameterfEXT(texture, target, pname, param);
            break;
        }
 
@@ -21371,7 +21371,7 @@ static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target
        default: {
            GTrace("glTextureParameterfvEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureParameterfvEXT(texture, target, pname, param);
+           rCtx->dsp.curr->glTextureParameterfvEXT(texture, target, pname, param);
            break;
        }
 
@@ -21415,7 +21415,7 @@ static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target,
        default: {
            GTrace("glTextureParameteriEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureParameteriEXT(texture, target, pname, param);
+           rCtx->dsp.curr->glTextureParameteriEXT(texture, target, pname, param);
            break;
        }
 
@@ -21459,7 +21459,7 @@ static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target
        default: {
            GTrace("glTextureParameterivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureParameterivEXT(texture, target, pname, param);
+           rCtx->dsp.curr->glTextureParameterivEXT(texture, target, pname, param);
            break;
        }
 
@@ -21507,7 +21507,7 @@ static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GL
        default: {
            GTrace("glTextureImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
+           rCtx->dsp.curr->glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
            break;
        }
 
@@ -21555,7 +21555,7 @@ static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GL
        default: {
            GTrace("glTextureImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
+           rCtx->dsp.curr->glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
            break;
        }
 
@@ -21599,7 +21599,7 @@ static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target,
        default: {
            GTrace("glTextureSubImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", width, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
+           rCtx->dsp.curr->glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
            break;
        }
 
@@ -21643,7 +21643,7 @@ static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target,
        default: {
            GTrace("glTextureSubImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
+           rCtx->dsp.curr->glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
            break;
        }
 
@@ -21687,7 +21687,7 @@ static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target
        default: {
            GTrace("glCopyTextureImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", x, ", ", y, ", ", width, ", ", border, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
+           rCtx->dsp.curr->glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
            break;
        }
 
@@ -21731,7 +21731,7 @@ static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target
        default: {
            GTrace("glCopyTextureImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", x, ", ", y, ", ", width, ", ", height, ", ", border, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
+           rCtx->dsp.curr->glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
            break;
        }
 
@@ -21775,7 +21775,7 @@ static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum tar
        default: {
            GTrace("glCopyTextureSubImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", x, ", ", y, ", ", width, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
+           rCtx->dsp.curr->glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
            break;
        }
 
@@ -21819,7 +21819,7 @@ static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum tar
        default: {
            GTrace("glCopyTextureSubImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", x, ", ", y, ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
+           rCtx->dsp.curr->glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
            break;
        }
 
@@ -21863,7 +21863,7 @@ static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, G
        default: {
            GTrace("glGetTextureImageEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureImageEXT(texture, target, level, format, type, pixels);
+           rCtx->dsp.curr->glGetTextureImageEXT(texture, target, level, format, type, pixels);
            break;
        }
 
@@ -21907,7 +21907,7 @@ static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum tar
        default: {
            GTrace("glGetTextureParameterfvEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureParameterfvEXT(texture, target, pname, params);
+           rCtx->dsp.curr->glGetTextureParameterfvEXT(texture, target, pname, params);
            break;
        }
 
@@ -21951,7 +21951,7 @@ static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum tar
        default: {
            GTrace("glGetTextureParameterivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureParameterivEXT(texture, target, pname, params);
+           rCtx->dsp.curr->glGetTextureParameterivEXT(texture, target, pname, params);
            break;
        }
 
@@ -21995,7 +21995,7 @@ static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenu
        default: {
            GTrace("glGetTextureLevelParameterfvEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
+           rCtx->dsp.curr->glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
            break;
        }
 
@@ -22039,7 +22039,7 @@ static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenu
        default: {
            GTrace("glGetTextureLevelParameterivEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
+           rCtx->dsp.curr->glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
            break;
        }
 
@@ -22087,7 +22087,7 @@ static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GL
        default: {
            GTrace("glTextureImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
+           rCtx->dsp.curr->glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
            break;
        }
 
@@ -22131,7 +22131,7 @@ static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target,
        default: {
            GTrace("glTextureSubImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", zoffset, ", ", width, ", ", height, ", ", depth, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+           rCtx->dsp.curr->glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
            break;
        }
 
@@ -22175,7 +22175,7 @@ static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum tar
        default: {
            GTrace("glCopyTextureSubImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", zoffset, ", ", x, ", ", y, ", ", width, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
+           rCtx->dsp.curr->glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
            break;
        }
 
@@ -22219,7 +22219,7 @@ static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target
        default: {
            GTrace("glMultiTexParameterfEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexParameterfEXT(texunit, target, pname, param);
+           rCtx->dsp.curr->glMultiTexParameterfEXT(texunit, target, pname, param);
            break;
        }
 
@@ -22263,7 +22263,7 @@ static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum targe
        default: {
            GTrace("glMultiTexParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexParameterfvEXT(texunit, target, pname, param);
+           rCtx->dsp.curr->glMultiTexParameterfvEXT(texunit, target, pname, param);
            break;
        }
 
@@ -22307,7 +22307,7 @@ static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target
        default: {
            GTrace("glMultiTexParameteriEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexParameteriEXT(texunit, target, pname, param);
+           rCtx->dsp.curr->glMultiTexParameteriEXT(texunit, target, pname, param);
            break;
        }
 
@@ -22351,7 +22351,7 @@ static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum targe
        default: {
            GTrace("glMultiTexParameterivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexParameterivEXT(texunit, target, pname, param);
+           rCtx->dsp.curr->glMultiTexParameterivEXT(texunit, target, pname, param);
            break;
        }
 
@@ -22399,7 +22399,7 @@ static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, G
        default: {
            GTrace("glMultiTexImage1DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
+           rCtx->dsp.curr->glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
            break;
        }
 
@@ -22447,7 +22447,7 @@ static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, G
        default: {
            GTrace("glMultiTexImage2DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
+           rCtx->dsp.curr->glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
            break;
        }
 
@@ -22491,7 +22491,7 @@ static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target
        default: {
            GTrace("glMultiTexSubImage1DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", width, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
+           rCtx->dsp.curr->glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
            break;
        }
 
@@ -22535,7 +22535,7 @@ static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target
        default: {
            GTrace("glMultiTexSubImage2DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
+           rCtx->dsp.curr->glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
            break;
        }
 
@@ -22579,7 +22579,7 @@ static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum targe
        default: {
            GTrace("glCopyMultiTexImage1DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", x, ", ", y, ", ", width, ", ", border, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
+           rCtx->dsp.curr->glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
            break;
        }
 
@@ -22623,7 +22623,7 @@ static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum targe
        default: {
            GTrace("glCopyMultiTexImage2DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", x, ", ", y, ", ", width, ", ", height, ", ", border, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
+           rCtx->dsp.curr->glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
            break;
        }
 
@@ -22667,7 +22667,7 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum ta
        default: {
            GTrace("glCopyMultiTexSubImage1DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", x, ", ", y, ", ", width, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
+           rCtx->dsp.curr->glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
            break;
        }
 
@@ -22711,7 +22711,7 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum ta
        default: {
            GTrace("glCopyMultiTexSubImage2DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", x, ", ", y, ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
+           rCtx->dsp.curr->glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
            break;
        }
 
@@ -22755,7 +22755,7 @@ static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, 
        default: {
            GTrace("glGetMultiTexImageEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
+           rCtx->dsp.curr->glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
            break;
        }
 
@@ -22799,7 +22799,7 @@ static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum ta
        default: {
            GTrace("glGetMultiTexParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexParameterfvEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glGetMultiTexParameterfvEXT(texunit, target, pname, params);
            break;
        }
 
@@ -22843,7 +22843,7 @@ static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum ta
        default: {
            GTrace("glGetMultiTexParameterivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexParameterivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glGetMultiTexParameterivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -22887,7 +22887,7 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLen
        default: {
            GTrace("glGetMultiTexLevelParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
+           rCtx->dsp.curr->glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
            break;
        }
 
@@ -22931,7 +22931,7 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLen
        default: {
            GTrace("glGetMultiTexLevelParameterivEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
+           rCtx->dsp.curr->glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
            break;
        }
 
@@ -22979,7 +22979,7 @@ static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, G
        default: {
            GTrace("glMultiTexImage3DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
+           rCtx->dsp.curr->glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
            break;
        }
 
@@ -23023,7 +23023,7 @@ static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target
        default: {
            GTrace("glMultiTexSubImage3DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", zoffset, ", ", width, ", ", height, ", ", depth, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+           rCtx->dsp.curr->glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
            break;
        }
 
@@ -23067,7 +23067,7 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum ta
        default: {
            GTrace("glCopyMultiTexSubImage3DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", zoffset, ", ", x, ", ", y, ", ", width, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
+           rCtx->dsp.curr->glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
            break;
        }
 
@@ -23116,7 +23116,7 @@ static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, 
        default: {
            GTrace("glBindMultiTextureEXT(", toString(texunit), ", ", toString(target), ", ", texture, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glBindMultiTextureEXT(texunit, target, texture);
+           rCtx->dsp.curr->glBindMultiTextureEXT(texunit, target, texture);
            break;
        }
 
@@ -23160,7 +23160,7 @@ static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint in
        default: {
            GTrace("glEnableClientStateIndexedEXT(", toString(array), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glEnableClientStateIndexedEXT(array, index);
+           rCtx->dsp.curr->glEnableClientStateIndexedEXT(array, index);
            break;
        }
 
@@ -23204,7 +23204,7 @@ static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint i
        default: {
            GTrace("glDisableClientStateIndexedEXT(", toString(array), ", ", index, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glDisableClientStateIndexedEXT(array, index);
+           rCtx->dsp.curr->glDisableClientStateIndexedEXT(array, index);
            break;
        }
 
@@ -23248,7 +23248,7 @@ static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size,
        default: {
            GTrace("glMultiTexCoordPointerEXT(", toString(texunit), ", ", size, ", ", toString(type), ", ", stride, ", ", pointer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
+           rCtx->dsp.curr->glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
            break;
        }
 
@@ -23298,7 +23298,7 @@ static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLen
        default: {
            GTrace("glMultiTexEnvfEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexEnvfEXT(texunit, target, pname, param);
+           rCtx->dsp.curr->glMultiTexEnvfEXT(texunit, target, pname, param);
            break;
        }
 
@@ -23348,7 +23348,7 @@ static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLe
        default: {
            GTrace("glMultiTexEnvfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexEnvfvEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glMultiTexEnvfvEXT(texunit, target, pname, params);
            break;
        }
 
@@ -23398,7 +23398,7 @@ static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLen
        default: {
            GTrace("glMultiTexEnviEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexEnviEXT(texunit, target, pname, param);
+           rCtx->dsp.curr->glMultiTexEnviEXT(texunit, target, pname, param);
            break;
        }
 
@@ -23448,7 +23448,7 @@ static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLe
        default: {
            GTrace("glMultiTexEnvivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexEnvivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glMultiTexEnvivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -23492,7 +23492,7 @@ static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenu
        default: {
            GTrace("glMultiTexGendEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexGendEXT(texunit, coord, pname, param);
+           rCtx->dsp.curr->glMultiTexGendEXT(texunit, coord, pname, param);
            break;
        }
 
@@ -23536,7 +23536,7 @@ static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLen
        default: {
            GTrace("glMultiTexGendvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexGendvEXT(texunit, coord, pname, params);
+           rCtx->dsp.curr->glMultiTexGendvEXT(texunit, coord, pname, params);
            break;
        }
 
@@ -23580,7 +23580,7 @@ static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenu
        default: {
            GTrace("glMultiTexGenfEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexGenfEXT(texunit, coord, pname, param);
+           rCtx->dsp.curr->glMultiTexGenfEXT(texunit, coord, pname, param);
            break;
        }
 
@@ -23624,7 +23624,7 @@ static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLen
        default: {
            GTrace("glMultiTexGenfvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexGenfvEXT(texunit, coord, pname, params);
+           rCtx->dsp.curr->glMultiTexGenfvEXT(texunit, coord, pname, params);
            break;
        }
 
@@ -23668,7 +23668,7 @@ static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenu
        default: {
            GTrace("glMultiTexGeniEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", param, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexGeniEXT(texunit, coord, pname, param);
+           rCtx->dsp.curr->glMultiTexGeniEXT(texunit, coord, pname, param);
            break;
        }
 
@@ -23712,7 +23712,7 @@ static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLen
        default: {
            GTrace("glMultiTexGenivEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexGenivEXT(texunit, coord, pname, params);
+           rCtx->dsp.curr->glMultiTexGenivEXT(texunit, coord, pname, params);
            break;
        }
 
@@ -23756,7 +23756,7 @@ static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, 
        default: {
            GTrace("glGetMultiTexEnvfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexEnvfvEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glGetMultiTexEnvfvEXT(texunit, target, pname, params);
            break;
        }
 
@@ -23800,7 +23800,7 @@ static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, 
        default: {
            GTrace("glGetMultiTexEnvivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexEnvivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glGetMultiTexEnvivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -23853,7 +23853,7 @@ static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, G
        default: {
            GTrace("glGetMultiTexGendvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexGendvEXT(texunit, coord, pname, params);
+           rCtx->dsp.curr->glGetMultiTexGendvEXT(texunit, coord, pname, params);
            break;
        }
 
@@ -23906,7 +23906,7 @@ static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, G
        default: {
            GTrace("glGetMultiTexGenfvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexGenfvEXT(texunit, coord, pname, params);
+           rCtx->dsp.curr->glGetMultiTexGenfvEXT(texunit, coord, pname, params);
            break;
        }
 
@@ -23959,7 +23959,7 @@ static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, G
        default: {
            GTrace("glGetMultiTexGenivEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexGenivEXT(texunit, coord, pname, params);
+           rCtx->dsp.curr->glGetMultiTexGenivEXT(texunit, coord, pname, params);
            break;
        }
 
@@ -24004,7 +24004,7 @@ static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GL
        default: {
            GTrace("glGetFloatIndexedvEXT(", toString(target), ", ", index, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetFloatIndexedvEXT(target, index, data);
+           rCtx->dsp.curr->glGetFloatIndexedvEXT(target, index, data);
            break;
        }
 
@@ -24049,7 +24049,7 @@ static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, G
        default: {
            GTrace("glGetDoubleIndexedvEXT(", toString(target), ", ", index, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetDoubleIndexedvEXT(target, index, data);
+           rCtx->dsp.curr->glGetDoubleIndexedvEXT(target, index, data);
            break;
        }
 
@@ -24094,7 +24094,7 @@ static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, 
        default: {
            GTrace("glGetPointerIndexedvEXT(", toString(target), ", ", index, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetPointerIndexedvEXT(target, index, data);
+           rCtx->dsp.curr->glGetPointerIndexedvEXT(target, index, data);
            break;
        }
 
@@ -24138,7 +24138,7 @@ static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum 
        default: {
            GTrace("glCompressedTextureImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", imageSize, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
+           rCtx->dsp.curr->glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
            break;
        }
 
@@ -24182,7 +24182,7 @@ static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum 
        default: {
            GTrace("glCompressedTextureImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", border, ", ", imageSize, ", ", bits, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
+           rCtx->dsp.curr->glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
            break;
        }
 
@@ -24226,7 +24226,7 @@ static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum 
        default: {
            GTrace("glCompressedTextureImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", border, ", ", imageSize, ", ", bits, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
+           rCtx->dsp.curr->glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
            break;
        }
 
@@ -24270,7 +24270,7 @@ static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLen
        default: {
            GTrace("glCompressedTextureSubImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", zoffset, ", ", width, ", ", height, ", ", depth, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
+           rCtx->dsp.curr->glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
            break;
        }
 
@@ -24314,7 +24314,7 @@ static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLen
        default: {
            GTrace("glCompressedTextureSubImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", width, ", ", height, ", ", toString(format), ", ", imageSize, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
+           rCtx->dsp.curr->glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
            break;
        }
 
@@ -24358,7 +24358,7 @@ static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLen
        default: {
            GTrace("glCompressedTextureSubImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", xoffset, ", ", width, ", ", toString(format), ", ", imageSize, ", ", bits, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
+           rCtx->dsp.curr->glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
            break;
        }
 
@@ -24402,7 +24402,7 @@ static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum
        default: {
            GTrace("glGetCompressedTextureImageEXT(", texture, ", ", toString(target), ", ", lod, ", ", img, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetCompressedTextureImageEXT(texture, target, lod, img);
+           rCtx->dsp.curr->glGetCompressedTextureImageEXT(texture, target, lod, img);
            break;
        }
 
@@ -24446,7 +24446,7 @@ static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum
        default: {
            GTrace("glCompressedMultiTexImage3DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", imageSize, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
+           rCtx->dsp.curr->glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
            break;
        }
 
@@ -24490,7 +24490,7 @@ static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum
        default: {
            GTrace("glCompressedMultiTexImage2DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", border, ", ", imageSize, ", ", bits, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
+           rCtx->dsp.curr->glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
            break;
        }
 
@@ -24534,7 +24534,7 @@ static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum
        default: {
            GTrace("glCompressedMultiTexImage1DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", border, ", ", imageSize, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
+           rCtx->dsp.curr->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
            break;
        }
 
@@ -24578,7 +24578,7 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLe
        default: {
            GTrace("glCompressedMultiTexSubImage3DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", zoffset, ", ", width, ", ", height, ", ", depth, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+           rCtx->dsp.curr->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
            break;
        }
 
@@ -24622,7 +24622,7 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLe
        default: {
            GTrace("glCompressedMultiTexSubImage2DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", yoffset, ", ", width, ", ", height, ", ", toString(format), ", ", imageSize, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
+           rCtx->dsp.curr->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
            break;
        }
 
@@ -24666,7 +24666,7 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLe
        default: {
            GTrace("glCompressedMultiTexSubImage1DEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", xoffset, ", ", width, ", ", toString(format), ", ", imageSize, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
+           rCtx->dsp.curr->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
            break;
        }
 
@@ -24710,7 +24710,7 @@ static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenu
        default: {
            GTrace("glGetCompressedMultiTexImageEXT(", toString(texunit), ", ", toString(target), ", ", lod, ", ", img, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
+           rCtx->dsp.curr->glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
            break;
        }
 
@@ -24754,7 +24754,7 @@ static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target
        default: {
            GTrace("glNamedProgramStringEXT(", program, ", ", toString(target), ", ", toString(format), ", ", len, ", ", string, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramStringEXT(program, target, format, len, string);
+           rCtx->dsp.curr->glNamedProgramStringEXT(program, target, format, len, string);
            break;
        }
 
@@ -24798,7 +24798,7 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLe
        default: {
            GTrace("glNamedProgramLocalParameter4dEXT(", program, ", ", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
+           rCtx->dsp.curr->glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
            break;
        }
 
@@ -24840,9 +24840,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GL
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParameter4dvEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glNamedProgramLocalParameter4dvEXT(", program, ", ", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameter4dvEXT(program, target, index, params);
+           rCtx->dsp.curr->glNamedProgramLocalParameter4dvEXT(program, target, index, params);
            break;
        }
 
@@ -24886,7 +24886,7 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLe
        default: {
            GTrace("glNamedProgramLocalParameter4fEXT(", program, ", ", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
+           rCtx->dsp.curr->glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
            break;
        }
 
@@ -24928,9 +24928,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GL
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParameter4fvEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glNamedProgramLocalParameter4fvEXT(", program, ", ", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameter4fvEXT(program, target, index, params);
+           rCtx->dsp.curr->glNamedProgramLocalParameter4fvEXT(program, target, index, params);
            break;
        }
 
@@ -24974,7 +24974,7 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, 
        default: {
            GTrace("glGetNamedProgramLocalParameterdvEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
+           rCtx->dsp.curr->glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
            break;
        }
 
@@ -25018,7 +25018,7 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, 
        default: {
            GTrace("glGetNamedProgramLocalParameterfvEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
+           rCtx->dsp.curr->glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
            break;
        }
 
@@ -25062,7 +25062,7 @@ static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target,
        default: {
            GTrace("glGetNamedProgramivEXT(", program, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedProgramivEXT(program, target, pname, params);
+           rCtx->dsp.curr->glGetNamedProgramivEXT(program, target, pname, params);
            break;
        }
 
@@ -25106,7 +25106,7 @@ static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum tar
        default: {
            GTrace("glGetNamedProgramStringEXT(", program, ", ", toString(target), ", ", toString(pname), ", ", string, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedProgramStringEXT(program, target, pname, string);
+           rCtx->dsp.curr->glGetNamedProgramStringEXT(program, target, pname, string);
            break;
        }
 
@@ -25148,9 +25148,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParameters4fvEXT(", program, ", ", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glNamedProgramLocalParameters4fvEXT(", program, ", ", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
+           rCtx->dsp.curr->glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
            break;
        }
 
@@ -25194,7 +25194,7 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GL
        default: {
            GTrace("glNamedProgramLocalParameterI4iEXT(", program, ", ", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
+           rCtx->dsp.curr->glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
            break;
        }
 
@@ -25236,9 +25236,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, G
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParameterI4ivEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glNamedProgramLocalParameterI4ivEXT(", program, ", ", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
+           rCtx->dsp.curr->glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
            break;
        }
 
@@ -25280,9 +25280,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, 
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParametersI4ivEXT(", program, ", ", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glNamedProgramLocalParametersI4ivEXT(", program, ", ", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
+           rCtx->dsp.curr->glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
            break;
        }
 
@@ -25326,7 +25326,7 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, G
        default: {
            GTrace("glNamedProgramLocalParameterI4uiEXT(", program, ", ", toString(target), ", ", index, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
+           rCtx->dsp.curr->glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
            break;
        }
 
@@ -25368,9 +25368,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, 
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParameterI4uivEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
+           GTrace("glNamedProgramLocalParameterI4uivEXT(", program, ", ", toString(target), ", ", index, ", ", boost::print::iterator(params,params+4), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
+           rCtx->dsp.curr->glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
            break;
        }
 
@@ -25412,9 +25412,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program,
        case 2 :
        case 1 :
        default: {
-           GTrace("glNamedProgramLocalParametersI4uivEXT(", program, ", ", toString(target), ", ", index, ", ", count, ", ", params, ")");
+           GTrace("glNamedProgramLocalParametersI4uivEXT(", program, ", ", toString(target), ", ", index, ", ", count, ", ", boost::print::iterator(params,params+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
+           rCtx->dsp.curr->glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
            break;
        }
 
@@ -25458,7 +25458,7 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program,
        default: {
            GTrace("glGetNamedProgramLocalParameterIivEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
+           rCtx->dsp.curr->glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
            break;
        }
 
@@ -25502,7 +25502,7 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program
        default: {
            GTrace("glGetNamedProgramLocalParameterIuivEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
+           rCtx->dsp.curr->glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
            break;
        }
 
@@ -25546,7 +25546,7 @@ static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum targe
        default: {
            GTrace("glTextureParameterIivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureParameterIivEXT(texture, target, pname, params);
+           rCtx->dsp.curr->glTextureParameterIivEXT(texture, target, pname, params);
            break;
        }
 
@@ -25590,7 +25590,7 @@ static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum targ
        default: {
            GTrace("glTextureParameterIuivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureParameterIuivEXT(texture, target, pname, params);
+           rCtx->dsp.curr->glTextureParameterIuivEXT(texture, target, pname, params);
            break;
        }
 
@@ -25634,7 +25634,7 @@ static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum ta
        default: {
            GTrace("glGetTextureParameterIivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureParameterIivEXT(texture, target, pname, params);
+           rCtx->dsp.curr->glGetTextureParameterIivEXT(texture, target, pname, params);
            break;
        }
 
@@ -25678,7 +25678,7 @@ static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum t
        default: {
            GTrace("glGetTextureParameterIuivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetTextureParameterIuivEXT(texture, target, pname, params);
+           rCtx->dsp.curr->glGetTextureParameterIuivEXT(texture, target, pname, params);
            break;
        }
 
@@ -25722,7 +25722,7 @@ static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum targ
        default: {
            GTrace("glMultiTexParameterIivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexParameterIivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glMultiTexParameterIivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -25766,7 +25766,7 @@ static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum tar
        default: {
            GTrace("glMultiTexParameterIuivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexParameterIuivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glMultiTexParameterIuivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -25810,7 +25810,7 @@ static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum t
        default: {
            GTrace("glGetMultiTexParameterIivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexParameterIivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glGetMultiTexParameterIivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -25854,7 +25854,7 @@ static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum 
        default: {
            GTrace("glGetMultiTexParameterIuivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
+           rCtx->dsp.curr->glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
            break;
        }
 
@@ -25898,7 +25898,7 @@ static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform1fEXT(", program, ", ", location, ", ", v0, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1fEXT(program, location, v0);
+           rCtx->dsp.curr->glProgramUniform1fEXT(program, location, v0);
            break;
        }
 
@@ -25942,7 +25942,7 @@ static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform2fEXT(", program, ", ", location, ", ", v0, ", ", v1, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2fEXT(program, location, v0, v1);
+           rCtx->dsp.curr->glProgramUniform2fEXT(program, location, v0, v1);
            break;
        }
 
@@ -25986,7 +25986,7 @@ static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform3fEXT(", program, ", ", location, ", ", v0, ", ", v1, ", ", v2, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3fEXT(program, location, v0, v1, v2);
+           rCtx->dsp.curr->glProgramUniform3fEXT(program, location, v0, v1, v2);
            break;
        }
 
@@ -26030,7 +26030,7 @@ static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform4fEXT(", program, ", ", location, ", ", v0, ", ", v1, ", ", v2, ", ", v3, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
+           rCtx->dsp.curr->glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
            break;
        }
 
@@ -26074,7 +26074,7 @@ static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform1iEXT(", program, ", ", location, ", ", v0, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1iEXT(program, location, v0);
+           rCtx->dsp.curr->glProgramUniform1iEXT(program, location, v0);
            break;
        }
 
@@ -26118,7 +26118,7 @@ static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform2iEXT(", program, ", ", location, ", ", v0, ", ", v1, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2iEXT(program, location, v0, v1);
+           rCtx->dsp.curr->glProgramUniform2iEXT(program, location, v0, v1);
            break;
        }
 
@@ -26162,7 +26162,7 @@ static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform3iEXT(", program, ", ", location, ", ", v0, ", ", v1, ", ", v2, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3iEXT(program, location, v0, v1, v2);
+           rCtx->dsp.curr->glProgramUniform3iEXT(program, location, v0, v1, v2);
            break;
        }
 
@@ -26206,7 +26206,7 @@ static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform4iEXT(", program, ", ", location, ", ", v0, ", ", v1, ", ", v2, ", ", v3, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
+           rCtx->dsp.curr->glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
            break;
        }
 
@@ -26248,9 +26248,9 @@ static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform1fvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform1fvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1fvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform1fvEXT(program, location, count, value);
            break;
        }
 
@@ -26292,9 +26292,9 @@ static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform2fvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform2fvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 2)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2fvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform2fvEXT(program, location, count, value);
            break;
        }
 
@@ -26336,9 +26336,9 @@ static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform3fvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform3fvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 3)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3fvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform3fvEXT(program, location, count, value);
            break;
        }
 
@@ -26380,9 +26380,9 @@ static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform4fvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform4fvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4fvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform4fvEXT(program, location, count, value);
            break;
        }
 
@@ -26424,9 +26424,9 @@ static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform1ivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform1ivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1ivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform1ivEXT(program, location, count, value);
            break;
        }
 
@@ -26468,9 +26468,9 @@ static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform2ivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform2ivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 2)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2ivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform2ivEXT(program, location, count, value);
            break;
        }
 
@@ -26512,9 +26512,9 @@ static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform3ivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform3ivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 3)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3ivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform3ivEXT(program, location, count, value);
            break;
        }
 
@@ -26556,9 +26556,9 @@ static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform4ivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform4ivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4ivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform4ivEXT(program, location, count, value);
            break;
        }
 
@@ -26600,9 +26600,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint lo
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26644,9 +26644,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint lo
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 9)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26688,9 +26688,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint lo
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 16)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26732,9 +26732,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix2x3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix2x3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 6)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26776,9 +26776,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix3x2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix3x2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 6)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26820,9 +26820,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix2x4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix2x4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 8)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26864,9 +26864,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix4x2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix4x2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 8)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26908,9 +26908,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix3x4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix3x4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 12)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26952,9 +26952,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix4x3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix4x3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 12)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -26998,7 +26998,7 @@ static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location
        default: {
            GTrace("glProgramUniform1uiEXT(", program, ", ", location, ", ", v0, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1uiEXT(program, location, v0);
+           rCtx->dsp.curr->glProgramUniform1uiEXT(program, location, v0);
            break;
        }
 
@@ -27042,7 +27042,7 @@ static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location
        default: {
            GTrace("glProgramUniform2uiEXT(", program, ", ", location, ", ", v0, ", ", v1, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2uiEXT(program, location, v0, v1);
+           rCtx->dsp.curr->glProgramUniform2uiEXT(program, location, v0, v1);
            break;
        }
 
@@ -27086,7 +27086,7 @@ static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location
        default: {
            GTrace("glProgramUniform3uiEXT(", program, ", ", location, ", ", v0, ", ", v1, ", ", v2, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3uiEXT(program, location, v0, v1, v2);
+           rCtx->dsp.curr->glProgramUniform3uiEXT(program, location, v0, v1, v2);
            break;
        }
 
@@ -27130,7 +27130,7 @@ static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location
        default: {
            GTrace("glProgramUniform4uiEXT(", program, ", ", location, ", ", v0, ", ", v1, ", ", v2, ", ", v3, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
+           rCtx->dsp.curr->glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
            break;
        }
 
@@ -27172,9 +27172,9 @@ static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint locatio
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform1uivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform1uivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1uivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform1uivEXT(program, location, count, value);
            break;
        }
 
@@ -27216,9 +27216,9 @@ static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint locatio
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform2uivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform2uivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 2)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2uivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform2uivEXT(program, location, count, value);
            break;
        }
 
@@ -27260,9 +27260,9 @@ static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint locatio
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform3uivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform3uivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 3)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3uivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform3uivEXT(program, location, count, value);
            break;
        }
 
@@ -27304,9 +27304,9 @@ static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint locatio
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform4uivEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform4uivEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4uivEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform4uivEXT(program, location, count, value);
            break;
        }
 
@@ -27350,7 +27350,7 @@ static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, 
        default: {
            GTrace("glNamedBufferDataEXT(", buffer, ", ", size, ", ", data, ", ", toString(usage), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedBufferDataEXT(buffer, size, data, usage);
+           rCtx->dsp.curr->glNamedBufferDataEXT(buffer, size, data, usage);
            break;
        }
 
@@ -27394,7 +27394,7 @@ static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offse
        default: {
            GTrace("glNamedBufferSubDataEXT(", buffer, ", ", offset, ", ", size, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedBufferSubDataEXT(buffer, offset, size, data);
+           rCtx->dsp.curr->glNamedBufferSubDataEXT(buffer, offset, size, data);
            break;
        }
 
@@ -27437,7 +27437,7 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
        default: {
            GTrace("glMapNamedBufferEXT(", buffer, ", ", toString(access), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glMapNamedBufferEXT(buffer, access);
+           return rCtx->dsp.curr->glMapNamedBufferEXT(buffer, access);
        }
 
    }
@@ -27479,7 +27479,7 @@ static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
        default: {
            GTrace("glUnmapNamedBufferEXT(", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glUnmapNamedBufferEXT(buffer);
+           return rCtx->dsp.curr->glUnmapNamedBufferEXT(buffer);
        }
 
    }
@@ -27522,7 +27522,7 @@ static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum 
        default: {
            GTrace("glGetNamedBufferParameterivEXT(", buffer, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedBufferParameterivEXT(buffer, pname, params);
+           rCtx->dsp.curr->glGetNamedBufferParameterivEXT(buffer, pname, params);
            break;
        }
 
@@ -27566,7 +27566,7 @@ static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pna
        default: {
            GTrace("glGetNamedBufferPointervEXT(", buffer, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedBufferPointervEXT(buffer, pname, params);
+           rCtx->dsp.curr->glGetNamedBufferPointervEXT(buffer, pname, params);
            break;
        }
 
@@ -27610,7 +27610,7 @@ static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr of
        default: {
            GTrace("glGetNamedBufferSubDataEXT(", buffer, ", ", offset, ", ", size, ", ", data, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedBufferSubDataEXT(buffer, offset, size, data);
+           rCtx->dsp.curr->glGetNamedBufferSubDataEXT(buffer, offset, size, data);
            break;
        }
 
@@ -27654,7 +27654,7 @@ static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLe
        default: {
            GTrace("glTextureBufferEXT(", texture, ", ", toString(target), ", ", toString(internalformat), ", ", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureBufferEXT(texture, target, internalformat, buffer);
+           rCtx->dsp.curr->glTextureBufferEXT(texture, target, internalformat, buffer);
            break;
        }
 
@@ -27698,7 +27698,7 @@ static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GL
        default: {
            GTrace("glMultiTexBufferEXT(", toString(texunit), ", ", toString(target), ", ", toString(internalformat), ", ", buffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexBufferEXT(texunit, target, internalformat, buffer);
+           rCtx->dsp.curr->glMultiTexBufferEXT(texunit, target, internalformat, buffer);
            break;
        }
 
@@ -27742,7 +27742,7 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GL
        default: {
            GTrace("glNamedRenderbufferStorageEXT(", renderbuffer, ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
+           rCtx->dsp.curr->glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
            break;
        }
 
@@ -27786,7 +27786,7 @@ static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuf
        default: {
            GTrace("glGetNamedRenderbufferParameterivEXT(", renderbuffer, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
+           rCtx->dsp.curr->glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
            break;
        }
 
@@ -27829,7 +27829,7 @@ static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer
        default: {
            GTrace("glCheckNamedFramebufferStatusEXT(", framebuffer, ", ", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glCheckNamedFramebufferStatusEXT(framebuffer, target);
+           return rCtx->dsp.curr->glCheckNamedFramebufferStatusEXT(framebuffer, target);
        }
 
    }
@@ -27872,7 +27872,7 @@ static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GL
        default: {
            GTrace("glNamedFramebufferTexture1DEXT(", framebuffer, ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
+           rCtx->dsp.curr->glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
            break;
        }
 
@@ -27916,7 +27916,7 @@ static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GL
        default: {
            GTrace("glNamedFramebufferTexture2DEXT(", framebuffer, ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
+           rCtx->dsp.curr->glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
            break;
        }
 
@@ -27960,7 +27960,7 @@ static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GL
        default: {
            GTrace("glNamedFramebufferTexture3DEXT(", framebuffer, ", ", toString(attachment), ", ", toString(textarget), ", ", texture, ", ", level, ", ", zoffset, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
+           rCtx->dsp.curr->glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
            break;
        }
 
@@ -28004,7 +28004,7 @@ static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer,
        default: {
            GTrace("glNamedFramebufferRenderbufferEXT(", framebuffer, ", ", toString(attachment), ", ", toString(renderbuffertarget), ", ", renderbuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
+           rCtx->dsp.curr->glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
            break;
        }
 
@@ -28048,7 +28048,7 @@ static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint 
        default: {
            GTrace("glGetNamedFramebufferAttachmentParameterivEXT(", framebuffer, ", ", toString(attachment), ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
+           rCtx->dsp.curr->glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
            break;
        }
 
@@ -28092,7 +28092,7 @@ static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum tar
        default: {
            GTrace("glGenerateTextureMipmapEXT(", texture, ", ", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenerateTextureMipmapEXT(texture, target);
+           rCtx->dsp.curr->glGenerateTextureMipmapEXT(texture, target);
            break;
        }
 
@@ -28136,7 +28136,7 @@ static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum ta
        default: {
            GTrace("glGenerateMultiTexMipmapEXT(", toString(texunit), ", ", toString(target), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGenerateMultiTexMipmapEXT(texunit, target);
+           rCtx->dsp.curr->glGenerateMultiTexMipmapEXT(texunit, target);
            break;
        }
 
@@ -28180,7 +28180,7 @@ static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum
        default: {
            GTrace("glFramebufferDrawBufferEXT(", framebuffer, ", ", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferDrawBufferEXT(framebuffer, mode);
+           rCtx->dsp.curr->glFramebufferDrawBufferEXT(framebuffer, mode);
            break;
        }
 
@@ -28222,9 +28222,9 @@ static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsiz
        case 2 :
        case 1 :
        default: {
-           GTrace("glFramebufferDrawBuffersEXT(", framebuffer, ", ", n, ", ", bufs, ")");
+           GTrace("glFramebufferDrawBuffersEXT(", framebuffer, ", ", n, ", ", boost::print::iterator(bufs,bufs+(n)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
+           rCtx->dsp.curr->glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
            break;
        }
 
@@ -28268,7 +28268,7 @@ static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum
        default: {
            GTrace("glFramebufferReadBufferEXT(", framebuffer, ", ", toString(mode), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFramebufferReadBufferEXT(framebuffer, mode);
+           rCtx->dsp.curr->glFramebufferReadBufferEXT(framebuffer, mode);
            break;
        }
 
@@ -28312,7 +28312,7 @@ static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GL
        default: {
            GTrace("glGetFramebufferParameterivEXT(", framebuffer, ", ", toString(pname), ", ", params, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glGetFramebufferParameterivEXT(framebuffer, pname, params);
+           rCtx->dsp.curr->glGetFramebufferParameterivEXT(framebuffer, pname, params);
            break;
        }
 
@@ -28356,7 +28356,7 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint rende
        default: {
            GTrace("glNamedRenderbufferStorageMultisampleEXT(", renderbuffer, ", ", samples, ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
+           rCtx->dsp.curr->glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
            break;
        }
 
@@ -28400,7 +28400,7 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLui
        default: {
            GTrace("glNamedRenderbufferStorageMultisampleCoverageEXT(", renderbuffer, ", ", coverageSamples, ", ", colorSamples, ", ", toString(internalformat), ", ", width, ", ", height, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
+           rCtx->dsp.curr->glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
            break;
        }
 
@@ -28444,7 +28444,7 @@ static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLen
        default: {
            GTrace("glNamedFramebufferTextureEXT(", framebuffer, ", ", toString(attachment), ", ", texture, ", ", level, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
+           rCtx->dsp.curr->glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
            break;
        }
 
@@ -28488,7 +28488,7 @@ static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer,
        default: {
            GTrace("glNamedFramebufferTextureLayerEXT(", framebuffer, ", ", toString(attachment), ", ", texture, ", ", level, ", ", layer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
+           rCtx->dsp.curr->glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
            break;
        }
 
@@ -28532,7 +28532,7 @@ static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, 
        default: {
            GTrace("glNamedFramebufferTextureFaceEXT(", framebuffer, ", ", toString(attachment), ", ", texture, ", ", level, ", ", toString(face), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
+           rCtx->dsp.curr->glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
            break;
        }
 
@@ -28576,7 +28576,7 @@ static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum targe
        default: {
            GTrace("glTextureRenderbufferEXT(", texture, ", ", toString(target), ", ", renderbuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTextureRenderbufferEXT(texture, target, renderbuffer);
+           rCtx->dsp.curr->glTextureRenderbufferEXT(texture, target, renderbuffer);
            break;
        }
 
@@ -28620,7 +28620,7 @@ static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum targ
        default: {
            GTrace("glMultiTexRenderbufferEXT(", toString(texunit), ", ", toString(target), ", ", renderbuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
+           rCtx->dsp.curr->glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
            break;
        }
 
@@ -28663,7 +28663,7 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr o
        default: {
            GTrace("glMapNamedBufferRangeEXT(", buffer, ", ", offset, ", ", length, ", ", access, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glMapNamedBufferRangeEXT(buffer, offset, length, access);
+           return rCtx->dsp.curr->glMapNamedBufferRangeEXT(buffer, offset, length, access);
        }
 
    }
@@ -28706,7 +28706,7 @@ static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLint
        default: {
            GTrace("glFlushMappedNamedBufferRangeEXT(", buffer, ", ", offset, ", ", length, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
+           rCtx->dsp.curr->glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
            break;
        }
 
@@ -28750,7 +28750,7 @@ static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint
        default: {
            GTrace("glNamedCopyBufferSubDataEXT(", readBuffer, ", ", writeBuffer, ", ", readOffset, ", ", writeOffset, ", ", size, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
+           rCtx->dsp.curr->glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
            break;
        }
 
@@ -28794,7 +28794,7 @@ static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform1dEXT(", program, ", ", location, ", ", x, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1dEXT(program, location, x);
+           rCtx->dsp.curr->glProgramUniform1dEXT(program, location, x);
            break;
        }
 
@@ -28838,7 +28838,7 @@ static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform2dEXT(", program, ", ", location, ", ", x, ", ", y, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2dEXT(program, location, x, y);
+           rCtx->dsp.curr->glProgramUniform2dEXT(program, location, x, y);
            break;
        }
 
@@ -28882,7 +28882,7 @@ static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform3dEXT(", program, ", ", location, ", ", x, ", ", y, ", ", z, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3dEXT(program, location, x, y, z);
+           rCtx->dsp.curr->glProgramUniform3dEXT(program, location, x, y, z);
            break;
        }
 
@@ -28926,7 +28926,7 @@ static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location,
        default: {
            GTrace("glProgramUniform4dEXT(", program, ", ", location, ", ", x, ", ", y, ", ", z, ", ", w, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4dEXT(program, location, x, y, z, w);
+           rCtx->dsp.curr->glProgramUniform4dEXT(program, location, x, y, z, w);
            break;
        }
 
@@ -28968,9 +28968,9 @@ static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform1dvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform1dvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform1dvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform1dvEXT(program, location, count, value);
            break;
        }
 
@@ -29012,9 +29012,9 @@ static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform2dvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform2dvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 2)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform2dvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform2dvEXT(program, location, count, value);
            break;
        }
 
@@ -29056,9 +29056,9 @@ static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform3dvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform3dvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 3)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform3dvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform3dvEXT(program, location, count, value);
            break;
        }
 
@@ -29100,9 +29100,9 @@ static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniform4dvEXT(", program, ", ", location, ", ", count, ", ", value, ")");
+           GTrace("glProgramUniform4dvEXT(", program, ", ", location, ", ", count, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniform4dvEXT(program, location, count, value);
+           rCtx->dsp.curr->glProgramUniform4dvEXT(program, location, count, value);
            break;
        }
 
@@ -29144,9 +29144,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint lo
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 4)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29188,9 +29188,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint lo
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 9)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29232,9 +29232,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint lo
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 16)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29276,9 +29276,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix2x3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix2x3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 6)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29320,9 +29320,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix2x4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix2x4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 8)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29364,9 +29364,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix3x2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix3x2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 6)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29408,9 +29408,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix3x4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix3x4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 12)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29452,9 +29452,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix4x2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix4x2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 8)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29496,9 +29496,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint 
        case 2 :
        case 1 :
        default: {
-           GTrace("glProgramUniformMatrix4x3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", value, ")");
+           GTrace("glProgramUniformMatrix4x3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::iterator(value,value+(count * 12)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
+           rCtx->dsp.curr->glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
            break;
        }
 
@@ -29542,7 +29542,7 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
        default: {
            GTrace("glTexRenderbufferNV(", toString(target), ", ", renderbuffer, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexRenderbufferNV(target, renderbuffer);
+           rCtx->dsp.curr->glTexRenderbufferNV(target, renderbuffer);
            break;
        }
 
@@ -29625,7 +29625,7 @@ return rCtx->info->getExtension( ext ) ? GL_TRUE : GL_FALSE;
        default: {
            GTrace("glGetExtensionREGAL(", boost::print::quote(ext,'"'), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glGetExtensionREGAL(ext);
+           return rCtx->dsp.curr->glGetExtensionREGAL(ext);
        }
 
    }
@@ -29665,7 +29665,7 @@ return rCtx->info->isSupported( ext ) ? GL_TRUE : GL_FALSE;
        default: {
            GTrace("glIsSupportedREGAL(", boost::print::quote(ext,'"'), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           return rCtx->dsp.CurrTable()->glIsSupportedREGAL(ext);
+           return rCtx->dsp.curr->glIsSupportedREGAL(ext);
        }
 
    }
@@ -29717,7 +29717,7 @@ static void REGAL_CALL emu_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoi
        default: {
            GTrace("glMultiDrawArraysIndirectAMD(", toString(mode), ", ", indirect, ", ", primcount, ", ", stride, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
+           rCtx->dsp.curr->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
            break;
        }
 
@@ -29766,7 +29766,7 @@ static void REGAL_CALL emu_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum ty
        default: {
            GTrace("glMultiDrawElementsIndirectAMD(", toString(mode), ", ", toString(type), ", ", indirect, ", ", primcount, ", ", stride, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
+           rCtx->dsp.curr->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
            break;
        }
 
@@ -29831,7 +29831,7 @@ static void REGAL_CALL emu_glTexImage2DMultisampleCoverageNV(GLenum target, GLsi
        default: {
            GTrace("glTexImage2DMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", fixedSampleLocations, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
+           rCtx->dsp.curr->glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
            break;
        }
 
@@ -29872,7 +29872,7 @@ static void REGAL_CALL emu_glTexImage3DMultisampleCoverageNV(GLenum target, GLsi
        default: {
            GTrace("glTexImage3DMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", fixedSampleLocations, ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
+           rCtx->dsp.curr->glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
            break;
        }
 
@@ -29921,7 +29921,7 @@ static void REGAL_CALL emu_glInsertEventMarkerEXT(GLsizei length, const GLchar *
        default: {
            GTrace("glInsertEventMarkerEXT(", length, ", ", boost::print::quote(marker,'"'), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glInsertEventMarkerEXT(length, marker);
+           rCtx->dsp.curr->glInsertEventMarkerEXT(length, marker);
            break;
        }
 
@@ -29964,7 +29964,7 @@ static void REGAL_CALL emu_glPushGroupMarkerEXT(GLsizei length, const GLchar *ma
        default: {
            GTrace("glPushGroupMarkerEXT(", length, ", ", boost::print::quote(marker,'"'), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glPushGroupMarkerEXT(length, marker);
+           rCtx->dsp.curr->glPushGroupMarkerEXT(length, marker);
            break;
        }
 
@@ -30007,7 +30007,7 @@ static void REGAL_CALL emu_glPopGroupMarkerEXT(void)
        default: {
            GTrace("glPopGroupMarkerEXT()");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
-           rCtx->dsp.CurrTable()->glPopGroupMarkerEXT();
+           rCtx->dsp.curr->glPopGroupMarkerEXT();
            break;
        }
 

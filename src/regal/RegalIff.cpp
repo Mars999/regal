@@ -178,7 +178,7 @@ namespace {
         }
         if( st.fog.enable ) {
             src << "uniform vec4 rglFog[2];\n";
-            src << "out float rglFOG;\n";
+            src << "out vec4 rglFOG;\n";
             if(  st.fog.useDepth == false ) {
                 src << "in float rglFogCoord;\n";
             }
@@ -348,7 +348,8 @@ namespace {
                     src << "        float D = max( dot( l, n ), 0.0 );\n";
                     src << "        vec3 diffuse = D * rglLight" << i << "[" << LE_Diffuse << "].xyz * mFront[" << ME_Diffuse << "].xyz;\n";
                     src << "        vec3 h = normalize( l + e );\n";
-                    src << "        float S = D > 0.0 ? pow( dot( h, n ), mFront[" << ME_Shininess << "].x ) : 0.0;\n";
+                    src << "        float ss = max( dot( h, n ), 0.0 );\n";
+                    src << "        float S = ( D > 0.0 && ss > 0.0 ) ? pow( ss, mFront[" << ME_Shininess << "].x ) : 0.0;\n";
                     src << "        vec3 specular = S * rglLight" << i << "[" << LE_Specular << "].xyz * mFront[" << ME_Specular << "].xyz;\n";
                     string attenmul = "";
                     if( st.light[ i ].attenuate ) {
@@ -374,7 +375,8 @@ namespace {
                         src << "        ambient = rglLight" << i << "[" << LE_Ambient << "].xyz * mBack[" << ME_Ambient << "].xyz;\n";
                         src << "        D = max( dot( l, -n ), 0.0 );\n";
                         src << "        diffuse = D * rglLight" << i << "[" << LE_Diffuse << "].xyz * mBack[" << ME_Diffuse << "].xyz;\n";
-                        src << "        S = D > 0.0 ? pow( dot( h, -n ), mBack[" << ME_Shininess << "].x ) : 0.0;\n";
+                        src << "        ss = max( dot( h, -n ), 0.0 );\n";
+                        src << "        S = ( D > 0.0 && ss > 0.0 ) ? pow( ss, mBack[" << ME_Shininess << "].x ) : 0.0;\n";
                         src << "        specular = S * rglLight" << i << "[" << LE_Specular << "].xyz * mBack[" << ME_Specular << "].xyz;\n";
                         if( st.lightModelSeparateSpecular ) {
                             src << "        rglCOL1.xyz += " << attenmul << " ( ambient + diffuse );\n";
@@ -395,9 +397,9 @@ namespace {
 
         if( st.fog.enable ) {
             if( st.fog.useDepth ) {
-                src << "    rglFOG = -p.z / p.w;\n";
+                src << "    rglFOG = p;\n";
             } else {
-                src << "    rglFOG = rglFogCoord;\n";
+                src << "    rglFOG = vec4(0, 0, -rglFogCoord, 1);\n";
             }
         }
 
@@ -411,11 +413,15 @@ namespace {
             src << "    vec4 smTc = ComputeSphereMap( -e, n );\n";
         }
 
-        src << "    vec4 tc;\n";
+        bool tc_declared = false;
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
             const State::Texture & t = state.processed.tex[i];
             if( t.enables == 0 ) {
                 continue;
+            }
+            if ( !tc_declared ) {
+                src << "    vec4 tc;\n";
+                tc_declared = true;
             }
             src << "    tc = rglMultiTexCoord" << i << ";\n";
             const char *comp[] = { "x", "y", "z", "w" };
@@ -462,7 +468,6 @@ namespace {
             }
         }
         src << "}\n";
-        GTrace( "Vertex shader:\n", src.str() );
     }
 
 
@@ -472,60 +477,98 @@ namespace {
         switch( env ) {
             case RFF::TEM_Replace:
                 switch( fmt ) {
-                    case GL_ALPHA:           s << "    p.w = s.w;\n"; break;
+                    case GL_ALPHA:
+                        s << "    p.w = s.w;\n";
+                        break;
                     case GL_LUMINANCE:
-                    case GL_RGB:             s << "    p.xyz = s.xyz;\n"; break;
+                    case GL_RGB:
+                        s << "    p.xyz = s.xyz;\n";
+                        break;
                     case GL_LUMINANCE_ALPHA:
-                    case GL_RGBA:            s << "    p = s;\n"; break;
-                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                    case GL_RGBA:
+                        s << "    p = s;\n";
+                        break;
+                    default:
+                        s << "    //ERROR: Unsupported tex fmt\n";
+                        break;
                 }
                 break;
             case RFF::TEM_Modulate:
                 switch( fmt ) {
-                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
+                    case GL_ALPHA:
+                        s << "    p.w *= s.w;\n";
+                        break;
                     case GL_LUMINANCE:
-                    case GL_RGB:             s << "    p.xyz = p.xyz * s.xyz;\n"; break;
+                    case GL_RGB:
+                         s << "    p.xyz *= s.xyz;\n";
+                        break;
                     case GL_LUMINANCE_ALPHA:
-                    case GL_RGBA:            s << "    p = p * s;\n"; break;
-                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                    case GL_RGBA:
+                        s << "    p *= s;\n";
+                        break;
+                    default:
+                        s << "    //ERROR: Unsupported tex fmt\n";
+                        break;
                 }
                 break;
             case RFF::TEM_Blend:
                 switch( fmt ) {
-                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
+                    case GL_ALPHA:
+                        s << "    p.w *= s.w;\n";
+                        break;
                     case GL_LUMINANCE:
-                    case GL_RGB:             s << "    p.xyz *= (1.0 - s.xyz);\n";
-                                             s << "    p.xyz += (rglTexEnvColor" << i << ".xyz * s.xyz);\n"; break;
+                    case GL_RGB:
+                        s << "    p.xyz = mix( p.xyz, rglTexEnvColor" << i << ".xyz, s.xyz );\n";
+                        break;
                     case GL_LUMINANCE_ALPHA:
-                    case GL_RGBA:            s << "    p.xyz *= (1.0 - s.xyz);\n";
-                                             s << "    p.xyz += (rglTexEnvColor" << i << ".xyz * s.xyz);\n";
-                                             s << "    p.w *= s.w;\n"; break;
-                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                    case GL_RGBA:
+                        s << "    p.xyz = mix( p.xyz, rglTexEnvColor" << i << ".xyz, s.xyz );\n";
+                        s << "    p.w *= s.w;\n";
+                        break;
+                    default:
+                        s << "    //ERROR: Unsupported tex fmt\n"; break;
+                        break;
                 }
                 break;
             case RFF::TEM_Add:
                 switch( fmt ) {
-                    case GL_ALPHA:           s << "    p.w = p.w * s.w;\n"; break;
+                    case GL_ALPHA:
+                        s << "    p.w *= s.w;\n";
+                        break;
                     case GL_LUMINANCE:
-                    case GL_RGB:             s << "    p.xyz = p.xyz + s.xyz;\n"; break;
+                    case GL_RGB:
+                        s << "    p.xyz += s.xyz;\n";
+                        break;
                     case GL_LUMINANCE_ALPHA:
-                    case GL_RGBA:            s << "    p = p + s;\n"; break;
-                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                    case GL_RGBA:
+                        s << "    p.xyz += s.xyz;\n";
+                        s << "    p.w *= s.w;\n";
+                        break;
+                    default:
+                        s << "    //ERROR: Unsupported tex fmt\n";
+                        break;
                 }
                 break;
             case RFF::TEM_Decal:
                 switch( fmt ) {
                     case GL_ALPHA:
                     case GL_LUMINANCE:
-                    case GL_LUMINANCE_ALPHA: s << "    //ERROR: tex env mode undefined for this texture format\n"; break;
-                    case GL_RGB:             s << "    p.xyz = s.xyz;\n"; break;
-                    case GL_RGBA:            s << "    p.xyz = p.xyz * (1.0 - s.w);\n";
-                                             s << "    p.xyz += s.xyz * s.w;\n"; break;
-                    default:                 s << "    //ERROR: Unsupported tex fmt\n"; break;
+                    case GL_LUMINANCE_ALPHA:
+                        s << "    //ERROR: tex env mode undefined for this texture format\n";
+                        break;
+                    case GL_RGB:
+                        s << "    p.xyz = s.xyz;\n";
+                        break;
+                    case GL_RGBA:
+                        s << "    p.xyz = mix( p.xyz, s.xyz, s.w );\n";
+                        break;
+                    default:
+                        s << "    //ERROR: Unsupported tex fmt\n";
+                        break;
                 }
                 break;
             default:
-                s << "    //ERROR: Unsupported tex env mode\n"; break;
+                s << "    //ERROR: Unsupported tex env mode\n";
                 break;
         }
     }
@@ -813,7 +856,7 @@ namespace {
         }
         if( st.fog.enable ) {
             src << "uniform vec4 rglFog[2];\n";
-            src << "in float rglFOG;\n";
+            src << "in vec4 rglFOG;\n";
         }
         bool needsConstantColor = false;
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
@@ -842,7 +885,9 @@ namespace {
             }
         }
         if( st.alphaTest.enable ) {
-            src << "uniform float rglAlphaRef;\n";
+            if (st.alphaTest.comp != RFF::CF_Never && st.alphaTest.comp != RFF::CF_Always ) {
+                src << "uniform float rglAlphaRef;\n";
+            }
         }
         src << "void main() {\n";
 
@@ -858,12 +903,16 @@ namespace {
         } else {
             src << "    vec4 p = rglCOL0;\n";
         }
-        src << "    vec4 s = vec4(0.0f, 0.0f, 0.0f, 0.0f);\n";
+        bool s_declared = false;
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
             Texture t = state.processed.tex[ i ];
             RFF::TextureTargetBitfield b = state.GetTextureEnable( i );
             if( b == 0 ) {
                 continue;
+            }
+            if ( !s_declared ) {
+                src << "    vec4 s;\n";
+                s_declared = true;
             }
             switch( b ) {
                 case RFF::TT_1D: {
@@ -880,6 +929,7 @@ namespace {
                 }
                 default:
                     src << "// ERROR: Unsupported texture target\n";
+                    src << "    s = vec4( 0.0f, 0.0f, 0.0f, 0.0f );\n";
                     break;
             }
             switch( t.unit.env.mode ) {
@@ -911,14 +961,24 @@ namespace {
             src << "    rglFragColor.xyz += rglSCOL0.xyz;\n";
         }
         if( st.fog.enable ) {
+            src << "    float f = abs( -rglFOG.z / rglFOG.w );\n";
             switch( st.fog.mode ) {
-                case RFF::FG_Linear: src << "    float fogFactor = ( rglFog[0].z - rglFOG ) / ( rglFog[0].z - rglFog[0].y );\n"; break;
-                case RFF::FG_Exp: src << "    float fogFactor = exp( -rglFog[0].x * rglFOG );\n"; break;
-                case RFF::FG_Exp2: src << "    float fogFactor = exp( -( rglFog[0].x * rglFog[0].x * rglFOG * rglFOG ) );\n";
-                default:           src << "//ERROR: Unsupported fog mode\n"; break;
+                case RFF::FG_Linear:
+                    src << "    float fogFactor = ( rglFog[0].z - f ) / ( rglFog[0].z - rglFog[0].y );\n";
+                    break;
+                case RFF::FG_Exp:
+                    src << "    float fogFactor = exp( -( rglFog[0].x * f ) );\n";
+                    break;
+                case RFF::FG_Exp2:
+                    src << "    float fogFactor = exp( -( rglFog[0].x * rglFog[0].x * f * f ) );\n";
+                    break;
+                default:
+                    src << "//ERROR: Unsupported fog mode\n";
+                    src << "    float fogFactor = 0.0f;\n";
+                    break;
             }
             src << "    fogFactor = clamp( fogFactor, 0.0, 1.0 );\n";
-            src << "    rglFragColor = mix( rglFog[1], rglFragColor, fogFactor );\n";
+            src << "    rglFragColor.xyz = mix( rglFog[1].xyz, rglFragColor.xyz, fogFactor );\n";
         }
         if( st.alphaTest.enable ) {
             switch( st.alphaTest.comp ) {
@@ -935,7 +995,6 @@ namespace {
         }
 
         src << "}\n";
-        GTrace( "Fragment shader:\n", src.str() );
     }
 
     void Copy( RegalFloat4 & dst, const GLfloat * src ) {
@@ -1017,7 +1076,7 @@ bool State::SetEnable( RFF * ffn, bool enable, GLenum cap ) {
         case GL_CLIP_PLANE0+7:
             raw.ver = ver.Update();
             raw.clip[ cap - GL_CLIP_PLANE0 ].enable = enable;
-            return true;
+            return false;
         case GL_ALPHA_TEST: raw.ver = ver.Update(); raw.alphaTest.enable = enable; return true;
         default:
             return false;
@@ -1136,7 +1195,7 @@ void State::GetTexgen( RegalIff * ffn, int coord, GLenum space, GLfloat * params
 
 void State::SetAlphaFunc( RegalIff * ffn, RegalIff::CompareFunc comp, GLfloat alphaRef ) {
     raw.alphaTest.comp = comp;
-    raw.alphaTest.alphaRef = alphaRef;
+    raw.alphaTest.alphaRef = std::min( 1.0f, std::max( 0.0f, alphaRef ) );
     raw.alphaTest.ver = raw.ver = ffn->ver.Update();
 }
 
@@ -1150,8 +1209,6 @@ void State::SetClip( RegalIff * ffn, GLenum plane, const GLfloat * equation ) {
 }
 
 void Program::Init( RegalContext * ctx, const Store & sstore, const GLchar *vsSrc, const GLchar *fsSrc ) {
-    //<> Logging::Output( "vsSrc:\n%s\n", vsSrc );
-    //<> Logging::Output( "fsSrc:\n%s\n", fsSrc );
     ver = 0;
     progcount = 0;
     DispatchTable & tbl = ctx->dsp.emuTbl;
@@ -1523,7 +1580,12 @@ void RFF::State::Process( RegalIff * ffn ) {
         Texture & pt = p.tex[i];
         const Texture & rt= r.tex[i];
         // for processed state, only the highest priority texture enable set (others are dont-care)
-        pt.enables = HighestPriorityTextureEnable( rt.enables & rt.unit.ttb );
+        //<> dsn:
+        //<> but do we need to track and check against ttb?  If no texture was
+        //<> explicitly bound to a texture target then the default texture (which
+        //<> has the name 0) for that target will be used, right?
+        //<> pt.enables = HighestPriorityTextureEnable( rt.enables & rt.unit.ttb );
+        pt.enables = HighestPriorityTextureEnable( rt.enables );
         pt.unit = rt.unit;
         pt.useMatrix = pt.enables != 0 && ffn->texture[i].Top() != identity;
         if( pt.unit.env.mode != TEM_Combine ) {
@@ -1705,14 +1767,14 @@ void RFF::UpdateUniforms( RegalContext * ctx ) {
                 case FFU_Fog: {
                     if( ui.ver != p.fog.ver ) {
                         ui.ver = p.fog.ver;
-                        tbl.glUniform4fv( ui.slot, 2, &p.fog.params.x);
+                        tbl.glUniform4fv( ui.slot, 2, &p.fog.params[0].x);
                     }
                     break;
                 }
                 case FFU_AlphaRef: {
                     if( ui.ver != p.alphaTest.ver ) {
                         ui.ver = p.alphaTest.ver;
-                        tbl.glUniform1fv( ui.slot, 1, & p.alphaTest.alphaRef );
+                        tbl.glUniform1f( ui.slot, p.alphaTest.alphaRef );
                     }
                     break;
                 }

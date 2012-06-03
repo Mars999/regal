@@ -120,10 +120,32 @@ struct quote
   {
   }
 
-  quote<T,C> &operator=(const quote<T,C> &other) { _val = other._val; _q = other._q; }
-
   const T * const _val;
   C               _q;
+
+private:
+  quote();
+  quote<T,C> &operator=(const quote<T,C> &other);
+};
+
+// Iterator printing for containers
+
+template<typename T, typename U>
+struct iterator
+{
+  iterator(const T &begin, const T &end, const U &open, const U &close, const U &delim)
+  : _begin(begin), _end(end), _open(open), _close(close), _delim(delim) {}
+
+  const T &_begin;
+  const T &_end;
+
+  const U &_open;
+  const U &_close;
+  const U &_delim;
+
+private:
+  iterator();
+  iterator<T,U> &operator=(const iterator<T,U> &other);
 };
 
 // Determine the number of digits of an unsigned integer

@@ -37,6 +37,19 @@ template<typename T, typename C> detail::right<T,C>  right (const T &val, const 
 
 template<typename T, typename C> detail::quote<T,C>  quote (const T &val, const C q) { return detail::quote<T,C>(val,q); }
 
+template<typename T>
+detail::iterator<T,const char * const> iterator(const T &begin, const T &end)
+{
+  static const char * const open  = "[ ";
+  static const char * const close = "] ";
+  static const char * const delim = ", ";
+  return detail::iterator<T,const char * const>(begin,end,open,close,delim);
+}
+
+template<typename T,typename U>
+detail::iterator<T,U> iterator(const T &begin, const T &end, const U &open, const U &close, const U &delim)
+{ return detail::iterator<T,U>(begin,end,open,close,delim); }
+
 }}
 
 //
@@ -54,6 +67,7 @@ using boost::print::detail::hex;
 using boost::print::detail::left;
 using boost::print::detail::right;
 using boost::print::detail::quote;
+using boost::print::detail::iterator;
 
 using boost::print::detail::signed_length;
 using boost::print::detail::unsigned_length;
@@ -154,6 +168,25 @@ template<typename T, typename C> size_t length(const right<T,C> &val) { return s
 // Quoting
 
 template<typename T, typename C> size_t length(const quote<T,C> &val) { return length(*val._val) + 2*length(val._q); }
+
+// Iterator
+
+template<typename T, typename U> size_t length(const iterator<T,U> &val)
+{
+  size_t len = length(val._open) + length(val._close);
+  
+  if (val._begin!=val._end)
+  {
+    const size_t dl = length(val._delim);
+  
+    T i = val._begin;
+    len += length(*i);
+    for (++i; i!=val._end; ++i)
+      len += dl + length(*i);
+  }
+
+  return len;
+}
 
 // Write to a std::string (or similar) for various types
 
@@ -294,6 +327,26 @@ inline void write(Iterator &i, const quote<T,C> &val)
   write(i,val._q);
   write(i,*val._val);
   write(i,val._q);
+}
+
+// Iterator
+
+template<typename Iterator, typename T, typename U>
+inline void write(Iterator &i, const iterator<T,U> &val)
+{
+  write(i,val._open);
+  if (val._begin!=val._end)
+  {
+    T j = val._begin;
+    write(i,*j);
+  
+    for (++j; j!=val._end; ++j)
+    {
+      write(i,val._delim);
+      write(i,*j);
+    }
+  }
+  write(i,val._close);
 }
 
 // Convenience functions for the length of multiple items

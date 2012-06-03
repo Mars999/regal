@@ -767,7 +767,7 @@ ContextInfo::init(const RegalContext &context)
   if (vendor == "Qualcomm")
     maxVertexAttribs = 8;
 
-  if(getenv("REGAL_LOG_REGAL"))
+  if(RegalGetEnv("REGAL_LOG_REGAL"))
     Logging::enableRegal = Logging::enableOpenGL = true;
 }
 

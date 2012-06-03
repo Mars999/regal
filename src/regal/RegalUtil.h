@@ -130,7 +130,7 @@ inline void RegalAssertFunction( const char * file, int line, const char * expr,
     if( assertion ) {
         return;
     }
-    Error( "Regal Assertion Failed: ", file, line, expr );
+    Error( "Regal Assertion Failed: ", file, " ", line, ": ", expr );
 }
 
 struct RegalContext;
