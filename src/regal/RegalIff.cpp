@@ -61,7 +61,7 @@ namespace {
         LE_Diffuse = 1,
         LE_Specular = 2,
         LE_Position = 3,
-        LE_Spot = 4,
+        LE_SpotDir = 4,
         LE_Atten = 5,
         LE_Elements = 6
     };
@@ -98,7 +98,13 @@ namespace {
         bool hasReflectionMap = false;
         bool hasEyeLinearTexGen = false;
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
+            if( st.tex[i].enables == 0 ) {
+                continue;
+            }
             for( int j = 0; j < 4; j++ ) {
+                if( st.tex[i].texgen[j].enable == false ) {
+                    continue;
+                }
                 RFF::TexgenMode mode = st.tex[i].texgen[j].mode;
                 hasNormalMap = hasNormalMap || mode == RFF::TG_NormalMap;
                 hasSphereMap = hasSphereMap || mode == RFF::TG_SphereMap;
@@ -130,6 +136,24 @@ namespace {
         } else {
             src << "#define FLAT  \n";
         }
+        if( st.lighting ) {
+            src << "\n";
+            src << "#define ME_AMBIENT " << ME_Ambient << "\n";
+            src << "#define ME_DIFFUSE " << ME_Diffuse << "\n";
+            src << "#define ME_SPECULAR " << ME_Specular << "\n";
+            src << "#define ME_EMISSION " << ME_Emission << "\n";
+            src << "#define ME_SHININESS " << ME_Shininess << "\n";
+            src << "#define ME_ELEMENTS " << ME_Elements << "\n";
+            src << "\n";
+            src << "#define LE_AMBIENT " << LE_Ambient << "\n";
+            src << "#define LE_DIFFUSE " << LE_Diffuse << "\n";
+            src << "#define LE_SPECULAR " << LE_Specular << "\n";
+            src << "#define LE_POSITION " << LE_Position << "\n";
+            src << "#define LE_SPOTDIR " << LE_SpotDir << "\n";
+            src << "#define LE_ATTEN " << LE_Atten << "\n";
+            src << "#define LE_ELEMENTS " << LE_Elements << "\n";
+            src << "\n";
+        }
 
         if( es ) {
             src << "precision highp float;\n";
@@ -160,11 +184,13 @@ namespace {
         }
         if( st.lighting ) {
             src << "uniform vec4 rglLightModelAmbient;\n";
-            src << "uniform vec4 rglMaterialFront" << "[" << ME_Elements << "];\n";
-            src << "uniform vec4 rglMaterialBack" << "[" << ME_Elements << "];\n";
+            src << "uniform vec4 rglMaterialFront" << "[ ME_ELEMENTS ];\n";
+            if( st.lightModelTwoSide ) {
+                src << "uniform vec4 rglMaterialBack" << "[ ME_ELEMENTS ];\n";
+            }
             for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_LIGHTS; i++ ) {
                 if( st.light[ i ].enable ) {
-                    src << "uniform vec4 rglLight" << i << "[" << LE_Elements << "];\n";
+                    src << "uniform vec4 rglLight" << i << "[ LE_ELEMENTS ];\n";
                 }
             }
         }
@@ -173,7 +199,7 @@ namespace {
         } else {
             src << "#define rglColor rglAttrib[" << rff->ffAttrMap[ RFF2A_Color ] << "]\n";
         }
-        if( st.colorSum || st.lighting == false ) {
+        if( st.colorSum && st.lighting == false ) {
             src << "in vec4 rglSecondaryColor;\n";
         }
         if( st.fog.enable ) {
@@ -189,10 +215,10 @@ namespace {
             }
             src << "in vec4 rglMultiTexCoord" << i << ";\n";
         }
-        src << "FLAT out vec4 rglCOL0;\n";
+        src << "FLAT out vec4 rglFrontColor;\n";
         if( st.lighting ) {
             if( st.lightModelTwoSide ) {
-                src << "FLAT out vec4 rglCOL1;\n";
+                src << "FLAT out vec4 rglBackColor;\n";
             }
             if( st.lightModelSeparateSpecular ) {
                 src << "out vec4 rglSCOL0;\n";
@@ -253,49 +279,52 @@ namespace {
 
         src << "void main() {\n";
         src << "    gl_Position = rglProjection * rglModelview * rglVertex;\n";
-        if( st.lighting || hasNormalMap || hasReflectionMap || hasEyeLinearTexGen || hasClipPlanes || ( st.fog.enable && st.fog.useDepth ) ) {
-            src << "    vec4 p = rglModelview * rglVertex;\n";
+        if( st.lighting || hasEyeLinearTexGen || hasClipPlanes || ( st.fog.enable && st.fog.useDepth ) ) {
+            src << "    vec4 eh = rglModelview * rglVertex;\n";
         }
 
         if( st.lighting || hasNormalMap || hasReflectionMap ) {
-            if( st.lightModelLocalViewer ) {
-                src << "    vec3 e = -normalize( p.xyz );\n";
-            } else {
-                src << "    vec3 e = vec3( 0, 0, 1 );\n";
-            }
-            src << "    vec3 n = mat3( rglModelviewInverseTranspose ) * rglNormal;\n";
+            src << "    vec4 ep = eh / eh.w;\n";
+            src << "    vec3 ev = -normalize( ep.xyz );\n";
+            src << "    vec3 en = mat3( rglModelviewInverseTranspose ) * rglNormal;\n";
             if( st.normalize ) {
-                src << "    n = normalize( n );\n";
+                src << "    en = normalize( en );\n";
             }
         }
         if( st.lighting ) {
-            src << "    vec4 mFront[" << ME_Elements << "];\n";
+            src << "    vec4 mFront[ ME_ELEMENTS ];\n";
+            src << "    mFront[ ME_AMBIENT   ] = rglMaterialFront[ ME_AMBIENT   ];\n";
+            src << "    mFront[ ME_DIFFUSE   ] = rglMaterialFront[ ME_DIFFUSE   ];\n";
+            src << "    mFront[ ME_SPECULAR  ] = rglMaterialFront[ ME_SPECULAR  ];\n";
+            src << "    mFront[ ME_EMISSION  ] = rglMaterialFront[ ME_EMISSION  ];\n";
+            src << "    mFront[ ME_SHININESS ] = rglMaterialFront[ ME_SHININESS ];\n";
             if( st.lightModelTwoSide ) {
-                src << "    vec4 mBack[" << ME_Elements << "];\n";
-            }
-            for( int i = 0; i < ME_Elements; i++ ) {
-                src << "    mFront[" << i << "] = rglMaterialFront[" << i << "];\n";
-                if( st.lightModelTwoSide ) {
-                    src << "    mBack[" << i << "] = rglMaterialBack[" << i << "];\n";
-                }
+                src << "    vec4 mBack [ ME_ELEMENTS ];\n";
+                src << "    mBack [ ME_AMBIENT   ] = rglMaterialBack [ ME_AMBIENT   ];\n";
+                src << "    mBack [ ME_DIFFUSE   ] = rglMaterialBack [ ME_DIFFUSE   ];\n";
+                src << "    mBack [ ME_SPECULAR  ] = rglMaterialBack [ ME_SPECULAR  ];\n";
+                src << "    mBack [ ME_EMISSION  ] = rglMaterialBack [ ME_EMISSION  ];\n";
+                src << "    mBack [ ME_SHININESS ] = rglMaterialBack [ ME_SHININESS ];\n";
             }
             if( st.colorMaterial ) {
                 switch( st.colorMaterialTarget[0] ) {
+                    case RFF::CM_None:
+                        break;
                     case RFF::CM_Ambient:
-                        src << "    mFront[" << ME_Ambient << "] = rglColor;\n";
+                        src << "    mFront[ ME_AMBIENT ] = rglColor;\n";
                         break;
                     case RFF::CM_Diffuse:
-                        src << "    mFront[" << ME_Diffuse << "] = rglColor;\n";
+                        src << "    mFront[ ME_DIFFUSE ] = rglColor;\n";
                         break;
                     case RFF::CM_Specular:
-                        src << "    mFront[" << ME_Specular << "] = rglColor;\n";
+                        src << "    mFront[ ME_SPECULAR ] = rglColor;\n";
                         break;
                     case RFF::CM_Emission:
-                        src << "    mFront[" << ME_Emission << "] = rglColor;\n";
+                        src << "    mFront[ ME_EMISSION ] = rglColor;\n";
                         break;
                     case RFF::CM_AmbientAndDiffuse:
-                        src << "    mFront[" << ME_Ambient << "] = rglColor;\n";
-                        src << "    mFront[" << ME_Diffuse << "] = rglColor;\n";
+                        src << "    mFront[ ME_AMBIENT ] = rglColor;\n";
+                        src << "    mFront[ ME_DIFFUSE ] = rglColor;\n";
                         break;
                     default:
                         src << "//ERROR: unsupported color material[0] target\n";
@@ -303,21 +332,23 @@ namespace {
                 }
                 if( st.lightModelTwoSide ) {
                     switch( st.colorMaterialTarget[1] ) {
+                        case RFF::CM_None:
+                            break;
                         case RFF::CM_Ambient:
-                            src << "    mBack[" << ME_Ambient << "] = rglColor;\n";
+                            src << "    mBack[ ME_AMBIENT ] = rglColor;\n";
                             break;
                         case RFF::CM_Diffuse:
-                            src << "    mBack[" << ME_Diffuse << "] = rglColor;\n";
+                            src << "    mBack[ ME_DIFFUSE ] = rglColor;\n";
                             break;
                         case RFF::CM_Specular:
-                            src << "    mBack[" << ME_Specular << "] = rglColor;\n";
+                            src << "    mBack[ ME_SPECULAR ] = rglColor;\n";
                             break;
                         case RFF::CM_Emission:
-                            src << "    mBack[" << ME_Emission << "] = rglColor;\n";
+                            src << "    mBack[ ME_EMISSION ] = rglColor;\n";
                             break;
                         case RFF::CM_AmbientAndDiffuse:
-                            src << "    mBack[" << ME_Ambient << "] = rglColor;\n";
-                            src << "    mBack[" << ME_Diffuse << "] = rglColor;\n";
+                            src << "    mBack[ ME_AMBIENT ] = rglColor;\n";
+                            src << "    mBack[ ME_DIFFUSE ] = rglColor;\n";
                             break;
                         default:
                             src << "//ERROR: unsupported color material[1] target\n";
@@ -325,16 +356,16 @@ namespace {
                     }
                 }
             }
-            src << "    rglCOL0.xyz = rglLightModelAmbient.xyz * mFront[" << ME_Ambient << "].xyz;\n";
-            src << "    rglCOL0.w = mFront[" << ME_Diffuse << "].w;\n";
-            src << "    rglCOL0 += mFront[" << ME_Emission << "];\n";
+            src << "    rglFrontColor.xyz = mFront[ ME_EMISSION ].xyz;\n";
+            src << "    rglFrontColor.w = mFront[ ME_DIFFUSE ].w;\n";
+            src << "    rglFrontColor.xyz += rglLightModelAmbient.xyz * mFront[ ME_AMBIENT ].xyz;\n";
             if( st.lightModelSeparateSpecular ) {
                 src << "    rglSCOL0 = vec4( 0, 0, 0, 0);\n";
             }
             if( st.lightModelTwoSide ) {
-                src << "    rglCOL1.xyz = rglLightModelAmbient.xyz * mBack[" << ME_Ambient << "].xyz;\n";
-                src << "    rglCOL1.w = mBack[" << ME_Diffuse << "].w;\n";
-                src << "    rglCOL1 += mBack[" << ME_Emission << "];\n";
+                src << "    rglBackColor.xyz = mBack[ ME_EMISSION ].xyz;\n";
+                src << "    rglBackColor.w = mBack[ ME_DIFFUSE ].w;\n";
+                src << "    rglBackColor.xyz += rglLightModelAmbient.xyz * mBack[ ME_AMBIENT ].xyz;\n";
                 if( st.lightModelSeparateSpecular ) {
                     src << "    rglSCOL1 = vec4( 0, 0, 0, 0);\n";
                 }
@@ -342,75 +373,101 @@ namespace {
             for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_LIGHTS; i++ ) {
                 if( st.light[ i ].enable ) {
                     src << "    {\n";
-                    src << "        vec3 ambient = rglLight" << i << "[" << LE_Ambient << "].xyz * mFront[" << ME_Ambient << "].xyz;\n";
-                    src << "        vec4 lpos = rglLight" << i << "[" << LE_Position << "];\n";
-                    src << "        vec3 l = normalize( ( lpos.xyz * p.w ) - ( p.xyz * lpos.w ) );\n";
-                    src << "        float D = max( dot( l, n ), 0.0 );\n";
-                    src << "        vec3 diffuse = D * rglLight" << i << "[" << LE_Diffuse << "].xyz * mFront[" << ME_Diffuse << "].xyz;\n";
-                    src << "        vec3 h = normalize( l + e );\n";
-                    src << "        float ss = max( dot( h, n ), 0.0 );\n";
-                    src << "        float S = ( D > 0.0 && ss > 0.0 ) ? pow( ss, mFront[" << ME_Shininess << "].x ) : 0.0;\n";
-                    src << "        vec3 specular = S * rglLight" << i << "[" << LE_Specular << "].xyz * mFront[" << ME_Specular << "].xyz;\n";
                     string attenmul = "";
-                    if( st.light[ i ].attenuate ) {
-                        src << "        float d = length( p.xyz / p.w  - lpos.xyz / lpos.w );\n";
-                        src << "        vec3 dist = vec3( 1.0, d, d * d );\n";
-                        src << "        float atten = 1.0 / dot( dist, rglLight" << i << "[" << LE_Atten << "].xyz );\n";
-                        attenmul = "atten *";
+                    src << "        vec4 lvec = rglLight" << i << "[ LE_POSITION ];\n";
+                    if( st.light[ i ].attenuate || st.light[ i ].spotlight ) {
+                        src << "        float att = 1.0;\n";
+                        attenmul = "att *";
+                    }
+                    if( st.light[ i ].position.w != 0.0 ) {
+                        src << "        lvec.xyz -= ep.xyz;\n";
+                        src << "        float ad = sqrt( dot( lvec.xyz, lvec.xyz ) );\n";
+                        src << "        lvec.xyz /= ad;\n";
+                    }
+                    if( st.lightModelLocalViewer ) {
+                        src << "        vec3 hvec = normalize( lvec.xyz + ev );\n";
+                    } else {
+                        src << "        vec3 hvec = normalize( lvec.xyz + vec3( 0, 0, 1 ) );\n";
+                    }
+                    src << "        vec3 ambient = rglLight" << i << "[ LE_AMBIENT ].xyz * mFront[ ME_AMBIENT ].xyz;\n";
+                    src << "        float dc = max( dot( en, lvec.xyz ), 0.0 );\n";
+                    src << "        float sc = max( dot( en, hvec ), 0.0 );\n";
+                    src << "        vec3 diffuse = dc * rglLight" << i << "[ LE_DIFFUSE ].xyz * mFront[ ME_DIFFUSE ].xyz;\n";
+                    src << "        sc = ( dc > 0.0 && sc > 0.0 ) ? exp( mFront[ ME_SHININESS ].x * log( sc ) ) : 0.0;\n";
+                    src << "        vec3 specular = sc * rglLight" << i << "[ LE_SPECULAR ].xyz * mFront[ ME_SPECULAR ].xyz;\n";
+                    if( st.light[ i ].attenuate && st.light[ i ].position.w != 0.0 ) {
+                        src << "        vec3 dist = vec3( 1.0, ad, ad * ad );\n";
+                        src << "        att = 1.0 / dot( dist, rglLight" << i << "[ LE_ATTEN ].xyz );\n";
                     }
                     if( st.light[ i ].spotlight ) {
-                        src << "        float sc = dot( -l, rglLight" << i << "[" << LE_Spot << "].xyz );\n";
-                        src << "        bool incone =  sc > cos( rglLight" << i << "[" << LE_Spot << "].w );\n";
-                        src << "        float spot = incone ? pow( max( sc, 0.0 ), rglLight" << i << "[" << LE_Atten << "].w ) : 0.0;\n";
-                        attenmul += " spot *";
+                        src << "        float spcut = rglLight" << i << "[ LE_SPOTDIR ].w;\n";
+                        src << "        float sd = dot( rglLight" << i << "[ LE_SPOTDIR ].xyz, lvec.xyz );\n";
+                        src << "        att *= ( sd > spcut ) ? exp( rglLight" << i << "[ LE_ATTEN ].w * log( sd ) ) : 0.0;\n";
                     }
 
                     if( st.lightModelSeparateSpecular ) {
-                        src << "        rglCOL0.xyz += " << attenmul << " ( ambient + diffuse );\n";
+                        src << "        rglFrontColor.xyz += " << attenmul << " ( ambient + diffuse );\n";
                         src << "        rglSCOL0.xyz += " << attenmul << " specular;\n";
                     } else {
-                        src << "        rglCOL0.xyz += " << attenmul << " ( ambient + diffuse + specular );\n";
+                        src << "        rglFrontColor.xyz += " << attenmul << " ( ambient + diffuse + specular );\n";
                     }
                     if( st.lightModelTwoSide ) {
-                        src << "        ambient = rglLight" << i << "[" << LE_Ambient << "].xyz * mBack[" << ME_Ambient << "].xyz;\n";
-                        src << "        D = max( dot( l, -n ), 0.0 );\n";
-                        src << "        diffuse = D * rglLight" << i << "[" << LE_Diffuse << "].xyz * mBack[" << ME_Diffuse << "].xyz;\n";
-                        src << "        ss = max( dot( h, -n ), 0.0 );\n";
-                        src << "        S = ( D > 0.0 && ss > 0.0 ) ? pow( ss, mBack[" << ME_Shininess << "].x ) : 0.0;\n";
-                        src << "        specular = S * rglLight" << i << "[" << LE_Specular << "].xyz * mBack[" << ME_Specular << "].xyz;\n";
+                        src << "        ambient = rglLight" << i << "[ LE_AMBIENT ].xyz * mBack[ ME_AMBIENT ].xyz;\n";
+                        src << "        dc = max( dot( -en, lvec.xyz ), 0.0 );\n";
+                        src << "        sc = max( dot( -en, hvec ), 0.0 );\n";
+                        src << "        diffuse = dc * rglLight" << i << "[ LE_DIFFUSE ].xyz * mBack[ ME_DIFFUSE ].xyz;\n";
+                        src << "        sc = ( dc > 0.0 && sc > 0.0 ) ? exp( mBack[ ME_SHININESS ].x * log( sc ) ) : 0.0;\n";
+                        src << "        specular = sc * rglLight" << i << "[ LE_SPECULAR ].xyz * mBack[ ME_SPECULAR ].xyz;\n";
                         if( st.lightModelSeparateSpecular ) {
-                            src << "        rglCOL1.xyz += " << attenmul << " ( ambient + diffuse );\n";
+                            src << "        rglBackColor.xyz += " << attenmul << " ( ambient + diffuse );\n";
                             src << "        rglSCOL1.xyz += " << attenmul << " specular;\n";
                         } else {
-                            src << "        rglCOL1.xyz += " << attenmul << " ( ambient + diffuse + specular );\n";
+                            src << "        rglBackColor.xyz += " << attenmul << " ( ambient + diffuse + specular );\n";
                         }
                     }
                     src << "    }\n";
                 }
             }
         } else {
-            src << "    rglCOL0 = rglColor;\n";
+            src << "    rglFrontColor = rglColor;\n";
             if( st.colorSum ) {
                 src << "    rglSCOL0 = rglSecondaryColor;\n";
             }
         }
 
+        // clamp all the output colors to (0.0, 1.0)
+
+        src << "    rglFrontColor = clamp( rglFrontColor, 0.0, 1.0 );\n";
+        if( st.lighting ) {
+            if( st.lightModelTwoSide ) {
+                src << "    rglBackColor = clamp( rglBackColor, 0.0, 1.0 );\n";
+            }
+            if( st.lightModelSeparateSpecular ) {
+                src << "    rglSCOL0 = clamp( rglSCOL0, 0.0, 1.0 );\n";
+                if( st.lightModelTwoSide ) {
+                    src << "    rglSCOL1 = clamp( rglSCOL1, 0.0, 1.0 );\n";
+                }
+            }
+        } else if( st.colorSum ) {
+            src << "    rglSCOL0 = clamp( rglSCOL0, 0.0, 1.0 );\n";
+        }
+
         if( st.fog.enable ) {
             if( st.fog.useDepth ) {
-                src << "    rglFOG = p;\n";
+                src << "    rglFOG = eh;\n";
             } else {
                 src << "    rglFOG = vec4(0, 0, -rglFogCoord, 1);\n";
             }
         }
 
         if( hasNormalMap ) {
-            src << "    vec4 nmTc = ComputeNormalMap( n );\n";
+            src << "    vec4 nmTc = ComputeNormalMap( en );\n";
         }
         if( hasReflectionMap ) {
-            src << "    vec4 rmTc = ComputeReflectionMap( -e, n );\n";
+            src << "    vec4 rmTc = ComputeReflectionMap( -ev, en );\n";
         }
         if( hasSphereMap ) {
-            src << "    vec4 smTc = ComputeSphereMap( -e, n );\n";
+            src << "    vec4 smTc = ComputeSphereMap( -ev, en );\n";
         }
 
         bool tc_declared = false;
@@ -435,7 +492,7 @@ namespace {
                         src << "    tc." << comp[j] << " = dot( rglTexGen" << i << "Obj" << tc[j] << ", rglVertex );\n";
                         break;
                     case RFF::TG_EyeLinear:
-                        src << "    tc." << comp[j] << " = dot( rglTexGen" << i << "Eye" << tc[j] << ", p );\n";
+                        src << "    tc." << comp[j] << " = dot( rglTexGen" << i << "Eye" << tc[j] << ", eh );\n";
                         break;
                     case RFF::TG_NormalMap:
                         src << "    tc." << comp[j] << " = nmTc." << comp[j] << ";\n";
@@ -464,7 +521,7 @@ namespace {
                 } else {
                     src << "    gl_ClipDistance[" << i << "]";
                 }
-                src << " = dot( p, rglClipPlane" << i << " );\n";
+                src << " = dot( eh, rglClipPlane" << i << " );\n";
             }
         }
         src << "}\n";
@@ -621,7 +678,7 @@ namespace {
             string source;
             switch( env.rgb.src[i] ) {
                 case RFF::TCS_PrimaryColor:
-                    source = "rglCOL0";
+                    source = "rglFrontColor";
                     break;
                 case RFF::TCS_Constant:
                     source = "rglConstantColor";
@@ -696,7 +753,7 @@ namespace {
                 string source;
                 switch( env.a.src[i] ) {
                     case RFF::TCS_PrimaryColor:
-                        source = "rglCOL0";
+                        source = "rglFrontColor";
                         break;
                     case RFF::TCS_Constant:
                             source = "rglConstantColor";
@@ -836,14 +893,13 @@ namespace {
         } else {
             src << "#define FLAT  \n";
         }
-
         if( es ) {
             src << "precision highp float;\n";
         }
-        src << "FLAT in vec4 rglCOL0;\n";
+        src << "FLAT in vec4 rglFrontColor;\n";
         if( st.lighting ) {
             if( st.lightModelTwoSide ) {
-                src << "FLAT in vec4 rglCOL1;\n";
+                src << "FLAT in vec4 rglBackColor;\n";
             }
             if( st.lightModelSeparateSpecular ) {
                 src << "in vec4 rglSCOL0;\n";
@@ -899,9 +955,9 @@ namespace {
             }
         }
         if( st.lighting && st.lightModelTwoSide ) {
-            src << "    vec4 p = gl_FrontFacing ? rglCOL0 : rglCOL1;\n";
+            src << "    vec4 p = gl_FrontFacing ? rglFrontColor : rglBackColor;\n";
         } else {
-            src << "    vec4 p = rglCOL0;\n";
+            src << "    vec4 p = rglFrontColor;\n";
         }
         bool s_declared = false;
         for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
@@ -1107,8 +1163,39 @@ void State::SetLight( RFF * ffn, GLenum light, GLenum pname, const GLfloat * par
         case GL_AMBIENT: Copy( l.ambient, params ); break;
         case GL_DIFFUSE: Copy( l.diffuse, params ); break;
         case GL_SPECULAR: Copy( l.specular, params ); break;
-        case GL_POSITION: Transform( l.position, ffn->modelview.Top(), params ); break;
-        case GL_SPOT_DIRECTION: TransformDir( l.spotDirection, ffn->modelview.Top(), params ); break;
+        case GL_POSITION:
+            {
+                Transform( l.position, ffn->modelview.Top(), params );
+                if (l.position.w == 0.0) {
+                  l.position.w = 1.0f/sqrtf(l.position.x * l.position.x +
+                                            l.position.y * l.position.y +
+                                            l.position.z * l.position.z);
+                  l.position.x *= l.position.w;
+                  l.position.y *= l.position.w;
+                  l.position.z *= l.position.w;
+                  l.position.w = 0.0;
+                } else {
+                  l.position.x /= l.position.w;
+                  l.position.y /= l.position.w;
+                  l.position.z /= l.position.w;
+                  l.position.w = 1.0;
+                }
+                break;
+            }
+        case GL_SPOT_DIRECTION:
+            {
+                RegalFloat4 spdir( params[0], params[1], params[2], 1.0f );
+                r3::Matrix4f & m = ffn->modelview.Top();
+                float x = m.element(0,0) * spdir.x + m.element(0,1) * spdir.y + m.element(0,2) * spdir.z;
+                float y = m.element(1,0) * spdir.x + m.element(1,1) * spdir.y + m.element(1,2) * spdir.z;
+                float z = m.element(2,0) * spdir.x + m.element(2,1) * spdir.y + m.element(2,2) * spdir.z;
+                float d = -1.0f/sqrtf(x*x + y*y + z*z);
+                l.spotDirection.x = x * d;
+                l.spotDirection.y = y * d;
+                l.spotDirection.z = z * d;
+            }
+            break;
+
         case GL_SPOT_EXPONENT: l.attenuation.w = params[0]; break;
         case GL_SPOT_CUTOFF: l.spotDirection.w = params[0]; break;
         case GL_CONSTANT_ATTENUATION: l.attenuation.x = params[0]; break;
@@ -1571,6 +1658,12 @@ void RFF::State::Process( RegalIff * ffn ) {
         p.fog.useDepth = true;
         p.fog.mode = FG_Exp;
     }
+
+    // alpha testing is done at the precision of the color buffer so adjust
+    // alpharef to an 8-bit range
+
+    p.alphaTest.alphaRef = floor( r.alphaTest.alphaRef * 255.0f + 0.5f ) / 255.0f;
+
     for( int i = 0; i < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; i++ ) {
         TextureUnit & ti = ffn->textureUnit[ i ];
         raw.tex[i].unit = ti;
@@ -1603,8 +1696,11 @@ void RFF::State::Process( RegalIff * ffn ) {
         for ( int i = 0; i <REGAL_FIXED_FUNCTION_MAX_LIGHTS; i++ ) {
             Light & l = p.light[i];
             if( l.enable == true ) {
-                l.spotlight = l.spotDirection.w != 180.0f;
-                l.spotDirection.w = r3::ToRadians( l.spotDirection.w );
+                l.attenuation = r.light[i].attenuation;
+                l.spotDirection = r.light[i].spotDirection;
+                l.position = r.light[i].position;
+                l.spotlight = r.light[i].spotDirection.w != 180.0f;
+                l.spotDirection.w = cos( r3::ToRadians( r.light[i].spotDirection.w ) );
                 l.attenuate = l.attenuation.x != 1.0f || l.attenuation.y != 0.0f || l.attenuation.z != 0.0f;
             }
         }

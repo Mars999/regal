@@ -91,10 +91,12 @@ are permitted provided that the following conditions are met:
   }
 #endif
 
-// RegalAssertFunction depends on Error log, but
+// AssertFunction depends on Error log, but
 // ideally we wouldn't depend on RegalLog.h here
 
 REGAL_GLOBAL_BEGIN
+
+#include <string>
 
 #include "RegalLog.h"
 
@@ -102,7 +104,7 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-inline char* RegalGetEnv(const char* varname)
+inline const char * const RegalGetEnv(const char * const varname)
 {
 #ifdef _MSC_VER
 #pragma warning (push)
@@ -120,12 +122,12 @@ inline char* RegalGetEnv(const char* varname)
 #define RegalAssert( foo )
 #define RegalCheckGLError( ctx )
 #else
-#define RegalAssert( foo ) RegalAssertFunction( __FILE__ , __LINE__ , #foo, (foo) )
+#define RegalAssert( foo ) ::REGAL_NAMESPACE_INTERNAL::AssertFunction( __FILE__ , __LINE__ , #foo, (foo) )
 #define RegalCheckGLError( ctx ) RegalCheckForGLErrors( (ctx) )
 #endif
 
 template <typename T>
-inline void RegalAssertFunction( const char * file, int line, const char * expr, T assertion )
+inline void AssertFunction( const char * file, int line, const char * expr, T assertion )
 {
     if( assertion ) {
         return;

@@ -116,7 +116,7 @@ extern void RegalPrivateMakeCurrent(RegalSystemContext sysCtx);
 
 #if REGAL_SYS_WGL
 
-    typedef DWORD RegalThread;
+    typedef DWORD Thread;
 
     extern __declspec( thread ) void * regalCurrentContext;
 
@@ -126,7 +126,7 @@ extern void RegalPrivateMakeCurrent(RegalSystemContext sysCtx);
     }
 
 #else
-    typedef pthread_t RegalThread;
+    typedef pthread_t Thread;
 
     extern pthread_key_t regalPrivateCurrentContextKey;
 

@@ -43,6 +43,7 @@ using namespace std;
 
 #include "RegalLog.h"
 #include "RegalToken.h"
+#include "RegalHelper.h"
 #include "RegalPrivate.h"
 #include "RegalContext.h"
 
@@ -61,7 +62,7 @@ inline bool fileExists(const char *path)
   return f != NULL;
 }
 
-inline const char * getEnvironment(const char *var)
+inline const char * const getEnvironment(const char * const var)
 {
   const char *ret = NULL;
 

@@ -34,6 +34,12 @@
 #include <stdio.h>
 #endif
 
+// for __ARM_ARCH__
+
+#if defined(__ANDROID__) && !defined(__i386__)
+#include <machine/cpu-features.h>
+#endif
+
 //
 // boost::print::detail namespace for internal implementation purposes
 //
@@ -229,7 +235,7 @@ inline size_t unsigned_length(const unsigned val) { return unsigned_length(stati
 inline size_t unsigned_length(const unsigned long val) { return unsigned_length(static_cast<boost::uint32_t>(val)); }
 #endif
 
-#if defined(__ANDROID__) && defined(__ARM_ARCH_5__)
+#if defined(__ANDROID__) && defined(__ARM_ARCH__)
 inline size_t unsigned_length(const unsigned long val) { return unsigned_length(static_cast<boost::uint32_t>(val)); }
 #endif
 

@@ -43,6 +43,7 @@ using namespace std;
 
 #include "RegalLog.h"
 #include "RegalToken.h"
+#include "RegalHelper.h"
 #include "RegalPrivate.h"
 #include "RegalContext.h"
 
@@ -4537,7 +4538,7 @@ static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
            }
        case 1 :
        default: {
-           GTrace("glFogfv(", toString(pname), ", ", params, ")");
+           GTrace("glFogfv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::fogv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glFogfv(pname, params);
            break;
@@ -4623,7 +4624,7 @@ static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
            }
        case 1 :
        default: {
-           GTrace("glFogiv(", toString(pname), ", ", params, ")");
+           GTrace("glFogiv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::fogv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glFogiv(pname, params);
            break;
@@ -4709,7 +4710,7 @@ static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *
            }
        case 1 :
        default: {
-           GTrace("glLightfv(", toString(light), ", ", toString(pname), ", ", params, ")");
+           GTrace("glLightfv(", toString(light), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glLightfv(light, pname, params);
            break;
@@ -4795,7 +4796,7 @@ static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *pa
            }
        case 1 :
        default: {
-           GTrace("glLightiv(", toString(light), ", ", toString(pname), ", ", params, ")");
+           GTrace("glLightiv(", toString(light), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glLightiv(light, pname, params);
            break;
@@ -4881,7 +4882,7 @@ static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
            }
        case 1 :
        default: {
-           GTrace("glLightModelfv(", toString(pname), ", ", params, ")");
+           GTrace("glLightModelfv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightModelv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glLightModelfv(pname, params);
            break;
@@ -4967,7 +4968,7 @@ static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
            }
        case 1 :
        default: {
-           GTrace("glLightModeliv(", toString(pname), ", ", params, ")");
+           GTrace("glLightModeliv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightModelv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glLightModeliv(pname, params);
            break;
@@ -5053,7 +5054,7 @@ static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat
            }
        case 1 :
        default: {
-           GTrace("glMaterialfv(", toString(face), ", ", toString(pname), ", ", params, ")");
+           GTrace("glMaterialfv(", toString(face), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::materialv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glMaterialfv(face, pname, params);
            break;
@@ -5139,7 +5140,7 @@ static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *
            }
        case 1 :
        default: {
-           GTrace("glMaterialiv(", toString(face), ", ", toString(pname), ", ", params, ")");
+           GTrace("glMaterialiv(", toString(face), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::materialv(pname)), ")");
            RegalDspScopedStepDown stepDown( rCtx->dsp );
            rCtx->dsp.curr->glMaterialiv(face, pname, params);
            break;
@@ -18463,6 +18464,694 @@ static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei cou
 
 // GL_EXT_secondary_color
 
+static void REGAL_CALL emu_glSecondaryColor3bEXT(GLbyte red, GLbyte green, GLbyte blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3bEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3bEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3bvEXT(const GLbyte *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3bvEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3bvEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3dEXT(GLdouble red, GLdouble green, GLdouble blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3dEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3dEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3dvEXT(const GLdouble *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3dvEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3dvEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3fEXT(GLfloat red, GLfloat green, GLfloat blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3fEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3fEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3fvEXT(const GLfloat *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3fvEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3fvEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3iEXT(GLint red, GLint green, GLint blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3iEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3iEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3ivEXT(const GLint *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3ivEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3ivEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3sEXT(GLshort red, GLshort green, GLshort blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3sEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3sEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3svEXT(const GLshort *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3svEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3svEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3ubEXT(GLubyte red, GLubyte green, GLubyte blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3ubEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3ubEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3ubvEXT(const GLubyte *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3ubvEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3ubvEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3uiEXT(GLuint red, GLuint green, GLuint blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3uiEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3uiEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3uivEXT(const GLuint *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3uivEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3uivEXT(v);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3usEXT(GLushort red, GLushort green, GLushort blue)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3usEXT(", red, ", ", green, ", ", blue, ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3usEXT(red, green, blue);
+           break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glSecondaryColor3usvEXT(const GLushort *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) break;
+       case 1 :
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 7 :
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+           if (rCtx->iff) {
+               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+               return;
+           }
+       case 1 :
+       default: {
+           GTrace("glSecondaryColor3usvEXT(", boost::print::iterator(v,v+3), ")");
+           RegalDspScopedStepDown stepDown( rCtx->dsp );
+           rCtx->dsp.curr->glSecondaryColor3usvEXT(v);
+           break;
+       }
+
+   }
+
+}
+
 // GL_EXT_texture_perturb_normal
 
 // GL_EXT_multi_draw_arrays
@@ -30531,6 +31220,25 @@ void RegalPrivateInitEmuDispatchTable( DispatchTable & tbl )
 // GL_EXT_vertex_array
 
    tbl.glDrawArraysEXT = emu_glDrawArraysEXT;
+
+// GL_EXT_secondary_color
+
+   tbl.glSecondaryColor3bEXT = emu_glSecondaryColor3bEXT;
+   tbl.glSecondaryColor3bvEXT = emu_glSecondaryColor3bvEXT;
+   tbl.glSecondaryColor3dEXT = emu_glSecondaryColor3dEXT;
+   tbl.glSecondaryColor3dvEXT = emu_glSecondaryColor3dvEXT;
+   tbl.glSecondaryColor3fEXT = emu_glSecondaryColor3fEXT;
+   tbl.glSecondaryColor3fvEXT = emu_glSecondaryColor3fvEXT;
+   tbl.glSecondaryColor3iEXT = emu_glSecondaryColor3iEXT;
+   tbl.glSecondaryColor3ivEXT = emu_glSecondaryColor3ivEXT;
+   tbl.glSecondaryColor3sEXT = emu_glSecondaryColor3sEXT;
+   tbl.glSecondaryColor3svEXT = emu_glSecondaryColor3svEXT;
+   tbl.glSecondaryColor3ubEXT = emu_glSecondaryColor3ubEXT;
+   tbl.glSecondaryColor3ubvEXT = emu_glSecondaryColor3ubvEXT;
+   tbl.glSecondaryColor3uiEXT = emu_glSecondaryColor3uiEXT;
+   tbl.glSecondaryColor3uivEXT = emu_glSecondaryColor3uivEXT;
+   tbl.glSecondaryColor3usEXT = emu_glSecondaryColor3usEXT;
+   tbl.glSecondaryColor3usvEXT = emu_glSecondaryColor3usvEXT;
 
 // GL_EXT_multi_draw_arrays
 

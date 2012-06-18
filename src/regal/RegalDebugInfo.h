@@ -35,7 +35,7 @@
  */
 
 #ifndef __REGAL_DEBUG_INFO_H__
-#define __REGAL_DEGUG_INFO_H__
+#define __REGAL_DEBUG_INFO_H__
 
 #include "RegalUtil.h"
 

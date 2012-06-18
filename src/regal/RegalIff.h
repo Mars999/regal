@@ -255,38 +255,38 @@ static const RegalFFUniformInfo regalFFUniformInfo[] = {
     { FFU_TextureEnvColor13, "rglTexEnvColor13" },
     { FFU_TextureEnvColor14, "rglTexEnvColor14" },
     { FFU_TextureEnvColor15, "rglTexEnvColor15" },
-    { FFU_Texgen0ObjS, "rglTexgen0ObjS" },
-    { FFU_Texgen0ObjT, "rglTexgen0ObjT" },
-    { FFU_Texgen0ObjR, "rglTexgen0ObjR" },
-    { FFU_Texgen0ObjQ, "rglTexgen0ObjQ" },
-    { FFU_Texgen0EyeS, "rglTexgen0EyeS" },
-    { FFU_Texgen0EyeT, "rglTexgen0EyeT" },
-    { FFU_Texgen0EyeR, "rglTexgen0EyeR" },
-    { FFU_Texgen0EyeQ, "rglTexgen0EyeQ" },
-    { FFU_Texgen1ObjS, "rglTexgen1ObjS" },
-    { FFU_Texgen1ObjT, "rglTexgen1ObjT" },
-    { FFU_Texgen1ObjR, "rglTexgen1ObjR" },
-    { FFU_Texgen1ObjQ, "rglTexgen1ObjQ" },
-    { FFU_Texgen1EyeS, "rglTexgen1EyeS" },
-    { FFU_Texgen1EyeT, "rglTexgen1EyeT" },
-    { FFU_Texgen1EyeR, "rglTexgen1EyeR" },
-    { FFU_Texgen1EyeQ, "rglTexgen1EyeQ" },
-    { FFU_Texgen2ObjS, "rglTexgen2ObjS" },
-    { FFU_Texgen2ObjT, "rglTexgen2ObjT" },
-    { FFU_Texgen2ObjR, "rglTexgen2ObjR" },
-    { FFU_Texgen2ObjQ, "rglTexgen2ObjQ" },
-    { FFU_Texgen2EyeS, "rglTexgen2EyeS" },
-    { FFU_Texgen2EyeT, "rglTexgen2EyeT" },
-    { FFU_Texgen2EyeR, "rglTexgen2EyeR" },
-    { FFU_Texgen2EyeQ, "rglTexgen2EyeQ" },
-    { FFU_Texgen3ObjS, "rglTexgen3ObjS" },
-    { FFU_Texgen3ObjT, "rglTexgen3ObjT" },
-    { FFU_Texgen3ObjR, "rglTexgen3ObjR" },
-    { FFU_Texgen3ObjQ, "rglTexgen3ObjQ" },
-    { FFU_Texgen3EyeS, "rglTexgen3EyeS" },
-    { FFU_Texgen3EyeT, "rglTexgen3EyeT" },
-    { FFU_Texgen3EyeR, "rglTexgen3EyeR" },
-    { FFU_Texgen3EyeQ, "rglTexgen3EyeQ" },
+    { FFU_Texgen0ObjS, "rglTexGen0ObjS" },
+    { FFU_Texgen0ObjT, "rglTexGen0ObjT" },
+    { FFU_Texgen0ObjR, "rglTexGen0ObjR" },
+    { FFU_Texgen0ObjQ, "rglTexGen0ObjQ" },
+    { FFU_Texgen0EyeS, "rglTexGen0EyeS" },
+    { FFU_Texgen0EyeT, "rglTexGen0EyeT" },
+    { FFU_Texgen0EyeR, "rglTexGen0EyeR" },
+    { FFU_Texgen0EyeQ, "rglTexGen0EyeQ" },
+    { FFU_Texgen1ObjS, "rglTexGen1ObjS" },
+    { FFU_Texgen1ObjT, "rglTexGen1ObjT" },
+    { FFU_Texgen1ObjR, "rglTexGen1ObjR" },
+    { FFU_Texgen1ObjQ, "rglTexGen1ObjQ" },
+    { FFU_Texgen1EyeS, "rglTexGen1EyeS" },
+    { FFU_Texgen1EyeT, "rglTexGen1EyeT" },
+    { FFU_Texgen1EyeR, "rglTexGen1EyeR" },
+    { FFU_Texgen1EyeQ, "rglTexGen1EyeQ" },
+    { FFU_Texgen2ObjS, "rglTexGen2ObjS" },
+    { FFU_Texgen2ObjT, "rglTexGen2ObjT" },
+    { FFU_Texgen2ObjR, "rglTexGen2ObjR" },
+    { FFU_Texgen2ObjQ, "rglTexGen2ObjQ" },
+    { FFU_Texgen2EyeS, "rglTexGen2EyeS" },
+    { FFU_Texgen2EyeT, "rglTexGen2EyeT" },
+    { FFU_Texgen2EyeR, "rglTexGen2EyeR" },
+    { FFU_Texgen2EyeQ, "rglTexGen2EyeQ" },
+    { FFU_Texgen3ObjS, "rglTexGen3ObjS" },
+    { FFU_Texgen3ObjT, "rglTexGen3ObjT" },
+    { FFU_Texgen3ObjR, "rglTexGen3ObjR" },
+    { FFU_Texgen3ObjQ, "rglTexGen3ObjQ" },
+    { FFU_Texgen3EyeS, "rglTexGen3EyeS" },
+    { FFU_Texgen3EyeT, "rglTexGen3EyeT" },
+    { FFU_Texgen3EyeR, "rglTexGen3EyeR" },
+    { FFU_Texgen3EyeQ, "rglTexGen3EyeQ" },
     { FFU_Light0, "rglLight0[0]" },
     { FFU_Light1, "rglLight1[0]" },
     { FFU_Light2, "rglLight2[0]" },
@@ -798,7 +798,7 @@ struct RegalIff : public RegalEmu {
         DispatchTable &tbl = ctx->dsp.emuTbl;
 
         tbl.glBufferData( GL_ARRAY_BUFFER, immCurrent * sizeof( Attributes ), immArray, GL_DYNAMIC_DRAW );
-        if( ctx->info->core == true && immPrim == GL_QUADS ) {
+        if( ( ctx->info->core == true || ctx->info->gles ) && immPrim == GL_QUADS ) {
             tbl.glDrawElements( GL_TRIANGLES, immCurrent * 3 / 2, GL_UNSIGNED_SHORT, 0 );
         } else {
             tbl.glDrawArrays( immPrim, 0, immCurrent );
@@ -1564,10 +1564,7 @@ struct RegalIff : public RegalEmu {
         State::Store & st = ffstate.raw;
         int idx = 0;
         switch( coord ) {
-            case GL_S: idx = 0; break;
-            case GL_T: idx = 1; break;
-            case GL_R: idx = 2; break;
-            case GL_Q: idx = 3; break;
+            case GL_S: case GL_T: case GL_R: case GL_Q: idx = coord - GL_S; break;
             default: return;
         }
         switch( pname ) {
@@ -1684,20 +1681,8 @@ struct RegalIff : public RegalEmu {
         }
         int idx = 0;
         switch( coord ) {
-            case GL_S:
-                idx = 0;
-                break;
-            case GL_T:
-                idx = 1;
-                break;
-            case GL_R:
-                idx = 2;
-                break;
-            case GL_Q:
-                idx = 3;
-                break;
-            default:
-                return false;
+            case GL_S: case GL_T: case GL_R: case GL_Q: idx = coord - GL_S; break;
+            default: return false;
         }
         switch( pname )
         {
@@ -2065,6 +2050,12 @@ inline bool operator < ( const RegalIff::State::Store & lhs, const RegalIff::Sta
         if( rhs.light[ i ].spotlight < lhs.light[ i ].spotlight ) return false;
         if( lhs.light[ i ].attenuate < rhs.light[ i ].attenuate ) return true;
         if( rhs.light[ i ].attenuate < lhs.light[ i ].attenuate ) return false;
+        if( lhs.light[ i ].attenuation < rhs.light[ i ].attenuation ) return true;
+        if( rhs.light[ i ].attenuation < lhs.light[ i ].attenuation ) return false;
+        if( lhs.light[ i ].spotDirection.w < rhs.light[ i ].spotDirection.w ) return true;
+        if( rhs.light[ i ].spotDirection.w < lhs.light[ i ].spotDirection.w ) return false;
+        if( lhs.light[ i ].position.w < rhs.light[ i ].position.w ) return true;
+        if( rhs.light[ i ].position.w < lhs.light[ i ].position.w ) return false;
     }
     if( lhs.fog < rhs.fog ) return true;
     if( rhs.fog < lhs.fog ) return false;

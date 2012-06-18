@@ -43,6 +43,7 @@ using namespace std;
 
 #include "RegalLog.h"
 #include "RegalToken.h"
+#include "RegalHelper.h"
 
 #include "RegalPrivate.h"
 #include "RegalIff.h"
@@ -69,11 +70,11 @@ DispatchTableGlobal dispatchTableGlobal;
 
     __declspec( thread ) void * regalCurrentContext = NULL;
 
-    inline RegalThread RegalPrivateThreadSelf()
+    inline Thread RegalPrivateThreadSelf()
     {
         return GetCurrentThreadId();
     }
-    inline bool RegalPrivateThreadsEqual( RegalThread t0, RegalThread t1 )
+    inline bool RegalPrivateThreadsEqual( Thread t0, Thread t1 )
     {
         return t0 == t1;
     }
@@ -88,24 +89,24 @@ DispatchTableGlobal dispatchTableGlobal;
     };
     RegalPrivateTlsInit regalPrivateTlsInit;
 
-    inline RegalThread RegalPrivateThreadSelf()
+    inline Thread RegalPrivateThreadSelf()
     {
         return pthread_self();
     }
 
-    inline bool RegalPrivateThreadsEqual( RegalThread t0, RegalThread t1 )
+    inline bool RegalPrivateThreadsEqual( Thread t0, Thread t1 )
     {
         return pthread_equal( t0, t1 ) != 0;
     }
 #endif
 
 map<RegalSystemContext, RegalContext *> sc2rc;
-map<RegalThread, RegalContext *> th2rc;
+map<Thread, RegalContext *> th2rc;
 
 void RegalPrivateMakeCurrent(RegalSystemContext sysCtx)
 {
 //  Trace("RegalPrivateMakeCurrent ",sysCtx);
-    RegalThread thr = RegalPrivateThreadSelf();
+    Thread thread = RegalPrivateThreadSelf();
     if (sysCtx) {
         RegalContext * ctx = sc2rc.count( sysCtx ) > 0 ? sc2rc[ sysCtx ] : NULL;
         if (!ctx) {
@@ -123,31 +124,31 @@ void RegalPrivateMakeCurrent(RegalSystemContext sysCtx)
             ctx->sysCtx = sysCtx;
         }
 
-    if( th2rc.count( thr ) != 0 ) {
-      RegalContext * & c = th2rc[ thr ];
+    if( th2rc.count( thread ) != 0 ) {
+      RegalContext * & c = th2rc[ thread ];
       if( c ) {
-        RegalAssert( c->thr == thr );
-        c->thr = 0;
+        RegalAssert( c->thread == thread );
+        c->thread = 0;
         c = NULL;
       }
     }
-    RegalAssert( th2rc.count( thr ) == 0 || th2rc[ thr ] == NULL );
-    RegalAssert( ctx->thr == 0 );
-    th2rc[ thr ] = ctx;
-    ctx->thr = thr;
+    RegalAssert( th2rc.count( thread ) == 0 || th2rc[ thread ] == NULL );
+    RegalAssert( ctx->thread == 0 );
+    th2rc[ thread ] = ctx;
+    ctx->thread = thread;
 #if REGAL_SYS_WGL
         regalCurrentContext = ctx;
 #else
         pthread_setspecific( regalPrivateCurrentContextKey, ctx );
 #endif
   } else {
-    if( th2rc.count( thr ) ) {
-      RegalContext * & ctx = th2rc[ thr ];
+    if( th2rc.count( thread ) ) {
+      RegalContext * & ctx = th2rc[ thread ];
       if( ctx != NULL ) {
-        RegalAssert( ctx->thr == thr );
-        ctx->thr = 0;
+        RegalAssert( ctx->thread == thread );
+        ctx->thread = 0;
         ctx = NULL;
-        RegalAssert( th2rc[ thr ] == NULL );
+        RegalAssert( th2rc[ thread ] == NULL );
       }
     }
 #if REGAL_SYS_WGL
@@ -157,6 +158,19 @@ void RegalPrivateMakeCurrent(RegalSystemContext sysCtx)
 #endif
   }
 }
+
+void RegalCheckForGLErrors( RegalContext *ctx )
+{
+    GLenum err = ctx->dsp.driverTbl.glGetError();
+    if (err != GL_NO_ERROR)
+        Error("GL error = ",toString(err));
+}
+
+REGAL_NAMESPACE_END
+
+REGAL_GLOBAL_BEGIN
+
+using namespace REGAL_NAMESPACE_INTERNAL;
 
 #ifdef __cplusplus
 extern "C" {
@@ -2015,7 +2029,7 @@ REGAL_DECL void REGAL_CALL glFogf(GLenum pname, GLfloat param)
 REGAL_DECL void REGAL_CALL glFogfv(GLenum pname, const GLfloat *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glFogfv(", toString(pname), ", ", params, ")");
+  RTrace("glFogfv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::fogv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2039,7 +2053,7 @@ REGAL_DECL void REGAL_CALL glFogi(GLenum pname, GLint param)
 REGAL_DECL void REGAL_CALL glFogiv(GLenum pname, const GLint *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glFogiv(", toString(pname), ", ", params, ")");
+  RTrace("glFogiv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::fogv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2087,7 +2101,7 @@ REGAL_DECL void REGAL_CALL glLightf(GLenum light, GLenum pname, GLfloat param)
 REGAL_DECL void REGAL_CALL glLightfv(GLenum light, GLenum pname, const GLfloat *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glLightfv(", toString(light), ", ", toString(pname), ", ", params, ")");
+  RTrace("glLightfv(", toString(light), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2111,7 +2125,7 @@ REGAL_DECL void REGAL_CALL glLighti(GLenum light, GLenum pname, GLint param)
 REGAL_DECL void REGAL_CALL glLightiv(GLenum light, GLenum pname, const GLint *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glLightiv(", toString(light), ", ", toString(pname), ", ", params, ")");
+  RTrace("glLightiv(", toString(light), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2135,7 +2149,7 @@ REGAL_DECL void REGAL_CALL glLightModelf(GLenum pname, GLfloat param)
 REGAL_DECL void REGAL_CALL glLightModelfv(GLenum pname, const GLfloat *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glLightModelfv(", toString(pname), ", ", params, ")");
+  RTrace("glLightModelfv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightModelv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2159,7 +2173,7 @@ REGAL_DECL void REGAL_CALL glLightModeli(GLenum pname, GLint param)
 REGAL_DECL void REGAL_CALL glLightModeliv(GLenum pname, const GLint *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glLightModeliv(", toString(pname), ", ", params, ")");
+  RTrace("glLightModeliv(", toString(pname), ", ", boost::print::iterator(params,params+helper::size::lightModelv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2207,7 +2221,7 @@ REGAL_DECL void REGAL_CALL glMaterialf(GLenum face, GLenum pname, GLfloat param)
 REGAL_DECL void REGAL_CALL glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glMaterialfv(", toString(face), ", ", toString(pname), ", ", params, ")");
+  RTrace("glMaterialfv(", toString(face), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::materialv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -2231,7 +2245,7 @@ REGAL_DECL void REGAL_CALL glMateriali(GLenum face, GLenum pname, GLint param)
 REGAL_DECL void REGAL_CALL glMaterialiv(GLenum face, GLenum pname, const GLint *params)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glMaterialiv(", toString(face), ", ", toString(pname), ", ", params, ")");
+  RTrace("glMaterialiv(", toString(face), ", ", toString(pname), ", ", boost::print::iterator(params,params+helper::size::materialv(pname)), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp.curr);
@@ -3474,14 +3488,14 @@ REGAL_DECL const GLubyte *REGAL_CALL glGetString(GLenum name)
   RegalAssert(rCtx->dsp.curr->glGetString);
   RegalAssert(rCtx->dsp.curr->glGetString != glGetString);
   if (name == GL_VERSION) {
-      char* ev = RegalGetEnv("REGAL_GL_VERSION");
+      const char * const ev = RegalGetEnv("REGAL_GL_VERSION");
       if (ev) {
           return reinterpret_cast<const GLubyte *>(ev);
       }
   }
 
   if (name == GL_EXTENSIONS) {
-      char* ev = RegalGetEnv("REGAL_GL_EXTENSIONS");
+      const char * const ev = RegalGetEnv("REGAL_GL_EXTENSIONS");
       if (ev) {
           return reinterpret_cast<const GLubyte *>(ev);
       }
@@ -34288,11 +34302,4 @@ REGAL_DECL EGLBoolean REGAL_CALL eglSwapInterval(EGLDisplay dpy, EGLint interval
 }
 #endif
 
-void RegalCheckForGLErrors( RegalContext *ctx )
-{
-    GLenum err = ctx->dsp.driverTbl.glGetError();
-    if (err != GL_NO_ERROR)
-        Error("GL error = ",toString(err));
-}
-
-REGAL_NAMESPACE_END
+REGAL_GLOBAL_END

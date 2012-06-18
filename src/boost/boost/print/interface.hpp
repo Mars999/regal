@@ -41,7 +41,7 @@ template<typename T>
 detail::iterator<T,const char * const> iterator(const T &begin, const T &end)
 {
   static const char * const open  = "[ ";
-  static const char * const close = "] ";
+  static const char * const close = " ]";
   static const char * const delim = ", ";
   return detail::iterator<T,const char * const>(begin,end,open,close,delim);
 }
@@ -222,7 +222,9 @@ void write(char *&i, const char *val)
   i += size;
 }
 
-#if !defined(__SUNPRO_C) && !defined(__SUNPRO_CC) && !defined(__sun)
+// Unless it's STLPort we can specialize for std::string::iterator
+
+#ifndef _STLPORT_VERSION
 template<> inline
 void write(std::string::iterator &i, const char *val)
 {

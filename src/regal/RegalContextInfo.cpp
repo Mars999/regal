@@ -429,12 +429,12 @@ ContextInfo::init(const RegalContext &context)
 
   string_list<string> extList;
 
-  if (core || gles)
+  if (core)
   {
     RegalAssert(context.dsp.driverTbl.glGetStringi);
     RegalAssert(context.dsp.driverTbl.glGetIntegerv);
 
-    GLint n;
+    GLint n = 0;
     context.dsp.driverTbl.glGetIntegerv(GL_NUM_EXTENSIONS, &n);
 
     for (GLint i=0; i<n; ++i)
@@ -766,9 +766,6 @@ ContextInfo::init(const RegalContext &context)
   // Qualcomm fails with float4 attribs with 256 byte stride, so artificially limit to 8 attribs
   if (vendor == "Qualcomm")
     maxVertexAttribs = 8;
-
-  if(RegalGetEnv("REGAL_LOG_REGAL"))
-    Logging::enableRegal = Logging::enableOpenGL = true;
 }
 
 bool

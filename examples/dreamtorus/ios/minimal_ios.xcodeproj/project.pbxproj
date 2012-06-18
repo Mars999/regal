@@ -31,6 +31,13 @@
 		43B7EF0714D05D8500737488 /* minimal_iosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EF0514D05D8500737488 /* minimal_iosViewController.xib */; };
 		43B7EF1014D05DE300737488 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B7EF0E14D05DE300737488 /* MainWindow-iPad.xib */; };
 		43B7EF3314D0938F00737488 /* RGLOpenGLContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7EF3214D0938F00737488 /* RGLOpenGLContext.m */; };
+		43DDC9A91583CA980006D8FB /* RegalContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43DDC99A1583CA980006D8FB /* RegalContext.cpp */; };
+		43DDC9AA1583CA980006D8FB /* RegalContextInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43DDC99C1583CA980006D8FB /* RegalContextInfo.cpp */; };
+		43DDC9AB1583CA980006D8FB /* RegalDebugDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43DDC99E1583CA980006D8FB /* RegalDebugDispatch.cpp */; };
+		43DDC9AC1583CA980006D8FB /* RegalLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43DDC9A11583CA980006D8FB /* RegalLog.cpp */; };
+		43DDC9AD1583CA980006D8FB /* RegalToken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43DDC9A51583CA980006D8FB /* RegalToken.cpp */; };
+		43DDC9AE1583CA980006D8FB /* RegalUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43DDC9A71583CA980006D8FB /* RegalUtil.cpp */; };
+		BC0F6D8315858BF9004163BD /* RegalHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC0F6D8115858BF9004163BD /* RegalHelper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +83,23 @@
 		43B7EF0F14D05DE300737488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		43B7EF3114D0938F00737488 /* RGLOpenGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGLOpenGLContext.h; sourceTree = SOURCE_ROOT; };
 		43B7EF3214D0938F00737488 /* RGLOpenGLContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGLOpenGLContext.m; sourceTree = SOURCE_ROOT; };
+		43DDC99A1583CA980006D8FB /* RegalContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalContext.cpp; path = ../../../../src/regal/RegalContext.cpp; sourceTree = "<group>"; };
+		43DDC99B1583CA980006D8FB /* RegalContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalContext.h; path = ../../../../src/regal/RegalContext.h; sourceTree = "<group>"; };
+		43DDC99C1583CA980006D8FB /* RegalContextInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalContextInfo.cpp; path = ../../../../src/regal/RegalContextInfo.cpp; sourceTree = "<group>"; };
+		43DDC99D1583CA980006D8FB /* RegalContextInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalContextInfo.h; path = ../../../../src/regal/RegalContextInfo.h; sourceTree = "<group>"; };
+		43DDC99E1583CA980006D8FB /* RegalDebugDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalDebugDispatch.cpp; path = ../../../../src/regal/RegalDebugDispatch.cpp; sourceTree = "<group>"; };
+		43DDC99F1583CA980006D8FB /* RegalDebugInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalDebugInfo.h; path = ../../../../src/regal/RegalDebugInfo.h; sourceTree = "<group>"; };
+		43DDC9A01583CA980006D8FB /* RegalDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalDispatch.h; path = ../../../../src/regal/RegalDispatch.h; sourceTree = "<group>"; };
+		43DDC9A11583CA980006D8FB /* RegalLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalLog.cpp; path = ../../../../src/regal/RegalLog.cpp; sourceTree = "<group>"; };
+		43DDC9A21583CA980006D8FB /* RegalLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalLog.h; path = ../../../../src/regal/RegalLog.h; sourceTree = "<group>"; };
+		43DDC9A31583CA980006D8FB /* RegalMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalMarker.h; path = ../../../../src/regal/RegalMarker.h; sourceTree = "<group>"; };
+		43DDC9A41583CA980006D8FB /* RegalPrecompile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalPrecompile.h; path = ../../../../src/regal/RegalPrecompile.h; sourceTree = "<group>"; };
+		43DDC9A51583CA980006D8FB /* RegalToken.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalToken.cpp; path = ../../../../src/regal/RegalToken.cpp; sourceTree = "<group>"; };
+		43DDC9A61583CA980006D8FB /* RegalToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalToken.h; path = ../../../../src/regal/RegalToken.h; sourceTree = "<group>"; };
+		43DDC9A71583CA980006D8FB /* RegalUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalUtil.cpp; path = ../../../../src/regal/RegalUtil.cpp; sourceTree = "<group>"; };
+		43DDC9A81583CA980006D8FB /* RegalUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalUtil.h; path = ../../../../src/regal/RegalUtil.h; sourceTree = "<group>"; };
+		BC0F6D8115858BF9004163BD /* RegalHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegalHelper.cpp; path = ../../../../src/regal/RegalHelper.cpp; sourceTree = "<group>"; };
+		BC0F6D8215858BF9004163BD /* RegalHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegalHelper.h; path = ../../../../src/regal/RegalHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +192,23 @@
 		43B7EF1114D05F3600737488 /* Regal */ = {
 			isa = PBXGroup;
 			children = (
+				BC0F6D8115858BF9004163BD /* RegalHelper.cpp */,
+				BC0F6D8215858BF9004163BD /* RegalHelper.h */,
+				43DDC99A1583CA980006D8FB /* RegalContext.cpp */,
+				43DDC99B1583CA980006D8FB /* RegalContext.h */,
+				43DDC99C1583CA980006D8FB /* RegalContextInfo.cpp */,
+				43DDC99D1583CA980006D8FB /* RegalContextInfo.h */,
+				43DDC99E1583CA980006D8FB /* RegalDebugDispatch.cpp */,
+				43DDC99F1583CA980006D8FB /* RegalDebugInfo.h */,
+				43DDC9A01583CA980006D8FB /* RegalDispatch.h */,
+				43DDC9A11583CA980006D8FB /* RegalLog.cpp */,
+				43DDC9A21583CA980006D8FB /* RegalLog.h */,
+				43DDC9A31583CA980006D8FB /* RegalMarker.h */,
+				43DDC9A41583CA980006D8FB /* RegalPrecompile.h */,
+				43DDC9A51583CA980006D8FB /* RegalToken.cpp */,
+				43DDC9A61583CA980006D8FB /* RegalToken.h */,
+				43DDC9A71583CA980006D8FB /* RegalUtil.cpp */,
+				43DDC9A81583CA980006D8FB /* RegalUtil.h */,
 				4316DE35155B324F00E70FC9 /* Regal.h */,
 				4316DE1D155B324300E70FC9 /* linear.h */,
 				4316DE1E155B324300E70FC9 /* Regal.cpp */,
@@ -270,6 +311,13 @@
 				4316DE32155B324300E70FC9 /* RegalIff.cpp in Sources */,
 				4316DE33155B324300E70FC9 /* RegalLoaderDispatch.cpp in Sources */,
 				4316DE34155B324300E70FC9 /* RegalLookup.cpp in Sources */,
+				43DDC9A91583CA980006D8FB /* RegalContext.cpp in Sources */,
+				43DDC9AA1583CA980006D8FB /* RegalContextInfo.cpp in Sources */,
+				43DDC9AB1583CA980006D8FB /* RegalDebugDispatch.cpp in Sources */,
+				43DDC9AC1583CA980006D8FB /* RegalLog.cpp in Sources */,
+				43DDC9AD1583CA980006D8FB /* RegalToken.cpp in Sources */,
+				43DDC9AE1583CA980006D8FB /* RegalUtil.cpp in Sources */,
+				BC0F6D8315858BF9004163BD /* RegalHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,9 +378,13 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../../include;
+				HEADER_SEARCH_PATHS = (
+					../../../include,
+					../../../src/boost,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = ../../../include;
 			};
 			name = Debug;
 		};
@@ -348,10 +400,14 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../../include;
+				HEADER_SEARCH_PATHS = (
+					../../../include,
+					../../../src/boost,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = ../../../include;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -363,7 +419,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "minimal_ios/minimal_ios-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "minimal_ios/minimal_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -380,7 +436,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "minimal_ios/minimal_ios-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "minimal_ios/minimal_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";

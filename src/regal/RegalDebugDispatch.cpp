@@ -43,6 +43,7 @@ using namespace std;
 
 #include "RegalLog.h"
 #include "RegalToken.h"
+#include "RegalHelper.h"
 #include "RegalPrivate.h"
 #include "RegalContext.h"
 

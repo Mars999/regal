@@ -21,19 +21,14 @@ LOCAL_CFLAGS    := -Werror
 LOCAL_ARM_MODE  := arm
 
 REGAL_DIR       := ../../../..
-REGAL_SRC       = $(REGAL_DIR)/src/RegalIff.cpp
-REGAL_SRC       += $(REGAL_DIR)/gen/Regal.cpp
-REGAL_SRC       += $(REGAL_DIR)/gen/RegalEmuDispatch.cpp
-REGAL_SRC       += $(REGAL_DIR)/gen/RegalErrorDispatch.cpp
-REGAL_SRC       += $(REGAL_DIR)/gen/RegalLoaderDispatch.cpp
-REGAL_INC       := $(REGAL_DIR)/gen $(REGAL_DIR)/src
+REGAL_INC       := $(REGAL_DIR)/include $(REGAL_DIR)/src/boost $(REGAL_DIR)/src/regal
 
 SHARED_DIR      := ../../src
 
-REGAL_SRC_FILES := $(wildcard $(REGAL_DIR)/src/*.cpp $(REGAL_DIR)/gen/*.cpp)
+REGAL_SRC_FILES := $(wildcard $(REGAL_DIR)/src/regal/*.cpp)
 
 LOCAL_C_INCLUDES := $(patsubst %, $(LOCAL_PATH)/%, $(REGAL_INC) $(SHARED_DIR) )
-LOCAL_SRC_FILES := $(REGAL_SRC) 
+LOCAL_SRC_FILES := $(REGAL_SRC_FILES) 
 LOCAL_SRC_FILES += gl_code.cpp $(SHARED_DIR)/render.cpp
 LOCAL_CFLAGS    := -DANDROID=1
 LOCAL_LDLIBS    := -llog

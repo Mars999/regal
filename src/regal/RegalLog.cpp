@@ -76,6 +76,32 @@ namespace Logging {
   bool enableOpenGL   = false;
   bool enableInternal = false;
 
+  void Init()
+  {    
+    const char *error    = RegalGetEnv("REGAL_LOG_ERROR");
+    const char *warning  = RegalGetEnv("REGAL_LOG_WARNING");
+    const char *info     = RegalGetEnv("REGAL_LOG_INFO");
+    const char *regal    = RegalGetEnv("REGAL_LOG_REGAL");
+    const char *opengl   = RegalGetEnv("REGAL_LOG_OPENGL");
+    const char *internal = RegalGetEnv("REGAL_LOG_INTERNAL");
+
+    if (error)    enableError    = atoi(error)!=0;
+    if (warning)  enableWarning  = atoi(warning)!=0;
+    if (info)     enableInfo     = atoi(info)!=0;
+    if (regal)    enableRegal    = atoi(regal)!=0;
+    if (opengl)   enableOpenGL   = atoi(opengl)!=0;
+    if (internal) enableInternal = atoi(internal)!=0;
+    
+    const char *api = RegalGetEnv("REGAL_LOG_API");
+    const char *all = RegalGetEnv("REGAL_LOG_ALL");
+
+    if (api && atoi(api))
+      enableRegal = enableOpenGL = true;
+
+    if (all && atoi(all))
+      enableError = enableWarning = enableInfo = enableRegal = enableOpenGL = enableInternal = true;
+  }
+
   inline size_t indent()
   {
     // For OSX we need avoid GET_REGAL_CONTEXT implicitly
