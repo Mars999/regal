@@ -38,6 +38,19 @@ template<typename T, typename C> detail::right<T,C>  right (const T &val, const 
 template<typename T, typename C> detail::quote<T,C>  quote (const T &val, const C q) { return detail::quote<T,C>(val,q); }
 
 template<typename T>
+detail::array<T,const char * const> array(const T *data, const std::size_t size)
+{
+  static const char * const open  = "[ ";
+  static const char * const close = " ]";
+  static const char * const delim = ", ";
+  return detail::array<T,const char * const>(data,size,open,close,delim);
+}
+
+template<typename T,typename U>
+detail::array<T,U> array(const T *data, const std::size_t size, const U &open, const U &close, const U &delim)
+{ return detail::array<T,U>(data,size,open,close,delim); }
+
+template<typename T>
 detail::iterator<T,const char * const> iterator(const T &begin, const T &end)
 {
   static const char * const open  = "[ ";
@@ -67,6 +80,7 @@ using boost::print::detail::hex;
 using boost::print::detail::left;
 using boost::print::detail::right;
 using boost::print::detail::quote;
+using boost::print::detail::array;
 using boost::print::detail::iterator;
 
 using boost::print::detail::signed_length;
@@ -168,6 +182,24 @@ template<typename T, typename C> size_t length(const right<T,C> &val) { return s
 // Quoting
 
 template<typename T, typename C> size_t length(const quote<T,C> &val) { return length(*val._val) + 2*length(val._q); }
+
+// Array
+
+template<typename T, typename U> size_t length(const array<T,U> &val)
+{
+  size_t len = length(val._open) + length(val._close);
+  
+  if (val._size)
+  {
+    const size_t dl = length(val._delim);
+  
+    len += length(val._data[0]);
+    for (size_t j=0; j<val._size; ++j)
+      len += dl + length(val._data[j]);
+  }
+
+  return len;
+}
 
 // Iterator
 
@@ -329,6 +361,24 @@ inline void write(Iterator &i, const quote<T,C> &val)
   write(i,val._q);
   write(i,*val._val);
   write(i,val._q);
+}
+
+// Array
+
+template<typename Iterator, typename T, typename U>
+inline void write(Iterator &i, const array<T,U> &val)
+{
+  write(i,val._open);
+  if (val._size)
+  {
+    write(i,val._data[0]);
+    for (size_t j=0; j<val._size; ++j)
+    {
+      write(i,val._delim);
+      write(i,val._data[j]);
+    }
+  }
+  write(i,val._close);
 }
 
 // Iterator

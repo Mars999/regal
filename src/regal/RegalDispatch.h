@@ -549,6 +549,11 @@ struct DispatchTableGlobal {
     CGLContextObj (REGAL_CALL *CGLGetCurrentContext)(void);
     CGLError (REGAL_CALL *CGLSetSurface)(CGLContextObj ctx, CGSConnectionID conn, CGSWindowID win, CGSSurfaceID srf);
     CGLError (REGAL_CALL *CGLGetSurface)(CGLContextObj ctx, CGSConnectionID *conn, CGSWindowID *win, CGSSurfaceID *srf);
+    CGLError (REGAL_CALL *CGLTexImageIOSurface2D)(CGLContextObj ctx, GLenum target, GLenum internal_format, GLsizei width, GLsizei height, GLenum format, GLenum type, IOSurfaceRef ioSurface, GLuint plane);
+
+    // CGL_VERSION_UNKNOWN
+
+    void (REGAL_CALL *CGLOpenCLMuxLockDown)(void);
 #endif // REGAL_SYS_OSX
 
 #if REGAL_SYS_ANDROID
@@ -3679,6 +3684,12 @@ struct DispatchTable {
     // GL_SGIX_fog_texture
 
     void (REGAL_CALL *glTextureFogSGIX)(GLenum pname);
+
+    // GL_APPLE_flush_render
+
+    void (REGAL_CALL *glFlushRenderAPPLE)(void);
+    void (REGAL_CALL *glFinishRenderAPPLE)(void);
+    void (REGAL_CALL *glSwapAPPLE)(void);
 
     // GL_WIN_swap_hint
 

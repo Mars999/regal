@@ -78,12 +78,14 @@ namespace Logging {
 
   void Init()
   {    
-    const char *error    = RegalGetEnv("REGAL_LOG_ERROR");
-    const char *warning  = RegalGetEnv("REGAL_LOG_WARNING");
-    const char *info     = RegalGetEnv("REGAL_LOG_INFO");
-    const char *regal    = RegalGetEnv("REGAL_LOG_REGAL");
-    const char *opengl   = RegalGetEnv("REGAL_LOG_OPENGL");
-    const char *internal = RegalGetEnv("REGAL_LOG_INTERNAL");
+#ifndef REGAL_NO_GETENV
+
+    const char *error    = GetEnv("REGAL_LOG_ERROR");
+    const char *warning  = GetEnv("REGAL_LOG_WARNING");
+    const char *info     = GetEnv("REGAL_LOG_INFO");
+    const char *regal    = GetEnv("REGAL_LOG_REGAL");
+    const char *opengl   = GetEnv("REGAL_LOG_OPENGL");
+    const char *internal = GetEnv("REGAL_LOG_INTERNAL");
 
     if (error)    enableError    = atoi(error)!=0;
     if (warning)  enableWarning  = atoi(warning)!=0;
@@ -92,14 +94,39 @@ namespace Logging {
     if (opengl)   enableOpenGL   = atoi(opengl)!=0;
     if (internal) enableInternal = atoi(internal)!=0;
     
-    const char *api = RegalGetEnv("REGAL_LOG_API");
-    const char *all = RegalGetEnv("REGAL_LOG_ALL");
+    const char *api = GetEnv("REGAL_LOG_API");
+    const char *all = GetEnv("REGAL_LOG_ALL");
 
     if (api && atoi(api))
       enableRegal = enableOpenGL = true;
 
     if (all && atoi(all))
       enableError = enableWarning = enableInfo = enableRegal = enableOpenGL = enableInternal = true;
+#endif
+      
+#if REGAL_LOG_ERROR
+    Info("REGAL_LOG_ERROR    ", enableError    ? "enabled" : "disabled");
+#endif
+
+#if REGAL_LOG_WARNING
+    Info("REGAL_LOG_WARNING  ", enableWarning  ? "enabled" : "disabled");
+#endif
+
+#if REGAL_LOG_INFO
+    Info("REGAL_LOG_INFO     ", enableInfo     ? "enabled" : "disabled");
+#endif
+
+#if REGAL_LOG_REGAL
+    Info("REGAL_LOG_REGAL    ", enableRegal    ? "enabled" : "disabled");
+#endif
+
+#if REGAL_LOG_OPENGL
+    Info("REGAL_LOG_OPENGL   ", enableOpenGL   ? "enabled" : "disabled");
+#endif
+
+#if REGAL_LOG_INTERNAL
+    Info("REGAL_LOG_INTERNAL ", enableInternal ? "enabled" : "disabled");
+#endif
   }
 
   inline size_t indent()

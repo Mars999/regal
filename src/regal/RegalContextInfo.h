@@ -61,10 +61,19 @@ struct ContextInfo
   bool getExtension(const char *ext) const;
   bool isSupported(const char *ext) const;
 
+  // As reported by OpenGL implementation
+
   std::string vendor;
   std::string renderer;
   std::string version;
   std::string extensions;
+
+  // As reported by Regal
+
+  std::string regalVendor;
+  std::string regalRenderer;
+  std::string regalVersion;
+  std::string regalExtensions;
 
   GLboolean compat : 1;
   GLboolean core   : 1;
@@ -116,6 +125,7 @@ struct ContextInfo
   GLboolean gl_apple_element_array : 1;
   GLboolean gl_apple_fence : 1;
   GLboolean gl_apple_flush_buffer_range : 1;
+  GLboolean gl_apple_flush_render : 1;
   GLboolean gl_apple_object_purgeable : 1;
   GLboolean gl_apple_texture_range : 1;
   GLboolean gl_apple_vertex_array_object : 1;

@@ -17344,6 +17344,29 @@ static void REGAL_CALL debug_glTextureFogSGIX(GLenum pname)
     rCtx->dsp.curr->glTextureFogSGIX(pname);
 }
 
+// GL_APPLE_flush_render
+
+static void REGAL_CALL debug_glFlushRenderAPPLE(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    rCtx->dsp.curr->glFlushRenderAPPLE();
+}
+
+static void REGAL_CALL debug_glFinishRenderAPPLE(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    rCtx->dsp.curr->glFinishRenderAPPLE();
+}
+
+static void REGAL_CALL debug_glSwapAPPLE(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    rCtx->dsp.curr->glSwapAPPLE();
+}
+
 // GL_WIN_swap_hint
 
 static void REGAL_CALL debug_glAddSwapHintRectWIN(GLint x, GLint y, GLsizei width, GLsizei height)
@@ -20434,6 +20457,12 @@ void RegalPrivateInitDebugDispatchTable( DispatchTable & tbl )
 // GL_SGIX_fog_texture
 
    tbl.glTextureFogSGIX = debug_glTextureFogSGIX;
+
+// GL_APPLE_flush_render
+
+   tbl.glFlushRenderAPPLE = debug_glFlushRenderAPPLE;
+   tbl.glFinishRenderAPPLE = debug_glFinishRenderAPPLE;
+   tbl.glSwapAPPLE = debug_glSwapAPPLE;
 
 // GL_WIN_swap_hint
 

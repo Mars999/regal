@@ -81,6 +81,21 @@ REGAL_NAMESPACE_BEGIN
 # endif
 #endif
 
+#ifdef REGAL_LOG_ALL
+# undef REGAL_LOG_ERROR
+# undef REGAL_LOG_WARNING
+# undef REGAL_LOG_INFO
+# undef REGAL_LOG_REGAL
+# undef REGAL_LOG_OPENGL
+# undef REGAL_LOG_INTERNAL
+# define REGAL_LOG_ERROR    REGAL_LOG_ALL
+# define REGAL_LOG_WARNING  REGAL_LOG_ALL
+# define REGAL_LOG_INFO     REGAL_LOG_ALL
+# define REGAL_LOG_REGAL    REGAL_LOG_ALL
+# define REGAL_LOG_OPENGL   REGAL_LOG_ALL
+# define REGAL_LOG_INTERNAL REGAL_LOG_ALL
+#endif
+
 namespace Logging
 {
   extern void Init();

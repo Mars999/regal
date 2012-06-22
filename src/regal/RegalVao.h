@@ -451,7 +451,6 @@ struct RegalVao : public RegalEmu {
             case GL_TEXTURE_COORD_ARRAY:
                 {
                     GLuint index = clientActiveTexture - GL_TEXTURE0;
-                    RegalAssert(index >= 0);
                     RegalAssert(index < REGAL_VAO_NUM_ARRAYS);
                     if ( index < ffAttrNumTex )
                         return ffAttrTexBegin + index;

@@ -44,6 +44,9 @@ are permitted provided that the following conditions are met:
 #endif
 #endif
 
+#define REGAL_QUOTE(str) #str
+#define REGAL_EQUOTE(str) REGAL_QUOTE(str)
+
 #define REGAL_NAMESPACE_INTERNAL Regal
 
 // REGAL_GLOBAL_BEGIN and REGAL_GLOBAL_END for scoping externals
@@ -104,7 +107,7 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-inline const char * const RegalGetEnv(const char * const varname)
+inline const char * GetEnv(const char * const varname)
 {
 #ifdef _MSC_VER
 #pragma warning (push)

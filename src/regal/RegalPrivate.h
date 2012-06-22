@@ -44,6 +44,7 @@ REGAL_GLOBAL_BEGIN
 #endif
 
 #include "RegalUtil.h"
+#include "RegalConfig.h"
 #include "RegalLookup.h"
 #include "RegalDispatch.h"
 
@@ -175,9 +176,8 @@ struct RegalDispatchState {
       RegalPrivateInitLoaderDispatchTable( emuTbl );
       RegalPrivateInitEmuDispatchTable( emuTbl ); // overrides emulated functions only
       RegalPrivateInitDebugDispatchTable( dbgTbl );
-      if( RegalGetEnv( "REGAL_DEBUG" ) ) {
+      if( Config::config.enableDebug )
          Insert( 0, RDT_Debug );
-      }
       Insert( 0, RDT_Emu );
       Insert( 0, RDT_Driver );
    }

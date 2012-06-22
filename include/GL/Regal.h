@@ -213,6 +213,7 @@ typedef void * CGLPixelFormatObj;
 typedef void * CGLRendererInfoObj;
 typedef void * CGLPBufferObj;
 typedef void * CGLShareGroupObj;
+typedef void * IOSurfaceRef;
 typedef void * CGSConnectionID;
 typedef void * CGSWindowID;
 typedef void * CGSSurfaceID;
@@ -1250,6 +1251,48 @@ typedef void (REGAL_CALL *PFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC)(GLenum target, G
 #ifndef REGAL_NO_DECLARATION_GL_APPLE_FLUSH_BUFFER_RANGE
 REGAL_DECL void REGAL_CALL glBufferParameteriAPPLE(GLenum target, GLenum pname, GLint param);
 REGAL_DECL void REGAL_CALL glFlushMappedBufferRangeAPPLE(GLenum target, GLintptr offset, GLsizeiptr size);
+#endif
+
+/**
+ ** GL_APPLE_flush_render
+ **/
+
+#if (defined(GL_APPLE_FLUSH_RENDER) || defined(REGAL_NO_ENUM) || defined(REGAL_NO_GL_APPLE_FLUSH_RENDER)) && !defined(REGAL_NO_ENUM_GL_APPLE_FLUSH_RENDER)
+#define REGAL_NO_ENUM_GL_APPLE_FLUSH_RENDER
+#endif
+
+#if (defined(GL_APPLE_FLUSH_RENDER) || defined(REGAL_NO_TYPEDEF) || defined(REGAL_NO_GL_APPLE_FLUSH_RENDER)) && !defined(REGAL_NO_TYPEDEF_GL_APPLE_FLUSH_RENDER)
+#define REGAL_NO_TYPEDEF_GL_APPLE_FLUSH_RENDER
+#endif
+
+#if (defined(GL_APPLE_FLUSH_RENDER) || !defined(REGAL_NAMESPACE) || defined(REGAL_NO_GL_APPLE_FLUSH_RENDER)) && !defined(REGAL_NO_NAMESPACE_GL_APPLE_FLUSH_RENDER)
+#define REGAL_NO_NAMESPACE_GL_APPLE_FLUSH_RENDER
+#endif
+
+#if (defined(GL_APPLE_FLUSH_RENDER) || defined(REGAL_NO_DECLARATION) || defined(REGAL_NO_GL_APPLE_FLUSH_RENDER)) && !defined(REGAL_NO_DECLARATION_GL_APPLE_FLUSH_RENDER)
+#define REGAL_NO_DECLARATION_GL_APPLE_FLUSH_RENDER
+#endif
+
+#ifndef GL_APPLE_flush_render
+#define GL_APPLE_flush_render 1
+#endif
+
+#ifndef REGAL_NO_TYPEDEF_GL_APPLE_FLUSH_RENDER
+typedef void (REGAL_CALL *PFNGLFINISHRENDERAPPLEPROC)(void);
+typedef void (REGAL_CALL *PFNGLFLUSHRENDERAPPLEPROC)(void);
+typedef void (REGAL_CALL *PFNGLSWAPAPPLEPROC)(void);
+#endif
+
+#ifndef REGAL_NO_NAMESPACE_GL_APPLE_FLUSH_RENDER
+#define glFinishRenderAPPLE                 rglFinishRenderAPPLE
+#define glFlushRenderAPPLE                  rglFlushRenderAPPLE
+#define glSwapAPPLE                         rglSwapAPPLE
+#endif
+
+#ifndef REGAL_NO_DECLARATION_GL_APPLE_FLUSH_RENDER
+REGAL_DECL void REGAL_CALL glFinishRenderAPPLE(void);
+REGAL_DECL void REGAL_CALL glFlushRenderAPPLE(void);
+REGAL_DECL void REGAL_CALL glSwapAPPLE(void);
 #endif
 
 /**
@@ -17948,6 +17991,39 @@ REGAL_DECL GLboolean REGAL_CALL glIsSupportedREGAL(const GLchar *ext);
 #endif
 
 /**
+ ** GL_REGAL_log
+ **/
+
+#if (defined(GL_REGAL_LOG) || defined(REGAL_NO_ENUM) || defined(REGAL_NO_GL_REGAL_LOG)) && !defined(REGAL_NO_ENUM_GL_REGAL_LOG)
+#define REGAL_NO_ENUM_GL_REGAL_LOG
+#endif
+
+#if (defined(GL_REGAL_LOG) || defined(REGAL_NO_TYPEDEF) || defined(REGAL_NO_GL_REGAL_LOG)) && !defined(REGAL_NO_TYPEDEF_GL_REGAL_LOG)
+#define REGAL_NO_TYPEDEF_GL_REGAL_LOG
+#endif
+
+#if (defined(GL_REGAL_LOG) || !defined(REGAL_NAMESPACE) || defined(REGAL_NO_GL_REGAL_LOG)) && !defined(REGAL_NO_NAMESPACE_GL_REGAL_LOG)
+#define REGAL_NO_NAMESPACE_GL_REGAL_LOG
+#endif
+
+#if (defined(GL_REGAL_LOG) || defined(REGAL_NO_DECLARATION) || defined(REGAL_NO_GL_REGAL_LOG)) && !defined(REGAL_NO_DECLARATION_GL_REGAL_LOG)
+#define REGAL_NO_DECLARATION_GL_REGAL_LOG
+#endif
+
+#ifndef GL_REGAL_log
+#define GL_REGAL_log 1
+#endif
+
+#ifndef REGAL_NO_ENUM_GL_REGAL_LOG
+#define GL_LOG_ERROR_REGAL    0x770     /* 1904 */
+#define GL_LOG_WARNING_REGAL  0x771     /* 1905 */
+#define GL_LOG_INFO_REGAL     0x772     /* 1906 */
+#define GL_LOG_REGAL_REGAL    0x773     /* 1907 */
+#define GL_LOG_OPENGL_REGAL   0x774     /* 1908 */
+#define GL_LOG_INTERNAL_REGAL 0x775     /* 1909 */
+#endif
+
+/**
  ** GL_REND_screen_coordinates
  **/
 
@@ -28385,6 +28461,7 @@ typedef CGLContextObj (REGAL_CALL *PFNCGLGETCURRENTCONTEXTPROC)(void);
 typedef CGLError (REGAL_CALL *PFNCGLGETSURFACEPROC)(CGLContextObj ctx, CGSConnectionID *conn, CGSWindowID *win, CGSSurfaceID *srf);
 typedef CGLError (REGAL_CALL *PFNCGLSETCURRENTCONTEXTPROC)(CGLContextObj ctx);
 typedef CGLError (REGAL_CALL *PFNCGLSETSURFACEPROC)(CGLContextObj ctx, CGSConnectionID conn, CGSWindowID win, CGSSurfaceID srf);
+typedef CGLError (REGAL_CALL *PFNCGLTEXIMAGEIOSURFACE2DPROC)(CGLContextObj ctx, GLenum target, GLenum internal_format, GLsizei width, GLsizei height, GLenum format, GLenum type, IOSurfaceRef ioSurface, GLuint plane);
 typedef CGLError (REGAL_CALL *PFNCGLUPDATECONTEXTPROC)(CGLContextObj ctx);
 typedef CGLShareGroupObj (REGAL_CALL *PFNCGLGETSHAREGROUPPROC)(CGLContextObj ctx);
 #endif
@@ -28395,6 +28472,7 @@ typedef CGLShareGroupObj (REGAL_CALL *PFNCGLGETSHAREGROUPPROC)(CGLContextObj ctx
 #define CGLGetSurface                       rCGLGetSurface
 #define CGLSetCurrentContext                rCGLSetCurrentContext
 #define CGLSetSurface                       rCGLSetSurface
+#define CGLTexImageIOSurface2D              rCGLTexImageIOSurface2D
 #define CGLUpdateContext                    rCGLUpdateContext
 #endif
 
@@ -28403,8 +28481,45 @@ REGAL_DECL CGLContextObj REGAL_CALL CGLGetCurrentContext(void);
 REGAL_DECL CGLError REGAL_CALL CGLGetSurface(CGLContextObj ctx, CGSConnectionID *conn, CGSWindowID *win, CGSSurfaceID *srf);
 REGAL_DECL CGLError REGAL_CALL CGLSetCurrentContext(CGLContextObj ctx);
 REGAL_DECL CGLError REGAL_CALL CGLSetSurface(CGLContextObj ctx, CGSConnectionID conn, CGSWindowID win, CGSSurfaceID srf);
+REGAL_DECL CGLError REGAL_CALL CGLTexImageIOSurface2D(CGLContextObj ctx, GLenum target, GLenum internal_format, GLsizei width, GLsizei height, GLenum format, GLenum type, IOSurfaceRef ioSurface, GLuint plane);
 REGAL_DECL CGLError REGAL_CALL CGLUpdateContext(CGLContextObj ctx);
 REGAL_DECL CGLShareGroupObj REGAL_CALL CGLGetShareGroup(CGLContextObj ctx);
+#endif
+
+/**
+ ** CGL_VERSION_UNKNOWN
+ **/
+
+#if (defined(CGL_VERSION_UNKNOWN) || defined(REGAL_NO_ENUM) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_ENUM_CGL_VERSION_UNKNOWN)
+#define REGAL_NO_ENUM_CGL_VERSION_UNKNOWN
+#endif
+
+#if (defined(CGL_VERSION_UNKNOWN) || defined(REGAL_NO_TYPEDEF) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_TYPEDEF_CGL_VERSION_UNKNOWN)
+#define REGAL_NO_TYPEDEF_CGL_VERSION_UNKNOWN
+#endif
+
+#if (defined(CGL_VERSION_UNKNOWN) || !defined(REGAL_NAMESPACE) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_NAMESPACE_CGL_VERSION_UNKNOWN)
+#define REGAL_NO_NAMESPACE_CGL_VERSION_UNKNOWN
+#endif
+
+#if (defined(CGL_VERSION_UNKNOWN) || defined(REGAL_NO_DECLARATION) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_DECLARATION_CGL_VERSION_UNKNOWN)
+#define REGAL_NO_DECLARATION_CGL_VERSION_UNKNOWN
+#endif
+
+#ifndef CGL_VERSION_UNKNOWN
+#define CGL_VERSION_UNKNOWN 1
+#endif
+
+#ifndef REGAL_NO_TYPEDEF_CGL_VERSION_UNKNOWN
+typedef void (REGAL_CALL *PFNCGLOPENCLMUXLOCKDOWNPROC)(void);
+#endif
+
+#ifndef REGAL_NO_NAMESPACE_CGL_VERSION_UNKNOWN
+#define CGLOpenCLMuxLockDown                rCGLOpenCLMuxLockDown
+#endif
+
+#ifndef REGAL_NO_DECLARATION_CGL_VERSION_UNKNOWN
+REGAL_DECL void REGAL_CALL CGLOpenCLMuxLockDown(void);
 #endif
 
 #endif /* REGAL_SYS_OSX */

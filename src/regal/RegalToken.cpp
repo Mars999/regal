@@ -142,6 +142,12 @@ namespace Token {
       case 0x00000705: return "GL_DRAW_PIXEL_TOKEN";
       case 0x00000706: return "GL_COPY_PIXEL_TOKEN";
       case 0x00000707: return "GL_LINE_RESET_TOKEN";
+      case 0x00000770: return "GL_LOG_ERROR_REGAL";
+      case 0x00000771: return "GL_LOG_WARNING_REGAL";
+      case 0x00000772: return "GL_LOG_INFO_REGAL";
+      case 0x00000773: return "GL_LOG_REGAL_REGAL";
+      case 0x00000774: return "GL_LOG_OPENGL_REGAL";
+      case 0x00000775: return "GL_LOG_INTERNAL_REGAL";
       case 0x00000800: return "GL_EXP";
       case 0x00000801: return "GL_EXP2";
       case 0x00000900: return "GL_CW";

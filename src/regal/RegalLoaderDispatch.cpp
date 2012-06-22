@@ -62,12 +62,12 @@ inline bool fileExists(const char *path)
   return f != NULL;
 }
 
-inline const char * const getEnvironment(const char * const var)
+inline const char * getEnvironment(const char * const var)
 {
   const char *ret = NULL;
 
   if (var) {
-    ret = RegalGetEnv(var);
+    ret = GetEnv(var);
 
     /* Treat empty environment variable the same as non-existant */
     if (!ret || *ret=='\0')
@@ -146,19 +146,27 @@ void * RegalGetProcAddress( const char * entry )
     static void  *lib_GL = NULL;
 
     if( lib_OpenGL == NULL || lib_GL == NULL ) {
-        // this chdir business is a hacky solution to avoid recursion when using libRegal as libGL via symlink and DYLD_LIBRARY_PATH
+        // this chdir business is a hacky solution to avoid recursion
+        // when using libRegal as libGL via symlink and DYLD_LIBRARY_PATH=.
+
         char old_cwd[256];
         getcwd( old_cwd, sizeof( old_cwd ) );
         chdir( "/" );
+
+        // CGL entry point are in OpenGL framework
+
         if (!lib_OpenGL) {
             lib_OpenGL_filename = "/System/Library/Frameworks/OpenGL.framework/OpenGL";
-            Info("Loading OpenGL from ",lib_OpenGL_filename);
             lib_OpenGL = dlopen(lib_OpenGL_filename.c_str() , RTLD_LAZY);
+            Info("Loading OpenGL from ",lib_OpenGL_filename,lib_OpenGL ? " succeeded." : " failed.");
         }
+
+        // GL entry point are in libGL.dylib
+
         if (!lib_GL) {
             lib_GL_filename = "/System/Library/Frameworks/OpenGL.framework/Libraries/libGL.dylib";
-            Info("Loading OpenGL from ",lib_GL_filename);
             lib_GL = dlopen(lib_GL_filename.c_str(), RTLD_LAZY);
+            Info("Loading OpenGL from ",lib_GL_filename,lib_GL ? " succeeded." : " failed.");
         }
         chdir( old_cwd );
     }
@@ -56254,6 +56262,68 @@ static void REGAL_CALL loader_glTextureFogSGIX(GLenum pname)
    driverTbl.glTextureFogSGIX(pname);
 }
 
+// GL_APPLE_flush_render
+
+static void REGAL_CALL missing_glFlushRenderAPPLE(void)
+{
+   Warning( "Called missing function glFlushRenderAPPLE" );
+}
+
+static void REGAL_CALL loader_glFlushRenderAPPLE(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+   DispatchTable & driverTbl = rCtx->dsp.driverTbl;
+   RegalGetProcAddress( driverTbl.glFlushRenderAPPLE, "glFlushRenderAPPLE");
+   if ( !driverTbl.glFlushRenderAPPLE ) {
+      driverTbl.glFlushRenderAPPLE = missing_glFlushRenderAPPLE;
+   }
+   // If emu table is using the loader, update its entry too.
+   if (rCtx->dsp.emuTbl.glFlushRenderAPPLE == loader_glFlushRenderAPPLE) {
+      rCtx->dsp.emuTbl.glFlushRenderAPPLE = driverTbl.glFlushRenderAPPLE;
+   }
+   driverTbl.glFlushRenderAPPLE();
+}
+
+static void REGAL_CALL missing_glFinishRenderAPPLE(void)
+{
+   Warning( "Called missing function glFinishRenderAPPLE" );
+}
+
+static void REGAL_CALL loader_glFinishRenderAPPLE(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+   DispatchTable & driverTbl = rCtx->dsp.driverTbl;
+   RegalGetProcAddress( driverTbl.glFinishRenderAPPLE, "glFinishRenderAPPLE");
+   if ( !driverTbl.glFinishRenderAPPLE ) {
+      driverTbl.glFinishRenderAPPLE = missing_glFinishRenderAPPLE;
+   }
+   // If emu table is using the loader, update its entry too.
+   if (rCtx->dsp.emuTbl.glFinishRenderAPPLE == loader_glFinishRenderAPPLE) {
+      rCtx->dsp.emuTbl.glFinishRenderAPPLE = driverTbl.glFinishRenderAPPLE;
+   }
+   driverTbl.glFinishRenderAPPLE();
+}
+
+static void REGAL_CALL missing_glSwapAPPLE(void)
+{
+   Warning( "Called missing function glSwapAPPLE" );
+}
+
+static void REGAL_CALL loader_glSwapAPPLE(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+   DispatchTable & driverTbl = rCtx->dsp.driverTbl;
+   RegalGetProcAddress( driverTbl.glSwapAPPLE, "glSwapAPPLE");
+   if ( !driverTbl.glSwapAPPLE ) {
+      driverTbl.glSwapAPPLE = missing_glSwapAPPLE;
+   }
+   // If emu table is using the loader, update its entry too.
+   if (rCtx->dsp.emuTbl.glSwapAPPLE == loader_glSwapAPPLE) {
+      rCtx->dsp.emuTbl.glSwapAPPLE = driverTbl.glSwapAPPLE;
+   }
+   driverTbl.glSwapAPPLE();
+}
+
 // GL_WIN_swap_hint
 
 static void REGAL_CALL missing_glAddSwapHintRectWIN(GLint x, GLint y, GLsizei width, GLsizei height)
@@ -59361,6 +59431,12 @@ void RegalPrivateInitLoaderDispatchTable( DispatchTable & tbl )
 // GL_SGIX_fog_texture
 
    tbl.glTextureFogSGIX = loader_glTextureFogSGIX;
+
+// GL_APPLE_flush_render
+
+   tbl.glFlushRenderAPPLE = loader_glFlushRenderAPPLE;
+   tbl.glFinishRenderAPPLE = loader_glFinishRenderAPPLE;
+   tbl.glSwapAPPLE = loader_glSwapAPPLE;
 
 // GL_WIN_swap_hint
 

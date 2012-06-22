@@ -463,6 +463,7 @@ EXPORTS
   glFinishFenceAPPLE
   glFinishFenceNV
   glFinishObjectAPPLE
+  glFinishRenderAPPLE
   glFinishTextureSUNX
   glFlush
   glFlushMappedBufferRange
@@ -470,6 +471,7 @@ EXPORTS
   glFlushMappedNamedBufferRangeEXT
   glFlushPixelDataRangeNV
   glFlushRasterSGIX
+  glFlushRenderAPPLE
   glFlushVertexArrayRangeAPPLE
   glFlushVertexArrayRangeNV
   glFogCoordFormatNV
@@ -1708,6 +1710,7 @@ EXPORTS
   glStencilStrokePathNV
   glStopInstrumentsSGIX
   glStringMarkerGREMEDY
+  glSwapAPPLE
   glSwizzleEXT
   glTagSampleBufferSGIX
   glTangent3bEXT

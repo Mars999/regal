@@ -805,6 +805,7 @@ namespace {
         s << "    }\n";
     }
 
+#if 0
     string TexEnvModeName( GLenum mode ) {
         switch( mode ) {
             case GL_MODULATE:    return "Modulate";
@@ -826,7 +827,6 @@ namespace {
         }
         return "";
     }
-#if 0
     string TexEnvFuncName( GLenum mode, GLenum format ) {
         string s;
         s += "TexEnv";
@@ -1067,12 +1067,15 @@ namespace {
         dst.x = v.x; dst.y = v.y; dst.z = v.z; dst.w = v.w;
     }
 
+// Not currently used
+#if 0
     void TransformDir( RegalFloat4 & dst, const r3::Matrix4f & m, const GLfloat * src ) {
         r3::Vec3f v( src );
         m.MultMatrixDir( v );
         v.Normalize();
         dst.x = v.x; dst.y = v.y; dst.z = v.z;
     }
+#endif
 
     r3::Matrix4f RescaleNormal( const r3::Matrix4f & m ) {
         r3::Matrix4f r = m;

@@ -34,18 +34,135 @@
 
 REGAL_GLOBAL_BEGIN
 
+#include <map>
+using namespace std;
+
 #include "RegalLog.h"
 #include "RegalInit.h"
+#include "RegalToken.h"
+#include "RegalDispatch.h"
+#include "RegalPrivate.h"
 
 REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-static Init init;
+using Token::toString;
+
+static Init *init = NULL;
 
 Init::Init()
 {
   Logging::Init();
+}
+
+#if REGAL_SYS_WGL
+extern "C" { DWORD __stdcall GetCurrentThreadId(void); }
+#endif
+
+DispatchTableGlobal dispatchTableGlobal;
+
+#if REGAL_SYS_WGL
+
+    __declspec( thread ) void * regalCurrentContext = NULL;
+
+    inline Thread RegalPrivateThreadSelf()
+    {
+        return GetCurrentThreadId();
+    }
+    inline bool RegalPrivateThreadsEqual( Thread t0, Thread t1 )
+    {
+        return t0 == t1;
+    }
+#else
+    pthread_key_t regalPrivateCurrentContextKey = 0;
+
+    struct RegalPrivateTlsInit {
+        RegalPrivateTlsInit()
+        {
+            pthread_key_create( &regalPrivateCurrentContextKey, NULL );
+        }
+    };
+    RegalPrivateTlsInit regalPrivateTlsInit;
+
+    inline Thread RegalPrivateThreadSelf()
+    {
+        return pthread_self();
+    }
+
+    inline bool RegalPrivateThreadsEqual( Thread t0, Thread t1 )
+    {
+        return pthread_equal( t0, t1 ) != 0;
+    }
+#endif
+
+map<RegalSystemContext, RegalContext *> sc2rc;
+map<Thread, RegalContext *> th2rc;
+
+void RegalPrivateMakeCurrent(RegalSystemContext sysCtx)
+{
+  if (!init)
+    init = new Init();
+
+//  Trace("RegalPrivateMakeCurrent ",sysCtx);
+    Thread thread = RegalPrivateThreadSelf();
+    if (sysCtx) {
+        RegalContext * ctx = sc2rc.count( sysCtx ) > 0 ? sc2rc[ sysCtx ] : NULL;
+        if (!ctx) {
+            ctx = new RegalContext();
+#if REGAL_SYS_WGL
+            regalCurrentContext = ctx;
+#else
+            if (regalPrivateCurrentContextKey == 0) {
+                pthread_key_create( & regalPrivateCurrentContextKey, NULL );
+            }
+            pthread_setspecific( regalPrivateCurrentContextKey, ctx );
+#endif
+            ctx->Init();
+            sc2rc[ sysCtx ] = ctx;
+            ctx->sysCtx = sysCtx;
+        }
+
+    if( th2rc.count( thread ) != 0 ) {
+      RegalContext * & c = th2rc[ thread ];
+      if( c ) {
+        RegalAssert( c->thread == thread );
+        c->thread = 0;
+        c = NULL;
+      }
+    }
+    RegalAssert( th2rc.count( thread ) == 0 || th2rc[ thread ] == NULL );
+    RegalAssert( ctx->thread == 0 );
+    th2rc[ thread ] = ctx;
+    ctx->thread = thread;
+#if REGAL_SYS_WGL
+        regalCurrentContext = ctx;
+#else
+        pthread_setspecific( regalPrivateCurrentContextKey, ctx );
+#endif
+  } else {
+    if( th2rc.count( thread ) ) {
+      RegalContext * & ctx = th2rc[ thread ];
+      if( ctx != NULL ) {
+        RegalAssert( ctx->thread == thread );
+        ctx->thread = 0;
+        ctx = NULL;
+        RegalAssert( th2rc[ thread ] == NULL );
+      }
+    }
+#if REGAL_SYS_WGL
+    regalCurrentContext = NULL;
+#else
+    pthread_setspecific( regalPrivateCurrentContextKey, NULL );
+#endif
+  }
+}
+
+void RegalCheckForGLErrors( RegalContext *ctx )
+{
+    GLenum err = ctx->dsp.driverTbl.glGetError();
+    if (err != GL_NO_ERROR)
+        Error("GL error = ",toString(err));
 }
 
 REGAL_NAMESPACE_END

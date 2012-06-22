@@ -134,6 +134,26 @@ private:
   quote<T,C> &operator=(const quote<T,C> &other);
 };
 
+// Array printing
+
+template<typename T, typename U>
+struct array
+{
+  array(const T *data, const size_t size, const U &open, const U &close, const U &delim)
+  : _data(data), _size(size), _open(open), _close(close), _delim(delim) {}
+
+  const T *_data;
+  size_t   _size;
+
+  const U &_open;
+  const U &_close;
+  const U &_delim;
+
+private:
+  array();
+  array<T,U> &operator=(const array<T,U> &other);
+};
+
 // Iterator printing for containers
 
 template<typename T, typename U>

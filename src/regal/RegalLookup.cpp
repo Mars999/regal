@@ -47,7 +47,7 @@ REGAL_NAMESPACE_BEGIN
 
 namespace Lookup {
 
-const char * const gl_Name[2388] = {
+const char * const gl_Name[2391] = {
   "glAccum",
   "glActiveProgramEXT",
   "glActiveShaderProgram",
@@ -512,6 +512,7 @@ const char * const gl_Name[2388] = {
   "glFinishFenceAPPLE",
   "glFinishFenceNV",
   "glFinishObjectAPPLE",
+  "glFinishRenderAPPLE",
   "glFinishTextureSUNX",
   "glFlush",
   "glFlushMappedBufferRange",
@@ -519,6 +520,7 @@ const char * const gl_Name[2388] = {
   "glFlushMappedNamedBufferRangeEXT",
   "glFlushPixelDataRangeNV",
   "glFlushRasterSGIX",
+  "glFlushRenderAPPLE",
   "glFlushVertexArrayRangeAPPLE",
   "glFlushVertexArrayRangeNV",
   "glFogCoordFormatNV",
@@ -1757,6 +1759,7 @@ const char * const gl_Name[2388] = {
   "glStencilStrokePathNV",
   "glStopInstrumentsSGIX",
   "glStringMarkerGREMEDY",
+  "glSwapAPPLE",
   "glSwizzleEXT",
   "glTagSampleBufferSGIX",
   "glTangent3bEXT",
@@ -2438,7 +2441,7 @@ const char * const gl_Name[2388] = {
   NULL
 };
 
-const void *gl_Value[2388] = {
+const void *gl_Value[2391] = {
   (void *)(glAccum),
   (void *)(glActiveProgramEXT),
   (void *)(glActiveShaderProgram),
@@ -2903,6 +2906,7 @@ const void *gl_Value[2388] = {
   (void *)(glFinishFenceAPPLE),
   (void *)(glFinishFenceNV),
   (void *)(glFinishObjectAPPLE),
+  (void *)(glFinishRenderAPPLE),
   (void *)(glFinishTextureSUNX),
   (void *)(glFlush),
   (void *)(glFlushMappedBufferRange),
@@ -2910,6 +2914,7 @@ const void *gl_Value[2388] = {
   (void *)(glFlushMappedNamedBufferRangeEXT),
   (void *)(glFlushPixelDataRangeNV),
   (void *)(glFlushRasterSGIX),
+  (void *)(glFlushRenderAPPLE),
   (void *)(glFlushVertexArrayRangeAPPLE),
   (void *)(glFlushVertexArrayRangeNV),
   (void *)(glFogCoordFormatNV),
@@ -4148,6 +4153,7 @@ const void *gl_Value[2388] = {
   (void *)(glStencilStrokePathNV),
   (void *)(glStopInstrumentsSGIX),
   (void *)(glStringMarkerGREMEDY),
+  (void *)(glSwapAPPLE),
   (void *)(glSwizzleEXT),
   (void *)(glTagSampleBufferSGIX),
   (void *)(glTangent3bEXT),
@@ -5334,7 +5340,7 @@ const void *glx_Value[107] = {
 #endif
 
 #ifdef REGAL_SYS_OSX
-const char * const cgl_Name[52] = {
+const char * const cgl_Name[54] = {
   "CGLChoosePixelFormat",
   "CGLClearDrawable",
   "CGLCopyContext",
@@ -5367,6 +5373,7 @@ const char * const cgl_Name[52] = {
   "CGLGetVirtualScreen",
   "CGLIsEnabled",
   "CGLLockContext",
+  "CGLOpenCLMuxLockDown",
   "CGLQueryRendererInfo",
   "CGLReleaseContext",
   "CGLReleasePBuffer",
@@ -5383,13 +5390,14 @@ const char * const cgl_Name[52] = {
   "CGLSetParameter",
   "CGLSetSurface",
   "CGLSetVirtualScreen",
+  "CGLTexImageIOSurface2D",
   "CGLTexImagePBuffer",
   "CGLUnlockContext",
   "CGLUpdateContext",
   NULL
 };
 
-const void *cgl_Value[52] = {
+const void *cgl_Value[54] = {
   (void *)(CGLChoosePixelFormat),
   (void *)(CGLClearDrawable),
   (void *)(CGLCopyContext),
@@ -5422,6 +5430,7 @@ const void *cgl_Value[52] = {
   (void *)(CGLGetVirtualScreen),
   (void *)(CGLIsEnabled),
   (void *)(CGLLockContext),
+  (void *)(CGLOpenCLMuxLockDown),
   (void *)(CGLQueryRendererInfo),
   (void *)(CGLReleaseContext),
   (void *)(CGLReleasePBuffer),
@@ -5438,6 +5447,7 @@ const void *cgl_Value[52] = {
   (void *)(CGLSetParameter),
   (void *)(CGLSetSurface),
   (void *)(CGLSetVirtualScreen),
+  (void *)(CGLTexImageIOSurface2D),
   (void *)(CGLTexImagePBuffer),
   (void *)(CGLUnlockContext),
   (void *)(CGLUpdateContext),

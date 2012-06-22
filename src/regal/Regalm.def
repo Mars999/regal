@@ -463,6 +463,7 @@ EXPORTS
   rglFinishFenceAPPLE
   rglFinishFenceNV
   rglFinishObjectAPPLE
+  rglFinishRenderAPPLE
   rglFinishTextureSUNX
   rglFlush
   rglFlushMappedBufferRange
@@ -470,6 +471,7 @@ EXPORTS
   rglFlushMappedNamedBufferRangeEXT
   rglFlushPixelDataRangeNV
   rglFlushRasterSGIX
+  rglFlushRenderAPPLE
   rglFlushVertexArrayRangeAPPLE
   rglFlushVertexArrayRangeNV
   rglFogCoordFormatNV
@@ -1708,6 +1710,7 @@ EXPORTS
   rglStencilStrokePathNV
   rglStopInstrumentsSGIX
   rglStringMarkerGREMEDY
+  rglSwapAPPLE
   rglSwizzleEXT
   rglTagSampleBufferSGIX
   rglTangent3bEXT

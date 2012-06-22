@@ -38829,6 +38829,56 @@ static void REGAL_CALL error_glTextureFogSGIX(GLenum pname)
     }
 }
 
+// GL_APPLE_flush_render
+
+static void REGAL_CALL error_glFlushRenderAPPLE(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.curr->glGetError();
+    }
+    rCtx->dsp.curr->glFlushRenderAPPLE();
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.curr->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glFinishRenderAPPLE(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.curr->glGetError();
+    }
+    rCtx->dsp.curr->glFinishRenderAPPLE();
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.curr->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
+static void REGAL_CALL error_glSwapAPPLE(void)
+{
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalDspScopedStepDown stepDown( rCtx->dsp );
+    if (rCtx->err.inBeginEnd == false) {
+        rCtx->dsp.curr->glGetError();
+    }
+    rCtx->dsp.curr->glSwapAPPLE();
+    if (rCtx->err.inBeginEnd == false) {
+        GLenum err1 = rCtx->dsp.curr->glGetError();
+        if (err1 != GL_NO_ERROR) {
+            rCtx->err.callback( err1 );
+        }
+    }
+}
+
 // GL_WIN_swap_hint
 
 static void REGAL_CALL error_glAddSwapHintRectWIN(GLint x, GLint y, GLsizei width, GLsizei height)
@@ -41928,6 +41978,12 @@ void RegalPrivateInitErrorDispatchTable( DispatchTable & tbl )
 // GL_SGIX_fog_texture
 
    tbl.glTextureFogSGIX = error_glTextureFogSGIX;
+
+// GL_APPLE_flush_render
+
+   tbl.glFlushRenderAPPLE = error_glFlushRenderAPPLE;
+   tbl.glFinishRenderAPPLE = error_glFinishRenderAPPLE;
+   tbl.glSwapAPPLE = error_glSwapAPPLE;
 
 // GL_WIN_swap_hint
 

@@ -53,14 +53,14 @@ inline int NameCmp(const void *a, const void *b)
   return std::strcmp(*(const char **) a, *(const char **) b);
 }
 
-extern const char * const gl_Name[2388];
-extern const void *gl_Value[2388];
+extern const char * const gl_Name[2391];
+extern const void *gl_Value[2391];
 
 template<typename T>
 T
 gl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, gl_Name, 2387, sizeof(const char *), NameCmp);
+  const char **res = (const char **) std::bsearch(&name, gl_Name, 2390, sizeof(const char *), NameCmp);
   return res ? reinterpret_cast<T>(const_cast<void *>(gl_Value[(size_t) (res - gl_Name)])) : def;
 }
 
@@ -96,14 +96,14 @@ glx_Lookup(const char *name, T def = NULL)
 
 #ifdef REGAL_SYS_OSX
 
-extern const char * const cgl_Name[52];
-extern const void *cgl_Value[52];
+extern const char * const cgl_Name[54];
+extern const void *cgl_Value[54];
 
 template<typename T>
 T
 cgl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, cgl_Name, 51, sizeof(const char *), NameCmp);
+  const char **res = (const char **) std::bsearch(&name, cgl_Name, 53, sizeof(const char *), NameCmp);
   return res ? reinterpret_cast<T>(const_cast<void *>(cgl_Value[(size_t) (res - cgl_Name)])) : def;
 }
 

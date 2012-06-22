@@ -102,6 +102,7 @@ ContextInfo::ContextInfo()
   gl_apple_element_array(false),
   gl_apple_fence(false),
   gl_apple_flush_buffer_range(false),
+  gl_apple_flush_render(false),
   gl_apple_object_purgeable(false),
   gl_apple_texture_range(false),
   gl_apple_vertex_array_object(false),
@@ -449,6 +450,53 @@ ContextInfo::init(const RegalContext &context)
 
   Info("OpenGL extensions: ",extensions);
 
+  // Vendor, rendering, version, extensions reported by Regal to application
+
+#ifdef REGAL_GL_VENDOR
+  regalVendor = REGAL_EQUOTE(REGAL_GL_VENDOR);
+#else
+  regalVendor = vendor;
+#endif
+
+#ifdef REGAL_GL_RENDERER
+  regalRenderer = REGAL_EQUOTE(REGAL_GL_RENDERER);
+#else
+  regalRenderer = renderer;
+#endif
+
+#ifdef REGAL_GL_VERSION
+  regalVersion = REGAL_EQUOTE(REGAL_GL_VERSION);
+#else
+  regalVersion = version;
+#endif
+
+#ifdef REGAL_GL_EXTENSIONS
+  regalExtensions = REGAL_EQUOTE(REGAL_GL_EXTENSIONS);
+#else
+  regalExtensions = extensions;
+#endif
+
+#ifndef REGAL_NO_GETENV
+  {
+    const char *vendorEnv = GetEnv("REGAL_GL_VENDOR");
+    if (vendorEnv) regalVendor = vendorEnv;
+
+    const char *rendererEnv = GetEnv("REGAL_GL_RENDERER");
+    if (rendererEnv) regalRenderer = rendererEnv;
+
+    const char *versionEnv = GetEnv("REGAL_GL_VERSION");
+    if (versionEnv) regalVersion = versionEnv;
+
+    const char *extensionsEnv = GetEnv("REGAL_GL_EXTENSIONS");
+    if (extensionsEnv) regalExtensions = extensionsEnv;
+  }
+#endif
+
+  Info("Regal vendor     : ",regalVendor);
+  Info("Regal renderer   : ",regalRenderer);
+  Info("Regal version    : ",regalVersion);
+  Info("Regal extensions : ",regalExtensions);
+
   if (!gles)
   {
     gl_version_4_2 = gl_version_major > 4 || (gl_version_major == 4 && gl_version_minor >= 2);
@@ -489,6 +537,7 @@ ContextInfo::init(const RegalContext &context)
   gl_apple_element_array = e.find("GL_APPLE_element_array")!=e.end();
   gl_apple_fence = e.find("GL_APPLE_fence")!=e.end();
   gl_apple_flush_buffer_range = e.find("GL_APPLE_flush_buffer_range")!=e.end();
+  gl_apple_flush_render = e.find("GL_APPLE_flush_render")!=e.end();
   gl_apple_object_purgeable = e.find("GL_APPLE_object_purgeable")!=e.end();
   gl_apple_texture_range = e.find("GL_APPLE_texture_range")!=e.end();
   gl_apple_vertex_array_object = e.find("GL_APPLE_vertex_array_object")!=e.end();
@@ -785,6 +834,7 @@ ContextInfo::getExtension(const char *ext) const
   if (!strcmp(ext,"GL_APPLE_element_array")) return gl_apple_element_array;
   if (!strcmp(ext,"GL_APPLE_fence")) return gl_apple_fence;
   if (!strcmp(ext,"GL_APPLE_flush_buffer_range")) return gl_apple_flush_buffer_range;
+  if (!strcmp(ext,"GL_APPLE_flush_render")) return gl_apple_flush_render;
   if (!strcmp(ext,"GL_APPLE_object_purgeable")) return gl_apple_object_purgeable;
   if (!strcmp(ext,"GL_APPLE_texture_range")) return gl_apple_texture_range;
   if (!strcmp(ext,"GL_APPLE_vertex_array_object")) return gl_apple_vertex_array_object;
