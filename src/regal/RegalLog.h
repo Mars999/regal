@@ -101,7 +101,7 @@ namespace Logging
   extern void Init();
 
   extern void Output(const char *prefix, const std::string &str);
-  
+
   // Runtime control of logging
 
   extern bool enableError;

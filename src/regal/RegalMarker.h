@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -67,7 +67,7 @@ struct RegalMarker : public RegalEmu {
     std::string m = toString(length,marker);
     RTrace("/* ",m," */");
   }
-  
+
   void PushGroupMarker(RegalContext *ctx, GLsizei length, const char *marker)
   {
     UNUSED_PARAMETER(ctx);
@@ -77,7 +77,7 @@ struct RegalMarker : public RegalEmu {
     markerStack.push_back(std::string());
     markerStack.back().swap(m);
   }
-  
+
   void PopGroupMarker(RegalContext *ctx)
   {
     UNUSED_PARAMETER(ctx);
@@ -91,7 +91,7 @@ struct RegalMarker : public RegalEmu {
   std::size_t indent() const { return markerStack.size()*2; }
 
   private:
-  
+
     std::string
     toString(GLsizei length, const char *marker)
     {

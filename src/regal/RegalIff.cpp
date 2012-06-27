@@ -1301,7 +1301,7 @@ void State::SetClip( RegalIff * ffn, GLenum plane, const GLfloat * equation ) {
 void Program::Init( RegalContext * ctx, const Store & sstore, const GLchar *vsSrc, const GLchar *fsSrc ) {
     ver = 0;
     progcount = 0;
-    DispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp->emuTbl;
     store = sstore;
     pg = tbl.glCreateProgram();
     Shader( tbl, GL_VERTEX_SHADER, vs, vsSrc );
@@ -1322,14 +1322,14 @@ void Program::Init( RegalContext * ctx, const Store & sstore, const GLchar *vsSr
 void Program::Init( RegalContext * ctx, const Store & sstore ) {
     ver = 0;
     progcount = 0;
-    DispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp->emuTbl;
     store = sstore;
     Attribs( ctx );
-    ctx->dsp.emuTbl.glLinkProgram( pg );
-    ctx->dsp.emuTbl.glUseProgram( pg );
+    ctx->dsp->emuTbl.glLinkProgram( pg );
+    ctx->dsp->emuTbl.glUseProgram( pg );
     Samplers( tbl );
     Uniforms( tbl );
-    ctx->dsp.emuTbl.glUseProgram( ctx->iff->program );
+    ctx->dsp->emuTbl.glUseProgram( ctx->iff->program );
 }
 
 void Program::Shader( DispatchTable & tbl, GLenum type, GLuint & shader, const GLchar *src ) {
@@ -1347,7 +1347,7 @@ void Program::Shader( DispatchTable & tbl, GLenum type, GLuint & shader, const G
     tbl.glAttachShader( pg, shader );
 }
 void Program::Attribs( RegalContext * ctx ) {
-    DispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp->emuTbl;
 
     tbl.glBindAttribLocation( pg, ctx->iff->ffAttrMap[ RFF2A_Vertex ], "rglVertex" );
     //tbl.glBindAttribLocation( pg, 1, "rglWeight" );
@@ -1405,9 +1405,9 @@ void RFF::InitFixedFunction( RegalContext * ctx ) {
 #if RGL_SYS_ANDROID || RGL_SYS_IOS
     es = true;
 #else
-    es = RegalGetProcAddress( "glClearDepth" ) == NULL;
+    es = GetProcAddress( "glClearDepth" ) == NULL;
 #endif
-    string v = (const char *)ctx->dsp.emuTbl.glGetString( GL_VERSION );
+    string v = (const char *)ctx->dsp->emuTbl.glGetString( GL_VERSION );
     // FIXME: Handle detecting legacy more generally...
     legacy = v[0] == '2' && v[1] == '.';
     //legacy = v.find( "2.1 " ) != string::npos;
@@ -1470,7 +1470,7 @@ void RFF::InitFixedFunction( RegalContext * ctx ) {
 
 	fmtmap[ GL_RGBA16F ] = GL_RGBA16F;
 	fmtmap[ GL_SRGB8_ALPHA8 ] = GL_SRGB8_ALPHA8;
-	
+
 
 }
 
@@ -1712,7 +1712,7 @@ void RFF::State::Process( RegalIff * ffn ) {
 
 void RFF::UpdateUniforms( RegalContext * ctx ) {
     Program & pgm = *currprog;
-    DispatchTable & tbl = ctx->dsp.emuTbl;
+    DispatchTable & tbl = ctx->dsp->emuTbl;
     if( pgm.ver != ffstate.Ver() ) {
         pgm.ver = ffstate.Ver();
         const State::Store & p = ffstate.processed;
@@ -1913,7 +1913,7 @@ void RFF::UseFixedFunctionProgram( RegalContext * ctx ) {
     if( currprog->pg == 0 ) {
         Warning( "The program is 0. That can't be right.\n" );
     }
-    ctx->dsp.emuTbl.glUseProgram( currprog->pg );
+    ctx->dsp->emuTbl.glUseProgram( currprog->pg );
     UpdateUniforms( ctx );
 }
 
@@ -1936,7 +1936,7 @@ void RFF::UseShaderProgram( RegalContext * ctx ) {
 
 void RFF::ShaderSource( RegalContext *ctx, GLuint shader, GLsizei count, const GLchar **string, const GLint *length) {
 	if( string[0][0] == '#' && string[0][1] == 'v' ) {
-		ctx->dsp.emuTbl.glShaderSource( shader, count, string, length );
+		ctx->dsp->emuTbl.glShaderSource( shader, count, string, length );
 		return;
 	}
     std::vector< const GLchar * > s;
@@ -1989,11 +1989,11 @@ void RFF::ShaderSource( RegalContext *ctx, GLuint shader, GLsizei count, const G
     std::string preamble = ss.str();
     s[0] = preamble.c_str();
     l[0] = static_cast<GLint>( strlen( s[0] ) );
-    ctx->dsp.emuTbl.glShaderSource( shader, count + 1, &s[0], &l[0] );
+    ctx->dsp->emuTbl.glShaderSource( shader, count + 1, &s[0], &l[0] );
 }
 
 void RFF::LinkProgram( RegalContext *ctx, GLuint program ) {
-    ctx->dsp.emuTbl.glLinkProgram( program );
+    ctx->dsp->emuTbl.glLinkProgram( program );
 }
 
 REGAL_NAMESPACE_END

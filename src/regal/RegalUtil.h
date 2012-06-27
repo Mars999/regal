@@ -54,7 +54,7 @@ are permitted provided that the following conditions are met:
 
 // VC8, VC9  - C4127: conditional expression is constant in std::list
 // VC10      - C4512:
-// VC9, VC10 - C4996: 'vsprintf': This function or variable may be unsafe 
+// VC9, VC10 - C4996: 'vsprintf': This function or variable may be unsafe
 
 #ifdef _MSC_VER
 # define REGAL_GLOBAL_BEGIN         \
@@ -121,31 +121,49 @@ inline const char * GetEnv(const char * const varname)
 #endif
 }
 
+//
+// RegalCheckGLError
+//
+
 #ifdef NDEBUG
-#define RegalAssert( foo )
-#define RegalCheckGLError( ctx )
+#  define RegalCheckGLError( ctx )
 #else
-#define RegalAssert( foo ) ::REGAL_NAMESPACE_INTERNAL::AssertFunction( __FILE__ , __LINE__ , #foo, (foo) )
-#define RegalCheckGLError( ctx ) RegalCheckForGLErrors( (ctx) )
+#  define RegalCheckGLError( ctx ) RegalCheckForGLErrors( (ctx) )
 #endif
 
-template <typename T>
-inline void AssertFunction( const char * file, int line, const char * expr, T assertion )
-{
-    if( assertion ) {
-        return;
-    }
-    Error( "Regal Assertion Failed: ", file, " ", line, ": ", expr );
-}
+//
+// RegalAssert
+//
+
+#if defined(NDEBUG) && !defined(REGAL_NO_ASSERT)
+#  define REGAL_NO_ASSERT
+#endif
+
+#ifdef REGAL_NO_ASSERT
+#  define RegalAssert( foo )
+#else
+#  define RegalAssert( foo ) if (!(foo)) ::REGAL_NAMESPACE_INTERNAL::AssertFunction( __FILE__ , __LINE__ , #foo);
+#endif
+
+#ifndef REGAL_NO_ASSERT
+void AssertFunction(const char *file, const std::size_t line, const char *expr);
+#endif
+
+//
+//
+//
 
 struct RegalContext;
 
 void RegalCheckForGLErrors( RegalContext * ctx );
 
-void * RegalGetProcAddress( const char * entry );
-template <typename T> void RegalGetProcAddress( T * &f, const char * entry )
+void *GetProcAddress(const char *entry);
+
+template <typename T>
+T *GetProcAddress(T *&f, const char *entry )
 {
-    f = ( T * )RegalGetProcAddress( entry );
+  f = reinterpret_cast<T *>(GetProcAddress(entry));
+  return f;
 }
 
 // Lightweight boost::algorithm::string::starts_with

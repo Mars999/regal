@@ -40,6 +40,7 @@ REGAL_GLOBAL_BEGIN
 
 #include "RegalConfig.h"
 #include "RegalContext.h"
+#include "RegalDispatchState.h"
 #include "RegalDebugInfo.h"
 #include "RegalContextInfo.h"
 #include "RegalObj.h"
@@ -55,29 +56,40 @@ REGAL_NAMESPACE_BEGIN
 
 using namespace Logging;
 
-void RegalContext::Init()
+RegalContext::RegalContext()
+: dsp(new DispatchState()),
+  dbg(NULL),
+  info(NULL),
+  obj(NULL),
+  marker(NULL),
+  bin(NULL),
+  dsa(NULL),
+  iff(NULL),
+  vao(NULL),
+  sysCtx(0),
+  thread(0)
 {
-   ITrace("RegalContext::Init()");
-   dsp.Init();
-   err.Init();
+   ITrace("RegalContext::RegalContext");
+   dsp->Init();
    if( Config::config.enableDebug ) {
       dbg = new DebugInfo();
       dbg->Init(this);
-   } else {
-      dbg = NULL;
    }
+   RegalAssert(dsp);
+}
+
+void
+RegalContext::Init()
+{
+   ITrace("RegalContext::Init");
+
    info = new ContextInfo();
    RegalAssert(this);
    RegalAssert(info);
    info->init(*this);
+
        // emu
-   emuLevel = 8;
-   vao = NULL;
-   iff = NULL;
-   dsa = NULL;
-   bin = NULL;
-   marker = NULL;
-   obj = NULL;
+   emuLevel = 7;
    if( Config::config.enableEmulation ) {
       vao = new RegalVao;
       vao->emuLevel = 1;
@@ -95,17 +107,16 @@ void RegalContext::Init()
       marker->emuLevel = 5;
       marker->Init( this );
       obj = new RegalObj;
-      obj->emuLevel = 8;
+      obj->emuLevel = 7;
       obj->Init( this );
    }
 
-   sysCtx = 0;
-   thread = 0;
 }
 
-void RegalContext::Cleanup()
+RegalContext::~RegalContext()
 {
-   ITrace("RegalContext::Cleanup()");
+   ITrace("RegalContext::~RegalContext");
+   delete dsp;
    delete info;
    // emu
    delete obj;

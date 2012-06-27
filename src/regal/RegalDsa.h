@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -143,12 +143,12 @@ struct RegalDsa : public RegalEmu {
                     dsa.matrixMode = GL_TEXTURE;
                     break;
             }
-            ctx->dsp.emuTbl.glMatrixMode( dsa.matrixMode );
+            ctx->dsp->emuTbl.glMatrixMode( dsa.matrixMode );
         }
     }
     void RestoreMatrixMode( RegalContext * ctx ) {
         if( dsa.matrixMode != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glMatrixMode( drv.matrixMode );
+            ctx->dsp->emuTbl.glMatrixMode( drv.matrixMode );
             RestoreActiveTexture( ctx );
             dsa.matrixMode = REGAL_DSA_INVALID;
         }
@@ -166,12 +166,12 @@ struct RegalDsa : public RegalEmu {
     void DsaActiveTexture( RegalContext * ctx, GLenum tex) {
         if( NotActiveTexture( tex ) ) {
             dsa.activeTexture = tex;
-            ctx->dsp.emuTbl.glActiveTexture( dsa.activeTexture );
+            ctx->dsp->emuTbl.glActiveTexture( dsa.activeTexture );
         }
     }
     void RestoreActiveTexture( RegalContext * ctx ) {
         if( dsa.activeTexture != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glActiveTexture( drv.activeTexture );
+            ctx->dsp->emuTbl.glActiveTexture( drv.activeTexture );
             dsa.activeTexture = REGAL_DSA_INVALID;
         }
     }
@@ -187,12 +187,12 @@ struct RegalDsa : public RegalEmu {
     void DsaClientActiveTexture( RegalContext * ctx, GLenum tex ) {
         if( NotClientActiveTexture( tex ) ) {
             dsa.clientActiveTexture = tex;
-            ctx->dsp.emuTbl.glClientActiveTexture( dsa.clientActiveTexture );
+            ctx->dsp->emuTbl.glClientActiveTexture( dsa.clientActiveTexture );
         }
     }
     void RestoreClientActiveTexture( RegalContext * ctx ) {
         if( dsa.clientActiveTexture != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glClientActiveTexture( drv.clientActiveTexture );
+            ctx->dsp->emuTbl.glClientActiveTexture( drv.clientActiveTexture );
             dsa.clientActiveTexture = REGAL_DSA_INVALID;
         }
     }
@@ -208,12 +208,12 @@ struct RegalDsa : public RegalEmu {
     void DsaGlslProgram( RegalContext * ctx, GLuint program ) {
         if( NotGlslProgram( program ) ) {
             dsa.glslProgram = program;
-            ctx->dsp.emuTbl.glUseProgram( dsa.glslProgram );
+            ctx->dsp->emuTbl.glUseProgram( dsa.glslProgram );
         }
     }
     void RestoreGlslProgram( RegalContext * ctx ) {
         if( dsa.glslProgram != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glUseProgram( drv.glslProgram );
+            ctx->dsp->emuTbl.glUseProgram( drv.glslProgram );
             dsa.glslProgram = REGAL_DSA_INVALID;
         }
     }
@@ -234,12 +234,12 @@ struct RegalDsa : public RegalEmu {
         if( NotFramebuffer( target, framebuffer ) ) {
             dsa.framebufferTarget = target;
             dsa.framebuffer = framebuffer;
-            ctx->dsp.emuTbl.glBindFramebuffer( dsa.framebufferTarget, dsa.framebuffer );
+            ctx->dsp->emuTbl.glBindFramebuffer( dsa.framebufferTarget, dsa.framebuffer );
         }
     }
     void RestoreFramebuffer( RegalContext * ctx ) {
         if( dsa.framebuffer != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glBindFramebuffer( drv.framebufferTarget, drv.framebuffer );
+            ctx->dsp->emuTbl.glBindFramebuffer( drv.framebufferTarget, drv.framebuffer );
             dsa.framebufferTarget = REGAL_DSA_INVALID;
             dsa.framebuffer = REGAL_DSA_INVALID;
         }
@@ -273,13 +273,13 @@ struct RegalDsa : public RegalEmu {
         int idx = AsmTargetIndex( target );
         if( NotAsmProgram( target, prog ) ) {
             dsa.asmProgram[idx] = prog;
-            ctx->dsp.emuTbl.glBindProgramARB( target, dsa.asmProgram[idx] );
+            ctx->dsp->emuTbl.glBindProgramARB( target, dsa.asmProgram[idx] );
         }
     }
     void RestoreAsmProgram( RegalContext * ctx, GLenum target ) {
         int idx = AsmTargetIndex( target );
         if( dsa.asmProgram[idx] != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glBindProgramARB( target, drv.asmProgram[idx] );
+            ctx->dsp->emuTbl.glBindProgramARB( target, drv.asmProgram[idx] );
             dsa.asmProgram[idx] = REGAL_DSA_INVALID;
         }
     }
@@ -295,12 +295,12 @@ struct RegalDsa : public RegalEmu {
     void DsaVao( RegalContext * ctx, GLuint vao ) {
         if( NotVao( vao ) ) {
             dsa.vao = vao;
-            ctx->dsp.emuTbl.glBindVertexArray( dsa.vao );
+            ctx->dsp->emuTbl.glBindVertexArray( dsa.vao );
         }
     }
     void RestoreVao( RegalContext * ctx ) {
         if( dsa.vao != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glBindVertexArray( drv.vao );
+            ctx->dsp->emuTbl.glBindVertexArray( drv.vao );
             dsa.vao = REGAL_DSA_INVALID;
         }
     }
@@ -321,12 +321,12 @@ struct RegalDsa : public RegalEmu {
     void DsaBuffer( RegalContext * ctx, GLuint buf ) {
         if( NotBuffer( buf ) ) {
             dsa.buffer = buf;
-            ctx->dsp.emuTbl.glBindBuffer( GL_ARRAY_BUFFER, dsa.buffer );
+            ctx->dsp->emuTbl.glBindBuffer( GL_ARRAY_BUFFER, dsa.buffer );
         }
     }
     void RestoreBuffer( RegalContext * ctx ) {
         if( dsa.buffer != REGAL_DSA_INVALID ) {
-            ctx->dsp.emuTbl.glBindBuffer( GL_ARRAY_BUFFER, drv.buffer );
+            ctx->dsp->emuTbl.glBindBuffer( GL_ARRAY_BUFFER, drv.buffer );
             dsa.buffer = REGAL_DSA_INVALID;
         }
     }
@@ -357,13 +357,13 @@ struct RegalDsa : public RegalEmu {
             dsa.textureTarget = target;
             dsa.texture = texture;
             DsaActiveTexture( ctx, GL_TEXTURE0 );
-            ctx->dsp.emuTbl.glBindTexture( dsa.textureTarget, dsa.texture );
+            ctx->dsp->emuTbl.glBindTexture( dsa.textureTarget, dsa.texture );
         }
     }
     void RestoreTexture( RegalContext * ctx ) {
         if( dsa.texture != REGAL_DSA_INVALID ) {
             DsaActiveTexture( ctx, GL_TEXTURE0 );
-            ctx->dsp.emuTbl.glBindTexture( drv.textureTarget, drv.texture );
+            ctx->dsp->emuTbl.glBindTexture( drv.textureTarget, drv.texture );
             dsa.textureTarget = REGAL_DSA_INVALID;
             dsa.texture = REGAL_DSA_INVALID;
         }
@@ -371,7 +371,7 @@ struct RegalDsa : public RegalEmu {
 
 
     void ClientAttribDefault( RegalContext * ctx, GLbitfield mask ) {
-        DispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp->emuTbl;
         if( mask & GL_CLIENT_PIXEL_STORE_BIT ) {
             tbl.glPixelStorei( GL_UNPACK_SWAP_BYTES, 0 );
             tbl.glPixelStorei( GL_UNPACK_LSB_FIRST, 0 );
@@ -436,7 +436,7 @@ struct RegalDsa : public RegalEmu {
 
     template< typename T >
     bool GetIndexedv( RegalContext * ctx, GLenum pname, GLuint index, T * params ) {
-        DispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp->emuTbl;
         switch( pname ) {
             case GL_PROGRAM_MATRIX_EXT:
                 ctx->dsa->DsaMatrixMode( ctx, GL_MATRIX0_ARB + index );
@@ -573,7 +573,7 @@ struct RegalDsa : public RegalEmu {
     }
 
     GLboolean IsEnabledIndexed( RegalContext * ctx, GLenum pname, GLuint index ) {
-        DispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp->emuTbl;
         switch( pname ) {
             case GL_TEXTURE_1D:
             case GL_TEXTURE_2D:

@@ -14,6 +14,8 @@
 #include <GL/RegalGLUT.h>
 #endif
 
+#include <GL/RegalGLU.h>
+
 #include "render.h"
 
 #include <cstdio>
@@ -42,6 +44,11 @@ static void myKeyboard(unsigned char c, int x, int y)
   }
 }
 
+static void myError(GLenum error)
+{
+  printf("dreamtorus error: %s\n",glErrorStringREGAL(error));
+}
+
 int main(int argc, const char *argv[])
 {
   glutInitDisplayString("rgba>=8 depth double");
@@ -54,6 +61,8 @@ int main(int argc, const char *argv[])
   #ifdef __APPLE__
   RegalMakeCurrent(CGLGetCurrentContext());
   #endif
+
+  RegalSetErrorCallback(myError);
 
   // Exercise REGAL_extension_query extension, just 'coz
 

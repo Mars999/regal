@@ -84,7 +84,7 @@ fogv(GLenum pname)
     case GL_FOG_COORD_SRC:        return 1;
 
     // GL_NV_fog_distance
-    
+
     case GL_FOG_DISTANCE_MODE_NV: return 1;
 
     default:                      return 0;

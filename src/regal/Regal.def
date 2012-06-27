@@ -440,6 +440,7 @@ EXPORTS
   glEndTransformFeedbackNV
   glEndVertexShaderEXT
   glEndVideoCaptureNV
+  glErrorStringREGAL
   glEvalCoord1d
   glEvalCoord1dv
   glEvalCoord1f

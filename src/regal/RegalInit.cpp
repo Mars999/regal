@@ -41,6 +41,7 @@ using namespace std;
 #include "RegalInit.h"
 #include "RegalToken.h"
 #include "RegalDispatch.h"
+#include "RegalDispatchState.h"
 #include "RegalPrivate.h"
 
 REGAL_GLOBAL_END
@@ -160,7 +161,9 @@ void RegalPrivateMakeCurrent(RegalSystemContext sysCtx)
 
 void RegalCheckForGLErrors( RegalContext *ctx )
 {
-    GLenum err = ctx->dsp.driverTbl.glGetError();
+    RegalAssert(ctx);
+    RegalAssert(ctx->dsp);    
+    GLenum err = ctx->dsp->driverTbl.glGetError();
     if (err != GL_NO_ERROR)
         Error("GL error = ",toString(err));
 }

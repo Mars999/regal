@@ -146,13 +146,13 @@ struct RegalVao : public RegalEmu {
         ffAttrNumTex = ffAttrTexEnd - ffAttrTexBegin;
 
         core = true;
-        //std::string s = (const char *)ctx->dsp.driverTbl.glGetString( GL_RENDER );
+        //std::string s = (const char *)ctx->dsp->driverTbl.glGetString( GL_RENDER );
         RegalEmuScopedActivate activate( ctx, this );
         if( ctx->info->core ) {
             maxName = 1;
-            ctx->dsp.driverTbl.glGenVertexArrays( 1, & coreVao );
+            ctx->dsp->driverTbl.glGenVertexArrays( 1, & coreVao );
             RegalAssert( coreVao != 0 );
-            ctx->dsp.driverTbl.glBindVertexArray( coreVao );
+            ctx->dsp->driverTbl.glBindVertexArray( coreVao );
         }
         current = 9999999; // this is only to force the bind...
         currVao = NULL;
@@ -180,7 +180,7 @@ struct RegalVao : public RegalEmu {
         if( maxName < current ) {
             maxName = current;
         }
-        DispatchTable & tbl = ctx->dsp.emuTbl;
+        DispatchTable & tbl = ctx->dsp->emuTbl;
         tbl.glBindBuffer( GL_ARRAY_BUFFER, vao.vertexBuffer );
         tbl.glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vao.indexBuffer );
         GLuint lastBuffer = vao.vertexBuffer;
@@ -238,7 +238,7 @@ struct RegalVao : public RegalEmu {
 
     void EnableDisableVertexAttribArray( RegalContext * ctx, GLboolean enable, GLuint index ) {
         RegalAssert( index < maxVertexAttribs );
-        DispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp->emuTbl;
         Array & a = objects[current].a[index];
         a.enabled = enable;
         if( a.enabled == GL_TRUE ) {
@@ -344,7 +344,7 @@ struct RegalVao : public RegalEmu {
 
         RegalAssert( a.buffer == 0 || GLuint64( a.pointer ) < ( 1 << 22 ) );
 
-        ctx->dsp.emuTbl.glVertexAttribPointer( index, size, type, normalized, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( index, size, type, normalized, stride, pointer );
     }
 
     void Validate( RegalContext * ctx ) {

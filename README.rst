@@ -63,7 +63,19 @@ Features
 
     http://www.khronos.org/registry/gles/extensions/EXT/EXT_debug_marker.txt
 
+  - Enabled by default.
+
+  - Build-time configuration: **REGAL_NO_EMULATION** 
+
+  - Environment variable configuration: **REGAL_NO_EMULATION**
+
 * OpenGL error checking
+
+  - Disabled by default.
+
+  - Build-time configuration: **REGAL_ERROR** 
+  
+  - Environment variable configuration: **REGAL_ERROR**
 
 * Logging
 

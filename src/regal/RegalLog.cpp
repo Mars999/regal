@@ -77,7 +77,7 @@ namespace Logging {
   bool enableInternal = false;
 
   void Init()
-  {    
+  {
 #ifndef REGAL_NO_GETENV
 
     const char *error    = GetEnv("REGAL_LOG_ERROR");
@@ -93,7 +93,7 @@ namespace Logging {
     if (regal)    enableRegal    = atoi(regal)!=0;
     if (opengl)   enableOpenGL   = atoi(opengl)!=0;
     if (internal) enableInternal = atoi(internal)!=0;
-    
+
     const char *api = GetEnv("REGAL_LOG_API");
     const char *all = GetEnv("REGAL_LOG_ALL");
 
@@ -103,7 +103,7 @@ namespace Logging {
     if (all && atoi(all))
       enableError = enableWarning = enableInfo = enableRegal = enableOpenGL = enableInternal = true;
 #endif
-      
+
 #if REGAL_LOG_ERROR
     Info("REGAL_LOG_ERROR    ", enableError    ? "enabled" : "disabled");
 #endif

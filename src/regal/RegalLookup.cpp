@@ -47,7 +47,7 @@ REGAL_NAMESPACE_BEGIN
 
 namespace Lookup {
 
-const char * const gl_Name[2391] = {
+const char * const gl_Name[2392] = {
   "glAccum",
   "glActiveProgramEXT",
   "glActiveShaderProgram",
@@ -489,6 +489,7 @@ const char * const gl_Name[2391] = {
   "glEndTransformFeedbackNV",
   "glEndVertexShaderEXT",
   "glEndVideoCaptureNV",
+  "glErrorStringREGAL",
   "glEvalCoord1d",
   "glEvalCoord1dv",
   "glEvalCoord1f",
@@ -2441,7 +2442,7 @@ const char * const gl_Name[2391] = {
   NULL
 };
 
-const void *gl_Value[2391] = {
+const void *gl_Value[2392] = {
   (void *)(glAccum),
   (void *)(glActiveProgramEXT),
   (void *)(glActiveShaderProgram),
@@ -2883,6 +2884,7 @@ const void *gl_Value[2391] = {
   (void *)(glEndTransformFeedbackNV),
   (void *)(glEndVertexShaderEXT),
   (void *)(glEndVideoCaptureNV),
+  (void *)(glErrorStringREGAL),
   (void *)(glEvalCoord1d),
   (void *)(glEvalCoord1dv),
   (void *)(glEvalCoord1f),

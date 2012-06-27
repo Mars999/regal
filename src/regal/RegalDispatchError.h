@@ -1,18 +1,17 @@
 /*
-  Copyright (c) 2011 NVIDIA Corporation
-  Copyright (c) 2011-2012 Cass Everitt
-  Copyright (c) 2012 Scott Nations
-  Copyright (c) 2012 Mathias Schott
-  Copyright (c) 2012 Nigel Stewart
-  All rights reserved.
+Copyright (c) 2011 NVIDIA Corporation
+Copyright (c) 2011-2012 Cass Everitt
+Copyright (c) 2012 Scott Nations
+Copyright (c) 2012 Mathias Schott
+Copyright (c) 2012 Nigel Stewart
+All rights reserved.
 
-  Redistribution and use in source and binary forms, with or without modification,
-  are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
 
-    Redistributions of source code must retain the above copyright notice, this
+  Redistributions of source code must retain the above copyright notice, this
     list of conditions and the following disclaimer.
-
-    Redistributions in binary form must reproduce the above copyright notice,
+  Redistributions in binary form must reproduce the above copyright notice,
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
@@ -28,29 +27,40 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __REGAL_CONFIG_H__
-#define __REGAL_CONFIG_H__
+#ifndef __REGAL_DISPATCH_ERROR_H__
+#define __REGAL_DISPATCH_ERROR_H__
 
 #include "RegalUtil.h"
 
 REGAL_GLOBAL_BEGIN
 
+#include <GL/Regal.h>
+
 REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-struct Config
+struct RegalContext;
+
+struct DispatchErrorState
 {
-  Config();
-
-  bool forceCoreProfile;
-  bool enableEmulation;
-  bool enableDebug;
-  bool enableError;
-
-  static Config config;
+public:
+  DispatchErrorState()
+  : callback(NULL),
+    inBeginEnd(false)
+  {
+  }
+   
+  ~DispatchErrorState()
+  {
+  }
+      
+  ::RegalErrorCallback Set( RegalContext *ctx, ::RegalErrorCallback cb );
+   
+  ::RegalErrorCallback callback;
+  bool inBeginEnd;
 };
 
 REGAL_NAMESPACE_END
 
-#endif
+#endif // __REGAL_DISPATCH_ERROR_H__

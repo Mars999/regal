@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -61,7 +61,7 @@ struct RegalNameTranslator {
     std::map< GLuint, RegalName * > drv2app;
     void (REGAL_CALL *gen)( GLsizei n, GLuint * objs );
     void (REGAL_CALL *del)( GLsizei n, const GLuint * objs );
-    
+
     RegalNameTranslator() : gen( NULL ), del ( NULL ) {
         drv2app[ 0 ] = & app2drv[ 0 ];  // special case 0
     }
@@ -69,7 +69,7 @@ struct RegalNameTranslator {
     GLboolean IsObject( GLuint appName ) {
         return app2drv.count( appName ) > 0 ? GL_TRUE : GL_FALSE;
     }
-    
+
     GLuint Gen() {
         RegalName name;
         gen( 1, & name.drv );
@@ -89,7 +89,7 @@ struct RegalNameTranslator {
         drv2app[ name.drv ] = & app2drv[ name.app ];
         return name.app;
     }
-    
+
     GLuint ToDriverName( GLuint appName ) {
         if( app2drv.count( appName ) == 0 ) {
             RegalName & name = app2drv[ appName ];
@@ -99,7 +99,7 @@ struct RegalNameTranslator {
         }
         return app2drv[ appName ].drv;
     }
-    
+
     GLuint ToAppName( GLuint drvName ) {
         if( drv2app.count( drvName ) ) {
             RegalAssert( drv2app[ drvName ] != NULL );
@@ -107,7 +107,7 @@ struct RegalNameTranslator {
         }
         return 0;
     }
-    
+
     void Delete( GLuint appName ) {
         if( appName == 0 || app2drv.count( appName ) == 0 ) {
             return;
@@ -123,20 +123,20 @@ struct RegalNameTranslator {
 
 
 struct RegalObj : public RegalEmu {
-    
+
     RegalNameTranslator bufferNames;
 	RegalNameTranslator vaoNames;
-    
+
     void Init( RegalContext * ctx ) {
         RegalEmuScopedActivate activate( ctx, this );
-        bufferNames.gen = ctx->dsp.emuTbl.glGenBuffers;
-        bufferNames.del = ctx->dsp.emuTbl.glDeleteBuffers;
-		vaoNames.gen = ctx->dsp.emuTbl.glGenVertexArrays;
-		vaoNames.del = ctx->dsp.emuTbl.glDeleteVertexArrays;
+        bufferNames.gen = ctx->dsp->emuTbl.glGenBuffers;
+        bufferNames.del = ctx->dsp->emuTbl.glDeleteBuffers;
+		vaoNames.gen = ctx->dsp->emuTbl.glGenVertexArrays;
+		vaoNames.del = ctx->dsp->emuTbl.glDeleteVertexArrays;
     }
 
 	void BindBuffer( RegalContext * ctx, GLenum target, GLuint bufferBinding ) {
-		DispatchTable & tbl = ctx->dsp.emuTbl;
+		DispatchTable & tbl = ctx->dsp->emuTbl;
 		tbl.glBindBuffer( target, bufferNames.ToDriverName( bufferBinding ) );
 	}
 
@@ -161,7 +161,7 @@ struct RegalObj : public RegalEmu {
 
 
 	void BindVertexArray( RegalContext * ctx, GLuint vao ) {
-		DispatchTable & tbl = ctx->dsp.emuTbl;
+		DispatchTable & tbl = ctx->dsp->emuTbl;
 		tbl.glBindVertexArray( vaoNames.ToDriverName( vao ) );
 	}
 
@@ -184,7 +184,7 @@ struct RegalObj : public RegalEmu {
         return vaoNames.IsObject( appName );
     }
 
-	
+
 
 };
 

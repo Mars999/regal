@@ -275,7 +275,6 @@ ContextInfo::ContextInfo()
   gl_nv_vertex_program4(false),
   gl_nv_video_capture(false),
   gl_pgi_misc_hints(false),
-  gl_regal_extension_query(false),
   gl_sgis_detail_texture(false),
   gl_sgis_fog_function(false),
   gl_sgis_multisample(false),
@@ -382,8 +381,8 @@ ContextInfo::~ContextInfo()
 inline string getString(const RegalContext &context, const GLenum e)
 {
   ITrace("getString ",e);
-  RegalAssert(context.dsp.driverTbl.glGetString);
-  const GLubyte *str = context.dsp.driverTbl.glGetString(e);
+  RegalAssert(context.dsp->driverTbl.glGetString);
+  const GLubyte *str = context.dsp->driverTbl.glGetString(e);
   return str ? string(reinterpret_cast<const char *>(str)) : string();
 }
 
@@ -419,8 +418,8 @@ ContextInfo::init(const RegalContext &context)
   if (!gles && gl_version_major>=3)
   {
     GLint flags = 0;
-    RegalAssert(context.dsp.driverTbl.glGetIntegerv);
-    context.dsp.driverTbl.glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &flags);
+    RegalAssert(context.dsp->driverTbl.glGetIntegerv);
+    context.dsp->driverTbl.glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &flags);
     core = flags & GL_CONTEXT_CORE_PROFILE_BIT ? GL_TRUE : GL_FALSE;
   }
 
@@ -432,14 +431,14 @@ ContextInfo::init(const RegalContext &context)
 
   if (core)
   {
-    RegalAssert(context.dsp.driverTbl.glGetStringi);
-    RegalAssert(context.dsp.driverTbl.glGetIntegerv);
+    RegalAssert(context.dsp->driverTbl.glGetStringi);
+    RegalAssert(context.dsp->driverTbl.glGetIntegerv);
 
     GLint n = 0;
-    context.dsp.driverTbl.glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+    context.dsp->driverTbl.glGetIntegerv(GL_NUM_EXTENSIONS, &n);
 
     for (GLint i=0; i<n; ++i)
-      extList.push_back(reinterpret_cast<const char *>(context.dsp.driverTbl.glGetStringi(GL_EXTENSIONS,i)));
+      extList.push_back(reinterpret_cast<const char *>(context.dsp->driverTbl.glGetStringi(GL_EXTENSIONS,i)));
     extensions = extList.join(" ");
   }
   else
@@ -710,7 +709,6 @@ ContextInfo::init(const RegalContext &context)
   gl_nv_vertex_program4 = e.find("GL_NV_vertex_program4")!=e.end();
   gl_nv_video_capture = e.find("GL_NV_video_capture")!=e.end();
   gl_pgi_misc_hints = e.find("GL_PGI_misc_hints")!=e.end();
-  gl_regal_extension_query = e.find("GL_REGAL_extension_query")!=e.end();
   gl_sgis_detail_texture = e.find("GL_SGIS_detail_texture")!=e.end();
   gl_sgis_fog_function = e.find("GL_SGIS_fog_function")!=e.end();
   gl_sgis_multisample = e.find("GL_SGIS_multisample")!=e.end();
@@ -806,8 +804,8 @@ ContextInfo::init(const RegalContext &context)
   glx_sun_video_resize = e.find("GLX_SUN_video_resize")!=e.end();
 #endif
 
-  RegalAssert(context.dsp.driverTbl.glGetIntegerv);
-  context.dsp.driverTbl.glGetIntegerv( GL_MAX_VERTEX_ATTRIBS, reinterpret_cast<GLint *>(&maxVertexAttribs));
+  RegalAssert(context.dsp->driverTbl.glGetIntegerv);
+  context.dsp->driverTbl.glGetIntegerv( GL_MAX_VERTEX_ATTRIBS, reinterpret_cast<GLint *>(&maxVertexAttribs));
 
   if (maxVertexAttribs > REGAL_MAX_VERTEX_ATTRIBS)
       maxVertexAttribs = REGAL_MAX_VERTEX_ATTRIBS;
@@ -1007,7 +1005,8 @@ ContextInfo::getExtension(const char *ext) const
   if (!strcmp(ext,"GL_NV_vertex_program4")) return gl_nv_vertex_program4;
   if (!strcmp(ext,"GL_NV_video_capture")) return gl_nv_video_capture;
   if (!strcmp(ext,"GL_PGI_misc_hints")) return gl_pgi_misc_hints;
-  if (!strcmp(ext,"GL_REGAL_extension_query")) return gl_regal_extension_query;
+  if (!strcmp(ext,"GL_REGAL_error_string")) return true;
+  if (!strcmp(ext,"GL_REGAL_extension_query")) return true;
   if (!strcmp(ext,"GL_SGIS_detail_texture")) return gl_sgis_detail_texture;
   if (!strcmp(ext,"GL_SGIS_fog_function")) return gl_sgis_fog_function;
   if (!strcmp(ext,"GL_SGIS_multisample")) return gl_sgis_multisample;

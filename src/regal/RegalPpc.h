@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -63,7 +63,7 @@ REGAL_NAMESPACE_BEGIN
 
 
 struct RegalPpc : public RegalEmu {
-    
+
     struct ClientPixelStoreState {
 
         ClientPixelStoreState()
@@ -440,14 +440,14 @@ struct RegalPpc : public RegalEmu {
     GLuint ffAttrTexEnd;
     GLuint ffAttrNumTex;
     GLuint maxVertexAttribs;
-    
+
     void Init( RegalContext * ctx )
     {
         insideBeginEnd = false;
         topOfStack = -1;
 
         maxVertexAttribs = ctx->ctxInf->maxVertexAttribs;
-        
+
         // we have RFF2A maps for sets of 8 and 16 attributes. if
         // REGAL_PPC_MAX_VERTEX_ATTRIBS > 16 a new map needs to be added
 
@@ -478,7 +478,7 @@ struct RegalPpc : public RegalEmu {
         }
         ffAttrNumTex = ffAttrTexEnd - ffAttrTexBegin;
     }
-    
+
     GLuint ClientStateToAttribIndex( GLenum array )
     {
         switch ( array )
@@ -538,7 +538,7 @@ struct RegalPpc : public RegalEmu {
         }
         return pAS;
     }
-    
+
     void Begin( RegalContext * ctx, GLenum mode )
     {
         if ( insideBeginEnd == false ) {
@@ -842,7 +842,7 @@ struct RegalPpc : public RegalEmu {
         switch (pname)
         {
             case GL_PACK_SWAP_BYTES:
-                currentClientState.pixelStoreState.packSwapBytes = 
+                currentClientState.pixelStoreState.packSwapBytes =
                        (param ? GL_TRUE : GL_FALSE);
                 return;
 
@@ -860,14 +860,14 @@ struct RegalPpc : public RegalEmu {
 
             case GL_PACK_IMAGE_HEIGHT:
                 if ( param >= 0 ) {
-                   currentClientState.pixelStoreState.packImageHeight = 
+                   currentClientState.pixelStoreState.packImageHeight =
                        static_cast<GLint>(param);
                 }
                 return;
 
             case GL_PACK_SKIP_ROWS:
                 if ( param >= 0 ) {
-                   currentClientState.pixelStoreState.packSkipRows = 
+                   currentClientState.pixelStoreState.packSkipRows =
                        static_cast<GLint>(param);
                 }
                 return;
@@ -894,12 +894,12 @@ struct RegalPpc : public RegalEmu {
                 return;
 
             case GL_UNPACK_SWAP_BYTES:
-                currentClientState.pixelStoreState.unpackSwapBytes = 
+                currentClientState.pixelStoreState.unpackSwapBytes =
                        (param ? GL_TRUE : GL_FALSE);
                 return;
 
             case GL_UNPACK_LSB_FIRST:
-                currentClientState.pixelStoreState.unpackLsbFirst = 
+                currentClientState.pixelStoreState.unpackLsbFirst =
                        (param ? GL_TRUE : GL_FALSE);
                 return;
 
@@ -1519,61 +1519,61 @@ struct RegalPpc : public RegalEmu {
 
             case GL_VERTEX_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_COLOR_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_FOG_COORD_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_NORMAL_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_INDEX_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_EDGE_FLAG_ARRAY_BUFFER_BINDING:
                 pAS = ClientStateToAttribState( GL_EDGE_FLAG_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->buffer);
                 break;
 
             case GL_COLOR_ARRAY_SIZE:
                 pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->size);
                 break;
 
             case GL_VERTEX_ARRAY_SIZE:
                 pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->size);
                 break;
 
@@ -1583,97 +1583,97 @@ struct RegalPpc : public RegalEmu {
 
             case GL_TEXTURE_COORD_ARRAY_SIZE:
                 pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->size);
                 break;
 
             case GL_SECONDARY_COLOR_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_COLOR_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_VERTEX_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_TEXTURE_COORD_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_FOG_COORD_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_NORMAL_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_SECONDARY_COLOR_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_SECONDARY_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_COLOR_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_COLOR_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_VERTEX_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_VERTEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_FOG_COORD_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_FOG_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_TEXTURE_COORD_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_TEXTURE_COORD_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_NORMAL_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_NORMAL_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_INDEX_ARRAY_TYPE:
                 pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->type);
                 break;
 
             case GL_INDEX_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_INDEX_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
             case GL_EDGE_FLAG_ARRAY_STRIDE:
                 pAS = ClientStateToAttribState( GL_EDGE_FLAG_ARRAY );
-                if (pAS) 
+                if (pAS)
                     *params = static_cast<T>(pAS->stride);
                 break;
 
@@ -1747,7 +1747,7 @@ struct RegalPpc : public RegalEmu {
             case GL_SECONDARY_COLOR_ARRAY:
             case GL_TEXTURE_COORD_ARRAY:
                 pAS = ClientStateToAttribState( cap );
-                if ( pAS == NULL ) 
+                if ( pAS == NULL )
                     return false;
                 enabled = pAS->enabled;
                 break;
@@ -1843,7 +1843,7 @@ struct RegalPpc : public RegalEmu {
 
         if ( index == 0 && pname == GL_CURRENT_VERTEX_ATTRIB)
             return false;
-        
+
         VertexArrayState &gas = currentClientState.vertexArrayState.genericArrayState[index];
 
         switch (pname)

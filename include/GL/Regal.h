@@ -17952,6 +17952,42 @@ REGAL_DECL void REGAL_CALL glHintPGI(GLenum target, GLint mode);
 #endif
 
 /**
+ ** GL_REGAL_error_string
+ **/
+
+#if (defined(GL_REGAL_ERROR_STRING) || defined(REGAL_NO_ENUM) || defined(REGAL_NO_GL_REGAL_ERROR_STRING)) && !defined(REGAL_NO_ENUM_GL_REGAL_ERROR_STRING)
+#define REGAL_NO_ENUM_GL_REGAL_ERROR_STRING
+#endif
+
+#if (defined(GL_REGAL_ERROR_STRING) || defined(REGAL_NO_TYPEDEF) || defined(REGAL_NO_GL_REGAL_ERROR_STRING)) && !defined(REGAL_NO_TYPEDEF_GL_REGAL_ERROR_STRING)
+#define REGAL_NO_TYPEDEF_GL_REGAL_ERROR_STRING
+#endif
+
+#if (defined(GL_REGAL_ERROR_STRING) || !defined(REGAL_NAMESPACE) || defined(REGAL_NO_GL_REGAL_ERROR_STRING)) && !defined(REGAL_NO_NAMESPACE_GL_REGAL_ERROR_STRING)
+#define REGAL_NO_NAMESPACE_GL_REGAL_ERROR_STRING
+#endif
+
+#if (defined(GL_REGAL_ERROR_STRING) || defined(REGAL_NO_DECLARATION) || defined(REGAL_NO_GL_REGAL_ERROR_STRING)) && !defined(REGAL_NO_DECLARATION_GL_REGAL_ERROR_STRING)
+#define REGAL_NO_DECLARATION_GL_REGAL_ERROR_STRING
+#endif
+
+#ifndef GL_REGAL_error_string
+#define GL_REGAL_error_string 1
+#endif
+
+#ifndef REGAL_NO_TYPEDEF_GL_REGAL_ERROR_STRING
+typedef const GLchar *(REGAL_CALL *PFNGLERRORSTRINGREGALPROC)(GLenum error);
+#endif
+
+#ifndef REGAL_NO_NAMESPACE_GL_REGAL_ERROR_STRING
+#define glErrorStringREGAL                  rglErrorStringREGAL
+#endif
+
+#ifndef REGAL_NO_DECLARATION_GL_REGAL_ERROR_STRING
+REGAL_DECL const GLchar *REGAL_CALL glErrorStringREGAL(GLenum error);
+#endif
+
+/**
  ** GL_REGAL_extension_query
  **/
 

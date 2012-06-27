@@ -43,8 +43,8 @@ all debug: regal.lib glew.lib glut.lib regal.bin
 export:
 	scripts/Export.py --api gl 4.2 --api wgl 4.0 --api glx 4.0 --api cgl 1.4 --api egl 1.0 --outdir src/regal
 
-LIB.LDFLAGS        := $(LDFLAGS.EXTRA) $(LDFLAGS.GL) -lstdc++ -lpthread
-LIB.LIBS           := $(GL_LDFLAGS)
+LIB.LDFLAGS        := -lstdc++ -lpthread -ldl -lm
+LIB.LIBS           := 
 
 LIB.SRCS           :=
 LIB.SRCS           += src/regal/RegalIff.cpp
@@ -52,15 +52,17 @@ LIB.SRCS           += src/regal/Regal.cpp
 LIB.SRCS           += src/regal/RegalToken.cpp
 LIB.SRCS           += src/regal/RegalLog.cpp
 LIB.SRCS           += src/regal/RegalInit.cpp
+LIB.SRCS           += src/regal/RegalUtil.cpp
 LIB.SRCS           += src/regal/RegalConfig.cpp
 LIB.SRCS           += src/regal/RegalLookup.cpp
 LIB.SRCS           += src/regal/RegalHelper.cpp
 LIB.SRCS           += src/regal/RegalContext.cpp
 LIB.SRCS           += src/regal/RegalContextInfo.cpp
-LIB.SRCS           += src/regal/RegalEmuDispatch.cpp
-LIB.SRCS           += src/regal/RegalDebugDispatch.cpp
-LIB.SRCS           += src/regal/RegalErrorDispatch.cpp
-LIB.SRCS           += src/regal/RegalLoaderDispatch.cpp
+LIB.SRCS           += src/regal/RegalDispatchEmu.cpp
+LIB.SRCS           += src/regal/RegalDispatchLog.cpp
+LIB.SRCS           += src/regal/RegalDispatchDebug.cpp
+LIB.SRCS           += src/regal/RegalDispatchError.cpp
+LIB.SRCS           += src/regal/RegalDispatchLoader.cpp
 
 LIB.SRCS.NAMES     := $(notdir $(LIB.SRCS))
 
@@ -115,7 +117,8 @@ GLEW.SRCS        += src/glew/src/glew.c
 GLEW.SRCS.NAMES := $(notdir $(GLEW.SRCS))
 GLEW.OBJS       := $(addprefix tmp/$(SYSTEM)/glew/shared/,$(GLEW.SRCS.NAMES))
 GLEW.OBJS       := $(GLEW.OBJS:.c=.o)
-GLEW.CFLAGS     := -Isrc/glew/include -DGLEW_EXPORTS -DGLEW_BUILD
+GLEW.CFLAGS     := -Isrc/glew/include -Isrc/glu/include -DGLEW_EXPORTS -DGLEW_BUILD
+GLEW.LIBS       := -Llib -lRegal
 GLEW.SHARED     := libRegalGLEW.$(EXT.DYNAMIC)
 GLEW.STATIC     := libRegalGLEW.a
 
@@ -198,6 +201,9 @@ GLUT.SRCS.NAMES := $(notdir $(GLUT.SRCS))
 GLUT.OBJS       := $(addprefix tmp/$(SYSTEM)/glut/shared/,$(GLUT.SRCS.NAMES))
 GLUT.OBJS       := $(GLUT.OBJS:.c=.o)
 GLUT.CFLAGS     := -Isrc/glut/include -DBUILD_GLUT32 -DGLUT_BUILDING_LIB -DGLUT_STATIC
+GLUT.LIBS       := -Llib -lRegal
+GLUT.LIBS       += -lGLU -lX11 -lXmu -lXi 
+GLUT.LIBS       += -lpthread -lm
 GLUT.SHARED     := libRegalGLUT.$(EXT.DYNAMIC)
 GLUT.STATIC     := libRegalGLUT.a
 
@@ -208,7 +214,7 @@ tmp/$(SYSTEM)/glut/shared/%.o: src/glut/src/%.c
 	$(CC) $(CFLAGS) $(PICFLAG) $(GLUT.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 lib/$(GLUT.SHARED): $(GLUT.OBJS)
-	$(LD) $(LDFLAGS.DYNAMIC) -o $@ $^ -Llib -lRegal -lGLU -lX11 -lXmu -lXi -lpthread
+	$(LD) $(LDFLAGS.DYNAMIC) -o $@ $^ $(GLUT.LIBS) 
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -232,6 +238,8 @@ DREAMTORUS.SRCS.NAMES := $(notdir $(DREAMTORUS.SRCS))
 DREAMTORUS.OBJS       := $(addprefix tmp/$(SYSTEM)/dreamtorus/static/,$(DREAMTORUS.SRCS.NAMES))
 DREAMTORUS.OBJS       := $(DREAMTORUS.OBJS:.cpp=.o)
 DREAMTORUS.CFLAGS     := -Iinclude -Iexamples/dreamtorus/src
+DREAMTORUS.LIBS       += -Llib -lRegal $(LDFLAGS.GLUT)
+DREAMTORUS.LIBS       += -lm -lpthread
 
 tmp/$(SYSTEM)/dreamtorus/static/%.o: examples/dreamtorus/src/%.cpp
 	@mkdir -p $(dir $@)
@@ -242,7 +250,7 @@ tmp/$(SYSTEM)/dreamtorus/static/%.o: examples/dreamtorus/glut/code/%.cpp
 	$(CC) $(CFLAGS) $(DREAMTORUS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 bin/dreamtorus: $(DREAMTORUS.OBJS)
-	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS) $(LDFLAGS.GLUT) $(LDFLAGS.GL) -Llib -l$(NAME) -lm -lpthread
+	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(DREAMTORUS.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -258,13 +266,15 @@ TIGER.SRCS.NAMES := $(notdir $(TIGER.SRCS))
 TIGER.OBJS       := $(addprefix tmp/$(SYSTEM)/tiger/static/,$(TIGER.SRCS.NAMES))
 TIGER.OBJS       := $(TIGER.OBJS:.c=.o)
 TIGER.CFLAGS     := -Iinclude
+TIGER.LIBS       += -Llib -lRegalGLEW $(LDFLAGS.GLUT) -lRegal
+TIGER.LIBS       += -lm -lpthread
 
 tmp/$(SYSTEM)/tiger/static/%.o: examples/tiger/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(TIGER.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 bin/tiger: $(TIGER.OBJS)
-	$(LD) -o $@ $^ -Llib -l$(NAME) -lRegalGLEW $(LDFLAGS.GLUT) -lm -lpthread
+	$(LD) -o $@ $^ $(TIGER.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif

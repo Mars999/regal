@@ -40,6 +40,7 @@
 REGAL_GLOBAL_BEGIN
 
 #include "RegalPrivate.h"
+#include "RegalDispatchError.h"
 
 REGAL_GLOBAL_END
 
@@ -47,6 +48,7 @@ REGAL_NAMESPACE_BEGIN
 
 struct DebugInfo;
 struct ContextInfo;
+struct DispatchState;
 
 struct RegalObj;
 struct RegalMarker;
@@ -55,24 +57,28 @@ struct RegalDsa;
 struct RegalIff;
 struct RegalVao;
 
-struct RegalContext {
+struct RegalContext
+{
+   RegalContext();
+   ~RegalContext();
+
    void Init();
-   void Cleanup();
-   RegalDispatchState dsp;
-   RegalErrorState    err;
-   DebugInfo         *dbg;
-   ContextInfo       *info;
+
+   DispatchState      *dsp;
+   DispatchErrorState  err;
+   DebugInfo          *dbg;
+   ContextInfo        *info;
    // emu
    int emuLevel;
-   RegalObj * obj;
-   RegalMarker * marker;
-   RegalBin * bin;
-   RegalDsa * dsa;
-   RegalIff * iff;
-   RegalVao * vao;
+   RegalObj           *obj;
+   RegalMarker        *marker;
+   RegalBin           *bin;
+   RegalDsa           *dsa;
+   RegalIff           *iff;
+   RegalVao           *vao;
 
-   RegalSystemContext sysCtx;
-   Thread             thread;
+   RegalSystemContext  sysCtx;
+   Thread              thread;
 };
 
 REGAL_NAMESPACE_END

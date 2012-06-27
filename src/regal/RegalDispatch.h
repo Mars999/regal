@@ -604,6 +604,8 @@ struct DispatchTableGlobal {
 
 };
 
+extern DispatchTableGlobal dispatchTableGlobal;
+
 struct DispatchTable {
 
     // GL_VERSION_1_0
@@ -3548,11 +3550,6 @@ struct DispatchTable {
     void (REGAL_CALL *glStencilStrokePathNV)(GLuint path, GLint reference, GLuint mask);
     void (REGAL_CALL *glTransformPathNV)(GLuint resultPath, GLuint srcPath, GLenum transformType, const GLfloat *transformValues);
     void (REGAL_CALL *glWeightPathsNV)(GLuint resultPath, GLsizei numPaths, const GLuint *paths, const GLfloat *weights);
-
-    // GL_REGAL_extension_query
-
-    GLboolean (REGAL_CALL *glGetExtensionREGAL)(const GLchar *ext);
-    GLboolean (REGAL_CALL *glIsSupportedREGAL)(const GLchar *ext);
 
     // GL_AMD_debug_output
 

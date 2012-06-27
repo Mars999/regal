@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{755677A0-1C5E-47DA-85BC-C65878132F54}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Regal</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <TargetName>regal32</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <TargetName>regal32</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;REGAL_EXPORTS;REGAL_SYS_WGL_DECLARE_WGL;REGAL_DECL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../../include;$(SolutionDir)/../../../src/boost</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>$(SolutionDir)../../../src/regal/Regal.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;REGAL_EXPORTS;REGAL_SYS_WGL_DECLARE_WGL;REGAL_DECL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../../include;$(SolutionDir)/../../../src/boost</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>$(SolutionDir)../../../src/regal/Regal.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\GL\Regal.h" />
+    <ClInclude Include="..\..\..\src\regal\linear.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalBin.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalConfig.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalContext.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalContextInfo.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalDebugInfo.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalDispatchError.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalDispatchState.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalDsa.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalEmu.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalHelper.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalIff.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalInit.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalLog.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalLookup.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalObj.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalPrivate.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalToken.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalUtil.h" />
+    <ClInclude Include="..\..\..\src\regal\RegalVao.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\regal\Regal.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalConfig.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalContext.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalContextInfo.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalDispatchDebug.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalDispatchEmu.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalDispatchError.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalDispatchLoader.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalDispatchLog.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalDllMain.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalHelper.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalIff.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalInit.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalLog.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalLookup.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalToken.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\regal\Regal.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

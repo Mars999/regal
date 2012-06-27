@@ -53,14 +53,14 @@ inline int NameCmp(const void *a, const void *b)
   return std::strcmp(*(const char **) a, *(const char **) b);
 }
 
-extern const char * const gl_Name[2391];
-extern const void *gl_Value[2391];
+extern const char * const gl_Name[2392];
+extern const void *gl_Value[2392];
 
 template<typename T>
 T
 gl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, gl_Name, 2390, sizeof(const char *), NameCmp);
+  const char **res = (const char **) std::bsearch(&name, gl_Name, 2391, sizeof(const char *), NameCmp);
   return res ? reinterpret_cast<T>(const_cast<void *>(gl_Value[(size_t) (res - gl_Name)])) : def;
 }
 

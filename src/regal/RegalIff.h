@@ -50,6 +50,7 @@ REGAL_GLOBAL_BEGIN
 #include <algorithm>
 
 #include "RegalPrivate.h"
+#include "RegalDispatchState.h"
 #include "RegalContextInfo.h"
 #include "RegalEmu.h"
 #include "linear.h"
@@ -393,7 +394,7 @@ struct RegalIff : public RegalEmu {
         RestoreVao( ctx );
         RegalAssert( idx < maxVertexAttribs );
         if ( idx < maxVertexAttribs ) {
-            ctx->dsp.emuTbl.glEnableVertexAttribArray( idx );
+            ctx->dsp->emuTbl.glEnableVertexAttribArray( idx );
             EnableArray( ctx, idx ); // keep ffn up to date
         }
     }
@@ -406,7 +407,7 @@ struct RegalIff : public RegalEmu {
         RestoreVao( ctx );
         RegalAssert( idx < maxVertexAttribs );
         if ( idx < maxVertexAttribs ) {
-            ctx->dsp.emuTbl.glDisableVertexAttribArray( idx );
+            ctx->dsp->emuTbl.glDisableVertexAttribArray( idx );
             DisableArray( ctx, idx ); // keep ffn up to date
         }
     }
@@ -441,30 +442,30 @@ struct RegalIff : public RegalEmu {
             return;
 
         RestoreVao( ctx );
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Vertex ], size, type, GL_FALSE, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Vertex ], size, type, GL_FALSE, stride, pointer );
     }
 
     void NormalPointer( RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLboolean n = type == GL_FLOAT ? GL_FALSE : GL_TRUE;
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Normal ], 3, type, n, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Normal ], 3, type, n, stride, pointer );
     }
 
     void ColorPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLboolean n = type == GL_FLOAT ? GL_FALSE : GL_TRUE;
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Color ], size, type, n, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_Color ], size, type, n, stride, pointer );
     }
 
     void SecondaryColorPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
         GLboolean n = type == GL_FLOAT ? GL_FALSE : GL_TRUE;
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_SecondaryColor ], size, type, n, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_SecondaryColor ], size, type, n, stride, pointer );
     }
 
     void FogCoordPointer( RegalContext * ctx, GLenum type, GLsizei stride, const GLvoid *pointer ) {
         RestoreVao( ctx );
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_FogCoord ], 1, type, GL_FALSE, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( ffAttrMap[ RFF2A_FogCoord ], 1, type, GL_FALSE, stride, pointer );
     }
 
     void EdgeFlagPointer( RegalContext * ctx, GLsizei stride, const GLvoid *pointer ) {
@@ -473,7 +474,7 @@ struct RegalIff : public RegalEmu {
         if( index == RFF2A_Invalid ) {
             return;
         }
-        ctx->dsp.emuTbl.glVertexAttribPointer( index, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( index, 1, GL_UNSIGNED_BYTE, GL_FALSE, stride, pointer );
     }
 
     void TexCoordPointer( RegalContext * ctx, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) {
@@ -482,19 +483,19 @@ struct RegalIff : public RegalEmu {
             return;
         }
         RestoreVao( ctx );
-        ctx->dsp.emuTbl.glVertexAttribPointer( ffAttrTexBegin + catIndex, size, type, GL_FALSE, stride, pointer );
+        ctx->dsp->emuTbl.glVertexAttribPointer( ffAttrTexBegin + catIndex, size, type, GL_FALSE, stride, pointer );
     }
 
     void GetAttrib( RegalContext * ctx, GLuint index, GLenum pname, GLdouble * d ) {
-        ctx->dsp.emuTbl.glGetVertexAttribdv( index, pname, d );
+        ctx->dsp->emuTbl.glGetVertexAttribdv( index, pname, d );
     }
 
     void GetAttrib( RegalContext * ctx, GLuint index, GLenum pname, GLfloat * f ) {
-        ctx->dsp.emuTbl.glGetVertexAttribfv( index, pname, f );
+        ctx->dsp->emuTbl.glGetVertexAttribfv( index, pname, f );
     }
 
     void GetAttrib( RegalContext * ctx, GLuint index, GLenum pname, GLint * i ) {
-        ctx->dsp.emuTbl.glGetVertexAttribiv( index, pname, i );
+        ctx->dsp->emuTbl.glGetVertexAttribiv( index, pname, i );
     }
 
     template <typename T> bool VaGet( RegalContext * ctx, GLenum pname, T * params ) {
@@ -688,7 +689,7 @@ struct RegalIff : public RegalEmu {
 
         immShadowVao = 0;
 
-        DispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp->emuTbl;
         tbl.glGenVertexArrays( 1, & immVao );
         tbl.glBindVertexArray( immVao );
         BindVertexArray( ctx, immVao ); // to keep ffn current
@@ -746,7 +747,7 @@ struct RegalIff : public RegalEmu {
         for( GLsizei i = 0; i < n; i++ ) {
             GLuint name = arrays[ i ];
             if( name != immVao ) {
-                ctx->dsp.emuTbl.glDeleteVertexArrays( 1, &name );
+                ctx->dsp->emuTbl.glDeleteVertexArrays( 1, &name );
             }
         }
     }
@@ -756,7 +757,7 @@ struct RegalIff : public RegalEmu {
         RegalAssert( ctx != NULL );
         if (name == immVao )
             return GL_FALSE;
-        return ctx->dsp.emuTbl.glIsVertexArray( name );
+        return ctx->dsp->emuTbl.glIsVertexArray( name );
     }
 
     void ShadowVao( RegalContext *ctx, GLuint vao ) {
@@ -773,7 +774,7 @@ struct RegalIff : public RegalEmu {
     void Begin( RegalContext * ctx, GLenum mode ) {
         if( immActive == false ) {
             immActive = true;
-            ctx->dsp.emuTbl.glBindVertexArray( immVao );
+            ctx->dsp->emuTbl.glBindVertexArray( immVao );
             BindVertexArray( ctx, immVao );  // keep ffn current
         }
         PreDraw( ctx );
@@ -788,14 +789,14 @@ struct RegalIff : public RegalEmu {
     void RestoreVao( RegalContext * ctx ) {
         if( immActive == true ) {
             //RegalOutput( "Restoring vao to %d in Iff\n", immShadowVao );
-            ctx->dsp.emuTbl.glBindVertexArray( immShadowVao );
+            ctx->dsp->emuTbl.glBindVertexArray( immShadowVao );
             BindVertexArray( ctx, immShadowVao );
             immActive = false;
         }
     }
 
     void Flush( RegalContext * ctx ) {
-        DispatchTable &tbl = ctx->dsp.emuTbl;
+        DispatchTable &tbl = ctx->dsp->emuTbl;
 
         tbl.glBufferData( GL_ARRAY_BUFFER, immCurrent * sizeof( Attributes ), immArray, GL_DYNAMIC_DRAW );
         if( ( ctx->info->core == true || ctx->info->gles ) && immPrim == GL_QUADS ) {
@@ -1899,7 +1900,7 @@ struct RegalIff : public RegalEmu {
     void LinkProgram( RegalContext *ctx, GLuint program );
 
     GLuint CreateShader( RegalContext *ctx, GLenum shaderType ) {
-        GLuint sh = ctx->dsp.emuTbl.glCreateShader( shaderType );
+        GLuint sh = ctx->dsp->emuTbl.glCreateShader( shaderType );
         shaderTypeMap[ sh ] = shaderType;
         return sh;
     }

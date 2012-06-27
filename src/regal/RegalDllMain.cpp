@@ -21,8 +21,6 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-extern void *RegalGetProcAddress(const char *entry);
-
 REGAL_NAMESPACE_END
 
 BOOL APIENTRY
@@ -36,7 +34,7 @@ DllMain
   UNUSED_PARAMETER(module);
   UNUSED_PARAMETER(reserved);
 
-  switch (reason) 
+  switch (reason)
   {
     case DLL_PROCESS_ATTACH:
     case DLL_THREAD_ATTACH:

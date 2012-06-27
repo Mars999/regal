@@ -49,7 +49,8 @@ Config Config::config;
 Config::Config()
 : forceCoreProfile(false),
   enableEmulation(true),
-  enableDebug(false)
+  enableDebug(false),
+  enableError(false)
 {
 #ifndef REGAL_NO_GETENV
   const char *tmp;
@@ -62,11 +63,31 @@ Config::Config()
 
   tmp = GetEnv( "REGAL_DEBUG" );
   if (tmp) enableDebug = atoi(tmp)!=0;
+
+  tmp = GetEnv( "REGAL_ERROR" );
+  if (tmp) enableError = atoi(tmp)!=0;
+#endif
+
+#ifdef REGAL_FORCE_CORE_PROFILE
+  forceCoreProfile = (REGAL_FORCE_CORE_PROFILE) != 0;
+#endif
+
+#ifdef REGAL_NO_EMULATION
+  enableEmulation = (REGAL_NO_EMULATION) == 0;
+#endif
+
+#ifdef REGAL_DEBUG
+  enableDebug = (REGAL_DEBUG) != 0;
+#endif
+
+#ifdef REGAL_ERROR
+  enableDebug = (REGAL_ERROR) != 0;
 #endif
 
   Info("REGAL_FORCE_CORE_PROFILE ", forceCoreProfile ? "enabled" : "disabled");
   Info("REGAL_NO_EMULATION       ", !enableEmulation ? "enabled" : "disabled");
   Info("REGAL_DEBUG              ", enableDebug      ? "enabled" : "disabled");
+  Info("REGAL_ERROR              ", enableError      ? "enabled" : "disabled");
 }
-  
+
 REGAL_NAMESPACE_END

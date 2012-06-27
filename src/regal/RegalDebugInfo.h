@@ -5,16 +5,16 @@
  Copyright (c) 2012 Mathias Schott
  Copyright (c) 2012 Nigel Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -91,11 +91,11 @@ struct DebugInfo {
     std::map< GLuint, DebugTexObject > textures;
     std::map< GLuint, DebugBufferObject> buffers;
 
-    DebugInfo() 
+    DebugInfo()
     : clientActiveTextureIndex( 0 )
-    , activeTextureIndex( 0 ) {     
+    , activeTextureIndex( 0 ) {
     }
-    
+
     void Init( RegalContext * ctx ) {
         UNUSED_PARAMETER(ctx);
         matrixMode = RGL_MODELVIEW;
@@ -105,15 +105,15 @@ struct DebugInfo {
         UNUSED_PARAMETER(ctx);
         matrixMode = static_cast<RegalEnum>(mode);
     }
-    
+
     void ClientActiveTexture( RegalContext * ctx, GLenum texture ) {
         UNUSED_PARAMETER(ctx);
-        clientActiveTextureIndex = texture - GL_TEXTURE0;        
+        clientActiveTextureIndex = texture - GL_TEXTURE0;
     }
 
     void ActiveTexture( RegalContext * ctx, GLenum texture ) {
         UNUSED_PARAMETER(ctx);
-        activeTextureIndex = texture - GL_TEXTURE0;        
+        activeTextureIndex = texture - GL_TEXTURE0;
     }
 
 };

@@ -14,7 +14,7 @@ endif
 CFLAGS.EXTRA  += -m32
 LDFLAGS.EXTRA += -m32
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
-LDFLAGS.GLUT = -lglut
+LDFLAGS.GLUT = -lRegalGLUT
 LDFLAGS.STATIC =
 LDFLAGS.DYNAMIC = -shared
 WARN = -Wall -W -Wno-unused-parameter

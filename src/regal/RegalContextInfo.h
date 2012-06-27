@@ -298,7 +298,6 @@ struct ContextInfo
   GLboolean gl_nv_vertex_program4 : 1;
   GLboolean gl_nv_video_capture : 1;
   GLboolean gl_pgi_misc_hints : 1;
-  GLboolean gl_regal_extension_query : 1;
   GLboolean gl_sgis_detail_texture : 1;
   GLboolean gl_sgis_fog_function : 1;
   GLboolean gl_sgis_multisample : 1;

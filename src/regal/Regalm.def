@@ -440,6 +440,7 @@ EXPORTS
   rglEndTransformFeedbackNV
   rglEndVertexShaderEXT
   rglEndVideoCaptureNV
+  rglErrorStringREGAL
   rglEvalCoord1d
   rglEvalCoord1dv
   rglEvalCoord1f

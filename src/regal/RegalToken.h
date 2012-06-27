@@ -2828,6 +2828,7 @@ REGAL_NAMESPACE_BEGIN
 namespace Token {
 
   const char * GLenumToString( GLenum e );
+  const char * GLerrorToString( GLenum e );  // gluErrorString
 
   inline const char *toString(const GLenum e) { return GLenumToString(e); }
 }
