@@ -62,39 +62,6 @@ REGAL_NAMESPACE_BEGIN
 #define REGAL_MAX_VERTEX_ATTRIBS 16
 #define REGAL_IMMEDIATE_BUFFER_SIZE 8192
 
-template <typename T> inline float RegalImmediateConvert( GLboolean normalize, T v ) {
-  UNUSED_PARAMETER(normalize);
-    return float( v );
-}
-
-template <> inline float RegalImmediateConvert( GLboolean normalize, GLubyte v ) {
-    if ( normalize == GL_TRUE ) {
-        return float( v ) / 255.0f;
-    }
-    return float( v );
-}
-
-template <> inline float RegalImmediateConvert( GLboolean normalize, GLbyte v ) {
-    if ( normalize == GL_TRUE ) {
-        return float( v ) / 127.0f;
-    }
-    return float( v );
-}
-
-template <> inline float RegalImmediateConvert( GLboolean normalize, GLushort v ) {
-    if ( normalize == GL_TRUE ) {
-        return float( v ) / 65535.0f;
-    }
-    return float( v );
-}
-
-template <> inline float RegalImmediateConvert( GLboolean normalize, GLshort v ) {
-    if ( normalize == GL_TRUE ) {
-        return float( v ) / 32767.0f;
-    }
-    return float( v );
-}
-
 const GLenum texenvModeGL[] = {
     GL_FALSE,
     GL_REPLACE,
@@ -659,7 +626,7 @@ struct RegalIff : public RegalEmu {
 
     // immediate mode
 
-    struct Attributes { RegalFloat4 attr[ REGAL_MAX_VERTEX_ATTRIBS ]; };
+    struct Attributes { Float4 attr[ REGAL_MAX_VERTEX_ATTRIBS ]; };
 
     bool immActive;
     GLuint immProvoking;
@@ -680,7 +647,7 @@ struct RegalIff : public RegalEmu {
         immCurrent = 0;
         immPrim = GL_POINTS;
         for( GLuint i = 0; i < maxVertexAttribs; i++ ) {
-            RegalFloat4 & a = immVab.attr[i];
+            Float4 & a = immVab.attr[i];
             a.x = a.y = a.z = 0.0f; a.w = 1.0f;
         }
 
@@ -843,16 +810,16 @@ struct RegalIff : public RegalEmu {
     }
 
 
-    template <int N, typename T> void Attribute( RegalContext * ctx, GLuint idx, GLboolean normalize, const T * v ) {
+    template <int N, typename T> void Attribute( RegalContext * ctx, GLuint idx, const bool normalize, const T * v ) {
         if( idx >= maxVertexAttribs ) {
             // FIXME: set an error
             return;
         }
-        RegalFloat4 & a = immVab.attr[ idx ];
-        a.x = RegalImmediateConvert( normalize, v[0] );
-        a.y = N > 1 ? RegalImmediateConvert( normalize, v[1] ) : 0.0f;
-        a.z = N > 2 ? RegalImmediateConvert( normalize, v[2] ) : 0.0f;
-        a.w = N > 3 ? RegalImmediateConvert( normalize, v[3] ) : 1.0f;
+        Float4 & a = immVab.attr[ idx ];
+        a.x = ToFloat( normalize, v[0] );
+        a.y = N > 1 ? ToFloat( normalize, v[1] ) : 0.0f;
+        a.z = N > 2 ? ToFloat( normalize, v[2] ) : 0.0f;
+        a.w = N > 3 ? ToFloat( normalize, v[3] ) : 1.0f;
         ffstate.raw.vabVer = ver.Update();
         if( idx == immProvoking ) {
             Provoke( ctx );
@@ -862,19 +829,19 @@ struct RegalIff : public RegalEmu {
 
     template <int N, typename T> void Attr( RegalContext *ctx, GLuint idx, T x, T y = 0, T z = 0, T w = 1 ) {
         T v[4] = { x, y, z, w };
-        Attribute<N>( ctx, idx, GL_FALSE, v );
+        Attribute<N>( ctx, idx, false, v );
     }
 
     template <int N, typename T> void AttrN( RegalContext *ctx, GLuint idx, T x, T y = 0, T z = 0, T w = 1 ) {
         T v[4] = { x, y, z, w };
-        Attribute<N>( ctx, idx, GL_TRUE, v );
+        Attribute<N>( ctx, idx, true, v );
     }
     template <int N, typename T> void Attr( RegalContext *ctx, GLuint idx, const T * v ) {
-        Attribute<N>( ctx, idx, GL_FALSE, v );
+        Attribute<N>( ctx, idx, false, v );
     }
 
     template <int N, typename T> void AttrN( RegalContext *ctx, GLuint idx, const T * v ) {
-        Attribute<N>( ctx, idx, GL_TRUE, v );
+        Attribute<N>( ctx, idx, true, v );
     }
 
     GLuint AttrIndex( RegalFixedFunctionAttrib attr, int cat = -1 ) const {
@@ -1005,7 +972,7 @@ struct RegalIff : public RegalEmu {
         {}
         TexenvMode mode;
         TexenvCombineState rgb, a;
-        RegalFloat4 color;
+        Float4 color;
     };
 
     struct TextureUnit {
@@ -1019,7 +986,7 @@ struct RegalIff : public RegalEmu {
         GLint fmt;
         GLuint obj;
         TextureEnv env;
-        //RegalFloat4 col;
+        //Float4 col;
         GLuint64 ver;
     };
 
@@ -1058,8 +1025,8 @@ struct RegalIff : public RegalEmu {
             {}
             bool enable;
             TexgenMode mode;
-            RegalFloat4 obj;
-            RegalFloat4 eye;
+            Float4 obj;
+            Float4 eye;
             GLuint64 objVer;
             GLuint64 eyeVer;
         };
@@ -1069,8 +1036,8 @@ struct RegalIff : public RegalEmu {
             : enables( 0 )
             , useMatrix( false )
             {
-                texgen[0].obj = texgen[0].eye = RegalFloat4( 1, 0, 0, 0 );
-                texgen[1].obj = texgen[1].eye = RegalFloat4( 0, 1, 0, 0 );
+                texgen[0].obj = texgen[0].eye = Float4( 1, 0, 0, 0 );
+                texgen[1].obj = texgen[1].eye = Float4( 0, 1, 0, 0 );
             }
             GLubyte enables;
             bool useMatrix;
@@ -1098,7 +1065,7 @@ struct RegalIff : public RegalEmu {
             , ver( 0 )
             {}
             bool enable;
-            RegalFloat4 plane;
+            Float4 plane;
             GLuint64 ver;
         };
 
@@ -1109,13 +1076,13 @@ struct RegalIff : public RegalEmu {
             , mode( FG_Exp )
             , ver( 0 )
             {
-                params[0] = RegalFloat4( 1, 0, 1, 0 );
-                params[1] = RegalFloat4( 0, 0, 0, 0 );
+                params[0] = Float4( 1, 0, 1, 0 );
+                params[1] = Float4( 0, 0, 0, 0 );
             }
             bool enable;
             bool useDepth;
             FogMode mode;
-            RegalFloat4 params[2]; // .x = density, .y = start, .z = end, .w = d/c
+            Float4 params[2]; // .x = density, .y = start, .z = end, .w = d/c
             GLuint64 ver;
         };
 
@@ -1132,12 +1099,12 @@ struct RegalIff : public RegalEmu {
             bool enable;
             bool spotlight;
             bool attenuate;
-            RegalFloat4 ambient;
-            RegalFloat4 diffuse;
-            RegalFloat4 specular;
-            RegalFloat4 position;
-            RegalFloat4 spotDirection; // spotCutoff is in .w
-            RegalFloat4 attenuation;   // spotExponent   is in .w
+            Float4 ambient;
+            Float4 diffuse;
+            Float4 specular;
+            Float4 position;
+            Float4 spotDirection; // spotCutoff is in .w
+            Float4 attenuation;   // spotExponent   is in .w
             GLuint64 ver;
         };
 
@@ -1150,11 +1117,11 @@ struct RegalIff : public RegalEmu {
             , shininess( 0, 0, 0, 0 )
             , ver( 0 )
             {}
-            RegalFloat4 ambient;
-            RegalFloat4 diffuse;
-            RegalFloat4 specular;
-            RegalFloat4 emission;
-            RegalFloat4 shininess;  // shininess is in .x
+            Float4 ambient;
+            Float4 diffuse;
+            Float4 specular;
+            Float4 emission;
+            Float4 shininess;  // shininess is in .x
             GLuint64 ver;
         };
 
@@ -1180,16 +1147,16 @@ struct RegalIff : public RegalEmu {
                     }
                 }
                 for (int ii=0; ii<REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS; ii++) {
-                    tex[ii].texgen[0].obj = tex[ii].texgen[0].eye = RegalFloat4( 1, 0, 0, 0 );
-                    tex[ii].texgen[1].obj = tex[ii].texgen[1].eye = RegalFloat4( 0, 1, 0, 0 );
+                    tex[ii].texgen[0].obj = tex[ii].texgen[0].eye = Float4( 1, 0, 0, 0 );
+                    tex[ii].texgen[1].obj = tex[ii].texgen[1].eye = Float4( 0, 1, 0, 0 );
                 }
-                light[0].ambient = RegalFloat4( 0, 0, 0, 1 );
-                light[0].diffuse = light[0].specular = RegalFloat4( 1, 1, 1, 1 );
+                light[0].ambient = Float4( 0, 0, 0, 1 );
+                light[0].diffuse = light[0].specular = Float4( 1, 1, 1, 1 );
                 for (int ii=1; ii<REGAL_FIXED_FUNCTION_MAX_LIGHTS; ii++) {
-                    light[ii].ambient = light[ii].diffuse = light[ii].specular = RegalFloat4( 0, 0, 0, 1 );
+                    light[ii].ambient = light[ii].diffuse = light[ii].specular = Float4( 0, 0, 0, 1 );
                 }
-                lightModelAmbient = mat[0].ambient = mat[1].ambient = RegalFloat4( 0.2f, 0.2f, 0.2f, 1.0f );
-                mat[0].diffuse = mat[1].diffuse = RegalFloat4( 0.8f, 0.8f, 0.8f, 1.0f );
+                lightModelAmbient = mat[0].ambient = mat[1].ambient = Float4( 0.2f, 0.2f, 0.2f, 1.0f );
+                mat[0].diffuse = mat[1].diffuse = Float4( 0.8f, 0.8f, 0.8f, 1.0f );
                 colorMaterialTarget[0] = colorMaterialTarget[1] = CM_AmbientAndDiffuse;
             }
 
@@ -1209,7 +1176,7 @@ struct RegalIff : public RegalEmu {
             bool lightModelSeparateSpecular;
             bool colorMaterial;
             ColorMaterialMode colorMaterialTarget[2];
-            RegalFloat4 lightModelAmbient;
+            Float4 lightModelAmbient;
             GLuint attrArrayFlags;
             GLuint64 vabVer;
             GLuint64 ver;
@@ -1453,7 +1420,7 @@ struct RegalIff : public RegalEmu {
             }
             case GL_TEXTURE_ENV_COLOR: {
                 RegalAssert(activeTextureIndex<REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS);
-                RegalFloat4 c = textureUnit[ activeTextureIndex ].env.color;
+                Float4 c = textureUnit[ activeTextureIndex ].env.color;
                 params[0] = T( c.x );
                 params[1] = T( c.y );
                 params[2] = T( c.z );
@@ -1584,7 +1551,7 @@ struct RegalIff : public RegalEmu {
             case GL_EYE_PLANE:
             case GL_OBJECT_PLANE: {
                 if (!RFFIsVector( param )) return;
-                RegalFloat4 plane;
+                Float4 plane;
                 plane.x = RFFToFloat( 0, param );
                 plane.y = RFFToFloat( 1, param );
                 plane.z = RFFToFloat( 2, param );
@@ -1615,7 +1582,7 @@ struct RegalIff : public RegalEmu {
     }
 
     void ClipPlane( GLenum plane, const GLdouble * equation ) {
-        RegalFloat4 eqn( equation[0], equation[1], equation[2], equation[3] );
+        Float4 eqn( equation[0], equation[1], equation[2], equation[3] );
         ffstate.SetClip( this, plane, & eqn.x );
     }
 
@@ -1716,7 +1683,7 @@ struct RegalIff : public RegalEmu {
             case GL_OBJECT_PLANE:
             case GL_EYE_PLANE:
             {
-                RegalFloat4 plane;
+                Float4 plane;
                 ffstate.GetTexgen( this, idx, pname, & plane.x );
                 *(params+0) = static_cast<T>(plane.x);
                 *(params+1) = static_cast<T>(plane.y);
@@ -1926,7 +1893,7 @@ struct RegalIff : public RegalEmu {
 
 
 
-inline bool operator < ( const RegalFloat4 & lhs, const RegalFloat4 & rhs ) {
+inline bool operator < ( const Float4 & lhs, const Float4 & rhs ) {
     if( lhs.x < rhs.x ) return true;
     if( rhs.x < lhs.x ) return false;
     if( lhs.y < rhs.y ) return true;

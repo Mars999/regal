@@ -128,7 +128,7 @@ tmp/$(SYSTEM)/glew/shared/%.o: src/glew/src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(PICFLAG) $(GLEW.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
-lib/$(GLEW.SHARED): $(GLEW.OBJS)
+lib/$(GLEW.SHARED): $(GLEW.OBJS) lib/$(LIB.SHARED)
 	$(LD) $(LDFLAGS.DYNAMIC) -o $@ $^ $(LIB.LDFLAGS) $(GLEW.LIBS)  -lpthread
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
@@ -213,7 +213,7 @@ tmp/$(SYSTEM)/glut/shared/%.o: src/glut/src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(PICFLAG) $(GLUT.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
-lib/$(GLUT.SHARED): $(GLUT.OBJS)
+lib/$(GLUT.SHARED): $(GLUT.OBJS) lib/$(LIB.SHARED)
 	$(LD) $(LDFLAGS.DYNAMIC) -o $@ $^ $(GLUT.LIBS) 
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
@@ -249,7 +249,7 @@ tmp/$(SYSTEM)/dreamtorus/static/%.o: examples/dreamtorus/glut/code/%.cpp
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(DREAMTORUS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
-bin/dreamtorus: $(DREAMTORUS.OBJS)
+bin/dreamtorus: $(DREAMTORUS.OBJS) lib/$(LIB.SHARED) 
 	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(DREAMTORUS.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
@@ -273,10 +273,19 @@ tmp/$(SYSTEM)/tiger/static/%.o: examples/tiger/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(TIGER.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
-bin/tiger: $(TIGER.OBJS)
+bin/tiger: $(TIGER.OBJS) lib/$(GLEW.SHARED) lib/$(LIB.SHARED)
 	$(LD) -o $@ $^ $(TIGER.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
+endif
+
+#
+# GLUT dependency for non-Mac builds
+#
+
+ifeq ($(filter darwin%,$(SYSTEM)),)
+bin/tiger:      lib/$(GLUT.SHARED)
+bin/dreamtorus: lib/$(GLUT.SHARED)
 endif
 
 clean:

@@ -2191,7 +2191,7 @@ static void REGAL_CALL log_glTexGeniv(GLenum coord, GLenum pname, const GLint *p
 
 static void REGAL_CALL log_glFeedbackBuffer(GLsizei size, GLenum type, GLfloat *buffer)
 {
-    GTrace("glFeedbackBuffer(", size, ", ", toString(type), ", ", buffer, ")");;
+    GTrace("glFeedbackBuffer(", size, ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2202,7 +2202,7 @@ static void REGAL_CALL log_glFeedbackBuffer(GLsizei size, GLenum type, GLfloat *
 
 static void REGAL_CALL log_glSelectBuffer(GLsizei size, GLuint *buffer)
 {
-    GTrace("glSelectBuffer(", size, ", ", buffer, ")");;
+    GTrace("glSelectBuffer(", size, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2874,7 +2874,7 @@ static void REGAL_CALL log_glCopyPixels(GLint x, GLint y, GLsizei width, GLsizei
 
 static void REGAL_CALL log_glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels)
 {
-    GTrace("glReadPixels(", x, ", ", y, ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ", ", reinterpret_cast<GLubyte *>(pixels), ")");;
+    GTrace("glReadPixels(", x, ", ", y, ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2896,7 +2896,7 @@ static void REGAL_CALL log_glDrawPixels(GLsizei width, GLsizei height, GLenum fo
 
 static void REGAL_CALL log_glGetBooleanv(GLenum pname, GLboolean *params)
 {
-    GTrace("glGetBooleanv(", toString(pname), ", ", params, ")");;
+    GTrace("glGetBooleanv(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2907,7 +2907,7 @@ static void REGAL_CALL log_glGetBooleanv(GLenum pname, GLboolean *params)
 
 static void REGAL_CALL log_glGetDoublev(GLenum pname, GLdouble *params)
 {
-    GTrace("glGetDoublev(", toString(pname), ", ", params, ")");;
+    GTrace("glGetDoublev(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2918,7 +2918,7 @@ static void REGAL_CALL log_glGetDoublev(GLenum pname, GLdouble *params)
 
 static void REGAL_CALL log_glGetFloatv(GLenum pname, GLfloat *params)
 {
-    GTrace("glGetFloatv(", toString(pname), ", ", params, ")");;
+    GTrace("glGetFloatv(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2929,7 +2929,7 @@ static void REGAL_CALL log_glGetFloatv(GLenum pname, GLfloat *params)
 
 static void REGAL_CALL log_glGetIntegerv(GLenum pname, GLint *params)
 {
-    GTrace("glGetIntegerv(", toString(pname), ", ", params, ")");;
+    GTrace("glGetIntegerv(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2940,7 +2940,7 @@ static void REGAL_CALL log_glGetIntegerv(GLenum pname, GLint *params)
 
 static void REGAL_CALL log_glGetClipPlane(GLenum plane, GLdouble *equation)
 {
-    GTrace("glGetClipPlane(", toString(plane), ", ", equation, ")");;
+    GTrace("glGetClipPlane(", toString(plane), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2963,7 +2963,7 @@ static GLenum REGAL_CALL log_glGetError(void)
 
 static void REGAL_CALL log_glGetLightfv(GLenum light, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetLightfv(", toString(light), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetLightfv(", toString(light), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2974,7 +2974,7 @@ static void REGAL_CALL log_glGetLightfv(GLenum light, GLenum pname, GLfloat *par
 
 static void REGAL_CALL log_glGetLightiv(GLenum light, GLenum pname, GLint *params)
 {
-    GTrace("glGetLightiv(", toString(light), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetLightiv(", toString(light), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2985,7 +2985,7 @@ static void REGAL_CALL log_glGetLightiv(GLenum light, GLenum pname, GLint *param
 
 static void REGAL_CALL log_glGetMapdv(GLenum target, GLenum query, GLdouble *v)
 {
-    GTrace("glGetMapdv(", toString(target), ", ", toString(query), ", ", v, ")");;
+    GTrace("glGetMapdv(", toString(target), ", ", toString(query), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2996,7 +2996,7 @@ static void REGAL_CALL log_glGetMapdv(GLenum target, GLenum query, GLdouble *v)
 
 static void REGAL_CALL log_glGetMapfv(GLenum target, GLenum query, GLfloat *v)
 {
-    GTrace("glGetMapfv(", toString(target), ", ", toString(query), ", ", v, ")");;
+    GTrace("glGetMapfv(", toString(target), ", ", toString(query), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3007,7 +3007,7 @@ static void REGAL_CALL log_glGetMapfv(GLenum target, GLenum query, GLfloat *v)
 
 static void REGAL_CALL log_glGetMapiv(GLenum target, GLenum query, GLint *v)
 {
-    GTrace("glGetMapiv(", toString(target), ", ", toString(query), ", ", v, ")");;
+    GTrace("glGetMapiv(", toString(target), ", ", toString(query), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3018,7 +3018,7 @@ static void REGAL_CALL log_glGetMapiv(GLenum target, GLenum query, GLint *v)
 
 static void REGAL_CALL log_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMaterialfv(", toString(face), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMaterialfv(", toString(face), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3029,7 +3029,7 @@ static void REGAL_CALL log_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *p
 
 static void REGAL_CALL log_glGetMaterialiv(GLenum face, GLenum pname, GLint *params)
 {
-    GTrace("glGetMaterialiv(", toString(face), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMaterialiv(", toString(face), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3040,7 +3040,7 @@ static void REGAL_CALL log_glGetMaterialiv(GLenum face, GLenum pname, GLint *par
 
 static void REGAL_CALL log_glGetPixelMapfv(GLenum map, GLfloat *values)
 {
-    GTrace("glGetPixelMapfv(", toString(map), ", ", values, ")");;
+    GTrace("glGetPixelMapfv(", toString(map), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3051,7 +3051,7 @@ static void REGAL_CALL log_glGetPixelMapfv(GLenum map, GLfloat *values)
 
 static void REGAL_CALL log_glGetPixelMapuiv(GLenum map, GLuint *values)
 {
-    GTrace("glGetPixelMapuiv(", toString(map), ", ", values, ")");;
+    GTrace("glGetPixelMapuiv(", toString(map), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3062,7 +3062,7 @@ static void REGAL_CALL log_glGetPixelMapuiv(GLenum map, GLuint *values)
 
 static void REGAL_CALL log_glGetPixelMapusv(GLenum map, GLushort *values)
 {
-    GTrace("glGetPixelMapusv(", toString(map), ", ", values, ")");;
+    GTrace("glGetPixelMapusv(", toString(map), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3073,7 +3073,7 @@ static void REGAL_CALL log_glGetPixelMapusv(GLenum map, GLushort *values)
 
 static void REGAL_CALL log_glGetPolygonStipple(GLubyte *mask)
 {
-    GTrace("glGetPolygonStipple(", mask, ")");;
+    GTrace("glGetPolygonStipple()");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3096,7 +3096,7 @@ static const GLubyte *REGAL_CALL log_glGetString(GLenum name)
 
 static void REGAL_CALL log_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetTexEnvfv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexEnvfv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3107,7 +3107,7 @@ static void REGAL_CALL log_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *p
 
 static void REGAL_CALL log_glGetTexEnviv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetTexEnviv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexEnviv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3118,7 +3118,7 @@ static void REGAL_CALL log_glGetTexEnviv(GLenum target, GLenum pname, GLint *par
 
 static void REGAL_CALL log_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetTexGendv(", toString(coord), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexGendv(", toString(coord), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3129,7 +3129,7 @@ static void REGAL_CALL log_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *p
 
 static void REGAL_CALL log_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetTexGenfv(", toString(coord), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexGenfv(", toString(coord), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3140,7 +3140,7 @@ static void REGAL_CALL log_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *pa
 
 static void REGAL_CALL log_glGetTexGeniv(GLenum coord, GLenum pname, GLint *params)
 {
-    GTrace("glGetTexGeniv(", toString(coord), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexGeniv(", toString(coord), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3151,7 +3151,7 @@ static void REGAL_CALL log_glGetTexGeniv(GLenum coord, GLenum pname, GLint *para
 
 static void REGAL_CALL log_glGetTexImage(GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
 {
-    GTrace("glGetTexImage(", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");;
+    GTrace("glGetTexImage(", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3162,7 +3162,7 @@ static void REGAL_CALL log_glGetTexImage(GLenum target, GLint level, GLenum form
 
 static void REGAL_CALL log_glGetTexParameterfv(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetTexParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameterfv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3173,7 +3173,7 @@ static void REGAL_CALL log_glGetTexParameterfv(GLenum target, GLenum pname, GLfl
 
 static void REGAL_CALL log_glGetTexParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetTexParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3184,7 +3184,7 @@ static void REGAL_CALL log_glGetTexParameteriv(GLenum target, GLenum pname, GLin
 
 static void REGAL_CALL log_glGetTexLevelParameterfv(GLenum target, GLint level, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetTexLevelParameterfv(", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexLevelParameterfv(", toString(target), ", ", level, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3195,7 +3195,7 @@ static void REGAL_CALL log_glGetTexLevelParameterfv(GLenum target, GLint level, 
 
 static void REGAL_CALL log_glGetTexLevelParameteriv(GLenum target, GLint level, GLenum pname, GLint *params)
 {
-    GTrace("glGetTexLevelParameteriv(", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexLevelParameteriv(", toString(target), ", ", level, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3452,7 +3452,7 @@ static void REGAL_CALL log_glDrawArrays(GLenum mode, GLint first, GLsizei count)
 
 static void REGAL_CALL log_glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
 {
-    GTrace("glDrawElements(", toString(mode), ", ", count, ", ", toString(type), ", ", boost::print::array(reinterpret_cast<const GLubyte *>(indices),helper::size::drawElements(mode, count, type)), ")");;
+    GTrace("glDrawElements(", toString(mode), ", ", count, ", ", toString(type), ", ", reinterpret_cast<const GLubyte *>(indices), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3496,7 +3496,7 @@ static void REGAL_CALL log_glEnableClientState(GLenum cap)
 
 static void REGAL_CALL log_glGetPointerv(GLenum pname, GLvoid **params)
 {
-    GTrace("glGetPointerv(", toString(pname), ", ", params, ")");;
+    GTrace("glGetPointerv(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3650,7 +3650,7 @@ static void REGAL_CALL log_glTexSubImage2D(GLenum target, GLint level, GLint xof
 
 static GLboolean REGAL_CALL log_glAreTexturesResident(GLsizei n, const GLuint *textures, GLboolean *residences)
 {
-    GTrace("glAreTexturesResident(", n, ", ", boost::print::array(textures,n), ", ", residences, ")");;
+    GTrace("glAreTexturesResident(", n, ", ", boost::print::array(textures,n), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3684,7 +3684,7 @@ static void REGAL_CALL log_glDeleteTextures(GLsizei n, const GLuint *textures)
 
 static void REGAL_CALL log_glGenTextures(GLsizei n, GLuint *textures)
 {
-    GTrace("glGenTextures(", n, ", ", textures, ")");;
+    GTrace("glGenTextures(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3876,7 +3876,7 @@ static void REGAL_CALL log_glCopyColorTable(GLenum target, GLenum internalformat
 
 static void REGAL_CALL log_glGetColorTable(GLenum target, GLenum format, GLenum type, GLvoid *table)
 {
-    GTrace("glGetColorTable(", toString(target), ", ", toString(format), ", ", toString(type), ", ", table, ")");;
+    GTrace("glGetColorTable(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3887,7 +3887,7 @@ static void REGAL_CALL log_glGetColorTable(GLenum target, GLenum format, GLenum 
 
 static void REGAL_CALL log_glGetColorTableParameterfv(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetColorTableParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetColorTableParameterfv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3898,7 +3898,7 @@ static void REGAL_CALL log_glGetColorTableParameterfv(GLenum target, GLenum pnam
 
 static void REGAL_CALL log_glGetColorTableParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetColorTableParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetColorTableParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4019,7 +4019,7 @@ static void REGAL_CALL log_glCopyConvolutionFilter2D(GLenum target, GLenum inter
 
 static void REGAL_CALL log_glGetConvolutionFilter(GLenum target, GLenum format, GLenum type, GLvoid *image)
 {
-    GTrace("glGetConvolutionFilter(", toString(target), ", ", toString(format), ", ", toString(type), ", ", image, ")");;
+    GTrace("glGetConvolutionFilter(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4030,7 +4030,7 @@ static void REGAL_CALL log_glGetConvolutionFilter(GLenum target, GLenum format, 
 
 static void REGAL_CALL log_glGetConvolutionParameterfv(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetConvolutionParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetConvolutionParameterfv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4041,7 +4041,7 @@ static void REGAL_CALL log_glGetConvolutionParameterfv(GLenum target, GLenum pna
 
 static void REGAL_CALL log_glGetConvolutionParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetConvolutionParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetConvolutionParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4052,7 +4052,7 @@ static void REGAL_CALL log_glGetConvolutionParameteriv(GLenum target, GLenum pna
 
 static void REGAL_CALL log_glGetSeparableFilter(GLenum target, GLenum format, GLenum type, GLvoid *row, GLvoid *column, GLvoid *span)
 {
-    GTrace("glGetSeparableFilter(", toString(target), ", ", toString(format), ", ", toString(type), ", ", row, ", ", column, ", ", span, ")");;
+    GTrace("glGetSeparableFilter(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4074,7 +4074,7 @@ static void REGAL_CALL log_glSeparableFilter2D(GLenum target, GLenum internalfor
 
 static void REGAL_CALL log_glGetHistogram(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
 {
-    GTrace("glGetHistogram(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", values, ")");;
+    GTrace("glGetHistogram(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4085,7 +4085,7 @@ static void REGAL_CALL log_glGetHistogram(GLenum target, GLboolean reset, GLenum
 
 static void REGAL_CALL log_glGetHistogramParameterfv(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetHistogramParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetHistogramParameterfv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4096,7 +4096,7 @@ static void REGAL_CALL log_glGetHistogramParameterfv(GLenum target, GLenum pname
 
 static void REGAL_CALL log_glGetHistogramParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetHistogramParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetHistogramParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4107,7 +4107,7 @@ static void REGAL_CALL log_glGetHistogramParameteriv(GLenum target, GLenum pname
 
 static void REGAL_CALL log_glGetMinmax(GLenum target, GLboolean reset, GLenum format, GLenum types, GLvoid *values)
 {
-    GTrace("glGetMinmax(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(types), ", ", values, ")");;
+    GTrace("glGetMinmax(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(types), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4118,7 +4118,7 @@ static void REGAL_CALL log_glGetMinmax(GLenum target, GLboolean reset, GLenum fo
 
 static void REGAL_CALL log_glGetMinmaxParameterfv(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMinmaxParameterfv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMinmaxParameterfv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4129,7 +4129,7 @@ static void REGAL_CALL log_glGetMinmaxParameterfv(GLenum target, GLenum pname, G
 
 static void REGAL_CALL log_glGetMinmaxParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetMinmaxParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMinmaxParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -4274,7 +4274,7 @@ static void REGAL_CALL log_glCompressedTexSubImage1D(GLenum target, GLint level,
 
 static void REGAL_CALL log_glGetCompressedTexImage(GLenum target, GLint lod, GLvoid *img)
 {
-    GTrace("glGetCompressedTexImage(", toString(target), ", ", lod, ", ", img, ")");;
+    GTrace("glGetCompressedTexImage(", toString(target), ", ", lod, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5191,7 +5191,7 @@ static void REGAL_CALL log_glWindowPos3sv(const GLshort *p)
 
 static void REGAL_CALL log_glGenQueries(GLsizei n, GLuint *ids)
 {
-    GTrace("glGenQueries(", n, ", ", ids, ")");;
+    GTrace("glGenQueries(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5247,7 +5247,7 @@ static void REGAL_CALL log_glEndQuery(GLenum target)
 
 static void REGAL_CALL log_glGetQueryiv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetQueryiv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryiv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5258,7 +5258,7 @@ static void REGAL_CALL log_glGetQueryiv(GLenum target, GLenum pname, GLint *para
 
 static void REGAL_CALL log_glGetQueryObjectiv(GLuint id, GLenum pname, GLint *params)
 {
-    GTrace("glGetQueryObjectiv(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjectiv(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5269,7 +5269,7 @@ static void REGAL_CALL log_glGetQueryObjectiv(GLuint id, GLenum pname, GLint *pa
 
 static void REGAL_CALL log_glGetQueryObjectuiv(GLuint id, GLenum pname, GLuint *params)
 {
-    GTrace("glGetQueryObjectuiv(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjectuiv(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5302,7 +5302,7 @@ static void REGAL_CALL log_glDeleteBuffers(GLsizei n, const GLuint *buffers)
 
 static void REGAL_CALL log_glGenBuffers(GLsizei n, GLuint *buffers)
 {
-    GTrace("glGenBuffers(", n, ", ", buffers, ")");;
+    GTrace("glGenBuffers(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5347,7 +5347,7 @@ static void REGAL_CALL log_glBufferSubData(GLenum target, GLintptr offset, GLsiz
 
 static void REGAL_CALL log_glGetBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid *data)
 {
-    GTrace("glGetBufferSubData(", toString(target), ", ", offset, ", ", size, ", ", data, ")");;
+    GTrace("glGetBufferSubData(", toString(target), ", ", offset, ", ", size, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5382,7 +5382,7 @@ static GLboolean REGAL_CALL log_glUnmapBuffer(GLenum target)
 
 static void REGAL_CALL log_glGetBufferParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetBufferParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetBufferParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5393,7 +5393,7 @@ static void REGAL_CALL log_glGetBufferParameteriv(GLenum target, GLenum pname, G
 
 static void REGAL_CALL log_glGetBufferPointerv(GLenum target, GLenum pname, GLvoid **params)
 {
-    GTrace("glGetBufferPointerv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetBufferPointerv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5573,7 +5573,7 @@ static void REGAL_CALL log_glEnableVertexAttribArray(GLuint index)
 
 static void REGAL_CALL log_glGetActiveAttrib(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name)
 {
-    GTrace("glGetActiveAttrib(", program, ", ", index, ", ", bufSize, ", ", length, ", ", size, ", ", type, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetActiveAttrib(", program, ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5584,7 +5584,7 @@ static void REGAL_CALL log_glGetActiveAttrib(GLuint program, GLuint index, GLsiz
 
 static void REGAL_CALL log_glGetActiveUniform(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name)
 {
-    GTrace("glGetActiveUniform(", program, ", ", index, ", ", bufSize, ", ", length, ", ", size, ", ", type, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetActiveUniform(", program, ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5595,7 +5595,7 @@ static void REGAL_CALL log_glGetActiveUniform(GLuint program, GLuint index, GLsi
 
 static void REGAL_CALL log_glGetAttachedShaders(GLuint program, GLsizei maxCount, GLsizei *count, GLuint *shaders)
 {
-    GTrace("glGetAttachedShaders(", program, ", ", maxCount, ", ", count, ", ", shaders, ")");;
+    GTrace("glGetAttachedShaders(", program, ", ", maxCount, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5618,7 +5618,7 @@ static GLint REGAL_CALL log_glGetAttribLocation(GLuint program, const GLchar *na
 
 static void REGAL_CALL log_glGetProgramiv(GLuint program, GLenum pname, GLint *params)
 {
-    GTrace("glGetProgramiv(", program, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetProgramiv(", program, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5629,7 +5629,7 @@ static void REGAL_CALL log_glGetProgramiv(GLuint program, GLenum pname, GLint *p
 
 static void REGAL_CALL log_glGetProgramInfoLog(GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog)
 {
-    GTrace("glGetProgramInfoLog(", program, ", ", bufSize, ", ", length, ", ", boost::print::quote(infoLog,'"'), ")");;
+    GTrace("glGetProgramInfoLog(", program, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5640,7 +5640,7 @@ static void REGAL_CALL log_glGetProgramInfoLog(GLuint program, GLsizei bufSize, 
 
 static void REGAL_CALL log_glGetShaderiv(GLuint shader, GLenum pname, GLint *params)
 {
-    GTrace("glGetShaderiv(", shader, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetShaderiv(", shader, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5651,7 +5651,7 @@ static void REGAL_CALL log_glGetShaderiv(GLuint shader, GLenum pname, GLint *par
 
 static void REGAL_CALL log_glGetShaderInfoLog(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog)
 {
-    GTrace("glGetShaderInfoLog(", shader, ", ", bufSize, ", ", length, ", ", boost::print::quote(infoLog,'"'), ")");;
+    GTrace("glGetShaderInfoLog(", shader, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5662,7 +5662,7 @@ static void REGAL_CALL log_glGetShaderInfoLog(GLuint shader, GLsizei bufSize, GL
 
 static void REGAL_CALL log_glGetShaderSource(GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *source)
 {
-    GTrace("glGetShaderSource(", shader, ", ", bufSize, ", ", length, ", ", boost::print::quote(source,'"'), ")");;
+    GTrace("glGetShaderSource(", shader, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5685,7 +5685,7 @@ static GLint REGAL_CALL log_glGetUniformLocation(GLuint program, const GLchar *n
 
 static void REGAL_CALL log_glGetUniformfv(GLuint program, GLint location, GLfloat *params)
 {
-    GTrace("glGetUniformfv(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformfv(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5696,7 +5696,7 @@ static void REGAL_CALL log_glGetUniformfv(GLuint program, GLint location, GLfloa
 
 static void REGAL_CALL log_glGetUniformiv(GLuint program, GLint location, GLint *params)
 {
-    GTrace("glGetUniformiv(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformiv(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5707,7 +5707,7 @@ static void REGAL_CALL log_glGetUniformiv(GLuint program, GLint location, GLint 
 
 static void REGAL_CALL log_glGetVertexAttribdv(GLuint index, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetVertexAttribdv(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribdv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5718,7 +5718,7 @@ static void REGAL_CALL log_glGetVertexAttribdv(GLuint index, GLenum pname, GLdou
 
 static void REGAL_CALL log_glGetVertexAttribfv(GLuint index, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetVertexAttribfv(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribfv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5729,7 +5729,7 @@ static void REGAL_CALL log_glGetVertexAttribfv(GLuint index, GLenum pname, GLflo
 
 static void REGAL_CALL log_glGetVertexAttribiv(GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetVertexAttribiv(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribiv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -5740,7 +5740,7 @@ static void REGAL_CALL log_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
 
 static void REGAL_CALL log_glGetVertexAttribPointerv(GLuint index, GLenum pname, GLvoid **pointer)
 {
-    GTrace("glGetVertexAttribPointerv(", index, ", ", toString(pname), ", ", pointer, ")");;
+    GTrace("glGetVertexAttribPointerv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6516,7 +6516,7 @@ static void REGAL_CALL log_glColorMaski(GLuint index, GLboolean r, GLboolean g, 
 
 static void REGAL_CALL log_glGetBooleani_v(GLenum target, GLuint index, GLboolean *data)
 {
-    GTrace("glGetBooleani_v(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetBooleani_v(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6529,7 +6529,7 @@ static void REGAL_CALL log_glGetBooleani_v(GLenum target, GLuint index, GLboolea
 
 static void REGAL_CALL log_glGetIntegeri_v(GLenum target, GLuint index, GLint *data)
 {
-    GTrace("glGetIntegeri_v(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetIntegeri_v(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6635,7 +6635,7 @@ static void REGAL_CALL log_glTransformFeedbackVaryings(GLuint program, GLsizei c
 
 static void REGAL_CALL log_glGetTransformFeedbackVarying(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name)
 {
-    GTrace("glGetTransformFeedbackVarying(", program, ", ", index, ", ", bufSize, ", ", length, ", ", size, ", ", type, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetTransformFeedbackVarying(", program, ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6690,7 +6690,7 @@ static void REGAL_CALL log_glVertexAttribIPointer(GLuint index, GLint size, GLen
 
 static void REGAL_CALL log_glGetVertexAttribIiv(GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetVertexAttribIiv(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribIiv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6701,7 +6701,7 @@ static void REGAL_CALL log_glGetVertexAttribIiv(GLuint index, GLenum pname, GLin
 
 static void REGAL_CALL log_glGetVertexAttribIuiv(GLuint index, GLenum pname, GLuint *params)
 {
-    GTrace("glGetVertexAttribIuiv(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribIuiv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6932,7 +6932,7 @@ static void REGAL_CALL log_glVertexAttribI4usv(GLuint index, const GLushort *v)
 
 static void REGAL_CALL log_glGetUniformuiv(GLuint program, GLint location, GLuint *params)
 {
-    GTrace("glGetUniformuiv(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformuiv(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7076,7 +7076,7 @@ static void REGAL_CALL log_glTexParameterIuiv(GLenum target, GLenum pname, const
 
 static void REGAL_CALL log_glGetTexParameterIiv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetTexParameterIiv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameterIiv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7087,7 +7087,7 @@ static void REGAL_CALL log_glGetTexParameterIiv(GLenum target, GLenum pname, GLi
 
 static void REGAL_CALL log_glGetTexParameterIuiv(GLenum target, GLenum pname, GLuint *params)
 {
-    GTrace("glGetTexParameterIuiv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameterIuiv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7202,7 +7202,7 @@ static void REGAL_CALL log_glPrimitiveRestartIndex(GLuint index)
 
 static void REGAL_CALL log_glGetInteger64i_v(GLenum target, GLuint index, GLint64 *data)
 {
-    GTrace("glGetInteger64i_v(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetInteger64i_v(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7213,7 +7213,7 @@ static void REGAL_CALL log_glGetInteger64i_v(GLenum target, GLuint index, GLint6
 
 static void REGAL_CALL log_glGetBufferParameteri64v(GLenum target, GLenum pname, GLint64 *params)
 {
-    GTrace("glGetBufferParameteri64v(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetBufferParameteri64v(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7248,7 +7248,7 @@ static void REGAL_CALL log_glFramebufferTextureFace(GLenum target, GLenum attach
 
 static void REGAL_CALL log_glGenSamplers(GLsizei count, GLuint *samplers)
 {
-    GTrace("glGenSamplers(", count, ", ", samplers, ")");;
+    GTrace("glGenSamplers(", count, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7359,7 +7359,7 @@ static void REGAL_CALL log_glSamplerParameterIuiv(GLuint sampler, GLenum pname, 
 
 static void REGAL_CALL log_glGetSamplerParameteriv(GLuint sampler, GLenum pname, GLint *params)
 {
-    GTrace("glGetSamplerParameteriv(", sampler, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetSamplerParameteriv(", sampler, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7370,7 +7370,7 @@ static void REGAL_CALL log_glGetSamplerParameteriv(GLuint sampler, GLenum pname,
 
 static void REGAL_CALL log_glGetSamplerParameterfv(GLuint sampler, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetSamplerParameterfv(", sampler, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetSamplerParameterfv(", sampler, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7381,7 +7381,7 @@ static void REGAL_CALL log_glGetSamplerParameterfv(GLuint sampler, GLenum pname,
 
 static void REGAL_CALL log_glGetSamplerParameterIiv(GLuint sampler, GLenum pname, GLint *params)
 {
-    GTrace("glGetSamplerParameterIiv(", sampler, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetSamplerParameterIiv(", sampler, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7392,7 +7392,7 @@ static void REGAL_CALL log_glGetSamplerParameterIiv(GLuint sampler, GLenum pname
 
 static void REGAL_CALL log_glGetSamplerParameterIuiv(GLuint sampler, GLenum pname, GLuint *params)
 {
-    GTrace("glGetSamplerParameterIuiv(", sampler, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetSamplerParameterIuiv(", sampler, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7430,7 +7430,7 @@ static GLint REGAL_CALL log_glGetFragDataIndex(GLuint program, const GLchar *nam
 
 static void REGAL_CALL log_glGetQueryObjecti64v(GLuint id, GLenum pname, GLint64 *params)
 {
-    GTrace("glGetQueryObjecti64v(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjecti64v(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -7441,7 +7441,7 @@ static void REGAL_CALL log_glGetQueryObjecti64v(GLuint id, GLenum pname, GLint64
 
 static void REGAL_CALL log_glGetQueryObjectui64v(GLuint id, GLenum pname, GLuint64 *params)
 {
-    GTrace("glGetQueryObjectui64v(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjectui64v(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8155,7 +8155,7 @@ static void REGAL_CALL log_glUniformMatrix4x3dv(GLint location, GLsizei count, G
 
 static void REGAL_CALL log_glGetUniformdv(GLuint program, GLint location, GLdouble *params)
 {
-    GTrace("glGetUniformdv(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformdv(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8205,7 +8205,7 @@ static void REGAL_CALL log_glPatchParameterfv(GLenum pname, const GLfloat *value
 
 static void REGAL_CALL log_glGenTransformFeedbacks(GLsizei n, GLuint *ids)
 {
-    GTrace("glGenTransformFeedbacks(", n, ", ", ids, ")");;
+    GTrace("glGenTransformFeedbacks(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8318,7 +8318,7 @@ static void REGAL_CALL log_glEndQueryIndexed(GLenum target, GLuint index)
 
 static void REGAL_CALL log_glGetQueryIndexediv(GLenum target, GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetQueryIndexediv(", toString(target), ", ", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryIndexediv(", toString(target), ", ", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8355,7 +8355,7 @@ static GLuint REGAL_CALL log_glGetSubroutineIndex(GLuint program, GLenum shaderT
 
 static void REGAL_CALL log_glGetActiveSubroutineUniformiv(GLuint program, GLenum shaderType, GLuint index, GLenum pname, GLint *values)
 {
-    GTrace("glGetActiveSubroutineUniformiv(", program, ", ", toString(shaderType), ", ", index, ", ", toString(pname), ", ", values, ")");;
+    GTrace("glGetActiveSubroutineUniformiv(", program, ", ", toString(shaderType), ", ", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8366,7 +8366,7 @@ static void REGAL_CALL log_glGetActiveSubroutineUniformiv(GLuint program, GLenum
 
 static void REGAL_CALL log_glGetActiveSubroutineUniformName(GLuint program, GLenum shaderType, GLuint index, GLsizei bufSize, GLsizei *length, GLchar *name)
 {
-    GTrace("glGetActiveSubroutineUniformName(", program, ", ", toString(shaderType), ", ", index, ", ", bufSize, ", ", length, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetActiveSubroutineUniformName(", program, ", ", toString(shaderType), ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8377,7 +8377,7 @@ static void REGAL_CALL log_glGetActiveSubroutineUniformName(GLuint program, GLen
 
 static void REGAL_CALL log_glGetActiveSubroutineName(GLuint program, GLenum shaderType, GLuint index, GLsizei bufSize, GLsizei *length, GLchar *name)
 {
-    GTrace("glGetActiveSubroutineName(", program, ", ", toString(shaderType), ", ", index, ", ", bufSize, ", ", length, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetActiveSubroutineName(", program, ", ", toString(shaderType), ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8399,7 +8399,7 @@ static void REGAL_CALL log_glUniformSubroutinesuiv(GLenum shaderType, GLsizei co
 
 static void REGAL_CALL log_glGetUniformSubroutineuiv(GLenum shaderType, GLint location, GLuint *params)
 {
-    GTrace("glGetUniformSubroutineuiv(", toString(shaderType), ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformSubroutineuiv(", toString(shaderType), ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8410,7 +8410,7 @@ static void REGAL_CALL log_glGetUniformSubroutineuiv(GLenum shaderType, GLint lo
 
 static void REGAL_CALL log_glGetProgramStageiv(GLuint program, GLenum shaderType, GLenum pname, GLint *values)
 {
-    GTrace("glGetProgramStageiv(", program, ", ", toString(shaderType), ", ", toString(pname), ", ", values, ")");;
+    GTrace("glGetProgramStageiv(", program, ", ", toString(shaderType), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8522,7 +8522,7 @@ static void REGAL_CALL log_glVertexAttribLPointer(GLuint index, GLint size, GLen
 
 static void REGAL_CALL log_glGetVertexAttribLdv(GLuint index, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetVertexAttribLdv(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribLdv(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8557,7 +8557,7 @@ static void REGAL_CALL log_glShaderBinary(GLsizei count, const GLuint *shaders, 
 
 static void REGAL_CALL log_glGetShaderPrecisionFormat(GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision)
 {
-    GTrace("glGetShaderPrecisionFormat(", toString(shadertype), ", ", toString(precisiontype), ", ", range, ", ", precision, ")");;
+    GTrace("glGetShaderPrecisionFormat(", toString(shadertype), ", ", toString(precisiontype), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8592,7 +8592,7 @@ static void REGAL_CALL log_glClearDepthf(GLclampf d)
 
 static void REGAL_CALL log_glGetProgramBinary(GLuint program, GLsizei bufSize, GLsizei *length, GLenum *binaryFormat, GLvoid *binary)
 {
-    GTrace("glGetProgramBinary(", program, ", ", bufSize, ", ", length, ", ", binaryFormat, ", ", binary, ")");;
+    GTrace("glGetProgramBinary(", program, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8715,7 +8715,7 @@ static void REGAL_CALL log_glDepthRangeIndexed(GLuint index, GLclampd n, GLclamp
 
 static void REGAL_CALL log_glGetFloati_v(GLenum target, GLuint index, GLfloat *v)
 {
-    GTrace("glGetFloati_v(", toString(target), ", ", index, ", ", v, ")");;
+    GTrace("glGetFloati_v(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8726,7 +8726,7 @@ static void REGAL_CALL log_glGetFloati_v(GLenum target, GLuint index, GLfloat *v
 
 static void REGAL_CALL log_glGetDoublei_v(GLenum target, GLuint index, GLdouble *v)
 {
-    GTrace("glGetDoublei_v(", toString(target), ", ", index, ", ", v, ")");;
+    GTrace("glGetDoublei_v(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8795,7 +8795,7 @@ static void REGAL_CALL log_glDeleteProgramPipelines(GLsizei n, const GLuint *pip
 
 static void REGAL_CALL log_glGenProgramPipelines(GLsizei n, GLuint *pipelines)
 {
-    GTrace("glGenProgramPipelines(", n, ", ", pipelines, ")");;
+    GTrace("glGenProgramPipelines(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8818,7 +8818,7 @@ static GLboolean REGAL_CALL log_glIsProgramPipeline(GLuint pipeline)
 
 static void REGAL_CALL log_glGetProgramPipelineiv(GLuint pipeline, GLenum pname, GLint *params)
 {
-    GTrace("glGetProgramPipelineiv(", pipeline, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetProgramPipelineiv(", pipeline, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8840,7 +8840,7 @@ static void REGAL_CALL log_glValidateProgramPipeline(GLuint pipeline)
 
 static void REGAL_CALL log_glGetProgramPipelineInfoLog(GLuint pipeline, GLsizei bufSize, GLsizei *length, GLchar *infoLog)
 {
-    GTrace("glGetProgramPipelineInfoLog(", pipeline, ", ", bufSize, ", ", length, ", ", boost::print::quote(infoLog,'"'), ")");;
+    GTrace("glGetProgramPipelineInfoLog(", pipeline, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -9904,7 +9904,7 @@ static void REGAL_CALL log_glCompressedTexSubImage1DARB(GLenum target, GLint lev
 
 static void REGAL_CALL log_glGetCompressedTexImageARB(GLenum target, GLint lod, GLvoid *img)
 {
-    GTrace("glGetCompressedTexImageARB(", toString(target), ", ", lod, ", ", img, ")");;
+    GTrace("glGetCompressedTexImageARB(", toString(target), ", ", lod, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10750,7 +10750,7 @@ static void REGAL_CALL log_glDeleteProgramsARB(GLsizei n, const GLuint *programs
 
 static void REGAL_CALL log_glGenProgramsARB(GLsizei n, GLuint *programs)
 {
-    GTrace("glGenProgramsARB(", n, ", ", programs, ")");;
+    GTrace("glGenProgramsARB(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10849,7 +10849,7 @@ static void REGAL_CALL log_glProgramLocalParameter4fvARB(GLenum target, GLuint i
 
 static void REGAL_CALL log_glGetProgramEnvParameterdvARB(GLenum target, GLuint index, GLdouble *params)
 {
-    GTrace("glGetProgramEnvParameterdvARB(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramEnvParameterdvARB(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10860,7 +10860,7 @@ static void REGAL_CALL log_glGetProgramEnvParameterdvARB(GLenum target, GLuint i
 
 static void REGAL_CALL log_glGetProgramEnvParameterfvARB(GLenum target, GLuint index, GLfloat *params)
 {
-    GTrace("glGetProgramEnvParameterfvARB(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramEnvParameterfvARB(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10871,7 +10871,7 @@ static void REGAL_CALL log_glGetProgramEnvParameterfvARB(GLenum target, GLuint i
 
 static void REGAL_CALL log_glGetProgramLocalParameterdvARB(GLenum target, GLuint index, GLdouble *params)
 {
-    GTrace("glGetProgramLocalParameterdvARB(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramLocalParameterdvARB(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10882,7 +10882,7 @@ static void REGAL_CALL log_glGetProgramLocalParameterdvARB(GLenum target, GLuint
 
 static void REGAL_CALL log_glGetProgramLocalParameterfvARB(GLenum target, GLuint index, GLfloat *params)
 {
-    GTrace("glGetProgramLocalParameterfvARB(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramLocalParameterfvARB(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10893,7 +10893,7 @@ static void REGAL_CALL log_glGetProgramLocalParameterfvARB(GLenum target, GLuint
 
 static void REGAL_CALL log_glGetProgramivARB(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetProgramivARB(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetProgramivARB(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10904,7 +10904,7 @@ static void REGAL_CALL log_glGetProgramivARB(GLenum target, GLenum pname, GLint 
 
 static void REGAL_CALL log_glGetProgramStringARB(GLenum target, GLenum pname, GLvoid *string)
 {
-    GTrace("glGetProgramStringARB(", toString(target), ", ", toString(pname), ", ", string, ")");;
+    GTrace("glGetProgramStringARB(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10915,7 +10915,7 @@ static void REGAL_CALL log_glGetProgramStringARB(GLenum target, GLenum pname, GL
 
 static void REGAL_CALL log_glGetVertexAttribdvARB(GLuint index, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetVertexAttribdvARB(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribdvARB(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10926,7 +10926,7 @@ static void REGAL_CALL log_glGetVertexAttribdvARB(GLuint index, GLenum pname, GL
 
 static void REGAL_CALL log_glGetVertexAttribfvARB(GLuint index, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetVertexAttribfvARB(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribfvARB(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10937,7 +10937,7 @@ static void REGAL_CALL log_glGetVertexAttribfvARB(GLuint index, GLenum pname, GL
 
 static void REGAL_CALL log_glGetVertexAttribivARB(GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetVertexAttribivARB(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribivARB(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10948,7 +10948,7 @@ static void REGAL_CALL log_glGetVertexAttribivARB(GLuint index, GLenum pname, GL
 
 static void REGAL_CALL log_glGetVertexAttribPointervARB(GLuint index, GLenum pname, GLvoid **pointer)
 {
-    GTrace("glGetVertexAttribPointervARB(", index, ", ", toString(pname), ", ", pointer, ")");;
+    GTrace("glGetVertexAttribPointervARB(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -10995,7 +10995,7 @@ static void REGAL_CALL log_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
 
 static void REGAL_CALL log_glGenBuffersARB(GLsizei n, GLuint *buffers)
 {
-    GTrace("glGenBuffersARB(", n, ", ", buffers, ")");;
+    GTrace("glGenBuffersARB(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11040,7 +11040,7 @@ static void REGAL_CALL log_glBufferSubDataARB(GLenum target, GLintptrARB offset,
 
 static void REGAL_CALL log_glGetBufferSubDataARB(GLenum target, GLintptrARB offset, GLsizeiptrARB size, GLvoid *data)
 {
-    GTrace("glGetBufferSubDataARB(", toString(target), ", ", offset, ", ", size, ", ", data, ")");;
+    GTrace("glGetBufferSubDataARB(", toString(target), ", ", offset, ", ", size, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11075,7 +11075,7 @@ static GLboolean REGAL_CALL log_glUnmapBufferARB(GLenum target)
 
 static void REGAL_CALL log_glGetBufferParameterivARB(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetBufferParameterivARB(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetBufferParameterivARB(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11086,7 +11086,7 @@ static void REGAL_CALL log_glGetBufferParameterivARB(GLenum target, GLenum pname
 
 static void REGAL_CALL log_glGetBufferPointervARB(GLenum target, GLenum pname, GLvoid **params)
 {
-    GTrace("glGetBufferPointervARB(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetBufferPointervARB(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11099,7 +11099,7 @@ static void REGAL_CALL log_glGetBufferPointervARB(GLenum target, GLenum pname, G
 
 static void REGAL_CALL log_glGenQueriesARB(GLsizei n, GLuint *ids)
 {
-    GTrace("glGenQueriesARB(", n, ", ", ids, ")");;
+    GTrace("glGenQueriesARB(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11155,7 +11155,7 @@ static void REGAL_CALL log_glEndQueryARB(GLenum target)
 
 static void REGAL_CALL log_glGetQueryivARB(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetQueryivARB(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryivARB(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11166,7 +11166,7 @@ static void REGAL_CALL log_glGetQueryivARB(GLenum target, GLenum pname, GLint *p
 
 static void REGAL_CALL log_glGetQueryObjectivARB(GLuint id, GLenum pname, GLint *params)
 {
-    GTrace("glGetQueryObjectivARB(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjectivARB(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11177,7 +11177,7 @@ static void REGAL_CALL log_glGetQueryObjectivARB(GLuint id, GLenum pname, GLint 
 
 static void REGAL_CALL log_glGetQueryObjectuivARB(GLuint id, GLenum pname, GLuint *params)
 {
-    GTrace("glGetQueryObjectuivARB(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjectuivARB(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11523,7 +11523,7 @@ static void REGAL_CALL log_glUniformMatrix4fvARB(GLint location, GLsizei count, 
 
 static void REGAL_CALL log_glGetObjectParameterfvARB(GLhandleARB obj, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetObjectParameterfvARB(", obj, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetObjectParameterfvARB(", obj, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11534,7 +11534,7 @@ static void REGAL_CALL log_glGetObjectParameterfvARB(GLhandleARB obj, GLenum pna
 
 static void REGAL_CALL log_glGetObjectParameterivARB(GLhandleARB obj, GLenum pname, GLint *params)
 {
-    GTrace("glGetObjectParameterivARB(", obj, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetObjectParameterivARB(", obj, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11545,7 +11545,7 @@ static void REGAL_CALL log_glGetObjectParameterivARB(GLhandleARB obj, GLenum pna
 
 static void REGAL_CALL log_glGetInfoLogARB(GLhandleARB obj, GLsizei maxLength, GLsizei *length, GLcharARB *infoLog)
 {
-    GTrace("glGetInfoLogARB(", obj, ", ", maxLength, ", ", length, ", ", infoLog, ")");;
+    GTrace("glGetInfoLogARB(", obj, ", ", maxLength, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11556,7 +11556,7 @@ static void REGAL_CALL log_glGetInfoLogARB(GLhandleARB obj, GLsizei maxLength, G
 
 static void REGAL_CALL log_glGetAttachedObjectsARB(GLhandleARB containerObj, GLsizei maxCount, GLsizei *count, GLhandleARB *obj)
 {
-    GTrace("glGetAttachedObjectsARB(", containerObj, ", ", maxCount, ", ", count, ", ", obj, ")");;
+    GTrace("glGetAttachedObjectsARB(", containerObj, ", ", maxCount, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11579,7 +11579,7 @@ static GLint REGAL_CALL log_glGetUniformLocationARB(GLhandleARB programObj, cons
 
 static void REGAL_CALL log_glGetActiveUniformARB(GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name)
 {
-    GTrace("glGetActiveUniformARB(", programObj, ", ", index, ", ", maxLength, ", ", length, ", ", size, ", ", type, ", ", name, ")");;
+    GTrace("glGetActiveUniformARB(", programObj, ", ", index, ", ", maxLength, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11590,7 +11590,7 @@ static void REGAL_CALL log_glGetActiveUniformARB(GLhandleARB programObj, GLuint 
 
 static void REGAL_CALL log_glGetUniformfvARB(GLhandleARB programObj, GLint location, GLfloat *params)
 {
-    GTrace("glGetUniformfvARB(", programObj, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformfvARB(", programObj, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11601,7 +11601,7 @@ static void REGAL_CALL log_glGetUniformfvARB(GLhandleARB programObj, GLint locat
 
 static void REGAL_CALL log_glGetUniformivARB(GLhandleARB programObj, GLint location, GLint *params)
 {
-    GTrace("glGetUniformivARB(", programObj, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformivARB(", programObj, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11612,7 +11612,7 @@ static void REGAL_CALL log_glGetUniformivARB(GLhandleARB programObj, GLint locat
 
 static void REGAL_CALL log_glGetShaderSourceARB(GLhandleARB obj, GLsizei maxLength, GLsizei *length, GLcharARB *source)
 {
-    GTrace("glGetShaderSourceARB(", obj, ", ", maxLength, ", ", length, ", ", source, ")");;
+    GTrace("glGetShaderSourceARB(", obj, ", ", maxLength, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11636,7 +11636,7 @@ static void REGAL_CALL log_glBindAttribLocationARB(GLhandleARB programObj, GLuin
 
 static void REGAL_CALL log_glGetActiveAttribARB(GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name)
 {
-    GTrace("glGetActiveAttribARB(", programObj, ", ", index, ", ", maxLength, ", ", length, ", ", size, ", ", type, ", ", name, ")");;
+    GTrace("glGetActiveAttribARB(", programObj, ", ", index, ", ", maxLength, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11745,7 +11745,7 @@ static void REGAL_CALL log_glDeleteRenderbuffers(GLsizei n, const GLuint *render
 
 static void REGAL_CALL log_glGenRenderbuffers(GLsizei n, GLuint *renderbuffers)
 {
-    GTrace("glGenRenderbuffers(", n, ", ", renderbuffers, ")");;
+    GTrace("glGenRenderbuffers(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11767,7 +11767,7 @@ static void REGAL_CALL log_glRenderbufferStorage(GLenum target, GLenum internalf
 
 static void REGAL_CALL log_glGetRenderbufferParameteriv(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetRenderbufferParameteriv(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetRenderbufferParameteriv(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11812,7 +11812,7 @@ static void REGAL_CALL log_glDeleteFramebuffers(GLsizei n, const GLuint *framebu
 
 static void REGAL_CALL log_glGenFramebuffers(GLsizei n, GLuint *framebuffers)
 {
-    GTrace("glGenFramebuffers(", n, ", ", framebuffers, ")");;
+    GTrace("glGenFramebuffers(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11879,7 +11879,7 @@ static void REGAL_CALL log_glFramebufferRenderbuffer(GLenum target, GLenum attac
 
 static void REGAL_CALL log_glGetFramebufferAttachmentParameteriv(GLenum target, GLenum attachment, GLenum pname, GLint *params)
 {
-    GTrace("glGetFramebufferAttachmentParameteriv(", toString(target), ", ", toString(attachment), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFramebufferAttachmentParameteriv(", toString(target), ", ", toString(attachment), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12055,7 +12055,7 @@ static void REGAL_CALL log_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
 
 static void REGAL_CALL log_glGenVertexArrays(GLsizei n, GLuint *arrays)
 {
-    GTrace("glGenVertexArrays(", n, ", ", arrays, ")");;
+    GTrace("glGenVertexArrays(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12080,7 +12080,7 @@ static GLboolean REGAL_CALL log_glIsVertexArray(GLuint array)
 
 static void REGAL_CALL log_glGetUniformIndices(GLuint program, GLsizei uniformCount, const GLchar **uniformNames, GLuint *uniformIndices)
 {
-    GTrace("glGetUniformIndices(", program, ", ", uniformCount, ", ", uniformNames, ", ", uniformIndices, ")");;
+    GTrace("glGetUniformIndices(", program, ", ", uniformCount, ", ", uniformNames, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12091,7 +12091,7 @@ static void REGAL_CALL log_glGetUniformIndices(GLuint program, GLsizei uniformCo
 
 static void REGAL_CALL log_glGetActiveUniformsiv(GLuint program, GLsizei uniformCount, const GLuint *uniformIndices, GLenum pname, GLint *params)
 {
-    GTrace("glGetActiveUniformsiv(", program, ", ", uniformCount, ", ", uniformIndices, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetActiveUniformsiv(", program, ", ", uniformCount, ", ", uniformIndices, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12102,7 +12102,7 @@ static void REGAL_CALL log_glGetActiveUniformsiv(GLuint program, GLsizei uniform
 
 static void REGAL_CALL log_glGetActiveUniformName(GLuint program, GLuint uniformIndex, GLsizei bufSize, GLsizei *length, GLchar *uniformName)
 {
-    GTrace("glGetActiveUniformName(", program, ", ", uniformIndex, ", ", bufSize, ", ", length, ", ", boost::print::quote(uniformName,'"'), ")");;
+    GTrace("glGetActiveUniformName(", program, ", ", uniformIndex, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12125,7 +12125,7 @@ static GLuint REGAL_CALL log_glGetUniformBlockIndex(GLuint program, const GLchar
 
 static void REGAL_CALL log_glGetActiveUniformBlockiv(GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint *params)
 {
-    GTrace("glGetActiveUniformBlockiv(", program, ", ", uniformBlockIndex, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetActiveUniformBlockiv(", program, ", ", uniformBlockIndex, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12136,7 +12136,7 @@ static void REGAL_CALL log_glGetActiveUniformBlockiv(GLuint program, GLuint unif
 
 static void REGAL_CALL log_glGetActiveUniformBlockName(GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei *length, GLchar *uniformBlockName)
 {
-    GTrace("glGetActiveUniformBlockName(", program, ", ", uniformBlockIndex, ", ", bufSize, ", ", length, ", ", boost::print::quote(uniformBlockName,'"'), ")");;
+    GTrace("glGetActiveUniformBlockName(", program, ", ", uniformBlockIndex, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12290,7 +12290,7 @@ static void REGAL_CALL log_glWaitSync(GLsync sync, GLbitfield flags, GLuint64 ti
 
 static void REGAL_CALL log_glGetInteger64v(GLenum pname, GLint64 *params)
 {
-    GTrace("glGetInteger64v(", toString(pname), ", ", params, ")");;
+    GTrace("glGetInteger64v(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12301,7 +12301,7 @@ static void REGAL_CALL log_glGetInteger64v(GLenum pname, GLint64 *params)
 
 static void REGAL_CALL log_glGetSynciv(GLsync sync, GLenum pname, GLsizei bufSize, GLsizei *length, GLint *values)
 {
-    GTrace("glGetSynciv(", reinterpret_cast<void *>(sync), ", ", toString(pname), ", ", bufSize, ", ", length, ", ", values, ")");;
+    GTrace("glGetSynciv(", reinterpret_cast<void *>(sync), ", ", toString(pname), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12336,7 +12336,7 @@ static void REGAL_CALL log_glTexImage3DMultisample(GLenum target, GLsizei sample
 
 static void REGAL_CALL log_glGetMultisamplefv(GLenum pname, GLuint index, GLfloat *val)
 {
-    GTrace("glGetMultisamplefv(", toString(pname), ", ", index, ", ", val, ")");;
+    GTrace("glGetMultisamplefv(", toString(pname), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12464,7 +12464,7 @@ static GLboolean REGAL_CALL log_glIsNamedStringARB(GLint namelen, const GLchar *
 
 static void REGAL_CALL log_glGetNamedStringARB(GLint namelen, const GLchar *name, GLsizei bufSize, GLint *stringlen, GLchar *string)
 {
-    GTrace("glGetNamedStringARB(", namelen, ", ", boost::print::quote(name,'"'), ", ", bufSize, ", ", stringlen, ", ", boost::print::quote(string,'"'), ")");;
+    GTrace("glGetNamedStringARB(", namelen, ", ", boost::print::quote(name,'"'), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12475,7 +12475,7 @@ static void REGAL_CALL log_glGetNamedStringARB(GLint namelen, const GLchar *name
 
 static void REGAL_CALL log_glGetNamedStringivARB(GLint namelen, const GLchar *name, GLenum pname, GLint *params)
 {
-    GTrace("glGetNamedStringivARB(", namelen, ", ", boost::print::quote(name,'"'), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedStringivARB(", namelen, ", ", boost::print::quote(name,'"'), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12488,7 +12488,7 @@ static void REGAL_CALL log_glGetNamedStringivARB(GLint namelen, const GLchar *na
 
 static void REGAL_CALL log_glDebugMessageControlARB(GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint *ids, GLboolean enabled)
 {
-    GTrace("glDebugMessageControlARB(", toString(source), ", ", toString(type), ", ", toString(severity), ", ", count, ", ", boost::print::array(ids,count), ", ", enabled, ")");;
+    GTrace("glDebugMessageControlARB(", toString(source), ", ", toString(type), ", ", toString(severity), ", ", count, ", ", boost::print::array(ids,count>0 && ids ? count : 0), ", ", enabled, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12521,7 +12521,7 @@ static void REGAL_CALL log_glDebugMessageCallbackARB(GLDEBUGPROCARB callback, GL
 
 static GLuint REGAL_CALL log_glGetDebugMessageLogARB(GLuint count, GLsizei bufsize, GLenum *sources, GLenum *types, GLuint *ids, GLenum *severities, GLsizei *lengths, GLchar *messageLog)
 {
-    GTrace("glGetDebugMessageLogARB(", count, ", ", bufsize, ", ", sources, ", ", types, ", ", ids, ", ", severities, ", ", lengths, ", ", boost::print::quote(messageLog,'"'), ")");;
+    GTrace("glGetDebugMessageLogARB(", count, ", ", bufsize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12547,7 +12547,7 @@ static GLenum REGAL_CALL log_glGetGraphicsResetStatusARB(void)
 
 static void REGAL_CALL log_glGetnMapdvARB(GLenum target, GLenum query, GLsizei bufSize, GLdouble *v)
 {
-    GTrace("glGetnMapdvARB(", toString(target), ", ", toString(query), ", ", bufSize, ", ", v, ")");;
+    GTrace("glGetnMapdvARB(", toString(target), ", ", toString(query), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12558,7 +12558,7 @@ static void REGAL_CALL log_glGetnMapdvARB(GLenum target, GLenum query, GLsizei b
 
 static void REGAL_CALL log_glGetnMapfvARB(GLenum target, GLenum query, GLsizei bufSize, GLfloat *v)
 {
-    GTrace("glGetnMapfvARB(", toString(target), ", ", toString(query), ", ", bufSize, ", ", v, ")");;
+    GTrace("glGetnMapfvARB(", toString(target), ", ", toString(query), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12569,7 +12569,7 @@ static void REGAL_CALL log_glGetnMapfvARB(GLenum target, GLenum query, GLsizei b
 
 static void REGAL_CALL log_glGetnMapivARB(GLenum target, GLenum query, GLsizei bufSize, GLint *v)
 {
-    GTrace("glGetnMapivARB(", toString(target), ", ", toString(query), ", ", bufSize, ", ", v, ")");;
+    GTrace("glGetnMapivARB(", toString(target), ", ", toString(query), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12580,7 +12580,7 @@ static void REGAL_CALL log_glGetnMapivARB(GLenum target, GLenum query, GLsizei b
 
 static void REGAL_CALL log_glGetnPixelMapfvARB(GLenum map, GLsizei bufSize, GLfloat *values)
 {
-    GTrace("glGetnPixelMapfvARB(", toString(map), ", ", bufSize, ", ", values, ")");;
+    GTrace("glGetnPixelMapfvARB(", toString(map), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12591,7 +12591,7 @@ static void REGAL_CALL log_glGetnPixelMapfvARB(GLenum map, GLsizei bufSize, GLfl
 
 static void REGAL_CALL log_glGetnPixelMapuivARB(GLenum map, GLsizei bufSize, GLuint *values)
 {
-    GTrace("glGetnPixelMapuivARB(", toString(map), ", ", bufSize, ", ", values, ")");;
+    GTrace("glGetnPixelMapuivARB(", toString(map), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12602,7 +12602,7 @@ static void REGAL_CALL log_glGetnPixelMapuivARB(GLenum map, GLsizei bufSize, GLu
 
 static void REGAL_CALL log_glGetnPixelMapusvARB(GLenum map, GLsizei bufSize, GLushort *values)
 {
-    GTrace("glGetnPixelMapusvARB(", toString(map), ", ", bufSize, ", ", values, ")");;
+    GTrace("glGetnPixelMapusvARB(", toString(map), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12613,7 +12613,7 @@ static void REGAL_CALL log_glGetnPixelMapusvARB(GLenum map, GLsizei bufSize, GLu
 
 static void REGAL_CALL log_glGetnPolygonStippleARB(GLsizei bufSize, GLubyte *pattern)
 {
-    GTrace("glGetnPolygonStippleARB(", bufSize, ", ", pattern, ")");;
+    GTrace("glGetnPolygonStippleARB(", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12624,7 +12624,7 @@ static void REGAL_CALL log_glGetnPolygonStippleARB(GLsizei bufSize, GLubyte *pat
 
 static void REGAL_CALL log_glGetnTexImageARB(GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, GLvoid *img)
 {
-    GTrace("glGetnTexImageARB(", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", bufSize, ", ", img, ")");;
+    GTrace("glGetnTexImageARB(", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12635,7 +12635,7 @@ static void REGAL_CALL log_glGetnTexImageARB(GLenum target, GLint level, GLenum 
 
 static void REGAL_CALL log_glReadnPixelsARB(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, GLvoid *data)
 {
-    GTrace("glReadnPixelsARB(", x, ", ", y, ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ", ", bufSize, ", ", data, ")");;
+    GTrace("glReadnPixelsARB(", x, ", ", y, ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12646,7 +12646,7 @@ static void REGAL_CALL log_glReadnPixelsARB(GLint x, GLint y, GLsizei width, GLs
 
 static void REGAL_CALL log_glGetnColorTableARB(GLenum target, GLenum format, GLenum type, GLsizei bufSize, GLvoid *table)
 {
-    GTrace("glGetnColorTableARB(", toString(target), ", ", toString(format), ", ", toString(type), ", ", bufSize, ", ", table, ")");;
+    GTrace("glGetnColorTableARB(", toString(target), ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12657,7 +12657,7 @@ static void REGAL_CALL log_glGetnColorTableARB(GLenum target, GLenum format, GLe
 
 static void REGAL_CALL log_glGetnConvolutionFilterARB(GLenum target, GLenum format, GLenum type, GLsizei bufSize, GLvoid *image)
 {
-    GTrace("glGetnConvolutionFilterARB(", toString(target), ", ", toString(format), ", ", toString(type), ", ", bufSize, ", ", image, ")");;
+    GTrace("glGetnConvolutionFilterARB(", toString(target), ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12668,7 +12668,7 @@ static void REGAL_CALL log_glGetnConvolutionFilterARB(GLenum target, GLenum form
 
 static void REGAL_CALL log_glGetnSeparableFilterARB(GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, GLvoid *row, GLsizei columnBufSize, GLvoid *column, GLvoid *span)
 {
-    GTrace("glGetnSeparableFilterARB(", toString(target), ", ", toString(format), ", ", toString(type), ", ", rowBufSize, ", ", row, ", ", columnBufSize, ", ", column, ", ", span, ")");;
+    GTrace("glGetnSeparableFilterARB(", toString(target), ", ", toString(format), ", ", toString(type), ", ", rowBufSize, ", ", columnBufSize, ", ", span, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12679,7 +12679,7 @@ static void REGAL_CALL log_glGetnSeparableFilterARB(GLenum target, GLenum format
 
 static void REGAL_CALL log_glGetnHistogramARB(GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, GLvoid *values)
 {
-    GTrace("glGetnHistogramARB(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", bufSize, ", ", values, ")");;
+    GTrace("glGetnHistogramARB(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12690,7 +12690,7 @@ static void REGAL_CALL log_glGetnHistogramARB(GLenum target, GLboolean reset, GL
 
 static void REGAL_CALL log_glGetnMinmaxARB(GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, GLvoid *values)
 {
-    GTrace("glGetnMinmaxARB(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", bufSize, ", ", values, ")");;
+    GTrace("glGetnMinmaxARB(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12701,7 +12701,7 @@ static void REGAL_CALL log_glGetnMinmaxARB(GLenum target, GLboolean reset, GLenu
 
 static void REGAL_CALL log_glGetnCompressedTexImageARB(GLenum target, GLint lod, GLsizei bufSize, GLvoid *img)
 {
-    GTrace("glGetnCompressedTexImageARB(", toString(target), ", ", lod, ", ", bufSize, ", ", img, ")");;
+    GTrace("glGetnCompressedTexImageARB(", toString(target), ", ", lod, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12712,7 +12712,7 @@ static void REGAL_CALL log_glGetnCompressedTexImageARB(GLenum target, GLint lod,
 
 static void REGAL_CALL log_glGetnUniformfvARB(GLuint program, GLint location, GLsizei bufSize, GLfloat *params)
 {
-    GTrace("glGetnUniformfvARB(", program, ", ", location, ", ", bufSize, ", ", params, ")");;
+    GTrace("glGetnUniformfvARB(", program, ", ", location, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12723,7 +12723,7 @@ static void REGAL_CALL log_glGetnUniformfvARB(GLuint program, GLint location, GL
 
 static void REGAL_CALL log_glGetnUniformivARB(GLuint program, GLint location, GLsizei bufSize, GLint *params)
 {
-    GTrace("glGetnUniformivARB(", program, ", ", location, ", ", bufSize, ", ", params, ")");;
+    GTrace("glGetnUniformivARB(", program, ", ", location, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12734,7 +12734,7 @@ static void REGAL_CALL log_glGetnUniformivARB(GLuint program, GLint location, GL
 
 static void REGAL_CALL log_glGetnUniformuivARB(GLuint program, GLint location, GLsizei bufSize, GLuint *params)
 {
-    GTrace("glGetnUniformuivARB(", program, ", ", location, ", ", bufSize, ", ", params, ")");;
+    GTrace("glGetnUniformuivARB(", program, ", ", location, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12745,7 +12745,7 @@ static void REGAL_CALL log_glGetnUniformuivARB(GLuint program, GLint location, G
 
 static void REGAL_CALL log_glGetnUniformdvARB(GLuint program, GLint location, GLsizei bufSize, GLdouble *params)
 {
-    GTrace("glGetnUniformdvARB(", program, ", ", location, ", ", bufSize, ", ", params, ")");;
+    GTrace("glGetnUniformdvARB(", program, ", ", location, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12797,7 +12797,7 @@ static void REGAL_CALL log_glTexImage3DEXT(GLenum target, GLint level, GLenum in
 
 static void REGAL_CALL log_glGetTexFilterFuncSGIS(GLenum target, GLenum filter, GLfloat *weights)
 {
-    GTrace("glGetTexFilterFuncSGIS(", toString(target), ", ", toString(filter), ", ", weights, ")");;
+    GTrace("glGetTexFilterFuncSGIS(", toString(target), ", ", toString(filter), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12913,7 +12913,7 @@ static void REGAL_CALL log_glCopyTexSubImage3DEXT(GLenum target, GLint level, GL
 
 static void REGAL_CALL log_glGetHistogramEXT(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
 {
-    GTrace("glGetHistogramEXT(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", values, ")");;
+    GTrace("glGetHistogramEXT(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12924,7 +12924,7 @@ static void REGAL_CALL log_glGetHistogramEXT(GLenum target, GLboolean reset, GLe
 
 static void REGAL_CALL log_glGetHistogramParameterfvEXT(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetHistogramParameterfvEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetHistogramParameterfvEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12935,7 +12935,7 @@ static void REGAL_CALL log_glGetHistogramParameterfvEXT(GLenum target, GLenum pn
 
 static void REGAL_CALL log_glGetHistogramParameterivEXT(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetHistogramParameterivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetHistogramParameterivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12946,7 +12946,7 @@ static void REGAL_CALL log_glGetHistogramParameterivEXT(GLenum target, GLenum pn
 
 static void REGAL_CALL log_glGetMinmaxEXT(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
 {
-    GTrace("glGetMinmaxEXT(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", values, ")");;
+    GTrace("glGetMinmaxEXT(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12957,7 +12957,7 @@ static void REGAL_CALL log_glGetMinmaxEXT(GLenum target, GLboolean reset, GLenum
 
 static void REGAL_CALL log_glGetMinmaxParameterfvEXT(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMinmaxParameterfvEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMinmaxParameterfvEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12968,7 +12968,7 @@ static void REGAL_CALL log_glGetMinmaxParameterfvEXT(GLenum target, GLenum pname
 
 static void REGAL_CALL log_glGetMinmaxParameterivEXT(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetMinmaxParameterivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMinmaxParameterivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13113,7 +13113,7 @@ static void REGAL_CALL log_glCopyConvolutionFilter2DEXT(GLenum target, GLenum in
 
 static void REGAL_CALL log_glGetConvolutionFilterEXT(GLenum target, GLenum format, GLenum type, GLvoid *image)
 {
-    GTrace("glGetConvolutionFilterEXT(", toString(target), ", ", toString(format), ", ", toString(type), ", ", image, ")");;
+    GTrace("glGetConvolutionFilterEXT(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13124,7 +13124,7 @@ static void REGAL_CALL log_glGetConvolutionFilterEXT(GLenum target, GLenum forma
 
 static void REGAL_CALL log_glGetConvolutionParameterfvEXT(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetConvolutionParameterfvEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetConvolutionParameterfvEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13135,7 +13135,7 @@ static void REGAL_CALL log_glGetConvolutionParameterfvEXT(GLenum target, GLenum 
 
 static void REGAL_CALL log_glGetConvolutionParameterivEXT(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetConvolutionParameterivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetConvolutionParameterivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13146,7 +13146,7 @@ static void REGAL_CALL log_glGetConvolutionParameterivEXT(GLenum target, GLenum 
 
 static void REGAL_CALL log_glGetSeparableFilterEXT(GLenum target, GLenum format, GLenum type, GLvoid *row, GLvoid *column, GLvoid *span)
 {
-    GTrace("glGetSeparableFilterEXT(", toString(target), ", ", toString(format), ", ", toString(type), ", ", row, ", ", column, ", ", span, ")");;
+    GTrace("glGetSeparableFilterEXT(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13214,7 +13214,7 @@ static void REGAL_CALL log_glCopyColorTableSGI(GLenum target, GLenum internalfor
 
 static void REGAL_CALL log_glGetColorTableSGI(GLenum target, GLenum format, GLenum type, GLvoid *table)
 {
-    GTrace("glGetColorTableSGI(", toString(target), ", ", toString(format), ", ", toString(type), ", ", table, ")");;
+    GTrace("glGetColorTableSGI(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13225,7 +13225,7 @@ static void REGAL_CALL log_glGetColorTableSGI(GLenum target, GLenum format, GLen
 
 static void REGAL_CALL log_glGetColorTableParameterfvSGI(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetColorTableParameterfvSGI(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetColorTableParameterfvSGI(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13236,7 +13236,7 @@ static void REGAL_CALL log_glGetColorTableParameterfvSGI(GLenum target, GLenum p
 
 static void REGAL_CALL log_glGetColorTableParameterivSGI(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetColorTableParameterivSGI(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetColorTableParameterivSGI(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13306,7 +13306,7 @@ static void REGAL_CALL log_glPixelTexGenParameterfvSGIS(GLenum pname, const GLfl
 
 static void REGAL_CALL log_glGetPixelTexGenParameterivSGIS(GLenum pname, GLint *params)
 {
-    GTrace("glGetPixelTexGenParameterivSGIS(", toString(pname), ", ", params, ")");;
+    GTrace("glGetPixelTexGenParameterivSGIS(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13317,7 +13317,7 @@ static void REGAL_CALL log_glGetPixelTexGenParameterivSGIS(GLenum pname, GLint *
 
 static void REGAL_CALL log_glGetPixelTexGenParameterfvSGIS(GLenum pname, GLfloat *params)
 {
-    GTrace("glGetPixelTexGenParameterfvSGIS(", toString(pname), ", ", params, ")");;
+    GTrace("glGetPixelTexGenParameterfvSGIS(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13354,7 +13354,7 @@ static void REGAL_CALL log_glTexSubImage4DSGIS(GLenum target, GLint level, GLint
 
 static GLboolean REGAL_CALL log_glAreTexturesResidentEXT(GLsizei n, const GLuint *textures, GLboolean *residences)
 {
-    GTrace("glAreTexturesResidentEXT(", n, ", ", boost::print::array(textures,n), ", ", residences, ")");;
+    GTrace("glAreTexturesResidentEXT(", n, ", ", boost::print::array(textures,n), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13388,7 +13388,7 @@ static void REGAL_CALL log_glDeleteTexturesEXT(GLsizei n, const GLuint *textures
 
 static void REGAL_CALL log_glGenTexturesEXT(GLsizei n, GLuint *textures)
 {
-    GTrace("glGenTexturesEXT(", n, ", ", textures, ")");;
+    GTrace("glGenTexturesEXT(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13435,7 +13435,7 @@ static void REGAL_CALL log_glDetailTexFuncSGIS(GLenum target, GLsizei n, const G
 
 static void REGAL_CALL log_glGetDetailTexFuncSGIS(GLenum target, GLfloat *points)
 {
-    GTrace("glGetDetailTexFuncSGIS(", toString(target), ", ", points, ")");;
+    GTrace("glGetDetailTexFuncSGIS(", toString(target), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13459,7 +13459,7 @@ static void REGAL_CALL log_glSharpenTexFuncSGIS(GLenum target, GLsizei n, const 
 
 static void REGAL_CALL log_glGetSharpenTexFuncSGIS(GLenum target, GLfloat *points)
 {
-    GTrace("glGetSharpenTexFuncSGIS(", toString(target), ", ", points, ")");;
+    GTrace("glGetSharpenTexFuncSGIS(", toString(target), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13540,7 +13540,7 @@ static void REGAL_CALL log_glEdgeFlagPointerEXT(GLsizei stride, GLsizei count, c
 
 static void REGAL_CALL log_glGetPointervEXT(GLenum pname, GLvoid **params)
 {
-    GTrace("glGetPointervEXT(", toString(pname), ", ", params, ")");;
+    GTrace("glGetPointervEXT(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13716,7 +13716,7 @@ static GLint REGAL_CALL log_glGetInstrumentsSGIX(void)
 
 static void REGAL_CALL log_glInstrumentsBufferSGIX(GLsizei size, GLint *buffer)
 {
-    GTrace("glInstrumentsBufferSGIX(", size, ", ", buffer, ")");;
+    GTrace("glInstrumentsBufferSGIX(", size, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13727,7 +13727,7 @@ static void REGAL_CALL log_glInstrumentsBufferSGIX(GLsizei size, GLint *buffer)
 
 static GLint REGAL_CALL log_glPollInstrumentsSGIX(GLint *marker_p)
 {
-    GTrace("glPollInstrumentsSGIX(", marker_p, ")");;
+    GTrace("glPollInstrumentsSGIX()");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13883,7 +13883,7 @@ static void REGAL_CALL log_glFogFuncSGIS(GLsizei n, const GLfloat *points)
 
 static void REGAL_CALL log_glGetFogFuncSGIS(GLfloat *points)
 {
-    GTrace("glGetFogFuncSGIS(", points, ")");;
+    GTrace("glGetFogFuncSGIS()");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13940,7 +13940,7 @@ static void REGAL_CALL log_glImageTransformParameterfvHP(GLenum target, GLenum p
 
 static void REGAL_CALL log_glGetImageTransformParameterivHP(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetImageTransformParameterivHP(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetImageTransformParameterivHP(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13951,7 +13951,7 @@ static void REGAL_CALL log_glGetImageTransformParameterivHP(GLenum target, GLenu
 
 static void REGAL_CALL log_glGetImageTransformParameterfvHP(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetImageTransformParameterfvHP(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetImageTransformParameterfvHP(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14012,7 +14012,7 @@ static void REGAL_CALL log_glColorTableEXT(GLenum target, GLenum internalFormat,
 
 static void REGAL_CALL log_glGetColorTableEXT(GLenum target, GLenum format, GLenum type, GLvoid *data)
 {
-    GTrace("glGetColorTableEXT(", toString(target), ", ", toString(format), ", ", toString(type), ", ", data, ")");;
+    GTrace("glGetColorTableEXT(", toString(target), ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14023,7 +14023,7 @@ static void REGAL_CALL log_glGetColorTableEXT(GLenum target, GLenum format, GLen
 
 static void REGAL_CALL log_glGetColorTableParameterivEXT(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetColorTableParameterivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetColorTableParameterivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14034,7 +14034,7 @@ static void REGAL_CALL log_glGetColorTableParameterivEXT(GLenum target, GLenum p
 
 static void REGAL_CALL log_glGetColorTableParameterfvEXT(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetColorTableParameterfvEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetColorTableParameterfvEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14047,7 +14047,7 @@ static void REGAL_CALL log_glGetColorTableParameterfvEXT(GLenum target, GLenum p
 
 static void REGAL_CALL log_glGetListParameterfvSGIX(GLuint list, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetListParameterfvSGIX(", list, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetListParameterfvSGIX(", list, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14058,7 +14058,7 @@ static void REGAL_CALL log_glGetListParameterfvSGIX(GLuint list, GLenum pname, G
 
 static void REGAL_CALL log_glGetListParameterivSGIX(GLuint list, GLenum pname, GLint *params)
 {
-    GTrace("glGetListParameterivSGIX(", list, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetListParameterivSGIX(", list, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14165,7 +14165,7 @@ static void REGAL_CALL log_glUnlockArraysEXT(void)
 
 static void REGAL_CALL log_glCullParameterdvEXT(GLenum pname, GLdouble *params)
 {
-    GTrace("glCullParameterdvEXT(", toString(pname), ", ", params, ")");;
+    GTrace("glCullParameterdvEXT(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14176,7 +14176,7 @@ static void REGAL_CALL log_glCullParameterdvEXT(GLenum pname, GLdouble *params)
 
 static void REGAL_CALL log_glCullParameterfvEXT(GLenum pname, GLfloat *params)
 {
-    GTrace("glCullParameterfvEXT(", toString(pname), ", ", params, ")");;
+    GTrace("glCullParameterfvEXT(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14332,7 +14332,7 @@ static void REGAL_CALL log_glFragmentMaterialivSGIX(GLenum face, GLenum pname, c
 
 static void REGAL_CALL log_glGetFragmentLightfvSGIX(GLenum light, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetFragmentLightfvSGIX(", toString(light), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFragmentLightfvSGIX(", toString(light), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14343,7 +14343,7 @@ static void REGAL_CALL log_glGetFragmentLightfvSGIX(GLenum light, GLenum pname, 
 
 static void REGAL_CALL log_glGetFragmentLightivSGIX(GLenum light, GLenum pname, GLint *params)
 {
-    GTrace("glGetFragmentLightivSGIX(", toString(light), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFragmentLightivSGIX(", toString(light), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14354,7 +14354,7 @@ static void REGAL_CALL log_glGetFragmentLightivSGIX(GLenum light, GLenum pname, 
 
 static void REGAL_CALL log_glGetFragmentMaterialfvSGIX(GLenum face, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetFragmentMaterialfvSGIX(", toString(face), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFragmentMaterialfvSGIX(", toString(face), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14365,7 +14365,7 @@ static void REGAL_CALL log_glGetFragmentMaterialfvSGIX(GLenum face, GLenum pname
 
 static void REGAL_CALL log_glGetFragmentMaterialivSGIX(GLenum face, GLenum pname, GLint *params)
 {
-    GTrace("glGetFragmentMaterialivSGIX(", toString(face), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFragmentMaterialivSGIX(", toString(face), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14472,7 +14472,7 @@ static void REGAL_CALL log_glAsyncMarkerSGIX(GLuint marker)
 
 static GLint REGAL_CALL log_glFinishAsyncSGIX(GLuint *markerp)
 {
-    GTrace("glFinishAsyncSGIX(", markerp, ")");;
+    GTrace("glFinishAsyncSGIX()");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -14484,7 +14484,7 @@ static GLint REGAL_CALL log_glFinishAsyncSGIX(GLuint *markerp)
 
 static GLint REGAL_CALL log_glPollAsyncSGIX(GLuint *markerp)
 {
-    GTrace("glPollAsyncSGIX(", markerp, ")");;
+    GTrace("glPollAsyncSGIX()");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -15938,7 +15938,7 @@ static void REGAL_CALL log_glFinalCombinerInputNV(GLenum variable, GLenum input,
 
 static void REGAL_CALL log_glGetCombinerInputParameterfvNV(GLenum stage, GLenum portion, GLenum variable, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetCombinerInputParameterfvNV(", toString(stage), ", ", toString(portion), ", ", toString(variable), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetCombinerInputParameterfvNV(", toString(stage), ", ", toString(portion), ", ", toString(variable), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -15949,7 +15949,7 @@ static void REGAL_CALL log_glGetCombinerInputParameterfvNV(GLenum stage, GLenum 
 
 static void REGAL_CALL log_glGetCombinerInputParameterivNV(GLenum stage, GLenum portion, GLenum variable, GLenum pname, GLint *params)
 {
-    GTrace("glGetCombinerInputParameterivNV(", toString(stage), ", ", toString(portion), ", ", toString(variable), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetCombinerInputParameterivNV(", toString(stage), ", ", toString(portion), ", ", toString(variable), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -15960,7 +15960,7 @@ static void REGAL_CALL log_glGetCombinerInputParameterivNV(GLenum stage, GLenum 
 
 static void REGAL_CALL log_glGetCombinerOutputParameterfvNV(GLenum stage, GLenum portion, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetCombinerOutputParameterfvNV(", toString(stage), ", ", toString(portion), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetCombinerOutputParameterfvNV(", toString(stage), ", ", toString(portion), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -15971,7 +15971,7 @@ static void REGAL_CALL log_glGetCombinerOutputParameterfvNV(GLenum stage, GLenum
 
 static void REGAL_CALL log_glGetCombinerOutputParameterivNV(GLenum stage, GLenum portion, GLenum pname, GLint *params)
 {
-    GTrace("glGetCombinerOutputParameterivNV(", toString(stage), ", ", toString(portion), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetCombinerOutputParameterivNV(", toString(stage), ", ", toString(portion), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -15982,7 +15982,7 @@ static void REGAL_CALL log_glGetCombinerOutputParameterivNV(GLenum stage, GLenum
 
 static void REGAL_CALL log_glGetFinalCombinerInputParameterfvNV(GLenum variable, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetFinalCombinerInputParameterfvNV(", toString(variable), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFinalCombinerInputParameterfvNV(", toString(variable), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -15993,7 +15993,7 @@ static void REGAL_CALL log_glGetFinalCombinerInputParameterfvNV(GLenum variable,
 
 static void REGAL_CALL log_glGetFinalCombinerInputParameterivNV(GLenum variable, GLenum pname, GLint *params)
 {
-    GTrace("glGetFinalCombinerInputParameterivNV(", toString(variable), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFinalCombinerInputParameterivNV(", toString(variable), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16473,7 +16473,7 @@ static void REGAL_CALL log_glDeleteFencesNV(GLsizei n, const GLuint *fences)
 
 static void REGAL_CALL log_glGenFencesNV(GLsizei n, GLuint *fences)
 {
-    GTrace("glGenFencesNV(", n, ", ", fences, ")");;
+    GTrace("glGenFencesNV(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16508,7 +16508,7 @@ static GLboolean REGAL_CALL log_glTestFenceNV(GLuint fence)
 
 static void REGAL_CALL log_glGetFenceivNV(GLuint fence, GLenum pname, GLint *params)
 {
-    GTrace("glGetFenceivNV(", fence, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFenceivNV(", fence, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16576,7 +16576,7 @@ static void REGAL_CALL log_glMapParameterfvNV(GLenum target, GLenum pname, const
 
 static void REGAL_CALL log_glGetMapControlPointsNV(GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLboolean packed, GLvoid *points)
 {
-    GTrace("glGetMapControlPointsNV(", toString(target), ", ", index, ", ", toString(type), ", ", ustride, ", ", vstride, ", ", packed, ", ", points, ")");;
+    GTrace("glGetMapControlPointsNV(", toString(target), ", ", index, ", ", toString(type), ", ", ustride, ", ", vstride, ", ", packed, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16587,7 +16587,7 @@ static void REGAL_CALL log_glGetMapControlPointsNV(GLenum target, GLuint index, 
 
 static void REGAL_CALL log_glGetMapParameterivNV(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetMapParameterivNV(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMapParameterivNV(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16598,7 +16598,7 @@ static void REGAL_CALL log_glGetMapParameterivNV(GLenum target, GLenum pname, GL
 
 static void REGAL_CALL log_glGetMapParameterfvNV(GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMapParameterfvNV(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMapParameterfvNV(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16609,7 +16609,7 @@ static void REGAL_CALL log_glGetMapParameterfvNV(GLenum target, GLenum pname, GL
 
 static void REGAL_CALL log_glGetMapAttribParameterivNV(GLenum target, GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetMapAttribParameterivNV(", toString(target), ", ", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMapAttribParameterivNV(", toString(target), ", ", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16620,7 +16620,7 @@ static void REGAL_CALL log_glGetMapAttribParameterivNV(GLenum target, GLuint ind
 
 static void REGAL_CALL log_glGetMapAttribParameterfvNV(GLenum target, GLuint index, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMapAttribParameterfvNV(", toString(target), ", ", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMapAttribParameterfvNV(", toString(target), ", ", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16655,7 +16655,7 @@ static void REGAL_CALL log_glCombinerStageParameterfvNV(GLenum stage, GLenum pna
 
 static void REGAL_CALL log_glGetCombinerStageParameterfvNV(GLenum stage, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetCombinerStageParameterfvNV(", toString(stage), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetCombinerStageParameterfvNV(", toString(stage), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16668,7 +16668,7 @@ static void REGAL_CALL log_glGetCombinerStageParameterfvNV(GLenum stage, GLenum 
 
 static GLboolean REGAL_CALL log_glAreProgramsResidentNV(GLsizei n, const GLuint *programs, GLboolean *residences)
 {
-    GTrace("glAreProgramsResidentNV(", n, ", ", boost::print::array(programs,n), ", ", residences, ")");;
+    GTrace("glAreProgramsResidentNV(", n, ", ", boost::print::array(programs,n), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16713,7 +16713,7 @@ static void REGAL_CALL log_glExecuteProgramNV(GLenum target, GLuint id, const GL
 
 static void REGAL_CALL log_glGenProgramsNV(GLsizei n, GLuint *programs)
 {
-    GTrace("glGenProgramsNV(", n, ", ", programs, ")");;
+    GTrace("glGenProgramsNV(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16724,7 +16724,7 @@ static void REGAL_CALL log_glGenProgramsNV(GLsizei n, GLuint *programs)
 
 static void REGAL_CALL log_glGetProgramParameterdvNV(GLenum target, GLuint index, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetProgramParameterdvNV(", toString(target), ", ", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetProgramParameterdvNV(", toString(target), ", ", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16735,7 +16735,7 @@ static void REGAL_CALL log_glGetProgramParameterdvNV(GLenum target, GLuint index
 
 static void REGAL_CALL log_glGetProgramParameterfvNV(GLenum target, GLuint index, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetProgramParameterfvNV(", toString(target), ", ", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetProgramParameterfvNV(", toString(target), ", ", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16746,7 +16746,7 @@ static void REGAL_CALL log_glGetProgramParameterfvNV(GLenum target, GLuint index
 
 static void REGAL_CALL log_glGetProgramivNV(GLuint id, GLenum pname, GLint *params)
 {
-    GTrace("glGetProgramivNV(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetProgramivNV(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16757,7 +16757,7 @@ static void REGAL_CALL log_glGetProgramivNV(GLuint id, GLenum pname, GLint *para
 
 static void REGAL_CALL log_glGetProgramStringNV(GLuint id, GLenum pname, GLubyte *program)
 {
-    GTrace("glGetProgramStringNV(", id, ", ", toString(pname), ", ", program, ")");;
+    GTrace("glGetProgramStringNV(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16768,7 +16768,7 @@ static void REGAL_CALL log_glGetProgramStringNV(GLuint id, GLenum pname, GLubyte
 
 static void REGAL_CALL log_glGetTrackMatrixivNV(GLenum target, GLuint address, GLenum pname, GLint *params)
 {
-    GTrace("glGetTrackMatrixivNV(", toString(target), ", ", address, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTrackMatrixivNV(", toString(target), ", ", address, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16779,7 +16779,7 @@ static void REGAL_CALL log_glGetTrackMatrixivNV(GLenum target, GLuint address, G
 
 static void REGAL_CALL log_glGetVertexAttribdvNV(GLuint index, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetVertexAttribdvNV(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribdvNV(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16790,7 +16790,7 @@ static void REGAL_CALL log_glGetVertexAttribdvNV(GLuint index, GLenum pname, GLd
 
 static void REGAL_CALL log_glGetVertexAttribfvNV(GLuint index, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetVertexAttribfvNV(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribfvNV(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16801,7 +16801,7 @@ static void REGAL_CALL log_glGetVertexAttribfvNV(GLuint index, GLenum pname, GLf
 
 static void REGAL_CALL log_glGetVertexAttribivNV(GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetVertexAttribivNV(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribivNV(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -16812,7 +16812,7 @@ static void REGAL_CALL log_glGetVertexAttribivNV(GLuint index, GLenum pname, GLi
 
 static void REGAL_CALL log_glGetVertexAttribPointervNV(GLuint index, GLenum pname, GLvoid **pointer)
 {
-    GTrace("glGetVertexAttribPointervNV(", index, ", ", toString(pname), ", ", pointer, ")");;
+    GTrace("glGetVertexAttribPointervNV(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17398,7 +17398,7 @@ static void REGAL_CALL log_glTexBumpParameterfvATI(GLenum pname, GLfloat *param)
 
 static void REGAL_CALL log_glGetTexBumpParameterivATI(GLenum pname, GLint *param)
 {
-    GTrace("glGetTexBumpParameterivATI(", toString(pname), ", ", param, ")");;
+    GTrace("glGetTexBumpParameterivATI(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17409,7 +17409,7 @@ static void REGAL_CALL log_glGetTexBumpParameterivATI(GLenum pname, GLint *param
 
 static void REGAL_CALL log_glGetTexBumpParameterfvATI(GLenum pname, GLfloat *param)
 {
-    GTrace("glGetTexBumpParameterfvATI(", toString(pname), ", ", param, ")");;
+    GTrace("glGetTexBumpParameterfvATI(", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17638,7 +17638,7 @@ static void REGAL_CALL log_glUpdateObjectBufferATI(GLuint buffer, GLuint offset,
 
 static void REGAL_CALL log_glGetObjectBufferfvATI(GLuint buffer, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetObjectBufferfvATI(", buffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetObjectBufferfvATI(", buffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17649,7 +17649,7 @@ static void REGAL_CALL log_glGetObjectBufferfvATI(GLuint buffer, GLenum pname, G
 
 static void REGAL_CALL log_glGetObjectBufferivATI(GLuint buffer, GLenum pname, GLint *params)
 {
-    GTrace("glGetObjectBufferivATI(", buffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetObjectBufferivATI(", buffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17682,7 +17682,7 @@ static void REGAL_CALL log_glArrayObjectATI(GLenum array, GLint size, GLenum typ
 
 static void REGAL_CALL log_glGetArrayObjectfvATI(GLenum array, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetArrayObjectfvATI(", toString(array), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetArrayObjectfvATI(", toString(array), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17693,7 +17693,7 @@ static void REGAL_CALL log_glGetArrayObjectfvATI(GLenum array, GLenum pname, GLf
 
 static void REGAL_CALL log_glGetArrayObjectivATI(GLenum array, GLenum pname, GLint *params)
 {
-    GTrace("glGetArrayObjectivATI(", toString(array), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetArrayObjectivATI(", toString(array), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17715,7 +17715,7 @@ static void REGAL_CALL log_glVariantArrayObjectATI(GLuint id, GLenum type, GLsiz
 
 static void REGAL_CALL log_glGetVariantArrayObjectfvATI(GLuint id, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetVariantArrayObjectfvATI(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVariantArrayObjectfvATI(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -17726,7 +17726,7 @@ static void REGAL_CALL log_glGetVariantArrayObjectfvATI(GLuint id, GLenum pname,
 
 static void REGAL_CALL log_glGetVariantArrayObjectivATI(GLuint id, GLenum pname, GLint *params)
 {
-    GTrace("glGetVariantArrayObjectivATI(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVariantArrayObjectivATI(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18099,7 +18099,7 @@ static GLboolean REGAL_CALL log_glIsVariantEnabledEXT(GLuint id, GLenum cap)
 
 static void REGAL_CALL log_glGetVariantBooleanvEXT(GLuint id, GLenum value, GLboolean *data)
 {
-    GTrace("glGetVariantBooleanvEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetVariantBooleanvEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18110,7 +18110,7 @@ static void REGAL_CALL log_glGetVariantBooleanvEXT(GLuint id, GLenum value, GLbo
 
 static void REGAL_CALL log_glGetVariantIntegervEXT(GLuint id, GLenum value, GLint *data)
 {
-    GTrace("glGetVariantIntegervEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetVariantIntegervEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18121,7 +18121,7 @@ static void REGAL_CALL log_glGetVariantIntegervEXT(GLuint id, GLenum value, GLin
 
 static void REGAL_CALL log_glGetVariantFloatvEXT(GLuint id, GLenum value, GLfloat *data)
 {
-    GTrace("glGetVariantFloatvEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetVariantFloatvEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18132,7 +18132,7 @@ static void REGAL_CALL log_glGetVariantFloatvEXT(GLuint id, GLenum value, GLfloa
 
 static void REGAL_CALL log_glGetVariantPointervEXT(GLuint id, GLenum value, GLvoid **data)
 {
-    GTrace("glGetVariantPointervEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetVariantPointervEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18143,7 +18143,7 @@ static void REGAL_CALL log_glGetVariantPointervEXT(GLuint id, GLenum value, GLvo
 
 static void REGAL_CALL log_glGetInvariantBooleanvEXT(GLuint id, GLenum value, GLboolean *data)
 {
-    GTrace("glGetInvariantBooleanvEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetInvariantBooleanvEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18154,7 +18154,7 @@ static void REGAL_CALL log_glGetInvariantBooleanvEXT(GLuint id, GLenum value, GL
 
 static void REGAL_CALL log_glGetInvariantIntegervEXT(GLuint id, GLenum value, GLint *data)
 {
-    GTrace("glGetInvariantIntegervEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetInvariantIntegervEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18165,7 +18165,7 @@ static void REGAL_CALL log_glGetInvariantIntegervEXT(GLuint id, GLenum value, GL
 
 static void REGAL_CALL log_glGetInvariantFloatvEXT(GLuint id, GLenum value, GLfloat *data)
 {
-    GTrace("glGetInvariantFloatvEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetInvariantFloatvEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18176,7 +18176,7 @@ static void REGAL_CALL log_glGetInvariantFloatvEXT(GLuint id, GLenum value, GLfl
 
 static void REGAL_CALL log_glGetLocalConstantBooleanvEXT(GLuint id, GLenum value, GLboolean *data)
 {
-    GTrace("glGetLocalConstantBooleanvEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetLocalConstantBooleanvEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18187,7 +18187,7 @@ static void REGAL_CALL log_glGetLocalConstantBooleanvEXT(GLuint id, GLenum value
 
 static void REGAL_CALL log_glGetLocalConstantIntegervEXT(GLuint id, GLenum value, GLint *data)
 {
-    GTrace("glGetLocalConstantIntegervEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetLocalConstantIntegervEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18198,7 +18198,7 @@ static void REGAL_CALL log_glGetLocalConstantIntegervEXT(GLuint id, GLenum value
 
 static void REGAL_CALL log_glGetLocalConstantFloatvEXT(GLuint id, GLenum value, GLfloat *data)
 {
-    GTrace("glGetLocalConstantFloatvEXT(", id, ", ", toString(value), ", ", data, ")");;
+    GTrace("glGetLocalConstantFloatvEXT(", id, ", ", toString(value), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18756,7 +18756,7 @@ static void REGAL_CALL log_glDrawMeshArraysSUN(GLenum mode, GLint first, GLsizei
 
 static void REGAL_CALL log_glGenOcclusionQueriesNV(GLsizei n, GLuint *ids)
 {
-    GTrace("glGenOcclusionQueriesNV(", n, ", ", ids, ")");;
+    GTrace("glGenOcclusionQueriesNV(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18812,7 +18812,7 @@ static void REGAL_CALL log_glEndOcclusionQueryNV(void)
 
 static void REGAL_CALL log_glGetOcclusionQueryivNV(GLuint id, GLenum pname, GLint *params)
 {
-    GTrace("glGetOcclusionQueryivNV(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetOcclusionQueryivNV(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18823,7 +18823,7 @@ static void REGAL_CALL log_glGetOcclusionQueryivNV(GLuint id, GLenum pname, GLin
 
 static void REGAL_CALL log_glGetOcclusionQueryuivNV(GLuint id, GLenum pname, GLuint *params)
 {
-    GTrace("glGetOcclusionQueryuivNV(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetOcclusionQueryuivNV(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -18930,7 +18930,7 @@ static void REGAL_CALL log_glMultiDrawRangeElementArrayAPPLE(GLenum mode, GLuint
 
 static void REGAL_CALL log_glGenFencesAPPLE(GLsizei n, GLuint *fences)
 {
-    GTrace("glGenFencesAPPLE(", n, ", ", fences, ")");;
+    GTrace("glGenFencesAPPLE(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19045,7 +19045,7 @@ static void REGAL_CALL log_glDeleteVertexArraysAPPLE(GLsizei n, const GLuint *ar
 
 static void REGAL_CALL log_glGenVertexArraysAPPLE(GLsizei n, const GLuint *arrays)
 {
-    GTrace("glGenVertexArraysAPPLE(", n, ", ", arrays, ")");;
+    GTrace("glGenVertexArraysAPPLE(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19070,7 +19070,7 @@ static GLboolean REGAL_CALL log_glIsVertexArrayAPPLE(GLuint array)
 
 static void REGAL_CALL log_glVertexArrayRangeAPPLE(GLsizei length, GLvoid *pointer)
 {
-    GTrace("glVertexArrayRangeAPPLE(", length, ", ", pointer, ")");;
+    GTrace("glVertexArrayRangeAPPLE(", length, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19081,7 +19081,7 @@ static void REGAL_CALL log_glVertexArrayRangeAPPLE(GLsizei length, GLvoid *point
 
 static void REGAL_CALL log_glFlushVertexArrayRangeAPPLE(GLsizei length, GLvoid *pointer)
 {
-    GTrace("glFlushVertexArrayRangeAPPLE(", length, ", ", pointer, ")");;
+    GTrace("glFlushVertexArrayRangeAPPLE(", length, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19162,7 +19162,7 @@ static void REGAL_CALL log_glProgramNamedParameter4dvNV(GLuint id, GLsizei len, 
 
 static void REGAL_CALL log_glGetProgramNamedParameterfvNV(GLuint id, GLsizei len, const GLubyte *name, GLfloat *params)
 {
-    GTrace("glGetProgramNamedParameterfvNV(", id, ", ", len, ", ", boost::print::array(name,1), ", ", params, ")");;
+    GTrace("glGetProgramNamedParameterfvNV(", id, ", ", len, ", ", boost::print::array(name,1), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19173,7 +19173,7 @@ static void REGAL_CALL log_glGetProgramNamedParameterfvNV(GLuint id, GLsizei len
 
 static void REGAL_CALL log_glGetProgramNamedParameterdvNV(GLuint id, GLsizei len, const GLubyte *name, GLdouble *params)
 {
-    GTrace("glGetProgramNamedParameterdvNV(", id, ", ", len, ", ", boost::print::array(name,1), ", ", params, ")");;
+    GTrace("glGetProgramNamedParameterdvNV(", id, ", ", len, ", ", boost::print::array(name,1), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19802,7 +19802,7 @@ static void REGAL_CALL log_glVertexAttribArrayObjectATI(GLuint index, GLint size
 
 static void REGAL_CALL log_glGetVertexAttribArrayObjectfvATI(GLuint index, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetVertexAttribArrayObjectfvATI(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribArrayObjectfvATI(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19813,7 +19813,7 @@ static void REGAL_CALL log_glGetVertexAttribArrayObjectfvATI(GLuint index, GLenu
 
 static void REGAL_CALL log_glGetVertexAttribArrayObjectivATI(GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetVertexAttribArrayObjectivATI(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribArrayObjectivATI(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19886,7 +19886,7 @@ static void REGAL_CALL log_glDeleteRenderbuffersEXT(GLsizei n, const GLuint *ren
 
 static void REGAL_CALL log_glGenRenderbuffersEXT(GLsizei n, GLuint *renderbuffers)
 {
-    GTrace("glGenRenderbuffersEXT(", n, ", ", renderbuffers, ")");;
+    GTrace("glGenRenderbuffersEXT(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19908,7 +19908,7 @@ static void REGAL_CALL log_glRenderbufferStorageEXT(GLenum target, GLenum intern
 
 static void REGAL_CALL log_glGetRenderbufferParameterivEXT(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetRenderbufferParameterivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetRenderbufferParameterivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -19953,7 +19953,7 @@ static void REGAL_CALL log_glDeleteFramebuffersEXT(GLsizei n, const GLuint *fram
 
 static void REGAL_CALL log_glGenFramebuffersEXT(GLsizei n, GLuint *framebuffers)
 {
-    GTrace("glGenFramebuffersEXT(", n, ", ", framebuffers, ")");;
+    GTrace("glGenFramebuffersEXT(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20020,7 +20020,7 @@ static void REGAL_CALL log_glFramebufferRenderbufferEXT(GLenum target, GLenum at
 
 static void REGAL_CALL log_glGetFramebufferAttachmentParameterivEXT(GLenum target, GLenum attachment, GLenum pname, GLint *params)
 {
-    GTrace("glGetFramebufferAttachmentParameterivEXT(", toString(target), ", ", toString(attachment), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFramebufferAttachmentParameterivEXT(", toString(target), ", ", toString(attachment), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20096,7 +20096,7 @@ static void REGAL_CALL log_glRenderbufferStorageMultisampleEXT(GLenum target, GL
 
 static void REGAL_CALL log_glGetQueryObjecti64vEXT(GLuint id, GLenum pname, GLint64EXT *params)
 {
-    GTrace("glGetQueryObjecti64vEXT(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjecti64vEXT(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20107,7 +20107,7 @@ static void REGAL_CALL log_glGetQueryObjecti64vEXT(GLuint id, GLenum pname, GLin
 
 static void REGAL_CALL log_glGetQueryObjectui64vEXT(GLuint id, GLenum pname, GLuint64EXT *params)
 {
-    GTrace("glGetQueryObjectui64vEXT(", id, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetQueryObjectui64vEXT(", id, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20300,7 +20300,7 @@ static void REGAL_CALL log_glProgramEnvParametersI4uivNV(GLenum target, GLuint i
 
 static void REGAL_CALL log_glGetProgramLocalParameterIivNV(GLenum target, GLuint index, GLint *params)
 {
-    GTrace("glGetProgramLocalParameterIivNV(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramLocalParameterIivNV(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20311,7 +20311,7 @@ static void REGAL_CALL log_glGetProgramLocalParameterIivNV(GLenum target, GLuint
 
 static void REGAL_CALL log_glGetProgramLocalParameterIuivNV(GLenum target, GLuint index, GLuint *params)
 {
-    GTrace("glGetProgramLocalParameterIuivNV(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramLocalParameterIuivNV(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20322,7 +20322,7 @@ static void REGAL_CALL log_glGetProgramLocalParameterIuivNV(GLenum target, GLuin
 
 static void REGAL_CALL log_glGetProgramEnvParameterIivNV(GLenum target, GLuint index, GLint *params)
 {
-    GTrace("glGetProgramEnvParameterIivNV(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramEnvParameterIivNV(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20333,7 +20333,7 @@ static void REGAL_CALL log_glGetProgramEnvParameterIivNV(GLenum target, GLuint i
 
 static void REGAL_CALL log_glGetProgramEnvParameterIuivNV(GLenum target, GLuint index, GLuint *params)
 {
-    GTrace("glGetProgramEnvParameterIuivNV(", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetProgramEnvParameterIuivNV(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20625,7 +20625,7 @@ static void REGAL_CALL log_glVertexAttribIPointerEXT(GLuint index, GLint size, G
 
 static void REGAL_CALL log_glGetVertexAttribIivEXT(GLuint index, GLenum pname, GLint *params)
 {
-    GTrace("glGetVertexAttribIivEXT(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribIivEXT(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20636,7 +20636,7 @@ static void REGAL_CALL log_glGetVertexAttribIivEXT(GLuint index, GLenum pname, G
 
 static void REGAL_CALL log_glGetVertexAttribIuivEXT(GLuint index, GLenum pname, GLuint *params)
 {
-    GTrace("glGetVertexAttribIuivEXT(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribIuivEXT(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20649,7 +20649,7 @@ static void REGAL_CALL log_glGetVertexAttribIuivEXT(GLuint index, GLenum pname, 
 
 static void REGAL_CALL log_glGetUniformuivEXT(GLuint program, GLint location, GLuint *params)
 {
-    GTrace("glGetUniformuivEXT(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformuivEXT(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20917,7 +20917,7 @@ static void REGAL_CALL log_glColorMaskIndexedEXT(GLuint buf, GLboolean r, GLbool
 
 static void REGAL_CALL log_glGetBooleanIndexedvEXT(GLenum value, GLuint index, GLboolean *data)
 {
-    GTrace("glGetBooleanIndexedvEXT(", toString(value), ", ", index, ", ", data, ")");;
+    GTrace("glGetBooleanIndexedvEXT(", toString(value), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -20928,7 +20928,7 @@ static void REGAL_CALL log_glGetBooleanIndexedvEXT(GLenum value, GLuint index, G
 
 static void REGAL_CALL log_glGetIntegerIndexedvEXT(GLenum value, GLuint index, GLint *data)
 {
-    GTrace("glGetIntegerIndexedvEXT(", toString(value), ", ", index, ", ", data, ")");;
+    GTrace("glGetIntegerIndexedvEXT(", toString(value), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21075,7 +21075,7 @@ static GLint REGAL_CALL log_glGetVaryingLocationNV(GLuint program, const GLchar 
 
 static void REGAL_CALL log_glGetActiveVaryingNV(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name)
 {
-    GTrace("glGetActiveVaryingNV(", program, ", ", index, ", ", bufSize, ", ", length, ", ", size, ", ", type, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetActiveVaryingNV(", program, ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21086,7 +21086,7 @@ static void REGAL_CALL log_glGetActiveVaryingNV(GLuint program, GLuint index, GL
 
 static void REGAL_CALL log_glGetTransformFeedbackVaryingNV(GLuint program, GLuint index, GLint *location)
 {
-    GTrace("glGetTransformFeedbackVaryingNV(", program, ", ", index, ", ", location, ")");;
+    GTrace("glGetTransformFeedbackVaryingNV(", program, ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21158,7 +21158,7 @@ static void REGAL_CALL log_glTexParameterIuivEXT(GLenum target, GLenum pname, co
 
 static void REGAL_CALL log_glGetTexParameterIivEXT(GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetTexParameterIivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameterIivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21169,7 +21169,7 @@ static void REGAL_CALL log_glGetTexParameterIivEXT(GLenum target, GLenum pname, 
 
 static void REGAL_CALL log_glGetTexParameterIuivEXT(GLenum target, GLenum pname, GLuint *params)
 {
-    GTrace("glGetTexParameterIuivEXT(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameterIuivEXT(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21263,7 +21263,7 @@ static void REGAL_CALL log_glPresentFrameDualFillNV(GLuint video_slot, GLuint64E
 
 static void REGAL_CALL log_glGetVideoivNV(GLuint video_slot, GLenum pname, GLint *params)
 {
-    GTrace("glGetVideoivNV(", video_slot, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoivNV(", video_slot, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21274,7 +21274,7 @@ static void REGAL_CALL log_glGetVideoivNV(GLuint video_slot, GLenum pname, GLint
 
 static void REGAL_CALL log_glGetVideouivNV(GLuint video_slot, GLenum pname, GLuint *params)
 {
-    GTrace("glGetVideouivNV(", video_slot, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideouivNV(", video_slot, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21285,7 +21285,7 @@ static void REGAL_CALL log_glGetVideouivNV(GLuint video_slot, GLenum pname, GLui
 
 static void REGAL_CALL log_glGetVideoi64vNV(GLuint video_slot, GLenum pname, GLint64EXT *params)
 {
-    GTrace("glGetVideoi64vNV(", video_slot, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoi64vNV(", video_slot, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21296,7 +21296,7 @@ static void REGAL_CALL log_glGetVideoi64vNV(GLuint video_slot, GLenum pname, GLi
 
 static void REGAL_CALL log_glGetVideoui64vNV(GLuint video_slot, GLenum pname, GLuint64EXT *params)
 {
-    GTrace("glGetVideoui64vNV(", video_slot, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoui64vNV(", video_slot, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21375,7 +21375,7 @@ static void REGAL_CALL log_glTransformFeedbackVaryingsEXT(GLuint program, GLsize
 
 static void REGAL_CALL log_glGetTransformFeedbackVaryingEXT(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name)
 {
-    GTrace("glGetTransformFeedbackVaryingEXT(", program, ", ", index, ", ", bufSize, ", ", length, ", ", size, ", ", type, ", ", boost::print::quote(name,'"'), ")");;
+    GTrace("glGetTransformFeedbackVaryingEXT(", program, ", ", index, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21751,7 +21751,7 @@ static void REGAL_CALL log_glCopyTextureSubImage2DEXT(GLuint texture, GLenum tar
 
 static void REGAL_CALL log_glGetTextureImageEXT(GLuint texture, GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
 {
-    GTrace("glGetTextureImageEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");;
+    GTrace("glGetTextureImageEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21762,7 +21762,7 @@ static void REGAL_CALL log_glGetTextureImageEXT(GLuint texture, GLenum target, G
 
 static void REGAL_CALL log_glGetTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetTextureParameterfvEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTextureParameterfvEXT(", texture, ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21773,7 +21773,7 @@ static void REGAL_CALL log_glGetTextureParameterfvEXT(GLuint texture, GLenum tar
 
 static void REGAL_CALL log_glGetTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetTextureParameterivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTextureParameterivEXT(", texture, ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21784,7 +21784,7 @@ static void REGAL_CALL log_glGetTextureParameterivEXT(GLuint texture, GLenum tar
 
 static void REGAL_CALL log_glGetTextureLevelParameterfvEXT(GLuint texture, GLenum target, GLint level, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetTextureLevelParameterfvEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTextureLevelParameterfvEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21795,7 +21795,7 @@ static void REGAL_CALL log_glGetTextureLevelParameterfvEXT(GLuint texture, GLenu
 
 static void REGAL_CALL log_glGetTextureLevelParameterivEXT(GLuint texture, GLenum target, GLint level, GLenum pname, GLint *params)
 {
-    GTrace("glGetTextureLevelParameterivEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTextureLevelParameterivEXT(", texture, ", ", toString(target), ", ", level, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21971,7 +21971,7 @@ static void REGAL_CALL log_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum ta
 
 static void REGAL_CALL log_glGetMultiTexImageEXT(GLenum texunit, GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
 {
-    GTrace("glGetMultiTexImageEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");;
+    GTrace("glGetMultiTexImageEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21982,7 +21982,7 @@ static void REGAL_CALL log_glGetMultiTexImageEXT(GLenum texunit, GLenum target, 
 
 static void REGAL_CALL log_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMultiTexParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21993,7 +21993,7 @@ static void REGAL_CALL log_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum ta
 
 static void REGAL_CALL log_glGetMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetMultiTexParameterivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexParameterivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22004,7 +22004,7 @@ static void REGAL_CALL log_glGetMultiTexParameterivEXT(GLenum texunit, GLenum ta
 
 static void REGAL_CALL log_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLenum target, GLint level, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMultiTexLevelParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexLevelParameterfvEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22015,7 +22015,7 @@ static void REGAL_CALL log_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLen
 
 static void REGAL_CALL log_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLenum target, GLint level, GLenum pname, GLint *params)
 {
-    GTrace("glGetMultiTexLevelParameterivEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexLevelParameterivEXT(", toString(texunit), ", ", toString(target), ", ", level, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22213,7 +22213,7 @@ static void REGAL_CALL log_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLen
 
 static void REGAL_CALL log_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMultiTexEnvfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexEnvfvEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22224,7 +22224,7 @@ static void REGAL_CALL log_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, 
 
 static void REGAL_CALL log_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetMultiTexEnvivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexEnvivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22235,7 +22235,7 @@ static void REGAL_CALL log_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, 
 
 static void REGAL_CALL log_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetMultiTexGendvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexGendvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22246,7 +22246,7 @@ static void REGAL_CALL log_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, G
 
 static void REGAL_CALL log_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetMultiTexGenfvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexGenfvEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22257,7 +22257,7 @@ static void REGAL_CALL log_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, G
 
 static void REGAL_CALL log_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, GLenum pname, GLint *params)
 {
-    GTrace("glGetMultiTexGenivEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexGenivEXT(", toString(texunit), ", ", toString(coord), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22268,7 +22268,7 @@ static void REGAL_CALL log_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, G
 
 static void REGAL_CALL log_glGetFloatIndexedvEXT(GLenum target, GLuint index, GLfloat *data)
 {
-    GTrace("glGetFloatIndexedvEXT(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetFloatIndexedvEXT(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22279,7 +22279,7 @@ static void REGAL_CALL log_glGetFloatIndexedvEXT(GLenum target, GLuint index, GL
 
 static void REGAL_CALL log_glGetDoubleIndexedvEXT(GLenum target, GLuint index, GLdouble *data)
 {
-    GTrace("glGetDoubleIndexedvEXT(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetDoubleIndexedvEXT(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22290,7 +22290,7 @@ static void REGAL_CALL log_glGetDoubleIndexedvEXT(GLenum target, GLuint index, G
 
 static void REGAL_CALL log_glGetPointerIndexedvEXT(GLenum target, GLuint index, GLvoid **data)
 {
-    GTrace("glGetPointerIndexedvEXT(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetPointerIndexedvEXT(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22367,7 +22367,7 @@ static void REGAL_CALL log_glCompressedTextureSubImage1DEXT(GLuint texture, GLen
 
 static void REGAL_CALL log_glGetCompressedTextureImageEXT(GLuint texture, GLenum target, GLint lod, GLvoid *img)
 {
-    GTrace("glGetCompressedTextureImageEXT(", texture, ", ", toString(target), ", ", lod, ", ", img, ")");;
+    GTrace("glGetCompressedTextureImageEXT(", texture, ", ", toString(target), ", ", lod, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22444,7 +22444,7 @@ static void REGAL_CALL log_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLe
 
 static void REGAL_CALL log_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenum target, GLint lod, GLvoid *img)
 {
-    GTrace("glGetCompressedMultiTexImageEXT(", toString(texunit), ", ", toString(target), ", ", lod, ", ", img, ")");;
+    GTrace("glGetCompressedMultiTexImageEXT(", toString(texunit), ", ", toString(target), ", ", lod, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22510,7 +22510,7 @@ static void REGAL_CALL log_glNamedProgramLocalParameter4fvEXT(GLuint program, GL
 
 static void REGAL_CALL log_glGetNamedProgramLocalParameterdvEXT(GLuint program, GLenum target, GLuint index, GLdouble *params)
 {
-    GTrace("glGetNamedProgramLocalParameterdvEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetNamedProgramLocalParameterdvEXT(", program, ", ", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22521,7 +22521,7 @@ static void REGAL_CALL log_glGetNamedProgramLocalParameterdvEXT(GLuint program, 
 
 static void REGAL_CALL log_glGetNamedProgramLocalParameterfvEXT(GLuint program, GLenum target, GLuint index, GLfloat *params)
 {
-    GTrace("glGetNamedProgramLocalParameterfvEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetNamedProgramLocalParameterfvEXT(", program, ", ", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22532,7 +22532,7 @@ static void REGAL_CALL log_glGetNamedProgramLocalParameterfvEXT(GLuint program, 
 
 static void REGAL_CALL log_glGetNamedProgramivEXT(GLuint program, GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetNamedProgramivEXT(", program, ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedProgramivEXT(", program, ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22543,7 +22543,7 @@ static void REGAL_CALL log_glGetNamedProgramivEXT(GLuint program, GLenum target,
 
 static void REGAL_CALL log_glGetNamedProgramStringEXT(GLuint program, GLenum target, GLenum pname, GLvoid *string)
 {
-    GTrace("glGetNamedProgramStringEXT(", program, ", ", toString(target), ", ", toString(pname), ", ", string, ")");;
+    GTrace("glGetNamedProgramStringEXT(", program, ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22631,7 +22631,7 @@ static void REGAL_CALL log_glNamedProgramLocalParametersI4uivEXT(GLuint program,
 
 static void REGAL_CALL log_glGetNamedProgramLocalParameterIivEXT(GLuint program, GLenum target, GLuint index, GLint *params)
 {
-    GTrace("glGetNamedProgramLocalParameterIivEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetNamedProgramLocalParameterIivEXT(", program, ", ", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22642,7 +22642,7 @@ static void REGAL_CALL log_glGetNamedProgramLocalParameterIivEXT(GLuint program,
 
 static void REGAL_CALL log_glGetNamedProgramLocalParameterIuivEXT(GLuint program, GLenum target, GLuint index, GLuint *params)
 {
-    GTrace("glGetNamedProgramLocalParameterIuivEXT(", program, ", ", toString(target), ", ", index, ", ", params, ")");;
+    GTrace("glGetNamedProgramLocalParameterIuivEXT(", program, ", ", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22675,7 +22675,7 @@ static void REGAL_CALL log_glTextureParameterIuivEXT(GLuint texture, GLenum targ
 
 static void REGAL_CALL log_glGetTextureParameterIivEXT(GLuint texture, GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetTextureParameterIivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTextureParameterIivEXT(", texture, ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22686,7 +22686,7 @@ static void REGAL_CALL log_glGetTextureParameterIivEXT(GLuint texture, GLenum ta
 
 static void REGAL_CALL log_glGetTextureParameterIuivEXT(GLuint texture, GLenum target, GLenum pname, GLuint *params)
 {
-    GTrace("glGetTextureParameterIuivEXT(", texture, ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTextureParameterIuivEXT(", texture, ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22719,7 +22719,7 @@ static void REGAL_CALL log_glMultiTexParameterIuivEXT(GLenum texunit, GLenum tar
 
 static void REGAL_CALL log_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
 {
-    GTrace("glGetMultiTexParameterIivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexParameterIivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -22730,7 +22730,7 @@ static void REGAL_CALL log_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum t
 
 static void REGAL_CALL log_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum target, GLenum pname, GLuint *params)
 {
-    GTrace("glGetMultiTexParameterIuivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetMultiTexParameterIuivEXT(", toString(texunit), ", ", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23150,7 +23150,7 @@ static GLboolean REGAL_CALL log_glUnmapNamedBufferEXT(GLuint buffer)
 
 static void REGAL_CALL log_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum pname, GLint *params)
 {
-    GTrace("glGetNamedBufferParameterivEXT(", buffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedBufferParameterivEXT(", buffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23161,7 +23161,7 @@ static void REGAL_CALL log_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum 
 
 static void REGAL_CALL log_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pname, GLvoid **params)
 {
-    GTrace("glGetNamedBufferPointervEXT(", buffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedBufferPointervEXT(", buffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23172,7 +23172,7 @@ static void REGAL_CALL log_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pna
 
 static void REGAL_CALL log_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr offset, GLsizeiptr size, GLvoid *data)
 {
-    GTrace("glGetNamedBufferSubDataEXT(", buffer, ", ", offset, ", ", size, ", ", data, ")");;
+    GTrace("glGetNamedBufferSubDataEXT(", buffer, ", ", offset, ", ", size, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23216,7 +23216,7 @@ static void REGAL_CALL log_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GL
 
 static void REGAL_CALL log_glGetNamedRenderbufferParameterivEXT(GLuint renderbuffer, GLenum pname, GLint *params)
 {
-    GTrace("glGetNamedRenderbufferParameterivEXT(", renderbuffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedRenderbufferParameterivEXT(", renderbuffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23283,7 +23283,7 @@ static void REGAL_CALL log_glNamedFramebufferRenderbufferEXT(GLuint framebuffer,
 
 static void REGAL_CALL log_glGetNamedFramebufferAttachmentParameterivEXT(GLuint framebuffer, GLenum attachment, GLenum pname, GLint *params)
 {
-    GTrace("glGetNamedFramebufferAttachmentParameterivEXT(", framebuffer, ", ", toString(attachment), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedFramebufferAttachmentParameterivEXT(", framebuffer, ", ", toString(attachment), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23349,7 +23349,7 @@ static void REGAL_CALL log_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum
 
 static void REGAL_CALL log_glGetFramebufferParameterivEXT(GLuint framebuffer, GLenum pname, GLint *params)
 {
-    GTrace("glGetFramebufferParameterivEXT(", framebuffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetFramebufferParameterivEXT(", framebuffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23660,7 +23660,7 @@ static void REGAL_CALL log_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint 
 
 static void REGAL_CALL log_glGetMultisamplefvNV(GLenum pname, GLuint index, GLfloat *val)
 {
-    GTrace("glGetMultisamplefvNV(", toString(pname), ", ", index, ", ", val, ")");;
+    GTrace("glGetMultisamplefvNV(", toString(pname), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23717,7 +23717,7 @@ static void REGAL_CALL log_glDeleteTransformFeedbacksNV(GLsizei n, const GLuint 
 
 static void REGAL_CALL log_glGenTransformFeedbacksNV(GLsizei n, GLuint *ids)
 {
-    GTrace("glGenTransformFeedbacksNV(", n, ", ", ids, ")");;
+    GTrace("glGenTransformFeedbacksNV(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23775,7 +23775,7 @@ static void REGAL_CALL log_glDrawTransformFeedbackNV(GLenum mode, GLuint name)
 
 static void REGAL_CALL log_glGetPerfMonitorGroupsAMD(GLint *numGroups, GLsizei groupsSize, GLuint *groups)
 {
-    GTrace("glGetPerfMonitorGroupsAMD(", numGroups, ", ", groupsSize, ", ", groups, ")");;
+    GTrace("glGetPerfMonitorGroupsAMD(", groupsSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23786,7 +23786,7 @@ static void REGAL_CALL log_glGetPerfMonitorGroupsAMD(GLint *numGroups, GLsizei g
 
 static void REGAL_CALL log_glGetPerfMonitorCountersAMD(GLuint group, GLint *numCounters, GLint *maxActiveCounters, GLsizei countersSize, GLuint *counters)
 {
-    GTrace("glGetPerfMonitorCountersAMD(", group, ", ", numCounters, ", ", maxActiveCounters, ", ", countersSize, ", ", counters, ")");;
+    GTrace("glGetPerfMonitorCountersAMD(", group, ", ", countersSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23797,7 +23797,7 @@ static void REGAL_CALL log_glGetPerfMonitorCountersAMD(GLuint group, GLint *numC
 
 static void REGAL_CALL log_glGetPerfMonitorGroupStringAMD(GLuint group, GLsizei bufSize, GLsizei *length, GLchar *groupString)
 {
-    GTrace("glGetPerfMonitorGroupStringAMD(", group, ", ", bufSize, ", ", length, ", ", boost::print::quote(groupString,'"'), ")");;
+    GTrace("glGetPerfMonitorGroupStringAMD(", group, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23808,7 +23808,7 @@ static void REGAL_CALL log_glGetPerfMonitorGroupStringAMD(GLuint group, GLsizei 
 
 static void REGAL_CALL log_glGetPerfMonitorCounterStringAMD(GLuint group, GLuint counter, GLsizei bufSize, GLsizei *length, GLchar *counterString)
 {
-    GTrace("glGetPerfMonitorCounterStringAMD(", group, ", ", counter, ", ", bufSize, ", ", length, ", ", boost::print::quote(counterString,'"'), ")");;
+    GTrace("glGetPerfMonitorCounterStringAMD(", group, ", ", counter, ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23819,7 +23819,7 @@ static void REGAL_CALL log_glGetPerfMonitorCounterStringAMD(GLuint group, GLuint
 
 static void REGAL_CALL log_glGetPerfMonitorCounterInfoAMD(GLuint group, GLuint counter, GLenum pname, GLvoid *data)
 {
-    GTrace("glGetPerfMonitorCounterInfoAMD(", group, ", ", counter, ", ", toString(pname), ", ", data, ")");;
+    GTrace("glGetPerfMonitorCounterInfoAMD(", group, ", ", counter, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23830,7 +23830,7 @@ static void REGAL_CALL log_glGetPerfMonitorCounterInfoAMD(GLuint group, GLuint c
 
 static void REGAL_CALL log_glGenPerfMonitorsAMD(GLsizei n, GLuint *monitors)
 {
-    GTrace("glGenPerfMonitorsAMD(", n, ", ", monitors, ")");;
+    GTrace("glGenPerfMonitorsAMD(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23841,7 +23841,7 @@ static void REGAL_CALL log_glGenPerfMonitorsAMD(GLsizei n, GLuint *monitors)
 
 static void REGAL_CALL log_glDeletePerfMonitorsAMD(GLsizei n, GLuint *monitors)
 {
-    GTrace("glDeletePerfMonitorsAMD(", n, ", ", monitors, ")");;
+    GTrace("glDeletePerfMonitorsAMD(", n, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23852,7 +23852,7 @@ static void REGAL_CALL log_glDeletePerfMonitorsAMD(GLsizei n, GLuint *monitors)
 
 static void REGAL_CALL log_glSelectPerfMonitorCountersAMD(GLuint monitor, GLboolean enable, GLuint group, GLint numCounters, GLuint *counterList)
 {
-    GTrace("glSelectPerfMonitorCountersAMD(", monitor, ", ", enable, ", ", group, ", ", numCounters, ", ", counterList, ")");;
+    GTrace("glSelectPerfMonitorCountersAMD(", monitor, ", ", enable, ", ", group, ", ", numCounters, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23885,7 +23885,7 @@ static void REGAL_CALL log_glEndPerfMonitorAMD(GLuint monitor)
 
 static void REGAL_CALL log_glGetPerfMonitorCounterDataAMD(GLuint monitor, GLenum pname, GLsizei dataSize, GLuint *data, GLint *bytesWritten)
 {
-    GTrace("glGetPerfMonitorCounterDataAMD(", monitor, ", ", toString(pname), ", ", dataSize, ", ", data, ", ", bytesWritten, ")");;
+    GTrace("glGetPerfMonitorCounterDataAMD(", monitor, ", ", toString(pname), ", ", dataSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -23992,7 +23992,7 @@ static void REGAL_CALL log_glTextureRangeAPPLE(GLenum target, GLsizei length, GL
 
 static void REGAL_CALL log_glGetTexParameterPointervAPPLE(GLenum target, GLenum pname, GLvoid **params)
 {
-    GTrace("glGetTexParameterPointervAPPLE(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetTexParameterPointervAPPLE(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24109,7 +24109,7 @@ static GLenum REGAL_CALL log_glObjectUnpurgeableAPPLE(GLenum objectType, GLuint 
 
 static void REGAL_CALL log_glGetObjectParameterivAPPLE(GLenum objectType, GLuint name, GLenum pname, GLint *params)
 {
-    GTrace("glGetObjectParameterivAPPLE(", toString(objectType), ", ", name, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetObjectParameterivAPPLE(", toString(objectType), ", ", name, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24166,7 +24166,7 @@ static void REGAL_CALL log_glEndVideoCaptureNV(GLuint video_capture_slot)
 
 static void REGAL_CALL log_glGetVideoCaptureivNV(GLuint video_capture_slot, GLenum pname, GLint *params)
 {
-    GTrace("glGetVideoCaptureivNV(", video_capture_slot, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoCaptureivNV(", video_capture_slot, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24177,7 +24177,7 @@ static void REGAL_CALL log_glGetVideoCaptureivNV(GLuint video_capture_slot, GLen
 
 static void REGAL_CALL log_glGetVideoCaptureStreamivNV(GLuint video_capture_slot, GLuint stream, GLenum pname, GLint *params)
 {
-    GTrace("glGetVideoCaptureStreamivNV(", video_capture_slot, ", ", stream, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoCaptureStreamivNV(", video_capture_slot, ", ", stream, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24188,7 +24188,7 @@ static void REGAL_CALL log_glGetVideoCaptureStreamivNV(GLuint video_capture_slot
 
 static void REGAL_CALL log_glGetVideoCaptureStreamfvNV(GLuint video_capture_slot, GLuint stream, GLenum pname, GLfloat *params)
 {
-    GTrace("glGetVideoCaptureStreamfvNV(", video_capture_slot, ", ", stream, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoCaptureStreamfvNV(", video_capture_slot, ", ", stream, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24199,7 +24199,7 @@ static void REGAL_CALL log_glGetVideoCaptureStreamfvNV(GLuint video_capture_slot
 
 static void REGAL_CALL log_glGetVideoCaptureStreamdvNV(GLuint video_capture_slot, GLuint stream, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetVideoCaptureStreamdvNV(", video_capture_slot, ", ", stream, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVideoCaptureStreamdvNV(", video_capture_slot, ", ", stream, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24210,7 +24210,7 @@ static void REGAL_CALL log_glGetVideoCaptureStreamdvNV(GLuint video_capture_slot
 
 static GLenum REGAL_CALL log_glVideoCaptureNV(GLuint video_capture_slot, GLuint *sequence_num, GLuint64EXT *capture_time)
 {
-    GTrace("glVideoCaptureNV(", video_capture_slot, ", ", sequence_num, ", ", capture_time, ")");;
+    GTrace("glVideoCaptureNV(", video_capture_slot, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24374,7 +24374,7 @@ static GLboolean REGAL_CALL log_glIsNamedBufferResidentNV(GLuint buffer)
 
 static void REGAL_CALL log_glGetBufferParameterui64vNV(GLenum target, GLenum pname, GLuint64EXT *params)
 {
-    GTrace("glGetBufferParameterui64vNV(", toString(target), ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetBufferParameterui64vNV(", toString(target), ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24385,7 +24385,7 @@ static void REGAL_CALL log_glGetBufferParameterui64vNV(GLenum target, GLenum pna
 
 static void REGAL_CALL log_glGetNamedBufferParameterui64vNV(GLuint buffer, GLenum pname, GLuint64EXT *params)
 {
-    GTrace("glGetNamedBufferParameterui64vNV(", buffer, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetNamedBufferParameterui64vNV(", buffer, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24396,7 +24396,7 @@ static void REGAL_CALL log_glGetNamedBufferParameterui64vNV(GLuint buffer, GLenu
 
 static void REGAL_CALL log_glGetIntegerui64vNV(GLenum target, GLuint64EXT *data)
 {
-    GTrace("glGetIntegerui64vNV(", toString(target), ", ", data, ")");;
+    GTrace("glGetIntegerui64vNV(", toString(target), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24429,7 +24429,7 @@ static void REGAL_CALL log_glUniformui64vNV(GLint location, GLsizei count, const
 
 static void REGAL_CALL log_glGetUniformui64vNV(GLuint program, GLint location, GLuint64EXT *params)
 {
-    GTrace("glGetUniformui64vNV(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformui64vNV(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24585,7 +24585,7 @@ static void REGAL_CALL log_glVertexAttribIFormatNV(GLuint index, GLint size, GLe
 
 static void REGAL_CALL log_glGetIntegerui64i_vNV(GLenum target, GLuint index, GLuint64EXT *data)
 {
-    GTrace("glGetIntegerui64i_vNV(", toString(target), ", ", index, ", ", data, ")");;
+    GTrace("glGetIntegerui64i_vNV(", toString(target), ", ", index, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -24745,7 +24745,7 @@ static void REGAL_CALL log_glVertexArrayVertexAttribLOffsetEXT(GLuint vaobj, GLu
 
 static void REGAL_CALL log_glGetVertexAttribLdvEXT(GLuint index, GLenum pname, GLdouble *params)
 {
-    GTrace("glGetVertexAttribLdvEXT(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribLdvEXT(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -25110,7 +25110,7 @@ static void REGAL_CALL log_glProgramUniform4ui64vNV(GLuint program, GLint locati
 
 static void REGAL_CALL log_glGetUniformi64vNV(GLuint program, GLint location, GLint64EXT *params)
 {
-    GTrace("glGetUniformi64vNV(", program, ", ", location, ", ", params, ")");;
+    GTrace("glGetUniformi64vNV(", program, ", ", location, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -25310,7 +25310,7 @@ static void REGAL_CALL log_glVertexAttribLFormatNV(GLuint index, GLint size, GLe
 
 static void REGAL_CALL log_glGetVertexAttribLi64vNV(GLuint index, GLenum pname, GLint64EXT *params)
 {
-    GTrace("glGetVertexAttribLi64vNV(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribLi64vNV(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -25321,7 +25321,7 @@ static void REGAL_CALL log_glGetVertexAttribLi64vNV(GLuint index, GLenum pname, 
 
 static void REGAL_CALL log_glGetVertexAttribLui64vNV(GLuint index, GLenum pname, GLuint64EXT *params)
 {
-    GTrace("glGetVertexAttribLui64vNV(", index, ", ", toString(pname), ", ", params, ")");;
+    GTrace("glGetVertexAttribLui64vNV(", index, ", ", toString(pname), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -25403,7 +25403,7 @@ static void REGAL_CALL log_glVDPAUUnregisterSurfaceNV(GLvdpauSurfaceNV surface)
 
 static void REGAL_CALL log_glVDPAUGetSurfaceivNV(GLvdpauSurfaceNV surface, GLenum pname, GLsizei bufSize, GLsizei *length, GLint *values)
 {
-    GTrace("glVDPAUGetSurfaceivNV(", surface, ", ", toString(pname), ", ", bufSize, ", ", length, ", ", values, ")");;
+    GTrace("glVDPAUGetSurfaceivNV(", surface, ", ", toString(pname), ", ", bufSize, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -25549,7 +25549,7 @@ static void REGAL_CALL log_glGetPathColorGenivNV(GLenum color, GLenum pname, GLi
 
 static void REGAL_CALL log_glGetPathCommandsNV(GLuint name, GLubyte *commands)
 {
-    GTrace("glGetPathCommandsNV(", name, ", ", commands, ")");;
+    GTrace("glGetPathCommandsNV(", name, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);

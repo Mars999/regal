@@ -51,8 +51,9 @@ REGAL_NAMESPACE_BEGIN
 
 #define REGAL_EMU_MAX_TEXTURE_UNITS 16
 
-struct RegalFloat4 {
-    RegalFloat4()
+struct Float4
+{
+    Float4()
     : x(0.f),
       y(0.f),
       z(0.f),
@@ -60,7 +61,7 @@ struct RegalFloat4 {
     {
     }
 
-    RegalFloat4( const GLfloat X, const GLfloat Y, const GLfloat Z, const GLfloat W )
+    Float4( const GLfloat X, const GLfloat Y, const GLfloat Z, const GLfloat W )
     : x(X),
       y(Y),
       z(Z),
@@ -68,7 +69,7 @@ struct RegalFloat4 {
     {
     }
 
-    RegalFloat4( const GLdouble X, const GLdouble Y, const GLdouble Z, const GLdouble W )
+    Float4( const GLdouble X, const GLdouble Y, const GLdouble Z, const GLdouble W )
     : x(static_cast<GLfloat>(X)),
       y(static_cast<GLfloat>(Y)),
       z(static_cast<GLfloat>(Z)),
@@ -76,7 +77,7 @@ struct RegalFloat4 {
     {
     }
 
-    RegalFloat4( const GLint X, const GLint Y, const GLint Z, const GLint W )
+    Float4( const GLint X, const GLint Y, const GLint Z, const GLint W )
     : x(static_cast<GLfloat>(X)),
       y(static_cast<GLfloat>(Y)),
       z(static_cast<GLfloat>(Z)),
@@ -84,7 +85,7 @@ struct RegalFloat4 {
     {
     }
 
-    RegalFloat4( const GLuint X, const GLuint Y, const GLuint Z, const GLuint W )
+    Float4( const GLuint X, const GLuint Y, const GLuint Z, const GLuint W )
     : x(static_cast<GLfloat>(X)),
       y(static_cast<GLfloat>(Y)),
       z(static_cast<GLfloat>(Z)),

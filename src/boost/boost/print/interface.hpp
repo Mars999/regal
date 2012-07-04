@@ -194,7 +194,7 @@ template<typename T, typename U> size_t length(const array<T,U> &val)
     const size_t dl = length(val._delim);
   
     len += length(val._data[0]);
-    for (size_t j=0; j<val._size; ++j)
+    for (size_t j=1; j<val._size; ++j)
       len += dl + length(val._data[j]);
   }
 
@@ -372,7 +372,7 @@ inline void write(Iterator &i, const array<T,U> &val)
   if (val._size)
   {
     write(i,val._data[0]);
-    for (size_t j=0; j<val._size; ++j)
+    for (size_t j=1; j<val._size; ++j)
     {
       write(i,val._delim);
       write(i,val._data[j]);

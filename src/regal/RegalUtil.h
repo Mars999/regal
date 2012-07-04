@@ -33,6 +33,8 @@ are permitted provided that the following conditions are met:
 #include <cstdlib>
 #include <cstdio>
 
+#include <limits>
+
 // Visual Studio with /W4 complains about unused function
 // parameters.
 
@@ -92,6 +94,34 @@ are permitted provided that the following conditions are met:
   {
 # define REGAL_NAMESPACE_END           \
   }
+#endif
+
+// Compile-time configuration
+// - Emulation not forced by default
+// - All emulation layers enabled by default
+
+#ifndef REGAL_FORCE_EMULATION
+#define REGAL_FORCE_EMULATION 0
+#endif
+
+#ifndef REGAL_EMU_OBJ
+#define REGAL_EMU_OBJ 1
+#endif
+
+#ifndef REGAL_EMU_BIN
+#define REGAL_EMU_BIN 1
+#endif
+
+#ifndef REGAL_EMU_DSA
+#define REGAL_EMU_DSA 1
+#endif
+
+#ifndef REGAL_EMU_IFF
+#define REGAL_EMU_IFF 1
+#endif
+
+#ifndef REGAL_EMU_VAO
+#define REGAL_EMU_VAO 1
 #endif
 
 // AssertFunction depends on Error log, but
@@ -170,6 +200,44 @@ T *GetProcAddress(T *&f, const char *entry )
 
 inline bool starts_with(const std::string &input, const std::string &test) { return std::strncmp(input.c_str(),test.c_str(),test.length())==0; }
 inline bool starts_with(const std::string &input, const char * const test) { return std::strncmp(input.c_str(),test,        strlen(test) )==0; }
+
+// ToFloat for integer -> float
+
+template <typename T> inline float ToFloat(const bool normalize, const T v ) {
+  UNUSED_PARAMETER(normalize); return float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const signed char v ) {
+  return normalize ? float(v)/float(std::numeric_limits<signed char>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const unsigned char v ) {
+  return normalize ? float(v)/float(std::numeric_limits<unsigned char>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const signed short v ) {
+  return normalize ? float(v)/float(std::numeric_limits<signed short>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const unsigned short v ) {
+  return normalize ? float(v)/float(std::numeric_limits<unsigned short>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const signed int v ) {
+  return normalize ? float(v)/float(std::numeric_limits<signed int>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const unsigned int v ) {
+  return normalize ? float(v)/float(std::numeric_limits<unsigned int>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const signed long int v ) {
+  return normalize ? float(v)/float(std::numeric_limits<signed long int>::max()) : float(v);
+}
+
+template <> inline float ToFloat(const bool normalize, const unsigned long int v ) {
+  return normalize ? float(v)/float(std::numeric_limits<unsigned long int>::max()) : float(v);
+}
 
 REGAL_NAMESPACE_END
 

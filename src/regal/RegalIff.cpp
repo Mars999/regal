@@ -1053,15 +1053,15 @@ namespace {
         src << "}\n";
     }
 
-    void Copy( RegalFloat4 & dst, const GLfloat * src ) {
+    void Copy( Float4 & dst, const GLfloat * src ) {
         dst.x = src[0]; dst.y = src[1]; dst.z = src[2]; dst.w = src[3];
     }
 
-    void Copy( GLfloat * dst, RegalFloat4 & src ) {
+    void Copy( GLfloat * dst, Float4 & src ) {
         dst[0] = src.x; dst[1] = src.y; dst[2] = src.z; dst[3] = src.w;
     }
 
-    void Transform( RegalFloat4 & dst, const r3::Matrix4f & m, const GLfloat * src ) {
+    void Transform( Float4 & dst, const r3::Matrix4f & m, const GLfloat * src ) {
         r3::Vec4f v( src );
         m.MultMatrixVec( v );
         dst.x = v.x; dst.y = v.y; dst.z = v.z; dst.w = v.w;
@@ -1069,7 +1069,7 @@ namespace {
 
 // Not currently used
 #if 0
-    void TransformDir( RegalFloat4 & dst, const r3::Matrix4f & m, const GLfloat * src ) {
+    void TransformDir( Float4 & dst, const r3::Matrix4f & m, const GLfloat * src ) {
         r3::Vec3f v( src );
         m.MultMatrixDir( v );
         v.Normalize();
@@ -1187,7 +1187,7 @@ void State::SetLight( RFF * ffn, GLenum light, GLenum pname, const GLfloat * par
             }
         case GL_SPOT_DIRECTION:
             {
-                RegalFloat4 spdir( params[0], params[1], params[2], 1.0f );
+                Float4 spdir( params[0], params[1], params[2], 1.0f );
                 r3::Matrix4f & m = ffn->modelview.Top();
                 float x = m.element(0,0) * spdir.x + m.element(0,1) * spdir.y + m.element(0,2) * spdir.z;
                 float y = m.element(1,0) * spdir.x + m.element(1,1) * spdir.y + m.element(1,2) * spdir.z;

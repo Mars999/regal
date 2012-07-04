@@ -76,17 +76,23 @@ static void REGAL_CALL emu_glBegin(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->Begin( rCtx, mode );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->Begin( rCtx, mode );
+         }
+         #endif
        default:
            break;
    }
@@ -99,16 +105,18 @@ static void REGAL_CALL emu_glBegin(GLenum mode)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Begin( rCtx, mode );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Begin( rCtx, mode );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBegin(mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBegin(mode);
+         break;
        }
 
    }
@@ -127,7 +135,9 @@ static void REGAL_CALL emu_glColor3b(GLbyte red, GLbyte green, GLbyte blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -141,16 +151,18 @@ static void REGAL_CALL emu_glColor3b(GLbyte red, GLbyte green, GLbyte blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3b(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3b(red, green, blue);
+         break;
        }
 
    }
@@ -169,7 +181,9 @@ static void REGAL_CALL emu_glColor3bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -183,16 +197,18 @@ static void REGAL_CALL emu_glColor3bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3bv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3bv(v);
+         break;
        }
 
    }
@@ -211,7 +227,9 @@ static void REGAL_CALL emu_glColor3d(GLdouble red, GLdouble green, GLdouble blue
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -225,16 +243,18 @@ static void REGAL_CALL emu_glColor3d(GLdouble red, GLdouble green, GLdouble blue
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3d(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3d(red, green, blue);
+         break;
        }
 
    }
@@ -253,7 +273,9 @@ static void REGAL_CALL emu_glColor3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -267,16 +289,18 @@ static void REGAL_CALL emu_glColor3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3dv(v);
+         break;
        }
 
    }
@@ -295,7 +319,9 @@ static void REGAL_CALL emu_glColor3f(GLfloat red, GLfloat green, GLfloat blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -309,16 +335,18 @@ static void REGAL_CALL emu_glColor3f(GLfloat red, GLfloat green, GLfloat blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3f(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3f(red, green, blue);
+         break;
        }
 
    }
@@ -337,7 +365,9 @@ static void REGAL_CALL emu_glColor3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -351,16 +381,18 @@ static void REGAL_CALL emu_glColor3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3fv(v);
+         break;
        }
 
    }
@@ -379,7 +411,9 @@ static void REGAL_CALL emu_glColor3i(GLint red, GLint green, GLint blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -393,16 +427,18 @@ static void REGAL_CALL emu_glColor3i(GLint red, GLint green, GLint blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3i(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3i(red, green, blue);
+         break;
        }
 
    }
@@ -421,7 +457,9 @@ static void REGAL_CALL emu_glColor3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -435,16 +473,18 @@ static void REGAL_CALL emu_glColor3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3iv(v);
+         break;
        }
 
    }
@@ -463,7 +503,9 @@ static void REGAL_CALL emu_glColor3s(GLshort red, GLshort green, GLshort blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -477,16 +519,18 @@ static void REGAL_CALL emu_glColor3s(GLshort red, GLshort green, GLshort blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3s(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3s(red, green, blue);
+         break;
        }
 
    }
@@ -505,7 +549,9 @@ static void REGAL_CALL emu_glColor3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -519,16 +565,18 @@ static void REGAL_CALL emu_glColor3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3sv(v);
+         break;
        }
 
    }
@@ -547,7 +595,9 @@ static void REGAL_CALL emu_glColor3ub(GLubyte red, GLubyte green, GLubyte blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -561,16 +611,18 @@ static void REGAL_CALL emu_glColor3ub(GLubyte red, GLubyte green, GLubyte blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3ub(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3ub(red, green, blue);
+         break;
        }
 
    }
@@ -589,7 +641,9 @@ static void REGAL_CALL emu_glColor3ubv(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -603,16 +657,18 @@ static void REGAL_CALL emu_glColor3ubv(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3ubv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3ubv(v);
+         break;
        }
 
    }
@@ -631,7 +687,9 @@ static void REGAL_CALL emu_glColor3ui(GLuint red, GLuint green, GLuint blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -645,16 +703,18 @@ static void REGAL_CALL emu_glColor3ui(GLuint red, GLuint green, GLuint blue)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3ui(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3ui(red, green, blue);
+         break;
        }
 
    }
@@ -673,7 +733,9 @@ static void REGAL_CALL emu_glColor3uiv(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -687,16 +749,18 @@ static void REGAL_CALL emu_glColor3uiv(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3uiv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3uiv(v);
+         break;
        }
 
    }
@@ -715,7 +779,9 @@ static void REGAL_CALL emu_glColor3us(GLushort red, GLushort green, GLushort blu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -729,16 +795,18 @@ static void REGAL_CALL emu_glColor3us(GLushort red, GLushort green, GLushort blu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3us(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3us(red, green, blue);
+         break;
        }
 
    }
@@ -757,7 +825,9 @@ static void REGAL_CALL emu_glColor3usv(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -771,16 +841,18 @@ static void REGAL_CALL emu_glColor3usv(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor3usv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor3usv(v);
+         break;
        }
 
    }
@@ -799,7 +871,9 @@ static void REGAL_CALL emu_glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLby
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -813,16 +887,18 @@ static void REGAL_CALL emu_glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLby
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4b(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4b(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -841,7 +917,9 @@ static void REGAL_CALL emu_glColor4bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -855,16 +933,18 @@ static void REGAL_CALL emu_glColor4bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4bv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4bv(v);
+         break;
        }
 
    }
@@ -883,7 +963,9 @@ static void REGAL_CALL emu_glColor4d(GLdouble red, GLdouble green, GLdouble blue
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -897,16 +979,18 @@ static void REGAL_CALL emu_glColor4d(GLdouble red, GLdouble green, GLdouble blue
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4d(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4d(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -925,7 +1009,9 @@ static void REGAL_CALL emu_glColor4dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -939,16 +1025,18 @@ static void REGAL_CALL emu_glColor4dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4dv(v);
+         break;
        }
 
    }
@@ -967,7 +1055,9 @@ static void REGAL_CALL emu_glColor4f(GLfloat red, GLfloat green, GLfloat blue, G
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -981,16 +1071,18 @@ static void REGAL_CALL emu_glColor4f(GLfloat red, GLfloat green, GLfloat blue, G
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4f(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4f(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -1009,7 +1101,9 @@ static void REGAL_CALL emu_glColor4fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1023,16 +1117,18 @@ static void REGAL_CALL emu_glColor4fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4fv(v);
+         break;
        }
 
    }
@@ -1051,7 +1147,9 @@ static void REGAL_CALL emu_glColor4i(GLint red, GLint green, GLint blue, GLint a
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1065,16 +1163,18 @@ static void REGAL_CALL emu_glColor4i(GLint red, GLint green, GLint blue, GLint a
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4i(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4i(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -1093,7 +1193,9 @@ static void REGAL_CALL emu_glColor4iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1107,16 +1209,18 @@ static void REGAL_CALL emu_glColor4iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4iv(v);
+         break;
        }
 
    }
@@ -1135,7 +1239,9 @@ static void REGAL_CALL emu_glColor4s(GLshort red, GLshort green, GLshort blue, G
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1149,16 +1255,18 @@ static void REGAL_CALL emu_glColor4s(GLshort red, GLshort green, GLshort blue, G
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4s(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4s(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -1177,7 +1285,9 @@ static void REGAL_CALL emu_glColor4sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1191,16 +1301,18 @@ static void REGAL_CALL emu_glColor4sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4sv(v);
+         break;
        }
 
    }
@@ -1219,7 +1331,9 @@ static void REGAL_CALL emu_glColor4ub(GLubyte red, GLubyte green, GLubyte blue, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1233,16 +1347,18 @@ static void REGAL_CALL emu_glColor4ub(GLubyte red, GLubyte green, GLubyte blue, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4ub(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4ub(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -1261,7 +1377,9 @@ static void REGAL_CALL emu_glColor4ubv(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1275,16 +1393,18 @@ static void REGAL_CALL emu_glColor4ubv(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4ubv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4ubv(v);
+         break;
        }
 
    }
@@ -1303,7 +1423,9 @@ static void REGAL_CALL emu_glColor4ui(GLuint red, GLuint green, GLuint blue, GLu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1317,16 +1439,18 @@ static void REGAL_CALL emu_glColor4ui(GLuint red, GLuint green, GLuint blue, GLu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4ui(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4ui(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -1345,7 +1469,9 @@ static void REGAL_CALL emu_glColor4uiv(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1359,16 +1485,18 @@ static void REGAL_CALL emu_glColor4uiv(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4uiv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4uiv(v);
+         break;
        }
 
    }
@@ -1387,7 +1515,9 @@ static void REGAL_CALL emu_glColor4us(GLushort red, GLushort green, GLushort blu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1401,16 +1531,18 @@ static void REGAL_CALL emu_glColor4us(GLushort red, GLushort green, GLushort blu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), red, green, blue, alpha );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4us(red, green, blue, alpha);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4us(red, green, blue, alpha);
+         break;
        }
 
    }
@@ -1429,7 +1561,9 @@ static void REGAL_CALL emu_glColor4usv(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1443,16 +1577,18 @@ static void REGAL_CALL emu_glColor4usv(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Color ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColor4usv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColor4usv(v);
+         break;
        }
 
    }
@@ -1471,12 +1607,16 @@ static void REGAL_CALL emu_glEnd(void)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->End( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->End( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -1489,16 +1629,18 @@ static void REGAL_CALL emu_glEnd(void)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->End( rCtx );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->End( rCtx );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnd();
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnd();
+         break;
        }
 
    }
@@ -1517,7 +1659,9 @@ static void REGAL_CALL emu_glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1531,16 +1675,18 @@ static void REGAL_CALL emu_glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3b(nx, ny, nz);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3b(nx, ny, nz);
+         break;
        }
 
    }
@@ -1559,7 +1705,9 @@ static void REGAL_CALL emu_glNormal3bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1573,16 +1721,18 @@ static void REGAL_CALL emu_glNormal3bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3bv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3bv(v);
+         break;
        }
 
    }
@@ -1601,7 +1751,9 @@ static void REGAL_CALL emu_glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1615,16 +1767,18 @@ static void REGAL_CALL emu_glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3d(nx, ny, nz);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3d(nx, ny, nz);
+         break;
        }
 
    }
@@ -1643,7 +1797,9 @@ static void REGAL_CALL emu_glNormal3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1657,16 +1813,18 @@ static void REGAL_CALL emu_glNormal3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3dv(v);
+         break;
        }
 
    }
@@ -1685,7 +1843,9 @@ static void REGAL_CALL emu_glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1699,16 +1859,18 @@ static void REGAL_CALL emu_glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3f(nx, ny, nz);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3f(nx, ny, nz);
+         break;
        }
 
    }
@@ -1727,7 +1889,9 @@ static void REGAL_CALL emu_glNormal3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1741,16 +1905,18 @@ static void REGAL_CALL emu_glNormal3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3fv(v);
+         break;
        }
 
    }
@@ -1769,7 +1935,9 @@ static void REGAL_CALL emu_glNormal3i(GLint nx, GLint ny, GLint nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1783,16 +1951,18 @@ static void REGAL_CALL emu_glNormal3i(GLint nx, GLint ny, GLint nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3i(nx, ny, nz);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3i(nx, ny, nz);
+         break;
        }
 
    }
@@ -1811,7 +1981,9 @@ static void REGAL_CALL emu_glNormal3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1825,16 +1997,18 @@ static void REGAL_CALL emu_glNormal3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3iv(v);
+         break;
        }
 
    }
@@ -1853,7 +2027,9 @@ static void REGAL_CALL emu_glNormal3s(GLshort nx, GLshort ny, GLshort nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1867,16 +2043,18 @@ static void REGAL_CALL emu_glNormal3s(GLshort nx, GLshort ny, GLshort nz)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), nx, ny, nz );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3s(nx, ny, nz);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3s(nx, ny, nz);
+         break;
        }
 
    }
@@ -1895,7 +2073,9 @@ static void REGAL_CALL emu_glNormal3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1909,16 +2089,18 @@ static void REGAL_CALL emu_glNormal3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Normal ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormal3sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormal3sv(v);
+         break;
        }
 
    }
@@ -1937,7 +2119,9 @@ static void REGAL_CALL emu_glTexCoord1d(GLdouble s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1951,16 +2135,18 @@ static void REGAL_CALL emu_glTexCoord1d(GLdouble s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1d(s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1d(s);
+         break;
        }
 
    }
@@ -1979,7 +2165,9 @@ static void REGAL_CALL emu_glTexCoord1dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -1993,16 +2181,18 @@ static void REGAL_CALL emu_glTexCoord1dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1dv(v);
+         break;
        }
 
    }
@@ -2021,7 +2211,9 @@ static void REGAL_CALL emu_glTexCoord1f(GLfloat s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2035,16 +2227,18 @@ static void REGAL_CALL emu_glTexCoord1f(GLfloat s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1f(s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1f(s);
+         break;
        }
 
    }
@@ -2063,7 +2257,9 @@ static void REGAL_CALL emu_glTexCoord1fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2077,16 +2273,18 @@ static void REGAL_CALL emu_glTexCoord1fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1fv(v);
+         break;
        }
 
    }
@@ -2105,7 +2303,9 @@ static void REGAL_CALL emu_glTexCoord1i(GLint s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2119,16 +2319,18 @@ static void REGAL_CALL emu_glTexCoord1i(GLint s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1i(s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1i(s);
+         break;
        }
 
    }
@@ -2147,7 +2349,9 @@ static void REGAL_CALL emu_glTexCoord1iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2161,16 +2365,18 @@ static void REGAL_CALL emu_glTexCoord1iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1iv(v);
+         break;
        }
 
    }
@@ -2189,7 +2395,9 @@ static void REGAL_CALL emu_glTexCoord1s(GLshort s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2203,16 +2411,18 @@ static void REGAL_CALL emu_glTexCoord1s(GLshort s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1s(s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1s(s);
+         break;
        }
 
    }
@@ -2231,7 +2441,9 @@ static void REGAL_CALL emu_glTexCoord1sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2245,16 +2457,18 @@ static void REGAL_CALL emu_glTexCoord1sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord1sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord1sv(v);
+         break;
        }
 
    }
@@ -2273,7 +2487,9 @@ static void REGAL_CALL emu_glTexCoord2d(GLdouble s, GLdouble t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2287,16 +2503,18 @@ static void REGAL_CALL emu_glTexCoord2d(GLdouble s, GLdouble t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2d(s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2d(s, t);
+         break;
        }
 
    }
@@ -2315,7 +2533,9 @@ static void REGAL_CALL emu_glTexCoord2dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2329,16 +2549,18 @@ static void REGAL_CALL emu_glTexCoord2dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2dv(v);
+         break;
        }
 
    }
@@ -2357,7 +2579,9 @@ static void REGAL_CALL emu_glTexCoord2f(GLfloat s, GLfloat t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2371,16 +2595,18 @@ static void REGAL_CALL emu_glTexCoord2f(GLfloat s, GLfloat t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2f(s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2f(s, t);
+         break;
        }
 
    }
@@ -2399,7 +2625,9 @@ static void REGAL_CALL emu_glTexCoord2fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2413,16 +2641,18 @@ static void REGAL_CALL emu_glTexCoord2fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2fv(v);
+         break;
        }
 
    }
@@ -2441,7 +2671,9 @@ static void REGAL_CALL emu_glTexCoord2i(GLint s, GLint t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2455,16 +2687,18 @@ static void REGAL_CALL emu_glTexCoord2i(GLint s, GLint t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2i(s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2i(s, t);
+         break;
        }
 
    }
@@ -2483,7 +2717,9 @@ static void REGAL_CALL emu_glTexCoord2iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2497,16 +2733,18 @@ static void REGAL_CALL emu_glTexCoord2iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2iv(v);
+         break;
        }
 
    }
@@ -2525,7 +2763,9 @@ static void REGAL_CALL emu_glTexCoord2s(GLshort s, GLshort t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2539,16 +2779,18 @@ static void REGAL_CALL emu_glTexCoord2s(GLshort s, GLshort t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2s(s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2s(s, t);
+         break;
        }
 
    }
@@ -2567,7 +2809,9 @@ static void REGAL_CALL emu_glTexCoord2sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2581,16 +2825,18 @@ static void REGAL_CALL emu_glTexCoord2sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord2sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord2sv(v);
+         break;
        }
 
    }
@@ -2609,7 +2855,9 @@ static void REGAL_CALL emu_glTexCoord3d(GLdouble s, GLdouble t, GLdouble r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2623,16 +2871,18 @@ static void REGAL_CALL emu_glTexCoord3d(GLdouble s, GLdouble t, GLdouble r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3d(s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3d(s, t, r);
+         break;
        }
 
    }
@@ -2651,7 +2901,9 @@ static void REGAL_CALL emu_glTexCoord3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2665,16 +2917,18 @@ static void REGAL_CALL emu_glTexCoord3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3dv(v);
+         break;
        }
 
    }
@@ -2693,7 +2947,9 @@ static void REGAL_CALL emu_glTexCoord3f(GLfloat s, GLfloat t, GLfloat r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2707,16 +2963,18 @@ static void REGAL_CALL emu_glTexCoord3f(GLfloat s, GLfloat t, GLfloat r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3f(s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3f(s, t, r);
+         break;
        }
 
    }
@@ -2735,7 +2993,9 @@ static void REGAL_CALL emu_glTexCoord3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2749,16 +3009,18 @@ static void REGAL_CALL emu_glTexCoord3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3fv(v);
+         break;
        }
 
    }
@@ -2777,7 +3039,9 @@ static void REGAL_CALL emu_glTexCoord3i(GLint s, GLint t, GLint r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2791,16 +3055,18 @@ static void REGAL_CALL emu_glTexCoord3i(GLint s, GLint t, GLint r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3i(s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3i(s, t, r);
+         break;
        }
 
    }
@@ -2819,7 +3085,9 @@ static void REGAL_CALL emu_glTexCoord3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2833,16 +3101,18 @@ static void REGAL_CALL emu_glTexCoord3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3iv(v);
+         break;
        }
 
    }
@@ -2861,7 +3131,9 @@ static void REGAL_CALL emu_glTexCoord3s(GLshort s, GLshort t, GLshort r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2875,16 +3147,18 @@ static void REGAL_CALL emu_glTexCoord3s(GLshort s, GLshort t, GLshort r)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3s(s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3s(s, t, r);
+         break;
        }
 
    }
@@ -2903,7 +3177,9 @@ static void REGAL_CALL emu_glTexCoord3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2917,16 +3193,18 @@ static void REGAL_CALL emu_glTexCoord3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord3sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord3sv(v);
+         break;
        }
 
    }
@@ -2945,7 +3223,9 @@ static void REGAL_CALL emu_glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdo
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -2959,16 +3239,18 @@ static void REGAL_CALL emu_glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdo
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4d(s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4d(s, t, r, q);
+         break;
        }
 
    }
@@ -2987,7 +3269,9 @@ static void REGAL_CALL emu_glTexCoord4dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3001,16 +3285,18 @@ static void REGAL_CALL emu_glTexCoord4dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4dv(v);
+         break;
        }
 
    }
@@ -3029,7 +3315,9 @@ static void REGAL_CALL emu_glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3043,16 +3331,18 @@ static void REGAL_CALL emu_glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4f(s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4f(s, t, r, q);
+         break;
        }
 
    }
@@ -3071,7 +3361,9 @@ static void REGAL_CALL emu_glTexCoord4fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3085,16 +3377,18 @@ static void REGAL_CALL emu_glTexCoord4fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4fv(v);
+         break;
        }
 
    }
@@ -3113,7 +3407,9 @@ static void REGAL_CALL emu_glTexCoord4i(GLint s, GLint t, GLint r, GLint q)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3127,16 +3423,18 @@ static void REGAL_CALL emu_glTexCoord4i(GLint s, GLint t, GLint r, GLint q)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4i(s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4i(s, t, r, q);
+         break;
        }
 
    }
@@ -3155,7 +3453,9 @@ static void REGAL_CALL emu_glTexCoord4iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3169,16 +3469,18 @@ static void REGAL_CALL emu_glTexCoord4iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4iv(v);
+         break;
        }
 
    }
@@ -3197,7 +3499,9 @@ static void REGAL_CALL emu_glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3211,16 +3515,18 @@ static void REGAL_CALL emu_glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4s(s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4s(s, t, r, q);
+         break;
        }
 
    }
@@ -3239,7 +3545,9 @@ static void REGAL_CALL emu_glTexCoord4sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3253,16 +3561,18 @@ static void REGAL_CALL emu_glTexCoord4sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoord4sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoord4sv(v);
+         break;
        }
 
    }
@@ -3281,7 +3591,9 @@ static void REGAL_CALL emu_glVertex2d(GLdouble x, GLdouble y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3295,16 +3607,18 @@ static void REGAL_CALL emu_glVertex2d(GLdouble x, GLdouble y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2d(x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2d(x, y);
+         break;
        }
 
    }
@@ -3323,7 +3637,9 @@ static void REGAL_CALL emu_glVertex2dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3337,16 +3653,18 @@ static void REGAL_CALL emu_glVertex2dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2dv(v);
+         break;
        }
 
    }
@@ -3365,7 +3683,9 @@ static void REGAL_CALL emu_glVertex2f(GLfloat x, GLfloat y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3379,16 +3699,18 @@ static void REGAL_CALL emu_glVertex2f(GLfloat x, GLfloat y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2f(x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2f(x, y);
+         break;
        }
 
    }
@@ -3407,7 +3729,9 @@ static void REGAL_CALL emu_glVertex2fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3421,16 +3745,18 @@ static void REGAL_CALL emu_glVertex2fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2fv(v);
+         break;
        }
 
    }
@@ -3449,7 +3775,9 @@ static void REGAL_CALL emu_glVertex2i(GLint x, GLint y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3463,16 +3791,18 @@ static void REGAL_CALL emu_glVertex2i(GLint x, GLint y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2i(x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2i(x, y);
+         break;
        }
 
    }
@@ -3491,7 +3821,9 @@ static void REGAL_CALL emu_glVertex2iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3505,16 +3837,18 @@ static void REGAL_CALL emu_glVertex2iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2iv(v);
+         break;
        }
 
    }
@@ -3533,7 +3867,9 @@ static void REGAL_CALL emu_glVertex2s(GLshort x, GLshort y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3547,16 +3883,18 @@ static void REGAL_CALL emu_glVertex2s(GLshort x, GLshort y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2s(x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2s(x, y);
+         break;
        }
 
    }
@@ -3575,7 +3913,9 @@ static void REGAL_CALL emu_glVertex2sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3589,16 +3929,18 @@ static void REGAL_CALL emu_glVertex2sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex2sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex2sv(v);
+         break;
        }
 
    }
@@ -3617,7 +3959,9 @@ static void REGAL_CALL emu_glVertex3d(GLdouble x, GLdouble y, GLdouble z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3631,16 +3975,18 @@ static void REGAL_CALL emu_glVertex3d(GLdouble x, GLdouble y, GLdouble z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3d(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3d(x, y, z);
+         break;
        }
 
    }
@@ -3659,7 +4005,9 @@ static void REGAL_CALL emu_glVertex3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3673,16 +4021,18 @@ static void REGAL_CALL emu_glVertex3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3dv(v);
+         break;
        }
 
    }
@@ -3701,7 +4051,9 @@ static void REGAL_CALL emu_glVertex3f(GLfloat x, GLfloat y, GLfloat z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3715,16 +4067,18 @@ static void REGAL_CALL emu_glVertex3f(GLfloat x, GLfloat y, GLfloat z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3f(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3f(x, y, z);
+         break;
        }
 
    }
@@ -3743,7 +4097,9 @@ static void REGAL_CALL emu_glVertex3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3757,16 +4113,18 @@ static void REGAL_CALL emu_glVertex3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3fv(v);
+         break;
        }
 
    }
@@ -3785,7 +4143,9 @@ static void REGAL_CALL emu_glVertex3i(GLint x, GLint y, GLint z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3799,16 +4159,18 @@ static void REGAL_CALL emu_glVertex3i(GLint x, GLint y, GLint z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3i(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3i(x, y, z);
+         break;
        }
 
    }
@@ -3827,7 +4189,9 @@ static void REGAL_CALL emu_glVertex3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3841,16 +4205,18 @@ static void REGAL_CALL emu_glVertex3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3iv(v);
+         break;
        }
 
    }
@@ -3869,7 +4235,9 @@ static void REGAL_CALL emu_glVertex3s(GLshort x, GLshort y, GLshort z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3883,16 +4251,18 @@ static void REGAL_CALL emu_glVertex3s(GLshort x, GLshort y, GLshort z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3s(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3s(x, y, z);
+         break;
        }
 
    }
@@ -3911,7 +4281,9 @@ static void REGAL_CALL emu_glVertex3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3925,16 +4297,18 @@ static void REGAL_CALL emu_glVertex3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex3sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex3sv(v);
+         break;
        }
 
    }
@@ -3953,7 +4327,9 @@ static void REGAL_CALL emu_glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdoub
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -3967,16 +4343,18 @@ static void REGAL_CALL emu_glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdoub
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4d(x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4d(x, y, z, w);
+         break;
        }
 
    }
@@ -3995,7 +4373,9 @@ static void REGAL_CALL emu_glVertex4dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4009,16 +4389,18 @@ static void REGAL_CALL emu_glVertex4dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4dv(v);
+         break;
        }
 
    }
@@ -4037,7 +4419,9 @@ static void REGAL_CALL emu_glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4051,16 +4435,18 @@ static void REGAL_CALL emu_glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4f(x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4f(x, y, z, w);
+         break;
        }
 
    }
@@ -4079,7 +4465,9 @@ static void REGAL_CALL emu_glVertex4fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4093,16 +4481,18 @@ static void REGAL_CALL emu_glVertex4fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4fv(v);
+         break;
        }
 
    }
@@ -4121,7 +4511,9 @@ static void REGAL_CALL emu_glVertex4i(GLint x, GLint y, GLint z, GLint w)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4135,16 +4527,18 @@ static void REGAL_CALL emu_glVertex4i(GLint x, GLint y, GLint z, GLint w)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4i(x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4i(x, y, z, w);
+         break;
        }
 
    }
@@ -4163,7 +4557,9 @@ static void REGAL_CALL emu_glVertex4iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4177,16 +4573,18 @@ static void REGAL_CALL emu_glVertex4iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4iv(v);
+         break;
        }
 
    }
@@ -4205,7 +4603,9 @@ static void REGAL_CALL emu_glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4219,16 +4619,18 @@ static void REGAL_CALL emu_glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4s(x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4s(x, y, z, w);
+         break;
        }
 
    }
@@ -4247,7 +4649,9 @@ static void REGAL_CALL emu_glVertex4sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4261,16 +4665,18 @@ static void REGAL_CALL emu_glVertex4sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_Vertex ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertex4sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertex4sv(v);
+         break;
        }
 
    }
@@ -4289,7 +4695,9 @@ static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4303,16 +4711,18 @@ static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ClipPlane( plane, equation );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ClipPlane( plane, equation );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glClipPlane(plane, equation);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glClipPlane(plane, equation);
+         break;
        }
 
    }
@@ -4331,7 +4741,9 @@ static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4345,16 +4757,18 @@ static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ColorMaterial( face, mode );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ColorMaterial( face, mode );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColorMaterial(face, mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColorMaterial(face, mode);
+         break;
        }
 
    }
@@ -4373,7 +4787,9 @@ static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4387,16 +4803,18 @@ static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Fog( pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFogf(pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogf(pname, param);
+         break;
        }
 
    }
@@ -4415,7 +4833,9 @@ static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4429,16 +4849,18 @@ static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Fog( pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFogfv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogfv(pname, params);
+         break;
        }
 
    }
@@ -4457,7 +4879,9 @@ static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4471,16 +4895,18 @@ static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Fog( pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFogi(pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogi(pname, param);
+         break;
        }
 
    }
@@ -4499,7 +4925,9 @@ static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4513,16 +4941,18 @@ static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Fog( pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFogiv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogiv(pname, params);
+         break;
        }
 
    }
@@ -4541,7 +4971,9 @@ static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4555,16 +4987,18 @@ static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Light( light, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightf(light, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightf(light, pname, param);
+         break;
        }
 
    }
@@ -4583,7 +5017,9 @@ static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4597,16 +5033,18 @@ static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Light( light, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightfv(light, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightfv(light, pname, params);
+         break;
        }
 
    }
@@ -4625,7 +5063,9 @@ static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4639,16 +5079,18 @@ static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Light( light, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLighti(light, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLighti(light, pname, param);
+         break;
        }
 
    }
@@ -4667,7 +5109,9 @@ static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *pa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4681,16 +5125,18 @@ static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *pa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Light( light, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightiv(light, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightiv(light, pname, params);
+         break;
        }
 
    }
@@ -4709,7 +5155,9 @@ static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4723,16 +5171,18 @@ static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LightModel( pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightModelf(pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModelf(pname, param);
+         break;
        }
 
    }
@@ -4751,7 +5201,9 @@ static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4765,16 +5217,18 @@ static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LightModel( pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightModelfv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModelfv(pname, params);
+         break;
        }
 
    }
@@ -4793,7 +5247,9 @@ static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4807,16 +5263,18 @@ static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LightModel( pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightModeli(pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModeli(pname, param);
+         break;
        }
 
    }
@@ -4835,7 +5293,9 @@ static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4849,16 +5309,18 @@ static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LightModel( pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLightModeliv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModeliv(pname, params);
+         break;
        }
 
    }
@@ -4877,7 +5339,9 @@ static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4891,16 +5355,18 @@ static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Material( face, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMaterialf(face, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMaterialf(face, pname, param);
+         break;
        }
 
    }
@@ -4919,7 +5385,9 @@ static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4933,16 +5401,18 @@ static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Material( face, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMaterialfv(face, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMaterialfv(face, pname, params);
+         break;
        }
 
    }
@@ -4961,7 +5431,9 @@ static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -4975,16 +5447,18 @@ static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Material( face, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMateriali(face, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMateriali(face, pname, param);
+         break;
        }
 
    }
@@ -5003,7 +5477,9 @@ static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5017,16 +5493,18 @@ static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Material( face, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMaterialiv(face, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMaterialiv(face, pname, params);
+         break;
        }
 
    }
@@ -5045,10 +5523,12 @@ static void REGAL_CALL emu_glShadeModel(GLenum mode)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadeModel( mode );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadeModel( mode );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -5064,9 +5544,9 @@ static void REGAL_CALL emu_glShadeModel(GLenum mode)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glShadeModel(mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glShadeModel(mode);
+         break;
        }
 
    }
@@ -5084,11 +5564,13 @@ static void REGAL_CALL emu_glTexParameterf(GLenum target, GLenum pname, GLfloat 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -5105,9 +5587,9 @@ static void REGAL_CALL emu_glTexParameterf(GLenum target, GLenum pname, GLfloat 
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexParameterf(target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexParameterf(target, pname, param);
+         break;
        }
 
    }
@@ -5125,11 +5607,13 @@ static void REGAL_CALL emu_glTexParameterfv(GLenum target, GLenum pname, const G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -5146,9 +5630,9 @@ static void REGAL_CALL emu_glTexParameterfv(GLenum target, GLenum pname, const G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexParameterfv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexParameterfv(target, pname, params);
+         break;
        }
 
    }
@@ -5166,11 +5650,13 @@ static void REGAL_CALL emu_glTexParameteri(GLenum target, GLenum pname, GLint pa
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -5187,9 +5673,9 @@ static void REGAL_CALL emu_glTexParameteri(GLenum target, GLenum pname, GLint pa
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexParameteri(target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexParameteri(target, pname, param);
+         break;
        }
 
    }
@@ -5207,11 +5693,13 @@ static void REGAL_CALL emu_glTexParameteriv(GLenum target, GLenum pname, const G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -5228,9 +5716,9 @@ static void REGAL_CALL emu_glTexParameteriv(GLenum target, GLenum pname, const G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexParameteriv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexParameteriv(target, pname, params);
+         break;
        }
 
    }
@@ -5249,10 +5737,12 @@ static void REGAL_CALL emu_glTexImage1D(GLenum target, GLint level, GLint intern
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -5268,9 +5758,9 @@ static void REGAL_CALL emu_glTexImage1D(GLenum target, GLint level, GLint intern
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+         break;
        }
 
    }
@@ -5289,10 +5779,12 @@ static void REGAL_CALL emu_glTexImage2D(GLenum target, GLint level, GLint intern
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -5308,9 +5800,9 @@ static void REGAL_CALL emu_glTexImage2D(GLenum target, GLint level, GLint intern
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+         break;
        }
 
    }
@@ -5328,13 +5820,17 @@ static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5348,16 +5844,18 @@ static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexEnvf(target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnvf(target, pname, param);
+         break;
        }
 
    }
@@ -5375,13 +5873,17 @@ static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5395,16 +5897,18 @@ static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexEnvfv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnvfv(target, pname, params);
+         break;
        }
 
    }
@@ -5422,13 +5926,17 @@ static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5442,16 +5950,18 @@ static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexEnvi(target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnvi(target, pname, param);
+         break;
        }
 
    }
@@ -5469,13 +5979,17 @@ static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5489,16 +6003,18 @@ static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexEnviv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnviv(target, pname, params);
+         break;
        }
 
    }
@@ -5517,7 +6033,9 @@ static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5531,16 +6049,18 @@ static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexGen( coord, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexGend(coord, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGend(coord, pname, param);
+         break;
        }
 
    }
@@ -5559,7 +6079,9 @@ static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5573,16 +6095,18 @@ static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexGen( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexGendv(coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGendv(coord, pname, params);
+         break;
        }
 
    }
@@ -5600,12 +6124,16 @@ static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5619,16 +6147,18 @@ static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexGen( coord, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexGenf(coord, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGenf(coord, pname, param);
+         break;
        }
 
    }
@@ -5646,12 +6176,16 @@ static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5665,16 +6199,18 @@ static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexGen( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexGenfv(coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGenfv(coord, pname, params);
+         break;
        }
 
    }
@@ -5692,12 +6228,16 @@ static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5711,16 +6251,18 @@ static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexGen( coord, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexGeni(coord, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGeni(coord, pname, param);
+         break;
        }
 
    }
@@ -5738,12 +6280,16 @@ static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *p
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5757,16 +6303,18 @@ static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *p
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexGen( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexGeniv(coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGeniv(coord, pname, params);
+         break;
        }
 
    }
@@ -5784,12 +6332,16 @@ static void REGAL_CALL emu_glDisable(GLenum cap)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5799,32 +6351,34 @@ static void REGAL_CALL emu_glDisable(GLenum cap)
    switch( rCtx->emuLevel ) {
        case 7 :
        case 6 :
-               switch(cap)
-               {
-                 case GL_LOG_ERROR_REGAL:    Logging::enableError    = false; return;
-                 case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = false; return;
-                 case GL_LOG_INFO_REGAL:     Logging::enableInfo     = false; return;
-                 case GL_LOG_REGAL_REGAL:    Logging::enableRegal    = false; return;
-                 case GL_LOG_OPENGL_REGAL:   Logging::enableOpenGL   = false; return;
-                 case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = false; return;
-                 default: break;
-               }
+             switch(cap)
+             {
+               case GL_LOG_ERROR_REGAL:    Logging::enableError    = false; return;
+               case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = false; return;
+               case GL_LOG_INFO_REGAL:     Logging::enableInfo     = false; return;
+               case GL_LOG_REGAL_REGAL:    Logging::enableRegal    = false; return;
+               case GL_LOG_OPENGL_REGAL:   Logging::enableOpenGL   = false; return;
+               case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = false; return;
+               default: break;
+             }
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               if( ! rCtx->iff->ShadowDisable( cap ) ) {
-                   rCtx->dsp->emuTbl.glDisable( cap );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowDisable( cap ) ) {
+                 rCtx->dsp->emuTbl.glDisable( cap );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisable(cap);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisable(cap);
+         break;
        }
 
    }
@@ -5842,12 +6396,16 @@ static void REGAL_CALL emu_glEnable(GLenum cap)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5857,32 +6415,34 @@ static void REGAL_CALL emu_glEnable(GLenum cap)
    switch( rCtx->emuLevel ) {
        case 7 :
        case 6 :
-               switch(cap)
-               {
-                 case GL_LOG_ERROR_REGAL:    Logging::enableError    = true; return;
-                 case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = true; return;
-                 case GL_LOG_INFO_REGAL:     Logging::enableInfo     = true; return;
-                 case GL_LOG_REGAL_REGAL:    Logging::enableRegal    = true; return;
-                 case GL_LOG_OPENGL_REGAL:   Logging::enableOpenGL   = true; return;
-                 case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = true; return;
-                 default: break;
-               }
+             switch(cap)
+             {
+               case GL_LOG_ERROR_REGAL:    Logging::enableError    = true; return;
+               case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = true; return;
+               case GL_LOG_INFO_REGAL:     Logging::enableInfo     = true; return;
+               case GL_LOG_REGAL_REGAL:    Logging::enableRegal    = true; return;
+               case GL_LOG_OPENGL_REGAL:   Logging::enableOpenGL   = true; return;
+               case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = true; return;
+               default: break;
+             }
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               if( ! rCtx->iff->ShadowEnable( cap ) ) {
-                   rCtx->dsp->emuTbl.glEnable( cap );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowEnable( cap ) ) {
+                 rCtx->dsp->emuTbl.glEnable( cap );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnable(cap);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnable(cap);
+         break;
        }
 
    }
@@ -5901,7 +6461,9 @@ static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -5915,16 +6477,18 @@ static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AlphaFunc( func, ref );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AlphaFunc( func, ref );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glAlphaFunc(func, ref);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glAlphaFunc(func, ref);
+         break;
        }
 
    }
@@ -5942,13 +6506,17 @@ static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGet( rCtx, pname );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
        case 2 :
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -5962,17 +6530,19 @@ static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               if( !rCtx->vao->Get( pname, params ) ) {
-                  rCtx->dsp->emuTbl.glGetBooleanv( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetBooleanv( pname, params );
+             }
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetBooleanv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetBooleanv(pname, params);
+         break;
        }
 
    }
@@ -5990,14 +6560,20 @@ static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGet( rCtx, pname );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -6010,26 +6586,30 @@ static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetDoublev( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetDoublev( pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               if( !rCtx->vao->Get( pname, params ) ) {
-                  rCtx->dsp->emuTbl.glGetDoublev( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetDoublev( pname, params );
+             }
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetDoublev(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetDoublev(pname, params);
+         break;
        }
 
    }
@@ -6047,14 +6627,20 @@ static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGet( rCtx, pname );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -6067,26 +6653,30 @@ static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetFloatv( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetFloatv( pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               if( !rCtx->vao->Get( pname, params ) ) {
-                  rCtx->dsp->emuTbl.glGetFloatv( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetFloatv( pname, params );
+             }
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetFloatv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFloatv(pname, params);
+         break;
        }
 
    }
@@ -6104,14 +6694,20 @@ static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGet( rCtx, pname );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -6124,26 +6720,30 @@ static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               if( !rCtx->vao->Get( pname, params ) ) {
-                  rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
+             }
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetIntegerv(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetIntegerv(pname, params);
+         break;
        }
 
    }
@@ -6162,7 +6762,9 @@ static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *p
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6176,16 +6778,18 @@ static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *p
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->GetMaterial( face, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetMaterial( face, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMaterialfv(face, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMaterialfv(face, pname, params);
+         break;
        }
 
    }
@@ -6204,7 +6808,9 @@ static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *par
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6218,16 +6824,18 @@ static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *par
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->GetMaterial( face, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetMaterial( face, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMaterialiv(face, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMaterialiv(face, pname, params);
+         break;
        }
 
    }
@@ -6245,13 +6853,17 @@ static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *p
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6265,16 +6877,18 @@ static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *p
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->GetTexEnv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetTexEnv( target, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexEnvfv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexEnvfv(target, pname, params);
+         break;
        }
 
    }
@@ -6292,13 +6906,17 @@ static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *par
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6312,16 +6930,18 @@ static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *par
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->GetTexEnv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetTexEnv( target, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexEnviv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexEnviv(target, pname, params);
+         break;
        }
 
    }
@@ -6340,7 +6960,9 @@ static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *p
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6354,19 +6976,21 @@ static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *p
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexGendv(coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexGendv(coord, pname, params);
+         break;
        }
 
    }
@@ -6385,7 +7009,9 @@ static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *pa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6399,19 +7025,21 @@ static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *pa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexGenfv(coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexGenfv(coord, pname, params);
+         break;
        }
 
    }
@@ -6430,7 +7058,9 @@ static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *para
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6444,19 +7074,21 @@ static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *para
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexGeniv(coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexGeniv(coord, pname, params);
+         break;
        }
 
    }
@@ -6474,11 +7106,13 @@ static void REGAL_CALL emu_glGetTexParameterfv(GLenum target, GLenum pname, GLfl
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -6495,9 +7129,9 @@ static void REGAL_CALL emu_glGetTexParameterfv(GLenum target, GLenum pname, GLfl
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexParameterfv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexParameterfv(target, pname, params);
+         break;
        }
 
    }
@@ -6515,11 +7149,13 @@ static void REGAL_CALL emu_glGetTexParameteriv(GLenum target, GLenum pname, GLin
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -6536,9 +7172,9 @@ static void REGAL_CALL emu_glGetTexParameteriv(GLenum target, GLenum pname, GLin
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTexParameteriv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexParameteriv(target, pname, params);
+         break;
        }
 
    }
@@ -6556,12 +7192,16 @@ static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreIsEnabled( rCtx, cap );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreIsEnabled( rCtx, cap );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6571,33 +7211,35 @@ static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
    switch( rCtx->emuLevel ) {
        case 7 :
        case 6 :
-               switch(cap)
-               {
-                 case GL_LOG_ERROR_REGAL:    return Logging::enableError    ? GL_TRUE : GL_FALSE;
-                 case GL_LOG_WARNING_REGAL:  return Logging::enableWarning  ? GL_TRUE : GL_FALSE;
-                 case GL_LOG_INFO_REGAL:     return Logging::enableInfo     ? GL_TRUE : GL_FALSE;
-                 case GL_LOG_REGAL_REGAL:    return Logging::enableRegal    ? GL_TRUE : GL_FALSE;
-                 case GL_LOG_OPENGL_REGAL:   return Logging::enableOpenGL   ? GL_TRUE : GL_FALSE;
-                 case GL_LOG_INTERNAL_REGAL: return Logging::enableInternal ? GL_TRUE : GL_FALSE;
-                 default: break;
-               }
+             switch(cap)
+             {
+               case GL_LOG_ERROR_REGAL:    return Logging::enableError    ? GL_TRUE : GL_FALSE;
+               case GL_LOG_WARNING_REGAL:  return Logging::enableWarning  ? GL_TRUE : GL_FALSE;
+               case GL_LOG_INFO_REGAL:     return Logging::enableInfo     ? GL_TRUE : GL_FALSE;
+               case GL_LOG_REGAL_REGAL:    return Logging::enableRegal    ? GL_TRUE : GL_FALSE;
+               case GL_LOG_OPENGL_REGAL:   return Logging::enableOpenGL   ? GL_TRUE : GL_FALSE;
+               case GL_LOG_INTERNAL_REGAL: return Logging::enableInternal ? GL_TRUE : GL_FALSE;
+               default: break;
+             }
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               {
-                   GLboolean enabled;
-                   if ( !rCtx->iff->IsEnabled( rCtx, cap, enabled ) )
-                       return rCtx->dsp->emuTbl.glIsEnabled( cap );
-                   return enabled;
-               }
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             {
+                 GLboolean enabled;
+                 if ( !rCtx->iff->IsEnabled( rCtx, cap, enabled ) )
+                     return rCtx->dsp->emuTbl.glIsEnabled( cap );
+                 return enabled;
+             }
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glIsEnabled(cap);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsEnabled(cap);
        }
 
    }
@@ -6616,7 +7258,9 @@ static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bot
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6630,16 +7274,18 @@ static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bot
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Frustum( left, right, bottom, top, zNear, zFar );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Frustum( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFrustum(left, right, bottom, top, zNear, zFar);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFrustum(left, right, bottom, top, zNear, zFar);
+         break;
        }
 
    }
@@ -6657,12 +7303,16 @@ static void REGAL_CALL emu_glLoadIdentity(void)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6676,16 +7326,18 @@ static void REGAL_CALL emu_glLoadIdentity(void)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LoadIdentity(  );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadIdentity(  );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLoadIdentity();
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadIdentity();
+         break;
        }
 
    }
@@ -6703,12 +7355,16 @@ static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6722,16 +7378,18 @@ static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LoadMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLoadMatrixd(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadMatrixd(m);
+         break;
        }
 
    }
@@ -6749,12 +7407,16 @@ static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6768,16 +7430,18 @@ static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LoadMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLoadMatrixf(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadMatrixf(m);
+         break;
        }
 
    }
@@ -6795,9 +7459,13 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6810,26 +7478,30 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowMatrixMode( mode ) ) {
-                   rCtx->dsp->emuTbl.glMatrixMode( mode );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowMatrixMode( mode ) ) {
+                 rCtx->dsp->emuTbl.glMatrixMode( mode );
+             }
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               if( ! rCtx->iff->ShadowMatrixMode( mode ) ) {
-                   rCtx->dsp->emuTbl.glMatrixMode( mode );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowMatrixMode( mode ) ) {
+                 rCtx->dsp->emuTbl.glMatrixMode( mode );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixMode(mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMode(mode);
+         break;
        }
 
    }
@@ -6847,12 +7519,16 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6866,16 +7542,18 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MultMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultMatrixd(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultMatrixd(m);
+         break;
        }
 
    }
@@ -6893,12 +7571,16 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6912,16 +7594,18 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MultMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultMatrixf(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultMatrixf(m);
+         break;
        }
 
    }
@@ -6940,7 +7624,9 @@ static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble botto
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -6954,16 +7640,18 @@ static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble botto
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Ortho( left, right, bottom, top, zNear, zFar );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Ortho( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glOrtho(left, right, bottom, top, zNear, zFar);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glOrtho(left, right, bottom, top, zNear, zFar);
+         break;
        }
 
    }
@@ -6981,12 +7669,16 @@ static void REGAL_CALL emu_glPopMatrix(void)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7000,16 +7692,18 @@ static void REGAL_CALL emu_glPopMatrix(void)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PopMatrix(  );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PopMatrix(  );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glPopMatrix();
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPopMatrix();
+         break;
        }
 
    }
@@ -7027,12 +7721,16 @@ static void REGAL_CALL emu_glPushMatrix(void)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7046,16 +7744,18 @@ static void REGAL_CALL emu_glPushMatrix(void)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PushMatrix(  );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PushMatrix(  );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glPushMatrix();
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPushMatrix();
+         break;
        }
 
    }
@@ -7073,12 +7773,16 @@ static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLd
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7092,16 +7796,18 @@ static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLd
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Rotate( angle, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Rotate( angle, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRotated(angle, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRotated(angle, x, y, z);
+         break;
        }
 
    }
@@ -7119,12 +7825,16 @@ static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloa
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7138,16 +7848,18 @@ static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Rotate( angle, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Rotate( angle, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRotatef(angle, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRotatef(angle, x, y, z);
+         break;
        }
 
    }
@@ -7165,12 +7877,16 @@ static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7184,16 +7900,18 @@ static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Scale( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Scale( x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glScaled(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glScaled(x, y, z);
+         break;
        }
 
    }
@@ -7211,12 +7929,16 @@ static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7230,16 +7952,18 @@ static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Scale( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Scale( x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glScalef(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glScalef(x, y, z);
+         break;
        }
 
    }
@@ -7257,12 +7981,16 @@ static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7276,16 +8004,18 @@ static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Translate( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Translate( x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTranslated(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTranslated(x, y, z);
+         break;
        }
 
    }
@@ -7303,12 +8033,16 @@ static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7322,16 +8056,18 @@ static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Translate( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Translate( x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTranslatef(x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTranslatef(x, y, z);
+         break;
        }
 
    }
@@ -7351,20 +8087,26 @@ static void REGAL_CALL emu_glDrawArrays(GLenum mode, GLint first, GLsizei count)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -7379,9 +8121,9 @@ static void REGAL_CALL emu_glDrawArrays(GLenum mode, GLint first, GLsizei count)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawArrays(mode, first, count);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawArrays(mode, first, count);
+         break;
        }
 
    }
@@ -7399,20 +8141,26 @@ static void REGAL_CALL emu_glDrawElements(GLenum mode, GLsizei count, GLenum typ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -7427,9 +8175,9 @@ static void REGAL_CALL emu_glDrawElements(GLenum mode, GLsizei count, GLenum typ
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElements(mode, count, type, indices);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElements(mode, count, type, indices);
+         break;
        }
 
    }
@@ -7449,7 +8197,9 @@ static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, co
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7463,15 +8213,17 @@ static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, co
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->InterleavedArrays( rCtx, format, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->InterleavedArrays( rCtx, format, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glInterleavedArrays(format, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glInterleavedArrays(format, stride, pointer);
+         break;
        }
 
    }
@@ -7489,15 +8241,21 @@ static void REGAL_CALL emu_glDisableClientState(GLenum cap)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreClientActiveTexture( rCtx );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreClientActiveTexture( rCtx );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7510,21 +8268,25 @@ static void REGAL_CALL emu_glDisableClientState(GLenum cap)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->DisableClientState( rCtx, cap );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->DisableClientState( rCtx, cap );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->DisableClientState( rCtx, cap );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->DisableClientState( rCtx, cap );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisableClientState(cap);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableClientState(cap);
+         break;
        }
 
    }
@@ -7542,15 +8304,21 @@ static void REGAL_CALL emu_glEnableClientState(GLenum cap)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreClientActiveTexture( rCtx );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreClientActiveTexture( rCtx );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7563,21 +8331,25 @@ static void REGAL_CALL emu_glEnableClientState(GLenum cap)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->EnableClientState( rCtx, cap );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->EnableClientState( rCtx, cap );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->EnableClientState( rCtx, cap );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->EnableClientState( rCtx, cap );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnableClientState(cap);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableClientState(cap);
+         break;
        }
 
    }
@@ -7595,14 +8367,20 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7615,21 +8393,25 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ColorPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ColorPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->ColorPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->ColorPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glColorPointer(size, type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColorPointer(size, type, stride, pointer);
+         break;
        }
 
    }
@@ -7648,7 +8430,9 @@ static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *point
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7662,16 +8446,18 @@ static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *point
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->EdgeFlagPointer( rCtx, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->EdgeFlagPointer( rCtx, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEdgeFlagPointer(stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEdgeFlagPointer(stride, pointer);
+         break;
        }
 
    }
@@ -7689,14 +8475,20 @@ static void REGAL_CALL emu_glNormalPointer(GLenum type, GLsizei stride, const GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7709,21 +8501,25 @@ static void REGAL_CALL emu_glNormalPointer(GLenum type, GLsizei stride, const GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->NormalPointer( rCtx, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->NormalPointer( rCtx, type, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->NormalPointer( rCtx, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->NormalPointer( rCtx, type, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNormalPointer(type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNormalPointer(type, stride, pointer);
+         break;
        }
 
    }
@@ -7741,15 +8537,21 @@ static void REGAL_CALL emu_glTexCoordPointer(GLint size, GLenum type, GLsizei st
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreClientActiveTexture( rCtx );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreClientActiveTexture( rCtx );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7762,21 +8564,25 @@ static void REGAL_CALL emu_glTexCoordPointer(GLint size, GLenum type, GLsizei st
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexCoordPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexCoordPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->TexCoordPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->TexCoordPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexCoordPointer(size, type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexCoordPointer(size, type, stride, pointer);
+         break;
        }
 
    }
@@ -7794,14 +8600,20 @@ static void REGAL_CALL emu_glVertexPointer(GLint size, GLenum type, GLsizei stri
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -7814,21 +8626,25 @@ static void REGAL_CALL emu_glVertexPointer(GLint size, GLenum type, GLsizei stri
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->VertexPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->VertexPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->VertexPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->VertexPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexPointer(size, type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexPointer(size, type, stride, pointer);
+         break;
        }
 
    }
@@ -7846,12 +8662,16 @@ static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexBinding( target, texture );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexBinding( target, texture );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -7864,19 +8684,21 @@ static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowTexture( target, texture ) ) {
-                   rCtx->dsp->emuTbl.glBindTexture( target, texture );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowTexture( target, texture ) ) {
+                 rCtx->dsp->emuTbl.glBindTexture( target, texture );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindTexture(target, texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindTexture(target, texture);
+         break;
        }
 
    }
@@ -7897,10 +8719,12 @@ static void REGAL_CALL emu_glTexImage3D(GLenum target, GLint level, GLint intern
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -7916,9 +8740,9 @@ static void REGAL_CALL emu_glTexImage3D(GLenum target, GLint level, GLint intern
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
+         break;
        }
 
    }
@@ -7940,9 +8764,13 @@ static void REGAL_CALL emu_glActiveTexture(GLenum texture)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -7955,26 +8783,30 @@ static void REGAL_CALL emu_glActiveTexture(GLenum texture)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowActiveTexture( texture ) ) {
-                   rCtx->dsp->emuTbl.glActiveTexture( texture );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowActiveTexture( texture ) ) {
+                 rCtx->dsp->emuTbl.glActiveTexture( texture );
+             }
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               if( ! rCtx->iff->ShadowActiveTexture( texture ) ) {
-                   rCtx->dsp->emuTbl.glActiveTexture( texture );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowActiveTexture( texture ) ) {
+                 rCtx->dsp->emuTbl.glActiveTexture( texture );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glActiveTexture(texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glActiveTexture(texture);
+         break;
        }
 
    }
@@ -7992,17 +8824,23 @@ static void REGAL_CALL emu_glClientActiveTexture(GLenum texture)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowClientActiveTexture( texture );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowClientActiveTexture( texture );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->ClientActiveTexture( rCtx, texture );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->ClientActiveTexture( rCtx, texture );
+         }
+         #endif
        default:
            break;
    }
@@ -8014,19 +8852,21 @@ static void REGAL_CALL emu_glClientActiveTexture(GLenum texture)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowClientActiveTexture( texture ) ) {
-                   rCtx->dsp->emuTbl.glClientActiveTexture( texture );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowClientActiveTexture( texture ) ) {
+                 rCtx->dsp->emuTbl.glClientActiveTexture( texture );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glClientActiveTexture(texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glClientActiveTexture(texture);
+         break;
        }
 
    }
@@ -8045,7 +8885,9 @@ static void REGAL_CALL emu_glMultiTexCoord1d(GLenum target, GLdouble s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8059,16 +8901,18 @@ static void REGAL_CALL emu_glMultiTexCoord1d(GLenum target, GLdouble s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1d(target, s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1d(target, s);
+         break;
        }
 
    }
@@ -8087,7 +8931,9 @@ static void REGAL_CALL emu_glMultiTexCoord1dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8101,16 +8947,18 @@ static void REGAL_CALL emu_glMultiTexCoord1dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1dv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1dv(target, v);
+         break;
        }
 
    }
@@ -8129,7 +8977,9 @@ static void REGAL_CALL emu_glMultiTexCoord1f(GLenum target, GLfloat s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8143,16 +8993,18 @@ static void REGAL_CALL emu_glMultiTexCoord1f(GLenum target, GLfloat s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1f(target, s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1f(target, s);
+         break;
        }
 
    }
@@ -8171,7 +9023,9 @@ static void REGAL_CALL emu_glMultiTexCoord1fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8185,16 +9039,18 @@ static void REGAL_CALL emu_glMultiTexCoord1fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1fv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1fv(target, v);
+         break;
        }
 
    }
@@ -8213,7 +9069,9 @@ static void REGAL_CALL emu_glMultiTexCoord1i(GLenum target, GLint s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8227,16 +9085,18 @@ static void REGAL_CALL emu_glMultiTexCoord1i(GLenum target, GLint s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1i(target, s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1i(target, s);
+         break;
        }
 
    }
@@ -8255,7 +9115,9 @@ static void REGAL_CALL emu_glMultiTexCoord1iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8269,16 +9131,18 @@ static void REGAL_CALL emu_glMultiTexCoord1iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1iv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1iv(target, v);
+         break;
        }
 
    }
@@ -8297,7 +9161,9 @@ static void REGAL_CALL emu_glMultiTexCoord1s(GLenum target, GLshort s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8311,16 +9177,18 @@ static void REGAL_CALL emu_glMultiTexCoord1s(GLenum target, GLshort s)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1s(target, s);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1s(target, s);
+         break;
        }
 
    }
@@ -8339,7 +9207,9 @@ static void REGAL_CALL emu_glMultiTexCoord1sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8353,16 +9223,18 @@ static void REGAL_CALL emu_glMultiTexCoord1sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord1sv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord1sv(target, v);
+         break;
        }
 
    }
@@ -8381,7 +9253,9 @@ static void REGAL_CALL emu_glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8395,16 +9269,18 @@ static void REGAL_CALL emu_glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2d(target, s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2d(target, s, t);
+         break;
        }
 
    }
@@ -8423,7 +9299,9 @@ static void REGAL_CALL emu_glMultiTexCoord2dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8437,16 +9315,18 @@ static void REGAL_CALL emu_glMultiTexCoord2dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2dv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2dv(target, v);
+         break;
        }
 
    }
@@ -8465,7 +9345,9 @@ static void REGAL_CALL emu_glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8479,16 +9361,18 @@ static void REGAL_CALL emu_glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2f(target, s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2f(target, s, t);
+         break;
        }
 
    }
@@ -8507,7 +9391,9 @@ static void REGAL_CALL emu_glMultiTexCoord2fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8521,16 +9407,18 @@ static void REGAL_CALL emu_glMultiTexCoord2fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2fv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2fv(target, v);
+         break;
        }
 
    }
@@ -8549,7 +9437,9 @@ static void REGAL_CALL emu_glMultiTexCoord2i(GLenum target, GLint s, GLint t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8563,16 +9453,18 @@ static void REGAL_CALL emu_glMultiTexCoord2i(GLenum target, GLint s, GLint t)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2i(target, s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2i(target, s, t);
+         break;
        }
 
    }
@@ -8591,7 +9483,9 @@ static void REGAL_CALL emu_glMultiTexCoord2iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8605,16 +9499,18 @@ static void REGAL_CALL emu_glMultiTexCoord2iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2iv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2iv(target, v);
+         break;
        }
 
    }
@@ -8633,7 +9529,9 @@ static void REGAL_CALL emu_glMultiTexCoord2s(GLenum target, GLshort s, GLshort t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8647,16 +9545,18 @@ static void REGAL_CALL emu_glMultiTexCoord2s(GLenum target, GLshort s, GLshort t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2s(target, s, t);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2s(target, s, t);
+         break;
        }
 
    }
@@ -8675,7 +9575,9 @@ static void REGAL_CALL emu_glMultiTexCoord2sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8689,16 +9591,18 @@ static void REGAL_CALL emu_glMultiTexCoord2sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord2sv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord2sv(target, v);
+         break;
        }
 
    }
@@ -8717,7 +9621,9 @@ static void REGAL_CALL emu_glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8731,16 +9637,18 @@ static void REGAL_CALL emu_glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3d(target, s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3d(target, s, t, r);
+         break;
        }
 
    }
@@ -8759,7 +9667,9 @@ static void REGAL_CALL emu_glMultiTexCoord3dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8773,16 +9683,18 @@ static void REGAL_CALL emu_glMultiTexCoord3dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3dv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3dv(target, v);
+         break;
        }
 
    }
@@ -8801,7 +9713,9 @@ static void REGAL_CALL emu_glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8815,16 +9729,18 @@ static void REGAL_CALL emu_glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3f(target, s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3f(target, s, t, r);
+         break;
        }
 
    }
@@ -8843,7 +9759,9 @@ static void REGAL_CALL emu_glMultiTexCoord3fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8857,16 +9775,18 @@ static void REGAL_CALL emu_glMultiTexCoord3fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3fv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3fv(target, v);
+         break;
        }
 
    }
@@ -8885,7 +9805,9 @@ static void REGAL_CALL emu_glMultiTexCoord3i(GLenum target, GLint s, GLint t, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8899,16 +9821,18 @@ static void REGAL_CALL emu_glMultiTexCoord3i(GLenum target, GLint s, GLint t, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3i(target, s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3i(target, s, t, r);
+         break;
        }
 
    }
@@ -8927,7 +9851,9 @@ static void REGAL_CALL emu_glMultiTexCoord3iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8941,16 +9867,18 @@ static void REGAL_CALL emu_glMultiTexCoord3iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3iv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3iv(target, v);
+         break;
        }
 
    }
@@ -8969,7 +9897,9 @@ static void REGAL_CALL emu_glMultiTexCoord3s(GLenum target, GLshort s, GLshort t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -8983,16 +9913,18 @@ static void REGAL_CALL emu_glMultiTexCoord3s(GLenum target, GLshort s, GLshort t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3s(target, s, t, r);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3s(target, s, t, r);
+         break;
        }
 
    }
@@ -9011,7 +9943,9 @@ static void REGAL_CALL emu_glMultiTexCoord3sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9025,16 +9959,18 @@ static void REGAL_CALL emu_glMultiTexCoord3sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord3sv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord3sv(target, v);
+         break;
        }
 
    }
@@ -9053,7 +9989,9 @@ static void REGAL_CALL emu_glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9067,16 +10005,18 @@ static void REGAL_CALL emu_glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4d(target, s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4d(target, s, t, r, q);
+         break;
        }
 
    }
@@ -9095,7 +10035,9 @@ static void REGAL_CALL emu_glMultiTexCoord4dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9109,16 +10051,18 @@ static void REGAL_CALL emu_glMultiTexCoord4dv(GLenum target, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4dv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4dv(target, v);
+         break;
        }
 
    }
@@ -9137,7 +10081,9 @@ static void REGAL_CALL emu_glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9151,16 +10097,18 @@ static void REGAL_CALL emu_glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4f(target, s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4f(target, s, t, r, q);
+         break;
        }
 
    }
@@ -9179,7 +10127,9 @@ static void REGAL_CALL emu_glMultiTexCoord4fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9193,16 +10143,18 @@ static void REGAL_CALL emu_glMultiTexCoord4fv(GLenum target, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4fv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4fv(target, v);
+         break;
        }
 
    }
@@ -9221,7 +10173,9 @@ static void REGAL_CALL emu_glMultiTexCoord4i(GLenum target, GLint s, GLint t, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9235,16 +10189,18 @@ static void REGAL_CALL emu_glMultiTexCoord4i(GLenum target, GLint s, GLint t, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4i(target, s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4i(target, s, t, r, q);
+         break;
        }
 
    }
@@ -9263,7 +10219,9 @@ static void REGAL_CALL emu_glMultiTexCoord4iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9277,16 +10235,18 @@ static void REGAL_CALL emu_glMultiTexCoord4iv(GLenum target, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4iv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4iv(target, v);
+         break;
        }
 
    }
@@ -9305,7 +10265,9 @@ static void REGAL_CALL emu_glMultiTexCoord4s(GLenum target, GLshort s, GLshort t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9319,16 +10281,18 @@ static void REGAL_CALL emu_glMultiTexCoord4s(GLenum target, GLshort s, GLshort t
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), s, t, r, q );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4s(target, s, t, r, q);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4s(target, s, t, r, q);
+         break;
        }
 
    }
@@ -9347,7 +10311,9 @@ static void REGAL_CALL emu_glMultiTexCoord4sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9361,16 +10327,18 @@ static void REGAL_CALL emu_glMultiTexCoord4sv(GLenum target, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, rCtx->iff->AttrIndex( RFF2A_TexCoord, target - GL_TEXTURE0 ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoord4sv(target, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoord4sv(target, v);
+         break;
        }
 
    }
@@ -9388,12 +10356,16 @@ static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9407,16 +10379,18 @@ static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LoadTransposeMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadTransposeMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLoadTransposeMatrixf(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadTransposeMatrixf(m);
+         break;
        }
 
    }
@@ -9434,12 +10408,16 @@ static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9453,16 +10431,18 @@ static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LoadTransposeMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadTransposeMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLoadTransposeMatrixd(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadTransposeMatrixd(m);
+         break;
        }
 
    }
@@ -9480,12 +10460,16 @@ static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9499,16 +10483,18 @@ static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MultTransposeMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultTransposeMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultTransposeMatrixf(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultTransposeMatrixf(m);
+         break;
        }
 
    }
@@ -9526,12 +10512,16 @@ static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreMatrixMode( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9545,16 +10535,18 @@ static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MultTransposeMatrix( m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultTransposeMatrix( m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultTransposeMatrixd(m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultTransposeMatrixd(m);
+         break;
        }
 
    }
@@ -9574,20 +10566,26 @@ static void REGAL_CALL emu_glMultiDrawArrays(GLenum mode, const GLint *first, co
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -9602,9 +10600,9 @@ static void REGAL_CALL emu_glMultiDrawArrays(GLenum mode, const GLint *first, co
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawArrays(mode, first, count, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawArrays(mode, first, count, primcount);
+         break;
        }
 
    }
@@ -9622,20 +10620,26 @@ static void REGAL_CALL emu_glMultiDrawElements(GLenum mode, const GLsizei *count
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -9650,9 +10654,9 @@ static void REGAL_CALL emu_glMultiDrawElements(GLenum mode, const GLsizei *count
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawElements(mode, count, type, indices, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawElements(mode, count, type, indices, primcount);
+         break;
        }
 
    }
@@ -9671,9 +10675,13 @@ static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -9686,21 +10694,25 @@ static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->FogCoordPointer( rCtx, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->FogCoordPointer( rCtx, type, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->FogCoordPointer( rCtx, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->FogCoordPointer( rCtx, type, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFogCoordPointer(type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogCoordPointer(type, stride, pointer);
+         break;
        }
 
    }
@@ -9719,7 +10731,9 @@ static void REGAL_CALL emu_glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte b
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9733,16 +10747,18 @@ static void REGAL_CALL emu_glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte b
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3b(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3b(red, green, blue);
+         break;
        }
 
    }
@@ -9761,7 +10777,9 @@ static void REGAL_CALL emu_glSecondaryColor3bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9775,16 +10793,18 @@ static void REGAL_CALL emu_glSecondaryColor3bv(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3bv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3bv(v);
+         break;
        }
 
    }
@@ -9803,7 +10823,9 @@ static void REGAL_CALL emu_glSecondaryColor3d(GLdouble red, GLdouble green, GLdo
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9817,16 +10839,18 @@ static void REGAL_CALL emu_glSecondaryColor3d(GLdouble red, GLdouble green, GLdo
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3d(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3d(red, green, blue);
+         break;
        }
 
    }
@@ -9845,7 +10869,9 @@ static void REGAL_CALL emu_glSecondaryColor3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9859,16 +10885,18 @@ static void REGAL_CALL emu_glSecondaryColor3dv(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3dv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3dv(v);
+         break;
        }
 
    }
@@ -9887,7 +10915,9 @@ static void REGAL_CALL emu_glSecondaryColor3f(GLfloat red, GLfloat green, GLfloa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9901,16 +10931,18 @@ static void REGAL_CALL emu_glSecondaryColor3f(GLfloat red, GLfloat green, GLfloa
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3f(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3f(red, green, blue);
+         break;
        }
 
    }
@@ -9929,7 +10961,9 @@ static void REGAL_CALL emu_glSecondaryColor3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9943,16 +10977,18 @@ static void REGAL_CALL emu_glSecondaryColor3fv(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3fv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3fv(v);
+         break;
        }
 
    }
@@ -9971,7 +11007,9 @@ static void REGAL_CALL emu_glSecondaryColor3i(GLint red, GLint green, GLint blue
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -9985,16 +11023,18 @@ static void REGAL_CALL emu_glSecondaryColor3i(GLint red, GLint green, GLint blue
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3i(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3i(red, green, blue);
+         break;
        }
 
    }
@@ -10013,7 +11053,9 @@ static void REGAL_CALL emu_glSecondaryColor3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10027,16 +11069,18 @@ static void REGAL_CALL emu_glSecondaryColor3iv(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3iv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3iv(v);
+         break;
        }
 
    }
@@ -10055,7 +11099,9 @@ static void REGAL_CALL emu_glSecondaryColor3s(GLshort red, GLshort green, GLshor
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10069,16 +11115,18 @@ static void REGAL_CALL emu_glSecondaryColor3s(GLshort red, GLshort green, GLshor
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3s(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3s(red, green, blue);
+         break;
        }
 
    }
@@ -10097,7 +11145,9 @@ static void REGAL_CALL emu_glSecondaryColor3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10111,16 +11161,18 @@ static void REGAL_CALL emu_glSecondaryColor3sv(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3sv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3sv(v);
+         break;
        }
 
    }
@@ -10139,7 +11191,9 @@ static void REGAL_CALL emu_glSecondaryColor3ub(GLubyte red, GLubyte green, GLuby
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10153,16 +11207,18 @@ static void REGAL_CALL emu_glSecondaryColor3ub(GLubyte red, GLubyte green, GLuby
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3ub(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3ub(red, green, blue);
+         break;
        }
 
    }
@@ -10181,7 +11237,9 @@ static void REGAL_CALL emu_glSecondaryColor3ubv(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10195,16 +11253,18 @@ static void REGAL_CALL emu_glSecondaryColor3ubv(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3ubv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3ubv(v);
+         break;
        }
 
    }
@@ -10223,7 +11283,9 @@ static void REGAL_CALL emu_glSecondaryColor3ui(GLuint red, GLuint green, GLuint 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10237,16 +11299,18 @@ static void REGAL_CALL emu_glSecondaryColor3ui(GLuint red, GLuint green, GLuint 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3ui(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3ui(red, green, blue);
+         break;
        }
 
    }
@@ -10265,7 +11329,9 @@ static void REGAL_CALL emu_glSecondaryColor3uiv(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10279,16 +11345,18 @@ static void REGAL_CALL emu_glSecondaryColor3uiv(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3uiv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3uiv(v);
+         break;
        }
 
    }
@@ -10307,7 +11375,9 @@ static void REGAL_CALL emu_glSecondaryColor3us(GLushort red, GLushort green, GLu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10321,16 +11391,18 @@ static void REGAL_CALL emu_glSecondaryColor3us(GLushort red, GLushort green, GLu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3us(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3us(red, green, blue);
+         break;
        }
 
    }
@@ -10349,7 +11421,9 @@ static void REGAL_CALL emu_glSecondaryColor3usv(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10363,16 +11437,18 @@ static void REGAL_CALL emu_glSecondaryColor3usv(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3usv(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3usv(v);
+         break;
        }
 
    }
@@ -10390,14 +11466,20 @@ static void REGAL_CALL emu_glSecondaryColorPointer(GLint size, GLenum type, GLsi
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -10410,21 +11492,25 @@ static void REGAL_CALL emu_glSecondaryColorPointer(GLint size, GLenum type, GLsi
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->SecondaryColorPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->SecondaryColorPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->SecondaryColorPointer( rCtx, size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->SecondaryColorPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColorPointer(size, type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColorPointer(size, type, stride, pointer);
+         break;
        }
 
    }
@@ -10440,22 +11526,30 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->ShadowBufferBinding( target, buffer );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->ShadowBufferBinding( target, buffer );
+         }
+         #endif
        default:
            break;
    }
@@ -10463,28 +11557,32 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->BindBuffer( rCtx, target, buffer );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->BindBuffer( rCtx, target, buffer );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowBuffer( target, buffer ) ) {
-                   rCtx->dsp->emuTbl.glBindBuffer( target, buffer );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowBuffer( target, buffer ) ) {
+                 rCtx->dsp->emuTbl.glBindBuffer( target, buffer );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindBuffer(target, buffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindBuffer(target, buffer);
+         break;
        }
 
    }
@@ -10498,7 +11596,9 @@ static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -10512,11 +11612,13 @@ static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->DeleteBuffers( rCtx, n, buffers );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->DeleteBuffers( rCtx, n, buffers );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -10524,9 +11626,9 @@ static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDeleteBuffers(n, buffers);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDeleteBuffers(n, buffers);
+         break;
        }
 
    }
@@ -10540,7 +11642,9 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -10554,11 +11658,13 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->GenBuffers( rCtx, n, buffers );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->GenBuffers( rCtx, n, buffers );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -10566,9 +11672,9 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenBuffers(n, buffers);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenBuffers(n, buffers);
+         break;
        }
 
    }
@@ -10582,7 +11688,9 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -10596,10 +11704,12 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               return rCtx->obj->IsBuffer( rCtx, buffer );
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             return rCtx->obj->IsBuffer( rCtx, buffer );
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -10607,8 +11717,8 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glIsBuffer(buffer);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsBuffer(buffer);
        }
 
    }
@@ -10626,10 +11736,12 @@ static void REGAL_CALL emu_glBufferData(GLenum target, GLsizeiptr size, const GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10646,9 +11758,9 @@ static void REGAL_CALL emu_glBufferData(GLenum target, GLsizeiptr size, const GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBufferData(target, size, data, usage);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBufferData(target, size, data, usage);
+         break;
        }
 
    }
@@ -10666,10 +11778,12 @@ static void REGAL_CALL emu_glBufferSubData(GLenum target, GLintptr offset, GLsiz
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10686,9 +11800,9 @@ static void REGAL_CALL emu_glBufferSubData(GLenum target, GLintptr offset, GLsiz
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBufferSubData(target, offset, size, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBufferSubData(target, offset, size, data);
+         break;
        }
 
    }
@@ -10706,10 +11820,12 @@ static void REGAL_CALL emu_glGetBufferSubData(GLenum target, GLintptr offset, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10726,9 +11842,9 @@ static void REGAL_CALL emu_glGetBufferSubData(GLenum target, GLintptr offset, GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetBufferSubData(target, offset, size, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetBufferSubData(target, offset, size, data);
+         break;
        }
 
    }
@@ -10746,10 +11862,12 @@ static GLvoid *REGAL_CALL emu_glMapBuffer(GLenum target, GLenum access)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10766,8 +11884,8 @@ static GLvoid *REGAL_CALL emu_glMapBuffer(GLenum target, GLenum access)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glMapBuffer(target, access);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapBuffer(target, access);
        }
 
    }
@@ -10785,10 +11903,12 @@ static GLboolean REGAL_CALL emu_glUnmapBuffer(GLenum target)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10805,8 +11925,8 @@ static GLboolean REGAL_CALL emu_glUnmapBuffer(GLenum target)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glUnmapBuffer(target);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glUnmapBuffer(target);
        }
 
    }
@@ -10824,10 +11944,12 @@ static void REGAL_CALL emu_glGetBufferParameteriv(GLenum target, GLenum pname, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10844,9 +11966,9 @@ static void REGAL_CALL emu_glGetBufferParameteriv(GLenum target, GLenum pname, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetBufferParameteriv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetBufferParameteriv(target, pname, params);
+         break;
        }
 
    }
@@ -10864,10 +11986,12 @@ static void REGAL_CALL emu_glGetBufferPointerv(GLenum target, GLenum pname, GLvo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -10884,9 +12008,9 @@ static void REGAL_CALL emu_glGetBufferPointerv(GLenum target, GLenum pname, GLvo
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetBufferPointerv(target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetBufferPointerv(target, pname, params);
+         break;
        }
 
    }
@@ -10907,7 +12031,9 @@ static GLuint REGAL_CALL emu_glCreateShader(GLenum type)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -10921,14 +12047,16 @@ static GLuint REGAL_CALL emu_glCreateShader(GLenum type)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               return rCtx->iff->CreateShader( rCtx, type );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             return rCtx->iff->CreateShader( rCtx, type );
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glCreateShader(type);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glCreateShader(type);
        }
 
    }
@@ -10947,13 +12075,17 @@ static void REGAL_CALL emu_glDisableVertexAttribArray(GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               rCtx->iff->DisableArray( rCtx, index );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             rCtx->iff->DisableArray( rCtx, index );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -10967,14 +12099,16 @@ static void REGAL_CALL emu_glDisableVertexAttribArray(GLuint index)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->DisableVertexAttribArray( rCtx, index );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->DisableVertexAttribArray( rCtx, index );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisableVertexAttribArray(index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableVertexAttribArray(index);
+         break;
        }
 
    }
@@ -10993,13 +12127,17 @@ static void REGAL_CALL emu_glEnableVertexAttribArray(GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               rCtx->iff->EnableArray( rCtx, index );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             rCtx->iff->EnableArray( rCtx, index );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -11013,14 +12151,16 @@ static void REGAL_CALL emu_glEnableVertexAttribArray(GLuint index)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->EnableVertexAttribArray( rCtx, index );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->EnableVertexAttribArray( rCtx, index );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnableVertexAttribArray(index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableVertexAttribArray(index);
+         break;
        }
 
    }
@@ -11039,12 +12179,16 @@ static void REGAL_CALL emu_glGetVertexAttribdv(GLuint index, GLenum pname, GLdou
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -11058,15 +12202,17 @@ static void REGAL_CALL emu_glGetVertexAttribdv(GLuint index, GLenum pname, GLdou
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, params );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribdv(index, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribdv(index, pname, params);
+         break;
        }
 
    }
@@ -11085,12 +12231,16 @@ static void REGAL_CALL emu_glGetVertexAttribfv(GLuint index, GLenum pname, GLflo
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -11104,15 +12254,17 @@ static void REGAL_CALL emu_glGetVertexAttribfv(GLuint index, GLenum pname, GLflo
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, params );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribfv(index, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribfv(index, pname, params);
+         break;
        }
 
    }
@@ -11131,12 +12283,16 @@ static void REGAL_CALL emu_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -11150,15 +12306,17 @@ static void REGAL_CALL emu_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, params );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribiv(index, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribiv(index, pname, params);
+         break;
        }
 
    }
@@ -11177,12 +12335,16 @@ static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname,
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -11196,15 +12358,17 @@ static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname,
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribPointerv(index, pname, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribPointerv(index, pname, pointer);
+         break;
        }
 
    }
@@ -11223,7 +12387,9 @@ static void REGAL_CALL emu_glLinkProgram(GLuint program)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -11237,16 +12403,18 @@ static void REGAL_CALL emu_glLinkProgram(GLuint program)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->LinkProgram( rCtx, program );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LinkProgram( rCtx, program );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glLinkProgram(program);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLinkProgram(program);
+         break;
        }
 
    }
@@ -11265,7 +12433,9 @@ static void REGAL_CALL emu_glShaderSource(GLuint shader, GLsizei count, const GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -11279,16 +12449,18 @@ static void REGAL_CALL emu_glShaderSource(GLuint shader, GLsizei count, const GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShaderSource( rCtx, shader, count, string, length );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShaderSource( rCtx, shader, count, string, length );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glShaderSource(shader, count, string, length);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glShaderSource(shader, count, string, length);
+         break;
        }
 
    }
@@ -11306,9 +12478,13 @@ static void REGAL_CALL emu_glUseProgram(GLuint program)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -11321,26 +12497,30 @@ static void REGAL_CALL emu_glUseProgram(GLuint program)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowGlslProgram( program ) ) {
-                   rCtx->dsp->emuTbl.glUseProgram( program );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowGlslProgram( program ) ) {
+                 rCtx->dsp->emuTbl.glUseProgram( program );
+             }
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               if( ! rCtx->iff->ShadowUseProgram( program ) ) {
-                   rCtx->dsp->emuTbl.glUseProgram( program );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowUseProgram( program ) ) {
+                 rCtx->dsp->emuTbl.glUseProgram( program );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUseProgram(program);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUseProgram(program);
+         break;
        }
 
    }
@@ -11358,10 +12538,12 @@ static void REGAL_CALL emu_glUniform1f(GLint location, GLfloat v0)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11378,9 +12560,9 @@ static void REGAL_CALL emu_glUniform1f(GLint location, GLfloat v0)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1f(location, v0);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1f(location, v0);
+         break;
        }
 
    }
@@ -11398,10 +12580,12 @@ static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11418,9 +12602,9 @@ static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2f(location, v0, v1);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2f(location, v0, v1);
+         break;
        }
 
    }
@@ -11438,10 +12622,12 @@ static void REGAL_CALL emu_glUniform3f(GLint location, GLfloat v0, GLfloat v1, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11458,9 +12644,9 @@ static void REGAL_CALL emu_glUniform3f(GLint location, GLfloat v0, GLfloat v1, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3f(location, v0, v1, v2);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3f(location, v0, v1, v2);
+         break;
        }
 
    }
@@ -11478,10 +12664,12 @@ static void REGAL_CALL emu_glUniform4f(GLint location, GLfloat v0, GLfloat v1, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11498,9 +12686,9 @@ static void REGAL_CALL emu_glUniform4f(GLint location, GLfloat v0, GLfloat v1, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4f(location, v0, v1, v2, v3);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4f(location, v0, v1, v2, v3);
+         break;
        }
 
    }
@@ -11518,10 +12706,12 @@ static void REGAL_CALL emu_glUniform1i(GLint location, GLint v0)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11538,9 +12728,9 @@ static void REGAL_CALL emu_glUniform1i(GLint location, GLint v0)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1i(location, v0);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1i(location, v0);
+         break;
        }
 
    }
@@ -11558,10 +12748,12 @@ static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11578,9 +12770,9 @@ static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2i(location, v0, v1);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2i(location, v0, v1);
+         break;
        }
 
    }
@@ -11598,10 +12790,12 @@ static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11618,9 +12812,9 @@ static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3i(location, v0, v1, v2);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3i(location, v0, v1, v2);
+         break;
        }
 
    }
@@ -11638,10 +12832,12 @@ static void REGAL_CALL emu_glUniform4i(GLint location, GLint v0, GLint v1, GLint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11658,9 +12854,9 @@ static void REGAL_CALL emu_glUniform4i(GLint location, GLint v0, GLint v1, GLint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4i(location, v0, v1, v2, v3);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4i(location, v0, v1, v2, v3);
+         break;
        }
 
    }
@@ -11678,10 +12874,12 @@ static void REGAL_CALL emu_glUniform1fv(GLint location, GLsizei count, const GLf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11698,9 +12896,9 @@ static void REGAL_CALL emu_glUniform1fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1fv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1fv(location, count, value);
+         break;
        }
 
    }
@@ -11718,10 +12916,12 @@ static void REGAL_CALL emu_glUniform2fv(GLint location, GLsizei count, const GLf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11738,9 +12938,9 @@ static void REGAL_CALL emu_glUniform2fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2fv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2fv(location, count, value);
+         break;
        }
 
    }
@@ -11758,10 +12958,12 @@ static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11778,9 +12980,9 @@ static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3fv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3fv(location, count, value);
+         break;
        }
 
    }
@@ -11798,10 +13000,12 @@ static void REGAL_CALL emu_glUniform4fv(GLint location, GLsizei count, const GLf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11818,9 +13022,9 @@ static void REGAL_CALL emu_glUniform4fv(GLint location, GLsizei count, const GLf
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4fv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4fv(location, count, value);
+         break;
        }
 
    }
@@ -11838,10 +13042,12 @@ static void REGAL_CALL emu_glUniform1iv(GLint location, GLsizei count, const GLi
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11858,9 +13064,9 @@ static void REGAL_CALL emu_glUniform1iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1iv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1iv(location, count, value);
+         break;
        }
 
    }
@@ -11878,10 +13084,12 @@ static void REGAL_CALL emu_glUniform2iv(GLint location, GLsizei count, const GLi
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11898,9 +13106,9 @@ static void REGAL_CALL emu_glUniform2iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2iv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2iv(location, count, value);
+         break;
        }
 
    }
@@ -11918,10 +13126,12 @@ static void REGAL_CALL emu_glUniform3iv(GLint location, GLsizei count, const GLi
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11938,9 +13148,9 @@ static void REGAL_CALL emu_glUniform3iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3iv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3iv(location, count, value);
+         break;
        }
 
    }
@@ -11958,10 +13168,12 @@ static void REGAL_CALL emu_glUniform4iv(GLint location, GLsizei count, const GLi
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -11978,9 +13190,9 @@ static void REGAL_CALL emu_glUniform4iv(GLint location, GLsizei count, const GLi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4iv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4iv(location, count, value);
+         break;
        }
 
    }
@@ -11998,10 +13210,12 @@ static void REGAL_CALL emu_glUniformMatrix2fv(GLint location, GLsizei count, GLb
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -12018,9 +13232,9 @@ static void REGAL_CALL emu_glUniformMatrix2fv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix2fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix2fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -12038,10 +13252,12 @@ static void REGAL_CALL emu_glUniformMatrix3fv(GLint location, GLsizei count, GLb
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -12058,9 +13274,9 @@ static void REGAL_CALL emu_glUniformMatrix3fv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix3fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix3fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -12078,10 +13294,12 @@ static void REGAL_CALL emu_glUniformMatrix4fv(GLint location, GLsizei count, GLb
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -12098,9 +13316,9 @@ static void REGAL_CALL emu_glUniformMatrix4fv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix4fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix4fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -12119,7 +13337,9 @@ static void REGAL_CALL emu_glVertexAttrib1d(GLuint index, GLdouble x)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12133,16 +13353,18 @@ static void REGAL_CALL emu_glVertexAttrib1d(GLuint index, GLdouble x)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, index, x );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, index, x );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib1d(index, x);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib1d(index, x);
+         break;
        }
 
    }
@@ -12161,7 +13383,9 @@ static void REGAL_CALL emu_glVertexAttrib1dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12175,16 +13399,18 @@ static void REGAL_CALL emu_glVertexAttrib1dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib1dv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib1dv(index, v);
+         break;
        }
 
    }
@@ -12203,7 +13429,9 @@ static void REGAL_CALL emu_glVertexAttrib1f(GLuint index, GLfloat x)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12217,16 +13445,18 @@ static void REGAL_CALL emu_glVertexAttrib1f(GLuint index, GLfloat x)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, index, x );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, index, x );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib1f(index, x);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib1f(index, x);
+         break;
        }
 
    }
@@ -12245,7 +13475,9 @@ static void REGAL_CALL emu_glVertexAttrib1fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12259,16 +13491,18 @@ static void REGAL_CALL emu_glVertexAttrib1fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib1fv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib1fv(index, v);
+         break;
        }
 
    }
@@ -12287,7 +13521,9 @@ static void REGAL_CALL emu_glVertexAttrib1s(GLuint index, GLshort x)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12301,16 +13537,18 @@ static void REGAL_CALL emu_glVertexAttrib1s(GLuint index, GLshort x)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, index, x );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, index, x );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib1s(index, x);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib1s(index, x);
+         break;
        }
 
    }
@@ -12329,7 +13567,9 @@ static void REGAL_CALL emu_glVertexAttrib1sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12343,16 +13583,18 @@ static void REGAL_CALL emu_glVertexAttrib1sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<1>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<1>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib1sv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib1sv(index, v);
+         break;
        }
 
    }
@@ -12371,7 +13613,9 @@ static void REGAL_CALL emu_glVertexAttrib2d(GLuint index, GLdouble x, GLdouble y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12385,16 +13629,18 @@ static void REGAL_CALL emu_glVertexAttrib2d(GLuint index, GLdouble x, GLdouble y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, index, x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, index, x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib2d(index, x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib2d(index, x, y);
+         break;
        }
 
    }
@@ -12413,7 +13659,9 @@ static void REGAL_CALL emu_glVertexAttrib2dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12427,16 +13675,18 @@ static void REGAL_CALL emu_glVertexAttrib2dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib2dv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib2dv(index, v);
+         break;
        }
 
    }
@@ -12455,7 +13705,9 @@ static void REGAL_CALL emu_glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12469,16 +13721,18 @@ static void REGAL_CALL emu_glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, index, x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, index, x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib2f(index, x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib2f(index, x, y);
+         break;
        }
 
    }
@@ -12497,7 +13751,9 @@ static void REGAL_CALL emu_glVertexAttrib2fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12511,16 +13767,18 @@ static void REGAL_CALL emu_glVertexAttrib2fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib2fv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib2fv(index, v);
+         break;
        }
 
    }
@@ -12539,7 +13797,9 @@ static void REGAL_CALL emu_glVertexAttrib2s(GLuint index, GLshort x, GLshort y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12553,16 +13813,18 @@ static void REGAL_CALL emu_glVertexAttrib2s(GLuint index, GLshort x, GLshort y)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, index, x, y );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, index, x, y );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib2s(index, x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib2s(index, x, y);
+         break;
        }
 
    }
@@ -12581,7 +13843,9 @@ static void REGAL_CALL emu_glVertexAttrib2sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12595,16 +13859,18 @@ static void REGAL_CALL emu_glVertexAttrib2sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<2>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<2>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib2sv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib2sv(index, v);
+         break;
        }
 
    }
@@ -12623,7 +13889,9 @@ static void REGAL_CALL emu_glVertexAttrib3d(GLuint index, GLdouble x, GLdouble y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12637,16 +13905,18 @@ static void REGAL_CALL emu_glVertexAttrib3d(GLuint index, GLdouble x, GLdouble y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, index, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, index, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib3d(index, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib3d(index, x, y, z);
+         break;
        }
 
    }
@@ -12665,7 +13935,9 @@ static void REGAL_CALL emu_glVertexAttrib3dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12679,16 +13951,18 @@ static void REGAL_CALL emu_glVertexAttrib3dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib3dv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib3dv(index, v);
+         break;
        }
 
    }
@@ -12707,7 +13981,9 @@ static void REGAL_CALL emu_glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12721,16 +13997,18 @@ static void REGAL_CALL emu_glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, index, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, index, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib3f(index, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib3f(index, x, y, z);
+         break;
        }
 
    }
@@ -12749,7 +14027,9 @@ static void REGAL_CALL emu_glVertexAttrib3fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12763,16 +14043,18 @@ static void REGAL_CALL emu_glVertexAttrib3fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib3fv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib3fv(index, v);
+         break;
        }
 
    }
@@ -12791,7 +14073,9 @@ static void REGAL_CALL emu_glVertexAttrib3s(GLuint index, GLshort x, GLshort y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12805,16 +14089,18 @@ static void REGAL_CALL emu_glVertexAttrib3s(GLuint index, GLshort x, GLshort y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, index, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, index, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib3s(index, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib3s(index, x, y, z);
+         break;
        }
 
    }
@@ -12833,7 +14119,9 @@ static void REGAL_CALL emu_glVertexAttrib3sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12847,16 +14135,18 @@ static void REGAL_CALL emu_glVertexAttrib3sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<3>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib3sv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib3sv(index, v);
+         break;
        }
 
    }
@@ -12875,7 +14165,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nbv(GLuint index, const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12889,16 +14181,18 @@ static void REGAL_CALL emu_glVertexAttrib4Nbv(GLuint index, const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4Nbv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4Nbv(index, v);
+         break;
        }
 
    }
@@ -12917,7 +14211,9 @@ static void REGAL_CALL emu_glVertexAttrib4Niv(GLuint index, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12931,16 +14227,18 @@ static void REGAL_CALL emu_glVertexAttrib4Niv(GLuint index, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4Niv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4Niv(index, v);
+         break;
        }
 
    }
@@ -12959,7 +14257,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nsv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -12973,16 +14273,18 @@ static void REGAL_CALL emu_glVertexAttrib4Nsv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4Nsv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4Nsv(index, v);
+         break;
        }
 
    }
@@ -13001,7 +14303,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nub(GLuint index, GLubyte x, GLubyte y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13015,16 +14319,18 @@ static void REGAL_CALL emu_glVertexAttrib4Nub(GLuint index, GLubyte x, GLubyte y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4Nub(index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4Nub(index, x, y, z, w);
+         break;
        }
 
    }
@@ -13043,7 +14349,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nubv(GLuint index, const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13057,16 +14365,18 @@ static void REGAL_CALL emu_glVertexAttrib4Nubv(GLuint index, const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4Nubv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4Nubv(index, v);
+         break;
        }
 
    }
@@ -13085,7 +14395,9 @@ static void REGAL_CALL emu_glVertexAttrib4Nusv(GLuint index, const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13099,16 +14411,18 @@ static void REGAL_CALL emu_glVertexAttrib4Nusv(GLuint index, const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4Nusv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4Nusv(index, v);
+         break;
        }
 
    }
@@ -13127,7 +14441,9 @@ static void REGAL_CALL emu_glVertexAttrib4bv(GLuint index, const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13141,16 +14457,18 @@ static void REGAL_CALL emu_glVertexAttrib4bv(GLuint index, const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4bv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4bv(index, v);
+         break;
        }
 
    }
@@ -13169,7 +14487,9 @@ static void REGAL_CALL emu_glVertexAttrib4d(GLuint index, GLdouble x, GLdouble y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13183,16 +14503,18 @@ static void REGAL_CALL emu_glVertexAttrib4d(GLuint index, GLdouble x, GLdouble y
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4d(index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4d(index, x, y, z, w);
+         break;
        }
 
    }
@@ -13211,7 +14533,9 @@ static void REGAL_CALL emu_glVertexAttrib4dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13225,16 +14549,18 @@ static void REGAL_CALL emu_glVertexAttrib4dv(GLuint index, const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4dv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4dv(index, v);
+         break;
        }
 
    }
@@ -13253,7 +14579,9 @@ static void REGAL_CALL emu_glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13267,16 +14595,18 @@ static void REGAL_CALL emu_glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4f(index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4f(index, x, y, z, w);
+         break;
        }
 
    }
@@ -13295,7 +14625,9 @@ static void REGAL_CALL emu_glVertexAttrib4fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13309,16 +14641,18 @@ static void REGAL_CALL emu_glVertexAttrib4fv(GLuint index, const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4fv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4fv(index, v);
+         break;
        }
 
    }
@@ -13337,7 +14671,9 @@ static void REGAL_CALL emu_glVertexAttrib4iv(GLuint index, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13351,16 +14687,18 @@ static void REGAL_CALL emu_glVertexAttrib4iv(GLuint index, const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4iv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4iv(index, v);
+         break;
        }
 
    }
@@ -13379,7 +14717,9 @@ static void REGAL_CALL emu_glVertexAttrib4s(GLuint index, GLshort x, GLshort y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13393,16 +14733,18 @@ static void REGAL_CALL emu_glVertexAttrib4s(GLuint index, GLshort x, GLshort y, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4s(index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4s(index, x, y, z, w);
+         break;
        }
 
    }
@@ -13421,7 +14763,9 @@ static void REGAL_CALL emu_glVertexAttrib4sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13435,16 +14779,18 @@ static void REGAL_CALL emu_glVertexAttrib4sv(GLuint index, const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4sv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4sv(index, v);
+         break;
        }
 
    }
@@ -13463,7 +14809,9 @@ static void REGAL_CALL emu_glVertexAttrib4ubv(GLuint index, const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13477,16 +14825,18 @@ static void REGAL_CALL emu_glVertexAttrib4ubv(GLuint index, const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4ubv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4ubv(index, v);
+         break;
        }
 
    }
@@ -13505,7 +14855,9 @@ static void REGAL_CALL emu_glVertexAttrib4usv(GLuint index, const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13519,16 +14871,18 @@ static void REGAL_CALL emu_glVertexAttrib4usv(GLuint index, const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->Attr<4>( rCtx, index, v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<4>( rCtx, index, v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttrib4usv(index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttrib4usv(index, v);
+         break;
        }
 
    }
@@ -13547,12 +14901,16 @@ static void REGAL_CALL emu_glVertexAttribPointer(GLuint index, GLint size, GLenu
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -13566,14 +14924,16 @@ static void REGAL_CALL emu_glVertexAttribPointer(GLuint index, GLint size, GLenu
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->AttribPointer( rCtx, index, size, type, normalized, stride, pointer );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->AttribPointer( rCtx, index, size, type, normalized, stride, pointer );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttribPointer(index, size, type, normalized, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttribPointer(index, size, type, normalized, stride, pointer);
+         break;
        }
 
    }
@@ -13593,10 +14953,12 @@ static void REGAL_CALL emu_glUniformMatrix2x3fv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13613,9 +14975,9 @@ static void REGAL_CALL emu_glUniformMatrix2x3fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix2x3fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix2x3fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -13633,10 +14995,12 @@ static void REGAL_CALL emu_glUniformMatrix3x2fv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13653,9 +15017,9 @@ static void REGAL_CALL emu_glUniformMatrix3x2fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix3x2fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix3x2fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -13673,10 +15037,12 @@ static void REGAL_CALL emu_glUniformMatrix2x4fv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13693,9 +15059,9 @@ static void REGAL_CALL emu_glUniformMatrix2x4fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix2x4fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix2x4fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -13713,10 +15079,12 @@ static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13733,9 +15101,9 @@ static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix4x2fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix4x2fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -13753,10 +15121,12 @@ static void REGAL_CALL emu_glUniformMatrix3x4fv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13773,9 +15143,9 @@ static void REGAL_CALL emu_glUniformMatrix3x4fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix3x4fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix3x4fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -13793,10 +15163,12 @@ static void REGAL_CALL emu_glUniformMatrix4x3fv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13813,9 +15185,9 @@ static void REGAL_CALL emu_glUniformMatrix4x3fv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix4x3fv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix4x3fv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -13840,7 +15212,9 @@ static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13854,16 +15228,18 @@ static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->EnableIndexed( cap, index );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->EnableIndexed( cap, index );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnablei(cap, index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnablei(cap, index);
+         break;
        }
 
    }
@@ -13882,7 +15258,9 @@ static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -13896,16 +15274,18 @@ static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->DisableIndexed( cap, index );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->DisableIndexed( cap, index );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisablei(cap, index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisablei(cap, index);
+         break;
        }
 
    }
@@ -13927,10 +15307,12 @@ static void REGAL_CALL emu_glUniform1ui(GLint location, GLuint v0)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13947,9 +15329,9 @@ static void REGAL_CALL emu_glUniform1ui(GLint location, GLuint v0)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1ui(location, v0);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1ui(location, v0);
+         break;
        }
 
    }
@@ -13967,10 +15349,12 @@ static void REGAL_CALL emu_glUniform2ui(GLint location, GLuint v0, GLuint v1)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -13987,9 +15371,9 @@ static void REGAL_CALL emu_glUniform2ui(GLint location, GLuint v0, GLuint v1)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2ui(location, v0, v1);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2ui(location, v0, v1);
+         break;
        }
 
    }
@@ -14007,10 +15391,12 @@ static void REGAL_CALL emu_glUniform3ui(GLint location, GLuint v0, GLuint v1, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14027,9 +15413,9 @@ static void REGAL_CALL emu_glUniform3ui(GLint location, GLuint v0, GLuint v1, GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3ui(location, v0, v1, v2);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3ui(location, v0, v1, v2);
+         break;
        }
 
    }
@@ -14047,10 +15433,12 @@ static void REGAL_CALL emu_glUniform4ui(GLint location, GLuint v0, GLuint v1, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14067,9 +15455,9 @@ static void REGAL_CALL emu_glUniform4ui(GLint location, GLuint v0, GLuint v1, GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4ui(location, v0, v1, v2, v3);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4ui(location, v0, v1, v2, v3);
+         break;
        }
 
    }
@@ -14087,10 +15475,12 @@ static void REGAL_CALL emu_glUniform1uiv(GLint location, GLsizei count, const GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14107,9 +15497,9 @@ static void REGAL_CALL emu_glUniform1uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1uiv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1uiv(location, count, value);
+         break;
        }
 
    }
@@ -14127,10 +15517,12 @@ static void REGAL_CALL emu_glUniform2uiv(GLint location, GLsizei count, const GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14147,9 +15539,9 @@ static void REGAL_CALL emu_glUniform2uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2uiv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2uiv(location, count, value);
+         break;
        }
 
    }
@@ -14167,10 +15559,12 @@ static void REGAL_CALL emu_glUniform3uiv(GLint location, GLsizei count, const GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14187,9 +15581,9 @@ static void REGAL_CALL emu_glUniform3uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3uiv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3uiv(location, count, value);
+         break;
        }
 
    }
@@ -14207,10 +15601,12 @@ static void REGAL_CALL emu_glUniform4uiv(GLint location, GLsizei count, const GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14227,9 +15623,9 @@ static void REGAL_CALL emu_glUniform4uiv(GLint location, GLsizei count, const GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4uiv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4uiv(location, count, value);
+         break;
        }
 
    }
@@ -14249,20 +15645,26 @@ static void REGAL_CALL emu_glDrawArraysInstanced(GLenum mode, GLint start, GLsiz
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -14277,9 +15679,9 @@ static void REGAL_CALL emu_glDrawArraysInstanced(GLenum mode, GLint start, GLsiz
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawArraysInstanced(mode, start, count, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawArraysInstanced(mode, start, count, primcount);
+         break;
        }
 
    }
@@ -14297,20 +15699,26 @@ static void REGAL_CALL emu_glDrawElementsInstanced(GLenum mode, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -14325,9 +15733,9 @@ static void REGAL_CALL emu_glDrawElementsInstanced(GLenum mode, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementsInstanced(mode, count, type, indices, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementsInstanced(mode, count, type, indices, primcount);
+         break;
        }
 
    }
@@ -14345,11 +15753,13 @@ static void REGAL_CALL emu_glTexBuffer(GLenum target, GLenum internalformat, GLu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14366,9 +15776,9 @@ static void REGAL_CALL emu_glTexBuffer(GLenum target, GLenum internalformat, GLu
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexBuffer(target, internalformat, buffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexBuffer(target, internalformat, buffer);
+         break;
        }
 
    }
@@ -14388,10 +15798,12 @@ static void REGAL_CALL emu_glFramebufferTexture(GLenum target, GLenum attachment
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14408,9 +15820,9 @@ static void REGAL_CALL emu_glFramebufferTexture(GLenum target, GLenum attachment
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture(target, attachment, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture(target, attachment, texture, level);
+         break;
        }
 
    }
@@ -14428,10 +15840,12 @@ static void REGAL_CALL emu_glFramebufferTextureFace(GLenum target, GLenum attach
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14448,9 +15862,9 @@ static void REGAL_CALL emu_glFramebufferTextureFace(GLenum target, GLenum attach
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureFace(target, attachment, texture, level, face);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureFace(target, attachment, texture, level, face);
+         break;
        }
 
    }
@@ -14482,20 +15896,26 @@ static void REGAL_CALL emu_glDrawArraysIndirect(GLenum mode, const GLvoid *indir
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -14510,9 +15930,9 @@ static void REGAL_CALL emu_glDrawArraysIndirect(GLenum mode, const GLvoid *indir
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawArraysIndirect(mode, indirect);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawArraysIndirect(mode, indirect);
+         break;
        }
 
    }
@@ -14530,20 +15950,26 @@ static void REGAL_CALL emu_glDrawElementsIndirect(GLenum mode, GLenum type, cons
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -14558,9 +15984,9 @@ static void REGAL_CALL emu_glDrawElementsIndirect(GLenum mode, GLenum type, cons
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementsIndirect(mode, type, indirect);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementsIndirect(mode, type, indirect);
+         break;
        }
 
    }
@@ -14580,10 +16006,12 @@ static void REGAL_CALL emu_glUniform1d(GLint location, GLdouble x)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14600,9 +16028,9 @@ static void REGAL_CALL emu_glUniform1d(GLint location, GLdouble x)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1d(location, x);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1d(location, x);
+         break;
        }
 
    }
@@ -14620,10 +16048,12 @@ static void REGAL_CALL emu_glUniform2d(GLint location, GLdouble x, GLdouble y)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14640,9 +16070,9 @@ static void REGAL_CALL emu_glUniform2d(GLint location, GLdouble x, GLdouble y)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2d(location, x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2d(location, x, y);
+         break;
        }
 
    }
@@ -14660,10 +16090,12 @@ static void REGAL_CALL emu_glUniform3d(GLint location, GLdouble x, GLdouble y, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14680,9 +16112,9 @@ static void REGAL_CALL emu_glUniform3d(GLint location, GLdouble x, GLdouble y, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3d(location, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3d(location, x, y, z);
+         break;
        }
 
    }
@@ -14700,10 +16132,12 @@ static void REGAL_CALL emu_glUniform4d(GLint location, GLdouble x, GLdouble y, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14720,9 +16154,9 @@ static void REGAL_CALL emu_glUniform4d(GLint location, GLdouble x, GLdouble y, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4d(location, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4d(location, x, y, z, w);
+         break;
        }
 
    }
@@ -14740,10 +16174,12 @@ static void REGAL_CALL emu_glUniform1dv(GLint location, GLsizei count, const GLd
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14760,9 +16196,9 @@ static void REGAL_CALL emu_glUniform1dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform1dv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform1dv(location, count, value);
+         break;
        }
 
    }
@@ -14780,10 +16216,12 @@ static void REGAL_CALL emu_glUniform2dv(GLint location, GLsizei count, const GLd
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14800,9 +16238,9 @@ static void REGAL_CALL emu_glUniform2dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform2dv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform2dv(location, count, value);
+         break;
        }
 
    }
@@ -14820,10 +16258,12 @@ static void REGAL_CALL emu_glUniform3dv(GLint location, GLsizei count, const GLd
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14840,9 +16280,9 @@ static void REGAL_CALL emu_glUniform3dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform3dv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform3dv(location, count, value);
+         break;
        }
 
    }
@@ -14860,10 +16300,12 @@ static void REGAL_CALL emu_glUniform4dv(GLint location, GLsizei count, const GLd
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14880,9 +16322,9 @@ static void REGAL_CALL emu_glUniform4dv(GLint location, GLsizei count, const GLd
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniform4dv(location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniform4dv(location, count, value);
+         break;
        }
 
    }
@@ -14900,10 +16342,12 @@ static void REGAL_CALL emu_glUniformMatrix2dv(GLint location, GLsizei count, GLb
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14920,9 +16364,9 @@ static void REGAL_CALL emu_glUniformMatrix2dv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix2dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix2dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -14940,10 +16384,12 @@ static void REGAL_CALL emu_glUniformMatrix3dv(GLint location, GLsizei count, GLb
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -14960,9 +16406,9 @@ static void REGAL_CALL emu_glUniformMatrix3dv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix3dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix3dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -14980,10 +16426,12 @@ static void REGAL_CALL emu_glUniformMatrix4dv(GLint location, GLsizei count, GLb
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15000,9 +16448,9 @@ static void REGAL_CALL emu_glUniformMatrix4dv(GLint location, GLsizei count, GLb
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix4dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix4dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15020,10 +16468,12 @@ static void REGAL_CALL emu_glUniformMatrix2x3dv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15040,9 +16490,9 @@ static void REGAL_CALL emu_glUniformMatrix2x3dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix2x3dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix2x3dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15060,10 +16510,12 @@ static void REGAL_CALL emu_glUniformMatrix2x4dv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15080,9 +16532,9 @@ static void REGAL_CALL emu_glUniformMatrix2x4dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix2x4dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix2x4dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15100,10 +16552,12 @@ static void REGAL_CALL emu_glUniformMatrix3x2dv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15120,9 +16574,9 @@ static void REGAL_CALL emu_glUniformMatrix3x2dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix3x2dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix3x2dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15140,10 +16594,12 @@ static void REGAL_CALL emu_glUniformMatrix3x4dv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15160,9 +16616,9 @@ static void REGAL_CALL emu_glUniformMatrix3x4dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix3x4dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix3x4dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15180,10 +16636,12 @@ static void REGAL_CALL emu_glUniformMatrix4x2dv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15200,9 +16658,9 @@ static void REGAL_CALL emu_glUniformMatrix4x2dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix4x2dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix4x2dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15220,10 +16678,12 @@ static void REGAL_CALL emu_glUniformMatrix4x3dv(GLint location, GLsizei count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreGlslProgram( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15240,9 +16700,9 @@ static void REGAL_CALL emu_glUniformMatrix4x3dv(GLint location, GLsizei count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glUniformMatrix4x3dv(location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUniformMatrix4x3dv(location, count, transpose, value);
+         break;
        }
 
    }
@@ -15273,7 +16733,9 @@ static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, 
        case 6 :
        case 5 :
        case 4 :
-           if (rCtx->bin) break;
+         #if REGAL_EMU_BIN
+         if (rCtx->bin) break;
+         #endif
        case 3 :
        case 2 :
        case 1 :
@@ -15287,18 +16749,20 @@ static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, 
        case 6 :
        case 5 :
        case 4 :
-           if (rCtx->bin) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->bin );
-               rCtx->bin->ShaderBinary( rCtx, count, shaders, binaryformat, binary, length );
-               return;
-           }
+         #if REGAL_EMU_BIN
+         if (rCtx->bin) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->bin );
+             rCtx->bin->ShaderBinary( rCtx, count, shaders, binaryformat, binary, length );
+             return;
+         }
+         #endif
        case 3 :
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glShaderBinary(count, shaders, binaryformat, binary, length);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glShaderBinary(count, shaders, binaryformat, binary, length);
+         break;
        }
 
    }
@@ -15320,7 +16784,9 @@ static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15334,19 +16800,21 @@ static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
-                   rCtx->dsp->emuTbl.glGetFloati_v( target, index, v );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
+                 rCtx->dsp->emuTbl.glGetFloati_v( target, index, v );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetFloati_v(target, index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFloati_v(target, index, v);
+         break;
        }
 
    }
@@ -15364,7 +16832,9 @@ static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15378,19 +16848,21 @@ static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
-                   rCtx->dsp->emuTbl.glGetDoublei_v( target, index, v );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
+                 rCtx->dsp->emuTbl.glGetDoublei_v( target, index, v );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetDoublei_v(target, index, v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetDoublei_v(target, index, v);
+         break;
        }
 
    }
@@ -15413,7 +16885,9 @@ static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -15427,18 +16901,20 @@ static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               if( ! rCtx->iff->ShadowActiveTexture( texture ) ) {
-                   rCtx->dsp->emuTbl.glActiveTextureARB( texture );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowActiveTexture( texture ) ) {
+                 rCtx->dsp->emuTbl.glActiveTextureARB( texture );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glActiveTextureARB(texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glActiveTextureARB(texture);
+         break;
        }
 
    }
@@ -15457,10 +16933,12 @@ static void REGAL_CALL emu_glClientActiveTextureARB(GLenum texture)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowClientActiveTexture( texture );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowClientActiveTexture( texture );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -15476,9 +16954,9 @@ static void REGAL_CALL emu_glClientActiveTextureARB(GLenum texture)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glClientActiveTextureARB(texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glClientActiveTextureARB(texture);
+         break;
        }
 
    }
@@ -15513,12 +16991,16 @@ static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -15532,14 +17014,16 @@ static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GL
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->AttribPointer( rCtx, index, size, type, normalized, stride, pointer );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->AttribPointer( rCtx, index, size, type, normalized, stride, pointer );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
+         break;
        }
 
    }
@@ -15558,13 +17042,17 @@ static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               rCtx->iff->EnableArray( rCtx, index );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             rCtx->iff->EnableArray( rCtx, index );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -15578,14 +17066,16 @@ static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->EnableVertexAttribArray( rCtx, index );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->EnableVertexAttribArray( rCtx, index );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnableVertexAttribArrayARB(index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableVertexAttribArrayARB(index);
+         break;
        }
 
    }
@@ -15604,13 +17094,17 @@ static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               rCtx->iff->DisableArray( rCtx, index );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             rCtx->iff->DisableArray( rCtx, index );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -15624,14 +17118,16 @@ static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->DisableVertexAttribArray( rCtx, index );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->DisableVertexAttribArray( rCtx, index );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisableVertexAttribArrayARB(index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableVertexAttribArrayARB(index);
+         break;
        }
 
    }
@@ -15649,7 +17145,9 @@ static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15663,19 +17161,21 @@ static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowAsmProgram( target, program ) ) {
-                   rCtx->dsp->emuTbl.glBindProgramARB( target, program );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowAsmProgram( target, program ) ) {
+                 rCtx->dsp->emuTbl.glBindProgramARB( target, program );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindProgramARB(target, program);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindProgramARB(target, program);
+         break;
        }
 
    }
@@ -15693,10 +17193,12 @@ static void REGAL_CALL emu_glProgramEnvParameter4dARB(GLenum target, GLuint inde
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15713,9 +17215,9 @@ static void REGAL_CALL emu_glProgramEnvParameter4dARB(GLenum target, GLuint inde
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameter4dARB(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameter4dARB(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -15733,10 +17235,12 @@ static void REGAL_CALL emu_glProgramEnvParameter4dvARB(GLenum target, GLuint ind
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15753,9 +17257,9 @@ static void REGAL_CALL emu_glProgramEnvParameter4dvARB(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameter4dvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameter4dvARB(target, index, params);
+         break;
        }
 
    }
@@ -15773,10 +17277,12 @@ static void REGAL_CALL emu_glProgramEnvParameter4fARB(GLenum target, GLuint inde
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15793,9 +17299,9 @@ static void REGAL_CALL emu_glProgramEnvParameter4fARB(GLenum target, GLuint inde
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameter4fARB(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameter4fARB(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -15813,10 +17319,12 @@ static void REGAL_CALL emu_glProgramEnvParameter4fvARB(GLenum target, GLuint ind
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15833,9 +17341,9 @@ static void REGAL_CALL emu_glProgramEnvParameter4fvARB(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameter4fvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameter4fvARB(target, index, params);
+         break;
        }
 
    }
@@ -15853,10 +17361,12 @@ static void REGAL_CALL emu_glProgramLocalParameter4dARB(GLenum target, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15873,9 +17383,9 @@ static void REGAL_CALL emu_glProgramLocalParameter4dARB(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameter4dARB(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameter4dARB(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -15893,10 +17403,12 @@ static void REGAL_CALL emu_glProgramLocalParameter4dvARB(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15913,9 +17425,9 @@ static void REGAL_CALL emu_glProgramLocalParameter4dvARB(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameter4dvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameter4dvARB(target, index, params);
+         break;
        }
 
    }
@@ -15933,10 +17445,12 @@ static void REGAL_CALL emu_glProgramLocalParameter4fARB(GLenum target, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15953,9 +17467,9 @@ static void REGAL_CALL emu_glProgramLocalParameter4fARB(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameter4fARB(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameter4fARB(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -15973,10 +17487,12 @@ static void REGAL_CALL emu_glProgramLocalParameter4fvARB(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -15993,9 +17509,9 @@ static void REGAL_CALL emu_glProgramLocalParameter4fvARB(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameter4fvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameter4fvARB(target, index, params);
+         break;
        }
 
    }
@@ -16013,10 +17529,12 @@ static void REGAL_CALL emu_glGetProgramEnvParameterdvARB(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16033,9 +17551,9 @@ static void REGAL_CALL emu_glGetProgramEnvParameterdvARB(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramEnvParameterdvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramEnvParameterdvARB(target, index, params);
+         break;
        }
 
    }
@@ -16053,10 +17571,12 @@ static void REGAL_CALL emu_glGetProgramEnvParameterfvARB(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16073,9 +17593,9 @@ static void REGAL_CALL emu_glGetProgramEnvParameterfvARB(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramEnvParameterfvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramEnvParameterfvARB(target, index, params);
+         break;
        }
 
    }
@@ -16093,10 +17613,12 @@ static void REGAL_CALL emu_glGetProgramLocalParameterdvARB(GLenum target, GLuint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16113,9 +17635,9 @@ static void REGAL_CALL emu_glGetProgramLocalParameterdvARB(GLenum target, GLuint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramLocalParameterdvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramLocalParameterdvARB(target, index, params);
+         break;
        }
 
    }
@@ -16133,10 +17655,12 @@ static void REGAL_CALL emu_glGetProgramLocalParameterfvARB(GLenum target, GLuint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16153,9 +17677,9 @@ static void REGAL_CALL emu_glGetProgramLocalParameterfvARB(GLenum target, GLuint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramLocalParameterfvARB(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramLocalParameterfvARB(target, index, params);
+         break;
        }
 
    }
@@ -16174,12 +17698,16 @@ static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -16193,15 +17721,17 @@ static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GL
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, params );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribdvARB(index, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribdvARB(index, pname, params);
+         break;
        }
 
    }
@@ -16220,12 +17750,16 @@ static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -16239,15 +17773,17 @@ static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GL
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, params );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribfvARB(index, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribfvARB(index, pname, params);
+         break;
        }
 
    }
@@ -16266,12 +17802,16 @@ static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -16285,15 +17825,17 @@ static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GL
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, params );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribivARB(index, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribivARB(index, pname, params);
+         break;
        }
 
    }
@@ -16312,12 +17854,16 @@ static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pna
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -16331,15 +17877,17 @@ static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pna
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GetAttrib( index, pname, pointer );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, pointer );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetVertexAttribPointervARB(index, pname, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribPointervARB(index, pname, pointer);
+         break;
        }
 
    }
@@ -16355,17 +17903,21 @@ static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->ShadowBufferBinding( target, buffer );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->ShadowBufferBinding( target, buffer );
+         }
+         #endif
        default:
            break;
    }
@@ -16373,11 +17925,13 @@ static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->BindBuffer( rCtx, target, buffer );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->BindBuffer( rCtx, target, buffer );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16385,9 +17939,9 @@ static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindBufferARB(target, buffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindBufferARB(target, buffer);
+         break;
        }
 
    }
@@ -16401,7 +17955,9 @@ static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16415,11 +17971,13 @@ static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->DeleteBuffers( rCtx, n, buffers );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->DeleteBuffers( rCtx, n, buffers );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16427,9 +17985,9 @@ static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDeleteBuffersARB(n, buffers);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDeleteBuffersARB(n, buffers);
+         break;
        }
 
    }
@@ -16443,7 +18001,9 @@ static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16457,11 +18017,13 @@ static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->GenBuffers( rCtx, n, buffers );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->GenBuffers( rCtx, n, buffers );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16469,9 +18031,9 @@ static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenBuffersARB(n, buffers);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenBuffersARB(n, buffers);
+         break;
        }
 
    }
@@ -16485,7 +18047,9 @@ static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16499,10 +18063,12 @@ static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               return rCtx->obj->IsBuffer( rCtx, buffer );
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             return rCtx->obj->IsBuffer( rCtx, buffer );
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
@@ -16510,8 +18076,8 @@ static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glIsBufferARB(buffer);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsBufferARB(buffer);
        }
 
    }
@@ -16529,10 +18095,12 @@ static GLvoid *REGAL_CALL emu_glMapBufferARB(GLenum target, GLenum access)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16549,8 +18117,8 @@ static GLvoid *REGAL_CALL emu_glMapBufferARB(GLenum target, GLenum access)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glMapBufferARB(target, access);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapBufferARB(target, access);
        }
 
    }
@@ -16568,10 +18136,12 @@ static GLboolean REGAL_CALL emu_glUnmapBufferARB(GLenum target)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16588,8 +18158,8 @@ static GLboolean REGAL_CALL emu_glUnmapBufferARB(GLenum target)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glUnmapBufferARB(target);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glUnmapBufferARB(target);
        }
 
    }
@@ -16619,20 +18189,26 @@ static void REGAL_CALL emu_glDrawArraysInstancedARB(GLenum mode, GLint start, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -16647,9 +18223,9 @@ static void REGAL_CALL emu_glDrawArraysInstancedARB(GLenum mode, GLint start, GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawArraysInstancedARB(mode, start, count, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawArraysInstancedARB(mode, start, count, primcount);
+         break;
        }
 
    }
@@ -16667,20 +18243,26 @@ static void REGAL_CALL emu_glDrawElementsInstancedARB(GLenum mode, GLsizei count
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -16695,9 +18277,9 @@ static void REGAL_CALL emu_glDrawElementsInstancedARB(GLenum mode, GLsizei count
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementsInstancedARB(mode, count, type, indices, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementsInstancedARB(mode, count, type, indices, primcount);
+         break;
        }
 
    }
@@ -16717,10 +18299,12 @@ static void REGAL_CALL emu_glRenderbufferStorage(GLenum target, GLenum internalf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16737,9 +18321,9 @@ static void REGAL_CALL emu_glRenderbufferStorage(GLenum target, GLenum internalf
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRenderbufferStorage(target, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRenderbufferStorage(target, internalformat, width, height);
+         break;
        }
 
    }
@@ -16757,7 +18341,9 @@ static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16771,19 +18357,21 @@ static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowFramebuffer( target, framebuffer ) ) {
-                   rCtx->dsp->emuTbl.glBindFramebuffer( target, framebuffer );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowFramebuffer( target, framebuffer ) ) {
+                 rCtx->dsp->emuTbl.glBindFramebuffer( target, framebuffer );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindFramebuffer(target, framebuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindFramebuffer(target, framebuffer);
+         break;
        }
 
    }
@@ -16801,10 +18389,12 @@ static void REGAL_CALL emu_glFramebufferTexture1D(GLenum target, GLenum attachme
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16821,9 +18411,9 @@ static void REGAL_CALL emu_glFramebufferTexture1D(GLenum target, GLenum attachme
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture1D(target, attachment, textarget, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture1D(target, attachment, textarget, texture, level);
+         break;
        }
 
    }
@@ -16841,10 +18431,12 @@ static void REGAL_CALL emu_glFramebufferTexture2D(GLenum target, GLenum attachme
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16861,9 +18453,9 @@ static void REGAL_CALL emu_glFramebufferTexture2D(GLenum target, GLenum attachme
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture2D(target, attachment, textarget, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture2D(target, attachment, textarget, texture, level);
+         break;
        }
 
    }
@@ -16881,10 +18473,12 @@ static void REGAL_CALL emu_glFramebufferTexture3D(GLenum target, GLenum attachme
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16901,9 +18495,9 @@ static void REGAL_CALL emu_glFramebufferTexture3D(GLenum target, GLenum attachme
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
+         break;
        }
 
    }
@@ -16921,10 +18515,12 @@ static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attac
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16941,9 +18537,9 @@ static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attac
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
+         break;
        }
 
    }
@@ -16961,11 +18557,13 @@ static void REGAL_CALL emu_glGenerateMipmap(GLenum target)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -16982,9 +18580,9 @@ static void REGAL_CALL emu_glGenerateMipmap(GLenum target)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenerateMipmap(target);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenerateMipmap(target);
+         break;
        }
 
    }
@@ -17002,10 +18600,12 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisample(GLenum target, GLsiz
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17022,9 +18622,9 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisample(GLenum target, GLsiz
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
+         break;
        }
 
    }
@@ -17042,10 +18642,12 @@ static void REGAL_CALL emu_glFramebufferTextureLayer(GLenum target, GLenum attac
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17062,9 +18664,9 @@ static void REGAL_CALL emu_glFramebufferTextureLayer(GLenum target, GLenum attac
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureLayer(target, attachment, texture, level, layer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureLayer(target, attachment, texture, level, layer);
+         break;
        }
 
    }
@@ -17084,10 +18686,12 @@ static void REGAL_CALL emu_glFramebufferTextureARB(GLenum target, GLenum attachm
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17104,9 +18708,9 @@ static void REGAL_CALL emu_glFramebufferTextureARB(GLenum target, GLenum attachm
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureARB(target, attachment, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureARB(target, attachment, texture, level);
+         break;
        }
 
    }
@@ -17124,10 +18728,12 @@ static void REGAL_CALL emu_glFramebufferTextureLayerARB(GLenum target, GLenum at
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17144,9 +18750,9 @@ static void REGAL_CALL emu_glFramebufferTextureLayerARB(GLenum target, GLenum at
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
+         break;
        }
 
    }
@@ -17164,10 +18770,12 @@ static void REGAL_CALL emu_glFramebufferTextureFaceARB(GLenum target, GLenum att
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17184,9 +18792,9 @@ static void REGAL_CALL emu_glFramebufferTextureFaceARB(GLenum target, GLenum att
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureFaceARB(target, attachment, texture, level, face);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureFaceARB(target, attachment, texture, level, face);
+         break;
        }
 
    }
@@ -17208,10 +18816,12 @@ static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17228,8 +18838,8 @@ static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glMapBufferRange(target, offset, length, access);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapBufferRange(target, offset, length, access);
        }
 
    }
@@ -17247,10 +18857,12 @@ static void REGAL_CALL emu_glFlushMappedBufferRange(GLenum target, GLintptr offs
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17267,9 +18879,9 @@ static void REGAL_CALL emu_glFlushMappedBufferRange(GLenum target, GLintptr offs
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFlushMappedBufferRange(target, offset, length);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFlushMappedBufferRange(target, offset, length);
+         break;
        }
 
    }
@@ -17287,19 +18899,27 @@ static void REGAL_CALL emu_glBindVertexArray(GLuint array)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowVao( rCtx, array );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowVao( rCtx, array );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -17307,33 +18927,39 @@ static void REGAL_CALL emu_glBindVertexArray(GLuint array)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->BindVertexArray( rCtx, array );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->BindVertexArray( rCtx, array );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if( false == rCtx->dsa->ShadowVao( array ) ) {
-                   rCtx->dsp->emuTbl.glBindVertexArray( array );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowVao( array ) ) {
+                 rCtx->dsp->emuTbl.glBindVertexArray( array );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->BindVertexArray( rCtx, array );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->BindVertexArray( rCtx, array );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindVertexArray(array);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindVertexArray(array);
+         break;
        }
 
    }
@@ -17347,15 +18973,21 @@ static void REGAL_CALL emu_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -17363,31 +18995,37 @@ static void REGAL_CALL emu_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->DeleteVertexArrays( rCtx, n, arrays );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->DeleteVertexArrays( rCtx, n, arrays );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->DeleteVertexArrays( rCtx, n, arrays );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->DeleteVertexArrays( rCtx, n, arrays );
+             return;
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->DeleteVertexArrays( n, arrays );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->DeleteVertexArrays( n, arrays );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDeleteVertexArrays(n, arrays);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDeleteVertexArrays(n, arrays);
+         break;
        }
 
    }
@@ -17401,14 +19039,18 @@ static void REGAL_CALL emu_glGenVertexArrays(GLsizei n, GLuint *arrays)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -17416,26 +19058,30 @@ static void REGAL_CALL emu_glGenVertexArrays(GLsizei n, GLuint *arrays)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               rCtx->obj->GenVertexArrays( rCtx, n, arrays );
-               return;
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->GenVertexArrays( rCtx, n, arrays );
+             return;
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               rCtx->vao->GenVertexArrays( n, arrays );
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GenVertexArrays( n, arrays );
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenVertexArrays(n, arrays);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenVertexArrays(n, arrays);
+         break;
        }
 
    }
@@ -17449,15 +19095,21 @@ static GLboolean REGAL_CALL emu_glIsVertexArray(GLuint array)
    // prefix
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) break;
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -17465,27 +19117,33 @@ static GLboolean REGAL_CALL emu_glIsVertexArray(GLuint array)
    // impl
    switch( rCtx->emuLevel ) {
        case 7 :
-           if (rCtx->obj) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-               return rCtx->obj->IsVertexArray( rCtx, array );
-           }
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             return rCtx->obj->IsVertexArray( rCtx, array );
+         }
+         #endif
        case 6 :
        case 5 :
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               return rCtx->iff->IsVertexArray( rCtx, array );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             return rCtx->iff->IsVertexArray( rCtx, array );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               return rCtx->vao->IsVertexArray( array );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->IsVertexArray( array );
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glIsVertexArray(array);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsVertexArray(array);
        }
 
    }
@@ -17507,10 +19165,12 @@ static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writeta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreBuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -17527,9 +19187,9 @@ static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writeta
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
+         break;
        }
 
    }
@@ -17549,20 +19209,26 @@ static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -17577,9 +19243,9 @@ static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, 
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
+         break;
        }
 
    }
@@ -17597,20 +19263,26 @@ static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsize
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -17625,9 +19297,9 @@ static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsize
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
+         break;
        }
 
    }
@@ -17645,20 +19317,26 @@ static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *c
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -17673,9 +19351,9 @@ static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *c
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
+         break;
        }
 
    }
@@ -17699,7 +19377,9 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) break;
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
        default:
            break;
    }
@@ -17713,17 +19393,19 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
        case 3 :
        case 2 :
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               if( !rCtx->vao->Get( pname, params ) ) {
-                  rCtx->dsp->emuTbl.glGetInteger64v( pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetInteger64v( pname, params );
+             }
+             return;
+         }
+         #endif
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetInteger64v(pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetInteger64v(pname, params);
+         break;
        }
 
    }
@@ -17744,10 +19426,12 @@ static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei sample
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -17763,9 +19447,9 @@ static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei sample
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
+         break;
        }
 
    }
@@ -17784,10 +19468,12 @@ static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei sample
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -17803,9 +19489,9 @@ static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei sample
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
+         break;
        }
 
    }
@@ -17840,10 +19526,12 @@ static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum in
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -17859,9 +19547,9 @@ static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum in
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
+         break;
        }
 
    }
@@ -17898,10 +19586,12 @@ static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum i
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -17917,9 +19607,9 @@ static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, border, format, type, pixels);
+         break;
        }
 
    }
@@ -17940,10 +19630,12 @@ static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexBinding( target, texture );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexBinding( target, texture );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -17959,9 +19651,9 @@ static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindTextureEXT(target, texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindTextureEXT(target, texture);
+         break;
        }
 
    }
@@ -17987,20 +19679,26 @@ static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei cou
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -18015,9 +19713,9 @@ static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei cou
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawArraysEXT(mode, first, count);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawArraysEXT(mode, first, count);
+         break;
        }
 
    }
@@ -18092,7 +19790,9 @@ static void REGAL_CALL emu_glSecondaryColor3bEXT(GLbyte red, GLbyte green, GLbyt
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18106,16 +19806,18 @@ static void REGAL_CALL emu_glSecondaryColor3bEXT(GLbyte red, GLbyte green, GLbyt
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3bEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3bEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18134,7 +19836,9 @@ static void REGAL_CALL emu_glSecondaryColor3bvEXT(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18148,16 +19852,18 @@ static void REGAL_CALL emu_glSecondaryColor3bvEXT(const GLbyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3bvEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3bvEXT(v);
+         break;
        }
 
    }
@@ -18176,7 +19882,9 @@ static void REGAL_CALL emu_glSecondaryColor3dEXT(GLdouble red, GLdouble green, G
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18190,16 +19898,18 @@ static void REGAL_CALL emu_glSecondaryColor3dEXT(GLdouble red, GLdouble green, G
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3dEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3dEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18218,7 +19928,9 @@ static void REGAL_CALL emu_glSecondaryColor3dvEXT(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18232,16 +19944,18 @@ static void REGAL_CALL emu_glSecondaryColor3dvEXT(const GLdouble *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3dvEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3dvEXT(v);
+         break;
        }
 
    }
@@ -18260,7 +19974,9 @@ static void REGAL_CALL emu_glSecondaryColor3fEXT(GLfloat red, GLfloat green, GLf
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18274,16 +19990,18 @@ static void REGAL_CALL emu_glSecondaryColor3fEXT(GLfloat red, GLfloat green, GLf
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3fEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3fEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18302,7 +20020,9 @@ static void REGAL_CALL emu_glSecondaryColor3fvEXT(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18316,16 +20036,18 @@ static void REGAL_CALL emu_glSecondaryColor3fvEXT(const GLfloat *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Attr<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3fvEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3fvEXT(v);
+         break;
        }
 
    }
@@ -18344,7 +20066,9 @@ static void REGAL_CALL emu_glSecondaryColor3iEXT(GLint red, GLint green, GLint b
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18358,16 +20082,18 @@ static void REGAL_CALL emu_glSecondaryColor3iEXT(GLint red, GLint green, GLint b
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3iEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3iEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18386,7 +20112,9 @@ static void REGAL_CALL emu_glSecondaryColor3ivEXT(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18400,16 +20128,18 @@ static void REGAL_CALL emu_glSecondaryColor3ivEXT(const GLint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3ivEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3ivEXT(v);
+         break;
        }
 
    }
@@ -18428,7 +20158,9 @@ static void REGAL_CALL emu_glSecondaryColor3sEXT(GLshort red, GLshort green, GLs
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18442,16 +20174,18 @@ static void REGAL_CALL emu_glSecondaryColor3sEXT(GLshort red, GLshort green, GLs
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3sEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3sEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18470,7 +20204,9 @@ static void REGAL_CALL emu_glSecondaryColor3svEXT(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18484,16 +20220,18 @@ static void REGAL_CALL emu_glSecondaryColor3svEXT(const GLshort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3svEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3svEXT(v);
+         break;
        }
 
    }
@@ -18512,7 +20250,9 @@ static void REGAL_CALL emu_glSecondaryColor3ubEXT(GLubyte red, GLubyte green, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18526,16 +20266,18 @@ static void REGAL_CALL emu_glSecondaryColor3ubEXT(GLubyte red, GLubyte green, GL
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3ubEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3ubEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18554,7 +20296,9 @@ static void REGAL_CALL emu_glSecondaryColor3ubvEXT(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18568,16 +20312,18 @@ static void REGAL_CALL emu_glSecondaryColor3ubvEXT(const GLubyte *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3ubvEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3ubvEXT(v);
+         break;
        }
 
    }
@@ -18596,7 +20342,9 @@ static void REGAL_CALL emu_glSecondaryColor3uiEXT(GLuint red, GLuint green, GLui
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18610,16 +20358,18 @@ static void REGAL_CALL emu_glSecondaryColor3uiEXT(GLuint red, GLuint green, GLui
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3uiEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3uiEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18638,7 +20388,9 @@ static void REGAL_CALL emu_glSecondaryColor3uivEXT(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18652,16 +20404,18 @@ static void REGAL_CALL emu_glSecondaryColor3uivEXT(const GLuint *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3uivEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3uivEXT(v);
+         break;
        }
 
    }
@@ -18680,7 +20434,9 @@ static void REGAL_CALL emu_glSecondaryColor3usEXT(GLushort red, GLushort green, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18694,16 +20450,18 @@ static void REGAL_CALL emu_glSecondaryColor3usEXT(GLushort red, GLushort green, 
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), red, green, blue );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3usEXT(red, green, blue);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3usEXT(red, green, blue);
+         break;
        }
 
    }
@@ -18722,7 +20480,9 @@ static void REGAL_CALL emu_glSecondaryColor3usvEXT(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -18736,16 +20496,18 @@ static void REGAL_CALL emu_glSecondaryColor3usvEXT(const GLushort *v)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AttrN<3>( rCtx, rCtx->iff->AttrIndex( RFF2A_SecondaryColor ), v );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glSecondaryColor3usvEXT(v);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glSecondaryColor3usvEXT(v);
+         break;
        }
 
    }
@@ -18767,20 +20529,26 @@ static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -18795,9 +20563,9 @@ static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first,
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawArraysEXT(mode, first, count, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawArraysEXT(mode, first, count, primcount);
+         break;
        }
 
    }
@@ -18815,20 +20583,26 @@ static void REGAL_CALL emu_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -18843,9 +20617,9 @@ static void REGAL_CALL emu_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, G
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawElementsEXT(mode, count, type, indices, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawElementsEXT(mode, count, type, indices, primcount);
+         break;
        }
 
    }
@@ -18923,20 +20697,26 @@ static void REGAL_CALL emu_glDrawElementArrayATI(GLenum mode, GLsizei count)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -18951,9 +20731,9 @@ static void REGAL_CALL emu_glDrawElementArrayATI(GLenum mode, GLsizei count)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementArrayATI(mode, count);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementArrayATI(mode, count);
+         break;
        }
 
    }
@@ -18981,20 +20761,26 @@ static void REGAL_CALL emu_glDrawElementArrayAPPLE(GLenum mode, GLint first, GLs
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -19009,9 +20795,9 @@ static void REGAL_CALL emu_glDrawElementArrayAPPLE(GLenum mode, GLint first, GLs
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementArrayAPPLE(mode, first, count);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementArrayAPPLE(mode, first, count);
+         break;
        }
 
    }
@@ -19029,20 +20815,26 @@ static void REGAL_CALL emu_glMultiDrawElementArrayAPPLE(GLenum mode, const GLint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -19057,9 +20849,9 @@ static void REGAL_CALL emu_glMultiDrawElementArrayAPPLE(GLenum mode, const GLint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
+         break;
        }
 
    }
@@ -19082,10 +20874,12 @@ static void REGAL_CALL emu_glBindVertexArrayAPPLE(GLuint array)
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowVao( rCtx, array );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowVao( rCtx, array );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -19101,9 +20895,9 @@ static void REGAL_CALL emu_glBindVertexArrayAPPLE(GLuint array)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindVertexArrayAPPLE(array);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindVertexArrayAPPLE(array);
+         break;
        }
 
    }
@@ -19145,10 +20939,12 @@ static void REGAL_CALL emu_glRenderbufferStorageEXT(GLenum target, GLenum intern
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19165,9 +20961,9 @@ static void REGAL_CALL emu_glRenderbufferStorageEXT(GLenum target, GLenum intern
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRenderbufferStorageEXT(target, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRenderbufferStorageEXT(target, internalformat, width, height);
+         break;
        }
 
    }
@@ -19185,10 +20981,12 @@ static void REGAL_CALL emu_glFramebufferTexture1DEXT(GLenum target, GLenum attac
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19205,9 +21003,9 @@ static void REGAL_CALL emu_glFramebufferTexture1DEXT(GLenum target, GLenum attac
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
+         break;
        }
 
    }
@@ -19225,10 +21023,12 @@ static void REGAL_CALL emu_glFramebufferTexture2DEXT(GLenum target, GLenum attac
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19245,9 +21045,9 @@ static void REGAL_CALL emu_glFramebufferTexture2DEXT(GLenum target, GLenum attac
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
+         break;
        }
 
    }
@@ -19265,10 +21065,12 @@ static void REGAL_CALL emu_glFramebufferTexture3DEXT(GLenum target, GLenum attac
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19285,9 +21087,9 @@ static void REGAL_CALL emu_glFramebufferTexture3DEXT(GLenum target, GLenum attac
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
+         break;
        }
 
    }
@@ -19305,10 +21107,12 @@ static void REGAL_CALL emu_glFramebufferRenderbufferEXT(GLenum target, GLenum at
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19325,9 +21129,9 @@ static void REGAL_CALL emu_glFramebufferRenderbufferEXT(GLenum target, GLenum at
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
+         break;
        }
 
    }
@@ -19345,11 +21149,13 @@ static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19366,9 +21172,9 @@ static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenerateMipmapEXT(target);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenerateMipmapEXT(target);
+         break;
        }
 
    }
@@ -19394,10 +21200,12 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19414,9 +21222,9 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
+         break;
        }
 
    }
@@ -19442,10 +21250,12 @@ static void REGAL_CALL emu_glProgramLocalParameterI4iNV(GLenum target, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19462,9 +21272,9 @@ static void REGAL_CALL emu_glProgramLocalParameterI4iNV(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameterI4iNV(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameterI4iNV(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -19482,10 +21292,12 @@ static void REGAL_CALL emu_glProgramLocalParameterI4ivNV(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19502,9 +21314,9 @@ static void REGAL_CALL emu_glProgramLocalParameterI4ivNV(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameterI4ivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameterI4ivNV(target, index, params);
+         break;
        }
 
    }
@@ -19522,10 +21334,12 @@ static void REGAL_CALL emu_glProgramLocalParametersI4ivNV(GLenum target, GLuint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19542,9 +21356,9 @@ static void REGAL_CALL emu_glProgramLocalParametersI4ivNV(GLenum target, GLuint 
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParametersI4ivNV(target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParametersI4ivNV(target, index, count, params);
+         break;
        }
 
    }
@@ -19562,10 +21376,12 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uiNV(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19582,9 +21398,9 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uiNV(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -19602,10 +21418,12 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uivNV(GLenum target, GLuint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19622,9 +21440,9 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uivNV(GLenum target, GLuint 
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParameterI4uivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParameterI4uivNV(target, index, params);
+         break;
        }
 
    }
@@ -19642,10 +21460,12 @@ static void REGAL_CALL emu_glProgramLocalParametersI4uivNV(GLenum target, GLuint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19662,9 +21482,9 @@ static void REGAL_CALL emu_glProgramLocalParametersI4uivNV(GLenum target, GLuint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramLocalParametersI4uivNV(target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramLocalParametersI4uivNV(target, index, count, params);
+         break;
        }
 
    }
@@ -19682,10 +21502,12 @@ static void REGAL_CALL emu_glProgramEnvParameterI4iNV(GLenum target, GLuint inde
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19702,9 +21524,9 @@ static void REGAL_CALL emu_glProgramEnvParameterI4iNV(GLenum target, GLuint inde
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameterI4iNV(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameterI4iNV(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -19722,10 +21544,12 @@ static void REGAL_CALL emu_glProgramEnvParameterI4ivNV(GLenum target, GLuint ind
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19742,9 +21566,9 @@ static void REGAL_CALL emu_glProgramEnvParameterI4ivNV(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameterI4ivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameterI4ivNV(target, index, params);
+         break;
        }
 
    }
@@ -19762,10 +21586,12 @@ static void REGAL_CALL emu_glProgramEnvParametersI4ivNV(GLenum target, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19782,9 +21608,9 @@ static void REGAL_CALL emu_glProgramEnvParametersI4ivNV(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParametersI4ivNV(target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParametersI4ivNV(target, index, count, params);
+         break;
        }
 
    }
@@ -19802,10 +21628,12 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uiNV(GLenum target, GLuint ind
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19822,9 +21650,9 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uiNV(GLenum target, GLuint ind
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -19842,10 +21670,12 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uivNV(GLenum target, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19862,9 +21692,9 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uivNV(GLenum target, GLuint in
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParameterI4uivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParameterI4uivNV(target, index, params);
+         break;
        }
 
    }
@@ -19882,10 +21712,12 @@ static void REGAL_CALL emu_glProgramEnvParametersI4uivNV(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19902,9 +21734,9 @@ static void REGAL_CALL emu_glProgramEnvParametersI4uivNV(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramEnvParametersI4uivNV(target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramEnvParametersI4uivNV(target, index, count, params);
+         break;
        }
 
    }
@@ -19922,10 +21754,12 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIivNV(GLenum target, GLuint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19942,9 +21776,9 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIivNV(GLenum target, GLuint
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramLocalParameterIivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramLocalParameterIivNV(target, index, params);
+         break;
        }
 
    }
@@ -19962,10 +21796,12 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIuivNV(GLenum target, GLuin
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -19982,9 +21818,9 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIuivNV(GLenum target, GLuin
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramLocalParameterIuivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramLocalParameterIuivNV(target, index, params);
+         break;
        }
 
    }
@@ -20002,10 +21838,12 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIivNV(GLenum target, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20022,9 +21860,9 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIivNV(GLenum target, GLuint i
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramEnvParameterIivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramEnvParameterIivNV(target, index, params);
+         break;
        }
 
    }
@@ -20042,10 +21880,12 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIuivNV(GLenum target, GLuint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreAsmProgram( rCtx, target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20062,9 +21902,9 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIuivNV(GLenum target, GLuint 
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetProgramEnvParameterIuivNV(target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetProgramEnvParameterIuivNV(target, index, params);
+         break;
        }
 
    }
@@ -20084,10 +21924,12 @@ static void REGAL_CALL emu_glFramebufferTextureEXT(GLenum target, GLenum attachm
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20104,9 +21946,9 @@ static void REGAL_CALL emu_glFramebufferTextureEXT(GLenum target, GLenum attachm
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureEXT(target, attachment, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureEXT(target, attachment, texture, level);
+         break;
        }
 
    }
@@ -20124,10 +21966,12 @@ static void REGAL_CALL emu_glFramebufferTextureFaceEXT(GLenum target, GLenum att
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20144,9 +21988,9 @@ static void REGAL_CALL emu_glFramebufferTextureFaceEXT(GLenum target, GLenum att
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
+         break;
        }
 
    }
@@ -20172,20 +22016,26 @@ static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -20200,9 +22050,9 @@ static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GL
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawArraysInstancedEXT(mode, start, count, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawArraysInstancedEXT(mode, start, count, primcount);
+         break;
        }
 
    }
@@ -20220,20 +22070,26 @@ static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -20248,9 +22104,9 @@ static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
+         break;
        }
 
    }
@@ -20270,10 +22126,12 @@ static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum at
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20290,9 +22148,9 @@ static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum at
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
+         break;
        }
 
    }
@@ -20316,10 +22174,12 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreFramebuffer( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20336,9 +22196,9 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum tar
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
+         break;
        }
 
    }
@@ -20360,9 +22220,13 @@ static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20375,23 +22239,27 @@ static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
-               rCtx->dsp->emuTbl.glEnable( target );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glEnable( target );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->EnableIndexed( target, index );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->EnableIndexed( target, index );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnableIndexedEXT(target, index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableIndexedEXT(target, index);
+         break;
        }
 
    }
@@ -20409,9 +22277,13 @@ static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20424,23 +22296,27 @@ static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
-               rCtx->dsp->emuTbl.glDisable( target );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glDisable( target );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->DisableIndexed( target, index );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->DisableIndexed( target, index );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisableIndexedEXT(target, index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableIndexedEXT(target, index);
+         break;
        }
 
    }
@@ -20458,7 +22334,9 @@ static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint inde
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20472,17 +22350,19 @@ static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint inde
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               GLboolean ret;
-               ret = rCtx->dsa->IsEnabledIndexed( rCtx, target, index );
-               return ret;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             GLboolean ret;
+             ret = rCtx->dsa->IsEnabledIndexed( rCtx, target, index );
+             return ret;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glIsEnabledIndexedEXT(target, index);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsEnabledIndexedEXT(target, index);
        }
 
    }
@@ -20516,7 +22396,9 @@ static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20530,17 +22412,19 @@ static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->ClientAttribDefault( rCtx, mask );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->ClientAttribDefault( rCtx, mask );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glClientAttribDefaultEXT(mask);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glClientAttribDefaultEXT(mask);
+         break;
        }
 
    }
@@ -20558,7 +22442,9 @@ static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -20572,18 +22458,20 @@ static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsp->emuTbl.glPushClientAttrib( mask );
-               rCtx->dsa->ClientAttribDefault( rCtx, mask );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsp->emuTbl.glPushClientAttrib( mask );
+             rCtx->dsa->ClientAttribDefault( rCtx, mask );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glPushClientAttribDefaultEXT(mask);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPushClientAttribDefaultEXT(mask);
+         break;
        }
 
    }
@@ -20601,9 +22489,13 @@ static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20616,23 +22508,27 @@ static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glLoadMatrixf( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadMatrixf( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixLoad( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoad( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixLoadfEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadfEXT(mode, m);
+         break;
        }
 
    }
@@ -20650,9 +22546,13 @@ static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20665,23 +22565,27 @@ static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glLoadMatrixd( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadMatrixd( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixLoad( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoad( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixLoaddEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoaddEXT(mode, m);
+         break;
        }
 
    }
@@ -20699,9 +22603,13 @@ static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20714,23 +22622,27 @@ static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glMultMatrixf( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultMatrixf( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixMult( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMult( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixMultfEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultfEXT(mode, m);
+         break;
        }
 
    }
@@ -20748,9 +22660,13 @@ static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20763,23 +22679,27 @@ static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glMultMatrixd( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultMatrixd( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixMult( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMult( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixMultdEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultdEXT(mode, m);
+         break;
        }
 
    }
@@ -20797,9 +22717,13 @@ static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20812,23 +22736,27 @@ static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glLoadIdentity(  );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadIdentity(  );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixLoadIdentity( mode );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoadIdentity( mode );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixLoadIdentityEXT(mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadIdentityEXT(mode);
+         break;
        }
 
    }
@@ -20846,9 +22774,13 @@ static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloa
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20861,23 +22793,27 @@ static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloa
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glRotatef( angle, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glRotatef( angle, x, y, z );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixRotate( mode, angle, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixRotate( mode, angle, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixRotatefEXT(mode, angle, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixRotatefEXT(mode, angle, x, y, z);
+         break;
        }
 
    }
@@ -20895,9 +22831,13 @@ static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdou
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20910,23 +22850,27 @@ static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdou
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glRotated( angle, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glRotated( angle, x, y, z );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixRotate( mode, angle, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixRotate( mode, angle, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixRotatedEXT(mode, angle, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixRotatedEXT(mode, angle, x, y, z);
+         break;
        }
 
    }
@@ -20944,9 +22888,13 @@ static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -20959,23 +22907,27 @@ static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glScalef( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glScalef( x, y, z );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixScale( mode, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixScale( mode, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixScalefEXT(mode, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixScalefEXT(mode, x, y, z);
+         break;
        }
 
    }
@@ -20993,9 +22945,13 @@ static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21008,23 +22964,27 @@ static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glScaled( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glScaled( x, y, z );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixScale( mode, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixScale( mode, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixScaledEXT(mode, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixScaledEXT(mode, x, y, z);
+         break;
        }
 
    }
@@ -21042,9 +23002,13 @@ static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21057,23 +23021,27 @@ static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glTranslatef( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glTranslatef( x, y, z );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixTranslate( mode, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixTranslate( mode, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixTranslatefEXT(mode, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixTranslatefEXT(mode, x, y, z);
+         break;
        }
 
    }
@@ -21091,9 +23059,13 @@ static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdoub
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21106,23 +23078,27 @@ static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdoub
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glTranslated( x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glTranslated( x, y, z );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixTranslate( mode, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixTranslate( mode, x, y, z );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixTranslatedEXT(mode, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixTranslatedEXT(mode, x, y, z);
+         break;
        }
 
    }
@@ -21140,9 +23116,13 @@ static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdoub
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21155,23 +23135,27 @@ static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdoub
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glFrustum( left, right, bottom, top, zNear, zFar );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glFrustum( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixFrustum( mode, left, right, bottom, top, zNear, zFar );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixFrustum( mode, left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
+         break;
        }
 
    }
@@ -21189,9 +23173,13 @@ static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21204,23 +23192,27 @@ static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glOrtho( left, right, bottom, top, zNear, zFar );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glOrtho( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixOrtho( mode, left, right, bottom, top, zNear, zFar );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixOrtho( mode, left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
+         break;
        }
 
    }
@@ -21238,9 +23230,13 @@ static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21253,23 +23249,27 @@ static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glPopMatrix(  );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glPopMatrix(  );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixPop( mode );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixPop( mode );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixPopEXT(mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixPopEXT(mode);
+         break;
        }
 
    }
@@ -21287,9 +23287,13 @@ static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21302,23 +23306,27 @@ static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glPushMatrix(  );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glPushMatrix(  );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixPush( mode );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixPush( mode );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixPushEXT(mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixPushEXT(mode);
+         break;
        }
 
    }
@@ -21336,9 +23344,13 @@ static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21351,23 +23363,27 @@ static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glLoadTransposeMatrixf( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadTransposeMatrixf( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixLoadTranspose( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoadTranspose( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixLoadTransposefEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadTransposefEXT(mode, m);
+         break;
        }
 
    }
@@ -21385,9 +23401,13 @@ static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21400,23 +23420,27 @@ static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glLoadTransposeMatrixd( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadTransposeMatrixd( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixLoadTranspose( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoadTranspose( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixLoadTransposedEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadTransposedEXT(mode, m);
+         break;
        }
 
    }
@@ -21434,9 +23458,13 @@ static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21449,23 +23477,27 @@ static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glMultTransposeMatrixf( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultTransposeMatrixf( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixMultTranspose( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMultTranspose( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixMultTransposefEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultTransposefEXT(mode, m);
+         break;
        }
 
    }
@@ -21483,9 +23515,13 @@ static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -21498,23 +23534,27 @@ static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaMatrixMode( rCtx, mode );
-               rCtx->dsp->emuTbl.glMultTransposeMatrixd( m );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultTransposeMatrixd( m );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->MatrixMultTranspose( mode, m );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMultTranspose( mode, m );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMatrixMultTransposedEXT(mode, m);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultTransposedEXT(mode, m);
+         break;
        }
 
    }
@@ -21532,7 +23572,9 @@ static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21546,18 +23588,20 @@ static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureParameterfEXT(texture, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterfEXT(texture, target, pname, param);
+         break;
        }
 
    }
@@ -21575,7 +23619,9 @@ static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21589,18 +23635,20 @@ static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureParameterfvEXT(texture, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterfvEXT(texture, target, pname, param);
+         break;
        }
 
    }
@@ -21618,7 +23666,9 @@ static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21632,18 +23682,20 @@ static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureParameteriEXT(texture, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameteriEXT(texture, target, pname, param);
+         break;
        }
 
    }
@@ -21661,7 +23713,9 @@ static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21675,18 +23729,20 @@ static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureParameterivEXT(texture, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterivEXT(texture, target, pname, param);
+         break;
        }
 
    }
@@ -21704,12 +23760,16 @@ static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -21722,18 +23782,20 @@ static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
+         break;
        }
 
    }
@@ -21751,12 +23813,16 @@ static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -21769,18 +23835,20 @@ static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
+         break;
        }
 
    }
@@ -21798,7 +23866,9 @@ static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21812,18 +23882,20 @@ static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
+         break;
        }
 
    }
@@ -21841,7 +23913,9 @@ static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21855,18 +23929,20 @@ static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
+         break;
        }
 
    }
@@ -21884,7 +23960,9 @@ static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21898,18 +23976,20 @@ static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
+         break;
        }
 
    }
@@ -21927,7 +24007,9 @@ static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21941,18 +24023,20 @@ static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
+         break;
        }
 
    }
@@ -21970,7 +24054,9 @@ static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -21984,18 +24070,20 @@ static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
+         break;
        }
 
    }
@@ -22013,7 +24101,9 @@ static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22027,18 +24117,20 @@ static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
+         break;
        }
 
    }
@@ -22056,7 +24148,9 @@ static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22070,18 +24164,20 @@ static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureImageEXT(texture, target, level, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureImageEXT(texture, target, level, format, type, pixels);
+         break;
        }
 
    }
@@ -22099,7 +24195,9 @@ static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22113,18 +24211,20 @@ static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureParameterfvEXT(texture, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterfvEXT(texture, target, pname, params);
+         break;
        }
 
    }
@@ -22142,7 +24242,9 @@ static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22156,18 +24258,20 @@ static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureParameterivEXT(texture, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterivEXT(texture, target, pname, params);
+         break;
        }
 
    }
@@ -22185,7 +24289,9 @@ static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22199,18 +24305,20 @@ static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
+         break;
        }
 
    }
@@ -22228,7 +24336,9 @@ static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22242,18 +24352,20 @@ static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
+         break;
        }
 
    }
@@ -22271,12 +24383,16 @@ static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -22289,18 +24405,20 @@ static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
+         break;
        }
 
    }
@@ -22318,7 +24436,9 @@ static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22332,18 +24452,20 @@ static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+         break;
        }
 
    }
@@ -22361,7 +24483,9 @@ static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22375,18 +24499,20 @@ static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
+         break;
        }
 
    }
@@ -22404,7 +24530,9 @@ static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22418,18 +24546,20 @@ static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexParameterfEXT(texunit, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterfEXT(texunit, target, pname, param);
+         break;
        }
 
    }
@@ -22447,7 +24577,9 @@ static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22461,18 +24593,20 @@ static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexParameterfvEXT(texunit, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterfvEXT(texunit, target, pname, param);
+         break;
        }
 
    }
@@ -22490,7 +24624,9 @@ static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22504,18 +24640,20 @@ static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexParameteriEXT(texunit, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameteriEXT(texunit, target, pname, param);
+         break;
        }
 
    }
@@ -22533,7 +24671,9 @@ static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22547,18 +24687,20 @@ static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexParameterivEXT(texunit, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterivEXT(texunit, target, pname, param);
+         break;
        }
 
    }
@@ -22576,12 +24718,16 @@ static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -22594,18 +24740,20 @@ static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
+         break;
        }
 
    }
@@ -22623,12 +24771,16 @@ static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -22641,18 +24793,20 @@ static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
+         break;
        }
 
    }
@@ -22670,7 +24824,9 @@ static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22684,18 +24840,20 @@ static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
+         break;
        }
 
    }
@@ -22713,7 +24871,9 @@ static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22727,18 +24887,20 @@ static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
+         break;
        }
 
    }
@@ -22756,7 +24918,9 @@ static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22770,18 +24934,20 @@ static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
+         break;
        }
 
    }
@@ -22799,7 +24965,9 @@ static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22813,18 +24981,20 @@ static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
+         break;
        }
 
    }
@@ -22842,7 +25012,9 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22856,18 +25028,20 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
+         break;
        }
 
    }
@@ -22885,7 +25059,9 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22899,18 +25075,20 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
+         break;
        }
 
    }
@@ -22928,7 +25106,9 @@ static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22942,18 +25122,20 @@ static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
+         break;
        }
 
    }
@@ -22971,7 +25153,9 @@ static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -22985,18 +25169,20 @@ static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexParameterfvEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterfvEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -23014,7 +25200,9 @@ static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23028,18 +25216,20 @@ static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexParameterivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -23057,7 +25247,9 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23071,18 +25263,20 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
+         break;
        }
 
    }
@@ -23100,7 +25294,9 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23114,18 +25310,20 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
+         break;
        }
 
    }
@@ -23143,12 +25341,16 @@ static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -23161,18 +25363,20 @@ static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
+         break;
        }
 
    }
@@ -23190,7 +25394,9 @@ static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23204,18 +25410,20 @@ static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+         break;
        }
 
    }
@@ -23233,7 +25441,9 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23247,18 +25457,20 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
+         break;
        }
 
    }
@@ -23276,12 +25488,16 @@ static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowMultiTexBinding( texunit, target, texture );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexBinding( texunit, target, texture );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -23294,19 +25510,21 @@ static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsa->ShadowDsaTexture( target, texture );
-               rCtx->dsp->emuTbl.glBindTexture( target, texture );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsa->ShadowDsaTexture( target, texture );
+             rCtx->dsp->emuTbl.glBindTexture( target, texture );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glBindMultiTextureEXT(texunit, target, texture);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindMultiTextureEXT(texunit, target, texture);
+         break;
        }
 
    }
@@ -23324,7 +25542,9 @@ static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23338,18 +25558,20 @@ static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint in
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
-               rCtx->dsp->emuTbl.glEnableClientState( array );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glEnableClientState( array );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glEnableClientStateIndexedEXT(array, index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableClientStateIndexedEXT(array, index);
+         break;
        }
 
    }
@@ -23367,7 +25589,9 @@ static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23381,18 +25605,20 @@ static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint i
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
-               rCtx->dsp->emuTbl.glDisableClientState( array );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glDisableClientState( array );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glDisableClientStateIndexedEXT(array, index);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableClientStateIndexedEXT(array, index);
+         break;
        }
 
    }
@@ -23410,7 +25636,9 @@ static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23424,18 +25652,20 @@ static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaClientActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexCoordPointer( size, type, stride, pointer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaClientActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexCoordPointer( size, type, stride, pointer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
+         break;
        }
 
    }
@@ -23453,9 +25683,13 @@ static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -23468,23 +25702,27 @@ static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexEnvf( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnvf( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( texunit, target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexEnvfEXT(texunit, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnvfEXT(texunit, target, pname, param);
+         break;
        }
 
    }
@@ -23502,9 +25740,13 @@ static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -23517,23 +25759,27 @@ static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexEnvfv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnvfv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( texunit, target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexEnvfvEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnvfvEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -23551,9 +25797,13 @@ static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -23566,23 +25816,27 @@ static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexEnvi( target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnvi( target, pname, param );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( texunit, target, pname, param );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, param );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexEnviEXT(texunit, target, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnviEXT(texunit, target, pname, param);
+         break;
        }
 
    }
@@ -23600,9 +25854,13 @@ static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -23615,23 +25873,27 @@ static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexEnviv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnviv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->TexEnv( texunit, target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, params );
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexEnvivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnvivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -23649,7 +25911,9 @@ static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23663,18 +25927,20 @@ static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexGend( coord, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGend( coord, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexGendEXT(texunit, coord, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGendEXT(texunit, coord, pname, param);
+         break;
        }
 
    }
@@ -23692,7 +25958,9 @@ static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23706,18 +25974,20 @@ static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexGendv( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGendv( coord, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexGendvEXT(texunit, coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGendvEXT(texunit, coord, pname, params);
+         break;
        }
 
    }
@@ -23735,7 +26005,9 @@ static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23749,18 +26021,20 @@ static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexGenf( coord, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGenf( coord, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexGenfEXT(texunit, coord, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGenfEXT(texunit, coord, pname, param);
+         break;
        }
 
    }
@@ -23778,7 +26052,9 @@ static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23792,18 +26068,20 @@ static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexGenfv( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGenfv( coord, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexGenfvEXT(texunit, coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGenfvEXT(texunit, coord, pname, params);
+         break;
        }
 
    }
@@ -23821,7 +26099,9 @@ static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23835,18 +26115,20 @@ static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexGeni( coord, pname, param );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGeni( coord, pname, param );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexGeniEXT(texunit, coord, pname, param);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGeniEXT(texunit, coord, pname, param);
+         break;
        }
 
    }
@@ -23864,7 +26146,9 @@ static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23878,18 +26162,20 @@ static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexGeniv( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGeniv( coord, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexGenivEXT(texunit, coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGenivEXT(texunit, coord, pname, params);
+         break;
        }
 
    }
@@ -23907,7 +26193,9 @@ static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23921,18 +26209,20 @@ static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexEnvfv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexEnvfv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexEnvfvEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexEnvfvEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -23950,7 +26240,9 @@ static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -23964,18 +26256,20 @@ static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexEnviv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexEnviv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexEnvivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexEnvivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -23993,9 +26287,13 @@ static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -24008,26 +26306,30 @@ static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetMultiTexGendvEXT( texunit, coord, pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetMultiTexGendvEXT( texunit, coord, pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexGendvEXT(texunit, coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexGendvEXT(texunit, coord, pname, params);
+         break;
        }
 
    }
@@ -24045,9 +26347,13 @@ static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -24060,26 +26366,30 @@ static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetMultiTexGenfvEXT( texunit, coord, pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetMultiTexGenfvEXT( texunit, coord, pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexGenfvEXT(texunit, coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexGenfvEXT(texunit, coord, pname, params);
+         break;
        }
 
    }
@@ -24097,9 +26407,13 @@ static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
-           if (rCtx->iff) break;
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
        case 1 :
        default:
            break;
@@ -24112,26 +26426,30 @@ static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
+             return;
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->RestoreVao( rCtx );
-               if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
-                   rCtx->dsp->emuTbl.glGetMultiTexGenivEXT( texunit, coord, pname, params );
-               }
-               return;
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetMultiTexGenivEXT( texunit, coord, pname, params );
+             }
+             return;
+         }
+         #endif
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexGenivEXT(texunit, coord, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexGenivEXT(texunit, coord, pname, params);
+         break;
        }
 
    }
@@ -24149,7 +26467,9 @@ static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24163,19 +26483,21 @@ static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
-                   rCtx->dsp->emuTbl.glGetFloatIndexedvEXT( target, index, data );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
+                 rCtx->dsp->emuTbl.glGetFloatIndexedvEXT( target, index, data );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetFloatIndexedvEXT(target, index, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFloatIndexedvEXT(target, index, data);
+         break;
        }
 
    }
@@ -24193,7 +26515,9 @@ static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24207,19 +26531,21 @@ static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
-                   rCtx->dsp->emuTbl.glGetDoubleIndexedvEXT( target, index, data );
-               }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
+                 rCtx->dsp->emuTbl.glGetDoubleIndexedvEXT( target, index, data );
+             }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetDoubleIndexedvEXT(target, index, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetDoubleIndexedvEXT(target, index, data);
+         break;
        }
 
    }
@@ -24237,7 +26563,9 @@ static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24251,19 +26579,21 @@ static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               // if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
-               //     rCtx->dsp->emuTbl.glGetPointerIndexedvEXT( target, index, data );
-               // }
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             // if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
+             //     rCtx->dsp->emuTbl.glGetPointerIndexedvEXT( target, index, data );
+             // }
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetPointerIndexedvEXT(target, index, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetPointerIndexedvEXT(target, index, data);
+         break;
        }
 
    }
@@ -24281,7 +26611,9 @@ static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24295,18 +26627,20 @@ static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
+         break;
        }
 
    }
@@ -24324,7 +26658,9 @@ static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24338,18 +26674,20 @@ static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
+         break;
        }
 
    }
@@ -24367,7 +26705,9 @@ static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24381,18 +26721,20 @@ static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
+         break;
        }
 
    }
@@ -24410,7 +26752,9 @@ static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24424,18 +26768,20 @@ static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
+         break;
        }
 
    }
@@ -24453,7 +26799,9 @@ static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24467,18 +26815,20 @@ static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
+         break;
        }
 
    }
@@ -24496,7 +26846,9 @@ static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24510,18 +26862,20 @@ static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
+         break;
        }
 
    }
@@ -24539,7 +26893,9 @@ static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24553,18 +26909,20 @@ static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetCompressedTextureImageEXT(texture, target, lod, img);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetCompressedTextureImageEXT(texture, target, lod, img);
+         break;
        }
 
    }
@@ -24582,7 +26940,9 @@ static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24596,18 +26956,20 @@ static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
+         break;
        }
 
    }
@@ -24625,7 +26987,9 @@ static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24639,18 +27003,20 @@ static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
+         break;
        }
 
    }
@@ -24668,7 +27034,9 @@ static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24682,18 +27050,20 @@ static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, data );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, data );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
+         break;
        }
 
    }
@@ -24711,7 +27081,9 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24725,18 +27097,20 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+         break;
        }
 
    }
@@ -24754,7 +27128,9 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24768,18 +27144,20 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, data );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, data );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
+         break;
        }
 
    }
@@ -24797,7 +27175,9 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24811,18 +27191,20 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, data );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, data );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
+         break;
        }
 
    }
@@ -24840,7 +27222,9 @@ static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24854,18 +27238,20 @@ static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenu
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
+         break;
        }
 
    }
@@ -24883,7 +27269,9 @@ static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24897,18 +27285,20 @@ static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramStringARB( target, format, len, string );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramStringARB( target, format, len, string );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramStringEXT(program, target, format, len, string);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramStringEXT(program, target, format, len, string);
+         break;
        }
 
    }
@@ -24926,7 +27316,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24940,18 +27332,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameter4dARB( target, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4dARB( target, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -24969,7 +27363,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -24983,18 +27379,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameter4dvARB( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4dvARB( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameter4dvEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4dvEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25012,7 +27410,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25026,18 +27426,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameter4fARB( target, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4fARB( target, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -25055,7 +27457,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25069,18 +27473,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameter4fvARB( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4fvARB( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameter4fvEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4fvEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25098,7 +27504,9 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25112,18 +27520,20 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glGetProgramLocalParameterdvARB( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterdvARB( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25141,7 +27551,9 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25155,18 +27567,20 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glGetProgramLocalParameterfvARB( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterfvARB( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25184,7 +27598,9 @@ static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25198,18 +27614,20 @@ static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glGetProgramivARB( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramivARB( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedProgramivEXT(program, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramivEXT(program, target, pname, params);
+         break;
        }
 
    }
@@ -25227,7 +27645,9 @@ static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25241,18 +27661,20 @@ static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glGetProgramStringARB( target, pname, string );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramStringARB( target, pname, string );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedProgramStringEXT(program, target, pname, string);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramStringEXT(program, target, pname, string);
+         break;
        }
 
    }
@@ -25270,7 +27692,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25284,18 +27708,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameters4fvEXT( target, index, count, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameters4fvEXT( target, index, count, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
+         break;
        }
 
    }
@@ -25313,7 +27739,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25327,18 +27755,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameterI4iNV( target, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4iNV( target, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -25356,7 +27786,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25370,18 +27802,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameterI4ivNV( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4ivNV( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25399,7 +27833,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25413,18 +27849,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParametersI4ivNV( target, index, count, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParametersI4ivNV( target, index, count, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
+         break;
        }
 
    }
@@ -25442,7 +27880,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25456,18 +27896,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, G
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameterI4uiNV( target, index, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4uiNV( target, index, x, y, z, w );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
+         break;
        }
 
    }
@@ -25485,7 +27927,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25499,18 +27943,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParameterI4uivNV( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4uivNV( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25528,7 +27974,9 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25542,18 +27990,20 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glProgramLocalParametersI4uivNV( target, index, count, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParametersI4uivNV( target, index, count, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
+         break;
        }
 
    }
@@ -25571,7 +28021,9 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25585,18 +28037,20 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glGetProgramLocalParameterIivNV( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterIivNV( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25614,7 +28068,9 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25628,18 +28084,20 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-               rCtx->dsp->emuTbl.glGetProgramLocalParameterIuivNV( target, index, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterIuivNV( target, index, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
+         break;
        }
 
    }
@@ -25657,7 +28115,9 @@ static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25671,18 +28131,20 @@ static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureParameterIivEXT(texture, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterIivEXT(texture, target, pname, params);
+         break;
        }
 
    }
@@ -25700,7 +28162,9 @@ static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum targ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25714,18 +28178,20 @@ static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum targ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureParameterIuivEXT(texture, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterIuivEXT(texture, target, pname, params);
+         break;
        }
 
    }
@@ -25743,7 +28209,9 @@ static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25757,18 +28225,20 @@ static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureParameterIivEXT(texture, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterIivEXT(texture, target, pname, params);
+         break;
        }
 
    }
@@ -25786,7 +28256,9 @@ static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum t
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25800,18 +28272,20 @@ static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum t
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetTextureParameterIuivEXT(texture, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterIuivEXT(texture, target, pname, params);
+         break;
        }
 
    }
@@ -25829,7 +28303,9 @@ static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum targ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25843,18 +28319,20 @@ static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum targ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexParameterIivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterIivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -25872,7 +28350,9 @@ static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25886,18 +28366,20 @@ static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexParameterIuivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterIuivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -25915,7 +28397,9 @@ static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum t
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25929,18 +28413,20 @@ static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum t
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexParameterIivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterIivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -25958,7 +28444,9 @@ static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -25972,18 +28460,20 @@ static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
+         break;
        }
 
    }
@@ -26001,7 +28491,9 @@ static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26015,18 +28507,20 @@ static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1f( location, v0 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1f( location, v0 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1fEXT(program, location, v0);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1fEXT(program, location, v0);
+         break;
        }
 
    }
@@ -26044,7 +28538,9 @@ static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26058,18 +28554,20 @@ static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2f( location, v0, v1 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2f( location, v0, v1 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2fEXT(program, location, v0, v1);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2fEXT(program, location, v0, v1);
+         break;
        }
 
    }
@@ -26087,7 +28585,9 @@ static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26101,18 +28601,20 @@ static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3f( location, v0, v1, v2 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3f( location, v0, v1, v2 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3fEXT(program, location, v0, v1, v2);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3fEXT(program, location, v0, v1, v2);
+         break;
        }
 
    }
@@ -26130,7 +28632,9 @@ static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26144,18 +28648,20 @@ static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4f( location, v0, v1, v2, v3 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4f( location, v0, v1, v2, v3 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
+         break;
        }
 
    }
@@ -26173,7 +28679,9 @@ static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26187,18 +28695,20 @@ static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1i( location, v0 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1i( location, v0 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1iEXT(program, location, v0);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1iEXT(program, location, v0);
+         break;
        }
 
    }
@@ -26216,7 +28726,9 @@ static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26230,18 +28742,20 @@ static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2i( location, v0, v1 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2i( location, v0, v1 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2iEXT(program, location, v0, v1);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2iEXT(program, location, v0, v1);
+         break;
        }
 
    }
@@ -26259,7 +28773,9 @@ static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26273,18 +28789,20 @@ static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3i( location, v0, v1, v2 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3i( location, v0, v1, v2 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3iEXT(program, location, v0, v1, v2);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3iEXT(program, location, v0, v1, v2);
+         break;
        }
 
    }
@@ -26302,7 +28820,9 @@ static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26316,18 +28836,20 @@ static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4i( location, v0, v1, v2, v3 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4i( location, v0, v1, v2, v3 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
+         break;
        }
 
    }
@@ -26345,7 +28867,9 @@ static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26359,18 +28883,20 @@ static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1fv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1fv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1fvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1fvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26388,7 +28914,9 @@ static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26402,18 +28930,20 @@ static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2fv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2fv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2fvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2fvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26431,7 +28961,9 @@ static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26445,18 +28977,20 @@ static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3fv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3fv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3fvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3fvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26474,7 +29008,9 @@ static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26488,18 +29024,20 @@ static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4fv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4fv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4fvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4fvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26517,7 +29055,9 @@ static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26531,18 +29071,20 @@ static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1iv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1iv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1ivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1ivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26560,7 +29102,9 @@ static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26574,18 +29118,20 @@ static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2iv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2iv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2ivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2ivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26603,7 +29149,9 @@ static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26617,18 +29165,20 @@ static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3iv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3iv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3ivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3ivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26646,7 +29196,9 @@ static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26660,18 +29212,20 @@ static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4iv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4iv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4ivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4ivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -26689,7 +29243,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26703,18 +29259,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix2fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26732,7 +29290,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26746,18 +29306,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix3fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26775,7 +29337,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26789,18 +29353,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix4fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26818,7 +29384,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26832,18 +29400,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix2x3fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x3fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26861,7 +29431,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26875,18 +29447,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix3x2fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x2fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26904,7 +29478,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26918,18 +29494,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix2x4fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x4fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26947,7 +29525,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -26961,18 +29541,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix4x2fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x2fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -26990,7 +29572,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27004,18 +29588,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix3x4fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x4fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -27033,7 +29619,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27047,18 +29635,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix4x3fv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x3fv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -27076,7 +29666,9 @@ static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27090,18 +29682,20 @@ static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1ui( location, v0 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1ui( location, v0 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1uiEXT(program, location, v0);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1uiEXT(program, location, v0);
+         break;
        }
 
    }
@@ -27119,7 +29713,9 @@ static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27133,18 +29729,20 @@ static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2ui( location, v0, v1 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2ui( location, v0, v1 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2uiEXT(program, location, v0, v1);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2uiEXT(program, location, v0, v1);
+         break;
        }
 
    }
@@ -27162,7 +29760,9 @@ static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27176,18 +29776,20 @@ static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3ui( location, v0, v1, v2 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3ui( location, v0, v1, v2 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3uiEXT(program, location, v0, v1, v2);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3uiEXT(program, location, v0, v1, v2);
+         break;
        }
 
    }
@@ -27205,7 +29807,9 @@ static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27219,18 +29823,20 @@ static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4ui( location, v0, v1, v2, v3 );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4ui( location, v0, v1, v2, v3 );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
+         break;
        }
 
    }
@@ -27248,7 +29854,9 @@ static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27262,18 +29870,20 @@ static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1uiv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1uiv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1uivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1uivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -27291,7 +29901,9 @@ static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27305,18 +29917,20 @@ static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2uiv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2uiv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2uivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2uivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -27334,7 +29948,9 @@ static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27348,18 +29964,20 @@ static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3uiv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3uiv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3uivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3uivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -27377,7 +29995,9 @@ static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27391,18 +30011,20 @@ static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint locatio
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4uiv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4uiv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4uivEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4uivEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -27420,7 +30042,9 @@ static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27434,18 +30058,20 @@ static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               rCtx->dsp->emuTbl.glBufferData( GL_ARRAY_BUFFER, size, data, usage );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glBufferData( GL_ARRAY_BUFFER, size, data, usage );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedBufferDataEXT(buffer, size, data, usage);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedBufferDataEXT(buffer, size, data, usage);
+         break;
        }
 
    }
@@ -27463,7 +30089,9 @@ static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offse
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27477,18 +30105,20 @@ static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offse
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               rCtx->dsp->emuTbl.glBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedBufferSubDataEXT(buffer, offset, size, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedBufferSubDataEXT(buffer, offset, size, data);
+         break;
        }
 
    }
@@ -27506,7 +30136,9 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27520,16 +30152,18 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               return rCtx->dsp->emuTbl.glMapBuffer( GL_ARRAY_BUFFER, access );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             return rCtx->dsp->emuTbl.glMapBuffer( GL_ARRAY_BUFFER, access );
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glMapNamedBufferEXT(buffer, access);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapNamedBufferEXT(buffer, access);
        }
 
    }
@@ -27547,7 +30181,9 @@ static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27561,16 +30197,18 @@ static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               return rCtx->dsp->emuTbl.glUnmapBuffer( GL_ARRAY_BUFFER );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             return rCtx->dsp->emuTbl.glUnmapBuffer( GL_ARRAY_BUFFER );
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glUnmapNamedBufferEXT(buffer);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glUnmapNamedBufferEXT(buffer);
        }
 
    }
@@ -27588,7 +30226,9 @@ static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27602,18 +30242,20 @@ static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               rCtx->dsp->emuTbl.glGetBufferParameteriv( GL_ARRAY_BUFFER, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glGetBufferParameteriv( GL_ARRAY_BUFFER, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedBufferParameterivEXT(buffer, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedBufferParameterivEXT(buffer, pname, params);
+         break;
        }
 
    }
@@ -27631,7 +30273,9 @@ static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pna
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27645,18 +30289,20 @@ static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pna
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               rCtx->dsp->emuTbl.glGetBufferPointerv( GL_ARRAY_BUFFER, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glGetBufferPointerv( GL_ARRAY_BUFFER, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedBufferPointervEXT(buffer, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedBufferPointervEXT(buffer, pname, params);
+         break;
        }
 
    }
@@ -27674,7 +30320,9 @@ static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr of
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27688,18 +30336,20 @@ static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr of
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               rCtx->dsp->emuTbl.glGetBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glGetBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedBufferSubDataEXT(buffer, offset, size, data);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedBufferSubDataEXT(buffer, offset, size, data);
+         break;
        }
 
    }
@@ -27717,7 +30367,9 @@ static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27731,18 +30383,20 @@ static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureBufferEXT(texture, target, internalformat, buffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureBufferEXT(texture, target, internalformat, buffer);
+         break;
        }
 
    }
@@ -27760,7 +30414,9 @@ static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27774,18 +30430,20 @@ static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexBufferEXT(texunit, target, internalformat, buffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexBufferEXT(texunit, target, internalformat, buffer);
+         break;
        }
 
    }
@@ -27803,7 +30461,9 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27817,18 +30477,20 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-               rCtx->dsp->emuTbl.glRenderbufferStorage( GL_FRAMEBUFFER, internalformat, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glRenderbufferStorage( GL_FRAMEBUFFER, internalformat, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
+         break;
        }
 
    }
@@ -27846,7 +30508,9 @@ static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27860,18 +30524,20 @@ static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuf
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-               rCtx->dsp->emuTbl.glGetRenderbufferParameteriv( GL_FRAMEBUFFER, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glGetRenderbufferParameteriv( GL_FRAMEBUFFER, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
+         break;
        }
 
    }
@@ -27889,7 +30555,9 @@ static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27903,16 +30571,18 @@ static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               return rCtx->dsp->emuTbl.glCheckFramebufferStatus( target );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             return rCtx->dsp->emuTbl.glCheckFramebufferStatus( target );
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glCheckNamedFramebufferStatusEXT(framebuffer, target);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glCheckNamedFramebufferStatusEXT(framebuffer, target);
        }
 
    }
@@ -27930,7 +30600,9 @@ static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27944,18 +30616,20 @@ static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
+         break;
        }
 
    }
@@ -27973,7 +30647,9 @@ static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -27987,18 +30663,20 @@ static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
+         break;
        }
 
    }
@@ -28016,7 +30694,9 @@ static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28030,18 +30710,20 @@ static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, textarget, texture, level, zoffset );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, textarget, texture, level, zoffset );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
+         break;
        }
 
    }
@@ -28059,7 +30741,9 @@ static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28073,18 +30757,20 @@ static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferRenderbuffer( GL_FRAMEBUFFER, attachment, renderbuffertarget, renderbuffer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferRenderbuffer( GL_FRAMEBUFFER, attachment, renderbuffertarget, renderbuffer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
+         break;
        }
 
    }
@@ -28102,7 +30788,9 @@ static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28116,18 +30804,20 @@ static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glGetFramebufferAttachmentParameteriv( GL_FRAMEBUFFER, attachment, pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glGetFramebufferAttachmentParameteriv( GL_FRAMEBUFFER, attachment, pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
+         break;
        }
 
    }
@@ -28145,7 +30835,9 @@ static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28159,18 +30851,20 @@ static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum tar
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glGenerateMipmap( target );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGenerateMipmap( target );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenerateTextureMipmapEXT(texture, target);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenerateTextureMipmapEXT(texture, target);
+         break;
        }
 
    }
@@ -28188,7 +30882,9 @@ static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28202,18 +30898,20 @@ static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum ta
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glGenerateMipmap( target );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGenerateMipmap( target );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGenerateMultiTexMipmapEXT(texunit, target);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenerateMultiTexMipmapEXT(texunit, target);
+         break;
        }
 
    }
@@ -28231,7 +30929,9 @@ static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28245,18 +30945,20 @@ static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glDrawBuffer( mode );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glDrawBuffer( mode );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferDrawBufferEXT(framebuffer, mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferDrawBufferEXT(framebuffer, mode);
+         break;
        }
 
    }
@@ -28274,7 +30976,9 @@ static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsiz
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28288,18 +30992,20 @@ static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsiz
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glDrawBuffers( n, bufs );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glDrawBuffers( n, bufs );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
+         break;
        }
 
    }
@@ -28317,7 +31023,9 @@ static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28331,18 +31039,20 @@ static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glReadBuffer( mode );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glReadBuffer( mode );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFramebufferReadBufferEXT(framebuffer, mode);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferReadBufferEXT(framebuffer, mode);
+         break;
        }
 
    }
@@ -28360,7 +31070,9 @@ static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28374,18 +31086,20 @@ static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GL
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer );
-               rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer );
+             rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glGetFramebufferParameterivEXT(framebuffer, pname, params);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFramebufferParameterivEXT(framebuffer, pname, params);
+         break;
        }
 
    }
@@ -28403,7 +31117,9 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint rende
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28417,18 +31133,20 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint rende
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-               rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleEXT( GL_FRAMEBUFFER, samples, internalformat, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleEXT( GL_FRAMEBUFFER, samples, internalformat, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
+         break;
        }
 
    }
@@ -28446,7 +31164,9 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLui
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28460,18 +31180,20 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLui
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-               rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleCoverageNV( GL_FRAMEBUFFER, coverageSamples, colorSamples, internalformat, width, height );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleCoverageNV( GL_FRAMEBUFFER, coverageSamples, colorSamples, internalformat, width, height );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
+         break;
        }
 
    }
@@ -28489,7 +31211,9 @@ static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28503,18 +31227,20 @@ static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLen
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferTexture( GL_FRAMEBUFFER, attachment, texture, level );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture( GL_FRAMEBUFFER, attachment, texture, level );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
+         break;
        }
 
    }
@@ -28532,7 +31258,9 @@ static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28546,18 +31274,20 @@ static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferTextureLayer( GL_FRAMEBUFFER, attachment, texture, level, layer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTextureLayer( GL_FRAMEBUFFER, attachment, texture, level, layer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
+         break;
        }
 
    }
@@ -28575,7 +31305,9 @@ static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28589,18 +31321,20 @@ static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-               rCtx->dsp->emuTbl.glFramebufferTextureFace( GL_FRAMEBUFFER, attachment, texture, level, face );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTextureFace( GL_FRAMEBUFFER, attachment, texture, level, face );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
+         break;
        }
 
    }
@@ -28618,7 +31352,9 @@ static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28632,18 +31368,20 @@ static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum targe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaTexture( rCtx, target, texture );
-               rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTextureRenderbufferEXT(texture, target, renderbuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureRenderbufferEXT(texture, target, renderbuffer);
+         break;
        }
 
    }
@@ -28661,7 +31399,9 @@ static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum targ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28675,18 +31415,20 @@ static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum targ
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-               rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
+         break;
        }
 
    }
@@ -28704,7 +31446,9 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr o
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28718,16 +31462,18 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr o
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               return rCtx->dsp->emuTbl.glMapBufferRange( GL_ARRAY_BUFFER, offset, length, access );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             return rCtx->dsp->emuTbl.glMapBufferRange( GL_ARRAY_BUFFER, offset, length, access );
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           return rCtx->dsp->curr->glMapNamedBufferRangeEXT(buffer, offset, length, access);
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapNamedBufferRangeEXT(buffer, offset, length, access);
        }
 
    }
@@ -28745,7 +31491,9 @@ static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28759,18 +31507,20 @@ static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, buffer);
-               rCtx->dsp->emuTbl.glFlushMappedBufferRange( GL_ARRAY_BUFFER, offset, length );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glFlushMappedBufferRange( GL_ARRAY_BUFFER, offset, length );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
+         break;
        }
 
    }
@@ -28788,7 +31538,9 @@ static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28802,18 +31554,20 @@ static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaBuffer( rCtx, readBuffer);
-               rCtx->dsp->emuTbl.glCopyBufferSubData( GL_ARRAY_BUFFER, writeBuffer, readOffset, writeOffset, size );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, readBuffer);
+             rCtx->dsp->emuTbl.glCopyBufferSubData( GL_ARRAY_BUFFER, writeBuffer, readOffset, writeOffset, size );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
+         break;
        }
 
    }
@@ -28831,7 +31585,9 @@ static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28845,18 +31601,20 @@ static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1d( location, x );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1d( location, x );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1dEXT(program, location, x);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1dEXT(program, location, x);
+         break;
        }
 
    }
@@ -28874,7 +31632,9 @@ static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28888,18 +31648,20 @@ static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2d( location, x, y );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2d( location, x, y );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2dEXT(program, location, x, y);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2dEXT(program, location, x, y);
+         break;
        }
 
    }
@@ -28917,7 +31679,9 @@ static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28931,18 +31695,20 @@ static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3d( location, x, y, z );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3d( location, x, y, z );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3dEXT(program, location, x, y, z);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3dEXT(program, location, x, y, z);
+         break;
        }
 
    }
@@ -28960,7 +31726,9 @@ static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -28974,18 +31742,20 @@ static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location,
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4d( location, x, y, z, w );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4d( location, x, y, z, w );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4dEXT(program, location, x, y, z, w);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4dEXT(program, location, x, y, z, w);
+         break;
        }
 
    }
@@ -29003,7 +31773,9 @@ static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29017,18 +31789,20 @@ static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform1dv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1dv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform1dvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1dvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -29046,7 +31820,9 @@ static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29060,18 +31836,20 @@ static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform2dv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2dv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform2dvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2dvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -29089,7 +31867,9 @@ static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29103,18 +31883,20 @@ static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform3dv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3dv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform3dvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3dvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -29132,7 +31914,9 @@ static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29146,18 +31930,20 @@ static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniform4dv( location, count, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4dv( location, count, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniform4dvEXT(program, location, count, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4dvEXT(program, location, count, value);
+         break;
        }
 
    }
@@ -29175,7 +31961,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29189,18 +31977,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix2dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29218,7 +32008,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29232,18 +32024,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix3dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29261,7 +32055,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29275,18 +32071,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint lo
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix4dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29304,7 +32102,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29318,18 +32118,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix2x3dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x3dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29347,7 +32149,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29361,18 +32165,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix2x4dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x4dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29390,7 +32196,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29404,18 +32212,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix3x2dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x2dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29433,7 +32243,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29447,18 +32259,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix3x4dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x4dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29476,7 +32290,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29490,18 +32306,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix4x2dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x2dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29519,7 +32337,9 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) break;
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29533,18 +32353,20 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint 
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->DsaGlslProgram( rCtx, program);
-               rCtx->dsp->emuTbl.glUniformMatrix4x3dv( location, count, transpose, value );
-               return;
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x3dv( location, count, transpose, value );
+             return;
+         }
+         #endif
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
+         break;
        }
 
    }
@@ -29564,11 +32386,13 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->RestoreTexture( rCtx );
-               rCtx->dsa->RestoreActiveTexture( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
        case 2 :
        case 1 :
        default:
@@ -29585,9 +32409,9 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexRenderbufferNV(target, renderbuffer);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexRenderbufferNV(target, renderbuffer);
+         break;
        }
 
    }
@@ -29649,20 +32473,26 @@ static void REGAL_CALL emu_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoi
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -29677,9 +32507,9 @@ static void REGAL_CALL emu_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
+         break;
        }
 
    }
@@ -29697,20 +32527,26 @@ static void REGAL_CALL emu_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum ty
        case 5 :
        case 4 :
        case 3 :
-           if (rCtx->dsa) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-               rCtx->dsa->Restore( rCtx );
-           }
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->PreDraw( rCtx );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
        case 1 :
-           if (rCtx->vao) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-               // rCtx->vao->Validate( rCtx );
-           }
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
        default:
            break;
    }
@@ -29725,9 +32561,9 @@ static void REGAL_CALL emu_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum ty
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
+         break;
        }
 
    }
@@ -29770,10 +32606,12 @@ static void REGAL_CALL emu_glTexImage2DMultisampleCoverageNV(GLenum target, GLsi
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalFormat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalFormat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -29789,9 +32627,9 @@ static void REGAL_CALL emu_glTexImage2DMultisampleCoverageNV(GLenum target, GLsi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
+         break;
        }
 
    }
@@ -29810,10 +32648,12 @@ static void REGAL_CALL emu_glTexImage3DMultisampleCoverageNV(GLenum target, GLsi
        case 4 :
        case 3 :
        case 2 :
-           if (rCtx->iff) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-               rCtx->iff->ShadowTexInfo( target, internalFormat );
-           }
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalFormat );
+         }
+         #endif
        case 1 :
        default:
            break;
@@ -29829,9 +32669,9 @@ static void REGAL_CALL emu_glTexImage3DMultisampleCoverageNV(GLenum target, GLsi
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
+         break;
        }
 
    }
@@ -29853,7 +32693,7 @@ static void REGAL_CALL emu_glInsertEventMarkerEXT(GLsizei length, const GLchar *
        case 7 :
        case 6 :
        case 5 :
-           if (rCtx->marker) break;
+         if (rCtx->marker) break;
        case 4 :
        case 3 :
        case 2 :
@@ -29867,19 +32707,19 @@ static void REGAL_CALL emu_glInsertEventMarkerEXT(GLsizei length, const GLchar *
        case 7 :
        case 6 :
        case 5 :
-           if (rCtx->marker) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->marker );
-               rCtx->marker->InsertEventMarker( rCtx, length, marker );
-               return;
-           }
+         if (rCtx->marker) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->marker );
+             rCtx->marker->InsertEventMarker( rCtx, length, marker );
+             return;
+         }
        case 4 :
        case 3 :
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glInsertEventMarkerEXT(length, marker);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glInsertEventMarkerEXT(length, marker);
+         break;
        }
 
    }
@@ -29895,7 +32735,7 @@ static void REGAL_CALL emu_glPushGroupMarkerEXT(GLsizei length, const GLchar *ma
        case 7 :
        case 6 :
        case 5 :
-           if (rCtx->marker) break;
+         if (rCtx->marker) break;
        case 4 :
        case 3 :
        case 2 :
@@ -29909,19 +32749,19 @@ static void REGAL_CALL emu_glPushGroupMarkerEXT(GLsizei length, const GLchar *ma
        case 7 :
        case 6 :
        case 5 :
-           if (rCtx->marker) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->marker );
-               rCtx->marker->PushGroupMarker( rCtx, length, marker );
-               return;
-           }
+         if (rCtx->marker) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->marker );
+             rCtx->marker->PushGroupMarker( rCtx, length, marker );
+             return;
+         }
        case 4 :
        case 3 :
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glPushGroupMarkerEXT(length, marker);
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPushGroupMarkerEXT(length, marker);
+         break;
        }
 
    }
@@ -29937,7 +32777,7 @@ static void REGAL_CALL emu_glPopGroupMarkerEXT(void)
        case 7 :
        case 6 :
        case 5 :
-           if (rCtx->marker) break;
+         if (rCtx->marker) break;
        case 4 :
        case 3 :
        case 2 :
@@ -29951,19 +32791,19 @@ static void REGAL_CALL emu_glPopGroupMarkerEXT(void)
        case 7 :
        case 6 :
        case 5 :
-           if (rCtx->marker) {
-               RegalEmuScopedActivate activate( rCtx, rCtx->marker );
-               rCtx->marker->PopGroupMarker( rCtx );
-               return;
-           }
+         if (rCtx->marker) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->marker );
+             rCtx->marker->PopGroupMarker( rCtx );
+             return;
+         }
        case 4 :
        case 3 :
        case 2 :
        case 1 :
        default: {
-           DispatchStateScopedStepDown stepDown(rCtx->dsp);
-           rCtx->dsp->curr->glPopGroupMarkerEXT();
-           break;
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPopGroupMarkerEXT();
+         break;
        }
 
    }

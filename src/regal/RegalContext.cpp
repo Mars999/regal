@@ -69,62 +69,98 @@ RegalContext::RegalContext()
   sysCtx(0),
   thread(0)
 {
-   ITrace("RegalContext::RegalContext");
-   dsp->Init();
-   if( Config::config.enableDebug ) {
-      dbg = new DebugInfo();
-      dbg->Init(this);
-   }
-   RegalAssert(dsp);
+  ITrace("RegalContext::RegalContext");
+  dsp->Init();
+  if (Config::config.enableDebug) {
+     dbg = new DebugInfo();
+     dbg->Init(this);
+  }
+  RegalAssert(dsp);
 }
 
 void
 RegalContext::Init()
 {
-   ITrace("RegalContext::Init");
+  ITrace("RegalContext::Init");
 
-   info = new ContextInfo();
-   RegalAssert(this);
-   RegalAssert(info);
-   info->init(*this);
+  info = new ContextInfo();
+  RegalAssert(this);
+  RegalAssert(info);
+  info->init(*this);
 
-       // emu
-   emuLevel = 7;
-   if( Config::config.enableEmulation ) {
+#if !REGAL_FORCE_EMULATION
+  if
+  (
+    Config::config.forceEmulation  ||
+    Config::config.enableEmulation &&
+    (
+      info->core ||
+      info->gles ||
+      info->compat && !info->gl_ext_direct_state_access
+    )
+  )
+#endif
+  {
+    emuLevel = 7;
+    #if REGAL_EMU_VAO
+    if (Config::config.enableEmuVao)
+    {
       vao = new RegalVao;
       vao->emuLevel = 1;
       vao->Init( this );
+    }
+    #endif /* REGAL_EMU_VAO */
+    #if REGAL_EMU_IFF
+    if (Config::config.enableEmuIff)
+    {
       iff = new RegalIff;
       iff->emuLevel = 2;
       iff->Init( this );
+    }
+    #endif /* REGAL_EMU_IFF */
+    #if REGAL_EMU_DSA
+    if (Config::config.enableEmuDsa)
+    {
       dsa = new RegalDsa;
       dsa->emuLevel = 3;
       dsa->Init( this );
+    }
+    #endif /* REGAL_EMU_DSA */
+    #if REGAL_EMU_BIN
+    if (Config::config.enableEmuBin)
+    {
       bin = new RegalBin;
       bin->emuLevel = 4;
       bin->Init( this );
-      marker = new RegalMarker;
-      marker->emuLevel = 5;
-      marker->Init( this );
+    }
+    #endif /* REGAL_EMU_BIN */
+    marker = new RegalMarker;
+    marker->emuLevel = 5;
+    marker->Init( this );
+    #if REGAL_EMU_OBJ
+    if (Config::config.enableEmuObj)
+    {
       obj = new RegalObj;
       obj->emuLevel = 7;
       obj->Init( this );
-   }
+    }
+    #endif /* REGAL_EMU_OBJ */
 
+  }
 }
 
 RegalContext::~RegalContext()
 {
-   ITrace("RegalContext::~RegalContext");
-   delete dsp;
-   delete info;
-   // emu
-   delete obj;
-   delete marker;
-   delete bin;
-   delete dsa;
-   delete iff;
-   delete vao;
+  ITrace("RegalContext::~RegalContext");
+  delete dsp;
+  delete info;
+  // emu
+  delete obj;
+  delete marker;
+  delete bin;
+  delete dsa;
+  delete iff;
+  delete vao;
 
 }
 

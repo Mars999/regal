@@ -65,9 +65,15 @@ Features
 
   - Enabled by default.
 
-  - Build-time configuration: **REGAL_NO_EMULATION** 
+  - Build-time configuration: 
+  
+    - **REGAL_NO_EMULATION**      -- Disable the use of emulation
+    - **REGAL_FORCE_EMULATION**   -- Force the use of emulation, even for compatibility contexts with DSA
 
-  - Environment variable configuration: **REGAL_NO_EMULATION**
+  - Environment variable configuration:
+
+    - **REGAL_NO_EMULATION**      -- Disable the use of emulation
+    - **REGAL_FORCE_EMULATION**   -- Force the use of emulation, even for compatibility contexts with DSA
 
 * OpenGL error checking
 

@@ -48,15 +48,26 @@ Config Config::config;
 
 Config::Config()
 : forceCoreProfile(false),
+  forceEmulation(REGAL_FORCE_EMULATION),
   enableEmulation(true),
   enableDebug(false),
-  enableError(false)
+  enableError(false),
+  enableEmuObj(REGAL_EMU_OBJ),
+  enableEmuBin(REGAL_EMU_BIN),
+  enableEmuDsa(REGAL_EMU_DSA),
+  enableEmuIff(REGAL_EMU_IFF),
+  enableEmuVao(REGAL_EMU_VAO)
 {
 #ifndef REGAL_NO_GETENV
   const char *tmp;
 
   tmp = GetEnv( "REGAL_FORCE_CORE_PROFILE" );
   if (tmp) forceCoreProfile = atoi(tmp)!=0;
+
+#if !REGAL_FORCE_EMULATION
+  tmp = GetEnv( "REGAL_FORCE_EMULATION" );
+  if (tmp) forceEmulation = atoi(tmp)!=0;
+#endif
 
   tmp = GetEnv( "REGAL_NO_EMULATION" );
   if (tmp) enableEmulation = atoi(tmp)==0;
@@ -66,6 +77,31 @@ Config::Config()
 
   tmp = GetEnv( "REGAL_ERROR" );
   if (tmp) enableError = atoi(tmp)!=0;
+
+#if REGAL_EMU_OBJ
+  tmp = GetEnv( "REGAL_EMU_OBJ" );
+  if (tmp) enableEmuObj = atoi(tmp)!=0;
+#endif
+
+#if REGAL_EMU_BIN
+  tmp = GetEnv( "REGAL_EMU_BIN" );
+  if (tmp) enableEmuBin = atoi(tmp)!=0;
+#endif
+
+#if REGAL_EMU_DSA
+  tmp = GetEnv( "REGAL_EMU_DSA" );
+  if (tmp) enableEmuDsa = atoi(tmp)!=0;
+#endif
+
+#if REGAL_EMU_IFF
+  tmp = GetEnv( "REGAL_EMU_IFF" );
+  if (tmp) enableEmuIff = atoi(tmp)!=0;
+#endif
+
+#if REGAL_EMU_VAO
+  tmp = GetEnv( "REGAL_EMU_VAO" );
+  if (tmp) enableEmuVao = atoi(tmp)!=0;
+#endif
 #endif
 
 #ifdef REGAL_FORCE_CORE_PROFILE
@@ -85,9 +121,16 @@ Config::Config()
 #endif
 
   Info("REGAL_FORCE_CORE_PROFILE ", forceCoreProfile ? "enabled" : "disabled");
+  Info("REGAL_FORCE_EMULATION    ", forceEmulation   ? "enabled" : "disabled");
   Info("REGAL_NO_EMULATION       ", !enableEmulation ? "enabled" : "disabled");
   Info("REGAL_DEBUG              ", enableDebug      ? "enabled" : "disabled");
   Info("REGAL_ERROR              ", enableError      ? "enabled" : "disabled");
+
+  Info("REGAL_EMU_OBJ            ", enableEmuObj     ? "enabled" : "disabled");
+  Info("REGAL_EMU_BIN            ", enableEmuBin     ? "enabled" : "disabled");
+  Info("REGAL_EMU_DSA            ", enableEmuDsa     ? "enabled" : "disabled");
+  Info("REGAL_EMU_IFF            ", enableEmuIff     ? "enabled" : "disabled");
+  Info("REGAL_EMU_VAO            ", enableEmuVao     ? "enabled" : "disabled");
 }
 
 REGAL_NAMESPACE_END

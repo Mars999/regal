@@ -44,9 +44,16 @@ struct Config
   Config();
 
   bool forceCoreProfile;
+  bool forceEmulation;
   bool enableEmulation;
   bool enableDebug;
   bool enableError;
+
+  bool enableEmuObj;
+  bool enableEmuBin;
+  bool enableEmuDsa;
+  bool enableEmuIff;
+  bool enableEmuVao;
 
   static Config config;
 };
