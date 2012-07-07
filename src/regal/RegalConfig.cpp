@@ -52,6 +52,7 @@ Config::Config()
   enableEmulation(true),
   enableDebug(false),
   enableError(false),
+  enableEmuPpa(REGAL_EMU_PPA),
   enableEmuObj(REGAL_EMU_OBJ),
   enableEmuBin(REGAL_EMU_BIN),
   enableEmuDsa(REGAL_EMU_DSA),
@@ -77,6 +78,11 @@ Config::Config()
 
   tmp = GetEnv( "REGAL_ERROR" );
   if (tmp) enableError = atoi(tmp)!=0;
+
+#if REGAL_EMU_PPA
+  tmp = GetEnv( "REGAL_EMU_PPA" );
+  if (tmp) enableEmuObj = atoi(tmp)!=0;
+#endif
 
 #if REGAL_EMU_OBJ
   tmp = GetEnv( "REGAL_EMU_OBJ" );
@@ -126,6 +132,7 @@ Config::Config()
   Info("REGAL_DEBUG              ", enableDebug      ? "enabled" : "disabled");
   Info("REGAL_ERROR              ", enableError      ? "enabled" : "disabled");
 
+  Info("REGAL_EMU_PPA            ", enableEmuPpa     ? "enabled" : "disabled");
   Info("REGAL_EMU_OBJ            ", enableEmuObj     ? "enabled" : "disabled");
   Info("REGAL_EMU_BIN            ", enableEmuBin     ? "enabled" : "disabled");
   Info("REGAL_EMU_DSA            ", enableEmuDsa     ? "enabled" : "disabled");

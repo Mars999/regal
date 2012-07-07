@@ -41,6 +41,7 @@ REGAL_GLOBAL_BEGIN
 #include "RegalLog.h"
 #include "RegalIff.h"
 #include "RegalToken.h"
+#include "RegalState.h"
 #include "RegalHelper.h"
 
 void RegalMakeCurrent( RegalSystemContext ctx )
@@ -594,7 +595,7 @@ REGAL_DECL void REGAL_CALL glColor4usv(const GLushort *v)
 REGAL_DECL void REGAL_CALL glEdgeFlag(GLboolean flag)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glEdgeFlag(", flag, ")");
+  RTrace("glEdgeFlag(", toString(flag), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -2778,7 +2779,7 @@ REGAL_DECL void REGAL_CALL glClearStencil(GLint s)
 REGAL_DECL void REGAL_CALL glColorMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glColorMask(", red, ", ", green, ", ", blue, ", ", alpha, ")");
+  RTrace("glColorMask(", toString(red), ", ", toString(green), ", ", toString(blue), ", ", toString(alpha), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -2791,7 +2792,7 @@ REGAL_DECL void REGAL_CALL glColorMask(GLboolean red, GLboolean green, GLboolean
 REGAL_DECL void REGAL_CALL glDepthMask(GLboolean flag)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glDepthMask(", flag, ")");
+  RTrace("glDepthMask(", toString(flag), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -4809,7 +4810,7 @@ REGAL_DECL void REGAL_CALL glSeparableFilter2D(GLenum target, GLenum internalfor
 REGAL_DECL void REGAL_CALL glGetHistogram(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetHistogram(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ")");
+  RTrace("glGetHistogram(", toString(target), ", ", toString(reset), ", ", toString(format), ", ", toString(type), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -4848,7 +4849,7 @@ REGAL_DECL void REGAL_CALL glGetHistogramParameteriv(GLenum target, GLenum pname
 REGAL_DECL void REGAL_CALL glGetMinmax(GLenum target, GLboolean reset, GLenum format, GLenum types, GLvoid *values)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetMinmax(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(types), ")");
+  RTrace("glGetMinmax(", toString(target), ", ", toString(reset), ", ", toString(format), ", ", toString(types), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -4887,7 +4888,7 @@ REGAL_DECL void REGAL_CALL glGetMinmaxParameteriv(GLenum target, GLenum pname, G
 REGAL_DECL void REGAL_CALL glHistogram(GLenum target, GLsizei width, GLenum internalformat, GLboolean sink)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glHistogram(", toString(target), ", ", width, ", ", toString(internalformat), ", ", sink, ")");
+  RTrace("glHistogram(", toString(target), ", ", width, ", ", toString(internalformat), ", ", toString(sink), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -4900,7 +4901,7 @@ REGAL_DECL void REGAL_CALL glHistogram(GLenum target, GLsizei width, GLenum inte
 REGAL_DECL void REGAL_CALL glMinmax(GLenum target, GLenum internalformat, GLboolean sink)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glMinmax(", toString(target), ", ", toString(internalformat), ", ", sink, ")");
+  RTrace("glMinmax(", toString(target), ", ", toString(internalformat), ", ", toString(sink), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -4954,7 +4955,7 @@ REGAL_DECL void REGAL_CALL glActiveTexture(GLenum texture)
 REGAL_DECL void REGAL_CALL glSampleCoverage(GLclampf value, GLboolean invert)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glSampleCoverage(", value, ", ", invert, ")");
+  RTrace("glSampleCoverage(", value, ", ", toString(invert), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7053,7 +7054,7 @@ REGAL_DECL void REGAL_CALL glUniform4iv(GLint location, GLsizei count, const GLi
 REGAL_DECL void REGAL_CALL glUniformMatrix2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 2 * count), ")");
+  RTrace("glUniformMatrix2fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7066,7 +7067,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2fv(GLint location, GLsizei count, GLb
 REGAL_DECL void REGAL_CALL glUniformMatrix3fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 3 * count), ")");
+  RTrace("glUniformMatrix3fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7079,7 +7080,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3fv(GLint location, GLsizei count, GLb
 REGAL_DECL void REGAL_CALL glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 4 * count), ")");
+  RTrace("glUniformMatrix4fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7573,7 +7574,7 @@ REGAL_DECL void REGAL_CALL glVertexAttrib4usv(GLuint index, const GLushort *v)
 REGAL_DECL void REGAL_CALL glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribPointer(", index, ", ", size, ", ", toString(type), ", ", normalized, ", ", stride, ", ", pointer, ")");
+  RTrace("glVertexAttribPointer(", index, ", ", size, ", ", toString(type), ", ", toString(normalized), ", ", stride, ", ", pointer, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7588,7 +7589,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribPointer(GLuint index, GLint size, GLenu
 REGAL_DECL void REGAL_CALL glUniformMatrix2x3fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2x3fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 3 * count), ")");
+  RTrace("glUniformMatrix2x3fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7601,7 +7602,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2x3fv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix3x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3x2fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 2 * count), ")");
+  RTrace("glUniformMatrix3x2fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7614,7 +7615,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3x2fv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix2x4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2x4fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 4 * count), ")");
+  RTrace("glUniformMatrix2x4fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7627,7 +7628,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2x4fv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix4x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4x2fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 2 * count), ")");
+  RTrace("glUniformMatrix4x2fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7640,7 +7641,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix4x2fv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix3x4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3x4fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 4 * count), ")");
+  RTrace("glUniformMatrix3x4fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7653,7 +7654,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3x4fv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix4x3fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4x3fv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 3 * count), ")");
+  RTrace("glUniformMatrix4x3fv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7668,7 +7669,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix4x3fv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glColorMaski(GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glColorMaski(", index, ", ", r, ", ", g, ", ", b, ", ", a, ")");
+  RTrace("glColorMaski(", index, ", ", toString(r), ", ", toString(g), ", ", toString(b), ", ", toString(a), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9198,7 +9199,7 @@ REGAL_DECL void REGAL_CALL glSecondaryColorP3uiv(GLenum type, const GLuint *colo
 REGAL_DECL void REGAL_CALL glVertexAttribP1ui(GLuint index, GLenum type, GLboolean normalized, GLuint value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP1ui(", index, ", ", toString(type), ", ", normalized, ", ", value, ")");
+  RTrace("glVertexAttribP1ui(", index, ", ", toString(type), ", ", toString(normalized), ", ", value, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9211,7 +9212,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP1ui(GLuint index, GLenum type, GLboole
 REGAL_DECL void REGAL_CALL glVertexAttribP1uiv(GLuint index, GLenum type, GLboolean normalized, const GLuint *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP1uiv(", index, ", ", toString(type), ", ", normalized, ", ", boost::print::array(value,1), ")");
+  RTrace("glVertexAttribP1uiv(", index, ", ", toString(type), ", ", toString(normalized), ", ", boost::print::array(value,1), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9224,7 +9225,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP1uiv(GLuint index, GLenum type, GLbool
 REGAL_DECL void REGAL_CALL glVertexAttribP2ui(GLuint index, GLenum type, GLboolean normalized, GLuint value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP2ui(", index, ", ", toString(type), ", ", normalized, ", ", value, ")");
+  RTrace("glVertexAttribP2ui(", index, ", ", toString(type), ", ", toString(normalized), ", ", value, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9237,7 +9238,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP2ui(GLuint index, GLenum type, GLboole
 REGAL_DECL void REGAL_CALL glVertexAttribP2uiv(GLuint index, GLenum type, GLboolean normalized, const GLuint *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP2uiv(", index, ", ", toString(type), ", ", normalized, ", ", boost::print::array(value,1), ")");
+  RTrace("glVertexAttribP2uiv(", index, ", ", toString(type), ", ", toString(normalized), ", ", boost::print::array(value,1), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9250,7 +9251,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP2uiv(GLuint index, GLenum type, GLbool
 REGAL_DECL void REGAL_CALL glVertexAttribP3ui(GLuint index, GLenum type, GLboolean normalized, GLuint value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP3ui(", index, ", ", toString(type), ", ", normalized, ", ", value, ")");
+  RTrace("glVertexAttribP3ui(", index, ", ", toString(type), ", ", toString(normalized), ", ", value, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9263,7 +9264,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP3ui(GLuint index, GLenum type, GLboole
 REGAL_DECL void REGAL_CALL glVertexAttribP3uiv(GLuint index, GLenum type, GLboolean normalized, const GLuint *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP3uiv(", index, ", ", toString(type), ", ", normalized, ", ", boost::print::array(value,1), ")");
+  RTrace("glVertexAttribP3uiv(", index, ", ", toString(type), ", ", toString(normalized), ", ", boost::print::array(value,1), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9276,7 +9277,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP3uiv(GLuint index, GLenum type, GLbool
 REGAL_DECL void REGAL_CALL glVertexAttribP4ui(GLuint index, GLenum type, GLboolean normalized, GLuint value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP4ui(", index, ", ", toString(type), ", ", normalized, ", ", value, ")");
+  RTrace("glVertexAttribP4ui(", index, ", ", toString(type), ", ", toString(normalized), ", ", value, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9289,7 +9290,7 @@ REGAL_DECL void REGAL_CALL glVertexAttribP4ui(GLuint index, GLenum type, GLboole
 REGAL_DECL void REGAL_CALL glVertexAttribP4uiv(GLuint index, GLenum type, GLboolean normalized, const GLuint *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribP4uiv(", index, ", ", toString(type), ", ", normalized, ", ", boost::print::array(value,1), ")");
+  RTrace("glVertexAttribP4uiv(", index, ", ", toString(type), ", ", toString(normalized), ", ", boost::print::array(value,1), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9490,7 +9491,7 @@ REGAL_DECL void REGAL_CALL glUniform4dv(GLint location, GLsizei count, const GLd
 REGAL_DECL void REGAL_CALL glUniformMatrix2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 2 * count), ")");
+  RTrace("glUniformMatrix2dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9503,7 +9504,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2dv(GLint location, GLsizei count, GLb
 REGAL_DECL void REGAL_CALL glUniformMatrix3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 3 * count), ")");
+  RTrace("glUniformMatrix3dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9516,7 +9517,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3dv(GLint location, GLsizei count, GLb
 REGAL_DECL void REGAL_CALL glUniformMatrix4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 4 * count), ")");
+  RTrace("glUniformMatrix4dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9529,7 +9530,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix4dv(GLint location, GLsizei count, GLb
 REGAL_DECL void REGAL_CALL glUniformMatrix2x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2x3dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 3 * count), ")");
+  RTrace("glUniformMatrix2x3dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9542,7 +9543,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2x3dv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix2x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2x4dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 4 * count), ")");
+  RTrace("glUniformMatrix2x4dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9555,7 +9556,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2x4dv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix3x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3x2dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 2 * count), ")");
+  RTrace("glUniformMatrix3x2dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9568,7 +9569,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3x2dv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix3x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3x4dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 4 * count), ")");
+  RTrace("glUniformMatrix3x4dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9581,7 +9582,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3x4dv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix4x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4x2dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 2 * count), ")");
+  RTrace("glUniformMatrix4x2dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -9594,7 +9595,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix4x2dv(GLint location, GLsizei count, G
 REGAL_DECL void REGAL_CALL glUniformMatrix4x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4x3dv(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 3 * count), ")");
+  RTrace("glUniformMatrix4x3dv(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10628,7 +10629,7 @@ REGAL_DECL void REGAL_CALL glProgramUniform4iv(GLuint program, GLint location, G
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 4), ")");
+  RTrace("glProgramUniformMatrix2fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 4), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10641,7 +10642,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2fv(GLuint program, GLint locat
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 9), ")");
+  RTrace("glProgramUniformMatrix3fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 9), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10654,7 +10655,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3fv(GLuint program, GLint locat
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 16), ")");
+  RTrace("glProgramUniformMatrix4fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 16), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10667,7 +10668,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4fv(GLuint program, GLint locat
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x3fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix2x3fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10680,7 +10681,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3fv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x2fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix3x2fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10693,7 +10694,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2fv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x4fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix2x4fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10706,7 +10707,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4fv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x2fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix4x2fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10719,7 +10720,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2fv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x4fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix3x4fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10732,7 +10733,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4fv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x3fv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix4x3fv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10953,7 +10954,7 @@ REGAL_DECL void REGAL_CALL glProgramUniform4dv(GLuint program, GLint location, G
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 4), ")");
+  RTrace("glProgramUniformMatrix2dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 4), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10966,7 +10967,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2dv(GLuint program, GLint locat
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 9), ")");
+  RTrace("glProgramUniformMatrix3dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 9), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10979,7 +10980,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3dv(GLuint program, GLint locat
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 16), ")");
+  RTrace("glProgramUniformMatrix4dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 16), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10992,7 +10993,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4dv(GLuint program, GLint locat
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x3dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix2x3dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -11005,7 +11006,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3dv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x4dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix2x4dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -11018,7 +11019,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4dv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x2dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix3x2dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -11031,7 +11032,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2dv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x4dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix3x4dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -11044,7 +11045,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4dv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x2dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix4x2dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -11057,7 +11058,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2dv(GLuint program, GLint loc
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x3dv(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix4x3dv(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -11570,7 +11571,7 @@ REGAL_DECL void REGAL_CALL glMultTransposeMatrixdARB(const GLdouble *m)
 REGAL_DECL void REGAL_CALL glSampleCoverageARB(GLclampf value, GLboolean invert)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glSampleCoverageARB(", value, ", ", invert, ")");
+  RTrace("glSampleCoverageARB(", value, ", ", toString(invert), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -12583,7 +12584,7 @@ REGAL_DECL void REGAL_CALL glVertexAttrib4usvARB(GLuint index, const GLushort *v
 REGAL_DECL void REGAL_CALL glVertexAttribPointerARB(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribPointerARB(", index, ", ", size, ", ", toString(type), ", ", normalized, ", ", stride, ", ", pointer, ")");
+  RTrace("glVertexAttribPointerARB(", index, ", ", size, ", ", toString(type), ", ", toString(normalized), ", ", stride, ", ", pointer, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -13525,7 +13526,7 @@ REGAL_DECL void REGAL_CALL glUniform4ivARB(GLint location, GLsizei count, const 
 REGAL_DECL void REGAL_CALL glUniformMatrix2fvARB(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix2fvARB(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,2 * 2 * count), ")");
+  RTrace("glUniformMatrix2fvARB(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,2 * 2 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -13538,7 +13539,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix2fvARB(GLint location, GLsizei count, 
 REGAL_DECL void REGAL_CALL glUniformMatrix3fvARB(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix3fvARB(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,3 * 3 * count), ")");
+  RTrace("glUniformMatrix3fvARB(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,3 * 3 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -13551,7 +13552,7 @@ REGAL_DECL void REGAL_CALL glUniformMatrix3fvARB(GLint location, GLsizei count, 
 REGAL_DECL void REGAL_CALL glUniformMatrix4fvARB(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glUniformMatrix4fvARB(", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,4 * 4 * count), ")");
+  RTrace("glUniformMatrix4fvARB(", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,4 * 4 * count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -14480,7 +14481,7 @@ REGAL_DECL void REGAL_CALL glGetSynciv(GLsync sync, GLenum pname, GLsizei bufSiz
 REGAL_DECL void REGAL_CALL glTexImage2DMultisample(GLenum target, GLsizei samples, GLint internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTexImage2DMultisample(", toString(target), ", ", samples, ", ", internalformat, ", ", width, ", ", height, ", ", fixedsamplelocations, ")");
+  RTrace("glTexImage2DMultisample(", toString(target), ", ", samples, ", ", internalformat, ", ", width, ", ", height, ", ", toString(fixedsamplelocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -14493,7 +14494,7 @@ REGAL_DECL void REGAL_CALL glTexImage2DMultisample(GLenum target, GLsizei sample
 REGAL_DECL void REGAL_CALL glTexImage3DMultisample(GLenum target, GLsizei samples, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTexImage3DMultisample(", toString(target), ", ", samples, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", fixedsamplelocations, ")");
+  RTrace("glTexImage3DMultisample(", toString(target), ", ", samples, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", toString(fixedsamplelocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -14683,7 +14684,7 @@ REGAL_DECL void REGAL_CALL glGetNamedStringivARB(GLint namelen, const GLchar *na
 REGAL_DECL void REGAL_CALL glDebugMessageControlARB(GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint *ids, GLboolean enabled)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glDebugMessageControlARB(", toString(source), ", ", toString(type), ", ", toString(severity), ", ", count, ", ", boost::print::array(ids,count>0 && ids ? count : 0), ", ", enabled, ")");
+  RTrace("glDebugMessageControlARB(", toString(source), ", ", toString(type), ", ", toString(severity), ", ", count, ", ", boost::print::array(ids,count>0 && ids ? count : 0), ", ", toString(enabled), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -14906,7 +14907,7 @@ REGAL_DECL void REGAL_CALL glGetnSeparableFilterARB(GLenum target, GLenum format
 REGAL_DECL void REGAL_CALL glGetnHistogramARB(GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, GLvoid *values)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetnHistogramARB(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");
+  RTrace("glGetnHistogramARB(", toString(target), ", ", toString(reset), ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -14919,7 +14920,7 @@ REGAL_DECL void REGAL_CALL glGetnHistogramARB(GLenum target, GLboolean reset, GL
 REGAL_DECL void REGAL_CALL glGetnMinmaxARB(GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, GLvoid *values)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetnMinmaxARB(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");
+  RTrace("glGetnMinmaxARB(", toString(target), ", ", toString(reset), ", ", toString(format), ", ", toString(type), ", ", bufSize, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -15180,7 +15181,7 @@ REGAL_DECL void REGAL_CALL glCopyTexSubImage3DEXT(GLenum target, GLint level, GL
 REGAL_DECL void REGAL_CALL glGetHistogramEXT(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetHistogramEXT(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ")");
+  RTrace("glGetHistogramEXT(", toString(target), ", ", toString(reset), ", ", toString(format), ", ", toString(type), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -15219,7 +15220,7 @@ REGAL_DECL void REGAL_CALL glGetHistogramParameterivEXT(GLenum target, GLenum pn
 REGAL_DECL void REGAL_CALL glGetMinmaxEXT(GLenum target, GLboolean reset, GLenum format, GLenum type, GLvoid *values)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetMinmaxEXT(", toString(target), ", ", reset, ", ", toString(format), ", ", toString(type), ")");
+  RTrace("glGetMinmaxEXT(", toString(target), ", ", toString(reset), ", ", toString(format), ", ", toString(type), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -15258,7 +15259,7 @@ REGAL_DECL void REGAL_CALL glGetMinmaxParameterivEXT(GLenum target, GLenum pname
 REGAL_DECL void REGAL_CALL glHistogramEXT(GLenum target, GLsizei width, GLenum internalformat, GLboolean sink)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glHistogramEXT(", toString(target), ", ", width, ", ", toString(internalformat), ", ", sink, ")");
+  RTrace("glHistogramEXT(", toString(target), ", ", width, ", ", toString(internalformat), ", ", toString(sink), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -15271,7 +15272,7 @@ REGAL_DECL void REGAL_CALL glHistogramEXT(GLenum target, GLsizei width, GLenum i
 REGAL_DECL void REGAL_CALL glMinmaxEXT(GLenum target, GLenum internalformat, GLboolean sink)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glMinmaxEXT(", toString(target), ", ", toString(internalformat), ", ", sink, ")");
+  RTrace("glMinmaxEXT(", toString(target), ", ", toString(internalformat), ", ", toString(sink), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -15835,7 +15836,7 @@ REGAL_DECL void REGAL_CALL glGetSharpenTexFuncSGIS(GLenum target, GLfloat *point
 REGAL_DECL void REGAL_CALL glSampleMaskSGIS(GLclampf value, GLboolean invert)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glSampleMaskSGIS(", value, ", ", invert, ")");
+  RTrace("glSampleMaskSGIS(", value, ", ", toString(invert), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -18701,7 +18702,7 @@ REGAL_DECL void REGAL_CALL glCombinerInputNV(GLenum stage, GLenum portion, GLenu
 REGAL_DECL void REGAL_CALL glCombinerOutputNV(GLenum stage, GLenum portion, GLenum abOutput, GLenum cdOutput, GLenum sumOutput, GLenum scale, GLenum bias, GLboolean abDotProduct, GLboolean cdDotProduct, GLboolean muxSum)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glCombinerOutputNV(", toString(stage), ", ", toString(portion), ", ", toString(abOutput), ", ", toString(cdOutput), ", ", toString(sumOutput), ", ", toString(scale), ", ", toString(bias), ", ", abDotProduct, ", ", cdDotProduct, ")");
+  RTrace("glCombinerOutputNV(", toString(stage), ", ", toString(portion), ", ", toString(abOutput), ", ", toString(cdOutput), ", ", toString(sumOutput), ", ", toString(scale), ", ", toString(bias), ", ", toString(abDotProduct), ", ", toString(cdDotProduct), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -19285,7 +19286,7 @@ REGAL_DECL void REGAL_CALL glTbufferMask3DFX(GLuint mask)
 REGAL_DECL void REGAL_CALL glSampleMaskEXT(GLclampf value, GLboolean invert)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glSampleMaskEXT(", value, ", ", invert, ")");
+  RTrace("glSampleMaskEXT(", value, ", ", toString(invert), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -19313,7 +19314,7 @@ REGAL_DECL void REGAL_CALL glSamplePatternEXT(GLenum pattern)
 REGAL_DECL void REGAL_CALL glTextureColorMaskSGIS(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTextureColorMaskSGIS(", red, ", ", green, ", ", blue, ", ", alpha, ")");
+  RTrace("glTextureColorMaskSGIS(", toString(red), ", ", toString(green), ", ", toString(blue), ", ", toString(alpha), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -19436,7 +19437,7 @@ REGAL_DECL void REGAL_CALL glSetFenceNV(GLuint fence, GLenum condition)
 REGAL_DECL void REGAL_CALL glMapControlPointsNV(GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLint uorder, GLint vorder, GLboolean packed, const GLvoid *points)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glMapControlPointsNV(", toString(target), ", ", index, ", ", toString(type), ", ", ustride, ", ", vstride, ", ", uorder, ", ", vorder, ", ", packed, ", ", points, ")");
+  RTrace("glMapControlPointsNV(", toString(target), ", ", index, ", ", toString(type), ", ", ustride, ", ", vstride, ", ", uorder, ", ", vorder, ", ", toString(packed), ", ", points, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -19475,7 +19476,7 @@ REGAL_DECL void REGAL_CALL glMapParameterfvNV(GLenum target, GLenum pname, const
 REGAL_DECL void REGAL_CALL glGetMapControlPointsNV(GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLboolean packed, GLvoid *points)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetMapControlPointsNV(", toString(target), ", ", index, ", ", toString(type), ", ", ustride, ", ", vstride, ", ", packed, ")");
+  RTrace("glGetMapControlPointsNV(", toString(target), ", ", index, ", ", toString(type), ", ", ustride, ", ", vstride, ", ", toString(packed), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -23243,7 +23244,7 @@ REGAL_DECL void REGAL_CALL glStencilFuncSeparateATI(GLenum frontfunc, GLenum bac
 REGAL_DECL void REGAL_CALL glVertexAttribArrayObjectATI(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLuint buffer, GLuint offset)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribArrayObjectATI(", index, ", ", size, ", ", toString(type), ", ", normalized, ", ", stride, ", ", buffer, ", ", offset, ")");
+  RTrace("glVertexAttribArrayObjectATI(", index, ", ", size, ", ", toString(type), ", ", toString(normalized), ", ", stride, ", ", buffer, ", ", offset, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -24548,7 +24549,7 @@ REGAL_DECL void REGAL_CALL glProgramBufferParametersIuivNV(GLenum target, GLuint
 REGAL_DECL void REGAL_CALL glColorMaskIndexedEXT(GLuint buf, GLboolean r, GLboolean g, GLboolean b, GLboolean a)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glColorMaskIndexedEXT(", buf, ", ", r, ", ", g, ", ", b, ", ", a, ")");
+  RTrace("glColorMaskIndexedEXT(", buf, ", ", toString(r), ", ", toString(g), ", ", toString(b), ", ", toString(a), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26917,7 +26918,7 @@ REGAL_DECL void REGAL_CALL glProgramUniform4ivEXT(GLuint program, GLint location
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 4), ")");
+  RTrace("glProgramUniformMatrix2fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 4), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26930,7 +26931,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2fvEXT(GLuint program, GLint lo
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 9), ")");
+  RTrace("glProgramUniformMatrix3fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 9), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26943,7 +26944,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3fvEXT(GLuint program, GLint lo
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 16), ")");
+  RTrace("glProgramUniformMatrix4fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 16), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26956,7 +26957,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4fvEXT(GLuint program, GLint lo
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix2x3fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26969,7 +26970,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3fvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix3x2fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26982,7 +26983,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2fvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix2x4fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -26995,7 +26996,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4fvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x2fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix4x2fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27008,7 +27009,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2fvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x4fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix3x4fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27021,7 +27022,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4fvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x3fvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix4x3fvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27671,7 +27672,7 @@ REGAL_DECL void REGAL_CALL glProgramUniform4dvEXT(GLuint program, GLint location
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 4), ")");
+  RTrace("glProgramUniformMatrix2dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 4), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27684,7 +27685,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2dvEXT(GLuint program, GLint lo
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 9), ")");
+  RTrace("glProgramUniformMatrix3dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 9), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27697,7 +27698,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3dvEXT(GLuint program, GLint lo
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 16), ")");
+  RTrace("glProgramUniformMatrix4dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 16), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27710,7 +27711,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4dvEXT(GLuint program, GLint lo
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix2x3dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27723,7 +27724,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x3dvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix2x4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix2x4dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27736,7 +27737,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix2x4dvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 6), ")");
+  RTrace("glProgramUniformMatrix3x2dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 6), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27749,7 +27750,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x2dvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix3x4dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix3x4dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27762,7 +27763,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix3x4dvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x2dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 8), ")");
+  RTrace("glProgramUniformMatrix4x2dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 8), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -27775,7 +27776,7 @@ REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x2dvEXT(GLuint program, GLint 
 REGAL_DECL void REGAL_CALL glProgramUniformMatrix4x3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glProgramUniformMatrix4x3dvEXT(", program, ", ", location, ", ", count, ", ", transpose, ", ", boost::print::array(value,count * 12), ")");
+  RTrace("glProgramUniformMatrix4x3dvEXT(", program, ", ", location, ", ", count, ", ", toString(transpose), ", ", boost::print::array(value,count * 12), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -28015,7 +28016,7 @@ REGAL_DECL void REGAL_CALL glDeletePerfMonitorsAMD(GLsizei n, GLuint *monitors)
 REGAL_DECL void REGAL_CALL glSelectPerfMonitorCountersAMD(GLuint monitor, GLboolean enable, GLuint group, GLint numCounters, GLuint *counterList)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glSelectPerfMonitorCountersAMD(", monitor, ", ", enable, ", ", group, ", ", numCounters, ")");
+  RTrace("glSelectPerfMonitorCountersAMD(", monitor, ", ", toString(enable), ", ", group, ", ", numCounters, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -28843,7 +28844,7 @@ REGAL_DECL void REGAL_CALL glFogCoordFormatNV(GLenum type, GLsizei stride)
 REGAL_DECL void REGAL_CALL glVertexAttribFormatNV(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glVertexAttribFormatNV(", index, ", ", size, ", ", toString(type), ", ", normalized, ", ", stride, ")");
+  RTrace("glVertexAttribFormatNV(", index, ", ", size, ", ", toString(type), ", ", toString(normalized), ", ", stride, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -28899,7 +28900,7 @@ REGAL_DECL void REGAL_CALL glTextureBarrierNV(void)
 REGAL_DECL void REGAL_CALL glBindImageTextureEXT(GLuint index, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLint format)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glBindImageTextureEXT(", index, ", ", texture, ", ", level, ", ", layered, ", ", layer, ", ", toString(access), ", ", format, ")");
+  RTrace("glBindImageTextureEXT(", index, ", ", texture, ", ", level, ", ", toString(layered), ", ", layer, ", ", toString(access), ", ", format, ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -30581,7 +30582,7 @@ REGAL_DECL void REGAL_CALL glDebugMessageCallbackAMD(GLDEBUGPROCAMD callback, GL
 REGAL_DECL void REGAL_CALL glDebugMessageEnableAMD(GLenum category, GLenum severity, GLsizei count, const GLuint *ids, GLboolean enabled)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glDebugMessageEnableAMD(", toString(category), ", ", toString(severity), ", ", count, ", ", ids, ", ", enabled, ")");
+  RTrace("glDebugMessageEnableAMD(", toString(category), ", ", toString(severity), ", ", count, ", ", ids, ", ", toString(enabled), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -30956,7 +30957,7 @@ REGAL_DECL GLboolean REGAL_CALL glIsTextureHandleResidentNV(GLuint64 handle)
 REGAL_DECL GLuint64 REGAL_CALL glGetImageHandleNV(GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glGetImageHandleNV(", texture, ", ", level, ", ", layered, ", ", layer, ", ", toString(format), ")");
+  RTrace("glGetImageHandleNV(", texture, ", ", level, ", ", toString(layered), ", ", layer, ", ", toString(format), ")");
   if (!rCtx) return (GLuint64 )0;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31101,7 +31102,7 @@ REGAL_DECL void REGAL_CALL glUniformHandleui64vNV(GLint location, GLsizei count,
 REGAL_DECL void REGAL_CALL glTexImage2DMultisampleCoverageNV(GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTexImage2DMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", fixedSampleLocations, ")");
+  RTrace("glTexImage2DMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", toString(fixedSampleLocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31114,7 +31115,7 @@ REGAL_DECL void REGAL_CALL glTexImage2DMultisampleCoverageNV(GLenum target, GLsi
 REGAL_DECL void REGAL_CALL glTexImage3DMultisampleCoverageNV(GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTexImage3DMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", fixedSampleLocations, ")");
+  RTrace("glTexImage3DMultisampleCoverageNV(", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", toString(fixedSampleLocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31127,7 +31128,7 @@ REGAL_DECL void REGAL_CALL glTexImage3DMultisampleCoverageNV(GLenum target, GLsi
 REGAL_DECL void REGAL_CALL glTextureImage2DMultisampleCoverageNV(GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTextureImage2DMultisampleCoverageNV(", texture, ", ", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", fixedSampleLocations, ")");
+  RTrace("glTextureImage2DMultisampleCoverageNV(", texture, ", ", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", toString(fixedSampleLocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31140,7 +31141,7 @@ REGAL_DECL void REGAL_CALL glTextureImage2DMultisampleCoverageNV(GLuint texture,
 REGAL_DECL void REGAL_CALL glTextureImage2DMultisampleNV(GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTextureImage2DMultisampleNV(", texture, ", ", toString(target), ", ", samples, ", ", internalFormat, ", ", width, ", ", height, ", ", fixedSampleLocations, ")");
+  RTrace("glTextureImage2DMultisampleNV(", texture, ", ", toString(target), ", ", samples, ", ", internalFormat, ", ", width, ", ", height, ", ", toString(fixedSampleLocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31153,7 +31154,7 @@ REGAL_DECL void REGAL_CALL glTextureImage2DMultisampleNV(GLuint texture, GLenum 
 REGAL_DECL void REGAL_CALL glTextureImage3DMultisampleCoverageNV(GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTextureImage3DMultisampleCoverageNV(", texture, ", ", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", fixedSampleLocations, ")");
+  RTrace("glTextureImage3DMultisampleCoverageNV(", texture, ", ", toString(target), ", ", coverageSamples, ", ", colorSamples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", toString(fixedSampleLocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31166,7 +31167,7 @@ REGAL_DECL void REGAL_CALL glTextureImage3DMultisampleCoverageNV(GLuint texture,
 REGAL_DECL void REGAL_CALL glTextureImage3DMultisampleNV(GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTextureImage3DMultisampleNV(", texture, ", ", toString(target), ", ", samples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", fixedSampleLocations, ")");
+  RTrace("glTextureImage3DMultisampleNV(", texture, ", ", toString(target), ", ", samples, ", ", internalFormat, ", ", width, ", ", height, ", ", depth, ", ", toString(fixedSampleLocations), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -35552,7 +35553,7 @@ REGAL_DECL int REGAL_CALL glXReleaseVideoImageNV(Display *dpy, GLXPbuffer pbuf)
 
 REGAL_DECL int REGAL_CALL glXSendPbufferToVideoNV(Display *dpy, GLXPbuffer pbuf, int iBufferType, unsigned long *pulCounterPbuffer, GLboolean bBlock)
 {
-  RTrace("glXSendPbufferToVideoNV(", dpy, ", ", pbuf, ", ", iBufferType, ", ", bBlock, ")");
+  RTrace("glXSendPbufferToVideoNV(", dpy, ", ", pbuf, ", ", iBufferType, ", ", toString(bBlock), ")");
   static bool initialized = false;
   if (!initialized) {
     GetProcAddress( dispatchTableGlobal.glXSendPbufferToVideoNV, "glXSendPbufferToVideoNV" );
@@ -35561,7 +35562,7 @@ REGAL_DECL int REGAL_CALL glXSendPbufferToVideoNV(Display *dpy, GLXPbuffer pbuf,
   }
   int  ret = (int )0;
   if (dispatchTableGlobal.glXSendPbufferToVideoNV) {
-    GTrace("glXSendPbufferToVideoNV(", dpy, ", ", pbuf, ", ", iBufferType, ", ", bBlock, ")");
+    GTrace("glXSendPbufferToVideoNV(", dpy, ", ", pbuf, ", ", iBufferType, ", ", toString(bBlock), ")");
     ret = dispatchTableGlobal.glXSendPbufferToVideoNV(dpy, pbuf, iBufferType, pulCounterPbuffer, bBlock);
   }
   return ret;

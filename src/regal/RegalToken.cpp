@@ -47,6 +47,11 @@ REGAL_NAMESPACE_BEGIN
 
 namespace Token {
 
+  const char * GLbooleanToString(GLboolean v)
+  {
+    return v==GL_FALSE ? "GL_FALSE" : "GL_TRUE";
+  }
+
   const char * GLenumToString( GLenum e ) {
     switch( e ) {
       case 0x00000000: return "GL_ZERO";

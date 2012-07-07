@@ -50,13 +50,13 @@ public:
     inBeginEnd(false)
   {
   }
-   
+
   ~DispatchErrorState()
   {
   }
-      
+
   ::RegalErrorCallback Set( RegalContext *ctx, ::RegalErrorCallback cb );
-   
+
   ::RegalErrorCallback callback;
   bool inBeginEnd;
 };

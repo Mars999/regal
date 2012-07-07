@@ -104,6 +104,10 @@ are permitted provided that the following conditions are met:
 #define REGAL_FORCE_EMULATION 0
 #endif
 
+#ifndef REGAL_EMU_PPA
+#define REGAL_EMU_PPA 1
+#endif
+
 #ifndef REGAL_EMU_OBJ
 #define REGAL_EMU_OBJ 1
 #endif

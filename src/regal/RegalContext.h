@@ -52,6 +52,7 @@ struct DispatchState;
 
 struct RegalObj;
 struct RegalMarker;
+struct RegalPpa;
 struct RegalBin;
 struct RegalDsa;
 struct RegalIff;
@@ -72,6 +73,7 @@ struct RegalContext
    int emuLevel;
    RegalObj           *obj;
    RegalMarker        *marker;
+   RegalPpa           *ppa;
    RegalBin           *bin;
    RegalDsa           *dsa;
    RegalIff           *iff;

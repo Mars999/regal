@@ -49,6 +49,7 @@ struct Config
   bool enableDebug;
   bool enableError;
 
+  bool enableEmuPpa;
   bool enableEmuObj;
   bool enableEmuBin;
   bool enableEmuDsa;

@@ -45,6 +45,7 @@ REGAL_GLOBAL_BEGIN
 #include "RegalContextInfo.h"
 #include "RegalObj.h"
 #include "RegalMarker.h"
+#include "RegalPpa.h"
 #include "RegalBin.h"
 #include "RegalDsa.h"
 #include "RegalIff.h"
@@ -62,6 +63,7 @@ RegalContext::RegalContext()
   info(NULL),
   obj(NULL),
   marker(NULL),
+  ppa(NULL),
   bin(NULL),
   dsa(NULL),
   iff(NULL),
@@ -101,7 +103,7 @@ RegalContext::Init()
   )
 #endif
   {
-    emuLevel = 7;
+    emuLevel = 8;
     #if REGAL_EMU_VAO
     if (Config::config.enableEmuVao)
     {
@@ -134,14 +136,22 @@ RegalContext::Init()
       bin->Init( this );
     }
     #endif /* REGAL_EMU_BIN */
+    #if REGAL_EMU_PPA
+    if (Config::config.enableEmuPpa)
+    {
+      ppa = new RegalPpa;
+      ppa->emuLevel = 5;
+      ppa->Init( this );
+    }
+    #endif /* REGAL_EMU_PPA */
     marker = new RegalMarker;
-    marker->emuLevel = 5;
+    marker->emuLevel = 6;
     marker->Init( this );
     #if REGAL_EMU_OBJ
     if (Config::config.enableEmuObj)
     {
       obj = new RegalObj;
-      obj->emuLevel = 7;
+      obj->emuLevel = 8;
       obj->Init( this );
     }
     #endif /* REGAL_EMU_OBJ */
@@ -157,6 +167,7 @@ RegalContext::~RegalContext()
   // emu
   delete obj;
   delete marker;
+  delete ppa;
   delete bin;
   delete dsa;
   delete iff;

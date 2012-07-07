@@ -63,6 +63,19 @@ template<typename T,typename U>
 detail::iterator<T,U> iterator(const T &begin, const T &end, const U &open, const U &close, const U &delim)
 { return detail::iterator<T,U>(begin,end,open,close,delim); }
 
+template<typename T,typename U>
+detail::trim<T,U> trim(const T &str, const U delim, const std::size_t n)
+{
+  static const T suffix = "";
+  return detail::trim<T,U>(str,delim,n,suffix);
+}
+
+template<typename T,typename U>
+detail::trim<T,U> trim(const T &str, const U delim, const std::size_t n, const T &suffix)
+{
+  return detail::trim<T,U>(str,delim,n,suffix);
+}
+
 }}
 
 //
@@ -82,6 +95,7 @@ using boost::print::detail::right;
 using boost::print::detail::quote;
 using boost::print::detail::array;
 using boost::print::detail::iterator;
+using boost::print::detail::trim;
 
 using boost::print::detail::signed_length;
 using boost::print::detail::unsigned_length;
@@ -188,11 +202,11 @@ template<typename T, typename C> size_t length(const quote<T,C> &val) { return l
 template<typename T, typename U> size_t length(const array<T,U> &val)
 {
   size_t len = length(val._open) + length(val._close);
-  
+
   if (val._size)
   {
     const size_t dl = length(val._delim);
-  
+
     len += length(val._data[0]);
     for (size_t j=1; j<val._size; ++j)
       len += dl + length(val._data[j]);
@@ -206,17 +220,38 @@ template<typename T, typename U> size_t length(const array<T,U> &val)
 template<typename T, typename U> size_t length(const iterator<T,U> &val)
 {
   size_t len = length(val._open) + length(val._close);
-  
+
   if (val._begin!=val._end)
   {
     const size_t dl = length(val._delim);
-  
+
     T i = val._begin;
     len += length(*i);
     for (++i; i!=val._end; ++i)
       len += dl + length(*i);
   }
 
+  return len;
+}
+
+// Trim
+
+template<typename T, typename U> size_t length(const trim<T,U> &val)
+{
+  size_t   n = val._n;
+  const U *i = &val._str[0];
+
+  if (!val._n || !i)
+    return 0;
+
+  size_t len = 0;
+  while (*i)
+  {
+    if (*i==val._delim && (--n)==0)
+      return len + length(val._suffix);
+    len++;
+    ++i;
+  }
   return len;
 }
 
@@ -391,7 +426,7 @@ inline void write(Iterator &i, const iterator<T,U> &val)
   {
     T j = val._begin;
     write(i,*j);
-  
+
     for (++j; j!=val._end; ++j)
     {
       write(i,val._delim);
@@ -399,6 +434,28 @@ inline void write(Iterator &i, const iterator<T,U> &val)
     }
   }
   write(i,val._close);
+}
+
+// Trim
+
+template<typename Iterator, typename T, typename U>
+inline void write(Iterator &i, const trim<T,U> &val)
+{
+  size_t   n = val._n;
+  const U *j = &val._str[0];
+
+  if (!val._n || !j)
+    return;
+
+  while (*j)
+  {
+    if (*j==val._delim && (--n)==0)
+    {
+      write(i,val._suffix);
+      break;
+    }
+    *(i++) = *(j++);
+  }
 }
 
 // Convenience functions for the length of multiple items

@@ -174,6 +174,24 @@ private:
   iterator<T,U> &operator=(const iterator<T,U> &other);
 };
 
+// Print the first n delimited items
+
+template<typename T,typename U>
+struct trim
+{
+  trim(const T &str, const U delim, const size_t n, const T &suffix)
+  : _str(str), _delim(delim), _n(n), _suffix(suffix) {}
+
+  const T      &_str;
+  const U       _delim;
+  const size_t  _n;
+  const T      &_suffix;
+
+private:
+  trim();
+  trim<T,U> &operator=(const iterator<T,U> &other);
+};
+
 // Determine the number of digits of an unsigned integer
 // Use binary search to minimise comparisons.
 

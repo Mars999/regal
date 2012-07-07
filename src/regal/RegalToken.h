@@ -2827,10 +2827,12 @@ REGAL_NAMESPACE_BEGIN
 
 namespace Token {
 
-  const char * GLenumToString( GLenum e );
-  const char * GLerrorToString( GLenum e );  // gluErrorString
+  const char * GLenumToString   (GLenum    v);
+  const char * GLerrorToString  (GLenum    v); // gluErrorString
+  const char * GLbooleanToString(GLboolean v);
 
-  inline const char *toString(const GLenum e) { return GLenumToString(e); }
+  inline const char *toString(const GLenum    v) { return GLenumToString(v);    }
+  inline const char *toString(const GLboolean v) { return GLbooleanToString(v); }
 }
 
 REGAL_NAMESPACE_END

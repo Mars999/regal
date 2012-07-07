@@ -48,8 +48,9 @@ public:
   string_list &operator=(const string_list &other);
 
   void clear();
-  void push_back(const char *string);
-  void push_back(const T    &string);
+  void push_back     (const char *string);
+  void push_back     (const T    &string);
+  void push_back_swap(      T    &string);
 
   template<typename I>
   string_list<T> &
@@ -66,6 +67,8 @@ public:
   T join(const char_type *delim = NULL) const;
   T join(const T         &delim       ) const;
   T str() const;
+
+  operator T () const { return str(); }
 
   size_type size()  const;
   size_type count() const;
@@ -181,6 +184,13 @@ template<typename T> void string_list<T>::push_back(const typename string_list<T
 template<typename T> void string_list<T>::push_back(const T &string)
 {
   _list.push_back(string);
+  _count += string.length();
+}
+
+template<typename T> void string_list<T>::push_back_swap(T &string)
+{
+  _list.push_back(T());
+  _list.back().swap(string);
   _count += string.length();
 }
 

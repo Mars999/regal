@@ -81,6 +81,10 @@ REGAL_NAMESPACE_BEGIN
 # endif
 #endif
 
+#ifndef REGAL_LOG_MAX_LINES
+# define REGAL_LOG_MAX_LINES -1 // unlimited by default
+#endif
+
 #ifdef REGAL_LOG_ALL
 # undef REGAL_LOG_ERROR
 # undef REGAL_LOG_WARNING
@@ -110,6 +114,8 @@ namespace Logging
   extern bool enableRegal;
   extern bool enableOpenGL;
   extern bool enableInternal;
+
+  extern int  maxLines;
 }
 
 #if REGAL_LOG_ERROR

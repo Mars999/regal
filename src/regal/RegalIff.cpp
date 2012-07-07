@@ -1365,9 +1365,11 @@ void Program::Attribs( RegalContext * ctx ) {
     }
     GLuint units = std::min( (GLuint)ctx->iff->ffAttrNumTex, (GLuint)REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS );
     for( GLuint i = 0; i < units; i++ ) {
+        #ifndef REGAL_HACK_SET_001
         if( store.tex[i].enables == 0 ) {
             continue;
         }
+        #endif
         string_list ss;
         ss << "rglMultiTexCoord" << i;
         tbl.glBindAttribLocation( pg, ctx->iff->ffAttrTexBegin + i, ss.str().c_str() );

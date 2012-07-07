@@ -40,6 +40,7 @@ using namespace std;
 
 #include <boost/print/print_string.hpp>
 using boost::print::print_string;
+using boost::print::trim;
 
 #include "RegalLog.h"
 #include "RegalMarker.h"
@@ -76,6 +77,8 @@ namespace Logging {
   bool enableOpenGL   = false;
   bool enableInternal = false;
 
+  int maxLines = (REGAL_LOG_MAX_LINES);
+
   void Init()
   {
 #ifndef REGAL_NO_GETENV
@@ -102,6 +105,9 @@ namespace Logging {
 
     if (all && atoi(all))
       enableError = enableWarning = enableInfo = enableRegal = enableOpenGL = enableInternal = true;
+      
+    const char *ml = GetEnv("REGAL_LOG_MAX_LINES");
+    if (ml) maxLines = atoi(ml);
 #endif
 
 #if REGAL_LOG_ERROR
@@ -146,6 +152,11 @@ namespace Logging {
 
   inline string message(const char *prefix, const string &str)
   {
+    const static string trimSuffix(" ...");
+    // Limit the message for the first n lines, if necessary
+    if (maxLines>0)
+      return print_string(prefix ? prefix : "", string(indent(),' '), trim(str,'\n',maxLines,trimSuffix), '\n');
+      
     // TODO - prefix and indent each line of multi-line str
     return print_string(prefix ? prefix : "", string(indent(),' '), str, '\n');
   }
