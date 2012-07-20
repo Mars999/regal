@@ -52,8 +52,30 @@ using Token::toString;
 
 static Init *init = NULL;
 
+#if !defined(REGAL_NAMESPACE) && REGAL_SYS_WGL
+// Phony advapi32.dll, gdi32.dll and user32.dll dependencies for
+// closely matching opengl32.dll
+
+extern "C" { void __stdcall RegCloseKey(void *); }
+extern "C" { void __stdcall DeleteDC   (void *); }
+extern "C" { void __stdcall GetFocus   (void); }
+
+extern "C" { static void (__stdcall * myRegCloseKey)(void *) = RegCloseKey; }
+extern "C" { static void (__stdcall * myDeleteDC   )(void *) = DeleteDC;    }
+extern "C" { static void (__stdcall * myGetFocus   )(void  ) = GetFocus;    }
+#endif
+
 Init::Init()
 {
+#if !defined(REGAL_NAMESPACE) && REGAL_SYS_WGL
+  // Check our phony advapi32.dll, gdi32.dll and user32.dll dependencies
+  // to prevent them being optimized out of a release-mode binary.
+  // NOTE - these function pointers should _not_ be called, ever!
+
+  if (!myRegCloseKey || !myDeleteDC || !myGetFocus)
+    return;
+#endif
+
   Logging::Init();
 }
 
@@ -162,7 +184,7 @@ void RegalPrivateMakeCurrent(RegalSystemContext sysCtx)
 void RegalCheckForGLErrors( RegalContext *ctx )
 {
     RegalAssert(ctx);
-    RegalAssert(ctx->dsp);    
+    RegalAssert(ctx->dsp);
     GLenum err = ctx->dsp->driverTbl.glGetError();
     if (err != GL_NO_ERROR)
         Error("GL error = ",toString(err));

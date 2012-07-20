@@ -104,7 +104,7 @@ namespace Logging
 {
   extern void Init();
 
-  extern void Output(const char *prefix, const std::string &str);
+  extern void Output(const char *prefix, const char *delim, const std::string &str);
 
   // Runtime control of logging
 
@@ -121,7 +121,7 @@ namespace Logging
 #if REGAL_LOG_ERROR
 #define Error(...)   { \
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableError) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "error:    ", ::boost::print::print_string( __VA_ARGS__) ); }
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "error   ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
 #define Error(...)
 #endif
@@ -129,7 +129,7 @@ namespace Logging
 #if REGAL_LOG_WARNING
 #define Warning(...) { \
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableWarning) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "warning:  ", ::boost::print::print_string( __VA_ARGS__) ); }
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "warning ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
 #define Warning(...)
 #endif
@@ -137,7 +137,7 @@ namespace Logging
 #if REGAL_LOG_INFO
 #define Info(...) { \
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableInfo) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "info:     ", ::boost::print::print_string( __VA_ARGS__) ); }
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "info    ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
 #define Info(...)
 #endif
@@ -145,7 +145,7 @@ namespace Logging
 #if REGAL_LOG_REGAL
 #define RTrace(...) { \
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableRegal) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "regal:    ", ::boost::print::print_string( __VA_ARGS__) ); }
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "regal   ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
 #define RTrace(...)
 #endif
@@ -153,7 +153,7 @@ namespace Logging
 #if REGAL_LOG_OPENGL
 #define GTrace(...) { \
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableOpenGL) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "opengl:   ", ::boost::print::print_string( __VA_ARGS__) ); }
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "opengl  ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
 #define GTrace(...)
 #endif
@@ -161,7 +161,7 @@ namespace Logging
 #if REGAL_LOG_INTERNAL
 #define ITrace(...) { \
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableInternal) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "internal: ", ::boost::print::print_string( __VA_ARGS__) ); }
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "internal", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
 #define ITrace(...)
 #endif

@@ -1518,10 +1518,22 @@ struct RegalIff : public RegalEmu {
             case GL_AMBIENT_AND_DIFFUSE: m = CM_AmbientAndDiffuse; break;
             default: return;
         }
-        if( face == GL_FRONT ) ffstate.raw.colorMaterialTarget[1] = CM_None;
-        if( face == GL_BACK ) ffstate.raw.colorMaterialTarget[0] = CM_None;
-        if( face == GL_FRONT || face == GL_FRONT_AND_BACK ) ffstate.raw.colorMaterialTarget[0] = m;
-        if( face == GL_BACK || face == GL_FRONT_AND_BACK ) ffstate.raw.colorMaterialTarget[1] = m;
+        switch( face ) {
+            case GL_FRONT:
+                ffstate.raw.colorMaterialTarget[0] = m;
+                ffstate.raw.colorMaterialTarget[1] = CM_None;
+                break;
+            case GL_BACK:
+                ffstate.raw.colorMaterialTarget[0] = CM_None;
+                ffstate.raw.colorMaterialTarget[1] = m;
+                break;
+            case GL_FRONT_AND_BACK:
+                ffstate.raw.colorMaterialTarget[0] = m;
+                ffstate.raw.colorMaterialTarget[1] = m;
+                break;
+            default:
+                return;
+        }
         ffstate.raw.ver = ver.Update();
     }
 

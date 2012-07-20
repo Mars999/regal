@@ -150,24 +150,22 @@ namespace Logging {
     return rCtx && rCtx->marker ? rCtx->marker->indent() : 0;
   }
 
-  inline string message(const char *prefix, const string &str)
+  inline string message(const char *prefix, const char *delim, const string &str)
   {
     const static string trimSuffix(" ...");
-    // Limit the message for the first n lines, if necessary
-    if (maxLines>0)
-      return print_string(prefix ? prefix : "", string(indent(),' '), trim(str,'\n',maxLines,trimSuffix), '\n');
-      
-    // TODO - prefix and indent each line of multi-line str
-    return print_string(prefix ? prefix : "", string(indent(),' '), str, '\n');
+    
+    std::string trimPrefix = print_string(prefix ? prefix : "", delim ? delim : "", string(indent(),' '));
+    
+    return print_string(trim(str,'\n',maxLines>0 ? maxLines : ~0,trimPrefix,trimSuffix), '\n');
   }
 
 #if defined(REGAL_SYS_WGL)
 
-  void Output(const char *prefix, const string &str)
+  void Output(const char *prefix, const char *delim, const string &str)
   {
     if (str.length())
     {
-      string m = message(prefix,str);
+      string m = message(prefix,delim,str);
       OutputDebugStringA( m.c_str() );
       fprintf( stderr, "%s", m.c_str() );
       fflush( stderr );
@@ -182,18 +180,21 @@ namespace Logging {
   // ANDROID_LOG_WARN
   // ANDROID_LOG_ERROR
 
-  void Output(const char *prefix, const string &str)
+  void Output(const char *prefix, const char *delim, const string &str)
   {
     if (str.length())
-      __android_log_print(ANDROID_LOG_INFO, LOG_TAG, message(prefix,str).c_str());
+      __android_log_print(ANDROID_LOG_INFO, LOG_TAG, message(prefix,delim,str).c_str());
   }
 
 #else
 
-  void Output(const char *prefix, const string &str)
+  void Output(const char *prefix, const char *delim, const string &str)
   {
     if (str.length())
-      printf("%s",message(prefix,str).c_str());
+    {
+      fprintf( stdout, "%s", message(prefix,delim,str).c_str());
+      fflush( stdout );
+    }
   }
 
 #endif

@@ -665,6 +665,15 @@ static void _glewInfo_GL_AMD_pinned_memory (void)
 
 #endif /* GL_AMD_pinned_memory */
 
+#ifdef GL_AMD_query_buffer_object
+
+static void _glewInfo_GL_AMD_query_buffer_object (void)
+{
+  glewPrintExt("GL_AMD_query_buffer_object", GLEW_AMD_query_buffer_object, glewIsSupported("GL_AMD_query_buffer_object"), glewGetExtension("GL_AMD_query_buffer_object"));
+}
+
+#endif /* GL_AMD_query_buffer_object */
+
 #ifdef GL_AMD_sample_positions
 
 static void _glewInfo_GL_AMD_sample_positions (void)
@@ -7628,6 +7637,9 @@ static void glewInfo (void)
 #ifdef GL_AMD_pinned_memory
   _glewInfo_GL_AMD_pinned_memory();
 #endif /* GL_AMD_pinned_memory */
+#ifdef GL_AMD_query_buffer_object
+  _glewInfo_GL_AMD_query_buffer_object();
+#endif /* GL_AMD_query_buffer_object */
 #ifdef GL_AMD_sample_positions
   _glewInfo_GL_AMD_sample_positions();
 #endif /* GL_AMD_sample_positions */

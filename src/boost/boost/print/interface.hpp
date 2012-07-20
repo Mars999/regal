@@ -40,40 +40,55 @@ template<typename T, typename C> detail::quote<T,C>  quote (const T &val, const 
 template<typename T>
 detail::array<T,const char * const> array(const T *data, const std::size_t size)
 {
+  static const char * const quote = "";
   static const char * const open  = "[ ";
   static const char * const close = " ]";
   static const char * const delim = ", ";
-  return detail::array<T,const char * const>(data,size,open,close,delim);
+  return detail::array<T,const char * const>(data,size,quote,open,close,delim);
+}
+
+template<typename T>
+detail::array<T,const char * const> array(const T *data, const std::size_t size, const char *const quote)
+{
+  static const char * const open  = "[ ";
+  static const char * const close = " ]";
+  static const char * const delim = ", ";
+  return detail::array<T,const char * const>(data,size,quote,open,close,delim);
 }
 
 template<typename T,typename U>
-detail::array<T,U> array(const T *data, const std::size_t size, const U &open, const U &close, const U &delim)
-{ return detail::array<T,U>(data,size,open,close,delim); }
+detail::array<T,U> array(const T *data, const std::size_t size, const U &quote, const U &open, const U &close, const U &delim)
+{ return detail::array<T,U>(data,size,quote,open,close,delim); }
 
 template<typename T>
 detail::iterator<T,const char * const> iterator(const T &begin, const T &end)
 {
+  static const char * const quote = "";
   static const char * const open  = "[ ";
   static const char * const close = " ]";
   static const char * const delim = ", ";
-  return detail::iterator<T,const char * const>(begin,end,open,close,delim);
+  return detail::iterator<T,const char * const>(begin,end,quote,open,close,delim);
 }
 
 template<typename T,typename U>
-detail::iterator<T,U> iterator(const T &begin, const T &end, const U &open, const U &close, const U &delim)
-{ return detail::iterator<T,U>(begin,end,open,close,delim); }
-
-template<typename T,typename U>
-detail::trim<T,U> trim(const T &str, const U delim, const std::size_t n)
+detail::iterator<T,const char * const> iterator(const T &begin, const T &end, const char * const quote)
 {
-  static const T suffix = "";
-  return detail::trim<T,U>(str,delim,n,suffix);
+  static const char * const open  = "[ ";
+  static const char * const close = " ]";
+  static const char * const delim = ", ";
+  return detail::iterator<T,U>(begin,end,quote,open,close,delim);
 }
 
 template<typename T,typename U>
-detail::trim<T,U> trim(const T &str, const U delim, const std::size_t n, const T &suffix)
+detail::iterator<T,U> iterator(const T &begin, const T &end, const U &quote, const U &open, const U &close, const U &delim)
 {
-  return detail::trim<T,U>(str,delim,n,suffix);
+  return detail::iterator<T,U>(begin,end,quote,open,close,delim);
+}
+
+template<typename T,typename U>
+detail::trim<T,U> trim(const T &str, const U delim, const std::size_t n, const T &prefix = T(""), const T &suffix = T(""))
+{
+  return detail::trim<T,U>(str,delim,n,prefix,suffix);
 }
 
 }}
@@ -201,7 +216,7 @@ template<typename T, typename C> size_t length(const quote<T,C> &val) { return l
 
 template<typename T, typename U> size_t length(const array<T,U> &val)
 {
-  size_t len = length(val._open) + length(val._close);
+  size_t len = length(val._open) + length(val._close) + length(val._quote)*val._size*2;
 
   if (val._size)
   {
@@ -224,11 +239,11 @@ template<typename T, typename U> size_t length(const iterator<T,U> &val)
   if (val._begin!=val._end)
   {
     const size_t dl = length(val._delim);
-
+    const size_t ql = length(val._quote)*2;
     T i = val._begin;
-    len += length(*i);
+    len += length(*i) + ql;
     for (++i; i!=val._end; ++i)
-      len += dl + length(*i);
+      len += dl + length(*i) + ql;
   }
 
   return len;
@@ -244,11 +259,18 @@ template<typename T, typename U> size_t length(const trim<T,U> &val)
   if (!val._n || !i)
     return 0;
 
-  size_t len = 0;
+  const size_t pLength = length(val._prefix);  // per-line prefix length
+
+  size_t len = pLength;
   while (*i)
   {
-    if (*i==val._delim && (--n)==0)
-      return len + length(val._suffix);
+    if (*i==val._delim)
+    {
+      if ((--n)==0)
+        return len + length(val._suffix);
+      len += pLength;
+    }
+
     len++;
     ++i;
   }
@@ -406,11 +428,15 @@ inline void write(Iterator &i, const array<T,U> &val)
   write(i,val._open);
   if (val._size)
   {
+    write(i,val._quote);
     write(i,val._data[0]);
+    write(i,val._quote);
     for (size_t j=1; j<val._size; ++j)
     {
       write(i,val._delim);
+      write(i,val._quote);
       write(i,val._data[j]);
+      write(i,val._quote);
     }
   }
   write(i,val._close);
@@ -425,12 +451,17 @@ inline void write(Iterator &i, const iterator<T,U> &val)
   if (val._begin!=val._end)
   {
     T j = val._begin;
+
+    write(i,val._quote);
     write(i,*j);
+    write(i,val._quote);
 
     for (++j; j!=val._end; ++j)
     {
       write(i,val._delim);
+      write(i,val._quote);
       write(i,*j);
+      write(i,val._quote);
     }
   }
   write(i,val._close);
@@ -447,14 +478,22 @@ inline void write(Iterator &i, const trim<T,U> &val)
   if (!val._n || !j)
     return;
 
+  write(i,val._prefix);
+
   while (*j)
   {
-    if (*j==val._delim && (--n)==0)
+    if (*j==val._delim)
     {
-      write(i,val._suffix);
-      break;
+      if ((--n)==0)
+      {
+        write(i,val._suffix);
+        return;
+      }
+      *(i++) = *(j++);
+      write(i,val._prefix);
     }
-    *(i++) = *(j++);
+    else
+      *(i++) = *(j++);
   }
 }
 

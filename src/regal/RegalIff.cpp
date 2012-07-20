@@ -859,7 +859,18 @@ namespace {
         }
         return "texture";
     }
-    string TextureFetchSwizzle( RFF::TextureTargetBitfield b ) {
+    string TextureFetchSwizzle( bool es, bool legacy, RFF::TextureTargetBitfield b ) {
+        if( es || legacy ) {
+            switch( b ) {
+                case RFF::TT_1D:      return ".x";
+                case RFF::TT_2D:      return ".xy";
+                case RFF::TT_Rect:    return ".xy";
+                case RFF::TT_3D:      return ".xyz";
+                case RFF::TT_CubeMap: return ".xyz";
+                default: break;
+            }
+            return "";
+        }
         switch( b ) {
             case RFF::TT_1D:      return ".x";
             case RFF::TT_2D:      return ".xy";
@@ -971,16 +982,11 @@ namespace {
                 s_declared = true;
             }
             switch( b ) {
-                case RFF::TT_1D: {
-                    src << "    s = " << TextureFetch( es, legacy, b ) << "( rglSampler" << i << ", rglTEXCOORD" << i << TextureFetchSwizzle( b ) << " );\n";
-                    break;
-                }
-                case RFF::TT_2D: {
-                    src << "    s = " << TextureFetch( es, legacy, b ) << "( rglSampler" << i << ", rglTEXCOORD" << i << TextureFetchSwizzle( b ) << " );\n";
-                    break;
-                }
-                case RFF::TT_CubeMap: {
-                    src << "    s = " << TextureFetch( es, legacy, b ) << "( rglSampler" << i << ", rglTEXCOORD" << i << TextureFetchSwizzle( b ) << " );\n";
+                case RFF::TT_1D:
+                case RFF::TT_2D:
+                case RFF::TT_CubeMap:
+                {
+                    src << "    s = " << TextureFetch( es, legacy, b ) << "( rglSampler" << i << ", rglTEXCOORD" << i << TextureFetchSwizzle( es, legacy, b ) << " );\n";
                     break;
                 }
                 default:

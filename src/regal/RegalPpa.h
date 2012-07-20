@@ -166,15 +166,15 @@ struct RegalPpa : public RegalEmu, State::Stencil, State::Depth, State::Polygon
     ITrace("RegalPpa::Enable ",Token::toString(cap));
     switch (cap)
     {
-      case GL_DEPTH_TEST:           State::Depth::enable          = true; break;
-      case GL_STENCIL_TEST:         State::Stencil::enable        = true; break;
-      case GL_CULL_FACE:            State::Polygon::cullEnable    = true; break;
-      case GL_POLYGON_SMOOTH:       State::Polygon::smoothEnable  = true; break;
-      case GL_POLYGON_STIPPLE:      State::Polygon::stippleEnable = true; break;
-      case GL_POLYGON_OFFSET_FILL:  State::Polygon::offsetFill    = true; break;
-      case GL_POLYGON_OFFSET_LINE:  State::Polygon::offsetLine    = true; break;
-      case GL_POLYGON_OFFSET_POINT: State::Polygon::offsetPoint   = true; break;
-      default:                                                            break;
+      case GL_DEPTH_TEST:           State::Depth::enable          = GL_TRUE; break;
+      case GL_STENCIL_TEST:         State::Stencil::enable        = GL_TRUE; break;
+      case GL_CULL_FACE:            State::Polygon::cullEnable    = GL_TRUE; break;
+      case GL_POLYGON_SMOOTH:       State::Polygon::smoothEnable  = GL_TRUE; break;
+      case GL_POLYGON_STIPPLE:      State::Polygon::stippleEnable = GL_TRUE; break;
+      case GL_POLYGON_OFFSET_FILL:  State::Polygon::offsetFill    = GL_TRUE; break;
+      case GL_POLYGON_OFFSET_LINE:  State::Polygon::offsetLine    = GL_TRUE; break;
+      case GL_POLYGON_OFFSET_POINT: State::Polygon::offsetPoint   = GL_TRUE; break;
+      default:                                                               break;
     }
   }
 
@@ -183,15 +183,15 @@ struct RegalPpa : public RegalEmu, State::Stencil, State::Depth, State::Polygon
     ITrace("RegalPpa::Disable ",Token::toString(cap));
     switch (cap)
     {
-      case GL_DEPTH_TEST:           State::Depth::enable          = false; break;
-      case GL_STENCIL_TEST:         State::Stencil::enable        = false; break;
-      case GL_CULL_FACE:            State::Polygon::cullEnable    = false; break;
-      case GL_POLYGON_SMOOTH:       State::Polygon::smoothEnable  = false; break;
-      case GL_POLYGON_STIPPLE:      State::Polygon::stippleEnable = false; break;
-      case GL_POLYGON_OFFSET_FILL:  State::Polygon::offsetFill    = false; break;
-      case GL_POLYGON_OFFSET_LINE:  State::Polygon::offsetLine    = false; break;
-      case GL_POLYGON_OFFSET_POINT: State::Polygon::offsetPoint   = false; break;
-      default:                                                             break;
+      case GL_DEPTH_TEST:           State::Depth::enable          = GL_FALSE; break;
+      case GL_STENCIL_TEST:         State::Stencil::enable        = GL_FALSE; break;
+      case GL_CULL_FACE:            State::Polygon::cullEnable    = GL_FALSE; break;
+      case GL_POLYGON_SMOOTH:       State::Polygon::smoothEnable  = GL_FALSE; break;
+      case GL_POLYGON_STIPPLE:      State::Polygon::stippleEnable = GL_FALSE; break;
+      case GL_POLYGON_OFFSET_FILL:  State::Polygon::offsetFill    = GL_FALSE; break;
+      case GL_POLYGON_OFFSET_LINE:  State::Polygon::offsetLine    = GL_FALSE; break;
+      case GL_POLYGON_OFFSET_POINT: State::Polygon::offsetPoint   = GL_FALSE; break;
+      default:                                                                break;
     }
   }
 

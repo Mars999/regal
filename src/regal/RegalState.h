@@ -48,23 +48,54 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
+//
+// OpenGL State Tracking
+//
+// Motivating requirements:
+//
+//  - Emulation of glPushAttrib and glPopAttrib for OpenGL ES and
+//    core OpenGL that lack the functionality.
+//
+//  - OpenGL state capture, browsing, diff and serialization.
+//
+// See also:
+//
+//  - Gallium3D
+//    http://wiki.freedesktop.org/wiki/Software/gallium
+//    http://dri.freedesktop.org/doxygen/gallium/p__state_8h-source.html
+//
+//  - Tracking Graphics State For Networked Rendering
+//    Ian Buck, Greg Humphreys and Pat Hanrahan.
+//    Stanford University
+//    Proceedings of the 2000 Eurographics/SIGGRAPH Workshop on Graphics Hardware
+//    http://graphics.stanford.edu/papers/state_tracking/
+//
+//  - Chromium: A Stream Processing Framework for Interactive Rendering on Clusters
+//    Greg Humphreys, Mike Houston, Ren Ng
+//    Stanford University
+//    SIGGRAPH 2002
+//    http://graphics.stanford.edu/papers/cr/
+//
+
 namespace State {
 
   using   ::boost::print::hex;
   using   ::boost::print::print_string;
   typedef ::boost::print::string_list<std::string> string_list;
 
+  //
   // glPushAttrib(GL_DEPTH_BUFFER_BIT)
+  //
 
   struct Depth
   {
-    bool        enable;
+    GLboolean   enable;
     GLenum      func;
     GLclampd    clear;
-    bool        mask;
+    GLboolean   mask;
 
     inline Depth()
-    : enable(false), func(GL_LESS), clear(1.0), mask(true)
+    : enable(GL_FALSE), func(GL_LESS), clear(1.0), mask(GL_TRUE)
     {
     }
 
@@ -89,13 +120,13 @@ namespace State {
 
     inline void glDepthMask(GLboolean m)
     {
-      mask = (m==GL_TRUE);
+      mask = m;
     }
 
     inline Depth &get(DispatchTable &dt)
     {
       RegalAssert(dt.glIsEnabled);
-      enable = dt.glIsEnabled(GL_DEPTH_TEST)==GL_TRUE;
+      enable = dt.glIsEnabled(GL_DEPTH_TEST);
   
       RegalAssert(dt.glGetIntegerv);
       dt.glGetIntegerv(GL_DEPTH_FUNC,reinterpret_cast<GLint *>(&func));
@@ -104,9 +135,7 @@ namespace State {
       dt.glGetFloatv(GL_DEPTH_CLEAR_VALUE,reinterpret_cast<GLfloat *>(&clear));
 
       RegalAssert(dt.glGetBooleanv);
-      GLboolean m = GL_FALSE;
-      dt.glGetBooleanv(GL_DEPTH_WRITEMASK,&m);
-      mask = (m==GL_TRUE);
+      dt.glGetBooleanv(GL_DEPTH_WRITEMASK,&mask);
 
       return *this;
     }
@@ -127,7 +156,7 @@ namespace State {
       dt.glClearDepth(clear);
 
       RegalAssert(dt.glDepthMask);
-      dt.glDepthMask(mask ? GL_TRUE : GL_FALSE);
+      dt.glDepthMask(mask);
 
       return *this;
     }
@@ -213,17 +242,19 @@ namespace State {
     }
   };
 
+  //
   // glPushAttrib(GL_STENCIL_BUFFER_BIT)
+  //
 
   struct Stencil
   {
-    bool        enable;
+    GLboolean   enable;
     GLint       clear;
     StencilFace front;
     StencilFace back;
 
     inline Stencil()
-    : enable(false), clear(0)
+    : enable(GL_FALSE), clear(0)
     {
     }
 
@@ -326,7 +357,7 @@ namespace State {
     inline Stencil &get(DispatchTable &dt)
     {
       RegalAssert(dt.glIsEnabled);
-      enable = dt.glIsEnabled(GL_STENCIL_TEST)==GL_TRUE;
+      enable = dt.glIsEnabled(GL_STENCIL_TEST);
       RegalAssert(dt.glGetIntegerv);
       dt.glGetIntegerv(GL_STENCIL_CLEAR_VALUE,&clear);
       front.get(dt,GL_FRONT);
@@ -361,27 +392,29 @@ namespace State {
       return tmp;
     }
   };
-  
+
+  //
   // glPushAttrib(GL_POLYGON_BIT)
+  //
 
   struct Polygon
   {
-    bool        cullEnable;
+    GLboolean   cullEnable;
     GLenum      cull;
     GLenum      frontFace;
     GLenum      frontMode;
     GLenum      backMode;
-    bool        smoothEnable;
-    bool        stippleEnable;
-    bool        offsetFill;
-    bool        offsetLine;
-    bool        offsetPoint;
+    GLboolean   smoothEnable;
+    GLboolean   stippleEnable;
+    GLboolean   offsetFill;
+    GLboolean   offsetLine;
+    GLboolean   offsetPoint;
     GLfloat     factor;
     GLfloat     units;
 
     inline Polygon()
-    : cullEnable(false), cull(GL_BACK), frontFace(GL_CCW), frontMode(GL_FILL), backMode(GL_FILL),
-      smoothEnable(false), stippleEnable(false), offsetFill(false), offsetLine(false), offsetPoint(false),
+    : cullEnable(GL_FALSE), cull(GL_BACK), frontFace(GL_CCW), frontMode(GL_FILL), backMode(GL_FILL),
+      smoothEnable(GL_FALSE), stippleEnable(GL_FALSE), offsetFill(GL_FALSE), offsetLine(GL_FALSE), offsetPoint(GL_FALSE),
       factor(0), units(0)
     {
     }
@@ -433,7 +466,7 @@ namespace State {
     inline Polygon &get(DispatchTable &dt)
     {
       RegalAssert(dt.glIsEnabled);
-      cullEnable = dt.glIsEnabled(GL_CULL_FACE)==GL_TRUE;
+      cullEnable = dt.glIsEnabled(GL_CULL_FACE);
   
       RegalAssert(dt.glGetIntegerv);
       dt.glGetIntegerv(GL_CULL_FACE_MODE,reinterpret_cast<GLint *>(&cull));
@@ -441,11 +474,11 @@ namespace State {
       dt.glGetIntegerv(GL_POLYGON_MODE,reinterpret_cast<GLint *>(&frontMode));
       dt.glGetIntegerv(GL_FRONT_FACE,reinterpret_cast<GLint *>(&frontFace));
 
-      smoothEnable  = dt.glIsEnabled(GL_POLYGON_SMOOTH)==GL_TRUE;
-      stippleEnable = dt.glIsEnabled(GL_POLYGON_STIPPLE)==GL_TRUE;
-      offsetFill    = dt.glIsEnabled(GL_POLYGON_OFFSET_FILL)==GL_TRUE;
-      offsetLine    = dt.glIsEnabled(GL_POLYGON_OFFSET_LINE)==GL_TRUE;
-      offsetPoint   = dt.glIsEnabled(GL_POLYGON_OFFSET_POINT)==GL_TRUE;
+      smoothEnable  = dt.glIsEnabled(GL_POLYGON_SMOOTH);
+      stippleEnable = dt.glIsEnabled(GL_POLYGON_STIPPLE);
+      offsetFill    = dt.glIsEnabled(GL_POLYGON_OFFSET_FILL);
+      offsetLine    = dt.glIsEnabled(GL_POLYGON_OFFSET_LINE);
+      offsetPoint   = dt.glIsEnabled(GL_POLYGON_OFFSET_POINT);
 
       RegalAssert(dt.glGetFloatv);
       dt.glGetFloatv(GL_POLYGON_OFFSET_FACTOR,&factor);

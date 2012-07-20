@@ -6820,7 +6820,7 @@ REGAL_DECL void REGAL_CALL glLinkProgram(GLuint program)
 REGAL_DECL void REGAL_CALL glShaderSource(GLuint shader, GLsizei count, const GLchar **string, const GLint *length)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glShaderSource(", shader, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0), ", ", boost::print::array(length,length ? count : 0), ")");
+  RTrace("glShaderSource(", shader, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0,"\""), ", ", boost::print::array(length,length ? count : 0), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -7807,7 +7807,7 @@ REGAL_DECL void REGAL_CALL glBindBufferBase(GLenum target, GLuint index, GLuint 
 REGAL_DECL void REGAL_CALL glTransformFeedbackVaryings(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTransformFeedbackVaryings(", program, ", ", count, ", ", boost::print::array(varyings,count), ", ", toString(bufferMode), ")");
+  RTrace("glTransformFeedbackVaryings(", program, ", ", count, ", ", boost::print::array(varyings,count,"\""), ", ", toString(bufferMode), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -10317,7 +10317,7 @@ REGAL_DECL void REGAL_CALL glUseProgramStages(GLuint pipeline, GLbitfield stages
 REGAL_DECL GLuint REGAL_CALL glCreateShaderProgramv(GLenum type, GLsizei count, const GLchar **strings)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glCreateShaderProgramv(", toString(type), ", ", count, ", ", boost::print::array(strings,count), ")");
+  RTrace("glCreateShaderProgramv(", toString(type), ", ", count, ", ", boost::print::array(strings,count,"\""), ")");
   if (!rCtx) return (GLuint )0;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -13227,7 +13227,7 @@ REGAL_DECL GLhandleARB REGAL_CALL glCreateShaderObjectARB(GLenum shaderType)
 REGAL_DECL void REGAL_CALL glShaderSourceARB(GLhandleARB shaderObj, GLsizei count, const GLcharARB **string, const GLint *length)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glShaderSourceARB(", shaderObj, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0), ", ", boost::print::array(length,length ? count : 0), ")");
+  RTrace("glShaderSourceARB(", shaderObj, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0,"\""), ", ", boost::print::array(length,length ? count : 0), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -14630,7 +14630,7 @@ REGAL_DECL void REGAL_CALL glDeleteNamedStringARB(GLint namelen, const GLchar *n
 REGAL_DECL void REGAL_CALL glCompileShaderIncludeARB(GLuint shader, GLsizei count, const GLchar **path, const GLint *length)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glCompileShaderIncludeARB(", shader, ", ", count, ", ", boost::print::array(path,count), ", ", boost::print::array(length,count), ")");
+  RTrace("glCompileShaderIncludeARB(", shader, ", ", count, ", ", boost::print::array(path,count,"\""), ", ", boost::print::array(length,count), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -25083,7 +25083,7 @@ REGAL_DECL void REGAL_CALL glBindBufferBaseEXT(GLenum target, GLuint index, GLui
 REGAL_DECL void REGAL_CALL glTransformFeedbackVaryingsEXT(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode)
 {
   RegalContext * rCtx = GET_REGAL_CONTEXT();
-  RTrace("glTransformFeedbackVaryingsEXT(", program, ", ", count, ", ", boost::print::array(varyings,count), ", ", toString(bufferMode), ")");
+  RTrace("glTransformFeedbackVaryingsEXT(", program, ", ", count, ", ", boost::print::array(varyings,count,"\""), ", ", toString(bufferMode), ")");
   if (!rCtx) return;
   RegalAssert(rCtx);
   RegalAssert(rCtx->dsp);
@@ -31625,6 +31625,8 @@ REGAL_DECL int REGAL_CALL wglChoosePixelFormat(HDC hDC, const PIXELFORMATDESCRIP
     GTrace("wglChoosePixelFormat(", hDC, ", ", ppfd, ")");
     ret = dispatchTableGlobal.wglChoosePixelFormat(hDC, ppfd);
   }
+  else
+    Warning( "wglChoosePixelFormat not available." );
   return ret;
 }
 
@@ -31642,6 +31644,8 @@ REGAL_DECL int REGAL_CALL wglDescribePixelFormat(HDC hDC, int iPixelFormat, UINT
     GTrace("wglDescribePixelFormat(", hDC, ", ", iPixelFormat, ", ", nBytes, ")");
     ret = dispatchTableGlobal.wglDescribePixelFormat(hDC, iPixelFormat, nBytes, ppfd);
   }
+  else
+    Warning( "wglDescribePixelFormat not available." );
   return ret;
 }
 
@@ -31659,6 +31663,8 @@ REGAL_DECL int REGAL_CALL wglGetPixelFormat(HDC hDC)
     GTrace("wglGetPixelFormat(", hDC, ")");
     ret = dispatchTableGlobal.wglGetPixelFormat(hDC);
   }
+  else
+    Warning( "wglGetPixelFormat not available." );
   return ret;
 }
 
@@ -31676,6 +31682,8 @@ REGAL_DECL BOOL REGAL_CALL wglSetPixelFormat(HDC hDC, int iPixelFormat, const PI
     GTrace("wglSetPixelFormat(", hDC, ", ", iPixelFormat, ", ", ppfd, ")");
     ret = dispatchTableGlobal.wglSetPixelFormat(hDC, iPixelFormat, ppfd);
   }
+  else
+    Warning( "wglSetPixelFormat not available." );
   return ret;
 }
 
@@ -31693,6 +31701,8 @@ REGAL_DECL BOOL REGAL_CALL wglSwapBuffers(HDC hDC)
     GTrace("wglSwapBuffers(", hDC, ")");
     ret = dispatchTableGlobal.wglSwapBuffers(hDC);
   }
+  else
+    Warning( "wglSwapBuffers not available." );
   return ret;
 }
 
@@ -31712,6 +31722,8 @@ REGAL_DECL HGLRC REGAL_CALL wglCreateContext(HDC hDC)
     GTrace("wglCreateContext(", hDC, ")");
     ret = dispatchTableGlobal.wglCreateContext(hDC);
   }
+  else
+    Warning( "wglCreateContext not available." );
   return ret;
 }
 
@@ -31729,6 +31741,8 @@ REGAL_DECL HGLRC REGAL_CALL wglCreateLayerContext(HDC hDC, int iLayerPlane)
     GTrace("wglCreateLayerContext(", hDC, ", ", iLayerPlane, ")");
     ret = dispatchTableGlobal.wglCreateLayerContext(hDC, iLayerPlane);
   }
+  else
+    Warning( "wglCreateLayerContext not available." );
   return ret;
 }
 
@@ -31746,6 +31760,8 @@ REGAL_DECL BOOL REGAL_CALL wglCopyContext(HGLRC hglrcSrc, HGLRC hglrcDst, UINT m
     GTrace("wglCopyContext(", hglrcSrc, ", ", hglrcDst, ", ", mask, ")");
     ret = dispatchTableGlobal.wglCopyContext(hglrcSrc, hglrcDst, mask);
   }
+  else
+    Warning( "wglCopyContext not available." );
   return ret;
 }
 
@@ -31763,6 +31779,8 @@ REGAL_DECL BOOL REGAL_CALL wglDeleteContext(HGLRC hglrc)
     GTrace("wglDeleteContext(", hglrc, ")");
     ret = dispatchTableGlobal.wglDeleteContext(hglrc);
   }
+  else
+    Warning( "wglDeleteContext not available." );
   return ret;
 }
 
@@ -31780,6 +31798,8 @@ REGAL_DECL HGLRC REGAL_CALL wglGetCurrentContext(void)
     GTrace("wglGetCurrentContext()");
     ret = dispatchTableGlobal.wglGetCurrentContext();
   }
+  else
+    Warning( "wglGetCurrentContext not available." );
   return ret;
 }
 
@@ -31797,12 +31817,14 @@ REGAL_DECL HDC REGAL_CALL wglGetCurrentDC(void)
     GTrace("wglGetCurrentDC()");
     ret = dispatchTableGlobal.wglGetCurrentDC();
   }
+  else
+    Warning( "wglGetCurrentDC not available." );
   return ret;
 }
 
 REGAL_DECL PROC REGAL_CALL wglGetDefaultProcAddress(LPCSTR lpszProc)
 {
-  RTrace("wglGetDefaultProcAddress(", lpszProc, ")");
+  RTrace("wglGetDefaultProcAddress(", boost::print::quote(lpszProc,'"'), ")");
   static bool initialized = false;
   if (!initialized) {
     GetProcAddress( dispatchTableGlobal.wglGetDefaultProcAddress, "wglGetDefaultProcAddress" );
@@ -31811,15 +31833,17 @@ REGAL_DECL PROC REGAL_CALL wglGetDefaultProcAddress(LPCSTR lpszProc)
   }
   PROC  ret = (PROC )0;
   if (dispatchTableGlobal.wglGetDefaultProcAddress) {
-    GTrace("wglGetDefaultProcAddress(", lpszProc, ")");
+    GTrace("wglGetDefaultProcAddress(", boost::print::quote(lpszProc,'"'), ")");
     ret = dispatchTableGlobal.wglGetDefaultProcAddress(lpszProc);
   }
+  else
+    Warning( "wglGetDefaultProcAddress not available." );
   return ret;
 }
 
 REGAL_DECL PROC REGAL_CALL wglGetProcAddress(LPCSTR lpszProc)
 {
-  RTrace("wglGetProcAddress(", lpszProc, ")");
+  RTrace("wglGetProcAddress(", boost::print::quote(lpszProc,'"'), ")");
   static bool initialized = false;
   if (!initialized) {
     GetProcAddress( dispatchTableGlobal.wglGetProcAddress, "wglGetProcAddress" );
@@ -31834,9 +31858,11 @@ REGAL_DECL PROC REGAL_CALL wglGetProcAddress(LPCSTR lpszProc)
   if (ret)
     return ret;
   if (dispatchTableGlobal.wglGetProcAddress) {
-    GTrace("wglGetProcAddress(", lpszProc, ")");
+    GTrace("wglGetProcAddress(", boost::print::quote(lpszProc,'"'), ")");
     ret = dispatchTableGlobal.wglGetProcAddress(lpszProc);
   }
+  else
+    Warning( "wglGetProcAddress not available." );
   return ret;
 }
 
@@ -31855,6 +31881,8 @@ REGAL_DECL BOOL REGAL_CALL wglMakeCurrent(HDC hDC, HGLRC hglrc)
     ret = dispatchTableGlobal.wglMakeCurrent(hDC, hglrc);
        RegalMakeCurrent(RegalSystemContext(hglrc));
   }
+  else
+    Warning( "wglMakeCurrent not available." );
   return ret;
 }
 
@@ -31872,6 +31900,8 @@ REGAL_DECL BOOL REGAL_CALL wglShareLists(HGLRC hglrcShare, HGLRC hglrcSrc)
     GTrace("wglShareLists(", hglrcShare, ", ", hglrcSrc, ")");
     ret = dispatchTableGlobal.wglShareLists(hglrcShare, hglrcSrc);
   }
+  else
+    Warning( "wglShareLists not available." );
   return ret;
 }
 
@@ -31889,6 +31919,8 @@ REGAL_DECL BOOL REGAL_CALL wglUseFontBitmapsA(HDC hDC, DWORD first, DWORD count,
     GTrace("wglUseFontBitmapsA(", hDC, ", ", first, ", ", count, ", ", listBase, ")");
     ret = dispatchTableGlobal.wglUseFontBitmapsA(hDC, first, count, listBase);
   }
+  else
+    Warning( "wglUseFontBitmapsA not available." );
   return ret;
 }
 
@@ -31906,6 +31938,8 @@ REGAL_DECL BOOL REGAL_CALL wglUseFontBitmapsW(HDC hDC, DWORD first, DWORD count,
     GTrace("wglUseFontBitmapsW(", hDC, ", ", first, ", ", count, ", ", listBase, ")");
     ret = dispatchTableGlobal.wglUseFontBitmapsW(hDC, first, count, listBase);
   }
+  else
+    Warning( "wglUseFontBitmapsW not available." );
   return ret;
 }
 
@@ -31923,6 +31957,8 @@ REGAL_DECL BOOL REGAL_CALL wglUseFontOutlinesA(HDC hDC, DWORD first, DWORD count
     GTrace("wglUseFontOutlinesA(", hDC, ", ", first, ", ", count, ", ", listBase, ", ", deviation, ", ", extrusion, ", ", format, ")");
     ret = dispatchTableGlobal.wglUseFontOutlinesA(hDC, first, count, listBase, deviation, extrusion, format, lpgmf);
   }
+  else
+    Warning( "wglUseFontOutlinesA not available." );
   return ret;
 }
 
@@ -31940,6 +31976,8 @@ REGAL_DECL BOOL REGAL_CALL wglUseFontOutlinesW(HDC hDC, DWORD first, DWORD count
     GTrace("wglUseFontOutlinesW(", hDC, ", ", first, ", ", count, ", ", listBase, ", ", deviation, ", ", extrusion, ", ", format, ")");
     ret = dispatchTableGlobal.wglUseFontOutlinesW(hDC, first, count, listBase, deviation, extrusion, format, lpgmf);
   }
+  else
+    Warning( "wglUseFontOutlinesW not available." );
   return ret;
 }
 
@@ -31957,6 +31995,8 @@ REGAL_DECL BOOL REGAL_CALL wglDescribeLayerPlane(HDC hDC, int iPixelFormat, int 
     GTrace("wglDescribeLayerPlane(", hDC, ", ", iPixelFormat, ", ", iLayerPlane, ", ", nBytes, ")");
     ret = dispatchTableGlobal.wglDescribeLayerPlane(hDC, iPixelFormat, iLayerPlane, nBytes, plpd);
   }
+  else
+    Warning( "wglDescribeLayerPlane not available." );
   return ret;
 }
 
@@ -31974,6 +32014,8 @@ REGAL_DECL int REGAL_CALL wglSetLayerPaletteEntries(HDC hDC, int iLayerPlane, in
     GTrace("wglSetLayerPaletteEntries(", hDC, ", ", iLayerPlane, ", ", iStart, ", ", nEntries, ", ", boost::print::array(pcr,nEntries), ")");
     ret = dispatchTableGlobal.wglSetLayerPaletteEntries(hDC, iLayerPlane, iStart, nEntries, pcr);
   }
+  else
+    Warning( "wglSetLayerPaletteEntries not available." );
   return ret;
 }
 
@@ -31991,6 +32033,8 @@ REGAL_DECL int REGAL_CALL wglGetLayerPaletteEntries(HDC hDC, int iLayerPlane, in
     GTrace("wglGetLayerPaletteEntries(", hDC, ", ", iLayerPlane, ", ", iStart, ", ", nEntries, ")");
     ret = dispatchTableGlobal.wglGetLayerPaletteEntries(hDC, iLayerPlane, iStart, nEntries, pcr);
   }
+  else
+    Warning( "wglGetLayerPaletteEntries not available." );
   return ret;
 }
 
@@ -32008,6 +32052,8 @@ REGAL_DECL BOOL REGAL_CALL wglRealizeLayerPalette(HDC hDC, int iLayerPlane, BOOL
     GTrace("wglRealizeLayerPalette(", hDC, ", ", iLayerPlane, ", ", bRealize, ")");
     ret = dispatchTableGlobal.wglRealizeLayerPalette(hDC, iLayerPlane, bRealize);
   }
+  else
+    Warning( "wglRealizeLayerPalette not available." );
   return ret;
 }
 
@@ -32025,6 +32071,8 @@ REGAL_DECL BOOL REGAL_CALL wglSwapLayerBuffers(HDC hDC, UINT fuPlanes)
     GTrace("wglSwapLayerBuffers(", hDC, ", ", fuPlanes, ")");
     ret = dispatchTableGlobal.wglSwapLayerBuffers(hDC, fuPlanes);
   }
+  else
+    Warning( "wglSwapLayerBuffers not available." );
   return ret;
 }
 
@@ -32042,6 +32090,8 @@ REGAL_DECL DWORD REGAL_CALL wglSwapMultipleBuffers(UINT n, const WGLSWAP *ps)
     GTrace("wglSwapMultipleBuffers(", n, ", ", ps, ")");
     ret = dispatchTableGlobal.wglSwapMultipleBuffers(n, ps);
   }
+  else
+    Warning( "wglSwapMultipleBuffers not available." );
   return ret;
 }
 
@@ -32061,6 +32111,8 @@ REGAL_DECL HANDLE REGAL_CALL wglCreateBufferRegionARB(HDC hDC, int iLayerPlane, 
     GTrace("wglCreateBufferRegionARB(", hDC, ", ", iLayerPlane, ", ", uType, ")");
     ret = dispatchTableGlobal.wglCreateBufferRegionARB(hDC, iLayerPlane, uType);
   }
+  else
+    Warning( "wglCreateBufferRegionARB not available." );
   return ret;
 }
 
@@ -32077,6 +32129,8 @@ REGAL_DECL VOID REGAL_CALL wglDeleteBufferRegionARB(HANDLE hRegion)
     GTrace("wglDeleteBufferRegionARB(", hRegion, ")");
     dispatchTableGlobal.wglDeleteBufferRegionARB(hRegion);
   }
+  else
+    Warning( "wglDeleteBufferRegionARB not available." );
 }
 
 REGAL_DECL BOOL REGAL_CALL wglSaveBufferRegionARB(HANDLE hRegion, int x, int y, int width, int height)
@@ -32093,6 +32147,8 @@ REGAL_DECL BOOL REGAL_CALL wglSaveBufferRegionARB(HANDLE hRegion, int x, int y, 
     GTrace("wglSaveBufferRegionARB(", hRegion, ", ", x, ", ", y, ", ", width, ", ", height, ")");
     ret = dispatchTableGlobal.wglSaveBufferRegionARB(hRegion, x, y, width, height);
   }
+  else
+    Warning( "wglSaveBufferRegionARB not available." );
   return ret;
 }
 
@@ -32110,6 +32166,8 @@ REGAL_DECL BOOL REGAL_CALL wglRestoreBufferRegionARB(HANDLE hRegion, int x, int 
     GTrace("wglRestoreBufferRegionARB(", hRegion, ", ", x, ", ", y, ", ", width, ", ", height, ", ", xSrc, ", ", ySrc, ")");
     ret = dispatchTableGlobal.wglRestoreBufferRegionARB(hRegion, x, y, width, height, xSrc, ySrc);
   }
+  else
+    Warning( "wglRestoreBufferRegionARB not available." );
   return ret;
 }
 
@@ -32129,6 +32187,8 @@ REGAL_DECL const char *REGAL_CALL wglGetExtensionsStringARB(HDC hDC)
     GTrace("wglGetExtensionsStringARB(", hDC, ")");
     ret = dispatchTableGlobal.wglGetExtensionsStringARB(hDC);
   }
+  else
+    Warning( "wglGetExtensionsStringARB not available." );
   return ret;
 }
 
@@ -32148,6 +32208,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetPixelFormatAttribivARB(HDC hDC, int iPixelForma
     GTrace("wglGetPixelFormatAttribivARB(", hDC, ", ", iPixelFormat, ", ", iLayerPlane, ", ", nAttributes, ", ", boost::print::array(piAttributes,nAttributes), ")");
     ret = dispatchTableGlobal.wglGetPixelFormatAttribivARB(hDC, iPixelFormat, iLayerPlane, nAttributes, piAttributes, piValues);
   }
+  else
+    Warning( "wglGetPixelFormatAttribivARB not available." );
   return ret;
 }
 
@@ -32165,6 +32227,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetPixelFormatAttribfvARB(HDC hDC, int iPixelForma
     GTrace("wglGetPixelFormatAttribfvARB(", hDC, ", ", iPixelFormat, ", ", iLayerPlane, ", ", nAttributes, ", ", boost::print::array(piAttributes,nAttributes), ")");
     ret = dispatchTableGlobal.wglGetPixelFormatAttribfvARB(hDC, iPixelFormat, iLayerPlane, nAttributes, piAttributes, pfValues);
   }
+  else
+    Warning( "wglGetPixelFormatAttribfvARB not available." );
   return ret;
 }
 
@@ -32182,6 +32246,8 @@ REGAL_DECL BOOL REGAL_CALL wglChoosePixelFormatARB(HDC hDC, const int *piAttribI
     GTrace("wglChoosePixelFormatARB(", hDC, ", ", piAttribIList, ", ", pfAttribFList, ", ", nMaxFormats, ")");
     ret = dispatchTableGlobal.wglChoosePixelFormatARB(hDC, piAttribIList, pfAttribFList, nMaxFormats, piFormats, nNumFormats);
   }
+  else
+    Warning( "wglChoosePixelFormatARB not available." );
   return ret;
 }
 
@@ -32201,6 +32267,8 @@ REGAL_DECL BOOL REGAL_CALL wglMakeContextCurrentARB(HDC hDrawDC, HDC hReadDC, HG
     GTrace("wglMakeContextCurrentARB(", hDrawDC, ", ", hReadDC, ", ", hglrc, ")");
     ret = dispatchTableGlobal.wglMakeContextCurrentARB(hDrawDC, hReadDC, hglrc);
   }
+  else
+    Warning( "wglMakeContextCurrentARB not available." );
   return ret;
 }
 
@@ -32218,6 +32286,8 @@ REGAL_DECL HDC REGAL_CALL wglGetCurrentReadDCARB(void)
     GTrace("wglGetCurrentReadDCARB()");
     ret = dispatchTableGlobal.wglGetCurrentReadDCARB();
   }
+  else
+    Warning( "wglGetCurrentReadDCARB not available." );
   return ret;
 }
 
@@ -32237,6 +32307,8 @@ REGAL_DECL HPBUFFERARB REGAL_CALL wglCreatePbufferARB(HDC hDC, int iPixelFormat,
     GTrace("wglCreatePbufferARB(", hDC, ", ", iPixelFormat, ", ", iWidth, ", ", iHeight, ", ", piAttribList, ")");
     ret = dispatchTableGlobal.wglCreatePbufferARB(hDC, iPixelFormat, iWidth, iHeight, piAttribList);
   }
+  else
+    Warning( "wglCreatePbufferARB not available." );
   return ret;
 }
 
@@ -32254,6 +32326,8 @@ REGAL_DECL HDC REGAL_CALL wglGetPbufferDCARB(HPBUFFERARB hPbuffer)
     GTrace("wglGetPbufferDCARB(", hPbuffer, ")");
     ret = dispatchTableGlobal.wglGetPbufferDCARB(hPbuffer);
   }
+  else
+    Warning( "wglGetPbufferDCARB not available." );
   return ret;
 }
 
@@ -32271,6 +32345,8 @@ REGAL_DECL int REGAL_CALL wglReleasePbufferDCARB(HPBUFFERARB hPbuffer, HDC hDC)
     GTrace("wglReleasePbufferDCARB(", hPbuffer, ", ", hDC, ")");
     ret = dispatchTableGlobal.wglReleasePbufferDCARB(hPbuffer, hDC);
   }
+  else
+    Warning( "wglReleasePbufferDCARB not available." );
   return ret;
 }
 
@@ -32288,6 +32364,8 @@ REGAL_DECL BOOL REGAL_CALL wglDestroyPbufferARB(HPBUFFERARB hPbuffer)
     GTrace("wglDestroyPbufferARB(", hPbuffer, ")");
     ret = dispatchTableGlobal.wglDestroyPbufferARB(hPbuffer);
   }
+  else
+    Warning( "wglDestroyPbufferARB not available." );
   return ret;
 }
 
@@ -32305,6 +32383,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryPbufferARB(HPBUFFERARB hPbuffer, int iAttribu
     GTrace("wglQueryPbufferARB(", hPbuffer, ", ", iAttribute, ")");
     ret = dispatchTableGlobal.wglQueryPbufferARB(hPbuffer, iAttribute, piValue);
   }
+  else
+    Warning( "wglQueryPbufferARB not available." );
   return ret;
 }
 
@@ -32324,6 +32404,8 @@ REGAL_DECL BOOL REGAL_CALL wglBindTexImageARB(HPBUFFERARB hPbuffer, int iBuffer)
     GTrace("wglBindTexImageARB(", hPbuffer, ", ", iBuffer, ")");
     ret = dispatchTableGlobal.wglBindTexImageARB(hPbuffer, iBuffer);
   }
+  else
+    Warning( "wglBindTexImageARB not available." );
   return ret;
 }
 
@@ -32341,6 +32423,8 @@ REGAL_DECL BOOL REGAL_CALL wglReleaseTexImageARB(HPBUFFERARB hPbuffer, int iBuff
     GTrace("wglReleaseTexImageARB(", hPbuffer, ", ", iBuffer, ")");
     ret = dispatchTableGlobal.wglReleaseTexImageARB(hPbuffer, iBuffer);
   }
+  else
+    Warning( "wglReleaseTexImageARB not available." );
   return ret;
 }
 
@@ -32358,6 +32442,8 @@ REGAL_DECL BOOL REGAL_CALL wglSetPbufferAttribARB(HPBUFFERARB hPbuffer, const in
     GTrace("wglSetPbufferAttribARB(", hPbuffer, ", ", piAttribList, ")");
     ret = dispatchTableGlobal.wglSetPbufferAttribARB(hPbuffer, piAttribList);
   }
+  else
+    Warning( "wglSetPbufferAttribARB not available." );
   return ret;
 }
 
@@ -32377,6 +32463,8 @@ REGAL_DECL HGLRC REGAL_CALL wglCreateContextAttribsARB(HDC hDC, HGLRC hShareCont
     GTrace("wglCreateContextAttribsARB(", hDC, ", ", hShareContext, ", ", piAttribList, ")");
     ret = dispatchTableGlobal.wglCreateContextAttribsARB(hDC, hShareContext, piAttribList);
   }
+  else
+    Warning( "wglCreateContextAttribsARB not available." );
   return ret;
 }
 
@@ -32396,6 +32484,8 @@ REGAL_DECL GLboolean REGAL_CALL wglCreateDisplayColorTableEXT(GLushort id)
     GTrace("wglCreateDisplayColorTableEXT(", id, ")");
     ret = dispatchTableGlobal.wglCreateDisplayColorTableEXT(id);
   }
+  else
+    Warning( "wglCreateDisplayColorTableEXT not available." );
   return ret;
 }
 
@@ -32413,6 +32503,8 @@ REGAL_DECL GLboolean REGAL_CALL wglLoadDisplayColorTableEXT(const GLushort *tabl
     GTrace("wglLoadDisplayColorTableEXT(", boost::print::array(table,length), ", ", length, ")");
     ret = dispatchTableGlobal.wglLoadDisplayColorTableEXT(table, length);
   }
+  else
+    Warning( "wglLoadDisplayColorTableEXT not available." );
   return ret;
 }
 
@@ -32430,6 +32522,8 @@ REGAL_DECL GLboolean REGAL_CALL wglBindDisplayColorTableEXT(GLushort id)
     GTrace("wglBindDisplayColorTableEXT(", id, ")");
     ret = dispatchTableGlobal.wglBindDisplayColorTableEXT(id);
   }
+  else
+    Warning( "wglBindDisplayColorTableEXT not available." );
   return ret;
 }
 
@@ -32446,6 +32540,8 @@ REGAL_DECL VOID REGAL_CALL wglDestroyDisplayColorTableEXT(GLushort id)
     GTrace("wglDestroyDisplayColorTableEXT(", id, ")");
     dispatchTableGlobal.wglDestroyDisplayColorTableEXT(id);
   }
+  else
+    Warning( "wglDestroyDisplayColorTableEXT not available." );
 }
 
 /* WGL_EXT_extensions_string */
@@ -32464,6 +32560,8 @@ REGAL_DECL const char *REGAL_CALL wglGetExtensionsStringEXT(void)
     GTrace("wglGetExtensionsStringEXT()");
     ret = dispatchTableGlobal.wglGetExtensionsStringEXT();
   }
+  else
+    Warning( "wglGetExtensionsStringEXT not available." );
   return ret;
 }
 
@@ -32483,6 +32581,8 @@ REGAL_DECL BOOL REGAL_CALL wglMakeContextCurrentEXT(HDC hDrawDC, HDC hReadDC, HG
     GTrace("wglMakeContextCurrentEXT(", hDrawDC, ", ", hReadDC, ", ", hglrc, ")");
     ret = dispatchTableGlobal.wglMakeContextCurrentEXT(hDrawDC, hReadDC, hglrc);
   }
+  else
+    Warning( "wglMakeContextCurrentEXT not available." );
   return ret;
 }
 
@@ -32500,6 +32600,8 @@ REGAL_DECL HDC REGAL_CALL wglGetCurrentReadDCEXT(void)
     GTrace("wglGetCurrentReadDCEXT()");
     ret = dispatchTableGlobal.wglGetCurrentReadDCEXT();
   }
+  else
+    Warning( "wglGetCurrentReadDCEXT not available." );
   return ret;
 }
 
@@ -32519,6 +32621,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetPixelFormatAttribivEXT(HDC hDC, int iPixelForma
     GTrace("wglGetPixelFormatAttribivEXT(", hDC, ", ", iPixelFormat, ", ", iLayerPlane, ", ", nAttributes, ", ", boost::print::array(piAttributes,nAttributes), ")");
     ret = dispatchTableGlobal.wglGetPixelFormatAttribivEXT(hDC, iPixelFormat, iLayerPlane, nAttributes, piAttributes, piValues);
   }
+  else
+    Warning( "wglGetPixelFormatAttribivEXT not available." );
   return ret;
 }
 
@@ -32536,6 +32640,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetPixelFormatAttribfvEXT(HDC hDC, int iPixelForma
     GTrace("wglGetPixelFormatAttribfvEXT(", hDC, ", ", iPixelFormat, ", ", iLayerPlane, ", ", nAttributes, ", ", boost::print::array(piAttributes,nAttributes), ")");
     ret = dispatchTableGlobal.wglGetPixelFormatAttribfvEXT(hDC, iPixelFormat, iLayerPlane, nAttributes, piAttributes, pfValues);
   }
+  else
+    Warning( "wglGetPixelFormatAttribfvEXT not available." );
   return ret;
 }
 
@@ -32553,6 +32659,8 @@ REGAL_DECL BOOL REGAL_CALL wglChoosePixelFormatEXT(HDC hDC, const int *piAttribI
     GTrace("wglChoosePixelFormatEXT(", hDC, ", ", piAttribIList, ", ", pfAttribFList, ", ", nMaxFormats, ")");
     ret = dispatchTableGlobal.wglChoosePixelFormatEXT(hDC, piAttribIList, pfAttribFList, nMaxFormats, piFormats, nNumFormats);
   }
+  else
+    Warning( "wglChoosePixelFormatEXT not available." );
   return ret;
 }
 
@@ -32572,6 +32680,8 @@ REGAL_DECL HPBUFFEREXT REGAL_CALL wglCreatePbufferEXT(HDC hDC, int iPixelFormat,
     GTrace("wglCreatePbufferEXT(", hDC, ", ", iPixelFormat, ", ", iWidth, ", ", iHeight, ", ", piAttribList, ")");
     ret = dispatchTableGlobal.wglCreatePbufferEXT(hDC, iPixelFormat, iWidth, iHeight, piAttribList);
   }
+  else
+    Warning( "wglCreatePbufferEXT not available." );
   return ret;
 }
 
@@ -32589,6 +32699,8 @@ REGAL_DECL HDC REGAL_CALL wglGetPbufferDCEXT(HPBUFFEREXT hPbuffer)
     GTrace("wglGetPbufferDCEXT(", hPbuffer, ")");
     ret = dispatchTableGlobal.wglGetPbufferDCEXT(hPbuffer);
   }
+  else
+    Warning( "wglGetPbufferDCEXT not available." );
   return ret;
 }
 
@@ -32606,6 +32718,8 @@ REGAL_DECL int REGAL_CALL wglReleasePbufferDCEXT(HPBUFFEREXT hPbuffer, HDC hDC)
     GTrace("wglReleasePbufferDCEXT(", hPbuffer, ", ", hDC, ")");
     ret = dispatchTableGlobal.wglReleasePbufferDCEXT(hPbuffer, hDC);
   }
+  else
+    Warning( "wglReleasePbufferDCEXT not available." );
   return ret;
 }
 
@@ -32623,6 +32737,8 @@ REGAL_DECL BOOL REGAL_CALL wglDestroyPbufferEXT(HPBUFFEREXT hPbuffer)
     GTrace("wglDestroyPbufferEXT(", hPbuffer, ")");
     ret = dispatchTableGlobal.wglDestroyPbufferEXT(hPbuffer);
   }
+  else
+    Warning( "wglDestroyPbufferEXT not available." );
   return ret;
 }
 
@@ -32640,6 +32756,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryPbufferEXT(HPBUFFEREXT hPbuffer, int iAttribu
     GTrace("wglQueryPbufferEXT(", hPbuffer, ", ", iAttribute, ")");
     ret = dispatchTableGlobal.wglQueryPbufferEXT(hPbuffer, iAttribute, piValue);
   }
+  else
+    Warning( "wglQueryPbufferEXT not available." );
   return ret;
 }
 
@@ -32659,6 +32777,8 @@ REGAL_DECL BOOL REGAL_CALL wglSwapIntervalEXT(int interval)
     GTrace("wglSwapIntervalEXT(", interval, ")");
     ret = dispatchTableGlobal.wglSwapIntervalEXT(interval);
   }
+  else
+    Warning( "wglSwapIntervalEXT not available." );
   return ret;
 }
 
@@ -32676,6 +32796,8 @@ REGAL_DECL int REGAL_CALL wglGetSwapIntervalEXT(void)
     GTrace("wglGetSwapIntervalEXT()");
     ret = dispatchTableGlobal.wglGetSwapIntervalEXT();
   }
+  else
+    Warning( "wglGetSwapIntervalEXT not available." );
   return ret;
 }
 
@@ -32695,6 +32817,8 @@ REGAL_DECL void *REGAL_CALL wglAllocateMemoryNV(GLsizei size, GLfloat readfreq, 
     GTrace("wglAllocateMemoryNV(", size, ", ", readfreq, ", ", writefreq, ", ", priority, ")");
     ret = dispatchTableGlobal.wglAllocateMemoryNV(size, readfreq, writefreq, priority);
   }
+  else
+    Warning( "wglAllocateMemoryNV not available." );
   return ret;
 }
 
@@ -32711,6 +32835,8 @@ REGAL_DECL void REGAL_CALL wglFreeMemoryNV(void *pointer)
     GTrace("wglFreeMemoryNV(", pointer, ")");
     dispatchTableGlobal.wglFreeMemoryNV(pointer);
   }
+  else
+    Warning( "wglFreeMemoryNV not available." );
 }
 
 /* WGL_OML_sync_control */
@@ -32729,6 +32855,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetSyncValuesOML(HDC hDC, INT64 *ust, INT64 *msc, 
     GTrace("wglGetSyncValuesOML(", hDC, ")");
     ret = dispatchTableGlobal.wglGetSyncValuesOML(hDC, ust, msc, sbc);
   }
+  else
+    Warning( "wglGetSyncValuesOML not available." );
   return ret;
 }
 
@@ -32746,6 +32874,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetMscRateOML(HDC hDC, INT32 *numerator, INT32 *de
     GTrace("wglGetMscRateOML(", hDC, ")");
     ret = dispatchTableGlobal.wglGetMscRateOML(hDC, numerator, denominator);
   }
+  else
+    Warning( "wglGetMscRateOML not available." );
   return ret;
 }
 
@@ -32763,6 +32893,8 @@ REGAL_DECL INT64 REGAL_CALL wglSwapBuffersMscOML(HDC hDC, INT64 target_msc, INT6
     GTrace("wglSwapBuffersMscOML(", hDC, ", ", target_msc, ", ", divisor, ", ", remainder, ")");
     ret = dispatchTableGlobal.wglSwapBuffersMscOML(hDC, target_msc, divisor, remainder);
   }
+  else
+    Warning( "wglSwapBuffersMscOML not available." );
   return ret;
 }
 
@@ -32780,6 +32912,8 @@ REGAL_DECL INT64 REGAL_CALL wglSwapLayerBuffersMscOML(HDC hDC, int fuPlanes, INT
     GTrace("wglSwapLayerBuffersMscOML(", hDC, ", ", fuPlanes, ", ", target_msc, ", ", divisor, ", ", remainder, ")");
     ret = dispatchTableGlobal.wglSwapLayerBuffersMscOML(hDC, fuPlanes, target_msc, divisor, remainder);
   }
+  else
+    Warning( "wglSwapLayerBuffersMscOML not available." );
   return ret;
 }
 
@@ -32797,6 +32931,8 @@ REGAL_DECL BOOL REGAL_CALL wglWaitForMscOML(HDC hDC, INT64 target_msc, INT64 div
     GTrace("wglWaitForMscOML(", hDC, ", ", target_msc, ", ", divisor, ", ", remainder, ")");
     ret = dispatchTableGlobal.wglWaitForMscOML(hDC, target_msc, divisor, remainder, ust, msc, sbc);
   }
+  else
+    Warning( "wglWaitForMscOML not available." );
   return ret;
 }
 
@@ -32814,6 +32950,8 @@ REGAL_DECL BOOL REGAL_CALL wglWaitForSbcOML(HDC hDC, INT64 target_sbc, INT64 *us
     GTrace("wglWaitForSbcOML(", hDC, ", ", target_sbc, ")");
     ret = dispatchTableGlobal.wglWaitForSbcOML(hDC, target_sbc, ust, msc, sbc);
   }
+  else
+    Warning( "wglWaitForSbcOML not available." );
   return ret;
 }
 
@@ -32833,6 +32971,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetDigitalVideoParametersI3D(HDC hDC, int iAttribu
     GTrace("wglGetDigitalVideoParametersI3D(", hDC, ", ", iAttribute, ")");
     ret = dispatchTableGlobal.wglGetDigitalVideoParametersI3D(hDC, iAttribute, piValue);
   }
+  else
+    Warning( "wglGetDigitalVideoParametersI3D not available." );
   return ret;
 }
 
@@ -32850,6 +32990,8 @@ REGAL_DECL BOOL REGAL_CALL wglSetDigitalVideoParametersI3D(HDC hDC, int iAttribu
     GTrace("wglSetDigitalVideoParametersI3D(", hDC, ", ", iAttribute, ", ", piValue, ")");
     ret = dispatchTableGlobal.wglSetDigitalVideoParametersI3D(hDC, iAttribute, piValue);
   }
+  else
+    Warning( "wglSetDigitalVideoParametersI3D not available." );
   return ret;
 }
 
@@ -32869,6 +33011,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetGammaTableParametersI3D(HDC hDC, int iAttribute
     GTrace("wglGetGammaTableParametersI3D(", hDC, ", ", iAttribute, ")");
     ret = dispatchTableGlobal.wglGetGammaTableParametersI3D(hDC, iAttribute, piValue);
   }
+  else
+    Warning( "wglGetGammaTableParametersI3D not available." );
   return ret;
 }
 
@@ -32886,6 +33030,8 @@ REGAL_DECL BOOL REGAL_CALL wglSetGammaTableParametersI3D(HDC hDC, int iAttribute
     GTrace("wglSetGammaTableParametersI3D(", hDC, ", ", iAttribute, ", ", piValue, ")");
     ret = dispatchTableGlobal.wglSetGammaTableParametersI3D(hDC, iAttribute, piValue);
   }
+  else
+    Warning( "wglSetGammaTableParametersI3D not available." );
   return ret;
 }
 
@@ -32903,6 +33049,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetGammaTableI3D(HDC hDC, int iEntries, USHORT *pu
     GTrace("wglGetGammaTableI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglGetGammaTableI3D(hDC, iEntries, puRed, puGreen, puBlue);
   }
+  else
+    Warning( "wglGetGammaTableI3D not available." );
   return ret;
 }
 
@@ -32920,6 +33068,8 @@ REGAL_DECL BOOL REGAL_CALL wglSetGammaTableI3D(HDC hDC, int iEntries, const USHO
     GTrace("wglSetGammaTableI3D(", hDC, ", ", iEntries, ", ", boost::print::array(puRed,iEntries), ", ", boost::print::array(puGreen,iEntries), ", ", boost::print::array(puBlue,iEntries), ")");
     ret = dispatchTableGlobal.wglSetGammaTableI3D(hDC, iEntries, puRed, puGreen, puBlue);
   }
+  else
+    Warning( "wglSetGammaTableI3D not available." );
   return ret;
 }
 
@@ -32939,6 +33089,8 @@ REGAL_DECL BOOL REGAL_CALL wglEnableGenlockI3D(HDC hDC)
     GTrace("wglEnableGenlockI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglEnableGenlockI3D(hDC);
   }
+  else
+    Warning( "wglEnableGenlockI3D not available." );
   return ret;
 }
 
@@ -32956,6 +33108,8 @@ REGAL_DECL BOOL REGAL_CALL wglDisableGenlockI3D(HDC hDC)
     GTrace("wglDisableGenlockI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglDisableGenlockI3D(hDC);
   }
+  else
+    Warning( "wglDisableGenlockI3D not available." );
   return ret;
 }
 
@@ -32973,6 +33127,8 @@ REGAL_DECL BOOL REGAL_CALL wglIsEnabledGenlockI3D(HDC hDC, BOOL *pFlag)
     GTrace("wglIsEnabledGenlockI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglIsEnabledGenlockI3D(hDC, pFlag);
   }
+  else
+    Warning( "wglIsEnabledGenlockI3D not available." );
   return ret;
 }
 
@@ -32990,6 +33146,8 @@ REGAL_DECL BOOL REGAL_CALL wglGenlockSourceI3D(HDC hDC, UINT uSource)
     GTrace("wglGenlockSourceI3D(", hDC, ", ", uSource, ")");
     ret = dispatchTableGlobal.wglGenlockSourceI3D(hDC, uSource);
   }
+  else
+    Warning( "wglGenlockSourceI3D not available." );
   return ret;
 }
 
@@ -33007,6 +33165,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetGenlockSourceI3D(HDC hDC, UINT *uSource)
     GTrace("wglGetGenlockSourceI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglGetGenlockSourceI3D(hDC, uSource);
   }
+  else
+    Warning( "wglGetGenlockSourceI3D not available." );
   return ret;
 }
 
@@ -33024,6 +33184,8 @@ REGAL_DECL BOOL REGAL_CALL wglGenlockSourceEdgeI3D(HDC hDC, UINT uEdge)
     GTrace("wglGenlockSourceEdgeI3D(", hDC, ", ", uEdge, ")");
     ret = dispatchTableGlobal.wglGenlockSourceEdgeI3D(hDC, uEdge);
   }
+  else
+    Warning( "wglGenlockSourceEdgeI3D not available." );
   return ret;
 }
 
@@ -33041,6 +33203,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetGenlockSourceEdgeI3D(HDC hDC, UINT *uEdge)
     GTrace("wglGetGenlockSourceEdgeI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglGetGenlockSourceEdgeI3D(hDC, uEdge);
   }
+  else
+    Warning( "wglGetGenlockSourceEdgeI3D not available." );
   return ret;
 }
 
@@ -33058,6 +33222,8 @@ REGAL_DECL BOOL REGAL_CALL wglGenlockSampleRateI3D(HDC hDC, UINT uRate)
     GTrace("wglGenlockSampleRateI3D(", hDC, ", ", uRate, ")");
     ret = dispatchTableGlobal.wglGenlockSampleRateI3D(hDC, uRate);
   }
+  else
+    Warning( "wglGenlockSampleRateI3D not available." );
   return ret;
 }
 
@@ -33075,6 +33241,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetGenlockSampleRateI3D(HDC hDC, UINT *uRate)
     GTrace("wglGetGenlockSampleRateI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglGetGenlockSampleRateI3D(hDC, uRate);
   }
+  else
+    Warning( "wglGetGenlockSampleRateI3D not available." );
   return ret;
 }
 
@@ -33092,6 +33260,8 @@ REGAL_DECL BOOL REGAL_CALL wglGenlockSourceDelayI3D(HDC hDC, UINT uDelay)
     GTrace("wglGenlockSourceDelayI3D(", hDC, ", ", uDelay, ")");
     ret = dispatchTableGlobal.wglGenlockSourceDelayI3D(hDC, uDelay);
   }
+  else
+    Warning( "wglGenlockSourceDelayI3D not available." );
   return ret;
 }
 
@@ -33109,6 +33279,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetGenlockSourceDelayI3D(HDC hDC, UINT *uDelay)
     GTrace("wglGetGenlockSourceDelayI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglGetGenlockSourceDelayI3D(hDC, uDelay);
   }
+  else
+    Warning( "wglGetGenlockSourceDelayI3D not available." );
   return ret;
 }
 
@@ -33126,6 +33298,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryGenlockMaxSourceDelayI3D(HDC hDC, UINT *uMaxL
     GTrace("wglQueryGenlockMaxSourceDelayI3D(", hDC, ")");
     ret = dispatchTableGlobal.wglQueryGenlockMaxSourceDelayI3D(hDC, uMaxLineDelay, uMaxPixelDelay);
   }
+  else
+    Warning( "wglQueryGenlockMaxSourceDelayI3D not available." );
   return ret;
 }
 
@@ -33145,6 +33319,8 @@ REGAL_DECL LPVOID REGAL_CALL wglCreateImageBufferI3D(HDC hDC, DWORD dwSize, UINT
     GTrace("wglCreateImageBufferI3D(", hDC, ", ", dwSize, ", ", uFlags, ")");
     ret = dispatchTableGlobal.wglCreateImageBufferI3D(hDC, dwSize, uFlags);
   }
+  else
+    Warning( "wglCreateImageBufferI3D not available." );
   return ret;
 }
 
@@ -33162,6 +33338,8 @@ REGAL_DECL BOOL REGAL_CALL wglDestroyImageBufferI3D(HDC hDC, LPVOID pAddress)
     GTrace("wglDestroyImageBufferI3D(", hDC, ", ", pAddress, ")");
     ret = dispatchTableGlobal.wglDestroyImageBufferI3D(hDC, pAddress);
   }
+  else
+    Warning( "wglDestroyImageBufferI3D not available." );
   return ret;
 }
 
@@ -33179,6 +33357,8 @@ REGAL_DECL BOOL REGAL_CALL wglAssociateImageBufferEventsI3D(HDC hDC, const HANDL
     GTrace("wglAssociateImageBufferEventsI3D(", hDC, ", ", boost::print::array(pEvent,count), ", ", boost::print::array(pAddress,count), ", ", boost::print::array(pSize,count), ", ", count, ")");
     ret = dispatchTableGlobal.wglAssociateImageBufferEventsI3D(hDC, pEvent, pAddress, pSize, count);
   }
+  else
+    Warning( "wglAssociateImageBufferEventsI3D not available." );
   return ret;
 }
 
@@ -33196,6 +33376,8 @@ REGAL_DECL BOOL REGAL_CALL wglReleaseImageBufferEventsI3D(HDC hDC, const LPVOID 
     GTrace("wglReleaseImageBufferEventsI3D(", hDC, ", ", boost::print::array(pAddress,count), ", ", count, ")");
     ret = dispatchTableGlobal.wglReleaseImageBufferEventsI3D(hDC, pAddress, count);
   }
+  else
+    Warning( "wglReleaseImageBufferEventsI3D not available." );
   return ret;
 }
 
@@ -33215,6 +33397,8 @@ REGAL_DECL BOOL REGAL_CALL wglEnableFrameLockI3D(void)
     GTrace("wglEnableFrameLockI3D()");
     ret = dispatchTableGlobal.wglEnableFrameLockI3D();
   }
+  else
+    Warning( "wglEnableFrameLockI3D not available." );
   return ret;
 }
 
@@ -33232,6 +33416,8 @@ REGAL_DECL BOOL REGAL_CALL wglDisableFrameLockI3D(void)
     GTrace("wglDisableFrameLockI3D()");
     ret = dispatchTableGlobal.wglDisableFrameLockI3D();
   }
+  else
+    Warning( "wglDisableFrameLockI3D not available." );
   return ret;
 }
 
@@ -33249,6 +33435,8 @@ REGAL_DECL BOOL REGAL_CALL wglIsEnabledFrameLockI3D(BOOL *pFlag)
     GTrace("wglIsEnabledFrameLockI3D()");
     ret = dispatchTableGlobal.wglIsEnabledFrameLockI3D(pFlag);
   }
+  else
+    Warning( "wglIsEnabledFrameLockI3D not available." );
   return ret;
 }
 
@@ -33266,6 +33454,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryFrameLockMasterI3D(BOOL *pFlag)
     GTrace("wglQueryFrameLockMasterI3D()");
     ret = dispatchTableGlobal.wglQueryFrameLockMasterI3D(pFlag);
   }
+  else
+    Warning( "wglQueryFrameLockMasterI3D not available." );
   return ret;
 }
 
@@ -33285,6 +33475,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetFrameUsageI3D(float *pUsage)
     GTrace("wglGetFrameUsageI3D()");
     ret = dispatchTableGlobal.wglGetFrameUsageI3D(pUsage);
   }
+  else
+    Warning( "wglGetFrameUsageI3D not available." );
   return ret;
 }
 
@@ -33302,6 +33494,8 @@ REGAL_DECL BOOL REGAL_CALL wglBeginFrameTrackingI3D(void)
     GTrace("wglBeginFrameTrackingI3D()");
     ret = dispatchTableGlobal.wglBeginFrameTrackingI3D();
   }
+  else
+    Warning( "wglBeginFrameTrackingI3D not available." );
   return ret;
 }
 
@@ -33319,6 +33513,8 @@ REGAL_DECL BOOL REGAL_CALL wglEndFrameTrackingI3D(void)
     GTrace("wglEndFrameTrackingI3D()");
     ret = dispatchTableGlobal.wglEndFrameTrackingI3D();
   }
+  else
+    Warning( "wglEndFrameTrackingI3D not available." );
   return ret;
 }
 
@@ -33336,6 +33532,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryFrameTrackingI3D(DWORD *pFrameCount, DWORD *p
     GTrace("wglQueryFrameTrackingI3D()");
     ret = dispatchTableGlobal.wglQueryFrameTrackingI3D(pFrameCount, pMissedFrames, pLastMissedUsage);
   }
+  else
+    Warning( "wglQueryFrameTrackingI3D not available." );
   return ret;
 }
 
@@ -33355,6 +33553,8 @@ REGAL_DECL BOOL REGAL_CALL wglSetStereoEmitterState3DL(HDC hDC, UINT uState)
     GTrace("wglSetStereoEmitterState3DL(", hDC, ", ", uState, ")");
     ret = dispatchTableGlobal.wglSetStereoEmitterState3DL(hDC, uState);
   }
+  else
+    Warning( "wglSetStereoEmitterState3DL not available." );
   return ret;
 }
 
@@ -33374,6 +33574,8 @@ REGAL_DECL int REGAL_CALL wglEnumerateVideoDevicesNV(HDC hDC, HVIDEOOUTPUTDEVICE
     GTrace("wglEnumerateVideoDevicesNV(", hDC, ")");
     ret = dispatchTableGlobal.wglEnumerateVideoDevicesNV(hDC, phDeviceList);
   }
+  else
+    Warning( "wglEnumerateVideoDevicesNV not available." );
   return ret;
 }
 
@@ -33391,6 +33593,8 @@ REGAL_DECL BOOL REGAL_CALL wglBindVideoDeviceNV(HDC hDC, unsigned int uVideoSlot
     GTrace("wglBindVideoDeviceNV(", hDC, ", ", uVideoSlot, ", ", hVideoDevice, ", ", piAttribList, ")");
     ret = dispatchTableGlobal.wglBindVideoDeviceNV(hDC, uVideoSlot, hVideoDevice, piAttribList);
   }
+  else
+    Warning( "wglBindVideoDeviceNV not available." );
   return ret;
 }
 
@@ -33408,6 +33612,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryCurrentContextNV(int iAttribute, int *piValue
     GTrace("wglQueryCurrentContextNV(", iAttribute, ")");
     ret = dispatchTableGlobal.wglQueryCurrentContextNV(iAttribute, piValue);
   }
+  else
+    Warning( "wglQueryCurrentContextNV not available." );
   return ret;
 }
 
@@ -33427,6 +33633,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetVideoDeviceNV(HDC hDC, int numDevices, HPVIDEOD
     GTrace("wglGetVideoDeviceNV(", hDC, ", ", numDevices, ")");
     ret = dispatchTableGlobal.wglGetVideoDeviceNV(hDC, numDevices, hVideoDevice);
   }
+  else
+    Warning( "wglGetVideoDeviceNV not available." );
   return ret;
 }
 
@@ -33444,6 +33652,8 @@ REGAL_DECL BOOL REGAL_CALL wglReleaseVideoDeviceNV(HPVIDEODEV hVideoDevice)
     GTrace("wglReleaseVideoDeviceNV(", hVideoDevice, ")");
     ret = dispatchTableGlobal.wglReleaseVideoDeviceNV(hVideoDevice);
   }
+  else
+    Warning( "wglReleaseVideoDeviceNV not available." );
   return ret;
 }
 
@@ -33461,6 +33671,8 @@ REGAL_DECL BOOL REGAL_CALL wglBindVideoImageNV(HPVIDEODEV hVideoDevice, HPBUFFER
     GTrace("wglBindVideoImageNV(", hVideoDevice, ", ", hPbuffer, ", ", iVideoBuffer, ")");
     ret = dispatchTableGlobal.wglBindVideoImageNV(hVideoDevice, hPbuffer, iVideoBuffer);
   }
+  else
+    Warning( "wglBindVideoImageNV not available." );
   return ret;
 }
 
@@ -33478,6 +33690,8 @@ REGAL_DECL BOOL REGAL_CALL wglReleaseVideoImageNV(HPBUFFERARB hPbuffer, int iVid
     GTrace("wglReleaseVideoImageNV(", hPbuffer, ", ", iVideoBuffer, ")");
     ret = dispatchTableGlobal.wglReleaseVideoImageNV(hPbuffer, iVideoBuffer);
   }
+  else
+    Warning( "wglReleaseVideoImageNV not available." );
   return ret;
 }
 
@@ -33495,6 +33709,8 @@ REGAL_DECL BOOL REGAL_CALL wglSendPbufferToVideoNV(HPBUFFERARB hPbuffer, int iBu
     GTrace("wglSendPbufferToVideoNV(", hPbuffer, ", ", iBufferType, ", ", bBlock, ")");
     ret = dispatchTableGlobal.wglSendPbufferToVideoNV(hPbuffer, iBufferType, pulCounterPbuffer, bBlock);
   }
+  else
+    Warning( "wglSendPbufferToVideoNV not available." );
   return ret;
 }
 
@@ -33512,6 +33728,8 @@ REGAL_DECL BOOL REGAL_CALL wglGetVideoInfoNV(HPVIDEODEV hpVideoDevice, unsigned 
     GTrace("wglGetVideoInfoNV(", hpVideoDevice, ")");
     ret = dispatchTableGlobal.wglGetVideoInfoNV(hpVideoDevice, pulCounterOutputPbuffer, pulCounterOutputVideo);
   }
+  else
+    Warning( "wglGetVideoInfoNV not available." );
   return ret;
 }
 
@@ -33531,6 +33749,8 @@ REGAL_DECL BOOL REGAL_CALL wglJoinSwapGroupNV(HDC hDC, GLuint group)
     GTrace("wglJoinSwapGroupNV(", hDC, ", ", group, ")");
     ret = dispatchTableGlobal.wglJoinSwapGroupNV(hDC, group);
   }
+  else
+    Warning( "wglJoinSwapGroupNV not available." );
   return ret;
 }
 
@@ -33548,6 +33768,8 @@ REGAL_DECL BOOL REGAL_CALL wglBindSwapBarrierNV(GLuint group, GLuint barrier)
     GTrace("wglBindSwapBarrierNV(", group, ", ", barrier, ")");
     ret = dispatchTableGlobal.wglBindSwapBarrierNV(group, barrier);
   }
+  else
+    Warning( "wglBindSwapBarrierNV not available." );
   return ret;
 }
 
@@ -33565,6 +33787,8 @@ REGAL_DECL BOOL REGAL_CALL wglQuerySwapGroupNV(HDC hDC, GLuint *group, GLuint *b
     GTrace("wglQuerySwapGroupNV(", hDC, ")");
     ret = dispatchTableGlobal.wglQuerySwapGroupNV(hDC, group, barrier);
   }
+  else
+    Warning( "wglQuerySwapGroupNV not available." );
   return ret;
 }
 
@@ -33582,6 +33806,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryMaxSwapGroupsNV(HDC hDC, GLuint *maxGroups, G
     GTrace("wglQueryMaxSwapGroupsNV(", hDC, ")");
     ret = dispatchTableGlobal.wglQueryMaxSwapGroupsNV(hDC, maxGroups, maxBarriers);
   }
+  else
+    Warning( "wglQueryMaxSwapGroupsNV not available." );
   return ret;
 }
 
@@ -33599,6 +33825,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryFrameCountNV(HDC hDC, GLuint *count)
     GTrace("wglQueryFrameCountNV(", hDC, ")");
     ret = dispatchTableGlobal.wglQueryFrameCountNV(hDC, count);
   }
+  else
+    Warning( "wglQueryFrameCountNV not available." );
   return ret;
 }
 
@@ -33616,6 +33844,8 @@ REGAL_DECL BOOL REGAL_CALL wglResetFrameCountNV(HDC hDC)
     GTrace("wglResetFrameCountNV(", hDC, ")");
     ret = dispatchTableGlobal.wglResetFrameCountNV(hDC);
   }
+  else
+    Warning( "wglResetFrameCountNV not available." );
   return ret;
 }
 
@@ -33635,6 +33865,8 @@ REGAL_DECL BOOL REGAL_CALL wglEnumGpusNV(UINT iGpuIndex, HGPUNV *phGpu)
     GTrace("wglEnumGpusNV(", iGpuIndex, ")");
     ret = dispatchTableGlobal.wglEnumGpusNV(iGpuIndex, phGpu);
   }
+  else
+    Warning( "wglEnumGpusNV not available." );
   return ret;
 }
 
@@ -33652,6 +33884,8 @@ REGAL_DECL BOOL REGAL_CALL wglEnumGpuDevicesNV(HGPUNV hGpu, UINT iDeviceIndex, P
     GTrace("wglEnumGpuDevicesNV(", hGpu, ", ", iDeviceIndex, ")");
     ret = dispatchTableGlobal.wglEnumGpuDevicesNV(hGpu, iDeviceIndex, lpGpuDevice);
   }
+  else
+    Warning( "wglEnumGpuDevicesNV not available." );
   return ret;
 }
 
@@ -33669,6 +33903,8 @@ REGAL_DECL HDC REGAL_CALL wglCreateAffinityDCNV(const HGPUNV *phGpuList)
     GTrace("wglCreateAffinityDCNV(", phGpuList, ")");
     ret = dispatchTableGlobal.wglCreateAffinityDCNV(phGpuList);
   }
+  else
+    Warning( "wglCreateAffinityDCNV not available." );
   return ret;
 }
 
@@ -33686,6 +33922,8 @@ REGAL_DECL BOOL REGAL_CALL wglEnumGpusFromAffinityDCNV(HDC hAffinityDC, UINT iGp
     GTrace("wglEnumGpusFromAffinityDCNV(", hAffinityDC, ", ", iGpuIndex, ")");
     ret = dispatchTableGlobal.wglEnumGpusFromAffinityDCNV(hAffinityDC, iGpuIndex, hGpu);
   }
+  else
+    Warning( "wglEnumGpusFromAffinityDCNV not available." );
   return ret;
 }
 
@@ -33703,6 +33941,8 @@ REGAL_DECL BOOL REGAL_CALL wglDeleteDCNV(HDC hAffinityDC)
     GTrace("wglDeleteDCNV(", hAffinityDC, ")");
     ret = dispatchTableGlobal.wglDeleteDCNV(hAffinityDC);
   }
+  else
+    Warning( "wglDeleteDCNV not available." );
   return ret;
 }
 
@@ -33722,6 +33962,8 @@ REGAL_DECL UINT REGAL_CALL wglGetGPUIDsAMD(UINT maxCount, UINT *ids)
     GTrace("wglGetGPUIDsAMD(", maxCount, ")");
     ret = dispatchTableGlobal.wglGetGPUIDsAMD(maxCount, ids);
   }
+  else
+    Warning( "wglGetGPUIDsAMD not available." );
   return ret;
 }
 
@@ -33739,6 +33981,8 @@ REGAL_DECL INT REGAL_CALL wglGetGPUInfoAMD(UINT id, int property, GLenum dataTyp
     GTrace("wglGetGPUInfoAMD(", id, ", ", property, ", ", toString(dataType), ", ", size, ")");
     ret = dispatchTableGlobal.wglGetGPUInfoAMD(id, property, dataType, size, data);
   }
+  else
+    Warning( "wglGetGPUInfoAMD not available." );
   return ret;
 }
 
@@ -33756,6 +34000,8 @@ REGAL_DECL UINT REGAL_CALL wglGetContextGPUIDAMD(HGLRC hglrc)
     GTrace("wglGetContextGPUIDAMD(", hglrc, ")");
     ret = dispatchTableGlobal.wglGetContextGPUIDAMD(hglrc);
   }
+  else
+    Warning( "wglGetContextGPUIDAMD not available." );
   return ret;
 }
 
@@ -33773,6 +34019,8 @@ REGAL_DECL HGLRC REGAL_CALL wglCreateAssociatedContextAMD(UINT id)
     GTrace("wglCreateAssociatedContextAMD(", id, ")");
     ret = dispatchTableGlobal.wglCreateAssociatedContextAMD(id);
   }
+  else
+    Warning( "wglCreateAssociatedContextAMD not available." );
   return ret;
 }
 
@@ -33790,6 +34038,8 @@ REGAL_DECL HGLRC REGAL_CALL wglCreateAssociatedContextAttribsAMD(UINT id, HGLRC 
     GTrace("wglCreateAssociatedContextAttribsAMD(", id, ", ", hShareContext, ", ", attribList, ")");
     ret = dispatchTableGlobal.wglCreateAssociatedContextAttribsAMD(id, hShareContext, attribList);
   }
+  else
+    Warning( "wglCreateAssociatedContextAttribsAMD not available." );
   return ret;
 }
 
@@ -33807,6 +34057,8 @@ REGAL_DECL BOOL REGAL_CALL wglDeleteAssociatedContextAMD(HGLRC hglrc)
     GTrace("wglDeleteAssociatedContextAMD(", hglrc, ")");
     ret = dispatchTableGlobal.wglDeleteAssociatedContextAMD(hglrc);
   }
+  else
+    Warning( "wglDeleteAssociatedContextAMD not available." );
   return ret;
 }
 
@@ -33824,6 +34076,8 @@ REGAL_DECL BOOL REGAL_CALL wglMakeAssociatedContextCurrentAMD(HGLRC hglrc)
     GTrace("wglMakeAssociatedContextCurrentAMD(", hglrc, ")");
     ret = dispatchTableGlobal.wglMakeAssociatedContextCurrentAMD(hglrc);
   }
+  else
+    Warning( "wglMakeAssociatedContextCurrentAMD not available." );
   return ret;
 }
 
@@ -33841,6 +34095,8 @@ REGAL_DECL HGLRC REGAL_CALL wglGetCurrentAssociatedContextAMD(void)
     GTrace("wglGetCurrentAssociatedContextAMD()");
     ret = dispatchTableGlobal.wglGetCurrentAssociatedContextAMD();
   }
+  else
+    Warning( "wglGetCurrentAssociatedContextAMD not available." );
   return ret;
 }
 
@@ -33857,6 +34113,8 @@ REGAL_DECL VOID REGAL_CALL wglBlitContextFramebufferAMD(HGLRC dstCtx, GLint srcX
     GTrace("wglBlitContextFramebufferAMD(", dstCtx, ", ", srcX0, ", ", srcY0, ", ", srcX1, ", ", srcY1, ", ", dstX0, ", ", dstY0, ", ", dstX1, ", ", dstY1, ")");
     dispatchTableGlobal.wglBlitContextFramebufferAMD(dstCtx, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
   }
+  else
+    Warning( "wglBlitContextFramebufferAMD not available." );
 }
 
 /* WGL_NV_video_capture */
@@ -33875,6 +34133,8 @@ REGAL_DECL BOOL REGAL_CALL wglBindVideoCaptureDeviceNV(UINT uVideoSlot, HVIDEOIN
     GTrace("wglBindVideoCaptureDeviceNV(", uVideoSlot, ", ", hDevice, ")");
     ret = dispatchTableGlobal.wglBindVideoCaptureDeviceNV(uVideoSlot, hDevice);
   }
+  else
+    Warning( "wglBindVideoCaptureDeviceNV not available." );
   return ret;
 }
 
@@ -33892,6 +34152,8 @@ REGAL_DECL UINT REGAL_CALL wglEnumerateVideoCaptureDevicesNV(HDC hDC, HVIDEOINPU
     GTrace("wglEnumerateVideoCaptureDevicesNV(", hDC, ")");
     ret = dispatchTableGlobal.wglEnumerateVideoCaptureDevicesNV(hDC, phDeviceList);
   }
+  else
+    Warning( "wglEnumerateVideoCaptureDevicesNV not available." );
   return ret;
 }
 
@@ -33909,6 +34171,8 @@ REGAL_DECL BOOL REGAL_CALL wglLockVideoCaptureDeviceNV(HDC hDC, HVIDEOINPUTDEVIC
     GTrace("wglLockVideoCaptureDeviceNV(", hDC, ", ", hDevice, ")");
     ret = dispatchTableGlobal.wglLockVideoCaptureDeviceNV(hDC, hDevice);
   }
+  else
+    Warning( "wglLockVideoCaptureDeviceNV not available." );
   return ret;
 }
 
@@ -33926,6 +34190,8 @@ REGAL_DECL BOOL REGAL_CALL wglQueryVideoCaptureDeviceNV(HDC hDC, HVIDEOINPUTDEVI
     GTrace("wglQueryVideoCaptureDeviceNV(", hDC, ", ", hDevice, ", ", iAttribute, ")");
     ret = dispatchTableGlobal.wglQueryVideoCaptureDeviceNV(hDC, hDevice, iAttribute, piValue);
   }
+  else
+    Warning( "wglQueryVideoCaptureDeviceNV not available." );
   return ret;
 }
 
@@ -33943,6 +34209,8 @@ REGAL_DECL BOOL REGAL_CALL wglReleaseVideoCaptureDeviceNV(HDC hDC, HVIDEOINPUTDE
     GTrace("wglReleaseVideoCaptureDeviceNV(", hDC, ", ", hDevice, ")");
     ret = dispatchTableGlobal.wglReleaseVideoCaptureDeviceNV(hDC, hDevice);
   }
+  else
+    Warning( "wglReleaseVideoCaptureDeviceNV not available." );
   return ret;
 }
 
@@ -33962,6 +34230,8 @@ REGAL_DECL BOOL REGAL_CALL wglCopyImageSubDataNV(HGLRC hSrcRC, GLuint srcName, G
     GTrace("wglCopyImageSubDataNV(", hSrcRC, ", ", srcName, ", ", toString(srcTarget), ", ", srcLevel, ", ", srcX, ", ", srcY, ", ", srcZ, ", ", hDstRC, ", ", dstName, ")");
     ret = dispatchTableGlobal.wglCopyImageSubDataNV(hSrcRC, srcName, srcTarget, srcLevel, srcX, srcY, srcZ, hDstRC, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth);
   }
+  else
+    Warning( "wglCopyImageSubDataNV not available." );
   return ret;
 }
 
@@ -33984,6 +34254,8 @@ REGAL_DECL Bool REGAL_CALL glXQueryExtension(Display *dpy, int *errorBase, int *
     GTrace("glXQueryExtension(", dpy, ")");
     ret = dispatchTableGlobal.glXQueryExtension(dpy, errorBase, eventBase);
   }
+  else
+    Warning( "glXQueryExtension not available." );
   return ret;
 }
 
@@ -34001,6 +34273,8 @@ REGAL_DECL Bool REGAL_CALL glXQueryVersion(Display *dpy, int *major, int *minor)
     GTrace("glXQueryVersion(", dpy, ")");
     ret = dispatchTableGlobal.glXQueryVersion(dpy, major, minor);
   }
+  else
+    Warning( "glXQueryVersion not available." );
   return ret;
 }
 
@@ -34018,6 +34292,8 @@ REGAL_DECL int REGAL_CALL glXGetConfig(Display *dpy, XVisualInfo *vis, int attri
     GTrace("glXGetConfig(", dpy, ", ", vis, ", ", attrib, ")");
     ret = dispatchTableGlobal.glXGetConfig(dpy, vis, attrib, value);
   }
+  else
+    Warning( "glXGetConfig not available." );
   return ret;
 }
 
@@ -34035,6 +34311,8 @@ REGAL_DECL XVisualInfo *REGAL_CALL glXChooseVisual(Display *dpy, int screen, int
     GTrace("glXChooseVisual(", dpy, ", ", screen, ", ", attribList, ")");
     ret = dispatchTableGlobal.glXChooseVisual(dpy, screen, attribList);
   }
+  else
+    Warning( "glXChooseVisual not available." );
   return ret;
 }
 
@@ -34052,6 +34330,8 @@ REGAL_DECL GLXPixmap REGAL_CALL glXCreateGLXPixmap(Display *dpy, XVisualInfo *vi
     GTrace("glXCreateGLXPixmap(", dpy, ", ", vis, ", ", pixmap, ")");
     ret = dispatchTableGlobal.glXCreateGLXPixmap(dpy, vis, pixmap);
   }
+  else
+    Warning( "glXCreateGLXPixmap not available." );
   return ret;
 }
 
@@ -34068,6 +34348,8 @@ REGAL_DECL void REGAL_CALL glXDestroyGLXPixmap(Display *dpy, GLXPixmap pix)
     GTrace("glXDestroyGLXPixmap(", dpy, ", ", pix, ")");
     dispatchTableGlobal.glXDestroyGLXPixmap(dpy, pix);
   }
+  else
+    Warning( "glXDestroyGLXPixmap not available." );
 }
 
 REGAL_DECL GLXContext REGAL_CALL glXCreateContext(Display *dpy, XVisualInfo *vis, GLXContext shareList, Bool direct)
@@ -34084,6 +34366,8 @@ REGAL_DECL GLXContext REGAL_CALL glXCreateContext(Display *dpy, XVisualInfo *vis
     GTrace("glXCreateContext(", dpy, ", ", vis, ", ", shareList, ", ", direct, ")");
     ret = dispatchTableGlobal.glXCreateContext(dpy, vis, shareList, direct);
   }
+  else
+    Warning( "glXCreateContext not available." );
   return ret;
 }
 
@@ -34100,6 +34384,8 @@ REGAL_DECL void REGAL_CALL glXDestroyContext(Display *dpy, GLXContext ctx)
     GTrace("glXDestroyContext(", dpy, ", ", ctx, ")");
     dispatchTableGlobal.glXDestroyContext(dpy, ctx);
   }
+  else
+    Warning( "glXDestroyContext not available." );
 }
 
 REGAL_DECL Bool REGAL_CALL glXIsDirect(Display *dpy, GLXContext ctx)
@@ -34116,6 +34402,8 @@ REGAL_DECL Bool REGAL_CALL glXIsDirect(Display *dpy, GLXContext ctx)
     GTrace("glXIsDirect(", dpy, ", ", ctx, ")");
     ret = dispatchTableGlobal.glXIsDirect(dpy, ctx);
   }
+  else
+    Warning( "glXIsDirect not available." );
   return ret;
 }
 
@@ -34132,6 +34420,8 @@ REGAL_DECL void REGAL_CALL glXCopyContext(Display *dpy, GLXContext src, GLXConte
     GTrace("glXCopyContext(", dpy, ", ", src, ", ", dst, ", ", mask, ")");
     dispatchTableGlobal.glXCopyContext(dpy, src, dst, mask);
   }
+  else
+    Warning( "glXCopyContext not available." );
 }
 
 REGAL_DECL Bool REGAL_CALL glXMakeCurrent(Display *dpy, GLXDrawable drawable, GLXContext ctx)
@@ -34149,6 +34439,8 @@ REGAL_DECL Bool REGAL_CALL glXMakeCurrent(Display *dpy, GLXDrawable drawable, GL
     ret = dispatchTableGlobal.glXMakeCurrent(dpy, drawable, ctx);
        RegalMakeCurrent( RegalSystemContext(ctx) );
   }
+  else
+    Warning( "glXMakeCurrent not available." );
   return ret;
 }
 
@@ -34166,6 +34458,8 @@ REGAL_DECL GLXContext REGAL_CALL glXGetCurrentContext(void)
     GTrace("glXGetCurrentContext()");
     ret = dispatchTableGlobal.glXGetCurrentContext();
   }
+  else
+    Warning( "glXGetCurrentContext not available." );
   return ret;
 }
 
@@ -34183,6 +34477,8 @@ REGAL_DECL GLXDrawable REGAL_CALL glXGetCurrentDrawable(void)
     GTrace("glXGetCurrentDrawable()");
     ret = dispatchTableGlobal.glXGetCurrentDrawable();
   }
+  else
+    Warning( "glXGetCurrentDrawable not available." );
   return ret;
 }
 
@@ -34199,6 +34495,8 @@ REGAL_DECL void REGAL_CALL glXWaitGL(void)
     GTrace("glXWaitGL()");
     dispatchTableGlobal.glXWaitGL();
   }
+  else
+    Warning( "glXWaitGL not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXWaitX(void)
@@ -34214,6 +34512,8 @@ REGAL_DECL void REGAL_CALL glXWaitX(void)
     GTrace("glXWaitX()");
     dispatchTableGlobal.glXWaitX();
   }
+  else
+    Warning( "glXWaitX not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXSwapBuffers(Display *dpy, GLXDrawable drawable)
@@ -34229,6 +34529,8 @@ REGAL_DECL void REGAL_CALL glXSwapBuffers(Display *dpy, GLXDrawable drawable)
     GTrace("glXSwapBuffers(", dpy, ", ", drawable, ")");
     dispatchTableGlobal.glXSwapBuffers(dpy, drawable);
   }
+  else
+    Warning( "glXSwapBuffers not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXUseXFont(Font font, int first, int count, int listBase)
@@ -34244,6 +34546,8 @@ REGAL_DECL void REGAL_CALL glXUseXFont(Font font, int first, int count, int list
     GTrace("glXUseXFont(", font, ", ", first, ", ", count, ", ", listBase, ")");
     dispatchTableGlobal.glXUseXFont(font, first, count, listBase);
   }
+  else
+    Warning( "glXUseXFont not available." );
 }
 
 /* GLX_VERSION_1_1 */
@@ -34262,6 +34566,8 @@ REGAL_DECL const char *REGAL_CALL glXQueryExtensionsString(Display *dpy, int scr
     GTrace("glXQueryExtensionsString(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXQueryExtensionsString(dpy, screen);
   }
+  else
+    Warning( "glXQueryExtensionsString not available." );
   return ret;
 }
 
@@ -34279,6 +34585,8 @@ REGAL_DECL const char *REGAL_CALL glXGetClientString(Display *dpy, int name)
     GTrace("glXGetClientString(", dpy, ", ", name, ")");
     ret = dispatchTableGlobal.glXGetClientString(dpy, name);
   }
+  else
+    Warning( "glXGetClientString not available." );
   return ret;
 }
 
@@ -34296,6 +34604,8 @@ REGAL_DECL const char *REGAL_CALL glXQueryServerString(Display *dpy, int screen,
     GTrace("glXQueryServerString(", dpy, ", ", screen, ", ", name, ")");
     ret = dispatchTableGlobal.glXQueryServerString(dpy, screen, name);
   }
+  else
+    Warning( "glXQueryServerString not available." );
   return ret;
 }
 
@@ -34315,6 +34625,8 @@ REGAL_DECL Display *REGAL_CALL glXGetCurrentDisplay(void)
     GTrace("glXGetCurrentDisplay()");
     ret = dispatchTableGlobal.glXGetCurrentDisplay();
   }
+  else
+    Warning( "glXGetCurrentDisplay not available." );
   return ret;
 }
 
@@ -34334,6 +34646,8 @@ REGAL_DECL GLXFBConfig *REGAL_CALL glXChooseFBConfig(Display *dpy, int screen, c
     GTrace("glXChooseFBConfig(", dpy, ", ", screen, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXChooseFBConfig(dpy, screen, attrib_list, nelements);
   }
+  else
+    Warning( "glXChooseFBConfig not available." );
   return ret;
 }
 
@@ -34351,6 +34665,8 @@ REGAL_DECL GLXFBConfig *REGAL_CALL glXGetFBConfigs(Display *dpy, int screen, int
     GTrace("glXGetFBConfigs(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXGetFBConfigs(dpy, screen, nelements);
   }
+  else
+    Warning( "glXGetFBConfigs not available." );
   return ret;
 }
 
@@ -34368,6 +34684,8 @@ REGAL_DECL XVisualInfo *REGAL_CALL glXGetVisualFromFBConfig(Display *dpy, GLXFBC
     GTrace("glXGetVisualFromFBConfig(", dpy, ", ", config, ")");
     ret = dispatchTableGlobal.glXGetVisualFromFBConfig(dpy, config);
   }
+  else
+    Warning( "glXGetVisualFromFBConfig not available." );
   return ret;
 }
 
@@ -34385,6 +34703,8 @@ REGAL_DECL int REGAL_CALL glXGetFBConfigAttrib(Display *dpy, GLXFBConfig config,
     GTrace("glXGetFBConfigAttrib(", dpy, ", ", config, ", ", attribute, ")");
     ret = dispatchTableGlobal.glXGetFBConfigAttrib(dpy, config, attribute, value);
   }
+  else
+    Warning( "glXGetFBConfigAttrib not available." );
   return ret;
 }
 
@@ -34402,6 +34722,8 @@ REGAL_DECL GLXWindow REGAL_CALL glXCreateWindow(Display *dpy, GLXFBConfig config
     GTrace("glXCreateWindow(", dpy, ", ", config, ", ", win, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXCreateWindow(dpy, config, win, attrib_list);
   }
+  else
+    Warning( "glXCreateWindow not available." );
   return ret;
 }
 
@@ -34418,6 +34740,8 @@ REGAL_DECL void REGAL_CALL glXDestroyWindow(Display *dpy, GLXWindow win)
     GTrace("glXDestroyWindow(", dpy, ", ", win, ")");
     dispatchTableGlobal.glXDestroyWindow(dpy, win);
   }
+  else
+    Warning( "glXDestroyWindow not available." );
 }
 
 REGAL_DECL GLXPixmap REGAL_CALL glXCreatePixmap(Display *dpy, GLXFBConfig config, Pixmap pixmap, const int *attrib_list)
@@ -34434,6 +34758,8 @@ REGAL_DECL GLXPixmap REGAL_CALL glXCreatePixmap(Display *dpy, GLXFBConfig config
     GTrace("glXCreatePixmap(", dpy, ", ", config, ", ", pixmap, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXCreatePixmap(dpy, config, pixmap, attrib_list);
   }
+  else
+    Warning( "glXCreatePixmap not available." );
   return ret;
 }
 
@@ -34450,6 +34776,8 @@ REGAL_DECL void REGAL_CALL glXDestroyPixmap(Display *dpy, GLXPixmap pixmap)
     GTrace("glXDestroyPixmap(", dpy, ", ", pixmap, ")");
     dispatchTableGlobal.glXDestroyPixmap(dpy, pixmap);
   }
+  else
+    Warning( "glXDestroyPixmap not available." );
 }
 
 REGAL_DECL GLXPbuffer REGAL_CALL glXCreatePbuffer(Display *dpy, GLXFBConfig config, const int *attrib_list)
@@ -34466,6 +34794,8 @@ REGAL_DECL GLXPbuffer REGAL_CALL glXCreatePbuffer(Display *dpy, GLXFBConfig conf
     GTrace("glXCreatePbuffer(", dpy, ", ", config, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXCreatePbuffer(dpy, config, attrib_list);
   }
+  else
+    Warning( "glXCreatePbuffer not available." );
   return ret;
 }
 
@@ -34482,6 +34812,8 @@ REGAL_DECL void REGAL_CALL glXDestroyPbuffer(Display *dpy, GLXPbuffer pbuf)
     GTrace("glXDestroyPbuffer(", dpy, ", ", pbuf, ")");
     dispatchTableGlobal.glXDestroyPbuffer(dpy, pbuf);
   }
+  else
+    Warning( "glXDestroyPbuffer not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXQueryDrawable(Display *dpy, GLXDrawable draw, int attribute, unsigned int *value)
@@ -34497,6 +34829,8 @@ REGAL_DECL void REGAL_CALL glXQueryDrawable(Display *dpy, GLXDrawable draw, int 
     GTrace("glXQueryDrawable(", dpy, ", ", draw, ", ", attribute, ")");
     dispatchTableGlobal.glXQueryDrawable(dpy, draw, attribute, value);
   }
+  else
+    Warning( "glXQueryDrawable not available." );
 }
 
 REGAL_DECL GLXContext REGAL_CALL glXCreateNewContext(Display *dpy, GLXFBConfig config, int render_type, GLXContext share_list, Bool direct)
@@ -34513,6 +34847,8 @@ REGAL_DECL GLXContext REGAL_CALL glXCreateNewContext(Display *dpy, GLXFBConfig c
     GTrace("glXCreateNewContext(", dpy, ", ", config, ", ", render_type, ", ", share_list, ", ", direct, ")");
     ret = dispatchTableGlobal.glXCreateNewContext(dpy, config, render_type, share_list, direct);
   }
+  else
+    Warning( "glXCreateNewContext not available." );
   return ret;
 }
 
@@ -34530,6 +34866,8 @@ REGAL_DECL Bool REGAL_CALL glXMakeContextCurrent(Display *display, GLXDrawable d
     GTrace("glXMakeContextCurrent(", display, ", ", draw, ", ", read, ", ", ctx, ")");
     ret = dispatchTableGlobal.glXMakeContextCurrent(display, draw, read, ctx);
   }
+  else
+    Warning( "glXMakeContextCurrent not available." );
   return ret;
 }
 
@@ -34547,6 +34885,8 @@ REGAL_DECL GLXDrawable REGAL_CALL glXGetCurrentReadDrawable(void)
     GTrace("glXGetCurrentReadDrawable()");
     ret = dispatchTableGlobal.glXGetCurrentReadDrawable();
   }
+  else
+    Warning( "glXGetCurrentReadDrawable not available." );
   return ret;
 }
 
@@ -34564,6 +34904,8 @@ REGAL_DECL int REGAL_CALL glXQueryContext(Display *dpy, GLXContext ctx, int attr
     GTrace("glXQueryContext(", dpy, ", ", ctx, ", ", attribute, ")");
     ret = dispatchTableGlobal.glXQueryContext(dpy, ctx, attribute, value);
   }
+  else
+    Warning( "glXQueryContext not available." );
   return ret;
 }
 
@@ -34580,6 +34922,8 @@ REGAL_DECL void REGAL_CALL glXSelectEvent(Display *dpy, GLXDrawable draw, unsign
     GTrace("glXSelectEvent(", dpy, ", ", draw, ", ", event_mask, ")");
     dispatchTableGlobal.glXSelectEvent(dpy, draw, event_mask);
   }
+  else
+    Warning( "glXSelectEvent not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXGetSelectedEvent(Display *dpy, GLXDrawable draw, unsigned long *event_mask)
@@ -34595,6 +34939,8 @@ REGAL_DECL void REGAL_CALL glXGetSelectedEvent(Display *dpy, GLXDrawable draw, u
     GTrace("glXGetSelectedEvent(", dpy, ", ", draw, ")");
     dispatchTableGlobal.glXGetSelectedEvent(dpy, draw, event_mask);
   }
+  else
+    Warning( "glXGetSelectedEvent not available." );
 }
 
 /* GLX_VERSION_1_4 */
@@ -34619,6 +34965,8 @@ REGAL_DECL void *REGAL_CALL glXGetProcAddress(const GLubyte *procName)
     GTrace("glXGetProcAddress(", boost::print::quote(reinterpret_cast<const char *>(procName),'"'), ")");
     ret = dispatchTableGlobal.glXGetProcAddress(procName);
   }
+  else
+    Warning( "glXGetProcAddress not available." );
   return ret;
 }
 
@@ -34644,6 +34992,8 @@ REGAL_DECL void *REGAL_CALL glXGetProcAddressARB(const GLubyte *procName)
     GTrace("glXGetProcAddressARB(", boost::print::quote(reinterpret_cast<const char *>(procName),'"'), ")");
     ret = dispatchTableGlobal.glXGetProcAddressARB(procName);
   }
+  else
+    Warning( "glXGetProcAddressARB not available." );
   return ret;
 }
 
@@ -34663,6 +35013,8 @@ REGAL_DECL GLXContext REGAL_CALL glXCreateContextAttribsARB(Display *dpy, GLXFBC
     GTrace("glXCreateContextAttribsARB(", dpy, ", ", config, ", ", share_context, ", ", direct, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXCreateContextAttribsARB(dpy, config, share_context, direct, attrib_list);
   }
+  else
+    Warning( "glXCreateContextAttribsARB not available." );
   return ret;
 }
 
@@ -34682,6 +35034,8 @@ REGAL_DECL int REGAL_CALL glXSwapIntervalSGI(int interval)
     GTrace("glXSwapIntervalSGI(", interval, ")");
     ret = dispatchTableGlobal.glXSwapIntervalSGI(interval);
   }
+  else
+    Warning( "glXSwapIntervalSGI not available." );
   return ret;
 }
 
@@ -34701,6 +35055,8 @@ REGAL_DECL int REGAL_CALL glXGetVideoSyncSGI(unsigned int *count)
     GTrace("glXGetVideoSyncSGI()");
     ret = dispatchTableGlobal.glXGetVideoSyncSGI(count);
   }
+  else
+    Warning( "glXGetVideoSyncSGI not available." );
   return ret;
 }
 
@@ -34718,6 +35074,8 @@ REGAL_DECL int REGAL_CALL glXWaitVideoSyncSGI(int divisor, int remainder, unsign
     GTrace("glXWaitVideoSyncSGI(", divisor, ", ", remainder, ")");
     ret = dispatchTableGlobal.glXWaitVideoSyncSGI(divisor, remainder, count);
   }
+  else
+    Warning( "glXWaitVideoSyncSGI not available." );
   return ret;
 }
 
@@ -34737,6 +35095,8 @@ REGAL_DECL GLXDrawable REGAL_CALL glXGetCurrentReadDrawableSGI(void)
     GTrace("glXGetCurrentReadDrawableSGI()");
     ret = dispatchTableGlobal.glXGetCurrentReadDrawableSGI();
   }
+  else
+    Warning( "glXGetCurrentReadDrawableSGI not available." );
   return ret;
 }
 
@@ -34754,6 +35114,8 @@ REGAL_DECL Bool REGAL_CALL glXMakeCurrentReadSGI(Display *dpy, GLXDrawable draw,
     GTrace("glXMakeCurrentReadSGI(", dpy, ", ", draw, ", ", read, ", ", ctx, ")");
     ret = dispatchTableGlobal.glXMakeCurrentReadSGI(dpy, draw, read, ctx);
   }
+  else
+    Warning( "glXMakeCurrentReadSGI not available." );
   return ret;
 }
 
@@ -34772,6 +35134,8 @@ REGAL_DECL void REGAL_CALL glXFreeContextEXT(Display *dpy, GLXContext context)
     GTrace("glXFreeContextEXT(", dpy, ", ", context, ")");
     dispatchTableGlobal.glXFreeContextEXT(dpy, context);
   }
+  else
+    Warning( "glXFreeContextEXT not available." );
 }
 
 REGAL_DECL GLXContextID REGAL_CALL glXGetContextIDEXT(const GLXContext context)
@@ -34788,6 +35152,8 @@ REGAL_DECL GLXContextID REGAL_CALL glXGetContextIDEXT(const GLXContext context)
     GTrace("glXGetContextIDEXT(", context, ")");
     ret = dispatchTableGlobal.glXGetContextIDEXT(context);
   }
+  else
+    Warning( "glXGetContextIDEXT not available." );
   return ret;
 }
 
@@ -34805,6 +35171,8 @@ REGAL_DECL GLXContext REGAL_CALL glXImportContextEXT(Display *dpy, GLXContextID 
     GTrace("glXImportContextEXT(", dpy, ", ", contextID, ")");
     ret = dispatchTableGlobal.glXImportContextEXT(dpy, contextID);
   }
+  else
+    Warning( "glXImportContextEXT not available." );
   return ret;
 }
 
@@ -34822,6 +35190,8 @@ REGAL_DECL int REGAL_CALL glXQueryContextInfoEXT(Display *dpy, GLXContext contex
     GTrace("glXQueryContextInfoEXT(", dpy, ", ", context, ", ", attribute, ")");
     ret = dispatchTableGlobal.glXQueryContextInfoEXT(dpy, context, attribute, value);
   }
+  else
+    Warning( "glXQueryContextInfoEXT not available." );
   return ret;
 }
 
@@ -34841,6 +35211,8 @@ REGAL_DECL GLXFBConfigSGIX *REGAL_CALL glXChooseFBConfigSGIX(Display *dpy, int s
     GTrace("glXChooseFBConfigSGIX(", dpy, ", ", screen, ", ", attrib_list, ", ", nelements, ")");
     ret = dispatchTableGlobal.glXChooseFBConfigSGIX(dpy, screen, attrib_list, nelements);
   }
+  else
+    Warning( "glXChooseFBConfigSGIX not available." );
   return ret;
 }
 
@@ -34858,6 +35230,8 @@ REGAL_DECL GLXContext REGAL_CALL glXCreateContextWithConfigSGIX(Display *dpy, GL
     GTrace("glXCreateContextWithConfigSGIX(", dpy, ", ", config, ", ", render_type, ", ", share_list, ", ", direct, ")");
     ret = dispatchTableGlobal.glXCreateContextWithConfigSGIX(dpy, config, render_type, share_list, direct);
   }
+  else
+    Warning( "glXCreateContextWithConfigSGIX not available." );
   return ret;
 }
 
@@ -34875,6 +35249,8 @@ REGAL_DECL GLXPixmap REGAL_CALL glXCreateGLXPixmapWithConfigSGIX(Display *dpy, G
     GTrace("glXCreateGLXPixmapWithConfigSGIX(", dpy, ", ", config, ", ", pixmap, ")");
     ret = dispatchTableGlobal.glXCreateGLXPixmapWithConfigSGIX(dpy, config, pixmap);
   }
+  else
+    Warning( "glXCreateGLXPixmapWithConfigSGIX not available." );
   return ret;
 }
 
@@ -34892,6 +35268,8 @@ REGAL_DECL int REGAL_CALL glXGetFBConfigAttribSGIX(Display *dpy, GLXFBConfigSGIX
     GTrace("glXGetFBConfigAttribSGIX(", dpy, ", ", config, ", ", attribute, ", ", boost::print::array(value,1), ")");
     ret = dispatchTableGlobal.glXGetFBConfigAttribSGIX(dpy, config, attribute, value);
   }
+  else
+    Warning( "glXGetFBConfigAttribSGIX not available." );
   return ret;
 }
 
@@ -34909,6 +35287,8 @@ REGAL_DECL GLXFBConfigSGIX REGAL_CALL glXGetFBConfigFromVisualSGIX(Display *dpy,
     GTrace("glXGetFBConfigFromVisualSGIX(", dpy, ", ", vis, ")");
     ret = dispatchTableGlobal.glXGetFBConfigFromVisualSGIX(dpy, vis);
   }
+  else
+    Warning( "glXGetFBConfigFromVisualSGIX not available." );
   return ret;
 }
 
@@ -34926,6 +35306,8 @@ REGAL_DECL XVisualInfo *REGAL_CALL glXGetVisualFromFBConfigSGIX(Display *dpy, GL
     GTrace("glXGetVisualFromFBConfigSGIX(", dpy, ", ", config, ")");
     ret = dispatchTableGlobal.glXGetVisualFromFBConfigSGIX(dpy, config);
   }
+  else
+    Warning( "glXGetVisualFromFBConfigSGIX not available." );
   return ret;
 }
 
@@ -34945,6 +35327,8 @@ REGAL_DECL GLXPbuffer REGAL_CALL glXCreateGLXPbufferSGIX(Display *dpy, GLXFBConf
     GTrace("glXCreateGLXPbufferSGIX(", dpy, ", ", config, ", ", width, ", ", height, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXCreateGLXPbufferSGIX(dpy, config, width, height, attrib_list);
   }
+  else
+    Warning( "glXCreateGLXPbufferSGIX not available." );
   return ret;
 }
 
@@ -34961,6 +35345,8 @@ REGAL_DECL void REGAL_CALL glXDestroyGLXPbufferSGIX(Display *dpy, GLXPbuffer pbu
     GTrace("glXDestroyGLXPbufferSGIX(", dpy, ", ", pbuf, ")");
     dispatchTableGlobal.glXDestroyGLXPbufferSGIX(dpy, pbuf);
   }
+  else
+    Warning( "glXDestroyGLXPbufferSGIX not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXGetSelectedEventSGIX(Display *dpy, GLXDrawable drawable, unsigned long *mask)
@@ -34976,6 +35362,8 @@ REGAL_DECL void REGAL_CALL glXGetSelectedEventSGIX(Display *dpy, GLXDrawable dra
     GTrace("glXGetSelectedEventSGIX(", dpy, ", ", drawable, ", ", boost::print::array(mask,1), ")");
     dispatchTableGlobal.glXGetSelectedEventSGIX(dpy, drawable, mask);
   }
+  else
+    Warning( "glXGetSelectedEventSGIX not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXQueryGLXPbufferSGIX(Display *dpy, GLXPbuffer pbuf, int attribute, unsigned int *value)
@@ -34991,6 +35379,8 @@ REGAL_DECL void REGAL_CALL glXQueryGLXPbufferSGIX(Display *dpy, GLXPbuffer pbuf,
     GTrace("glXQueryGLXPbufferSGIX(", dpy, ", ", pbuf, ", ", attribute, ", ", boost::print::array(value,1), ")");
     dispatchTableGlobal.glXQueryGLXPbufferSGIX(dpy, pbuf, attribute, value);
   }
+  else
+    Warning( "glXQueryGLXPbufferSGIX not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXSelectEventSGIX(Display *dpy, GLXDrawable drawable, unsigned long mask)
@@ -35006,6 +35396,8 @@ REGAL_DECL void REGAL_CALL glXSelectEventSGIX(Display *dpy, GLXDrawable drawable
     GTrace("glXSelectEventSGIX(", dpy, ", ", drawable, ", ", mask, ")");
     dispatchTableGlobal.glXSelectEventSGIX(dpy, drawable, mask);
   }
+  else
+    Warning( "glXSelectEventSGIX not available." );
 }
 
 /* GLX_SGI_cushion */
@@ -35023,6 +35415,8 @@ REGAL_DECL void REGAL_CALL glXCushionSGI(Display *dpy, Window window, float cush
     GTrace("glXCushionSGI(", dpy, ", ", window, ", ", cushion, ")");
     dispatchTableGlobal.glXCushionSGI(dpy, window, cushion);
   }
+  else
+    Warning( "glXCushionSGI not available." );
 }
 
 /* GLX_SGIX_video_resize */
@@ -35041,6 +35435,8 @@ REGAL_DECL int REGAL_CALL glXBindChannelToWindowSGIX(Display *display, int scree
     GTrace("glXBindChannelToWindowSGIX(", display, ", ", screen, ", ", channel, ", ", window, ")");
     ret = dispatchTableGlobal.glXBindChannelToWindowSGIX(display, screen, channel, window);
   }
+  else
+    Warning( "glXBindChannelToWindowSGIX not available." );
   return ret;
 }
 
@@ -35058,6 +35454,8 @@ REGAL_DECL int REGAL_CALL glXChannelRectSGIX(Display *display, int screen, int c
     GTrace("glXChannelRectSGIX(", display, ", ", screen, ", ", channel, ", ", x, ", ", y, ", ", w, ", ", h, ")");
     ret = dispatchTableGlobal.glXChannelRectSGIX(display, screen, channel, x, y, w, h);
   }
+  else
+    Warning( "glXChannelRectSGIX not available." );
   return ret;
 }
 
@@ -35075,6 +35473,8 @@ REGAL_DECL int REGAL_CALL glXChannelRectSyncSGIX(Display *display, int screen, i
     GTrace("glXChannelRectSyncSGIX(", display, ", ", screen, ", ", channel, ", ", toString(synctype), ")");
     ret = dispatchTableGlobal.glXChannelRectSyncSGIX(display, screen, channel, synctype);
   }
+  else
+    Warning( "glXChannelRectSyncSGIX not available." );
   return ret;
 }
 
@@ -35092,6 +35492,8 @@ REGAL_DECL int REGAL_CALL glXQueryChannelDeltasSGIX(Display *display, int screen
     GTrace("glXQueryChannelDeltasSGIX(", display, ", ", screen, ", ", channel, ", ", boost::print::array(x,1), ", ", boost::print::array(y,1), ", ", boost::print::array(w,1), ", ", boost::print::array(h,1), ")");
     ret = dispatchTableGlobal.glXQueryChannelDeltasSGIX(display, screen, channel, x, y, w, h);
   }
+  else
+    Warning( "glXQueryChannelDeltasSGIX not available." );
   return ret;
 }
 
@@ -35109,6 +35511,8 @@ REGAL_DECL int REGAL_CALL glXQueryChannelRectSGIX(Display *display, int screen, 
     GTrace("glXQueryChannelRectSGIX(", display, ", ", screen, ", ", channel, ", ", boost::print::array(dx,1), ", ", boost::print::array(dy,1), ", ", boost::print::array(dw,1), ", ", boost::print::array(dh,1), ")");
     ret = dispatchTableGlobal.glXQueryChannelRectSGIX(display, screen, channel, dx, dy, dw, dh);
   }
+  else
+    Warning( "glXQueryChannelRectSGIX not available." );
   return ret;
 }
 
@@ -35127,6 +35531,8 @@ REGAL_DECL void REGAL_CALL glXJoinSwapGroupSGIX(Display *dpy, GLXDrawable drawab
     GTrace("glXJoinSwapGroupSGIX(", dpy, ", ", drawable, ", ", member, ")");
     dispatchTableGlobal.glXJoinSwapGroupSGIX(dpy, drawable, member);
   }
+  else
+    Warning( "glXJoinSwapGroupSGIX not available." );
 }
 
 /* GLX_SGIX_swap_barrier */
@@ -35144,6 +35550,8 @@ REGAL_DECL void REGAL_CALL glXBindSwapBarrierSGIX(Display *dpy, GLXDrawable draw
     GTrace("glXBindSwapBarrierSGIX(", dpy, ", ", drawable, ", ", barrier, ")");
     dispatchTableGlobal.glXBindSwapBarrierSGIX(dpy, drawable, barrier);
   }
+  else
+    Warning( "glXBindSwapBarrierSGIX not available." );
 }
 
 REGAL_DECL Bool REGAL_CALL glXQueryMaxSwapBarriersSGIX(Display *dpy, int screen, int *max)
@@ -35160,6 +35568,8 @@ REGAL_DECL Bool REGAL_CALL glXQueryMaxSwapBarriersSGIX(Display *dpy, int screen,
     GTrace("glXQueryMaxSwapBarriersSGIX(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXQueryMaxSwapBarriersSGIX(dpy, screen, max);
   }
+  else
+    Warning( "glXQueryMaxSwapBarriersSGIX not available." );
   return ret;
 }
 
@@ -35179,6 +35589,8 @@ REGAL_DECL Status REGAL_CALL glXGetTransparentIndexSUN(Display *dpy, Window over
     GTrace("glXGetTransparentIndexSUN(", dpy, ", ", overlay, ", ", underlay, ", ", boost::print::array(pTransparentIndex,1), ")");
     ret = dispatchTableGlobal.glXGetTransparentIndexSUN(dpy, overlay, underlay, pTransparentIndex);
   }
+  else
+    Warning( "glXGetTransparentIndexSUN not available." );
   return ret;
 }
 
@@ -35198,6 +35610,8 @@ REGAL_DECL void *REGAL_CALL glXAllocateMemoryNV(GLsizei size, GLfloat readFreque
     GTrace("glXAllocateMemoryNV(", size, ", ", readFrequency, ", ", writeFrequency, ", ", priority, ")");
     ret = dispatchTableGlobal.glXAllocateMemoryNV(size, readFrequency, writeFrequency, priority);
   }
+  else
+    Warning( "glXAllocateMemoryNV not available." );
   return ret;
 }
 
@@ -35214,6 +35628,8 @@ REGAL_DECL void REGAL_CALL glXFreeMemoryNV(void *pointer)
     GTrace("glXFreeMemoryNV(", pointer, ")");
     dispatchTableGlobal.glXFreeMemoryNV(pointer);
   }
+  else
+    Warning( "glXFreeMemoryNV not available." );
 }
 
 /* GLX_MESA_copy_sub_buffer */
@@ -35231,6 +35647,8 @@ REGAL_DECL void REGAL_CALL glXCopySubBufferMESA(Display *dpy, GLXDrawable drawab
     GTrace("glXCopySubBufferMESA(", dpy, ", ", drawable, ", ", x, ", ", y, ", ", width, ", ", height, ")");
     dispatchTableGlobal.glXCopySubBufferMESA(dpy, drawable, x, y, width, height);
   }
+  else
+    Warning( "glXCopySubBufferMESA not available." );
 }
 
 /* GLX_MESA_pixmap_colormap */
@@ -35249,6 +35667,8 @@ REGAL_DECL GLXPixmap REGAL_CALL glXCreateGLXPixmapMESA(Display *dpy, XVisualInfo
     GTrace("glXCreateGLXPixmapMESA(", dpy, ", ", visual, ", ", pixmap, ", ", cmap, ")");
     ret = dispatchTableGlobal.glXCreateGLXPixmapMESA(dpy, visual, pixmap, cmap);
   }
+  else
+    Warning( "glXCreateGLXPixmapMESA not available." );
   return ret;
 }
 
@@ -35268,6 +35688,8 @@ REGAL_DECL Bool REGAL_CALL glXReleaseBuffersMESA(Display *dpy, GLXDrawable d)
     GTrace("glXReleaseBuffersMESA(", dpy, ", ", d, ")");
     ret = dispatchTableGlobal.glXReleaseBuffersMESA(dpy, d);
   }
+  else
+    Warning( "glXReleaseBuffersMESA not available." );
   return ret;
 }
 
@@ -35287,6 +35709,8 @@ REGAL_DECL GLboolean REGAL_CALL glXSet3DfxModeMESA(GLint mode)
     GTrace("glXSet3DfxModeMESA(", mode, ")");
     ret = dispatchTableGlobal.glXSet3DfxModeMESA(mode);
   }
+  else
+    Warning( "glXSet3DfxModeMESA not available." );
   return ret;
 }
 
@@ -35306,6 +35730,8 @@ REGAL_DECL Bool REGAL_CALL glXGetMscRateOML(Display *dpy, GLXDrawable drawable, 
     GTrace("glXGetMscRateOML(", dpy, ", ", drawable, ")");
     ret = dispatchTableGlobal.glXGetMscRateOML(dpy, drawable, numerator, denominator);
   }
+  else
+    Warning( "glXGetMscRateOML not available." );
   return ret;
 }
 
@@ -35323,6 +35749,8 @@ REGAL_DECL Bool REGAL_CALL glXGetSyncValuesOML(Display *dpy, GLXDrawable drawabl
     GTrace("glXGetSyncValuesOML(", dpy, ", ", drawable, ")");
     ret = dispatchTableGlobal.glXGetSyncValuesOML(dpy, drawable, ust, msc, sbc);
   }
+  else
+    Warning( "glXGetSyncValuesOML not available." );
   return ret;
 }
 
@@ -35340,6 +35768,8 @@ REGAL_DECL int64_t REGAL_CALL glXSwapBuffersMscOML(Display *dpy, GLXDrawable dra
     GTrace("glXSwapBuffersMscOML(", dpy, ", ", drawable, ", ", target_msc, ", ", divisor, ", ", remainder, ")");
     ret = dispatchTableGlobal.glXSwapBuffersMscOML(dpy, drawable, target_msc, divisor, remainder);
   }
+  else
+    Warning( "glXSwapBuffersMscOML not available." );
   return ret;
 }
 
@@ -35357,6 +35787,8 @@ REGAL_DECL Bool REGAL_CALL glXWaitForMscOML(Display *dpy, GLXDrawable drawable, 
     GTrace("glXWaitForMscOML(", dpy, ", ", drawable, ", ", target_msc, ", ", divisor, ", ", remainder, ")");
     ret = dispatchTableGlobal.glXWaitForMscOML(dpy, drawable, target_msc, divisor, remainder, ust, msc, sbc);
   }
+  else
+    Warning( "glXWaitForMscOML not available." );
   return ret;
 }
 
@@ -35374,6 +35806,8 @@ REGAL_DECL Bool REGAL_CALL glXWaitForSbcOML(Display *dpy, GLXDrawable drawable, 
     GTrace("glXWaitForSbcOML(", dpy, ", ", drawable, ", ", target_sbc, ", ", boost::print::array(ust,1), ", ", boost::print::array(msc,1), ", ", boost::print::array(sbc,1), ")");
     ret = dispatchTableGlobal.glXWaitForSbcOML(dpy, drawable, target_sbc, ust, msc, sbc);
   }
+  else
+    Warning( "glXWaitForSbcOML not available." );
   return ret;
 }
 
@@ -35393,6 +35827,8 @@ REGAL_DECL unsigned int REGAL_CALL glXGetAGPOffsetMESA(const void *pointer)
     GTrace("glXGetAGPOffsetMESA(", pointer, ")");
     ret = dispatchTableGlobal.glXGetAGPOffsetMESA(pointer);
   }
+  else
+    Warning( "glXGetAGPOffsetMESA not available." );
   return ret;
 }
 
@@ -35411,6 +35847,8 @@ REGAL_DECL void REGAL_CALL glXBindTexImageEXT(Display *display, GLXDrawable draw
     GTrace("glXBindTexImageEXT(", display, ", ", drawable, ", ", buffer, ", ", attrib_list, ")");
     dispatchTableGlobal.glXBindTexImageEXT(display, drawable, buffer, attrib_list);
   }
+  else
+    Warning( "glXBindTexImageEXT not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXReleaseTexImageEXT(Display *display, GLXDrawable drawable, int buffer)
@@ -35426,6 +35864,8 @@ REGAL_DECL void REGAL_CALL glXReleaseTexImageEXT(Display *display, GLXDrawable d
     GTrace("glXReleaseTexImageEXT(", display, ", ", drawable, ", ", buffer, ")");
     dispatchTableGlobal.glXReleaseTexImageEXT(display, drawable, buffer);
   }
+  else
+    Warning( "glXReleaseTexImageEXT not available." );
 }
 
 /* GLX_NV_present_video */
@@ -35444,6 +35884,8 @@ REGAL_DECL int REGAL_CALL glXBindVideoDeviceNV(Display *dpy, unsigned int video_
     GTrace("glXBindVideoDeviceNV(", dpy, ", ", video_slot, ", ", video_device, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.glXBindVideoDeviceNV(dpy, video_slot, video_device, attrib_list);
   }
+  else
+    Warning( "glXBindVideoDeviceNV not available." );
   return ret;
 }
 
@@ -35461,6 +35903,8 @@ REGAL_DECL unsigned int *REGAL_CALL glXEnumerateVideoDevicesNV(Display *dpy, int
     GTrace("glXEnumerateVideoDevicesNV(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXEnumerateVideoDevicesNV(dpy, screen, nelements);
   }
+  else
+    Warning( "glXEnumerateVideoDevicesNV not available." );
   return ret;
 }
 
@@ -35480,6 +35924,8 @@ REGAL_DECL int REGAL_CALL glXBindVideoImageNV(Display *dpy, GLXVideoDeviceNV Vid
     GTrace("glXBindVideoImageNV(", dpy, ", ", VideoDevice, ", ", pbuf, ", ", iVideoBuffer, ")");
     ret = dispatchTableGlobal.glXBindVideoImageNV(dpy, VideoDevice, pbuf, iVideoBuffer);
   }
+  else
+    Warning( "glXBindVideoImageNV not available." );
   return ret;
 }
 
@@ -35497,6 +35943,8 @@ REGAL_DECL int REGAL_CALL glXGetVideoDeviceNV(Display *dpy, int screen, int numV
     GTrace("glXGetVideoDeviceNV(", dpy, ", ", screen, ", ", numVideoDevices, ")");
     ret = dispatchTableGlobal.glXGetVideoDeviceNV(dpy, screen, numVideoDevices, pVideoDevice);
   }
+  else
+    Warning( "glXGetVideoDeviceNV not available." );
   return ret;
 }
 
@@ -35514,6 +35962,8 @@ REGAL_DECL int REGAL_CALL glXGetVideoInfoNV(Display *dpy, int screen, GLXVideoDe
     GTrace("glXGetVideoInfoNV(", dpy, ", ", screen, ", ", VideoDevice, ")");
     ret = dispatchTableGlobal.glXGetVideoInfoNV(dpy, screen, VideoDevice, pulCounterOutputPbuffer, pulCounterOutputVideo);
   }
+  else
+    Warning( "glXGetVideoInfoNV not available." );
   return ret;
 }
 
@@ -35531,6 +35981,8 @@ REGAL_DECL int REGAL_CALL glXReleaseVideoDeviceNV(Display *dpy, int screen, GLXV
     GTrace("glXReleaseVideoDeviceNV(", dpy, ", ", screen, ", ", VideoDevice, ")");
     ret = dispatchTableGlobal.glXReleaseVideoDeviceNV(dpy, screen, VideoDevice);
   }
+  else
+    Warning( "glXReleaseVideoDeviceNV not available." );
   return ret;
 }
 
@@ -35548,6 +36000,8 @@ REGAL_DECL int REGAL_CALL glXReleaseVideoImageNV(Display *dpy, GLXPbuffer pbuf)
     GTrace("glXReleaseVideoImageNV(", dpy, ", ", pbuf, ")");
     ret = dispatchTableGlobal.glXReleaseVideoImageNV(dpy, pbuf);
   }
+  else
+    Warning( "glXReleaseVideoImageNV not available." );
   return ret;
 }
 
@@ -35565,6 +36019,8 @@ REGAL_DECL int REGAL_CALL glXSendPbufferToVideoNV(Display *dpy, GLXPbuffer pbuf,
     GTrace("glXSendPbufferToVideoNV(", dpy, ", ", pbuf, ", ", iBufferType, ", ", toString(bBlock), ")");
     ret = dispatchTableGlobal.glXSendPbufferToVideoNV(dpy, pbuf, iBufferType, pulCounterPbuffer, bBlock);
   }
+  else
+    Warning( "glXSendPbufferToVideoNV not available." );
   return ret;
 }
 
@@ -35584,6 +36040,8 @@ REGAL_DECL Bool REGAL_CALL glXBindSwapBarrierNV(Display *dpy, GLuint group, GLui
     GTrace("glXBindSwapBarrierNV(", dpy, ", ", group, ", ", barrier, ")");
     ret = dispatchTableGlobal.glXBindSwapBarrierNV(dpy, group, barrier);
   }
+  else
+    Warning( "glXBindSwapBarrierNV not available." );
   return ret;
 }
 
@@ -35601,6 +36059,8 @@ REGAL_DECL Bool REGAL_CALL glXJoinSwapGroupNV(Display *dpy, GLXDrawable drawable
     GTrace("glXJoinSwapGroupNV(", dpy, ", ", drawable, ", ", group, ")");
     ret = dispatchTableGlobal.glXJoinSwapGroupNV(dpy, drawable, group);
   }
+  else
+    Warning( "glXJoinSwapGroupNV not available." );
   return ret;
 }
 
@@ -35618,6 +36078,8 @@ REGAL_DECL Bool REGAL_CALL glXQueryFrameCountNV(Display *dpy, int screen, GLuint
     GTrace("glXQueryFrameCountNV(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXQueryFrameCountNV(dpy, screen, count);
   }
+  else
+    Warning( "glXQueryFrameCountNV not available." );
   return ret;
 }
 
@@ -35635,6 +36097,8 @@ REGAL_DECL Bool REGAL_CALL glXQueryMaxSwapGroupsNV(Display *dpy, int screen, GLu
     GTrace("glXQueryMaxSwapGroupsNV(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXQueryMaxSwapGroupsNV(dpy, screen, maxGroups, maxBarriers);
   }
+  else
+    Warning( "glXQueryMaxSwapGroupsNV not available." );
   return ret;
 }
 
@@ -35652,6 +36116,8 @@ REGAL_DECL Bool REGAL_CALL glXQuerySwapGroupNV(Display *dpy, GLXDrawable drawabl
     GTrace("glXQuerySwapGroupNV(", dpy, ", ", drawable, ")");
     ret = dispatchTableGlobal.glXQuerySwapGroupNV(dpy, drawable, group, barrier);
   }
+  else
+    Warning( "glXQuerySwapGroupNV not available." );
   return ret;
 }
 
@@ -35669,6 +36135,8 @@ REGAL_DECL Bool REGAL_CALL glXResetFrameCountNV(Display *dpy, int screen)
     GTrace("glXResetFrameCountNV(", dpy, ", ", screen, ")");
     ret = dispatchTableGlobal.glXResetFrameCountNV(dpy, screen);
   }
+  else
+    Warning( "glXResetFrameCountNV not available." );
   return ret;
 }
 
@@ -35687,6 +36155,8 @@ REGAL_DECL void REGAL_CALL glXSwapIntervalEXT(Display *dpy, GLXDrawable drawable
     GTrace("glXSwapIntervalEXT(", dpy, ", ", drawable, ", ", interval, ")");
     dispatchTableGlobal.glXSwapIntervalEXT(dpy, drawable, interval);
   }
+  else
+    Warning( "glXSwapIntervalEXT not available." );
 }
 
 /* GLX_NV_copy_image */
@@ -35704,6 +36174,8 @@ REGAL_DECL void REGAL_CALL glXCopyImageSubDataNV(Display *dpy, GLXContext srcCtx
     GTrace("glXCopyImageSubDataNV(", dpy, ", ", srcCtx, ", ", srcName, ", ", toString(srcTarget), ", ", srcLevel, ", ", srcX, ", ", srcY, ", ", srcZ, ", ", dstCtx, ")");
     dispatchTableGlobal.glXCopyImageSubDataNV(dpy, srcCtx, srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstCtx, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth);
   }
+  else
+    Warning( "glXCopyImageSubDataNV not available." );
 }
 
 /* GLX_ATI_render_texture */
@@ -35721,6 +36193,8 @@ REGAL_DECL void REGAL_CALL glXBindTexImageATI(Display *dpy, GLXPbuffer pbuf, int
     GTrace("glXBindTexImageATI(", dpy, ", ", pbuf, ", ", buffer, ")");
     dispatchTableGlobal.glXBindTexImageATI(dpy, pbuf, buffer);
   }
+  else
+    Warning( "glXBindTexImageATI not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXReleaseTexImageATI(Display *dpy, GLXPbuffer pbuf, int buffer)
@@ -35736,6 +36210,8 @@ REGAL_DECL void REGAL_CALL glXReleaseTexImageATI(Display *dpy, GLXPbuffer pbuf, 
     GTrace("glXReleaseTexImageATI(", dpy, ", ", pbuf, ", ", buffer, ")");
     dispatchTableGlobal.glXReleaseTexImageATI(dpy, pbuf, buffer);
   }
+  else
+    Warning( "glXReleaseTexImageATI not available." );
 }
 
 REGAL_DECL void REGAL_CALL glXDrawableAttribATI(Display *dpy, GLXDrawable draw, const int *attrib_list)
@@ -35751,6 +36227,8 @@ REGAL_DECL void REGAL_CALL glXDrawableAttribATI(Display *dpy, GLXDrawable draw, 
     GTrace("glXDrawableAttribATI(", dpy, ", ", draw, ", ", attrib_list, ")");
     dispatchTableGlobal.glXDrawableAttribATI(dpy, draw, attrib_list);
   }
+  else
+    Warning( "glXDrawableAttribATI not available." );
 }
 
 /* GLX_SUN_video_resize */
@@ -35769,6 +36247,8 @@ REGAL_DECL int REGAL_CALL glXVideoResizeSUN(Display *display, GLXDrawable window
     GTrace("glXVideoResizeSUN(", display, ", ", window, ", ", factor, ")");
     ret = dispatchTableGlobal.glXVideoResizeSUN(display, window, factor);
   }
+  else
+    Warning( "glXVideoResizeSUN not available." );
   return ret;
 }
 
@@ -35786,6 +36266,8 @@ REGAL_DECL int REGAL_CALL glXGetVideoResizeSUN(Display *display, GLXDrawable win
     GTrace("glXGetVideoResizeSUN(", display, ", ", window, ")");
     ret = dispatchTableGlobal.glXGetVideoResizeSUN(display, window, factor);
   }
+  else
+    Warning( "glXGetVideoResizeSUN not available." );
   return ret;
 }
 
@@ -35816,6 +36298,8 @@ REGAL_DECL CGLError REGAL_CALL CGLChoosePixelFormat(const CGLPixelFormatAttribut
     GTrace("CGLChoosePixelFormat(", attribs, ")");
     ret = dispatchTableGlobal.CGLChoosePixelFormat(attribs, pix, npix);
   }
+  else
+    Warning( "CGLChoosePixelFormat not available." );
   return ret;
 }
 
@@ -35833,6 +36317,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDestroyPixelFormat(CGLPixelFormatObj pix)
     GTrace("CGLDestroyPixelFormat(", pix, ")");
     ret = dispatchTableGlobal.CGLDestroyPixelFormat(pix);
   }
+  else
+    Warning( "CGLDestroyPixelFormat not available." );
   return ret;
 }
 
@@ -35850,6 +36336,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDescribePixelFormat(CGLPixelFormatObj pix, GLi
     GTrace("CGLDescribePixelFormat(", pix, ", ", pix_num, ", ", attrib, ")");
     ret = dispatchTableGlobal.CGLDescribePixelFormat(pix, pix_num, attrib, value);
   }
+  else
+    Warning( "CGLDescribePixelFormat not available." );
   return ret;
 }
 
@@ -35867,6 +36355,8 @@ REGAL_DECL CGLError REGAL_CALL CGLQueryRendererInfo(GLuint display_mask, CGLRend
     GTrace("CGLQueryRendererInfo(", display_mask, ")");
     ret = dispatchTableGlobal.CGLQueryRendererInfo(display_mask, rend, nrend);
   }
+  else
+    Warning( "CGLQueryRendererInfo not available." );
   return ret;
 }
 
@@ -35884,6 +36374,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDestroyRendererInfo(CGLRendererInfoObj rend)
     GTrace("CGLDestroyRendererInfo(", rend, ")");
     ret = dispatchTableGlobal.CGLDestroyRendererInfo(rend);
   }
+  else
+    Warning( "CGLDestroyRendererInfo not available." );
   return ret;
 }
 
@@ -35901,6 +36393,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDescribeRenderer(CGLRendererInfoObj rend, GLin
     GTrace("CGLDescribeRenderer(", rend, ", ", rend_num, ", ", prop, ")");
     ret = dispatchTableGlobal.CGLDescribeRenderer(rend, rend_num, prop, value);
   }
+  else
+    Warning( "CGLDescribeRenderer not available." );
   return ret;
 }
 
@@ -35918,6 +36412,8 @@ REGAL_DECL CGLError REGAL_CALL CGLCreateContext(CGLPixelFormatObj pix, CGLContex
     GTrace("CGLCreateContext(", pix, ", ", share, ")");
     ret = dispatchTableGlobal.CGLCreateContext(pix, share, ctx);
   }
+  else
+    Warning( "CGLCreateContext not available." );
   return ret;
 }
 
@@ -35935,6 +36431,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDestroyContext(CGLContextObj ctx)
     GTrace("CGLDestroyContext(", ctx, ")");
     ret = dispatchTableGlobal.CGLDestroyContext(ctx);
   }
+  else
+    Warning( "CGLDestroyContext not available." );
   return ret;
 }
 
@@ -35952,6 +36450,8 @@ REGAL_DECL CGLError REGAL_CALL CGLCopyContext(CGLContextObj src, CGLContextObj d
     GTrace("CGLCopyContext(", src, ", ", dst, ", ", mask, ")");
     ret = dispatchTableGlobal.CGLCopyContext(src, dst, mask);
   }
+  else
+    Warning( "CGLCopyContext not available." );
   return ret;
 }
 
@@ -35969,6 +36469,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetOffScreen(CGLContextObj ctx, GLsizei width,
     GTrace("CGLSetOffScreen(", ctx, ", ", width, ", ", height, ", ", rowbytes, ", ", baseaddr, ")");
     ret = dispatchTableGlobal.CGLSetOffScreen(ctx, width, height, rowbytes, baseaddr);
   }
+  else
+    Warning( "CGLSetOffScreen not available." );
   return ret;
 }
 
@@ -35986,6 +36488,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetOffScreen(CGLContextObj ctx, GLsizei *width
     GTrace("CGLGetOffScreen(", ctx, ", ", width, ", ", height, ", ", rowbytes, ", ", baseaddr, ")");
     ret = dispatchTableGlobal.CGLGetOffScreen(ctx, width, height, rowbytes, baseaddr);
   }
+  else
+    Warning( "CGLGetOffScreen not available." );
   return ret;
 }
 
@@ -36003,6 +36507,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetOption(CGLGlobalOption pname, GLint param)
     GTrace("CGLSetOption(", pname, ", ", param, ")");
     ret = dispatchTableGlobal.CGLSetOption(pname, param);
   }
+  else
+    Warning( "CGLSetOption not available." );
   return ret;
 }
 
@@ -36020,6 +36526,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetOption(CGLGlobalOption pname, GLint *param)
     GTrace("CGLGetOption(", pname, ", ", param, ")");
     ret = dispatchTableGlobal.CGLGetOption(pname, param);
   }
+  else
+    Warning( "CGLGetOption not available." );
   return ret;
 }
 
@@ -36037,6 +36545,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetFullScreen(CGLContextObj ctx)
     GTrace("CGLSetFullScreen(", ctx, ")");
     ret = dispatchTableGlobal.CGLSetFullScreen(ctx);
   }
+  else
+    Warning( "CGLSetFullScreen not available." );
   return ret;
 }
 
@@ -36054,6 +36564,8 @@ REGAL_DECL CGLError REGAL_CALL CGLClearDrawable(CGLContextObj ctx)
     GTrace("CGLClearDrawable(", ctx, ")");
     ret = dispatchTableGlobal.CGLClearDrawable(ctx);
   }
+  else
+    Warning( "CGLClearDrawable not available." );
   return ret;
 }
 
@@ -36071,6 +36583,8 @@ REGAL_DECL CGLError REGAL_CALL CGLFlushDrawable(CGLContextObj ctx)
     GTrace("CGLFlushDrawable(", ctx, ")");
     ret = dispatchTableGlobal.CGLFlushDrawable(ctx);
   }
+  else
+    Warning( "CGLFlushDrawable not available." );
   return ret;
 }
 
@@ -36088,6 +36602,8 @@ REGAL_DECL CGLError REGAL_CALL CGLEnable(CGLContextObj ctx, CGLContextEnable pna
     GTrace("CGLEnable(", ctx, ", ", pname, ")");
     ret = dispatchTableGlobal.CGLEnable(ctx, pname);
   }
+  else
+    Warning( "CGLEnable not available." );
   return ret;
 }
 
@@ -36105,6 +36621,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDisable(CGLContextObj ctx, CGLContextEnable pn
     GTrace("CGLDisable(", ctx, ", ", pname, ")");
     ret = dispatchTableGlobal.CGLDisable(ctx, pname);
   }
+  else
+    Warning( "CGLDisable not available." );
   return ret;
 }
 
@@ -36122,6 +36640,8 @@ REGAL_DECL CGLError REGAL_CALL CGLIsEnabled(CGLContextObj ctx, CGLContextEnable 
     GTrace("CGLIsEnabled(", ctx, ", ", pname, ")");
     ret = dispatchTableGlobal.CGLIsEnabled(ctx, pname, enable);
   }
+  else
+    Warning( "CGLIsEnabled not available." );
   return ret;
 }
 
@@ -36139,6 +36659,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetParameter(CGLContextObj ctx, CGLContextEnab
     GTrace("CGLSetParameter(", ctx, ", ", pname, ", ", params, ")");
     ret = dispatchTableGlobal.CGLSetParameter(ctx, pname, params);
   }
+  else
+    Warning( "CGLSetParameter not available." );
   return ret;
 }
 
@@ -36156,6 +36678,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetParameter(CGLContextObj ctx, CGLContextEnab
     GTrace("CGLGetParameter(", ctx, ", ", pname, ")");
     ret = dispatchTableGlobal.CGLGetParameter(ctx, pname, params);
   }
+  else
+    Warning( "CGLGetParameter not available." );
   return ret;
 }
 
@@ -36173,6 +36697,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetVirtualScreen(CGLContextObj ctx, GLint scre
     GTrace("CGLSetVirtualScreen(", ctx, ", ", screen, ")");
     ret = dispatchTableGlobal.CGLSetVirtualScreen(ctx, screen);
   }
+  else
+    Warning( "CGLSetVirtualScreen not available." );
   return ret;
 }
 
@@ -36190,6 +36716,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetVirtualScreen(CGLContextObj ctx, GLint *scr
     GTrace("CGLGetVirtualScreen(", ctx, ")");
     ret = dispatchTableGlobal.CGLGetVirtualScreen(ctx, screen);
   }
+  else
+    Warning( "CGLGetVirtualScreen not available." );
   return ret;
 }
 
@@ -36206,6 +36734,8 @@ REGAL_DECL void REGAL_CALL CGLGetVersion(GLint *majorvers, GLint *minorvers)
     GTrace("CGLGetVersion()");
     dispatchTableGlobal.CGLGetVersion(majorvers, minorvers);
   }
+  else
+    Warning( "CGLGetVersion not available." );
 }
 
 REGAL_DECL const char *REGAL_CALL CGLErrorString(CGLError error)
@@ -36222,6 +36752,8 @@ REGAL_DECL const char *REGAL_CALL CGLErrorString(CGLError error)
     GTrace("CGLErrorString(", error, ")");
     ret = dispatchTableGlobal.CGLErrorString(error);
   }
+  else
+    Warning( "CGLErrorString not available." );
   return ret;
 }
 
@@ -36241,6 +36773,8 @@ REGAL_DECL CGLError REGAL_CALL CGLCreatePBuffer(GLsizei width, GLsizei height, G
     GTrace("CGLCreatePBuffer(", width, ", ", height, ", ", toString(target), ", ", toString(internalFormat), ", ", max_level, ", ", pbuffer, ")");
     ret = dispatchTableGlobal.CGLCreatePBuffer(width, height, target, internalFormat, max_level, pbuffer);
   }
+  else
+    Warning( "CGLCreatePBuffer not available." );
   return ret;
 }
 
@@ -36258,6 +36792,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDestroyPBuffer(CGLPBufferObj pbuffer)
     GTrace("CGLDestroyPBuffer(", pbuffer, ")");
     ret = dispatchTableGlobal.CGLDestroyPBuffer(pbuffer);
   }
+  else
+    Warning( "CGLDestroyPBuffer not available." );
   return ret;
 }
 
@@ -36275,6 +36811,8 @@ REGAL_DECL CGLError REGAL_CALL CGLDescribePBuffer(CGLPBufferObj pbuffer, GLsizei
     GTrace("CGLDescribePBuffer(", pbuffer, ", ", width, ", ", height, ", ", target, ", ", internalFormat, ", ", mipmap, ")");
     ret = dispatchTableGlobal.CGLDescribePBuffer(pbuffer, width, height, target, internalFormat, mipmap);
   }
+  else
+    Warning( "CGLDescribePBuffer not available." );
   return ret;
 }
 
@@ -36292,6 +36830,8 @@ REGAL_DECL CGLError REGAL_CALL CGLTexImagePBuffer(CGLContextObj ctx, CGLPBufferO
     GTrace("CGLTexImagePBuffer(", ctx, ", ", pbuffer, ", ", toString(source), ")");
     ret = dispatchTableGlobal.CGLTexImagePBuffer(ctx, pbuffer, source);
   }
+  else
+    Warning( "CGLTexImagePBuffer not available." );
   return ret;
 }
 
@@ -36309,6 +36849,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetPBuffer(CGLContextObj ctx, CGLPBufferObj pb
     GTrace("CGLSetPBuffer(", ctx, ", ", pbuffer, ", ", toString(face), ", ", level, ", ", screen, ")");
     ret = dispatchTableGlobal.CGLSetPBuffer(ctx, pbuffer, face, level, screen);
   }
+  else
+    Warning( "CGLSetPBuffer not available." );
   return ret;
 }
 
@@ -36326,6 +36868,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetPBuffer(CGLContextObj ctx, CGLPBufferObj *p
     GTrace("CGLGetPBuffer(", ctx, ", ", pbuffer, ", ", face, ", ", level, ", ", screen, ")");
     ret = dispatchTableGlobal.CGLGetPBuffer(ctx, pbuffer, face, level, screen);
   }
+  else
+    Warning( "CGLGetPBuffer not available." );
   return ret;
 }
 
@@ -36344,6 +36888,8 @@ REGAL_DECL void REGAL_CALL CGLReleasePixelFormat(CGLPixelFormatObj pix)
     GTrace("CGLReleasePixelFormat(", pix, ")");
     dispatchTableGlobal.CGLReleasePixelFormat(pix);
   }
+  else
+    Warning( "CGLReleasePixelFormat not available." );
 }
 
 REGAL_DECL CGLPixelFormatObj REGAL_CALL CGLRetainPixelFormat(CGLPixelFormatObj pix)
@@ -36360,6 +36906,8 @@ REGAL_DECL CGLPixelFormatObj REGAL_CALL CGLRetainPixelFormat(CGLPixelFormatObj p
     GTrace("CGLRetainPixelFormat(", pix, ")");
     ret = dispatchTableGlobal.CGLRetainPixelFormat(pix);
   }
+  else
+    Warning( "CGLRetainPixelFormat not available." );
   return ret;
 }
 
@@ -36377,6 +36925,8 @@ REGAL_DECL GLuint REGAL_CALL CGLGetPixelFormatRetainCount(CGLPixelFormatObj pix)
     GTrace("CGLGetPixelFormatRetainCount(", pix, ")");
     ret = dispatchTableGlobal.CGLGetPixelFormatRetainCount(pix);
   }
+  else
+    Warning( "CGLGetPixelFormatRetainCount not available." );
   return ret;
 }
 
@@ -36394,6 +36944,8 @@ REGAL_DECL CGLContextObj REGAL_CALL CGLRetainContext(CGLContextObj ctx)
     GTrace("CGLRetainContext(", ctx, ")");
     ret = dispatchTableGlobal.CGLRetainContext(ctx);
   }
+  else
+    Warning( "CGLRetainContext not available." );
   return ret;
 }
 
@@ -36410,6 +36962,8 @@ REGAL_DECL void REGAL_CALL CGLReleaseContext(CGLContextObj ctx)
     GTrace("CGLReleaseContext(", ctx, ")");
     dispatchTableGlobal.CGLReleaseContext(ctx);
   }
+  else
+    Warning( "CGLReleaseContext not available." );
 }
 
 REGAL_DECL GLuint REGAL_CALL CGLGetContextRetainCount(CGLContextObj ctx)
@@ -36426,6 +36980,8 @@ REGAL_DECL GLuint REGAL_CALL CGLGetContextRetainCount(CGLContextObj ctx)
     GTrace("CGLGetContextRetainCount(", ctx, ")");
     ret = dispatchTableGlobal.CGLGetContextRetainCount(ctx);
   }
+  else
+    Warning( "CGLGetContextRetainCount not available." );
   return ret;
 }
 
@@ -36443,6 +36999,8 @@ REGAL_DECL CGLError REGAL_CALL CGLRetainPBuffer(CGLPBufferObj pbuffer)
     GTrace("CGLRetainPBuffer(", pbuffer, ")");
     ret = dispatchTableGlobal.CGLRetainPBuffer(pbuffer);
   }
+  else
+    Warning( "CGLRetainPBuffer not available." );
   return ret;
 }
 
@@ -36460,6 +37018,8 @@ REGAL_DECL CGLError REGAL_CALL CGLReleasePBuffer(CGLPBufferObj pbuffer)
     GTrace("CGLReleasePBuffer(", pbuffer, ")");
     ret = dispatchTableGlobal.CGLReleasePBuffer(pbuffer);
   }
+  else
+    Warning( "CGLReleasePBuffer not available." );
   return ret;
 }
 
@@ -36477,6 +37037,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetPBufferRetainCount(CGLPBufferObj pbuffer)
     GTrace("CGLGetPBufferRetainCount(", pbuffer, ")");
     ret = dispatchTableGlobal.CGLGetPBufferRetainCount(pbuffer);
   }
+  else
+    Warning( "CGLGetPBufferRetainCount not available." );
   return ret;
 }
 
@@ -36494,6 +37056,8 @@ REGAL_DECL CGLPixelFormatObj REGAL_CALL CGLGetPixelFormat(CGLContextObj ctx)
     GTrace("CGLGetPixelFormat(", ctx, ")");
     ret = dispatchTableGlobal.CGLGetPixelFormat(ctx);
   }
+  else
+    Warning( "CGLGetPixelFormat not available." );
   return ret;
 }
 
@@ -36511,6 +37075,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetGlobalOption(CGLGlobalOption pname, const G
     GTrace("CGLSetGlobalOption(", pname, ", ", params, ")");
     ret = dispatchTableGlobal.CGLSetGlobalOption(pname, params);
   }
+  else
+    Warning( "CGLSetGlobalOption not available." );
   return ret;
 }
 
@@ -36528,6 +37094,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetGlobalOption(CGLGlobalOption pname, GLint *
     GTrace("CGLGetGlobalOption(", pname, ", ", params, ")");
     ret = dispatchTableGlobal.CGLGetGlobalOption(pname, params);
   }
+  else
+    Warning( "CGLGetGlobalOption not available." );
   return ret;
 }
 
@@ -36545,6 +37113,8 @@ REGAL_DECL CGLError REGAL_CALL CGLLockContext(CGLContextObj ctx)
     GTrace("CGLLockContext(", ctx, ")");
     ret = dispatchTableGlobal.CGLLockContext(ctx);
   }
+  else
+    Warning( "CGLLockContext not available." );
   return ret;
 }
 
@@ -36562,6 +37132,8 @@ REGAL_DECL CGLError REGAL_CALL CGLUnlockContext(CGLContextObj ctx)
     GTrace("CGLUnlockContext(", ctx, ")");
     ret = dispatchTableGlobal.CGLUnlockContext(ctx);
   }
+  else
+    Warning( "CGLUnlockContext not available." );
   return ret;
 }
 
@@ -36581,6 +37153,8 @@ REGAL_DECL CGLShareGroupObj REGAL_CALL CGLGetShareGroup(CGLContextObj ctx)
     GTrace("CGLGetShareGroup(", ctx, ")");
     ret = dispatchTableGlobal.CGLGetShareGroup(ctx);
   }
+  else
+    Warning( "CGLGetShareGroup not available." );
   return ret;
 }
 
@@ -36598,6 +37172,8 @@ REGAL_DECL CGLError REGAL_CALL CGLUpdateContext(CGLContextObj ctx)
     GTrace("CGLUpdateContext(", ctx, ")");
     ret = dispatchTableGlobal.CGLUpdateContext(ctx);
   }
+  else
+    Warning( "CGLUpdateContext not available." );
   return ret;
 }
 
@@ -36616,6 +37192,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetCurrentContext(CGLContextObj ctx)
     ret = dispatchTableGlobal.CGLSetCurrentContext(ctx);
        RegalMakeCurrent( ctx );
   }
+  else
+    Warning( "CGLSetCurrentContext not available." );
   return ret;
 }
 
@@ -36633,6 +37211,8 @@ REGAL_DECL CGLContextObj REGAL_CALL CGLGetCurrentContext(void)
     GTrace("CGLGetCurrentContext()");
     ret = dispatchTableGlobal.CGLGetCurrentContext();
   }
+  else
+    Warning( "CGLGetCurrentContext not available." );
   return ret;
 }
 
@@ -36650,6 +37230,8 @@ REGAL_DECL CGLError REGAL_CALL CGLSetSurface(CGLContextObj ctx, CGSConnectionID 
     GTrace("CGLSetSurface(", ctx, ", ", conn, ", ", win, ", ", srf, ")");
     ret = dispatchTableGlobal.CGLSetSurface(ctx, conn, win, srf);
   }
+  else
+    Warning( "CGLSetSurface not available." );
   return ret;
 }
 
@@ -36667,6 +37249,8 @@ REGAL_DECL CGLError REGAL_CALL CGLGetSurface(CGLContextObj ctx, CGSConnectionID 
     GTrace("CGLGetSurface(", ctx, ", ", conn, ", ", win, ", ", srf, ")");
     ret = dispatchTableGlobal.CGLGetSurface(ctx, conn, win, srf);
   }
+  else
+    Warning( "CGLGetSurface not available." );
   return ret;
 }
 
@@ -36684,6 +37268,8 @@ REGAL_DECL CGLError REGAL_CALL CGLTexImageIOSurface2D(CGLContextObj ctx, GLenum 
     GTrace("CGLTexImageIOSurface2D(", ctx, ", ", toString(target), ", ", toString(internal_format), ", ", width, ", ", height, ", ", toString(format), ", ", toString(type), ", ", ioSurface, ", ", plane, ")");
     ret = dispatchTableGlobal.CGLTexImageIOSurface2D(ctx, target, internal_format, width, height, format, type, ioSurface, plane);
   }
+  else
+    Warning( "CGLTexImageIOSurface2D not available." );
   return ret;
 }
 
@@ -36702,6 +37288,8 @@ REGAL_DECL void REGAL_CALL CGLOpenCLMuxLockDown(void)
     GTrace("CGLOpenCLMuxLockDown()");
     dispatchTableGlobal.CGLOpenCLMuxLockDown();
   }
+  else
+    Warning( "CGLOpenCLMuxLockDown not available." );
 }
 
 #endif /* REGAL_SYS_OSX */
@@ -36723,6 +37311,8 @@ REGAL_DECL EGLint REGAL_CALL eglGetError(void)
     GTrace("eglGetError()");
     ret = dispatchTableGlobal.eglGetError();
   }
+  else
+    Warning( "eglGetError not available." );
   return ret;
 }
 
@@ -36740,6 +37330,8 @@ REGAL_DECL EGLDisplay REGAL_CALL eglGetDisplay(EGLNativeDisplayType display_id)
     GTrace("eglGetDisplay(", display_id, ")");
     ret = dispatchTableGlobal.eglGetDisplay(display_id);
   }
+  else
+    Warning( "eglGetDisplay not available." );
   return ret;
 }
 
@@ -36757,6 +37349,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglInitialize(EGLDisplay dpy, EGLint *major, EG
     GTrace("eglInitialize(", dpy, ", ", major, ", ", minor, ")");
     ret = dispatchTableGlobal.eglInitialize(dpy, major, minor);
   }
+  else
+    Warning( "eglInitialize not available." );
   return ret;
 }
 
@@ -36774,6 +37368,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglTerminate(EGLDisplay dpy)
     GTrace("eglTerminate(", dpy, ")");
     ret = dispatchTableGlobal.eglTerminate(dpy);
   }
+  else
+    Warning( "eglTerminate not available." );
   return ret;
 }
 
@@ -36791,6 +37387,8 @@ REGAL_DECL const char *REGAL_CALL eglQueryString(EGLDisplay dpy, EGLint name)
     GTrace("eglQueryString(", dpy, ", ", name, ")");
     ret = dispatchTableGlobal.eglQueryString(dpy, name);
   }
+  else
+    Warning( "eglQueryString not available." );
   return ret;
 }
 
@@ -36808,6 +37406,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglGetConfigs(EGLDisplay dpy, EGLConfig *config
     GTrace("eglGetConfigs(", dpy, ", ", configs, ", ", config_size, ", ", num_config, ")");
     ret = dispatchTableGlobal.eglGetConfigs(dpy, configs, config_size, num_config);
   }
+  else
+    Warning( "eglGetConfigs not available." );
   return ret;
 }
 
@@ -36825,6 +37425,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglChooseConfig(EGLDisplay dpy, const EGLint *a
     GTrace("eglChooseConfig(", dpy, ", ", attrib_list, ", ", configs, ", ", config_size, ", ", num_config, ")");
     ret = dispatchTableGlobal.eglChooseConfig(dpy, attrib_list, configs, config_size, num_config);
   }
+  else
+    Warning( "eglChooseConfig not available." );
   return ret;
 }
 
@@ -36842,6 +37444,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglGetConfigAttrib(EGLDisplay dpy, EGLConfig co
     GTrace("eglGetConfigAttrib(", dpy, ", ", config, ", ", attribute, ", ", value, ")");
     ret = dispatchTableGlobal.eglGetConfigAttrib(dpy, config, attribute, value);
   }
+  else
+    Warning( "eglGetConfigAttrib not available." );
   return ret;
 }
 
@@ -36859,6 +37463,8 @@ REGAL_DECL EGLSurface REGAL_CALL eglCreateWindowSurface(EGLDisplay dpy, EGLConfi
     GTrace("eglCreateWindowSurface(", dpy, ", ", config, ", ", win, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.eglCreateWindowSurface(dpy, config, win, attrib_list);
   }
+  else
+    Warning( "eglCreateWindowSurface not available." );
   return ret;
 }
 
@@ -36876,6 +37482,8 @@ REGAL_DECL EGLSurface REGAL_CALL eglCreatePbufferSurface(EGLDisplay dpy, EGLConf
     GTrace("eglCreatePbufferSurface(", dpy, ", ", config, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.eglCreatePbufferSurface(dpy, config, attrib_list);
   }
+  else
+    Warning( "eglCreatePbufferSurface not available." );
   return ret;
 }
 
@@ -36893,6 +37501,8 @@ REGAL_DECL EGLSurface REGAL_CALL eglCreatePixmapSurface(EGLDisplay dpy, EGLConfi
     GTrace("eglCreatePixmapSurface(", dpy, ", ", config, ", ", pixmap, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.eglCreatePixmapSurface(dpy, config, pixmap, attrib_list);
   }
+  else
+    Warning( "eglCreatePixmapSurface not available." );
   return ret;
 }
 
@@ -36910,6 +37520,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglDestroySurface(EGLDisplay dpy, EGLSurface su
     GTrace("eglDestroySurface(", dpy, ", ", surface, ")");
     ret = dispatchTableGlobal.eglDestroySurface(dpy, surface);
   }
+  else
+    Warning( "eglDestroySurface not available." );
   return ret;
 }
 
@@ -36927,6 +37539,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglQuerySurface(EGLDisplay dpy, EGLSurface surf
     GTrace("eglQuerySurface(", dpy, ", ", surface, ", ", attribute, ", ", value, ")");
     ret = dispatchTableGlobal.eglQuerySurface(dpy, surface, attribute, value);
   }
+  else
+    Warning( "eglQuerySurface not available." );
   return ret;
 }
 
@@ -36944,6 +37558,8 @@ REGAL_DECL EGLContext REGAL_CALL eglCreateContext(EGLDisplay dpy, EGLConfig conf
     GTrace("eglCreateContext(", dpy, ", ", config, ", ", share_context, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.eglCreateContext(dpy, config, share_context, attrib_list);
   }
+  else
+    Warning( "eglCreateContext not available." );
   return ret;
 }
 
@@ -36961,6 +37577,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglDestroyContext(EGLDisplay dpy, EGLContext ct
     GTrace("eglDestroyContext(", dpy, ", ", ctx, ")");
     ret = dispatchTableGlobal.eglDestroyContext(dpy, ctx);
   }
+  else
+    Warning( "eglDestroyContext not available." );
   return ret;
 }
 
@@ -36978,6 +37596,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglMakeCurrent(EGLDisplay dpy, EGLSurface draw,
     GTrace("eglMakeCurrent(", dpy, ", ", draw, ", ", read, ", ", ctx, ")");
     ret = dispatchTableGlobal.eglMakeCurrent(dpy, draw, read, ctx);
   }
+  else
+    Warning( "eglMakeCurrent not available." );
   return ret;
 }
 
@@ -36995,6 +37615,8 @@ REGAL_DECL EGLContext REGAL_CALL eglGetCurrentContext(void)
     GTrace("eglGetCurrentContext()");
     ret = dispatchTableGlobal.eglGetCurrentContext();
   }
+  else
+    Warning( "eglGetCurrentContext not available." );
   return ret;
 }
 
@@ -37012,6 +37634,8 @@ REGAL_DECL EGLSurface REGAL_CALL eglGetCurrentSurface(EGLint readdraw)
     GTrace("eglGetCurrentSurface(", readdraw, ")");
     ret = dispatchTableGlobal.eglGetCurrentSurface(readdraw);
   }
+  else
+    Warning( "eglGetCurrentSurface not available." );
   return ret;
 }
 
@@ -37029,6 +37653,8 @@ REGAL_DECL EGLDisplay REGAL_CALL eglGetCurrentDisplay(void)
     GTrace("eglGetCurrentDisplay()");
     ret = dispatchTableGlobal.eglGetCurrentDisplay();
   }
+  else
+    Warning( "eglGetCurrentDisplay not available." );
   return ret;
 }
 
@@ -37046,6 +37672,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglQueryContext(EGLDisplay dpy, EGLContext ctx,
     GTrace("eglQueryContext(", dpy, ", ", ctx, ", ", attribute, ", ", value, ")");
     ret = dispatchTableGlobal.eglQueryContext(dpy, ctx, attribute, value);
   }
+  else
+    Warning( "eglQueryContext not available." );
   return ret;
 }
 
@@ -37063,6 +37691,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglWaitGL(void)
     GTrace("eglWaitGL()");
     ret = dispatchTableGlobal.eglWaitGL();
   }
+  else
+    Warning( "eglWaitGL not available." );
   return ret;
 }
 
@@ -37080,6 +37710,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglWaitNative(EGLint engine)
     GTrace("eglWaitNative(", engine, ")");
     ret = dispatchTableGlobal.eglWaitNative(engine);
   }
+  else
+    Warning( "eglWaitNative not available." );
   return ret;
 }
 
@@ -37097,6 +37729,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglSwapBuffers(EGLDisplay dpy, EGLSurface surfa
     GTrace("eglSwapBuffers(", dpy, ", ", surface, ")");
     ret = dispatchTableGlobal.eglSwapBuffers(dpy, surface);
   }
+  else
+    Warning( "eglSwapBuffers not available." );
   return ret;
 }
 
@@ -37114,6 +37748,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglCopyBuffers(EGLDisplay dpy, EGLSurface surfa
     GTrace("eglCopyBuffers(", dpy, ", ", surface, ", ", target, ")");
     ret = dispatchTableGlobal.eglCopyBuffers(dpy, surface, target);
   }
+  else
+    Warning( "eglCopyBuffers not available." );
   return ret;
 }
 
@@ -37131,6 +37767,8 @@ REGAL_DECL __eglMustCastToProperFunctionPointerType REGAL_CALL eglGetProcAddress
     GTrace("eglGetProcAddress(", boost::print::quote(procname,'"'), ")");
     ret = dispatchTableGlobal.eglGetProcAddress(procname);
   }
+  else
+    Warning( "eglGetProcAddress not available." );
   return ret;
 }
 
@@ -37150,6 +37788,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglBindTexImage(EGLDisplay dpy, EGLSurface surf
     GTrace("eglBindTexImage(", dpy, ", ", surface, ", ", buffer, ")");
     ret = dispatchTableGlobal.eglBindTexImage(dpy, surface, buffer);
   }
+  else
+    Warning( "eglBindTexImage not available." );
   return ret;
 }
 
@@ -37167,6 +37807,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglReleaseTexImage(EGLDisplay dpy, EGLSurface s
     GTrace("eglReleaseTexImage(", dpy, ", ", surface, ", ", buffer, ")");
     ret = dispatchTableGlobal.eglReleaseTexImage(dpy, surface, buffer);
   }
+  else
+    Warning( "eglReleaseTexImage not available." );
   return ret;
 }
 
@@ -37186,6 +37828,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglBindAPI(EGLenum api)
     GTrace("eglBindAPI(", api, ")");
     ret = dispatchTableGlobal.eglBindAPI(api);
   }
+  else
+    Warning( "eglBindAPI not available." );
   return ret;
 }
 
@@ -37203,6 +37847,8 @@ REGAL_DECL EGLenum REGAL_CALL eglQueryAPI(void)
     GTrace("eglQueryAPI()");
     ret = dispatchTableGlobal.eglQueryAPI();
   }
+  else
+    Warning( "eglQueryAPI not available." );
   return ret;
 }
 
@@ -37220,6 +37866,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglWaitClient(void)
     GTrace("eglWaitClient()");
     ret = dispatchTableGlobal.eglWaitClient();
   }
+  else
+    Warning( "eglWaitClient not available." );
   return ret;
 }
 
@@ -37237,6 +37885,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglReleaseThread(void)
     GTrace("eglReleaseThread()");
     ret = dispatchTableGlobal.eglReleaseThread();
   }
+  else
+    Warning( "eglReleaseThread not available." );
   return ret;
 }
 
@@ -37254,6 +37904,8 @@ REGAL_DECL EGLSurface REGAL_CALL eglCreatePbufferFromClientBuffer(EGLDisplay dpy
     GTrace("eglCreatePbufferFromClientBuffer(", dpy, ", ", buftype, ", ", buffer, ", ", config, ", ", attrib_list, ")");
     ret = dispatchTableGlobal.eglCreatePbufferFromClientBuffer(dpy, buftype, buffer, config, attrib_list);
   }
+  else
+    Warning( "eglCreatePbufferFromClientBuffer not available." );
   return ret;
 }
 
@@ -37271,6 +37923,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglSurfaceAttrib(EGLDisplay dpy, EGLSurface sur
     GTrace("eglSurfaceAttrib(", dpy, ", ", surface, ", ", attribute, ", ", value, ")");
     ret = dispatchTableGlobal.eglSurfaceAttrib(dpy, surface, attribute, value);
   }
+  else
+    Warning( "eglSurfaceAttrib not available." );
   return ret;
 }
 
@@ -37288,6 +37942,8 @@ REGAL_DECL EGLBoolean REGAL_CALL eglSwapInterval(EGLDisplay dpy, EGLint interval
     GTrace("eglSwapInterval(", dpy, ", ", interval, ")");
     ret = dispatchTableGlobal.eglSwapInterval(dpy, interval);
   }
+  else
+    Warning( "eglSwapInterval not available." );
   return ret;
 }
 

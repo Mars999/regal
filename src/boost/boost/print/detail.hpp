@@ -139,15 +139,16 @@ private:
 template<typename T, typename U>
 struct array
 {
-  array(const T *data, const size_t size, const U &open, const U &close, const U &delim)
-  : _data(data), _size(size), _open(open), _close(close), _delim(delim) {}
+  array(const T *data, const size_t size, const U &quote, const U &open, const U &close, const U &delim)
+  : _data(data), _size(size), _quote(quote), _open(open), _close(close), _delim(delim) {}
 
   const T *_data;
   size_t   _size;
 
-  const U &_open;
-  const U &_close;
-  const U &_delim;
+  const U _quote;
+  const U _open;
+  const U _close;
+  const U _delim;
 
 private:
   array();
@@ -159,15 +160,16 @@ private:
 template<typename T, typename U>
 struct iterator
 {
-  iterator(const T &begin, const T &end, const U &open, const U &close, const U &delim)
-  : _begin(begin), _end(end), _open(open), _close(close), _delim(delim) {}
+  iterator(const T &begin, const T &end, const U &quote, const U &open, const U &close, const U &delim)
+  : _begin(begin), _end(end), _quote(quote), _open(open), _close(close), _delim(delim) {}
 
   const T &_begin;
   const T &_end;
 
-  const U &_open;
-  const U &_close;
-  const U &_delim;
+  const U _quote;
+  const U _open;
+  const U _close;
+  const U _delim;
 
 private:
   iterator();
@@ -175,17 +177,24 @@ private:
 };
 
 // Print the first n delimited items
+//
+// str    - input string
+// delim  - delimiter character, such as \n
+// n      - Maximum number of items to output
+// prefix - Per-line prefix
+// suffix - Output suffix for trimmed lists
 
 template<typename T,typename U>
 struct trim
 {
-  trim(const T &str, const U delim, const size_t n, const T &suffix)
-  : _str(str), _delim(delim), _n(n), _suffix(suffix) {}
+  trim(const T &str, const U delim, const size_t n, const T &prefix, const T &suffix)
+  : _str(str), _delim(delim), _n(n), _prefix(prefix), _suffix(suffix) {}
 
-  const T      &_str;
+  const T       _str;
   const U       _delim;
   const size_t  _n;
-  const T      &_suffix;
+  const T       _prefix;
+  const T       _suffix;
 
 private:
   trim();

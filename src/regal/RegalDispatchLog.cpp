@@ -5786,7 +5786,7 @@ static void REGAL_CALL log_glLinkProgram(GLuint program)
 
 static void REGAL_CALL log_glShaderSource(GLuint shader, GLsizei count, const GLchar **string, const GLint *length)
 {
-    GTrace("glShaderSource(", shader, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0), ", ", boost::print::array(length,length ? count : 0), ")");;
+    GTrace("glShaderSource(", shader, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0,"\""), ", ", boost::print::array(length,length ? count : 0), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -6624,7 +6624,7 @@ static void REGAL_CALL log_glBindBufferBase(GLenum target, GLuint index, GLuint 
 
 static void REGAL_CALL log_glTransformFeedbackVaryings(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode)
 {
-    GTrace("glTransformFeedbackVaryings(", program, ", ", count, ", ", boost::print::array(varyings,count), ", ", toString(bufferMode), ")");;
+    GTrace("glTransformFeedbackVaryings(", program, ", ", count, ", ", boost::print::array(varyings,count,"\""), ", ", toString(bufferMode), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -8761,7 +8761,7 @@ static void REGAL_CALL log_glUseProgramStages(GLuint pipeline, GLbitfield stages
 
 static GLuint REGAL_CALL log_glCreateShaderProgramv(GLenum type, GLsizei count, const GLchar **strings)
 {
-    GTrace("glCreateShaderProgramv(", toString(type), ", ", count, ", ", boost::print::array(strings,count), ")");;
+    GTrace("glCreateShaderProgramv(", toString(type), ", ", count, ", ", boost::print::array(strings,count,"\""), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -11236,7 +11236,7 @@ static GLhandleARB REGAL_CALL log_glCreateShaderObjectARB(GLenum shaderType)
 
 static void REGAL_CALL log_glShaderSourceARB(GLhandleARB shaderObj, GLsizei count, const GLcharARB **string, const GLint *length)
 {
-    GTrace("glShaderSourceARB(", shaderObj, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0), ", ", boost::print::array(length,length ? count : 0), ")");;
+    GTrace("glShaderSourceARB(", shaderObj, ", ", count, ", ", boost::print::array(reinterpret_cast<const char **>(string),string ? count : 0,"\""), ", ", boost::print::array(length,length ? count : 0), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12441,7 +12441,7 @@ static void REGAL_CALL log_glDeleteNamedStringARB(GLint namelen, const GLchar *n
 
 static void REGAL_CALL log_glCompileShaderIncludeARB(GLuint shader, GLsizei count, const GLchar **path, const GLint *length)
 {
-    GTrace("glCompileShaderIncludeARB(", shader, ", ", count, ", ", boost::print::array(path,count), ", ", boost::print::array(length,count), ")");;
+    GTrace("glCompileShaderIncludeARB(", shader, ", ", count, ", ", boost::print::array(path,count,"\""), ", ", boost::print::array(length,count), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21364,7 +21364,7 @@ static void REGAL_CALL log_glBindBufferBaseEXT(GLenum target, GLuint index, GLui
 
 static void REGAL_CALL log_glTransformFeedbackVaryingsEXT(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode)
 {
-    GTrace("glTransformFeedbackVaryingsEXT(", program, ", ", count, ", ", boost::print::array(varyings,count), ", ", toString(bufferMode), ")");;
+    GTrace("glTransformFeedbackVaryingsEXT(", program, ", ", count, ", ", boost::print::array(varyings,count,"\""), ", ", toString(bufferMode), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);

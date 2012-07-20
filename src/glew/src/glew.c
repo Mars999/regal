@@ -2547,6 +2547,7 @@ GLboolean __GLEW_AMD_multi_draw_indirect = GL_FALSE;
 GLboolean __GLEW_AMD_name_gen_delete = GL_FALSE;
 GLboolean __GLEW_AMD_performance_monitor = GL_FALSE;
 GLboolean __GLEW_AMD_pinned_memory = GL_FALSE;
+GLboolean __GLEW_AMD_query_buffer_object = GL_FALSE;
 GLboolean __GLEW_AMD_sample_positions = GL_FALSE;
 GLboolean __GLEW_AMD_seamless_cubemap_per_texture = GL_FALSE;
 GLboolean __GLEW_AMD_shader_stencil_export = GL_FALSE;
@@ -3509,6 +3510,10 @@ static GLboolean _glewInit_GL_AMD_performance_monitor (GLEW_CONTEXT_ARG_DEF_INIT
 #ifdef GL_AMD_pinned_memory
 
 #endif /* GL_AMD_pinned_memory */
+
+#ifdef GL_AMD_query_buffer_object
+
+#endif /* GL_AMD_query_buffer_object */
 
 #ifdef GL_AMD_sample_positions
 
@@ -8594,6 +8599,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GL_AMD_pinned_memory
   CONST_CAST(GLEW_AMD_pinned_memory) = _glewSearchExtension("GL_AMD_pinned_memory", extStart, extEnd);
 #endif /* GL_AMD_pinned_memory */
+#ifdef GL_AMD_query_buffer_object
+  CONST_CAST(GLEW_AMD_query_buffer_object) = _glewSearchExtension("GL_AMD_query_buffer_object", extStart, extEnd);
+#endif /* GL_AMD_query_buffer_object */
 #ifdef GL_AMD_sample_positions
   CONST_CAST(GLEW_AMD_sample_positions) = _glewSearchExtension("GL_AMD_sample_positions", extStart, extEnd);
   if (glewExperimental || GLEW_AMD_sample_positions) CONST_CAST(GLEW_AMD_sample_positions) = !_glewInit_GL_AMD_sample_positions(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -12081,9 +12089,9 @@ const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
   static const GLubyte* _glewString[] =
   {
     (const GLubyte*)NULL,
-    (const GLubyte*)"1.7.0",
+    (const GLubyte*)"1.8.0",
     (const GLubyte*)"1",
-    (const GLubyte*)"7",
+    (const GLubyte*)"8",
     (const GLubyte*)"0"
   };
   const int max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
@@ -12118,7 +12126,7 @@ GLenum GLEWAPIENTRY glewInit (void)
 
 #endif /* !GLEW_MX */
 #ifdef GLEW_MX
-GLboolean glewContextIsSupported (const GLEWContext* ctx, const char* name)
+GLboolean GLEWAPIENTRY glewContextIsSupported (const GLEWContext* ctx, const char* name)
 #else
 GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
 #endif
@@ -12317,6 +12325,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"pinned_memory", 13))
         {
           ret = GLEW_AMD_pinned_memory;
+          continue;
+        }
+#endif
+#ifdef GL_AMD_query_buffer_object
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"query_buffer_object", 19))
+        {
+          ret = GLEW_AMD_query_buffer_object;
           continue;
         }
 #endif
