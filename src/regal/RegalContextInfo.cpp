@@ -275,6 +275,8 @@ ContextInfo::ContextInfo()
   gl_nv_vertex_program4(false),
   gl_nv_video_capture(false),
   gl_pgi_misc_hints(false),
+  gl_regal_error_string(false),
+  gl_regal_extension_query(false),
   gl_sgis_detail_texture(false),
   gl_sgis_fog_function(false),
   gl_sgis_multisample(false),
@@ -451,6 +453,11 @@ ContextInfo::init(const RegalContext &context)
 
   // Vendor, rendering, version, extensions reported by Regal to application
 
+  set<string> e;
+  e.insert(extList.begin(),extList.end());
+
+  // TODO - filter out extensions Regal doesn't support?
+
 #ifdef REGAL_GL_VENDOR
   regalVendor = REGAL_EQUOTE(REGAL_GL_VENDOR);
 #else
@@ -472,7 +479,13 @@ ContextInfo::init(const RegalContext &context)
 #ifdef REGAL_GL_EXTENSIONS
   regalExtensions = REGAL_EQUOTE(REGAL_GL_EXTENSIONS);
 #else
-  regalExtensions = extensions;
+  static const char *ourExtensions[3] = {
+    "GL_REGAL_error_string",
+    "GL_REGAL_extension_query",
+    "GL_REGAL_log"
+  };
+  e.insert(&ourExtensions[0],&ourExtensions[3]);
+  regalExtensions = ::boost::print::detail::join(e,string(" "));
 #endif
 
 #ifndef REGAL_NO_GETENV
@@ -520,9 +533,6 @@ ContextInfo::init(const RegalContext &context)
   glx_version_1_2 = glx_version_1_3 || (glx_version_major == 1 && glx_version_minor == 2);
   glx_version_1_1 = glx_version_1_2 || (glx_version_major == 1 && glx_version_minor == 1);
   glx_version_1_0 = glx_version_1_1 || glx_version_major == 1;
-
-  set<string> e;
-  e.insert(extList.begin(),extList.end());
 
   gl_3dfx_tbuffer = e.find("GL_3DFX_tbuffer")!=e.end();
   gl_amd_debug_output = e.find("GL_AMD_debug_output")!=e.end();
@@ -709,6 +719,8 @@ ContextInfo::init(const RegalContext &context)
   gl_nv_vertex_program4 = e.find("GL_NV_vertex_program4")!=e.end();
   gl_nv_video_capture = e.find("GL_NV_video_capture")!=e.end();
   gl_pgi_misc_hints = e.find("GL_PGI_misc_hints")!=e.end();
+  gl_regal_error_string = e.find("GL_REGAL_error_string")!=e.end();
+  gl_regal_extension_query = e.find("GL_REGAL_extension_query")!=e.end();
   gl_sgis_detail_texture = e.find("GL_SGIS_detail_texture")!=e.end();
   gl_sgis_fog_function = e.find("GL_SGIS_fog_function")!=e.end();
   gl_sgis_multisample = e.find("GL_SGIS_multisample")!=e.end();

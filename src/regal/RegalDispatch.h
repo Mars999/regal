@@ -3551,6 +3551,15 @@ struct DispatchTable {
     void (REGAL_CALL *glTransformPathNV)(GLuint resultPath, GLuint srcPath, GLenum transformType, const GLfloat *transformValues);
     void (REGAL_CALL *glWeightPathsNV)(GLuint resultPath, GLsizei numPaths, const GLuint *paths, const GLfloat *weights);
 
+    // GL_REGAL_extension_query
+
+    GLboolean (REGAL_CALL *glGetExtensionREGAL)(const GLchar *ext);
+    GLboolean (REGAL_CALL *glIsSupportedREGAL)(const GLchar *ext);
+
+    // GL_REGAL_error_string
+
+    const GLchar *(REGAL_CALL *glErrorStringREGAL)(GLenum error);
+
     // GL_AMD_debug_output
 
     GLuint (REGAL_CALL *glGetDebugMessageLogAMD)(GLuint count, GLsizei bufsize, GLenum *categories, GLuint *severities, GLuint *ids, GLsizei *lengths, GLchar *message);

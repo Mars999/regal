@@ -58801,6 +58801,85 @@ static void REGAL_CALL loader_glWeightPathsNV(GLuint resultPath, GLsizei numPath
    driverTbl.glWeightPathsNV(resultPath, numPaths, paths, weights);
 }
 
+// GL_REGAL_extension_query
+
+static GLboolean REGAL_CALL missing_glGetExtensionREGAL(const GLchar *ext)
+{
+   UNUSED_PARAMETER(ext);
+   Warning( "glGetExtensionREGAL not available." );
+  GLboolean  ret = (GLboolean )0;
+  return ret;
+}
+
+static GLboolean REGAL_CALL loader_glGetExtensionREGAL(const GLchar *ext)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+   RegalAssert(rCtx);
+   RegalAssert(rCtx->dsp);
+   DispatchTable & driverTbl = rCtx->dsp->driverTbl;
+   GetProcAddress( driverTbl.glGetExtensionREGAL, "glGetExtensionREGAL");
+   if ( !driverTbl.glGetExtensionREGAL ) {
+      driverTbl.glGetExtensionREGAL = missing_glGetExtensionREGAL;
+   }
+   // If emu table is using the loader, update its entry too.
+   if (rCtx->dsp->emuTbl.glGetExtensionREGAL == loader_glGetExtensionREGAL) {
+      rCtx->dsp->emuTbl.glGetExtensionREGAL = driverTbl.glGetExtensionREGAL;
+   }
+   return driverTbl.glGetExtensionREGAL(ext);
+}
+
+static GLboolean REGAL_CALL missing_glIsSupportedREGAL(const GLchar *ext)
+{
+   UNUSED_PARAMETER(ext);
+   Warning( "glIsSupportedREGAL not available." );
+  GLboolean  ret = (GLboolean )0;
+  return ret;
+}
+
+static GLboolean REGAL_CALL loader_glIsSupportedREGAL(const GLchar *ext)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+   RegalAssert(rCtx);
+   RegalAssert(rCtx->dsp);
+   DispatchTable & driverTbl = rCtx->dsp->driverTbl;
+   GetProcAddress( driverTbl.glIsSupportedREGAL, "glIsSupportedREGAL");
+   if ( !driverTbl.glIsSupportedREGAL ) {
+      driverTbl.glIsSupportedREGAL = missing_glIsSupportedREGAL;
+   }
+   // If emu table is using the loader, update its entry too.
+   if (rCtx->dsp->emuTbl.glIsSupportedREGAL == loader_glIsSupportedREGAL) {
+      rCtx->dsp->emuTbl.glIsSupportedREGAL = driverTbl.glIsSupportedREGAL;
+   }
+   return driverTbl.glIsSupportedREGAL(ext);
+}
+
+// GL_REGAL_error_string
+
+static const GLchar *REGAL_CALL missing_glErrorStringREGAL(GLenum error)
+{
+   UNUSED_PARAMETER(error);
+   Warning( "glErrorStringREGAL not available." );
+  const GLchar * ret = NULL;
+  return ret;
+}
+
+static const GLchar *REGAL_CALL loader_glErrorStringREGAL(GLenum error)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+   RegalAssert(rCtx);
+   RegalAssert(rCtx->dsp);
+   DispatchTable & driverTbl = rCtx->dsp->driverTbl;
+   GetProcAddress( driverTbl.glErrorStringREGAL, "glErrorStringREGAL");
+   if ( !driverTbl.glErrorStringREGAL ) {
+      driverTbl.glErrorStringREGAL = missing_glErrorStringREGAL;
+   }
+   // If emu table is using the loader, update its entry too.
+   if (rCtx->dsp->emuTbl.glErrorStringREGAL == loader_glErrorStringREGAL) {
+      rCtx->dsp->emuTbl.glErrorStringREGAL = driverTbl.glErrorStringREGAL;
+   }
+   return driverTbl.glErrorStringREGAL(error);
+}
+
 // GL_AMD_debug_output
 
 static GLuint REGAL_CALL missing_glGetDebugMessageLogAMD(GLuint count, GLsizei bufsize, GLenum *categories, GLuint *severities, GLuint *ids, GLsizei *lengths, GLchar *message)
@@ -60852,3089 +60931,3098 @@ static void REGAL_CALL loader_glAddSwapHintRectWIN(GLint x, GLint y, GLsizei wid
 void InitDispatchTableLoader(DispatchTable &tbl)
 {
 
-// GL_VERSION_1_0
-
-   tbl.glNewList = loader_glNewList;
-   tbl.glEndList = loader_glEndList;
-   tbl.glCallList = loader_glCallList;
-   tbl.glCallLists = loader_glCallLists;
-   tbl.glDeleteLists = loader_glDeleteLists;
-   tbl.glGenLists = loader_glGenLists;
-   tbl.glListBase = loader_glListBase;
-   tbl.glBegin = loader_glBegin;
-   tbl.glBitmap = loader_glBitmap;
-   tbl.glColor3b = loader_glColor3b;
-   tbl.glColor3bv = loader_glColor3bv;
-   tbl.glColor3d = loader_glColor3d;
-   tbl.glColor3dv = loader_glColor3dv;
-   tbl.glColor3f = loader_glColor3f;
-   tbl.glColor3fv = loader_glColor3fv;
-   tbl.glColor3i = loader_glColor3i;
-   tbl.glColor3iv = loader_glColor3iv;
-   tbl.glColor3s = loader_glColor3s;
-   tbl.glColor3sv = loader_glColor3sv;
-   tbl.glColor3ub = loader_glColor3ub;
-   tbl.glColor3ubv = loader_glColor3ubv;
-   tbl.glColor3ui = loader_glColor3ui;
-   tbl.glColor3uiv = loader_glColor3uiv;
-   tbl.glColor3us = loader_glColor3us;
-   tbl.glColor3usv = loader_glColor3usv;
-   tbl.glColor4b = loader_glColor4b;
-   tbl.glColor4bv = loader_glColor4bv;
-   tbl.glColor4d = loader_glColor4d;
-   tbl.glColor4dv = loader_glColor4dv;
-   tbl.glColor4f = loader_glColor4f;
-   tbl.glColor4fv = loader_glColor4fv;
-   tbl.glColor4i = loader_glColor4i;
-   tbl.glColor4iv = loader_glColor4iv;
-   tbl.glColor4s = loader_glColor4s;
-   tbl.glColor4sv = loader_glColor4sv;
-   tbl.glColor4ub = loader_glColor4ub;
-   tbl.glColor4ubv = loader_glColor4ubv;
-   tbl.glColor4ui = loader_glColor4ui;
-   tbl.glColor4uiv = loader_glColor4uiv;
-   tbl.glColor4us = loader_glColor4us;
-   tbl.glColor4usv = loader_glColor4usv;
-   tbl.glEdgeFlag = loader_glEdgeFlag;
-   tbl.glEdgeFlagv = loader_glEdgeFlagv;
-   tbl.glEnd = loader_glEnd;
-   tbl.glIndexd = loader_glIndexd;
-   tbl.glIndexdv = loader_glIndexdv;
-   tbl.glIndexf = loader_glIndexf;
-   tbl.glIndexfv = loader_glIndexfv;
-   tbl.glIndexi = loader_glIndexi;
-   tbl.glIndexiv = loader_glIndexiv;
-   tbl.glIndexs = loader_glIndexs;
-   tbl.glIndexsv = loader_glIndexsv;
-   tbl.glNormal3b = loader_glNormal3b;
-   tbl.glNormal3bv = loader_glNormal3bv;
-   tbl.glNormal3d = loader_glNormal3d;
-   tbl.glNormal3dv = loader_glNormal3dv;
-   tbl.glNormal3f = loader_glNormal3f;
-   tbl.glNormal3fv = loader_glNormal3fv;
-   tbl.glNormal3i = loader_glNormal3i;
-   tbl.glNormal3iv = loader_glNormal3iv;
-   tbl.glNormal3s = loader_glNormal3s;
-   tbl.glNormal3sv = loader_glNormal3sv;
-   tbl.glRasterPos2d = loader_glRasterPos2d;
-   tbl.glRasterPos2dv = loader_glRasterPos2dv;
-   tbl.glRasterPos2f = loader_glRasterPos2f;
-   tbl.glRasterPos2fv = loader_glRasterPos2fv;
-   tbl.glRasterPos2i = loader_glRasterPos2i;
-   tbl.glRasterPos2iv = loader_glRasterPos2iv;
-   tbl.glRasterPos2s = loader_glRasterPos2s;
-   tbl.glRasterPos2sv = loader_glRasterPos2sv;
-   tbl.glRasterPos3d = loader_glRasterPos3d;
-   tbl.glRasterPos3dv = loader_glRasterPos3dv;
-   tbl.glRasterPos3f = loader_glRasterPos3f;
-   tbl.glRasterPos3fv = loader_glRasterPos3fv;
-   tbl.glRasterPos3i = loader_glRasterPos3i;
-   tbl.glRasterPos3iv = loader_glRasterPos3iv;
-   tbl.glRasterPos3s = loader_glRasterPos3s;
-   tbl.glRasterPos3sv = loader_glRasterPos3sv;
-   tbl.glRasterPos4d = loader_glRasterPos4d;
-   tbl.glRasterPos4dv = loader_glRasterPos4dv;
-   tbl.glRasterPos4f = loader_glRasterPos4f;
-   tbl.glRasterPos4fv = loader_glRasterPos4fv;
-   tbl.glRasterPos4i = loader_glRasterPos4i;
-   tbl.glRasterPos4iv = loader_glRasterPos4iv;
-   tbl.glRasterPos4s = loader_glRasterPos4s;
-   tbl.glRasterPos4sv = loader_glRasterPos4sv;
-   tbl.glRectd = loader_glRectd;
-   tbl.glRectdv = loader_glRectdv;
-   tbl.glRectf = loader_glRectf;
-   tbl.glRectfv = loader_glRectfv;
-   tbl.glRecti = loader_glRecti;
-   tbl.glRectiv = loader_glRectiv;
-   tbl.glRects = loader_glRects;
-   tbl.glRectsv = loader_glRectsv;
-   tbl.glTexCoord1d = loader_glTexCoord1d;
-   tbl.glTexCoord1dv = loader_glTexCoord1dv;
-   tbl.glTexCoord1f = loader_glTexCoord1f;
-   tbl.glTexCoord1fv = loader_glTexCoord1fv;
-   tbl.glTexCoord1i = loader_glTexCoord1i;
-   tbl.glTexCoord1iv = loader_glTexCoord1iv;
-   tbl.glTexCoord1s = loader_glTexCoord1s;
-   tbl.glTexCoord1sv = loader_glTexCoord1sv;
-   tbl.glTexCoord2d = loader_glTexCoord2d;
-   tbl.glTexCoord2dv = loader_glTexCoord2dv;
-   tbl.glTexCoord2f = loader_glTexCoord2f;
-   tbl.glTexCoord2fv = loader_glTexCoord2fv;
-   tbl.glTexCoord2i = loader_glTexCoord2i;
-   tbl.glTexCoord2iv = loader_glTexCoord2iv;
-   tbl.glTexCoord2s = loader_glTexCoord2s;
-   tbl.glTexCoord2sv = loader_glTexCoord2sv;
-   tbl.glTexCoord3d = loader_glTexCoord3d;
-   tbl.glTexCoord3dv = loader_glTexCoord3dv;
-   tbl.glTexCoord3f = loader_glTexCoord3f;
-   tbl.glTexCoord3fv = loader_glTexCoord3fv;
-   tbl.glTexCoord3i = loader_glTexCoord3i;
-   tbl.glTexCoord3iv = loader_glTexCoord3iv;
-   tbl.glTexCoord3s = loader_glTexCoord3s;
-   tbl.glTexCoord3sv = loader_glTexCoord3sv;
-   tbl.glTexCoord4d = loader_glTexCoord4d;
-   tbl.glTexCoord4dv = loader_glTexCoord4dv;
-   tbl.glTexCoord4f = loader_glTexCoord4f;
-   tbl.glTexCoord4fv = loader_glTexCoord4fv;
-   tbl.glTexCoord4i = loader_glTexCoord4i;
-   tbl.glTexCoord4iv = loader_glTexCoord4iv;
-   tbl.glTexCoord4s = loader_glTexCoord4s;
-   tbl.glTexCoord4sv = loader_glTexCoord4sv;
-   tbl.glVertex2d = loader_glVertex2d;
-   tbl.glVertex2dv = loader_glVertex2dv;
-   tbl.glVertex2f = loader_glVertex2f;
-   tbl.glVertex2fv = loader_glVertex2fv;
-   tbl.glVertex2i = loader_glVertex2i;
-   tbl.glVertex2iv = loader_glVertex2iv;
-   tbl.glVertex2s = loader_glVertex2s;
-   tbl.glVertex2sv = loader_glVertex2sv;
-   tbl.glVertex3d = loader_glVertex3d;
-   tbl.glVertex3dv = loader_glVertex3dv;
-   tbl.glVertex3f = loader_glVertex3f;
-   tbl.glVertex3fv = loader_glVertex3fv;
-   tbl.glVertex3i = loader_glVertex3i;
-   tbl.glVertex3iv = loader_glVertex3iv;
-   tbl.glVertex3s = loader_glVertex3s;
-   tbl.glVertex3sv = loader_glVertex3sv;
-   tbl.glVertex4d = loader_glVertex4d;
-   tbl.glVertex4dv = loader_glVertex4dv;
-   tbl.glVertex4f = loader_glVertex4f;
-   tbl.glVertex4fv = loader_glVertex4fv;
-   tbl.glVertex4i = loader_glVertex4i;
-   tbl.glVertex4iv = loader_glVertex4iv;
-   tbl.glVertex4s = loader_glVertex4s;
-   tbl.glVertex4sv = loader_glVertex4sv;
-   tbl.glClipPlane = loader_glClipPlane;
-   tbl.glColorMaterial = loader_glColorMaterial;
-   tbl.glCullFace = loader_glCullFace;
-   tbl.glFogf = loader_glFogf;
-   tbl.glFogfv = loader_glFogfv;
-   tbl.glFogi = loader_glFogi;
-   tbl.glFogiv = loader_glFogiv;
-   tbl.glFrontFace = loader_glFrontFace;
-   tbl.glHint = loader_glHint;
-   tbl.glLightf = loader_glLightf;
-   tbl.glLightfv = loader_glLightfv;
-   tbl.glLighti = loader_glLighti;
-   tbl.glLightiv = loader_glLightiv;
-   tbl.glLightModelf = loader_glLightModelf;
-   tbl.glLightModelfv = loader_glLightModelfv;
-   tbl.glLightModeli = loader_glLightModeli;
-   tbl.glLightModeliv = loader_glLightModeliv;
-   tbl.glLineStipple = loader_glLineStipple;
-   tbl.glLineWidth = loader_glLineWidth;
-   tbl.glMaterialf = loader_glMaterialf;
-   tbl.glMaterialfv = loader_glMaterialfv;
-   tbl.glMateriali = loader_glMateriali;
-   tbl.glMaterialiv = loader_glMaterialiv;
-   tbl.glPointSize = loader_glPointSize;
-   tbl.glPolygonMode = loader_glPolygonMode;
-   tbl.glPolygonStipple = loader_glPolygonStipple;
-   tbl.glScissor = loader_glScissor;
-   tbl.glShadeModel = loader_glShadeModel;
-   tbl.glTexParameterf = loader_glTexParameterf;
-   tbl.glTexParameterfv = loader_glTexParameterfv;
-   tbl.glTexParameteri = loader_glTexParameteri;
-   tbl.glTexParameteriv = loader_glTexParameteriv;
-   tbl.glTexImage1D = loader_glTexImage1D;
-   tbl.glTexImage2D = loader_glTexImage2D;
-   tbl.glTexEnvf = loader_glTexEnvf;
-   tbl.glTexEnvfv = loader_glTexEnvfv;
-   tbl.glTexEnvi = loader_glTexEnvi;
-   tbl.glTexEnviv = loader_glTexEnviv;
-   tbl.glTexGend = loader_glTexGend;
-   tbl.glTexGendv = loader_glTexGendv;
-   tbl.glTexGenf = loader_glTexGenf;
-   tbl.glTexGenfv = loader_glTexGenfv;
-   tbl.glTexGeni = loader_glTexGeni;
-   tbl.glTexGeniv = loader_glTexGeniv;
-   tbl.glFeedbackBuffer = loader_glFeedbackBuffer;
-   tbl.glSelectBuffer = loader_glSelectBuffer;
-   tbl.glRenderMode = loader_glRenderMode;
-   tbl.glInitNames = loader_glInitNames;
-   tbl.glLoadName = loader_glLoadName;
-   tbl.glPassThrough = loader_glPassThrough;
-   tbl.glPopName = loader_glPopName;
-   tbl.glPushName = loader_glPushName;
-   tbl.glDrawBuffer = loader_glDrawBuffer;
-   tbl.glClear = loader_glClear;
-   tbl.glClearAccum = loader_glClearAccum;
-   tbl.glClearColor = loader_glClearColor;
-   tbl.glClearDepth = loader_glClearDepth;
-   tbl.glClearIndex = loader_glClearIndex;
-   tbl.glClearStencil = loader_glClearStencil;
-   tbl.glColorMask = loader_glColorMask;
-   tbl.glDepthMask = loader_glDepthMask;
-   tbl.glIndexMask = loader_glIndexMask;
-   tbl.glStencilMask = loader_glStencilMask;
-   tbl.glAccum = loader_glAccum;
-   tbl.glDisable = loader_glDisable;
-   tbl.glEnable = loader_glEnable;
-   tbl.glFinish = loader_glFinish;
-   tbl.glFlush = loader_glFlush;
-   tbl.glPopAttrib = loader_glPopAttrib;
-   tbl.glPushAttrib = loader_glPushAttrib;
-   tbl.glMap1d = loader_glMap1d;
-   tbl.glMap1f = loader_glMap1f;
-   tbl.glMap2d = loader_glMap2d;
-   tbl.glMap2f = loader_glMap2f;
-   tbl.glMapGrid1d = loader_glMapGrid1d;
-   tbl.glMapGrid1f = loader_glMapGrid1f;
-   tbl.glMapGrid2d = loader_glMapGrid2d;
-   tbl.glMapGrid2f = loader_glMapGrid2f;
-   tbl.glEvalCoord1d = loader_glEvalCoord1d;
-   tbl.glEvalCoord1dv = loader_glEvalCoord1dv;
-   tbl.glEvalCoord1f = loader_glEvalCoord1f;
-   tbl.glEvalCoord1fv = loader_glEvalCoord1fv;
-   tbl.glEvalCoord2d = loader_glEvalCoord2d;
-   tbl.glEvalCoord2dv = loader_glEvalCoord2dv;
-   tbl.glEvalCoord2f = loader_glEvalCoord2f;
-   tbl.glEvalCoord2fv = loader_glEvalCoord2fv;
-   tbl.glEvalMesh1 = loader_glEvalMesh1;
-   tbl.glEvalMesh2 = loader_glEvalMesh2;
-   tbl.glEvalPoint1 = loader_glEvalPoint1;
-   tbl.glEvalPoint2 = loader_glEvalPoint2;
-   tbl.glAlphaFunc = loader_glAlphaFunc;
-   tbl.glBlendFunc = loader_glBlendFunc;
-   tbl.glDepthFunc = loader_glDepthFunc;
-   tbl.glStencilFunc = loader_glStencilFunc;
-   tbl.glLogicOp = loader_glLogicOp;
-   tbl.glStencilOp = loader_glStencilOp;
-   tbl.glPixelZoom = loader_glPixelZoom;
-   tbl.glPixelTransferf = loader_glPixelTransferf;
-   tbl.glPixelTransferi = loader_glPixelTransferi;
-   tbl.glPixelStoref = loader_glPixelStoref;
-   tbl.glPixelStorei = loader_glPixelStorei;
-   tbl.glPixelMapfv = loader_glPixelMapfv;
-   tbl.glPixelMapuiv = loader_glPixelMapuiv;
-   tbl.glPixelMapusv = loader_glPixelMapusv;
-   tbl.glReadBuffer = loader_glReadBuffer;
-   tbl.glCopyPixels = loader_glCopyPixels;
-   tbl.glReadPixels = loader_glReadPixels;
-   tbl.glDrawPixels = loader_glDrawPixels;
-   tbl.glGetBooleanv = loader_glGetBooleanv;
-   tbl.glGetDoublev = loader_glGetDoublev;
-   tbl.glGetFloatv = loader_glGetFloatv;
-   tbl.glGetIntegerv = loader_glGetIntegerv;
-   tbl.glGetClipPlane = loader_glGetClipPlane;
-   tbl.glGetError = loader_glGetError;
-   tbl.glGetLightfv = loader_glGetLightfv;
-   tbl.glGetLightiv = loader_glGetLightiv;
-   tbl.glGetMapdv = loader_glGetMapdv;
-   tbl.glGetMapfv = loader_glGetMapfv;
-   tbl.glGetMapiv = loader_glGetMapiv;
-   tbl.glGetMaterialfv = loader_glGetMaterialfv;
-   tbl.glGetMaterialiv = loader_glGetMaterialiv;
-   tbl.glGetPixelMapfv = loader_glGetPixelMapfv;
-   tbl.glGetPixelMapuiv = loader_glGetPixelMapuiv;
-   tbl.glGetPixelMapusv = loader_glGetPixelMapusv;
-   tbl.glGetPolygonStipple = loader_glGetPolygonStipple;
-   tbl.glGetString = loader_glGetString;
-   tbl.glGetTexEnvfv = loader_glGetTexEnvfv;
-   tbl.glGetTexEnviv = loader_glGetTexEnviv;
-   tbl.glGetTexGendv = loader_glGetTexGendv;
-   tbl.glGetTexGenfv = loader_glGetTexGenfv;
-   tbl.glGetTexGeniv = loader_glGetTexGeniv;
-   tbl.glGetTexImage = loader_glGetTexImage;
-   tbl.glGetTexParameterfv = loader_glGetTexParameterfv;
-   tbl.glGetTexParameteriv = loader_glGetTexParameteriv;
-   tbl.glGetTexLevelParameterfv = loader_glGetTexLevelParameterfv;
-   tbl.glGetTexLevelParameteriv = loader_glGetTexLevelParameteriv;
-   tbl.glIsEnabled = loader_glIsEnabled;
-   tbl.glIsList = loader_glIsList;
-   tbl.glDepthRange = loader_glDepthRange;
-   tbl.glFrustum = loader_glFrustum;
-   tbl.glLoadIdentity = loader_glLoadIdentity;
-   tbl.glLoadMatrixd = loader_glLoadMatrixd;
-   tbl.glLoadMatrixf = loader_glLoadMatrixf;
-   tbl.glMatrixMode = loader_glMatrixMode;
-   tbl.glMultMatrixd = loader_glMultMatrixd;
-   tbl.glMultMatrixf = loader_glMultMatrixf;
-   tbl.glOrtho = loader_glOrtho;
-   tbl.glPopMatrix = loader_glPopMatrix;
-   tbl.glPushMatrix = loader_glPushMatrix;
-   tbl.glRotated = loader_glRotated;
-   tbl.glRotatef = loader_glRotatef;
-   tbl.glScaled = loader_glScaled;
-   tbl.glScalef = loader_glScalef;
-   tbl.glTranslated = loader_glTranslated;
-   tbl.glTranslatef = loader_glTranslatef;
-   tbl.glViewport = loader_glViewport;
-
-// GL_VERSION_1_1
-
-   tbl.glArrayElement = loader_glArrayElement;
-   tbl.glDrawArrays = loader_glDrawArrays;
-   tbl.glDrawElements = loader_glDrawElements;
-   tbl.glInterleavedArrays = loader_glInterleavedArrays;
-   tbl.glDisableClientState = loader_glDisableClientState;
-   tbl.glEnableClientState = loader_glEnableClientState;
-   tbl.glGetPointerv = loader_glGetPointerv;
-   tbl.glColorPointer = loader_glColorPointer;
-   tbl.glEdgeFlagPointer = loader_glEdgeFlagPointer;
-   tbl.glIndexPointer = loader_glIndexPointer;
-   tbl.glNormalPointer = loader_glNormalPointer;
-   tbl.glTexCoordPointer = loader_glTexCoordPointer;
-   tbl.glVertexPointer = loader_glVertexPointer;
-   tbl.glPolygonOffset = loader_glPolygonOffset;
-   tbl.glCopyTexImage1D = loader_glCopyTexImage1D;
-   tbl.glCopyTexImage2D = loader_glCopyTexImage2D;
-   tbl.glCopyTexSubImage1D = loader_glCopyTexSubImage1D;
-   tbl.glCopyTexSubImage2D = loader_glCopyTexSubImage2D;
-   tbl.glTexSubImage1D = loader_glTexSubImage1D;
-   tbl.glTexSubImage2D = loader_glTexSubImage2D;
-   tbl.glAreTexturesResident = loader_glAreTexturesResident;
-   tbl.glBindTexture = loader_glBindTexture;
-   tbl.glDeleteTextures = loader_glDeleteTextures;
-   tbl.glGenTextures = loader_glGenTextures;
-   tbl.glIsTexture = loader_glIsTexture;
-   tbl.glPrioritizeTextures = loader_glPrioritizeTextures;
-   tbl.glIndexub = loader_glIndexub;
-   tbl.glIndexubv = loader_glIndexubv;
-   tbl.glPopClientAttrib = loader_glPopClientAttrib;
-   tbl.glPushClientAttrib = loader_glPushClientAttrib;
-
-// GL_VERSION_1_2
-
-   tbl.glBlendColor = loader_glBlendColor;
-   tbl.glBlendEquation = loader_glBlendEquation;
-   tbl.glDrawRangeElements = loader_glDrawRangeElements;
-   tbl.glTexImage3D = loader_glTexImage3D;
-   tbl.glTexSubImage3D = loader_glTexSubImage3D;
-   tbl.glCopyTexSubImage3D = loader_glCopyTexSubImage3D;
-
-// GL_ARB_imaging
-
-   tbl.glColorTable = loader_glColorTable;
-   tbl.glColorTableParameterfv = loader_glColorTableParameterfv;
-   tbl.glColorTableParameteriv = loader_glColorTableParameteriv;
-   tbl.glCopyColorTable = loader_glCopyColorTable;
-   tbl.glGetColorTable = loader_glGetColorTable;
-   tbl.glGetColorTableParameterfv = loader_glGetColorTableParameterfv;
-   tbl.glGetColorTableParameteriv = loader_glGetColorTableParameteriv;
-   tbl.glColorSubTable = loader_glColorSubTable;
-   tbl.glCopyColorSubTable = loader_glCopyColorSubTable;
-   tbl.glConvolutionFilter1D = loader_glConvolutionFilter1D;
-   tbl.glConvolutionFilter2D = loader_glConvolutionFilter2D;
-   tbl.glConvolutionParameterf = loader_glConvolutionParameterf;
-   tbl.glConvolutionParameterfv = loader_glConvolutionParameterfv;
-   tbl.glConvolutionParameteri = loader_glConvolutionParameteri;
-   tbl.glConvolutionParameteriv = loader_glConvolutionParameteriv;
-   tbl.glCopyConvolutionFilter1D = loader_glCopyConvolutionFilter1D;
-   tbl.glCopyConvolutionFilter2D = loader_glCopyConvolutionFilter2D;
-   tbl.glGetConvolutionFilter = loader_glGetConvolutionFilter;
-   tbl.glGetConvolutionParameterfv = loader_glGetConvolutionParameterfv;
-   tbl.glGetConvolutionParameteriv = loader_glGetConvolutionParameteriv;
-   tbl.glGetSeparableFilter = loader_glGetSeparableFilter;
-   tbl.glSeparableFilter2D = loader_glSeparableFilter2D;
-   tbl.glGetHistogram = loader_glGetHistogram;
-   tbl.glGetHistogramParameterfv = loader_glGetHistogramParameterfv;
-   tbl.glGetHistogramParameteriv = loader_glGetHistogramParameteriv;
-   tbl.glGetMinmax = loader_glGetMinmax;
-   tbl.glGetMinmaxParameterfv = loader_glGetMinmaxParameterfv;
-   tbl.glGetMinmaxParameteriv = loader_glGetMinmaxParameteriv;
-   tbl.glHistogram = loader_glHistogram;
-   tbl.glMinmax = loader_glMinmax;
-   tbl.glResetHistogram = loader_glResetHistogram;
-   tbl.glResetMinmax = loader_glResetMinmax;
-
-// GL_VERSION_1_3
-
-   tbl.glActiveTexture = loader_glActiveTexture;
-   tbl.glSampleCoverage = loader_glSampleCoverage;
-   tbl.glCompressedTexImage3D = loader_glCompressedTexImage3D;
-   tbl.glCompressedTexImage2D = loader_glCompressedTexImage2D;
-   tbl.glCompressedTexImage1D = loader_glCompressedTexImage1D;
-   tbl.glCompressedTexSubImage3D = loader_glCompressedTexSubImage3D;
-   tbl.glCompressedTexSubImage2D = loader_glCompressedTexSubImage2D;
-   tbl.glCompressedTexSubImage1D = loader_glCompressedTexSubImage1D;
-   tbl.glGetCompressedTexImage = loader_glGetCompressedTexImage;
-   tbl.glClientActiveTexture = loader_glClientActiveTexture;
-   tbl.glMultiTexCoord1d = loader_glMultiTexCoord1d;
-   tbl.glMultiTexCoord1dv = loader_glMultiTexCoord1dv;
-   tbl.glMultiTexCoord1f = loader_glMultiTexCoord1f;
-   tbl.glMultiTexCoord1fv = loader_glMultiTexCoord1fv;
-   tbl.glMultiTexCoord1i = loader_glMultiTexCoord1i;
-   tbl.glMultiTexCoord1iv = loader_glMultiTexCoord1iv;
-   tbl.glMultiTexCoord1s = loader_glMultiTexCoord1s;
-   tbl.glMultiTexCoord1sv = loader_glMultiTexCoord1sv;
-   tbl.glMultiTexCoord2d = loader_glMultiTexCoord2d;
-   tbl.glMultiTexCoord2dv = loader_glMultiTexCoord2dv;
-   tbl.glMultiTexCoord2f = loader_glMultiTexCoord2f;
-   tbl.glMultiTexCoord2fv = loader_glMultiTexCoord2fv;
-   tbl.glMultiTexCoord2i = loader_glMultiTexCoord2i;
-   tbl.glMultiTexCoord2iv = loader_glMultiTexCoord2iv;
-   tbl.glMultiTexCoord2s = loader_glMultiTexCoord2s;
-   tbl.glMultiTexCoord2sv = loader_glMultiTexCoord2sv;
-   tbl.glMultiTexCoord3d = loader_glMultiTexCoord3d;
-   tbl.glMultiTexCoord3dv = loader_glMultiTexCoord3dv;
-   tbl.glMultiTexCoord3f = loader_glMultiTexCoord3f;
-   tbl.glMultiTexCoord3fv = loader_glMultiTexCoord3fv;
-   tbl.glMultiTexCoord3i = loader_glMultiTexCoord3i;
-   tbl.glMultiTexCoord3iv = loader_glMultiTexCoord3iv;
-   tbl.glMultiTexCoord3s = loader_glMultiTexCoord3s;
-   tbl.glMultiTexCoord3sv = loader_glMultiTexCoord3sv;
-   tbl.glMultiTexCoord4d = loader_glMultiTexCoord4d;
-   tbl.glMultiTexCoord4dv = loader_glMultiTexCoord4dv;
-   tbl.glMultiTexCoord4f = loader_glMultiTexCoord4f;
-   tbl.glMultiTexCoord4fv = loader_glMultiTexCoord4fv;
-   tbl.glMultiTexCoord4i = loader_glMultiTexCoord4i;
-   tbl.glMultiTexCoord4iv = loader_glMultiTexCoord4iv;
-   tbl.glMultiTexCoord4s = loader_glMultiTexCoord4s;
-   tbl.glMultiTexCoord4sv = loader_glMultiTexCoord4sv;
-   tbl.glLoadTransposeMatrixf = loader_glLoadTransposeMatrixf;
-   tbl.glLoadTransposeMatrixd = loader_glLoadTransposeMatrixd;
-   tbl.glMultTransposeMatrixf = loader_glMultTransposeMatrixf;
-   tbl.glMultTransposeMatrixd = loader_glMultTransposeMatrixd;
-
-// GL_VERSION_1_4
-
-   tbl.glBlendFuncSeparate = loader_glBlendFuncSeparate;
-   tbl.glMultiDrawArrays = loader_glMultiDrawArrays;
-   tbl.glMultiDrawElements = loader_glMultiDrawElements;
-   tbl.glPointParameterf = loader_glPointParameterf;
-   tbl.glPointParameterfv = loader_glPointParameterfv;
-   tbl.glPointParameteri = loader_glPointParameteri;
-   tbl.glPointParameteriv = loader_glPointParameteriv;
-   tbl.glFogCoordf = loader_glFogCoordf;
-   tbl.glFogCoordfv = loader_glFogCoordfv;
-   tbl.glFogCoordd = loader_glFogCoordd;
-   tbl.glFogCoorddv = loader_glFogCoorddv;
-   tbl.glFogCoordPointer = loader_glFogCoordPointer;
-   tbl.glSecondaryColor3b = loader_glSecondaryColor3b;
-   tbl.glSecondaryColor3bv = loader_glSecondaryColor3bv;
-   tbl.glSecondaryColor3d = loader_glSecondaryColor3d;
-   tbl.glSecondaryColor3dv = loader_glSecondaryColor3dv;
-   tbl.glSecondaryColor3f = loader_glSecondaryColor3f;
-   tbl.glSecondaryColor3fv = loader_glSecondaryColor3fv;
-   tbl.glSecondaryColor3i = loader_glSecondaryColor3i;
-   tbl.glSecondaryColor3iv = loader_glSecondaryColor3iv;
-   tbl.glSecondaryColor3s = loader_glSecondaryColor3s;
-   tbl.glSecondaryColor3sv = loader_glSecondaryColor3sv;
-   tbl.glSecondaryColor3ub = loader_glSecondaryColor3ub;
-   tbl.glSecondaryColor3ubv = loader_glSecondaryColor3ubv;
-   tbl.glSecondaryColor3ui = loader_glSecondaryColor3ui;
-   tbl.glSecondaryColor3uiv = loader_glSecondaryColor3uiv;
-   tbl.glSecondaryColor3us = loader_glSecondaryColor3us;
-   tbl.glSecondaryColor3usv = loader_glSecondaryColor3usv;
-   tbl.glSecondaryColorPointer = loader_glSecondaryColorPointer;
-   tbl.glWindowPos2d = loader_glWindowPos2d;
-   tbl.glWindowPos2dv = loader_glWindowPos2dv;
-   tbl.glWindowPos2f = loader_glWindowPos2f;
-   tbl.glWindowPos2fv = loader_glWindowPos2fv;
-   tbl.glWindowPos2i = loader_glWindowPos2i;
-   tbl.glWindowPos2iv = loader_glWindowPos2iv;
-   tbl.glWindowPos2s = loader_glWindowPos2s;
-   tbl.glWindowPos2sv = loader_glWindowPos2sv;
-   tbl.glWindowPos3d = loader_glWindowPos3d;
-   tbl.glWindowPos3dv = loader_glWindowPos3dv;
-   tbl.glWindowPos3f = loader_glWindowPos3f;
-   tbl.glWindowPos3fv = loader_glWindowPos3fv;
-   tbl.glWindowPos3i = loader_glWindowPos3i;
-   tbl.glWindowPos3iv = loader_glWindowPos3iv;
-   tbl.glWindowPos3s = loader_glWindowPos3s;
-   tbl.glWindowPos3sv = loader_glWindowPos3sv;
-
-// GL_VERSION_1_5
-
-   tbl.glGenQueries = loader_glGenQueries;
-   tbl.glDeleteQueries = loader_glDeleteQueries;
-   tbl.glIsQuery = loader_glIsQuery;
-   tbl.glBeginQuery = loader_glBeginQuery;
-   tbl.glEndQuery = loader_glEndQuery;
-   tbl.glGetQueryiv = loader_glGetQueryiv;
-   tbl.glGetQueryObjectiv = loader_glGetQueryObjectiv;
-   tbl.glGetQueryObjectuiv = loader_glGetQueryObjectuiv;
-   tbl.glBindBuffer = loader_glBindBuffer;
-   tbl.glDeleteBuffers = loader_glDeleteBuffers;
-   tbl.glGenBuffers = loader_glGenBuffers;
-   tbl.glIsBuffer = loader_glIsBuffer;
-   tbl.glBufferData = loader_glBufferData;
-   tbl.glBufferSubData = loader_glBufferSubData;
-   tbl.glGetBufferSubData = loader_glGetBufferSubData;
-   tbl.glMapBuffer = loader_glMapBuffer;
-   tbl.glUnmapBuffer = loader_glUnmapBuffer;
-   tbl.glGetBufferParameteriv = loader_glGetBufferParameteriv;
-   tbl.glGetBufferPointerv = loader_glGetBufferPointerv;
-
-// GL_VERSION_2_0
-
-   tbl.glBlendEquationSeparate = loader_glBlendEquationSeparate;
-   tbl.glDrawBuffers = loader_glDrawBuffers;
-   tbl.glStencilOpSeparate = loader_glStencilOpSeparate;
-   tbl.glStencilFuncSeparate = loader_glStencilFuncSeparate;
-   tbl.glStencilMaskSeparate = loader_glStencilMaskSeparate;
-   tbl.glAttachShader = loader_glAttachShader;
-   tbl.glBindAttribLocation = loader_glBindAttribLocation;
-   tbl.glCompileShader = loader_glCompileShader;
-   tbl.glCreateProgram = loader_glCreateProgram;
-   tbl.glCreateShader = loader_glCreateShader;
-   tbl.glDeleteProgram = loader_glDeleteProgram;
-   tbl.glDeleteShader = loader_glDeleteShader;
-   tbl.glDetachShader = loader_glDetachShader;
-   tbl.glDisableVertexAttribArray = loader_glDisableVertexAttribArray;
-   tbl.glEnableVertexAttribArray = loader_glEnableVertexAttribArray;
-   tbl.glGetActiveAttrib = loader_glGetActiveAttrib;
-   tbl.glGetActiveUniform = loader_glGetActiveUniform;
-   tbl.glGetAttachedShaders = loader_glGetAttachedShaders;
-   tbl.glGetAttribLocation = loader_glGetAttribLocation;
-   tbl.glGetProgramiv = loader_glGetProgramiv;
-   tbl.glGetProgramInfoLog = loader_glGetProgramInfoLog;
-   tbl.glGetShaderiv = loader_glGetShaderiv;
-   tbl.glGetShaderInfoLog = loader_glGetShaderInfoLog;
-   tbl.glGetShaderSource = loader_glGetShaderSource;
-   tbl.glGetUniformLocation = loader_glGetUniformLocation;
-   tbl.glGetUniformfv = loader_glGetUniformfv;
-   tbl.glGetUniformiv = loader_glGetUniformiv;
-   tbl.glGetVertexAttribdv = loader_glGetVertexAttribdv;
-   tbl.glGetVertexAttribfv = loader_glGetVertexAttribfv;
-   tbl.glGetVertexAttribiv = loader_glGetVertexAttribiv;
-   tbl.glGetVertexAttribPointerv = loader_glGetVertexAttribPointerv;
-   tbl.glIsProgram = loader_glIsProgram;
-   tbl.glIsShader = loader_glIsShader;
-   tbl.glLinkProgram = loader_glLinkProgram;
-   tbl.glShaderSource = loader_glShaderSource;
-   tbl.glUseProgram = loader_glUseProgram;
-   tbl.glUniform1f = loader_glUniform1f;
-   tbl.glUniform2f = loader_glUniform2f;
-   tbl.glUniform3f = loader_glUniform3f;
-   tbl.glUniform4f = loader_glUniform4f;
-   tbl.glUniform1i = loader_glUniform1i;
-   tbl.glUniform2i = loader_glUniform2i;
-   tbl.glUniform3i = loader_glUniform3i;
-   tbl.glUniform4i = loader_glUniform4i;
-   tbl.glUniform1fv = loader_glUniform1fv;
-   tbl.glUniform2fv = loader_glUniform2fv;
-   tbl.glUniform3fv = loader_glUniform3fv;
-   tbl.glUniform4fv = loader_glUniform4fv;
-   tbl.glUniform1iv = loader_glUniform1iv;
-   tbl.glUniform2iv = loader_glUniform2iv;
-   tbl.glUniform3iv = loader_glUniform3iv;
-   tbl.glUniform4iv = loader_glUniform4iv;
-   tbl.glUniformMatrix2fv = loader_glUniformMatrix2fv;
-   tbl.glUniformMatrix3fv = loader_glUniformMatrix3fv;
-   tbl.glUniformMatrix4fv = loader_glUniformMatrix4fv;
-   tbl.glValidateProgram = loader_glValidateProgram;
-   tbl.glVertexAttrib1d = loader_glVertexAttrib1d;
-   tbl.glVertexAttrib1dv = loader_glVertexAttrib1dv;
-   tbl.glVertexAttrib1f = loader_glVertexAttrib1f;
-   tbl.glVertexAttrib1fv = loader_glVertexAttrib1fv;
-   tbl.glVertexAttrib1s = loader_glVertexAttrib1s;
-   tbl.glVertexAttrib1sv = loader_glVertexAttrib1sv;
-   tbl.glVertexAttrib2d = loader_glVertexAttrib2d;
-   tbl.glVertexAttrib2dv = loader_glVertexAttrib2dv;
-   tbl.glVertexAttrib2f = loader_glVertexAttrib2f;
-   tbl.glVertexAttrib2fv = loader_glVertexAttrib2fv;
-   tbl.glVertexAttrib2s = loader_glVertexAttrib2s;
-   tbl.glVertexAttrib2sv = loader_glVertexAttrib2sv;
-   tbl.glVertexAttrib3d = loader_glVertexAttrib3d;
-   tbl.glVertexAttrib3dv = loader_glVertexAttrib3dv;
-   tbl.glVertexAttrib3f = loader_glVertexAttrib3f;
-   tbl.glVertexAttrib3fv = loader_glVertexAttrib3fv;
-   tbl.glVertexAttrib3s = loader_glVertexAttrib3s;
-   tbl.glVertexAttrib3sv = loader_glVertexAttrib3sv;
-   tbl.glVertexAttrib4Nbv = loader_glVertexAttrib4Nbv;
-   tbl.glVertexAttrib4Niv = loader_glVertexAttrib4Niv;
-   tbl.glVertexAttrib4Nsv = loader_glVertexAttrib4Nsv;
-   tbl.glVertexAttrib4Nub = loader_glVertexAttrib4Nub;
-   tbl.glVertexAttrib4Nubv = loader_glVertexAttrib4Nubv;
-   tbl.glVertexAttrib4Nuiv = loader_glVertexAttrib4Nuiv;
-   tbl.glVertexAttrib4Nusv = loader_glVertexAttrib4Nusv;
-   tbl.glVertexAttrib4bv = loader_glVertexAttrib4bv;
-   tbl.glVertexAttrib4d = loader_glVertexAttrib4d;
-   tbl.glVertexAttrib4dv = loader_glVertexAttrib4dv;
-   tbl.glVertexAttrib4f = loader_glVertexAttrib4f;
-   tbl.glVertexAttrib4fv = loader_glVertexAttrib4fv;
-   tbl.glVertexAttrib4iv = loader_glVertexAttrib4iv;
-   tbl.glVertexAttrib4s = loader_glVertexAttrib4s;
-   tbl.glVertexAttrib4sv = loader_glVertexAttrib4sv;
-   tbl.glVertexAttrib4ubv = loader_glVertexAttrib4ubv;
-   tbl.glVertexAttrib4uiv = loader_glVertexAttrib4uiv;
-   tbl.glVertexAttrib4usv = loader_glVertexAttrib4usv;
-   tbl.glVertexAttribPointer = loader_glVertexAttribPointer;
-
-// GL_VERSION_2_1
-
-   tbl.glUniformMatrix2x3fv = loader_glUniformMatrix2x3fv;
-   tbl.glUniformMatrix3x2fv = loader_glUniformMatrix3x2fv;
-   tbl.glUniformMatrix2x4fv = loader_glUniformMatrix2x4fv;
-   tbl.glUniformMatrix4x2fv = loader_glUniformMatrix4x2fv;
-   tbl.glUniformMatrix3x4fv = loader_glUniformMatrix3x4fv;
-   tbl.glUniformMatrix4x3fv = loader_glUniformMatrix4x3fv;
-
-// GL_VERSION_3_0
-
-   tbl.glColorMaski = loader_glColorMaski;
-   tbl.glGetBooleani_v = loader_glGetBooleani_v;
-
-// GL_ARB_uniform_buffer_object
-
-   tbl.glGetIntegeri_v = loader_glGetIntegeri_v;
-
-// GL_VERSION_3_0
-
-   tbl.glEnablei = loader_glEnablei;
-   tbl.glDisablei = loader_glDisablei;
-   tbl.glIsEnabledi = loader_glIsEnabledi;
-   tbl.glBeginTransformFeedback = loader_glBeginTransformFeedback;
-   tbl.glEndTransformFeedback = loader_glEndTransformFeedback;
-
-// GL_ARB_uniform_buffer_object
-
-   tbl.glBindBufferRange = loader_glBindBufferRange;
-   tbl.glBindBufferBase = loader_glBindBufferBase;
-
-// GL_VERSION_3_0
-
-   tbl.glTransformFeedbackVaryings = loader_glTransformFeedbackVaryings;
-   tbl.glGetTransformFeedbackVarying = loader_glGetTransformFeedbackVarying;
-   tbl.glClampColor = loader_glClampColor;
-   tbl.glBeginConditionalRender = loader_glBeginConditionalRender;
-   tbl.glEndConditionalRender = loader_glEndConditionalRender;
-   tbl.glVertexAttribIPointer = loader_glVertexAttribIPointer;
-   tbl.glGetVertexAttribIiv = loader_glGetVertexAttribIiv;
-   tbl.glGetVertexAttribIuiv = loader_glGetVertexAttribIuiv;
-   tbl.glVertexAttribI1i = loader_glVertexAttribI1i;
-   tbl.glVertexAttribI2i = loader_glVertexAttribI2i;
-   tbl.glVertexAttribI3i = loader_glVertexAttribI3i;
-   tbl.glVertexAttribI4i = loader_glVertexAttribI4i;
-   tbl.glVertexAttribI1ui = loader_glVertexAttribI1ui;
-   tbl.glVertexAttribI2ui = loader_glVertexAttribI2ui;
-   tbl.glVertexAttribI3ui = loader_glVertexAttribI3ui;
-   tbl.glVertexAttribI4ui = loader_glVertexAttribI4ui;
-   tbl.glVertexAttribI1iv = loader_glVertexAttribI1iv;
-   tbl.glVertexAttribI2iv = loader_glVertexAttribI2iv;
-   tbl.glVertexAttribI3iv = loader_glVertexAttribI3iv;
-   tbl.glVertexAttribI4iv = loader_glVertexAttribI4iv;
-   tbl.glVertexAttribI1uiv = loader_glVertexAttribI1uiv;
-   tbl.glVertexAttribI2uiv = loader_glVertexAttribI2uiv;
-   tbl.glVertexAttribI3uiv = loader_glVertexAttribI3uiv;
-   tbl.glVertexAttribI4uiv = loader_glVertexAttribI4uiv;
-   tbl.glVertexAttribI4bv = loader_glVertexAttribI4bv;
-   tbl.glVertexAttribI4sv = loader_glVertexAttribI4sv;
-   tbl.glVertexAttribI4ubv = loader_glVertexAttribI4ubv;
-   tbl.glVertexAttribI4usv = loader_glVertexAttribI4usv;
-   tbl.glGetUniformuiv = loader_glGetUniformuiv;
-   tbl.glBindFragDataLocation = loader_glBindFragDataLocation;
-   tbl.glGetFragDataLocation = loader_glGetFragDataLocation;
-   tbl.glUniform1ui = loader_glUniform1ui;
-   tbl.glUniform2ui = loader_glUniform2ui;
-   tbl.glUniform3ui = loader_glUniform3ui;
-   tbl.glUniform4ui = loader_glUniform4ui;
-   tbl.glUniform1uiv = loader_glUniform1uiv;
-   tbl.glUniform2uiv = loader_glUniform2uiv;
-   tbl.glUniform3uiv = loader_glUniform3uiv;
-   tbl.glUniform4uiv = loader_glUniform4uiv;
-   tbl.glTexParameterIiv = loader_glTexParameterIiv;
-   tbl.glTexParameterIuiv = loader_glTexParameterIuiv;
-   tbl.glGetTexParameterIiv = loader_glGetTexParameterIiv;
-   tbl.glGetTexParameterIuiv = loader_glGetTexParameterIuiv;
-   tbl.glClearBufferiv = loader_glClearBufferiv;
-   tbl.glClearBufferuiv = loader_glClearBufferuiv;
-   tbl.glClearBufferfv = loader_glClearBufferfv;
-   tbl.glClearBufferfi = loader_glClearBufferfi;
-   tbl.glGetStringi = loader_glGetStringi;
-
-// GL_VERSION_3_1
-
-   tbl.glDrawArraysInstanced = loader_glDrawArraysInstanced;
-   tbl.glDrawElementsInstanced = loader_glDrawElementsInstanced;
-   tbl.glTexBuffer = loader_glTexBuffer;
-   tbl.glPrimitiveRestartIndex = loader_glPrimitiveRestartIndex;
-
-// GL_VERSION_3_2
-
-   tbl.glGetInteger64i_v = loader_glGetInteger64i_v;
-   tbl.glGetBufferParameteri64v = loader_glGetBufferParameteri64v;
-   tbl.glFramebufferTexture = loader_glFramebufferTexture;
-   tbl.glFramebufferTextureFace = loader_glFramebufferTextureFace;
-
-// GL_ARB_sampler_objects
-
-   tbl.glGenSamplers = loader_glGenSamplers;
-   tbl.glDeleteSamplers = loader_glDeleteSamplers;
-   tbl.glIsSampler = loader_glIsSampler;
-   tbl.glBindSampler = loader_glBindSampler;
-   tbl.glSamplerParameteri = loader_glSamplerParameteri;
-   tbl.glSamplerParameterf = loader_glSamplerParameterf;
-   tbl.glSamplerParameteriv = loader_glSamplerParameteriv;
-   tbl.glSamplerParameterfv = loader_glSamplerParameterfv;
-   tbl.glSamplerParameterIiv = loader_glSamplerParameterIiv;
-   tbl.glSamplerParameterIuiv = loader_glSamplerParameterIuiv;
-   tbl.glGetSamplerParameteriv = loader_glGetSamplerParameteriv;
-   tbl.glGetSamplerParameterfv = loader_glGetSamplerParameterfv;
-   tbl.glGetSamplerParameterIiv = loader_glGetSamplerParameterIiv;
-   tbl.glGetSamplerParameterIuiv = loader_glGetSamplerParameterIuiv;
-
-// GL_ARB_blend_func_extended
-
-   tbl.glBindFragDataLocationIndexed = loader_glBindFragDataLocationIndexed;
-   tbl.glGetFragDataIndex = loader_glGetFragDataIndex;
-
-// GL_ARB_timer_query
-
-   tbl.glGetQueryObjecti64v = loader_glGetQueryObjecti64v;
-   tbl.glGetQueryObjectui64v = loader_glGetQueryObjectui64v;
-   tbl.glQueryCounter = loader_glQueryCounter;
-
-// GL_VERSION_3_3
-
-   tbl.glVertexAttribDivisor = loader_glVertexAttribDivisor;
-
-// GL_ARB_vertex_type_2_10_10_10_rev
-
-   tbl.glVertexP2ui = loader_glVertexP2ui;
-   tbl.glVertexP2uiv = loader_glVertexP2uiv;
-   tbl.glVertexP3ui = loader_glVertexP3ui;
-   tbl.glVertexP3uiv = loader_glVertexP3uiv;
-   tbl.glVertexP4ui = loader_glVertexP4ui;
-   tbl.glVertexP4uiv = loader_glVertexP4uiv;
-   tbl.glTexCoordP1ui = loader_glTexCoordP1ui;
-   tbl.glTexCoordP1uiv = loader_glTexCoordP1uiv;
-   tbl.glTexCoordP2ui = loader_glTexCoordP2ui;
-   tbl.glTexCoordP2uiv = loader_glTexCoordP2uiv;
-   tbl.glTexCoordP3ui = loader_glTexCoordP3ui;
-   tbl.glTexCoordP3uiv = loader_glTexCoordP3uiv;
-   tbl.glTexCoordP4ui = loader_glTexCoordP4ui;
-   tbl.glTexCoordP4uiv = loader_glTexCoordP4uiv;
-   tbl.glMultiTexCoordP1ui = loader_glMultiTexCoordP1ui;
-   tbl.glMultiTexCoordP1uiv = loader_glMultiTexCoordP1uiv;
-   tbl.glMultiTexCoordP2ui = loader_glMultiTexCoordP2ui;
-   tbl.glMultiTexCoordP2uiv = loader_glMultiTexCoordP2uiv;
-   tbl.glMultiTexCoordP3ui = loader_glMultiTexCoordP3ui;
-   tbl.glMultiTexCoordP3uiv = loader_glMultiTexCoordP3uiv;
-   tbl.glMultiTexCoordP4ui = loader_glMultiTexCoordP4ui;
-   tbl.glMultiTexCoordP4uiv = loader_glMultiTexCoordP4uiv;
-   tbl.glNormalP3ui = loader_glNormalP3ui;
-   tbl.glNormalP3uiv = loader_glNormalP3uiv;
-   tbl.glColorP3ui = loader_glColorP3ui;
-   tbl.glColorP3uiv = loader_glColorP3uiv;
-   tbl.glColorP4ui = loader_glColorP4ui;
-   tbl.glColorP4uiv = loader_glColorP4uiv;
-   tbl.glSecondaryColorP3ui = loader_glSecondaryColorP3ui;
-   tbl.glSecondaryColorP3uiv = loader_glSecondaryColorP3uiv;
-   tbl.glVertexAttribP1ui = loader_glVertexAttribP1ui;
-   tbl.glVertexAttribP1uiv = loader_glVertexAttribP1uiv;
-   tbl.glVertexAttribP2ui = loader_glVertexAttribP2ui;
-   tbl.glVertexAttribP2uiv = loader_glVertexAttribP2uiv;
-   tbl.glVertexAttribP3ui = loader_glVertexAttribP3ui;
-   tbl.glVertexAttribP3uiv = loader_glVertexAttribP3uiv;
-   tbl.glVertexAttribP4ui = loader_glVertexAttribP4ui;
-   tbl.glVertexAttribP4uiv = loader_glVertexAttribP4uiv;
-
-// GL_VERSION_4_0
-
-   tbl.glBlendEquationi = loader_glBlendEquationi;
-   tbl.glBlendEquationSeparatei = loader_glBlendEquationSeparatei;
-   tbl.glBlendFunci = loader_glBlendFunci;
-   tbl.glBlendFuncSeparatei = loader_glBlendFuncSeparatei;
-
-// GL_ARB_draw_indirect
-
-   tbl.glDrawArraysIndirect = loader_glDrawArraysIndirect;
-   tbl.glDrawElementsIndirect = loader_glDrawElementsIndirect;
-
-// GL_ARB_gpu_shader_fp64
-
-   tbl.glUniform1d = loader_glUniform1d;
-   tbl.glUniform2d = loader_glUniform2d;
-   tbl.glUniform3d = loader_glUniform3d;
-   tbl.glUniform4d = loader_glUniform4d;
-   tbl.glUniform1dv = loader_glUniform1dv;
-   tbl.glUniform2dv = loader_glUniform2dv;
-   tbl.glUniform3dv = loader_glUniform3dv;
-   tbl.glUniform4dv = loader_glUniform4dv;
-   tbl.glUniformMatrix2dv = loader_glUniformMatrix2dv;
-   tbl.glUniformMatrix3dv = loader_glUniformMatrix3dv;
-   tbl.glUniformMatrix4dv = loader_glUniformMatrix4dv;
-   tbl.glUniformMatrix2x3dv = loader_glUniformMatrix2x3dv;
-   tbl.glUniformMatrix2x4dv = loader_glUniformMatrix2x4dv;
-   tbl.glUniformMatrix3x2dv = loader_glUniformMatrix3x2dv;
-   tbl.glUniformMatrix3x4dv = loader_glUniformMatrix3x4dv;
-   tbl.glUniformMatrix4x2dv = loader_glUniformMatrix4x2dv;
-   tbl.glUniformMatrix4x3dv = loader_glUniformMatrix4x3dv;
-   tbl.glGetUniformdv = loader_glGetUniformdv;
-
-// GL_ARB_sample_shading
-
-   tbl.glMinSampleShading = loader_glMinSampleShading;
-
-// GL_ARB_tessellation_shader
-
-   tbl.glPatchParameteri = loader_glPatchParameteri;
-   tbl.glPatchParameterfv = loader_glPatchParameterfv;
-
-// GL_ARB_transform_feedback2
-
-   tbl.glGenTransformFeedbacks = loader_glGenTransformFeedbacks;
-   tbl.glDeleteTransformFeedbacks = loader_glDeleteTransformFeedbacks;
-   tbl.glBindTransformFeedback = loader_glBindTransformFeedback;
-   tbl.glIsTransformFeedback = loader_glIsTransformFeedback;
-   tbl.glPauseTransformFeedback = loader_glPauseTransformFeedback;
-   tbl.glResumeTransformFeedback = loader_glResumeTransformFeedback;
-   tbl.glDrawTransformFeedback = loader_glDrawTransformFeedback;
-
-// GL_ARB_transform_feedback3
-
-   tbl.glDrawTransformFeedbackStream = loader_glDrawTransformFeedbackStream;
-   tbl.glBeginQueryIndexed = loader_glBeginQueryIndexed;
-   tbl.glEndQueryIndexed = loader_glEndQueryIndexed;
-   tbl.glGetQueryIndexediv = loader_glGetQueryIndexediv;
-
-// GL_ARB_shader_subroutine
-
-   tbl.glGetSubroutineUniformLocation = loader_glGetSubroutineUniformLocation;
-   tbl.glGetSubroutineIndex = loader_glGetSubroutineIndex;
-   tbl.glGetActiveSubroutineUniformiv = loader_glGetActiveSubroutineUniformiv;
-   tbl.glGetActiveSubroutineUniformName = loader_glGetActiveSubroutineUniformName;
-   tbl.glGetActiveSubroutineName = loader_glGetActiveSubroutineName;
-   tbl.glUniformSubroutinesuiv = loader_glUniformSubroutinesuiv;
-   tbl.glGetUniformSubroutineuiv = loader_glGetUniformSubroutineuiv;
-   tbl.glGetProgramStageiv = loader_glGetProgramStageiv;
-
-// GL_ARB_vertex_attrib_64bit
-
-   tbl.glVertexAttribL1d = loader_glVertexAttribL1d;
-   tbl.glVertexAttribL2d = loader_glVertexAttribL2d;
-   tbl.glVertexAttribL3d = loader_glVertexAttribL3d;
-   tbl.glVertexAttribL4d = loader_glVertexAttribL4d;
-   tbl.glVertexAttribL1dv = loader_glVertexAttribL1dv;
-   tbl.glVertexAttribL2dv = loader_glVertexAttribL2dv;
-   tbl.glVertexAttribL3dv = loader_glVertexAttribL3dv;
-   tbl.glVertexAttribL4dv = loader_glVertexAttribL4dv;
-   tbl.glVertexAttribLPointer = loader_glVertexAttribLPointer;
-   tbl.glGetVertexAttribLdv = loader_glGetVertexAttribLdv;
-
-// GL_ARB_ES2_compatibility
-
-   tbl.glReleaseShaderCompiler = loader_glReleaseShaderCompiler;
-   tbl.glShaderBinary = loader_glShaderBinary;
-   tbl.glGetShaderPrecisionFormat = loader_glGetShaderPrecisionFormat;
-   tbl.glDepthRangef = loader_glDepthRangef;
-   tbl.glClearDepthf = loader_glClearDepthf;
-
-// GL_ARB_get_program_binary
-
-   tbl.glGetProgramBinary = loader_glGetProgramBinary;
-   tbl.glProgramBinary = loader_glProgramBinary;
-   tbl.glProgramParameteri = loader_glProgramParameteri;
-
-// GL_ARB_viewport_array
-
-   tbl.glViewportArrayv = loader_glViewportArrayv;
-   tbl.glViewportIndexedf = loader_glViewportIndexedf;
-   tbl.glViewportIndexedfv = loader_glViewportIndexedfv;
-   tbl.glScissorArrayv = loader_glScissorArrayv;
-   tbl.glScissorIndexed = loader_glScissorIndexed;
-   tbl.glScissorIndexedv = loader_glScissorIndexedv;
-   tbl.glDepthRangeArrayv = loader_glDepthRangeArrayv;
-   tbl.glDepthRangeIndexed = loader_glDepthRangeIndexed;
-   tbl.glGetFloati_v = loader_glGetFloati_v;
-   tbl.glGetDoublei_v = loader_glGetDoublei_v;
-
-// GL_ARB_separate_shader_objects
-
-   tbl.glActiveShaderProgram = loader_glActiveShaderProgram;
-   tbl.glUseProgramStages = loader_glUseProgramStages;
-   tbl.glCreateShaderProgramv = loader_glCreateShaderProgramv;
-   tbl.glBindProgramPipeline = loader_glBindProgramPipeline;
-   tbl.glDeleteProgramPipelines = loader_glDeleteProgramPipelines;
-   tbl.glGenProgramPipelines = loader_glGenProgramPipelines;
-   tbl.glIsProgramPipeline = loader_glIsProgramPipeline;
-   tbl.glGetProgramPipelineiv = loader_glGetProgramPipelineiv;
-   tbl.glValidateProgramPipeline = loader_glValidateProgramPipeline;
-   tbl.glGetProgramPipelineInfoLog = loader_glGetProgramPipelineInfoLog;
-   tbl.glProgramUniform1f = loader_glProgramUniform1f;
-   tbl.glProgramUniform2f = loader_glProgramUniform2f;
-   tbl.glProgramUniform3f = loader_glProgramUniform3f;
-   tbl.glProgramUniform4f = loader_glProgramUniform4f;
-   tbl.glProgramUniform1i = loader_glProgramUniform1i;
-   tbl.glProgramUniform2i = loader_glProgramUniform2i;
-   tbl.glProgramUniform3i = loader_glProgramUniform3i;
-   tbl.glProgramUniform4i = loader_glProgramUniform4i;
-   tbl.glProgramUniform1fv = loader_glProgramUniform1fv;
-   tbl.glProgramUniform2fv = loader_glProgramUniform2fv;
-   tbl.glProgramUniform3fv = loader_glProgramUniform3fv;
-   tbl.glProgramUniform4fv = loader_glProgramUniform4fv;
-   tbl.glProgramUniform1iv = loader_glProgramUniform1iv;
-   tbl.glProgramUniform2iv = loader_glProgramUniform2iv;
-   tbl.glProgramUniform3iv = loader_glProgramUniform3iv;
-   tbl.glProgramUniform4iv = loader_glProgramUniform4iv;
-   tbl.glProgramUniformMatrix2fv = loader_glProgramUniformMatrix2fv;
-   tbl.glProgramUniformMatrix3fv = loader_glProgramUniformMatrix3fv;
-   tbl.glProgramUniformMatrix4fv = loader_glProgramUniformMatrix4fv;
-   tbl.glProgramUniformMatrix2x3fv = loader_glProgramUniformMatrix2x3fv;
-   tbl.glProgramUniformMatrix3x2fv = loader_glProgramUniformMatrix3x2fv;
-   tbl.glProgramUniformMatrix2x4fv = loader_glProgramUniformMatrix2x4fv;
-   tbl.glProgramUniformMatrix4x2fv = loader_glProgramUniformMatrix4x2fv;
-   tbl.glProgramUniformMatrix3x4fv = loader_glProgramUniformMatrix3x4fv;
-   tbl.glProgramUniformMatrix4x3fv = loader_glProgramUniformMatrix4x3fv;
-   tbl.glProgramUniform1ui = loader_glProgramUniform1ui;
-   tbl.glProgramUniform2ui = loader_glProgramUniform2ui;
-   tbl.glProgramUniform3ui = loader_glProgramUniform3ui;
-   tbl.glProgramUniform4ui = loader_glProgramUniform4ui;
-   tbl.glProgramUniform1uiv = loader_glProgramUniform1uiv;
-   tbl.glProgramUniform2uiv = loader_glProgramUniform2uiv;
-   tbl.glProgramUniform3uiv = loader_glProgramUniform3uiv;
-   tbl.glProgramUniform4uiv = loader_glProgramUniform4uiv;
-   tbl.glProgramUniform1d = loader_glProgramUniform1d;
-   tbl.glProgramUniform2d = loader_glProgramUniform2d;
-   tbl.glProgramUniform3d = loader_glProgramUniform3d;
-   tbl.glProgramUniform4d = loader_glProgramUniform4d;
-   tbl.glProgramUniform1dv = loader_glProgramUniform1dv;
-   tbl.glProgramUniform2dv = loader_glProgramUniform2dv;
-   tbl.glProgramUniform3dv = loader_glProgramUniform3dv;
-   tbl.glProgramUniform4dv = loader_glProgramUniform4dv;
-   tbl.glProgramUniformMatrix2dv = loader_glProgramUniformMatrix2dv;
-   tbl.glProgramUniformMatrix3dv = loader_glProgramUniformMatrix3dv;
-   tbl.glProgramUniformMatrix4dv = loader_glProgramUniformMatrix4dv;
-   tbl.glProgramUniformMatrix2x3dv = loader_glProgramUniformMatrix2x3dv;
-   tbl.glProgramUniformMatrix2x4dv = loader_glProgramUniformMatrix2x4dv;
-   tbl.glProgramUniformMatrix3x2dv = loader_glProgramUniformMatrix3x2dv;
-   tbl.glProgramUniformMatrix3x4dv = loader_glProgramUniformMatrix3x4dv;
-   tbl.glProgramUniformMatrix4x2dv = loader_glProgramUniformMatrix4x2dv;
-   tbl.glProgramUniformMatrix4x3dv = loader_glProgramUniformMatrix4x3dv;
-
-// GL_ARB_multitexture
-
-   tbl.glActiveTextureARB = loader_glActiveTextureARB;
-   tbl.glClientActiveTextureARB = loader_glClientActiveTextureARB;
-   tbl.glMultiTexCoord1dARB = loader_glMultiTexCoord1dARB;
-   tbl.glMultiTexCoord1dvARB = loader_glMultiTexCoord1dvARB;
-   tbl.glMultiTexCoord1fARB = loader_glMultiTexCoord1fARB;
-   tbl.glMultiTexCoord1fvARB = loader_glMultiTexCoord1fvARB;
-   tbl.glMultiTexCoord1iARB = loader_glMultiTexCoord1iARB;
-   tbl.glMultiTexCoord1ivARB = loader_glMultiTexCoord1ivARB;
-   tbl.glMultiTexCoord1sARB = loader_glMultiTexCoord1sARB;
-   tbl.glMultiTexCoord1svARB = loader_glMultiTexCoord1svARB;
-   tbl.glMultiTexCoord2dARB = loader_glMultiTexCoord2dARB;
-   tbl.glMultiTexCoord2dvARB = loader_glMultiTexCoord2dvARB;
-   tbl.glMultiTexCoord2fARB = loader_glMultiTexCoord2fARB;
-   tbl.glMultiTexCoord2fvARB = loader_glMultiTexCoord2fvARB;
-   tbl.glMultiTexCoord2iARB = loader_glMultiTexCoord2iARB;
-   tbl.glMultiTexCoord2ivARB = loader_glMultiTexCoord2ivARB;
-   tbl.glMultiTexCoord2sARB = loader_glMultiTexCoord2sARB;
-   tbl.glMultiTexCoord2svARB = loader_glMultiTexCoord2svARB;
-   tbl.glMultiTexCoord3dARB = loader_glMultiTexCoord3dARB;
-   tbl.glMultiTexCoord3dvARB = loader_glMultiTexCoord3dvARB;
-   tbl.glMultiTexCoord3fARB = loader_glMultiTexCoord3fARB;
-   tbl.glMultiTexCoord3fvARB = loader_glMultiTexCoord3fvARB;
-   tbl.glMultiTexCoord3iARB = loader_glMultiTexCoord3iARB;
-   tbl.glMultiTexCoord3ivARB = loader_glMultiTexCoord3ivARB;
-   tbl.glMultiTexCoord3sARB = loader_glMultiTexCoord3sARB;
-   tbl.glMultiTexCoord3svARB = loader_glMultiTexCoord3svARB;
-   tbl.glMultiTexCoord4dARB = loader_glMultiTexCoord4dARB;
-   tbl.glMultiTexCoord4dvARB = loader_glMultiTexCoord4dvARB;
-   tbl.glMultiTexCoord4fARB = loader_glMultiTexCoord4fARB;
-   tbl.glMultiTexCoord4fvARB = loader_glMultiTexCoord4fvARB;
-   tbl.glMultiTexCoord4iARB = loader_glMultiTexCoord4iARB;
-   tbl.glMultiTexCoord4ivARB = loader_glMultiTexCoord4ivARB;
-   tbl.glMultiTexCoord4sARB = loader_glMultiTexCoord4sARB;
-   tbl.glMultiTexCoord4svARB = loader_glMultiTexCoord4svARB;
-
-// GL_ARB_transpose_matrix
-
-   tbl.glLoadTransposeMatrixfARB = loader_glLoadTransposeMatrixfARB;
-   tbl.glLoadTransposeMatrixdARB = loader_glLoadTransposeMatrixdARB;
-   tbl.glMultTransposeMatrixfARB = loader_glMultTransposeMatrixfARB;
-   tbl.glMultTransposeMatrixdARB = loader_glMultTransposeMatrixdARB;
-
-// GL_ARB_multisample
-
-   tbl.glSampleCoverageARB = loader_glSampleCoverageARB;
-
-// GL_ARB_texture_compression
-
-   tbl.glCompressedTexImage3DARB = loader_glCompressedTexImage3DARB;
-   tbl.glCompressedTexImage2DARB = loader_glCompressedTexImage2DARB;
-   tbl.glCompressedTexImage1DARB = loader_glCompressedTexImage1DARB;
-   tbl.glCompressedTexSubImage3DARB = loader_glCompressedTexSubImage3DARB;
-   tbl.glCompressedTexSubImage2DARB = loader_glCompressedTexSubImage2DARB;
-   tbl.glCompressedTexSubImage1DARB = loader_glCompressedTexSubImage1DARB;
-   tbl.glGetCompressedTexImageARB = loader_glGetCompressedTexImageARB;
-
-// GL_ARB_point_parameters
-
-   tbl.glPointParameterfARB = loader_glPointParameterfARB;
-   tbl.glPointParameterfvARB = loader_glPointParameterfvARB;
-
-// GL_ARB_vertex_blend
-
-   tbl.glWeightbvARB = loader_glWeightbvARB;
-   tbl.glWeightsvARB = loader_glWeightsvARB;
-   tbl.glWeightivARB = loader_glWeightivARB;
-   tbl.glWeightfvARB = loader_glWeightfvARB;
-   tbl.glWeightdvARB = loader_glWeightdvARB;
-   tbl.glWeightubvARB = loader_glWeightubvARB;
-   tbl.glWeightusvARB = loader_glWeightusvARB;
-   tbl.glWeightuivARB = loader_glWeightuivARB;
-   tbl.glWeightPointerARB = loader_glWeightPointerARB;
-   tbl.glVertexBlendARB = loader_glVertexBlendARB;
-
-// GL_ARB_matrix_palette
-
-   tbl.glCurrentPaletteMatrixARB = loader_glCurrentPaletteMatrixARB;
-   tbl.glMatrixIndexubvARB = loader_glMatrixIndexubvARB;
-   tbl.glMatrixIndexusvARB = loader_glMatrixIndexusvARB;
-   tbl.glMatrixIndexuivARB = loader_glMatrixIndexuivARB;
-   tbl.glMatrixIndexPointerARB = loader_glMatrixIndexPointerARB;
-
-// GL_ARB_window_pos
-
-   tbl.glWindowPos2dARB = loader_glWindowPos2dARB;
-   tbl.glWindowPos2dvARB = loader_glWindowPos2dvARB;
-   tbl.glWindowPos2fARB = loader_glWindowPos2fARB;
-   tbl.glWindowPos2fvARB = loader_glWindowPos2fvARB;
-   tbl.glWindowPos2iARB = loader_glWindowPos2iARB;
-   tbl.glWindowPos2ivARB = loader_glWindowPos2ivARB;
-   tbl.glWindowPos2sARB = loader_glWindowPos2sARB;
-   tbl.glWindowPos2svARB = loader_glWindowPos2svARB;
-   tbl.glWindowPos3dARB = loader_glWindowPos3dARB;
-   tbl.glWindowPos3dvARB = loader_glWindowPos3dvARB;
-   tbl.glWindowPos3fARB = loader_glWindowPos3fARB;
-   tbl.glWindowPos3fvARB = loader_glWindowPos3fvARB;
-   tbl.glWindowPos3iARB = loader_glWindowPos3iARB;
-   tbl.glWindowPos3ivARB = loader_glWindowPos3ivARB;
-   tbl.glWindowPos3sARB = loader_glWindowPos3sARB;
-   tbl.glWindowPos3svARB = loader_glWindowPos3svARB;
-
-// GL_ARB_vertex_program
-
-   tbl.glVertexAttrib1dARB = loader_glVertexAttrib1dARB;
-   tbl.glVertexAttrib1dvARB = loader_glVertexAttrib1dvARB;
-   tbl.glVertexAttrib1fARB = loader_glVertexAttrib1fARB;
-   tbl.glVertexAttrib1fvARB = loader_glVertexAttrib1fvARB;
-   tbl.glVertexAttrib1sARB = loader_glVertexAttrib1sARB;
-   tbl.glVertexAttrib1svARB = loader_glVertexAttrib1svARB;
-   tbl.glVertexAttrib2dARB = loader_glVertexAttrib2dARB;
-   tbl.glVertexAttrib2dvARB = loader_glVertexAttrib2dvARB;
-   tbl.glVertexAttrib2fARB = loader_glVertexAttrib2fARB;
-   tbl.glVertexAttrib2fvARB = loader_glVertexAttrib2fvARB;
-   tbl.glVertexAttrib2sARB = loader_glVertexAttrib2sARB;
-   tbl.glVertexAttrib2svARB = loader_glVertexAttrib2svARB;
-   tbl.glVertexAttrib3dARB = loader_glVertexAttrib3dARB;
-   tbl.glVertexAttrib3dvARB = loader_glVertexAttrib3dvARB;
-   tbl.glVertexAttrib3fARB = loader_glVertexAttrib3fARB;
-   tbl.glVertexAttrib3fvARB = loader_glVertexAttrib3fvARB;
-   tbl.glVertexAttrib3sARB = loader_glVertexAttrib3sARB;
-   tbl.glVertexAttrib3svARB = loader_glVertexAttrib3svARB;
-   tbl.glVertexAttrib4NbvARB = loader_glVertexAttrib4NbvARB;
-   tbl.glVertexAttrib4NivARB = loader_glVertexAttrib4NivARB;
-   tbl.glVertexAttrib4NsvARB = loader_glVertexAttrib4NsvARB;
-   tbl.glVertexAttrib4NubARB = loader_glVertexAttrib4NubARB;
-   tbl.glVertexAttrib4NubvARB = loader_glVertexAttrib4NubvARB;
-   tbl.glVertexAttrib4NuivARB = loader_glVertexAttrib4NuivARB;
-   tbl.glVertexAttrib4NusvARB = loader_glVertexAttrib4NusvARB;
-   tbl.glVertexAttrib4bvARB = loader_glVertexAttrib4bvARB;
-   tbl.glVertexAttrib4dARB = loader_glVertexAttrib4dARB;
-   tbl.glVertexAttrib4dvARB = loader_glVertexAttrib4dvARB;
-   tbl.glVertexAttrib4fARB = loader_glVertexAttrib4fARB;
-   tbl.glVertexAttrib4fvARB = loader_glVertexAttrib4fvARB;
-   tbl.glVertexAttrib4ivARB = loader_glVertexAttrib4ivARB;
-   tbl.glVertexAttrib4sARB = loader_glVertexAttrib4sARB;
-   tbl.glVertexAttrib4svARB = loader_glVertexAttrib4svARB;
-   tbl.glVertexAttrib4ubvARB = loader_glVertexAttrib4ubvARB;
-   tbl.glVertexAttrib4uivARB = loader_glVertexAttrib4uivARB;
-   tbl.glVertexAttrib4usvARB = loader_glVertexAttrib4usvARB;
-   tbl.glVertexAttribPointerARB = loader_glVertexAttribPointerARB;
-   tbl.glEnableVertexAttribArrayARB = loader_glEnableVertexAttribArrayARB;
-   tbl.glDisableVertexAttribArrayARB = loader_glDisableVertexAttribArrayARB;
-   tbl.glProgramStringARB = loader_glProgramStringARB;
-   tbl.glBindProgramARB = loader_glBindProgramARB;
-   tbl.glDeleteProgramsARB = loader_glDeleteProgramsARB;
-   tbl.glGenProgramsARB = loader_glGenProgramsARB;
-   tbl.glProgramEnvParameter4dARB = loader_glProgramEnvParameter4dARB;
-   tbl.glProgramEnvParameter4dvARB = loader_glProgramEnvParameter4dvARB;
-   tbl.glProgramEnvParameter4fARB = loader_glProgramEnvParameter4fARB;
-   tbl.glProgramEnvParameter4fvARB = loader_glProgramEnvParameter4fvARB;
-   tbl.glProgramLocalParameter4dARB = loader_glProgramLocalParameter4dARB;
-   tbl.glProgramLocalParameter4dvARB = loader_glProgramLocalParameter4dvARB;
-   tbl.glProgramLocalParameter4fARB = loader_glProgramLocalParameter4fARB;
-   tbl.glProgramLocalParameter4fvARB = loader_glProgramLocalParameter4fvARB;
-   tbl.glGetProgramEnvParameterdvARB = loader_glGetProgramEnvParameterdvARB;
-   tbl.glGetProgramEnvParameterfvARB = loader_glGetProgramEnvParameterfvARB;
-   tbl.glGetProgramLocalParameterdvARB = loader_glGetProgramLocalParameterdvARB;
-   tbl.glGetProgramLocalParameterfvARB = loader_glGetProgramLocalParameterfvARB;
-   tbl.glGetProgramivARB = loader_glGetProgramivARB;
-   tbl.glGetProgramStringARB = loader_glGetProgramStringARB;
-   tbl.glGetVertexAttribdvARB = loader_glGetVertexAttribdvARB;
-   tbl.glGetVertexAttribfvARB = loader_glGetVertexAttribfvARB;
-   tbl.glGetVertexAttribivARB = loader_glGetVertexAttribivARB;
-   tbl.glGetVertexAttribPointervARB = loader_glGetVertexAttribPointervARB;
-   tbl.glIsProgramARB = loader_glIsProgramARB;
-
-// GL_ARB_vertex_buffer_object
-
-   tbl.glBindBufferARB = loader_glBindBufferARB;
-   tbl.glDeleteBuffersARB = loader_glDeleteBuffersARB;
-   tbl.glGenBuffersARB = loader_glGenBuffersARB;
-   tbl.glIsBufferARB = loader_glIsBufferARB;
-   tbl.glBufferDataARB = loader_glBufferDataARB;
-   tbl.glBufferSubDataARB = loader_glBufferSubDataARB;
-   tbl.glGetBufferSubDataARB = loader_glGetBufferSubDataARB;
-   tbl.glMapBufferARB = loader_glMapBufferARB;
-   tbl.glUnmapBufferARB = loader_glUnmapBufferARB;
-   tbl.glGetBufferParameterivARB = loader_glGetBufferParameterivARB;
-   tbl.glGetBufferPointervARB = loader_glGetBufferPointervARB;
-
-// GL_ARB_occlusion_query
-
-   tbl.glGenQueriesARB = loader_glGenQueriesARB;
-   tbl.glDeleteQueriesARB = loader_glDeleteQueriesARB;
-   tbl.glIsQueryARB = loader_glIsQueryARB;
-   tbl.glBeginQueryARB = loader_glBeginQueryARB;
-   tbl.glEndQueryARB = loader_glEndQueryARB;
-   tbl.glGetQueryivARB = loader_glGetQueryivARB;
-   tbl.glGetQueryObjectivARB = loader_glGetQueryObjectivARB;
-   tbl.glGetQueryObjectuivARB = loader_glGetQueryObjectuivARB;
-
-// GL_ARB_shader_objects
-
-   tbl.glDeleteObjectARB = loader_glDeleteObjectARB;
-   tbl.glGetHandleARB = loader_glGetHandleARB;
-   tbl.glDetachObjectARB = loader_glDetachObjectARB;
-   tbl.glCreateShaderObjectARB = loader_glCreateShaderObjectARB;
-   tbl.glShaderSourceARB = loader_glShaderSourceARB;
-   tbl.glCompileShaderARB = loader_glCompileShaderARB;
-   tbl.glCreateProgramObjectARB = loader_glCreateProgramObjectARB;
-   tbl.glAttachObjectARB = loader_glAttachObjectARB;
-   tbl.glLinkProgramARB = loader_glLinkProgramARB;
-   tbl.glUseProgramObjectARB = loader_glUseProgramObjectARB;
-   tbl.glValidateProgramARB = loader_glValidateProgramARB;
-   tbl.glUniform1fARB = loader_glUniform1fARB;
-   tbl.glUniform2fARB = loader_glUniform2fARB;
-   tbl.glUniform3fARB = loader_glUniform3fARB;
-   tbl.glUniform4fARB = loader_glUniform4fARB;
-   tbl.glUniform1iARB = loader_glUniform1iARB;
-   tbl.glUniform2iARB = loader_glUniform2iARB;
-   tbl.glUniform3iARB = loader_glUniform3iARB;
-   tbl.glUniform4iARB = loader_glUniform4iARB;
-   tbl.glUniform1fvARB = loader_glUniform1fvARB;
-   tbl.glUniform2fvARB = loader_glUniform2fvARB;
-   tbl.glUniform3fvARB = loader_glUniform3fvARB;
-   tbl.glUniform4fvARB = loader_glUniform4fvARB;
-   tbl.glUniform1ivARB = loader_glUniform1ivARB;
-   tbl.glUniform2ivARB = loader_glUniform2ivARB;
-   tbl.glUniform3ivARB = loader_glUniform3ivARB;
-   tbl.glUniform4ivARB = loader_glUniform4ivARB;
-   tbl.glUniformMatrix2fvARB = loader_glUniformMatrix2fvARB;
-   tbl.glUniformMatrix3fvARB = loader_glUniformMatrix3fvARB;
-   tbl.glUniformMatrix4fvARB = loader_glUniformMatrix4fvARB;
-   tbl.glGetObjectParameterfvARB = loader_glGetObjectParameterfvARB;
-   tbl.glGetObjectParameterivARB = loader_glGetObjectParameterivARB;
-   tbl.glGetInfoLogARB = loader_glGetInfoLogARB;
-   tbl.glGetAttachedObjectsARB = loader_glGetAttachedObjectsARB;
-   tbl.glGetUniformLocationARB = loader_glGetUniformLocationARB;
-   tbl.glGetActiveUniformARB = loader_glGetActiveUniformARB;
-   tbl.glGetUniformfvARB = loader_glGetUniformfvARB;
-   tbl.glGetUniformivARB = loader_glGetUniformivARB;
-   tbl.glGetShaderSourceARB = loader_glGetShaderSourceARB;
-
-// GL_ARB_vertex_shader
-
-   tbl.glBindAttribLocationARB = loader_glBindAttribLocationARB;
-   tbl.glGetActiveAttribARB = loader_glGetActiveAttribARB;
-   tbl.glGetAttribLocationARB = loader_glGetAttribLocationARB;
-
-// GL_ARB_draw_buffers
-
-   tbl.glDrawBuffersARB = loader_glDrawBuffersARB;
-
-// GL_ARB_color_buffer_float
-
-   tbl.glClampColorARB = loader_glClampColorARB;
-
-// GL_ARB_draw_instanced
-
-   tbl.glDrawArraysInstancedARB = loader_glDrawArraysInstancedARB;
-   tbl.glDrawElementsInstancedARB = loader_glDrawElementsInstancedARB;
-
-// GL_ARB_framebuffer_object
-
-   tbl.glIsRenderbuffer = loader_glIsRenderbuffer;
-   tbl.glBindRenderbuffer = loader_glBindRenderbuffer;
-   tbl.glDeleteRenderbuffers = loader_glDeleteRenderbuffers;
-   tbl.glGenRenderbuffers = loader_glGenRenderbuffers;
-   tbl.glRenderbufferStorage = loader_glRenderbufferStorage;
-   tbl.glGetRenderbufferParameteriv = loader_glGetRenderbufferParameteriv;
-   tbl.glIsFramebuffer = loader_glIsFramebuffer;
-   tbl.glBindFramebuffer = loader_glBindFramebuffer;
-   tbl.glDeleteFramebuffers = loader_glDeleteFramebuffers;
-   tbl.glGenFramebuffers = loader_glGenFramebuffers;
-   tbl.glCheckFramebufferStatus = loader_glCheckFramebufferStatus;
-   tbl.glFramebufferTexture1D = loader_glFramebufferTexture1D;
-   tbl.glFramebufferTexture2D = loader_glFramebufferTexture2D;
-   tbl.glFramebufferTexture3D = loader_glFramebufferTexture3D;
-   tbl.glFramebufferRenderbuffer = loader_glFramebufferRenderbuffer;
-   tbl.glGetFramebufferAttachmentParameteriv = loader_glGetFramebufferAttachmentParameteriv;
-   tbl.glGenerateMipmap = loader_glGenerateMipmap;
-   tbl.glBlitFramebuffer = loader_glBlitFramebuffer;
-   tbl.glRenderbufferStorageMultisample = loader_glRenderbufferStorageMultisample;
-   tbl.glFramebufferTextureLayer = loader_glFramebufferTextureLayer;
-
-// GL_ARB_geometry_shader4
-
-   tbl.glProgramParameteriARB = loader_glProgramParameteriARB;
-   tbl.glFramebufferTextureARB = loader_glFramebufferTextureARB;
-   tbl.glFramebufferTextureLayerARB = loader_glFramebufferTextureLayerARB;
-   tbl.glFramebufferTextureFaceARB = loader_glFramebufferTextureFaceARB;
-
-// GL_ARB_instanced_arrays
-
-   tbl.glVertexAttribDivisorARB = loader_glVertexAttribDivisorARB;
-
-// GL_ARB_map_buffer_range
-
-   tbl.glMapBufferRange = loader_glMapBufferRange;
-   tbl.glFlushMappedBufferRange = loader_glFlushMappedBufferRange;
-
-// GL_ARB_texture_buffer_object
-
-   tbl.glTexBufferARB = loader_glTexBufferARB;
-
-// GL_ARB_vertex_array_object
-
-   tbl.glBindVertexArray = loader_glBindVertexArray;
-   tbl.glDeleteVertexArrays = loader_glDeleteVertexArrays;
-   tbl.glGenVertexArrays = loader_glGenVertexArrays;
-   tbl.glIsVertexArray = loader_glIsVertexArray;
-
-// GL_ARB_uniform_buffer_object
-
-   tbl.glGetUniformIndices = loader_glGetUniformIndices;
-   tbl.glGetActiveUniformsiv = loader_glGetActiveUniformsiv;
-   tbl.glGetActiveUniformName = loader_glGetActiveUniformName;
-   tbl.glGetUniformBlockIndex = loader_glGetUniformBlockIndex;
-   tbl.glGetActiveUniformBlockiv = loader_glGetActiveUniformBlockiv;
-   tbl.glGetActiveUniformBlockName = loader_glGetActiveUniformBlockName;
-   tbl.glUniformBlockBinding = loader_glUniformBlockBinding;
-
-// GL_ARB_copy_buffer
-
-   tbl.glCopyBufferSubData = loader_glCopyBufferSubData;
-
-// GL_ARB_draw_elements_base_vertex
-
-   tbl.glDrawElementsBaseVertex = loader_glDrawElementsBaseVertex;
-   tbl.glDrawRangeElementsBaseVertex = loader_glDrawRangeElementsBaseVertex;
-   tbl.glDrawElementsInstancedBaseVertex = loader_glDrawElementsInstancedBaseVertex;
-   tbl.glMultiDrawElementsBaseVertex = loader_glMultiDrawElementsBaseVertex;
-
-// GL_ARB_provoking_vertex
-
-   tbl.glProvokingVertex = loader_glProvokingVertex;
-
-// GL_ARB_sync
-
-   tbl.glFenceSync = loader_glFenceSync;
-   tbl.glIsSync = loader_glIsSync;
-   tbl.glDeleteSync = loader_glDeleteSync;
-   tbl.glClientWaitSync = loader_glClientWaitSync;
-   tbl.glWaitSync = loader_glWaitSync;
-   tbl.glGetInteger64v = loader_glGetInteger64v;
-   tbl.glGetSynciv = loader_glGetSynciv;
-
-// GL_ARB_texture_multisample
-
-   tbl.glTexImage2DMultisample = loader_glTexImage2DMultisample;
-   tbl.glTexImage3DMultisample = loader_glTexImage3DMultisample;
-   tbl.glGetMultisamplefv = loader_glGetMultisamplefv;
-   tbl.glSampleMaski = loader_glSampleMaski;
-
-// GL_ARB_draw_buffers_blend
-
-   tbl.glBlendEquationiARB = loader_glBlendEquationiARB;
-   tbl.glBlendEquationSeparateiARB = loader_glBlendEquationSeparateiARB;
-   tbl.glBlendFunciARB = loader_glBlendFunciARB;
-   tbl.glBlendFuncSeparateiARB = loader_glBlendFuncSeparateiARB;
-
-// GL_ARB_sample_shading
-
-   tbl.glMinSampleShadingARB = loader_glMinSampleShadingARB;
-
-// GL_ARB_shading_language_include
-
-   tbl.glNamedStringARB = loader_glNamedStringARB;
-   tbl.glDeleteNamedStringARB = loader_glDeleteNamedStringARB;
-   tbl.glCompileShaderIncludeARB = loader_glCompileShaderIncludeARB;
-   tbl.glIsNamedStringARB = loader_glIsNamedStringARB;
-   tbl.glGetNamedStringARB = loader_glGetNamedStringARB;
-   tbl.glGetNamedStringivARB = loader_glGetNamedStringivARB;
-
-// GL_ARB_debug_output
-
-   tbl.glDebugMessageControlARB = loader_glDebugMessageControlARB;
-   tbl.glDebugMessageInsertARB = loader_glDebugMessageInsertARB;
-   tbl.glDebugMessageCallbackARB = loader_glDebugMessageCallbackARB;
-   tbl.glGetDebugMessageLogARB = loader_glGetDebugMessageLogARB;
-
-// GL_ARB_robustness
-
-   tbl.glGetGraphicsResetStatusARB = loader_glGetGraphicsResetStatusARB;
-   tbl.glGetnMapdvARB = loader_glGetnMapdvARB;
-   tbl.glGetnMapfvARB = loader_glGetnMapfvARB;
-   tbl.glGetnMapivARB = loader_glGetnMapivARB;
-   tbl.glGetnPixelMapfvARB = loader_glGetnPixelMapfvARB;
-   tbl.glGetnPixelMapuivARB = loader_glGetnPixelMapuivARB;
-   tbl.glGetnPixelMapusvARB = loader_glGetnPixelMapusvARB;
-   tbl.glGetnPolygonStippleARB = loader_glGetnPolygonStippleARB;
-   tbl.glGetnTexImageARB = loader_glGetnTexImageARB;
-   tbl.glReadnPixelsARB = loader_glReadnPixelsARB;
-   tbl.glGetnColorTableARB = loader_glGetnColorTableARB;
-   tbl.glGetnConvolutionFilterARB = loader_glGetnConvolutionFilterARB;
-   tbl.glGetnSeparableFilterARB = loader_glGetnSeparableFilterARB;
-   tbl.glGetnHistogramARB = loader_glGetnHistogramARB;
-   tbl.glGetnMinmaxARB = loader_glGetnMinmaxARB;
-   tbl.glGetnCompressedTexImageARB = loader_glGetnCompressedTexImageARB;
-   tbl.glGetnUniformfvARB = loader_glGetnUniformfvARB;
-   tbl.glGetnUniformivARB = loader_glGetnUniformivARB;
-   tbl.glGetnUniformuivARB = loader_glGetnUniformuivARB;
-   tbl.glGetnUniformdvARB = loader_glGetnUniformdvARB;
-
-// GL_EXT_blend_color
-
-   tbl.glBlendColorEXT = loader_glBlendColorEXT;
-
-// GL_EXT_polygon_offset
-
-   tbl.glPolygonOffsetEXT = loader_glPolygonOffsetEXT;
-
-// GL_EXT_texture3D
-
-   tbl.glTexImage3DEXT = loader_glTexImage3DEXT;
-
-// GL_SGIS_texture_filter4
-
-   tbl.glGetTexFilterFuncSGIS = loader_glGetTexFilterFuncSGIS;
-   tbl.glTexFilterFuncSGIS = loader_glTexFilterFuncSGIS;
-
-// GL_EXT_subtexture
-
-   tbl.glTexSubImage1DEXT = loader_glTexSubImage1DEXT;
-   tbl.glTexSubImage2DEXT = loader_glTexSubImage2DEXT;
-   tbl.glTexSubImage3DEXT = loader_glTexSubImage3DEXT;
-
-// GL_EXT_copy_texture
-
-   tbl.glCopyTexImage1DEXT = loader_glCopyTexImage1DEXT;
-   tbl.glCopyTexImage2DEXT = loader_glCopyTexImage2DEXT;
-   tbl.glCopyTexSubImage1DEXT = loader_glCopyTexSubImage1DEXT;
-   tbl.glCopyTexSubImage2DEXT = loader_glCopyTexSubImage2DEXT;
-   tbl.glCopyTexSubImage3DEXT = loader_glCopyTexSubImage3DEXT;
-
-// GL_EXT_histogram
-
-   tbl.glGetHistogramEXT = loader_glGetHistogramEXT;
-   tbl.glGetHistogramParameterfvEXT = loader_glGetHistogramParameterfvEXT;
-   tbl.glGetHistogramParameterivEXT = loader_glGetHistogramParameterivEXT;
-   tbl.glGetMinmaxEXT = loader_glGetMinmaxEXT;
-   tbl.glGetMinmaxParameterfvEXT = loader_glGetMinmaxParameterfvEXT;
-   tbl.glGetMinmaxParameterivEXT = loader_glGetMinmaxParameterivEXT;
-   tbl.glHistogramEXT = loader_glHistogramEXT;
-   tbl.glMinmaxEXT = loader_glMinmaxEXT;
-   tbl.glResetHistogramEXT = loader_glResetHistogramEXT;
-   tbl.glResetMinmaxEXT = loader_glResetMinmaxEXT;
-
-// GL_EXT_convolution
-
-   tbl.glConvolutionFilter1DEXT = loader_glConvolutionFilter1DEXT;
-   tbl.glConvolutionFilter2DEXT = loader_glConvolutionFilter2DEXT;
-   tbl.glConvolutionParameterfEXT = loader_glConvolutionParameterfEXT;
-   tbl.glConvolutionParameterfvEXT = loader_glConvolutionParameterfvEXT;
-   tbl.glConvolutionParameteriEXT = loader_glConvolutionParameteriEXT;
-   tbl.glConvolutionParameterivEXT = loader_glConvolutionParameterivEXT;
-   tbl.glCopyConvolutionFilter1DEXT = loader_glCopyConvolutionFilter1DEXT;
-   tbl.glCopyConvolutionFilter2DEXT = loader_glCopyConvolutionFilter2DEXT;
-   tbl.glGetConvolutionFilterEXT = loader_glGetConvolutionFilterEXT;
-   tbl.glGetConvolutionParameterfvEXT = loader_glGetConvolutionParameterfvEXT;
-   tbl.glGetConvolutionParameterivEXT = loader_glGetConvolutionParameterivEXT;
-   tbl.glGetSeparableFilterEXT = loader_glGetSeparableFilterEXT;
-   tbl.glSeparableFilter2DEXT = loader_glSeparableFilter2DEXT;
-
-// GL_SGI_color_table
-
-   tbl.glColorTableSGI = loader_glColorTableSGI;
-   tbl.glColorTableParameterfvSGI = loader_glColorTableParameterfvSGI;
-   tbl.glColorTableParameterivSGI = loader_glColorTableParameterivSGI;
-   tbl.glCopyColorTableSGI = loader_glCopyColorTableSGI;
-   tbl.glGetColorTableSGI = loader_glGetColorTableSGI;
-   tbl.glGetColorTableParameterfvSGI = loader_glGetColorTableParameterfvSGI;
-   tbl.glGetColorTableParameterivSGI = loader_glGetColorTableParameterivSGI;
-
-// GL_SGIX_pixel_texture
-
-   tbl.glPixelTexGenSGIX = loader_glPixelTexGenSGIX;
-
-// GL_SGIS_pixel_texture
-
-   tbl.glPixelTexGenParameteriSGIS = loader_glPixelTexGenParameteriSGIS;
-   tbl.glPixelTexGenParameterivSGIS = loader_glPixelTexGenParameterivSGIS;
-   tbl.glPixelTexGenParameterfSGIS = loader_glPixelTexGenParameterfSGIS;
-   tbl.glPixelTexGenParameterfvSGIS = loader_glPixelTexGenParameterfvSGIS;
-   tbl.glGetPixelTexGenParameterivSGIS = loader_glGetPixelTexGenParameterivSGIS;
-   tbl.glGetPixelTexGenParameterfvSGIS = loader_glGetPixelTexGenParameterfvSGIS;
-
-// GL_SGIS_texture4D
-
-   tbl.glTexImage4DSGIS = loader_glTexImage4DSGIS;
-   tbl.glTexSubImage4DSGIS = loader_glTexSubImage4DSGIS;
-
-// GL_EXT_texture_object
-
-   tbl.glAreTexturesResidentEXT = loader_glAreTexturesResidentEXT;
-   tbl.glBindTextureEXT = loader_glBindTextureEXT;
-   tbl.glDeleteTexturesEXT = loader_glDeleteTexturesEXT;
-   tbl.glGenTexturesEXT = loader_glGenTexturesEXT;
-   tbl.glIsTextureEXT = loader_glIsTextureEXT;
-   tbl.glPrioritizeTexturesEXT = loader_glPrioritizeTexturesEXT;
-
-// GL_SGIS_detail_texture
-
-   tbl.glDetailTexFuncSGIS = loader_glDetailTexFuncSGIS;
-   tbl.glGetDetailTexFuncSGIS = loader_glGetDetailTexFuncSGIS;
-
-// GL_SGIS_sharpen_texture
-
-   tbl.glSharpenTexFuncSGIS = loader_glSharpenTexFuncSGIS;
-   tbl.glGetSharpenTexFuncSGIS = loader_glGetSharpenTexFuncSGIS;
-
-// GL_SGIS_multisample
-
-   tbl.glSampleMaskSGIS = loader_glSampleMaskSGIS;
-   tbl.glSamplePatternSGIS = loader_glSamplePatternSGIS;
-
-// GL_EXT_vertex_array
-
-   tbl.glArrayElementEXT = loader_glArrayElementEXT;
-   tbl.glColorPointerEXT = loader_glColorPointerEXT;
-   tbl.glDrawArraysEXT = loader_glDrawArraysEXT;
-   tbl.glEdgeFlagPointerEXT = loader_glEdgeFlagPointerEXT;
-   tbl.glGetPointervEXT = loader_glGetPointervEXT;
-   tbl.glIndexPointerEXT = loader_glIndexPointerEXT;
-   tbl.glNormalPointerEXT = loader_glNormalPointerEXT;
-   tbl.glTexCoordPointerEXT = loader_glTexCoordPointerEXT;
-   tbl.glVertexPointerEXT = loader_glVertexPointerEXT;
-
-// GL_EXT_blend_minmax
-
-   tbl.glBlendEquationEXT = loader_glBlendEquationEXT;
-
-// GL_SGIX_sprite
-
-   tbl.glSpriteParameterfSGIX = loader_glSpriteParameterfSGIX;
-   tbl.glSpriteParameterfvSGIX = loader_glSpriteParameterfvSGIX;
-   tbl.glSpriteParameteriSGIX = loader_glSpriteParameteriSGIX;
-   tbl.glSpriteParameterivSGIX = loader_glSpriteParameterivSGIX;
-
-// GL_EXT_point_parameters
-
-   tbl.glPointParameterfEXT = loader_glPointParameterfEXT;
-   tbl.glPointParameterfvEXT = loader_glPointParameterfvEXT;
-
-// GL_SGIS_point_parameters
-
-   tbl.glPointParameterfSGIS = loader_glPointParameterfSGIS;
-   tbl.glPointParameterfvSGIS = loader_glPointParameterfvSGIS;
-
-// GL_SGIX_instruments
-
-   tbl.glGetInstrumentsSGIX = loader_glGetInstrumentsSGIX;
-   tbl.glInstrumentsBufferSGIX = loader_glInstrumentsBufferSGIX;
-   tbl.glPollInstrumentsSGIX = loader_glPollInstrumentsSGIX;
-   tbl.glReadInstrumentsSGIX = loader_glReadInstrumentsSGIX;
-   tbl.glStartInstrumentsSGIX = loader_glStartInstrumentsSGIX;
-   tbl.glStopInstrumentsSGIX = loader_glStopInstrumentsSGIX;
-
-// GL_SGIX_framezoom
-
-   tbl.glFrameZoomSGIX = loader_glFrameZoomSGIX;
-
-// GL_SGIX_tag_sample_buffer
-
-   tbl.glTagSampleBufferSGIX = loader_glTagSampleBufferSGIX;
-
-// GL_SGIX_polynomial_ffd
-
-   tbl.glDeformationMap3dSGIX = loader_glDeformationMap3dSGIX;
-   tbl.glDeformationMap3fSGIX = loader_glDeformationMap3fSGIX;
-   tbl.glDeformSGIX = loader_glDeformSGIX;
-   tbl.glLoadIdentityDeformationMapSGIX = loader_glLoadIdentityDeformationMapSGIX;
-
-// GL_SGIX_reference_plane
-
-   tbl.glReferencePlaneSGIX = loader_glReferencePlaneSGIX;
-
-// GL_SGIX_flush_raster
-
-   tbl.glFlushRasterSGIX = loader_glFlushRasterSGIX;
-
-// GL_SGIS_fog_function
-
-   tbl.glFogFuncSGIS = loader_glFogFuncSGIS;
-   tbl.glGetFogFuncSGIS = loader_glGetFogFuncSGIS;
-
-// GL_HP_image_transform
-
-   tbl.glImageTransformParameteriHP = loader_glImageTransformParameteriHP;
-   tbl.glImageTransformParameterfHP = loader_glImageTransformParameterfHP;
-   tbl.glImageTransformParameterivHP = loader_glImageTransformParameterivHP;
-   tbl.glImageTransformParameterfvHP = loader_glImageTransformParameterfvHP;
-   tbl.glGetImageTransformParameterivHP = loader_glGetImageTransformParameterivHP;
-   tbl.glGetImageTransformParameterfvHP = loader_glGetImageTransformParameterfvHP;
-
-// GL_EXT_color_subtable
-
-   tbl.glColorSubTableEXT = loader_glColorSubTableEXT;
-   tbl.glCopyColorSubTableEXT = loader_glCopyColorSubTableEXT;
-
-// GL_PGI_misc_hints
-
-   tbl.glHintPGI = loader_glHintPGI;
-
-// GL_EXT_paletted_texture
-
-   tbl.glColorTableEXT = loader_glColorTableEXT;
-   tbl.glGetColorTableEXT = loader_glGetColorTableEXT;
-   tbl.glGetColorTableParameterivEXT = loader_glGetColorTableParameterivEXT;
-   tbl.glGetColorTableParameterfvEXT = loader_glGetColorTableParameterfvEXT;
-
-// GL_SGIX_list_priority
-
-   tbl.glGetListParameterfvSGIX = loader_glGetListParameterfvSGIX;
-   tbl.glGetListParameterivSGIX = loader_glGetListParameterivSGIX;
-   tbl.glListParameterfSGIX = loader_glListParameterfSGIX;
-   tbl.glListParameterfvSGIX = loader_glListParameterfvSGIX;
-   tbl.glListParameteriSGIX = loader_glListParameteriSGIX;
-   tbl.glListParameterivSGIX = loader_glListParameterivSGIX;
-
-// GL_EXT_index_material
-
-   tbl.glIndexMaterialEXT = loader_glIndexMaterialEXT;
-
-// GL_EXT_index_func
-
-   tbl.glIndexFuncEXT = loader_glIndexFuncEXT;
-
-// GL_EXT_compiled_vertex_array
-
-   tbl.glLockArraysEXT = loader_glLockArraysEXT;
-   tbl.glUnlockArraysEXT = loader_glUnlockArraysEXT;
-
-// GL_EXT_cull_vertex
-
-   tbl.glCullParameterdvEXT = loader_glCullParameterdvEXT;
-   tbl.glCullParameterfvEXT = loader_glCullParameterfvEXT;
-
-// GL_SGIX_fragment_lighting
-
-   tbl.glFragmentColorMaterialSGIX = loader_glFragmentColorMaterialSGIX;
-   tbl.glFragmentLightfSGIX = loader_glFragmentLightfSGIX;
-   tbl.glFragmentLightfvSGIX = loader_glFragmentLightfvSGIX;
-   tbl.glFragmentLightiSGIX = loader_glFragmentLightiSGIX;
-   tbl.glFragmentLightivSGIX = loader_glFragmentLightivSGIX;
-   tbl.glFragmentLightModelfSGIX = loader_glFragmentLightModelfSGIX;
-   tbl.glFragmentLightModelfvSGIX = loader_glFragmentLightModelfvSGIX;
-   tbl.glFragmentLightModeliSGIX = loader_glFragmentLightModeliSGIX;
-   tbl.glFragmentLightModelivSGIX = loader_glFragmentLightModelivSGIX;
-   tbl.glFragmentMaterialfSGIX = loader_glFragmentMaterialfSGIX;
-   tbl.glFragmentMaterialfvSGIX = loader_glFragmentMaterialfvSGIX;
-   tbl.glFragmentMaterialiSGIX = loader_glFragmentMaterialiSGIX;
-   tbl.glFragmentMaterialivSGIX = loader_glFragmentMaterialivSGIX;
-   tbl.glGetFragmentLightfvSGIX = loader_glGetFragmentLightfvSGIX;
-   tbl.glGetFragmentLightivSGIX = loader_glGetFragmentLightivSGIX;
-   tbl.glGetFragmentMaterialfvSGIX = loader_glGetFragmentMaterialfvSGIX;
-   tbl.glGetFragmentMaterialivSGIX = loader_glGetFragmentMaterialivSGIX;
-   tbl.glLightEnviSGIX = loader_glLightEnviSGIX;
-
-// GL_EXT_draw_range_elements
-
-   tbl.glDrawRangeElementsEXT = loader_glDrawRangeElementsEXT;
-
-// GL_EXT_light_texture
-
-   tbl.glApplyTextureEXT = loader_glApplyTextureEXT;
-   tbl.glTextureLightEXT = loader_glTextureLightEXT;
-   tbl.glTextureMaterialEXT = loader_glTextureMaterialEXT;
-
-// GL_EXT_scene_marker
-
-   tbl.glBeginSceneEXT = loader_glBeginSceneEXT;
-   tbl.glEndSceneEXT = loader_glEndSceneEXT;
-
-// GL_SGIX_async
-
-   tbl.glAsyncMarkerSGIX = loader_glAsyncMarkerSGIX;
-   tbl.glFinishAsyncSGIX = loader_glFinishAsyncSGIX;
-   tbl.glPollAsyncSGIX = loader_glPollAsyncSGIX;
-   tbl.glGenAsyncMarkersSGIX = loader_glGenAsyncMarkersSGIX;
-   tbl.glDeleteAsyncMarkersSGIX = loader_glDeleteAsyncMarkersSGIX;
-   tbl.glIsAsyncMarkerSGIX = loader_glIsAsyncMarkerSGIX;
-
-// GL_INTEL_parallel_arrays
-
-   tbl.glVertexPointervINTEL = loader_glVertexPointervINTEL;
-   tbl.glNormalPointervINTEL = loader_glNormalPointervINTEL;
-   tbl.glColorPointervINTEL = loader_glColorPointervINTEL;
-   tbl.glTexCoordPointervINTEL = loader_glTexCoordPointervINTEL;
-
-// GL_EXT_pixel_transform
-
-   tbl.glPixelTransformParameteriEXT = loader_glPixelTransformParameteriEXT;
-   tbl.glPixelTransformParameterfEXT = loader_glPixelTransformParameterfEXT;
-   tbl.glPixelTransformParameterivEXT = loader_glPixelTransformParameterivEXT;
-   tbl.glPixelTransformParameterfvEXT = loader_glPixelTransformParameterfvEXT;
-
-// GL_EXT_secondary_color
-
-   tbl.glSecondaryColor3bEXT = loader_glSecondaryColor3bEXT;
-   tbl.glSecondaryColor3bvEXT = loader_glSecondaryColor3bvEXT;
-   tbl.glSecondaryColor3dEXT = loader_glSecondaryColor3dEXT;
-   tbl.glSecondaryColor3dvEXT = loader_glSecondaryColor3dvEXT;
-   tbl.glSecondaryColor3fEXT = loader_glSecondaryColor3fEXT;
-   tbl.glSecondaryColor3fvEXT = loader_glSecondaryColor3fvEXT;
-   tbl.glSecondaryColor3iEXT = loader_glSecondaryColor3iEXT;
-   tbl.glSecondaryColor3ivEXT = loader_glSecondaryColor3ivEXT;
-   tbl.glSecondaryColor3sEXT = loader_glSecondaryColor3sEXT;
-   tbl.glSecondaryColor3svEXT = loader_glSecondaryColor3svEXT;
-   tbl.glSecondaryColor3ubEXT = loader_glSecondaryColor3ubEXT;
-   tbl.glSecondaryColor3ubvEXT = loader_glSecondaryColor3ubvEXT;
-   tbl.glSecondaryColor3uiEXT = loader_glSecondaryColor3uiEXT;
-   tbl.glSecondaryColor3uivEXT = loader_glSecondaryColor3uivEXT;
-   tbl.glSecondaryColor3usEXT = loader_glSecondaryColor3usEXT;
-   tbl.glSecondaryColor3usvEXT = loader_glSecondaryColor3usvEXT;
-   tbl.glSecondaryColorPointerEXT = loader_glSecondaryColorPointerEXT;
-
-// GL_EXT_texture_perturb_normal
-
-   tbl.glTextureNormalEXT = loader_glTextureNormalEXT;
-
-// GL_EXT_multi_draw_arrays
-
-   tbl.glMultiDrawArraysEXT = loader_glMultiDrawArraysEXT;
-   tbl.glMultiDrawElementsEXT = loader_glMultiDrawElementsEXT;
-
-// GL_EXT_fog_coord
-
-   tbl.glFogCoordfEXT = loader_glFogCoordfEXT;
-   tbl.glFogCoordfvEXT = loader_glFogCoordfvEXT;
-   tbl.glFogCoorddEXT = loader_glFogCoorddEXT;
-   tbl.glFogCoorddvEXT = loader_glFogCoorddvEXT;
-   tbl.glFogCoordPointerEXT = loader_glFogCoordPointerEXT;
-
-// GL_EXT_coordinate_frame
-
-   tbl.glTangent3bEXT = loader_glTangent3bEXT;
-   tbl.glTangent3bvEXT = loader_glTangent3bvEXT;
-   tbl.glTangent3dEXT = loader_glTangent3dEXT;
-   tbl.glTangent3dvEXT = loader_glTangent3dvEXT;
-   tbl.glTangent3fEXT = loader_glTangent3fEXT;
-   tbl.glTangent3fvEXT = loader_glTangent3fvEXT;
-   tbl.glTangent3iEXT = loader_glTangent3iEXT;
-   tbl.glTangent3ivEXT = loader_glTangent3ivEXT;
-   tbl.glTangent3sEXT = loader_glTangent3sEXT;
-   tbl.glTangent3svEXT = loader_glTangent3svEXT;
-   tbl.glBinormal3bEXT = loader_glBinormal3bEXT;
-   tbl.glBinormal3bvEXT = loader_glBinormal3bvEXT;
-   tbl.glBinormal3dEXT = loader_glBinormal3dEXT;
-   tbl.glBinormal3dvEXT = loader_glBinormal3dvEXT;
-   tbl.glBinormal3fEXT = loader_glBinormal3fEXT;
-   tbl.glBinormal3fvEXT = loader_glBinormal3fvEXT;
-   tbl.glBinormal3iEXT = loader_glBinormal3iEXT;
-   tbl.glBinormal3ivEXT = loader_glBinormal3ivEXT;
-   tbl.glBinormal3sEXT = loader_glBinormal3sEXT;
-   tbl.glBinormal3svEXT = loader_glBinormal3svEXT;
-   tbl.glTangentPointerEXT = loader_glTangentPointerEXT;
-   tbl.glBinormalPointerEXT = loader_glBinormalPointerEXT;
-
-// GL_SUNX_constant_data
-
-   tbl.glFinishTextureSUNX = loader_glFinishTextureSUNX;
-
-// GL_SUN_global_alpha
-
-   tbl.glGlobalAlphaFactorbSUN = loader_glGlobalAlphaFactorbSUN;
-   tbl.glGlobalAlphaFactorsSUN = loader_glGlobalAlphaFactorsSUN;
-   tbl.glGlobalAlphaFactoriSUN = loader_glGlobalAlphaFactoriSUN;
-   tbl.glGlobalAlphaFactorfSUN = loader_glGlobalAlphaFactorfSUN;
-   tbl.glGlobalAlphaFactordSUN = loader_glGlobalAlphaFactordSUN;
-   tbl.glGlobalAlphaFactorubSUN = loader_glGlobalAlphaFactorubSUN;
-   tbl.glGlobalAlphaFactorusSUN = loader_glGlobalAlphaFactorusSUN;
-   tbl.glGlobalAlphaFactoruiSUN = loader_glGlobalAlphaFactoruiSUN;
-
-// GL_SUN_triangle_list
-
-   tbl.glReplacementCodeuiSUN = loader_glReplacementCodeuiSUN;
-   tbl.glReplacementCodeusSUN = loader_glReplacementCodeusSUN;
-   tbl.glReplacementCodeubSUN = loader_glReplacementCodeubSUN;
-   tbl.glReplacementCodeuivSUN = loader_glReplacementCodeuivSUN;
-   tbl.glReplacementCodeusvSUN = loader_glReplacementCodeusvSUN;
-   tbl.glReplacementCodeubvSUN = loader_glReplacementCodeubvSUN;
-   tbl.glReplacementCodePointerSUN = loader_glReplacementCodePointerSUN;
-
-// GL_SUN_vertex
-
-   tbl.glColor4ubVertex2fSUN = loader_glColor4ubVertex2fSUN;
-   tbl.glColor4ubVertex2fvSUN = loader_glColor4ubVertex2fvSUN;
-   tbl.glColor4ubVertex3fSUN = loader_glColor4ubVertex3fSUN;
-   tbl.glColor4ubVertex3fvSUN = loader_glColor4ubVertex3fvSUN;
-   tbl.glColor3fVertex3fSUN = loader_glColor3fVertex3fSUN;
-   tbl.glColor3fVertex3fvSUN = loader_glColor3fVertex3fvSUN;
-   tbl.glNormal3fVertex3fSUN = loader_glNormal3fVertex3fSUN;
-   tbl.glNormal3fVertex3fvSUN = loader_glNormal3fVertex3fvSUN;
-   tbl.glColor4fNormal3fVertex3fSUN = loader_glColor4fNormal3fVertex3fSUN;
-   tbl.glColor4fNormal3fVertex3fvSUN = loader_glColor4fNormal3fVertex3fvSUN;
-   tbl.glTexCoord2fVertex3fSUN = loader_glTexCoord2fVertex3fSUN;
-   tbl.glTexCoord2fVertex3fvSUN = loader_glTexCoord2fVertex3fvSUN;
-   tbl.glTexCoord4fVertex4fSUN = loader_glTexCoord4fVertex4fSUN;
-   tbl.glTexCoord4fVertex4fvSUN = loader_glTexCoord4fVertex4fvSUN;
-   tbl.glTexCoord2fColor4ubVertex3fSUN = loader_glTexCoord2fColor4ubVertex3fSUN;
-   tbl.glTexCoord2fColor4ubVertex3fvSUN = loader_glTexCoord2fColor4ubVertex3fvSUN;
-   tbl.glTexCoord2fColor3fVertex3fSUN = loader_glTexCoord2fColor3fVertex3fSUN;
-   tbl.glTexCoord2fColor3fVertex3fvSUN = loader_glTexCoord2fColor3fVertex3fvSUN;
-   tbl.glTexCoord2fNormal3fVertex3fSUN = loader_glTexCoord2fNormal3fVertex3fSUN;
-   tbl.glTexCoord2fNormal3fVertex3fvSUN = loader_glTexCoord2fNormal3fVertex3fvSUN;
-   tbl.glTexCoord2fColor4fNormal3fVertex3fSUN = loader_glTexCoord2fColor4fNormal3fVertex3fSUN;
-   tbl.glTexCoord2fColor4fNormal3fVertex3fvSUN = loader_glTexCoord2fColor4fNormal3fVertex3fvSUN;
-   tbl.glTexCoord4fColor4fNormal3fVertex4fSUN = loader_glTexCoord4fColor4fNormal3fVertex4fSUN;
-   tbl.glTexCoord4fColor4fNormal3fVertex4fvSUN = loader_glTexCoord4fColor4fNormal3fVertex4fvSUN;
-   tbl.glReplacementCodeuiVertex3fSUN = loader_glReplacementCodeuiVertex3fSUN;
-   tbl.glReplacementCodeuiVertex3fvSUN = loader_glReplacementCodeuiVertex3fvSUN;
-   tbl.glReplacementCodeuiColor4ubVertex3fSUN = loader_glReplacementCodeuiColor4ubVertex3fSUN;
-   tbl.glReplacementCodeuiColor4ubVertex3fvSUN = loader_glReplacementCodeuiColor4ubVertex3fvSUN;
-   tbl.glReplacementCodeuiColor3fVertex3fSUN = loader_glReplacementCodeuiColor3fVertex3fSUN;
-   tbl.glReplacementCodeuiColor3fVertex3fvSUN = loader_glReplacementCodeuiColor3fVertex3fvSUN;
-   tbl.glReplacementCodeuiNormal3fVertex3fSUN = loader_glReplacementCodeuiNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiNormal3fVertex3fvSUN = loader_glReplacementCodeuiNormal3fVertex3fvSUN;
-   tbl.glReplacementCodeuiColor4fNormal3fVertex3fSUN = loader_glReplacementCodeuiColor4fNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiColor4fNormal3fVertex3fvSUN = loader_glReplacementCodeuiColor4fNormal3fVertex3fvSUN;
-   tbl.glReplacementCodeuiTexCoord2fVertex3fSUN = loader_glReplacementCodeuiTexCoord2fVertex3fSUN;
-   tbl.glReplacementCodeuiTexCoord2fVertex3fvSUN = loader_glReplacementCodeuiTexCoord2fVertex3fvSUN;
-   tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN = loader_glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN = loader_glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN;
-   tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN = loader_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN = loader_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN;
-
-// GL_EXT_blend_func_separate
-
-   tbl.glBlendFuncSeparateEXT = loader_glBlendFuncSeparateEXT;
-
-// GL_INGR_blend_func_separate
-
-   tbl.glBlendFuncSeparateINGR = loader_glBlendFuncSeparateINGR;
-
-// GL_EXT_vertex_weighting
-
-   tbl.glVertexWeightfEXT = loader_glVertexWeightfEXT;
-   tbl.glVertexWeightfvEXT = loader_glVertexWeightfvEXT;
-   tbl.glVertexWeightPointerEXT = loader_glVertexWeightPointerEXT;
-
-// GL_NV_vertex_array_range
-
-   tbl.glFlushVertexArrayRangeNV = loader_glFlushVertexArrayRangeNV;
-   tbl.glVertexArrayRangeNV = loader_glVertexArrayRangeNV;
-
-// GL_NV_register_combiners
-
-   tbl.glCombinerParameterfvNV = loader_glCombinerParameterfvNV;
-   tbl.glCombinerParameterfNV = loader_glCombinerParameterfNV;
-   tbl.glCombinerParameterivNV = loader_glCombinerParameterivNV;
-   tbl.glCombinerParameteriNV = loader_glCombinerParameteriNV;
-   tbl.glCombinerInputNV = loader_glCombinerInputNV;
-   tbl.glCombinerOutputNV = loader_glCombinerOutputNV;
-   tbl.glFinalCombinerInputNV = loader_glFinalCombinerInputNV;
-   tbl.glGetCombinerInputParameterfvNV = loader_glGetCombinerInputParameterfvNV;
-   tbl.glGetCombinerInputParameterivNV = loader_glGetCombinerInputParameterivNV;
-   tbl.glGetCombinerOutputParameterfvNV = loader_glGetCombinerOutputParameterfvNV;
-   tbl.glGetCombinerOutputParameterivNV = loader_glGetCombinerOutputParameterivNV;
-   tbl.glGetFinalCombinerInputParameterfvNV = loader_glGetFinalCombinerInputParameterfvNV;
-   tbl.glGetFinalCombinerInputParameterivNV = loader_glGetFinalCombinerInputParameterivNV;
-
-// GL_MESA_resize_buffers
-
-   tbl.glResizeBuffersMESA = loader_glResizeBuffersMESA;
-
-// GL_MESA_window_pos
-
-   tbl.glWindowPos2dMESA = loader_glWindowPos2dMESA;
-   tbl.glWindowPos2dvMESA = loader_glWindowPos2dvMESA;
-   tbl.glWindowPos2fMESA = loader_glWindowPos2fMESA;
-   tbl.glWindowPos2fvMESA = loader_glWindowPos2fvMESA;
-   tbl.glWindowPos2iMESA = loader_glWindowPos2iMESA;
-   tbl.glWindowPos2ivMESA = loader_glWindowPos2ivMESA;
-   tbl.glWindowPos2sMESA = loader_glWindowPos2sMESA;
-   tbl.glWindowPos2svMESA = loader_glWindowPos2svMESA;
-   tbl.glWindowPos3dMESA = loader_glWindowPos3dMESA;
-   tbl.glWindowPos3dvMESA = loader_glWindowPos3dvMESA;
-   tbl.glWindowPos3fMESA = loader_glWindowPos3fMESA;
-   tbl.glWindowPos3fvMESA = loader_glWindowPos3fvMESA;
-   tbl.glWindowPos3iMESA = loader_glWindowPos3iMESA;
-   tbl.glWindowPos3ivMESA = loader_glWindowPos3ivMESA;
-   tbl.glWindowPos3sMESA = loader_glWindowPos3sMESA;
-   tbl.glWindowPos3svMESA = loader_glWindowPos3svMESA;
-   tbl.glWindowPos4dMESA = loader_glWindowPos4dMESA;
-   tbl.glWindowPos4dvMESA = loader_glWindowPos4dvMESA;
-   tbl.glWindowPos4fMESA = loader_glWindowPos4fMESA;
-   tbl.glWindowPos4fvMESA = loader_glWindowPos4fvMESA;
-   tbl.glWindowPos4iMESA = loader_glWindowPos4iMESA;
-   tbl.glWindowPos4ivMESA = loader_glWindowPos4ivMESA;
-   tbl.glWindowPos4sMESA = loader_glWindowPos4sMESA;
-   tbl.glWindowPos4svMESA = loader_glWindowPos4svMESA;
-
-// GL_IBM_multimode_draw_arrays
-
-   tbl.glMultiModeDrawArraysIBM = loader_glMultiModeDrawArraysIBM;
-   tbl.glMultiModeDrawElementsIBM = loader_glMultiModeDrawElementsIBM;
-
-// GL_IBM_vertex_array_lists
-
-   tbl.glColorPointerListIBM = loader_glColorPointerListIBM;
-   tbl.glSecondaryColorPointerListIBM = loader_glSecondaryColorPointerListIBM;
-   tbl.glEdgeFlagPointerListIBM = loader_glEdgeFlagPointerListIBM;
-   tbl.glFogCoordPointerListIBM = loader_glFogCoordPointerListIBM;
-   tbl.glIndexPointerListIBM = loader_glIndexPointerListIBM;
-   tbl.glNormalPointerListIBM = loader_glNormalPointerListIBM;
-   tbl.glTexCoordPointerListIBM = loader_glTexCoordPointerListIBM;
-   tbl.glVertexPointerListIBM = loader_glVertexPointerListIBM;
-
-// GL_3DFX_tbuffer
-
-   tbl.glTbufferMask3DFX = loader_glTbufferMask3DFX;
-
-// GL_EXT_multisample
-
-   tbl.glSampleMaskEXT = loader_glSampleMaskEXT;
-   tbl.glSamplePatternEXT = loader_glSamplePatternEXT;
-
-// GL_SGIS_texture_color_mask
-
-   tbl.glTextureColorMaskSGIS = loader_glTextureColorMaskSGIS;
-
-// GL_SGIX_igloo_interface
-
-   tbl.glIglooInterfaceSGIX = loader_glIglooInterfaceSGIX;
-
-// GL_NV_fence
-
-   tbl.glDeleteFencesNV = loader_glDeleteFencesNV;
-   tbl.glGenFencesNV = loader_glGenFencesNV;
-   tbl.glIsFenceNV = loader_glIsFenceNV;
-   tbl.glTestFenceNV = loader_glTestFenceNV;
-   tbl.glGetFenceivNV = loader_glGetFenceivNV;
-   tbl.glFinishFenceNV = loader_glFinishFenceNV;
-   tbl.glSetFenceNV = loader_glSetFenceNV;
-
-// GL_NV_evaluators
-
-   tbl.glMapControlPointsNV = loader_glMapControlPointsNV;
-   tbl.glMapParameterivNV = loader_glMapParameterivNV;
-   tbl.glMapParameterfvNV = loader_glMapParameterfvNV;
-   tbl.glGetMapControlPointsNV = loader_glGetMapControlPointsNV;
-   tbl.glGetMapParameterivNV = loader_glGetMapParameterivNV;
-   tbl.glGetMapParameterfvNV = loader_glGetMapParameterfvNV;
-   tbl.glGetMapAttribParameterivNV = loader_glGetMapAttribParameterivNV;
-   tbl.glGetMapAttribParameterfvNV = loader_glGetMapAttribParameterfvNV;
-   tbl.glEvalMapsNV = loader_glEvalMapsNV;
-
-// GL_NV_register_combiners2
-
-   tbl.glCombinerStageParameterfvNV = loader_glCombinerStageParameterfvNV;
-   tbl.glGetCombinerStageParameterfvNV = loader_glGetCombinerStageParameterfvNV;
-
-// GL_NV_vertex_program
-
-   tbl.glAreProgramsResidentNV = loader_glAreProgramsResidentNV;
-   tbl.glBindProgramNV = loader_glBindProgramNV;
-   tbl.glDeleteProgramsNV = loader_glDeleteProgramsNV;
-   tbl.glExecuteProgramNV = loader_glExecuteProgramNV;
-   tbl.glGenProgramsNV = loader_glGenProgramsNV;
-   tbl.glGetProgramParameterdvNV = loader_glGetProgramParameterdvNV;
-   tbl.glGetProgramParameterfvNV = loader_glGetProgramParameterfvNV;
-   tbl.glGetProgramivNV = loader_glGetProgramivNV;
-   tbl.glGetProgramStringNV = loader_glGetProgramStringNV;
-   tbl.glGetTrackMatrixivNV = loader_glGetTrackMatrixivNV;
-   tbl.glGetVertexAttribdvNV = loader_glGetVertexAttribdvNV;
-   tbl.glGetVertexAttribfvNV = loader_glGetVertexAttribfvNV;
-   tbl.glGetVertexAttribivNV = loader_glGetVertexAttribivNV;
-   tbl.glGetVertexAttribPointervNV = loader_glGetVertexAttribPointervNV;
-   tbl.glIsProgramNV = loader_glIsProgramNV;
-   tbl.glLoadProgramNV = loader_glLoadProgramNV;
-   tbl.glProgramParameter4dNV = loader_glProgramParameter4dNV;
-   tbl.glProgramParameter4dvNV = loader_glProgramParameter4dvNV;
-   tbl.glProgramParameter4fNV = loader_glProgramParameter4fNV;
-   tbl.glProgramParameter4fvNV = loader_glProgramParameter4fvNV;
-   tbl.glProgramParameters4dvNV = loader_glProgramParameters4dvNV;
-   tbl.glProgramParameters4fvNV = loader_glProgramParameters4fvNV;
-   tbl.glRequestResidentProgramsNV = loader_glRequestResidentProgramsNV;
-   tbl.glTrackMatrixNV = loader_glTrackMatrixNV;
-   tbl.glVertexAttribPointerNV = loader_glVertexAttribPointerNV;
-   tbl.glVertexAttrib1dNV = loader_glVertexAttrib1dNV;
-   tbl.glVertexAttrib1dvNV = loader_glVertexAttrib1dvNV;
-   tbl.glVertexAttrib1fNV = loader_glVertexAttrib1fNV;
-   tbl.glVertexAttrib1fvNV = loader_glVertexAttrib1fvNV;
-   tbl.glVertexAttrib1sNV = loader_glVertexAttrib1sNV;
-   tbl.glVertexAttrib1svNV = loader_glVertexAttrib1svNV;
-   tbl.glVertexAttrib2dNV = loader_glVertexAttrib2dNV;
-   tbl.glVertexAttrib2dvNV = loader_glVertexAttrib2dvNV;
-   tbl.glVertexAttrib2fNV = loader_glVertexAttrib2fNV;
-   tbl.glVertexAttrib2fvNV = loader_glVertexAttrib2fvNV;
-   tbl.glVertexAttrib2sNV = loader_glVertexAttrib2sNV;
-   tbl.glVertexAttrib2svNV = loader_glVertexAttrib2svNV;
-   tbl.glVertexAttrib3dNV = loader_glVertexAttrib3dNV;
-   tbl.glVertexAttrib3dvNV = loader_glVertexAttrib3dvNV;
-   tbl.glVertexAttrib3fNV = loader_glVertexAttrib3fNV;
-   tbl.glVertexAttrib3fvNV = loader_glVertexAttrib3fvNV;
-   tbl.glVertexAttrib3sNV = loader_glVertexAttrib3sNV;
-   tbl.glVertexAttrib3svNV = loader_glVertexAttrib3svNV;
-   tbl.glVertexAttrib4dNV = loader_glVertexAttrib4dNV;
-   tbl.glVertexAttrib4dvNV = loader_glVertexAttrib4dvNV;
-   tbl.glVertexAttrib4fNV = loader_glVertexAttrib4fNV;
-   tbl.glVertexAttrib4fvNV = loader_glVertexAttrib4fvNV;
-   tbl.glVertexAttrib4sNV = loader_glVertexAttrib4sNV;
-   tbl.glVertexAttrib4svNV = loader_glVertexAttrib4svNV;
-   tbl.glVertexAttrib4ubNV = loader_glVertexAttrib4ubNV;
-   tbl.glVertexAttrib4ubvNV = loader_glVertexAttrib4ubvNV;
-   tbl.glVertexAttribs1dvNV = loader_glVertexAttribs1dvNV;
-   tbl.glVertexAttribs1fvNV = loader_glVertexAttribs1fvNV;
-   tbl.glVertexAttribs1svNV = loader_glVertexAttribs1svNV;
-   tbl.glVertexAttribs2dvNV = loader_glVertexAttribs2dvNV;
-   tbl.glVertexAttribs2fvNV = loader_glVertexAttribs2fvNV;
-   tbl.glVertexAttribs2svNV = loader_glVertexAttribs2svNV;
-   tbl.glVertexAttribs3dvNV = loader_glVertexAttribs3dvNV;
-   tbl.glVertexAttribs3fvNV = loader_glVertexAttribs3fvNV;
-   tbl.glVertexAttribs3svNV = loader_glVertexAttribs3svNV;
-   tbl.glVertexAttribs4dvNV = loader_glVertexAttribs4dvNV;
-   tbl.glVertexAttribs4fvNV = loader_glVertexAttribs4fvNV;
-   tbl.glVertexAttribs4svNV = loader_glVertexAttribs4svNV;
-   tbl.glVertexAttribs4ubvNV = loader_glVertexAttribs4ubvNV;
-
-// GL_ATI_envmap_bumpmap
-
-   tbl.glTexBumpParameterivATI = loader_glTexBumpParameterivATI;
-   tbl.glTexBumpParameterfvATI = loader_glTexBumpParameterfvATI;
-   tbl.glGetTexBumpParameterivATI = loader_glGetTexBumpParameterivATI;
-   tbl.glGetTexBumpParameterfvATI = loader_glGetTexBumpParameterfvATI;
-
-// GL_ATI_fragment_shader
-
-   tbl.glGenFragmentShadersATI = loader_glGenFragmentShadersATI;
-   tbl.glBindFragmentShaderATI = loader_glBindFragmentShaderATI;
-   tbl.glDeleteFragmentShaderATI = loader_glDeleteFragmentShaderATI;
-   tbl.glBeginFragmentShaderATI = loader_glBeginFragmentShaderATI;
-   tbl.glEndFragmentShaderATI = loader_glEndFragmentShaderATI;
-   tbl.glPassTexCoordATI = loader_glPassTexCoordATI;
-   tbl.glSampleMapATI = loader_glSampleMapATI;
-   tbl.glColorFragmentOp1ATI = loader_glColorFragmentOp1ATI;
-   tbl.glColorFragmentOp2ATI = loader_glColorFragmentOp2ATI;
-   tbl.glColorFragmentOp3ATI = loader_glColorFragmentOp3ATI;
-   tbl.glAlphaFragmentOp1ATI = loader_glAlphaFragmentOp1ATI;
-   tbl.glAlphaFragmentOp2ATI = loader_glAlphaFragmentOp2ATI;
-   tbl.glAlphaFragmentOp3ATI = loader_glAlphaFragmentOp3ATI;
-   tbl.glSetFragmentShaderConstantATI = loader_glSetFragmentShaderConstantATI;
-
-// GL_ATI_pn_triangles
-
-   tbl.glPNTrianglesiATI = loader_glPNTrianglesiATI;
-   tbl.glPNTrianglesfATI = loader_glPNTrianglesfATI;
-
-// GL_ATI_vertex_array_object
-
-   tbl.glNewObjectBufferATI = loader_glNewObjectBufferATI;
-   tbl.glIsObjectBufferATI = loader_glIsObjectBufferATI;
-   tbl.glUpdateObjectBufferATI = loader_glUpdateObjectBufferATI;
-   tbl.glGetObjectBufferfvATI = loader_glGetObjectBufferfvATI;
-   tbl.glGetObjectBufferivATI = loader_glGetObjectBufferivATI;
-   tbl.glFreeObjectBufferATI = loader_glFreeObjectBufferATI;
-   tbl.glArrayObjectATI = loader_glArrayObjectATI;
-   tbl.glGetArrayObjectfvATI = loader_glGetArrayObjectfvATI;
-   tbl.glGetArrayObjectivATI = loader_glGetArrayObjectivATI;
-   tbl.glVariantArrayObjectATI = loader_glVariantArrayObjectATI;
-   tbl.glGetVariantArrayObjectfvATI = loader_glGetVariantArrayObjectfvATI;
-   tbl.glGetVariantArrayObjectivATI = loader_glGetVariantArrayObjectivATI;
-
-// GL_EXT_vertex_shader
-
-   tbl.glBeginVertexShaderEXT = loader_glBeginVertexShaderEXT;
-   tbl.glEndVertexShaderEXT = loader_glEndVertexShaderEXT;
-   tbl.glBindVertexShaderEXT = loader_glBindVertexShaderEXT;
-   tbl.glGenVertexShadersEXT = loader_glGenVertexShadersEXT;
-   tbl.glDeleteVertexShaderEXT = loader_glDeleteVertexShaderEXT;
-   tbl.glShaderOp1EXT = loader_glShaderOp1EXT;
-   tbl.glShaderOp2EXT = loader_glShaderOp2EXT;
-   tbl.glShaderOp3EXT = loader_glShaderOp3EXT;
-   tbl.glSwizzleEXT = loader_glSwizzleEXT;
-   tbl.glWriteMaskEXT = loader_glWriteMaskEXT;
-   tbl.glInsertComponentEXT = loader_glInsertComponentEXT;
-   tbl.glExtractComponentEXT = loader_glExtractComponentEXT;
-   tbl.glGenSymbolsEXT = loader_glGenSymbolsEXT;
-   tbl.glSetInvariantEXT = loader_glSetInvariantEXT;
-   tbl.glSetLocalConstantEXT = loader_glSetLocalConstantEXT;
-   tbl.glVariantbvEXT = loader_glVariantbvEXT;
-   tbl.glVariantsvEXT = loader_glVariantsvEXT;
-   tbl.glVariantivEXT = loader_glVariantivEXT;
-   tbl.glVariantfvEXT = loader_glVariantfvEXT;
-   tbl.glVariantdvEXT = loader_glVariantdvEXT;
-   tbl.glVariantubvEXT = loader_glVariantubvEXT;
-   tbl.glVariantusvEXT = loader_glVariantusvEXT;
-   tbl.glVariantuivEXT = loader_glVariantuivEXT;
-   tbl.glVariantPointerEXT = loader_glVariantPointerEXT;
-   tbl.glEnableVariantClientStateEXT = loader_glEnableVariantClientStateEXT;
-   tbl.glDisableVariantClientStateEXT = loader_glDisableVariantClientStateEXT;
-   tbl.glBindLightParameterEXT = loader_glBindLightParameterEXT;
-   tbl.glBindMaterialParameterEXT = loader_glBindMaterialParameterEXT;
-   tbl.glBindTexGenParameterEXT = loader_glBindTexGenParameterEXT;
-   tbl.glBindTextureUnitParameterEXT = loader_glBindTextureUnitParameterEXT;
-   tbl.glBindParameterEXT = loader_glBindParameterEXT;
-   tbl.glIsVariantEnabledEXT = loader_glIsVariantEnabledEXT;
-   tbl.glGetVariantBooleanvEXT = loader_glGetVariantBooleanvEXT;
-   tbl.glGetVariantIntegervEXT = loader_glGetVariantIntegervEXT;
-   tbl.glGetVariantFloatvEXT = loader_glGetVariantFloatvEXT;
-   tbl.glGetVariantPointervEXT = loader_glGetVariantPointervEXT;
-   tbl.glGetInvariantBooleanvEXT = loader_glGetInvariantBooleanvEXT;
-   tbl.glGetInvariantIntegervEXT = loader_glGetInvariantIntegervEXT;
-   tbl.glGetInvariantFloatvEXT = loader_glGetInvariantFloatvEXT;
-   tbl.glGetLocalConstantBooleanvEXT = loader_glGetLocalConstantBooleanvEXT;
-   tbl.glGetLocalConstantIntegervEXT = loader_glGetLocalConstantIntegervEXT;
-   tbl.glGetLocalConstantFloatvEXT = loader_glGetLocalConstantFloatvEXT;
-
-// GL_ATI_vertex_streams
-
-   tbl.glVertexStream1sATI = loader_glVertexStream1sATI;
-   tbl.glVertexStream1svATI = loader_glVertexStream1svATI;
-   tbl.glVertexStream1iATI = loader_glVertexStream1iATI;
-   tbl.glVertexStream1ivATI = loader_glVertexStream1ivATI;
-   tbl.glVertexStream1fATI = loader_glVertexStream1fATI;
-   tbl.glVertexStream1fvATI = loader_glVertexStream1fvATI;
-   tbl.glVertexStream1dATI = loader_glVertexStream1dATI;
-   tbl.glVertexStream1dvATI = loader_glVertexStream1dvATI;
-   tbl.glVertexStream2sATI = loader_glVertexStream2sATI;
-   tbl.glVertexStream2svATI = loader_glVertexStream2svATI;
-   tbl.glVertexStream2iATI = loader_glVertexStream2iATI;
-   tbl.glVertexStream2ivATI = loader_glVertexStream2ivATI;
-   tbl.glVertexStream2fATI = loader_glVertexStream2fATI;
-   tbl.glVertexStream2fvATI = loader_glVertexStream2fvATI;
-   tbl.glVertexStream2dATI = loader_glVertexStream2dATI;
-   tbl.glVertexStream2dvATI = loader_glVertexStream2dvATI;
-   tbl.glVertexStream3sATI = loader_glVertexStream3sATI;
-   tbl.glVertexStream3svATI = loader_glVertexStream3svATI;
-   tbl.glVertexStream3iATI = loader_glVertexStream3iATI;
-   tbl.glVertexStream3ivATI = loader_glVertexStream3ivATI;
-   tbl.glVertexStream3fATI = loader_glVertexStream3fATI;
-   tbl.glVertexStream3fvATI = loader_glVertexStream3fvATI;
-   tbl.glVertexStream3dATI = loader_glVertexStream3dATI;
-   tbl.glVertexStream3dvATI = loader_glVertexStream3dvATI;
-   tbl.glVertexStream4sATI = loader_glVertexStream4sATI;
-   tbl.glVertexStream4svATI = loader_glVertexStream4svATI;
-   tbl.glVertexStream4iATI = loader_glVertexStream4iATI;
-   tbl.glVertexStream4ivATI = loader_glVertexStream4ivATI;
-   tbl.glVertexStream4fATI = loader_glVertexStream4fATI;
-   tbl.glVertexStream4fvATI = loader_glVertexStream4fvATI;
-   tbl.glVertexStream4dATI = loader_glVertexStream4dATI;
-   tbl.glVertexStream4dvATI = loader_glVertexStream4dvATI;
-   tbl.glNormalStream3bATI = loader_glNormalStream3bATI;
-   tbl.glNormalStream3bvATI = loader_glNormalStream3bvATI;
-   tbl.glNormalStream3sATI = loader_glNormalStream3sATI;
-   tbl.glNormalStream3svATI = loader_glNormalStream3svATI;
-   tbl.glNormalStream3iATI = loader_glNormalStream3iATI;
-   tbl.glNormalStream3ivATI = loader_glNormalStream3ivATI;
-   tbl.glNormalStream3fATI = loader_glNormalStream3fATI;
-   tbl.glNormalStream3fvATI = loader_glNormalStream3fvATI;
-   tbl.glNormalStream3dATI = loader_glNormalStream3dATI;
-   tbl.glNormalStream3dvATI = loader_glNormalStream3dvATI;
-   tbl.glClientActiveVertexStreamATI = loader_glClientActiveVertexStreamATI;
-   tbl.glVertexBlendEnviATI = loader_glVertexBlendEnviATI;
-   tbl.glVertexBlendEnvfATI = loader_glVertexBlendEnvfATI;
-
-// GL_ATI_element_array
-
-   tbl.glElementPointerATI = loader_glElementPointerATI;
-   tbl.glDrawElementArrayATI = loader_glDrawElementArrayATI;
-   tbl.glDrawRangeElementArrayATI = loader_glDrawRangeElementArrayATI;
-
-// GL_SUN_mesh_array
-
-   tbl.glDrawMeshArraysSUN = loader_glDrawMeshArraysSUN;
-
-// GL_NV_occlusion_query
-
-   tbl.glGenOcclusionQueriesNV = loader_glGenOcclusionQueriesNV;
-   tbl.glDeleteOcclusionQueriesNV = loader_glDeleteOcclusionQueriesNV;
-   tbl.glIsOcclusionQueryNV = loader_glIsOcclusionQueryNV;
-   tbl.glBeginOcclusionQueryNV = loader_glBeginOcclusionQueryNV;
-   tbl.glEndOcclusionQueryNV = loader_glEndOcclusionQueryNV;
-   tbl.glGetOcclusionQueryivNV = loader_glGetOcclusionQueryivNV;
-   tbl.glGetOcclusionQueryuivNV = loader_glGetOcclusionQueryuivNV;
-
-// GL_NV_point_sprite
-
-   tbl.glPointParameteriNV = loader_glPointParameteriNV;
-   tbl.glPointParameterivNV = loader_glPointParameterivNV;
-
-// GL_EXT_stencil_two_side
-
-   tbl.glActiveStencilFaceEXT = loader_glActiveStencilFaceEXT;
-
-// GL_APPLE_element_array
-
-   tbl.glElementPointerAPPLE = loader_glElementPointerAPPLE;
-   tbl.glDrawElementArrayAPPLE = loader_glDrawElementArrayAPPLE;
-   tbl.glDrawRangeElementArrayAPPLE = loader_glDrawRangeElementArrayAPPLE;
-   tbl.glMultiDrawElementArrayAPPLE = loader_glMultiDrawElementArrayAPPLE;
-   tbl.glMultiDrawRangeElementArrayAPPLE = loader_glMultiDrawRangeElementArrayAPPLE;
-
-// GL_APPLE_fence
-
-   tbl.glGenFencesAPPLE = loader_glGenFencesAPPLE;
-   tbl.glDeleteFencesAPPLE = loader_glDeleteFencesAPPLE;
-   tbl.glSetFenceAPPLE = loader_glSetFenceAPPLE;
-   tbl.glIsFenceAPPLE = loader_glIsFenceAPPLE;
-   tbl.glTestFenceAPPLE = loader_glTestFenceAPPLE;
-   tbl.glFinishFenceAPPLE = loader_glFinishFenceAPPLE;
-   tbl.glTestObjectAPPLE = loader_glTestObjectAPPLE;
-   tbl.glFinishObjectAPPLE = loader_glFinishObjectAPPLE;
-
-// GL_APPLE_vertex_array_object
-
-   tbl.glBindVertexArrayAPPLE = loader_glBindVertexArrayAPPLE;
-   tbl.glDeleteVertexArraysAPPLE = loader_glDeleteVertexArraysAPPLE;
-   tbl.glGenVertexArraysAPPLE = loader_glGenVertexArraysAPPLE;
-   tbl.glIsVertexArrayAPPLE = loader_glIsVertexArrayAPPLE;
-
-// GL_APPLE_vertex_array_range
-
-   tbl.glVertexArrayRangeAPPLE = loader_glVertexArrayRangeAPPLE;
-   tbl.glFlushVertexArrayRangeAPPLE = loader_glFlushVertexArrayRangeAPPLE;
-   tbl.glVertexArrayParameteriAPPLE = loader_glVertexArrayParameteriAPPLE;
-
-// GL_ATI_draw_buffers
-
-   tbl.glDrawBuffersATI = loader_glDrawBuffersATI;
-
-// GL_NV_fragment_program
-
-   tbl.glProgramNamedParameter4fNV = loader_glProgramNamedParameter4fNV;
-   tbl.glProgramNamedParameter4dNV = loader_glProgramNamedParameter4dNV;
-   tbl.glProgramNamedParameter4fvNV = loader_glProgramNamedParameter4fvNV;
-   tbl.glProgramNamedParameter4dvNV = loader_glProgramNamedParameter4dvNV;
-   tbl.glGetProgramNamedParameterfvNV = loader_glGetProgramNamedParameterfvNV;
-   tbl.glGetProgramNamedParameterdvNV = loader_glGetProgramNamedParameterdvNV;
-
-// GL_NV_half_float
-
-   tbl.glVertex2hNV = loader_glVertex2hNV;
-   tbl.glVertex2hvNV = loader_glVertex2hvNV;
-   tbl.glVertex3hNV = loader_glVertex3hNV;
-   tbl.glVertex3hvNV = loader_glVertex3hvNV;
-   tbl.glVertex4hNV = loader_glVertex4hNV;
-   tbl.glVertex4hvNV = loader_glVertex4hvNV;
-   tbl.glNormal3hNV = loader_glNormal3hNV;
-   tbl.glNormal3hvNV = loader_glNormal3hvNV;
-   tbl.glColor3hNV = loader_glColor3hNV;
-   tbl.glColor3hvNV = loader_glColor3hvNV;
-   tbl.glColor4hNV = loader_glColor4hNV;
-   tbl.glColor4hvNV = loader_glColor4hvNV;
-   tbl.glTexCoord1hNV = loader_glTexCoord1hNV;
-   tbl.glTexCoord1hvNV = loader_glTexCoord1hvNV;
-   tbl.glTexCoord2hNV = loader_glTexCoord2hNV;
-   tbl.glTexCoord2hvNV = loader_glTexCoord2hvNV;
-   tbl.glTexCoord3hNV = loader_glTexCoord3hNV;
-   tbl.glTexCoord3hvNV = loader_glTexCoord3hvNV;
-   tbl.glTexCoord4hNV = loader_glTexCoord4hNV;
-   tbl.glTexCoord4hvNV = loader_glTexCoord4hvNV;
-   tbl.glMultiTexCoord1hNV = loader_glMultiTexCoord1hNV;
-   tbl.glMultiTexCoord1hvNV = loader_glMultiTexCoord1hvNV;
-   tbl.glMultiTexCoord2hNV = loader_glMultiTexCoord2hNV;
-   tbl.glMultiTexCoord2hvNV = loader_glMultiTexCoord2hvNV;
-   tbl.glMultiTexCoord3hNV = loader_glMultiTexCoord3hNV;
-   tbl.glMultiTexCoord3hvNV = loader_glMultiTexCoord3hvNV;
-   tbl.glMultiTexCoord4hNV = loader_glMultiTexCoord4hNV;
-   tbl.glMultiTexCoord4hvNV = loader_glMultiTexCoord4hvNV;
-   tbl.glFogCoordhNV = loader_glFogCoordhNV;
-   tbl.glFogCoordhvNV = loader_glFogCoordhvNV;
-   tbl.glSecondaryColor3hNV = loader_glSecondaryColor3hNV;
-   tbl.glSecondaryColor3hvNV = loader_glSecondaryColor3hvNV;
-   tbl.glVertexWeighthNV = loader_glVertexWeighthNV;
-   tbl.glVertexWeighthvNV = loader_glVertexWeighthvNV;
-   tbl.glVertexAttrib1hNV = loader_glVertexAttrib1hNV;
-   tbl.glVertexAttrib1hvNV = loader_glVertexAttrib1hvNV;
-   tbl.glVertexAttrib2hNV = loader_glVertexAttrib2hNV;
-   tbl.glVertexAttrib2hvNV = loader_glVertexAttrib2hvNV;
-   tbl.glVertexAttrib3hNV = loader_glVertexAttrib3hNV;
-   tbl.glVertexAttrib3hvNV = loader_glVertexAttrib3hvNV;
-   tbl.glVertexAttrib4hNV = loader_glVertexAttrib4hNV;
-   tbl.glVertexAttrib4hvNV = loader_glVertexAttrib4hvNV;
-   tbl.glVertexAttribs1hvNV = loader_glVertexAttribs1hvNV;
-   tbl.glVertexAttribs2hvNV = loader_glVertexAttribs2hvNV;
-   tbl.glVertexAttribs3hvNV = loader_glVertexAttribs3hvNV;
-   tbl.glVertexAttribs4hvNV = loader_glVertexAttribs4hvNV;
-
-// GL_NV_pixel_data_range
-
-   tbl.glPixelDataRangeNV = loader_glPixelDataRangeNV;
-   tbl.glFlushPixelDataRangeNV = loader_glFlushPixelDataRangeNV;
-
-// GL_NV_primitive_restart
-
-   tbl.glPrimitiveRestartNV = loader_glPrimitiveRestartNV;
-   tbl.glPrimitiveRestartIndexNV = loader_glPrimitiveRestartIndexNV;
-
-// GL_ATI_map_object_buffer
-
-   tbl.glMapObjectBufferATI = loader_glMapObjectBufferATI;
-   tbl.glUnmapObjectBufferATI = loader_glUnmapObjectBufferATI;
-
-// GL_ATI_separate_stencil
-
-   tbl.glStencilOpSeparateATI = loader_glStencilOpSeparateATI;
-   tbl.glStencilFuncSeparateATI = loader_glStencilFuncSeparateATI;
-
-// GL_ATI_vertex_attrib_array_object
-
-   tbl.glVertexAttribArrayObjectATI = loader_glVertexAttribArrayObjectATI;
-   tbl.glGetVertexAttribArrayObjectfvATI = loader_glGetVertexAttribArrayObjectfvATI;
-   tbl.glGetVertexAttribArrayObjectivATI = loader_glGetVertexAttribArrayObjectivATI;
-
-// GL_EXT_depth_bounds_test
-
-   tbl.glDepthBoundsEXT = loader_glDepthBoundsEXT;
-
-// GL_EXT_blend_equation_separate
-
-   tbl.glBlendEquationSeparateEXT = loader_glBlendEquationSeparateEXT;
-
-// GL_EXT_framebuffer_object
-
-   tbl.glIsRenderbufferEXT = loader_glIsRenderbufferEXT;
-   tbl.glBindRenderbufferEXT = loader_glBindRenderbufferEXT;
-   tbl.glDeleteRenderbuffersEXT = loader_glDeleteRenderbuffersEXT;
-   tbl.glGenRenderbuffersEXT = loader_glGenRenderbuffersEXT;
-   tbl.glRenderbufferStorageEXT = loader_glRenderbufferStorageEXT;
-   tbl.glGetRenderbufferParameterivEXT = loader_glGetRenderbufferParameterivEXT;
-   tbl.glIsFramebufferEXT = loader_glIsFramebufferEXT;
-   tbl.glBindFramebufferEXT = loader_glBindFramebufferEXT;
-   tbl.glDeleteFramebuffersEXT = loader_glDeleteFramebuffersEXT;
-   tbl.glGenFramebuffersEXT = loader_glGenFramebuffersEXT;
-   tbl.glCheckFramebufferStatusEXT = loader_glCheckFramebufferStatusEXT;
-   tbl.glFramebufferTexture1DEXT = loader_glFramebufferTexture1DEXT;
-   tbl.glFramebufferTexture2DEXT = loader_glFramebufferTexture2DEXT;
-   tbl.glFramebufferTexture3DEXT = loader_glFramebufferTexture3DEXT;
-   tbl.glFramebufferRenderbufferEXT = loader_glFramebufferRenderbufferEXT;
-   tbl.glGetFramebufferAttachmentParameterivEXT = loader_glGetFramebufferAttachmentParameterivEXT;
-   tbl.glGenerateMipmapEXT = loader_glGenerateMipmapEXT;
-
-// GL_GREMEDY_string_marker
-
-   tbl.glStringMarkerGREMEDY = loader_glStringMarkerGREMEDY;
-
-// GL_EXT_stencil_clear_tag
-
-   tbl.glStencilClearTagEXT = loader_glStencilClearTagEXT;
-
-// GL_EXT_framebuffer_blit
-
-   tbl.glBlitFramebufferEXT = loader_glBlitFramebufferEXT;
-
-// GL_EXT_framebuffer_multisample
-
-   tbl.glRenderbufferStorageMultisampleEXT = loader_glRenderbufferStorageMultisampleEXT;
-
-// GL_EXT_timer_query
-
-   tbl.glGetQueryObjecti64vEXT = loader_glGetQueryObjecti64vEXT;
-   tbl.glGetQueryObjectui64vEXT = loader_glGetQueryObjectui64vEXT;
-
-// GL_EXT_gpu_program_parameters
-
-   tbl.glProgramEnvParameters4fvEXT = loader_glProgramEnvParameters4fvEXT;
-   tbl.glProgramLocalParameters4fvEXT = loader_glProgramLocalParameters4fvEXT;
-
-// GL_APPLE_flush_buffer_range
-
-   tbl.glBufferParameteriAPPLE = loader_glBufferParameteriAPPLE;
-   tbl.glFlushMappedBufferRangeAPPLE = loader_glFlushMappedBufferRangeAPPLE;
-
-// GL_NV_gpu_program4
-
-   tbl.glProgramLocalParameterI4iNV = loader_glProgramLocalParameterI4iNV;
-   tbl.glProgramLocalParameterI4ivNV = loader_glProgramLocalParameterI4ivNV;
-   tbl.glProgramLocalParametersI4ivNV = loader_glProgramLocalParametersI4ivNV;
-   tbl.glProgramLocalParameterI4uiNV = loader_glProgramLocalParameterI4uiNV;
-   tbl.glProgramLocalParameterI4uivNV = loader_glProgramLocalParameterI4uivNV;
-   tbl.glProgramLocalParametersI4uivNV = loader_glProgramLocalParametersI4uivNV;
-   tbl.glProgramEnvParameterI4iNV = loader_glProgramEnvParameterI4iNV;
-   tbl.glProgramEnvParameterI4ivNV = loader_glProgramEnvParameterI4ivNV;
-   tbl.glProgramEnvParametersI4ivNV = loader_glProgramEnvParametersI4ivNV;
-   tbl.glProgramEnvParameterI4uiNV = loader_glProgramEnvParameterI4uiNV;
-   tbl.glProgramEnvParameterI4uivNV = loader_glProgramEnvParameterI4uivNV;
-   tbl.glProgramEnvParametersI4uivNV = loader_glProgramEnvParametersI4uivNV;
-   tbl.glGetProgramLocalParameterIivNV = loader_glGetProgramLocalParameterIivNV;
-   tbl.glGetProgramLocalParameterIuivNV = loader_glGetProgramLocalParameterIuivNV;
-   tbl.glGetProgramEnvParameterIivNV = loader_glGetProgramEnvParameterIivNV;
-   tbl.glGetProgramEnvParameterIuivNV = loader_glGetProgramEnvParameterIuivNV;
-
-// GL_NV_geometry_program4
-
-   tbl.glProgramVertexLimitNV = loader_glProgramVertexLimitNV;
-   tbl.glFramebufferTextureEXT = loader_glFramebufferTextureEXT;
-   tbl.glFramebufferTextureFaceEXT = loader_glFramebufferTextureFaceEXT;
-
-// GL_EXT_geometry_shader4
-
-   tbl.glProgramParameteriEXT = loader_glProgramParameteriEXT;
-
-// GL_NV_vertex_program4
-
-   tbl.glVertexAttribI1iEXT = loader_glVertexAttribI1iEXT;
-   tbl.glVertexAttribI2iEXT = loader_glVertexAttribI2iEXT;
-   tbl.glVertexAttribI3iEXT = loader_glVertexAttribI3iEXT;
-   tbl.glVertexAttribI4iEXT = loader_glVertexAttribI4iEXT;
-   tbl.glVertexAttribI1uiEXT = loader_glVertexAttribI1uiEXT;
-   tbl.glVertexAttribI2uiEXT = loader_glVertexAttribI2uiEXT;
-   tbl.glVertexAttribI3uiEXT = loader_glVertexAttribI3uiEXT;
-   tbl.glVertexAttribI4uiEXT = loader_glVertexAttribI4uiEXT;
-   tbl.glVertexAttribI1ivEXT = loader_glVertexAttribI1ivEXT;
-   tbl.glVertexAttribI2ivEXT = loader_glVertexAttribI2ivEXT;
-   tbl.glVertexAttribI3ivEXT = loader_glVertexAttribI3ivEXT;
-   tbl.glVertexAttribI4ivEXT = loader_glVertexAttribI4ivEXT;
-   tbl.glVertexAttribI1uivEXT = loader_glVertexAttribI1uivEXT;
-   tbl.glVertexAttribI2uivEXT = loader_glVertexAttribI2uivEXT;
-   tbl.glVertexAttribI3uivEXT = loader_glVertexAttribI3uivEXT;
-   tbl.glVertexAttribI4uivEXT = loader_glVertexAttribI4uivEXT;
-   tbl.glVertexAttribI4bvEXT = loader_glVertexAttribI4bvEXT;
-   tbl.glVertexAttribI4svEXT = loader_glVertexAttribI4svEXT;
-   tbl.glVertexAttribI4ubvEXT = loader_glVertexAttribI4ubvEXT;
-   tbl.glVertexAttribI4usvEXT = loader_glVertexAttribI4usvEXT;
-   tbl.glVertexAttribIPointerEXT = loader_glVertexAttribIPointerEXT;
-   tbl.glGetVertexAttribIivEXT = loader_glGetVertexAttribIivEXT;
-   tbl.glGetVertexAttribIuivEXT = loader_glGetVertexAttribIuivEXT;
-
-// GL_EXT_gpu_shader4
-
-   tbl.glGetUniformuivEXT = loader_glGetUniformuivEXT;
-   tbl.glBindFragDataLocationEXT = loader_glBindFragDataLocationEXT;
-   tbl.glGetFragDataLocationEXT = loader_glGetFragDataLocationEXT;
-   tbl.glUniform1uiEXT = loader_glUniform1uiEXT;
-   tbl.glUniform2uiEXT = loader_glUniform2uiEXT;
-   tbl.glUniform3uiEXT = loader_glUniform3uiEXT;
-   tbl.glUniform4uiEXT = loader_glUniform4uiEXT;
-   tbl.glUniform1uivEXT = loader_glUniform1uivEXT;
-   tbl.glUniform2uivEXT = loader_glUniform2uivEXT;
-   tbl.glUniform3uivEXT = loader_glUniform3uivEXT;
-   tbl.glUniform4uivEXT = loader_glUniform4uivEXT;
-
-// GL_EXT_draw_instanced
-
-   tbl.glDrawArraysInstancedEXT = loader_glDrawArraysInstancedEXT;
-   tbl.glDrawElementsInstancedEXT = loader_glDrawElementsInstancedEXT;
-
-// GL_EXT_texture_array
-
-   tbl.glFramebufferTextureLayerEXT = loader_glFramebufferTextureLayerEXT;
-
-// GL_EXT_texture_buffer_object
-
-   tbl.glTexBufferEXT = loader_glTexBufferEXT;
-
-// GL_NV_depth_buffer_float
-
-   tbl.glDepthRangedNV = loader_glDepthRangedNV;
-   tbl.glClearDepthdNV = loader_glClearDepthdNV;
-   tbl.glDepthBoundsdNV = loader_glDepthBoundsdNV;
-
-// GL_NV_framebuffer_multisample_coverage
-
-   tbl.glRenderbufferStorageMultisampleCoverageNV = loader_glRenderbufferStorageMultisampleCoverageNV;
-
-// GL_NV_parameter_buffer_object
-
-   tbl.glProgramBufferParametersfvNV = loader_glProgramBufferParametersfvNV;
-   tbl.glProgramBufferParametersIivNV = loader_glProgramBufferParametersIivNV;
-   tbl.glProgramBufferParametersIuivNV = loader_glProgramBufferParametersIuivNV;
-
-// GL_EXT_draw_buffers2
-
-   tbl.glColorMaskIndexedEXT = loader_glColorMaskIndexedEXT;
-   tbl.glGetBooleanIndexedvEXT = loader_glGetBooleanIndexedvEXT;
-   tbl.glGetIntegerIndexedvEXT = loader_glGetIntegerIndexedvEXT;
-   tbl.glEnableIndexedEXT = loader_glEnableIndexedEXT;
-   tbl.glDisableIndexedEXT = loader_glDisableIndexedEXT;
-   tbl.glIsEnabledIndexedEXT = loader_glIsEnabledIndexedEXT;
-
-// GL_NV_transform_feedback
-
-   tbl.glBeginTransformFeedbackNV = loader_glBeginTransformFeedbackNV;
-   tbl.glEndTransformFeedbackNV = loader_glEndTransformFeedbackNV;
-   tbl.glTransformFeedbackAttribsNV = loader_glTransformFeedbackAttribsNV;
-   tbl.glBindBufferRangeNV = loader_glBindBufferRangeNV;
-   tbl.glBindBufferOffsetNV = loader_glBindBufferOffsetNV;
-   tbl.glBindBufferBaseNV = loader_glBindBufferBaseNV;
-   tbl.glTransformFeedbackVaryingsNV = loader_glTransformFeedbackVaryingsNV;
-   tbl.glActiveVaryingNV = loader_glActiveVaryingNV;
-   tbl.glGetVaryingLocationNV = loader_glGetVaryingLocationNV;
-   tbl.glGetActiveVaryingNV = loader_glGetActiveVaryingNV;
-   tbl.glGetTransformFeedbackVaryingNV = loader_glGetTransformFeedbackVaryingNV;
-
-// GL_EXT_bindable_uniform
-
-   tbl.glUniformBufferEXT = loader_glUniformBufferEXT;
-   tbl.glGetUniformBufferSizeEXT = loader_glGetUniformBufferSizeEXT;
-   tbl.glGetUniformOffsetEXT = loader_glGetUniformOffsetEXT;
-
-// GL_EXT_texture_integer
-
-   tbl.glTexParameterIivEXT = loader_glTexParameterIivEXT;
-   tbl.glTexParameterIuivEXT = loader_glTexParameterIuivEXT;
-   tbl.glGetTexParameterIivEXT = loader_glGetTexParameterIivEXT;
-   tbl.glGetTexParameterIuivEXT = loader_glGetTexParameterIuivEXT;
-   tbl.glClearColorIiEXT = loader_glClearColorIiEXT;
-   tbl.glClearColorIuiEXT = loader_glClearColorIuiEXT;
-
-// GL_GREMEDY_frame_terminator
-
-   tbl.glFrameTerminatorGREMEDY = loader_glFrameTerminatorGREMEDY;
-
-// GL_NV_conditional_render
-
-   tbl.glBeginConditionalRenderNV = loader_glBeginConditionalRenderNV;
-   tbl.glEndConditionalRenderNV = loader_glEndConditionalRenderNV;
-
-// GL_NV_present_video
-
-   tbl.glPresentFrameKeyedNV = loader_glPresentFrameKeyedNV;
-   tbl.glPresentFrameDualFillNV = loader_glPresentFrameDualFillNV;
-   tbl.glGetVideoivNV = loader_glGetVideoivNV;
-   tbl.glGetVideouivNV = loader_glGetVideouivNV;
-   tbl.glGetVideoi64vNV = loader_glGetVideoi64vNV;
-   tbl.glGetVideoui64vNV = loader_glGetVideoui64vNV;
-
-// GL_EXT_transform_feedback
-
-   tbl.glBeginTransformFeedbackEXT = loader_glBeginTransformFeedbackEXT;
-   tbl.glEndTransformFeedbackEXT = loader_glEndTransformFeedbackEXT;
-   tbl.glBindBufferRangeEXT = loader_glBindBufferRangeEXT;
-   tbl.glBindBufferOffsetEXT = loader_glBindBufferOffsetEXT;
-   tbl.glBindBufferBaseEXT = loader_glBindBufferBaseEXT;
-   tbl.glTransformFeedbackVaryingsEXT = loader_glTransformFeedbackVaryingsEXT;
-   tbl.glGetTransformFeedbackVaryingEXT = loader_glGetTransformFeedbackVaryingEXT;
-
-// GL_EXT_direct_state_access
-
-   tbl.glClientAttribDefaultEXT = loader_glClientAttribDefaultEXT;
-   tbl.glPushClientAttribDefaultEXT = loader_glPushClientAttribDefaultEXT;
-   tbl.glMatrixLoadfEXT = loader_glMatrixLoadfEXT;
-   tbl.glMatrixLoaddEXT = loader_glMatrixLoaddEXT;
-   tbl.glMatrixMultfEXT = loader_glMatrixMultfEXT;
-   tbl.glMatrixMultdEXT = loader_glMatrixMultdEXT;
-   tbl.glMatrixLoadIdentityEXT = loader_glMatrixLoadIdentityEXT;
-   tbl.glMatrixRotatefEXT = loader_glMatrixRotatefEXT;
-   tbl.glMatrixRotatedEXT = loader_glMatrixRotatedEXT;
-   tbl.glMatrixScalefEXT = loader_glMatrixScalefEXT;
-   tbl.glMatrixScaledEXT = loader_glMatrixScaledEXT;
-   tbl.glMatrixTranslatefEXT = loader_glMatrixTranslatefEXT;
-   tbl.glMatrixTranslatedEXT = loader_glMatrixTranslatedEXT;
-   tbl.glMatrixFrustumEXT = loader_glMatrixFrustumEXT;
-   tbl.glMatrixOrthoEXT = loader_glMatrixOrthoEXT;
-   tbl.glMatrixPopEXT = loader_glMatrixPopEXT;
-   tbl.glMatrixPushEXT = loader_glMatrixPushEXT;
-   tbl.glMatrixLoadTransposefEXT = loader_glMatrixLoadTransposefEXT;
-   tbl.glMatrixLoadTransposedEXT = loader_glMatrixLoadTransposedEXT;
-   tbl.glMatrixMultTransposefEXT = loader_glMatrixMultTransposefEXT;
-   tbl.glMatrixMultTransposedEXT = loader_glMatrixMultTransposedEXT;
-   tbl.glTextureParameterfEXT = loader_glTextureParameterfEXT;
-   tbl.glTextureParameterfvEXT = loader_glTextureParameterfvEXT;
-   tbl.glTextureParameteriEXT = loader_glTextureParameteriEXT;
-   tbl.glTextureParameterivEXT = loader_glTextureParameterivEXT;
-   tbl.glTextureImage1DEXT = loader_glTextureImage1DEXT;
-   tbl.glTextureImage2DEXT = loader_glTextureImage2DEXT;
-   tbl.glTextureSubImage1DEXT = loader_glTextureSubImage1DEXT;
-   tbl.glTextureSubImage2DEXT = loader_glTextureSubImage2DEXT;
-   tbl.glCopyTextureImage1DEXT = loader_glCopyTextureImage1DEXT;
-   tbl.glCopyTextureImage2DEXT = loader_glCopyTextureImage2DEXT;
-   tbl.glCopyTextureSubImage1DEXT = loader_glCopyTextureSubImage1DEXT;
-   tbl.glCopyTextureSubImage2DEXT = loader_glCopyTextureSubImage2DEXT;
-   tbl.glGetTextureImageEXT = loader_glGetTextureImageEXT;
-   tbl.glGetTextureParameterfvEXT = loader_glGetTextureParameterfvEXT;
-   tbl.glGetTextureParameterivEXT = loader_glGetTextureParameterivEXT;
-   tbl.glGetTextureLevelParameterfvEXT = loader_glGetTextureLevelParameterfvEXT;
-   tbl.glGetTextureLevelParameterivEXT = loader_glGetTextureLevelParameterivEXT;
-   tbl.glTextureImage3DEXT = loader_glTextureImage3DEXT;
-   tbl.glTextureSubImage3DEXT = loader_glTextureSubImage3DEXT;
-   tbl.glCopyTextureSubImage3DEXT = loader_glCopyTextureSubImage3DEXT;
-   tbl.glMultiTexParameterfEXT = loader_glMultiTexParameterfEXT;
-   tbl.glMultiTexParameterfvEXT = loader_glMultiTexParameterfvEXT;
-   tbl.glMultiTexParameteriEXT = loader_glMultiTexParameteriEXT;
-   tbl.glMultiTexParameterivEXT = loader_glMultiTexParameterivEXT;
-   tbl.glMultiTexImage1DEXT = loader_glMultiTexImage1DEXT;
-   tbl.glMultiTexImage2DEXT = loader_glMultiTexImage2DEXT;
-   tbl.glMultiTexSubImage1DEXT = loader_glMultiTexSubImage1DEXT;
-   tbl.glMultiTexSubImage2DEXT = loader_glMultiTexSubImage2DEXT;
-   tbl.glCopyMultiTexImage1DEXT = loader_glCopyMultiTexImage1DEXT;
-   tbl.glCopyMultiTexImage2DEXT = loader_glCopyMultiTexImage2DEXT;
-   tbl.glCopyMultiTexSubImage1DEXT = loader_glCopyMultiTexSubImage1DEXT;
-   tbl.glCopyMultiTexSubImage2DEXT = loader_glCopyMultiTexSubImage2DEXT;
-   tbl.glGetMultiTexImageEXT = loader_glGetMultiTexImageEXT;
-   tbl.glGetMultiTexParameterfvEXT = loader_glGetMultiTexParameterfvEXT;
-   tbl.glGetMultiTexParameterivEXT = loader_glGetMultiTexParameterivEXT;
-   tbl.glGetMultiTexLevelParameterfvEXT = loader_glGetMultiTexLevelParameterfvEXT;
-   tbl.glGetMultiTexLevelParameterivEXT = loader_glGetMultiTexLevelParameterivEXT;
-   tbl.glMultiTexImage3DEXT = loader_glMultiTexImage3DEXT;
-   tbl.glMultiTexSubImage3DEXT = loader_glMultiTexSubImage3DEXT;
-   tbl.glCopyMultiTexSubImage3DEXT = loader_glCopyMultiTexSubImage3DEXT;
-   tbl.glBindMultiTextureEXT = loader_glBindMultiTextureEXT;
-   tbl.glEnableClientStateIndexedEXT = loader_glEnableClientStateIndexedEXT;
-   tbl.glDisableClientStateIndexedEXT = loader_glDisableClientStateIndexedEXT;
-   tbl.glMultiTexCoordPointerEXT = loader_glMultiTexCoordPointerEXT;
-   tbl.glMultiTexEnvfEXT = loader_glMultiTexEnvfEXT;
-   tbl.glMultiTexEnvfvEXT = loader_glMultiTexEnvfvEXT;
-   tbl.glMultiTexEnviEXT = loader_glMultiTexEnviEXT;
-   tbl.glMultiTexEnvivEXT = loader_glMultiTexEnvivEXT;
-   tbl.glMultiTexGendEXT = loader_glMultiTexGendEXT;
-   tbl.glMultiTexGendvEXT = loader_glMultiTexGendvEXT;
-   tbl.glMultiTexGenfEXT = loader_glMultiTexGenfEXT;
-   tbl.glMultiTexGenfvEXT = loader_glMultiTexGenfvEXT;
-   tbl.glMultiTexGeniEXT = loader_glMultiTexGeniEXT;
-   tbl.glMultiTexGenivEXT = loader_glMultiTexGenivEXT;
-   tbl.glGetMultiTexEnvfvEXT = loader_glGetMultiTexEnvfvEXT;
-   tbl.glGetMultiTexEnvivEXT = loader_glGetMultiTexEnvivEXT;
-   tbl.glGetMultiTexGendvEXT = loader_glGetMultiTexGendvEXT;
-   tbl.glGetMultiTexGenfvEXT = loader_glGetMultiTexGenfvEXT;
-   tbl.glGetMultiTexGenivEXT = loader_glGetMultiTexGenivEXT;
-   tbl.glGetFloatIndexedvEXT = loader_glGetFloatIndexedvEXT;
-   tbl.glGetDoubleIndexedvEXT = loader_glGetDoubleIndexedvEXT;
-   tbl.glGetPointerIndexedvEXT = loader_glGetPointerIndexedvEXT;
-   tbl.glCompressedTextureImage3DEXT = loader_glCompressedTextureImage3DEXT;
-   tbl.glCompressedTextureImage2DEXT = loader_glCompressedTextureImage2DEXT;
-   tbl.glCompressedTextureImage1DEXT = loader_glCompressedTextureImage1DEXT;
-   tbl.glCompressedTextureSubImage3DEXT = loader_glCompressedTextureSubImage3DEXT;
-   tbl.glCompressedTextureSubImage2DEXT = loader_glCompressedTextureSubImage2DEXT;
-   tbl.glCompressedTextureSubImage1DEXT = loader_glCompressedTextureSubImage1DEXT;
-   tbl.glGetCompressedTextureImageEXT = loader_glGetCompressedTextureImageEXT;
-   tbl.glCompressedMultiTexImage3DEXT = loader_glCompressedMultiTexImage3DEXT;
-   tbl.glCompressedMultiTexImage2DEXT = loader_glCompressedMultiTexImage2DEXT;
-   tbl.glCompressedMultiTexImage1DEXT = loader_glCompressedMultiTexImage1DEXT;
-   tbl.glCompressedMultiTexSubImage3DEXT = loader_glCompressedMultiTexSubImage3DEXT;
-   tbl.glCompressedMultiTexSubImage2DEXT = loader_glCompressedMultiTexSubImage2DEXT;
-   tbl.glCompressedMultiTexSubImage1DEXT = loader_glCompressedMultiTexSubImage1DEXT;
-   tbl.glGetCompressedMultiTexImageEXT = loader_glGetCompressedMultiTexImageEXT;
-   tbl.glNamedProgramStringEXT = loader_glNamedProgramStringEXT;
-   tbl.glNamedProgramLocalParameter4dEXT = loader_glNamedProgramLocalParameter4dEXT;
-   tbl.glNamedProgramLocalParameter4dvEXT = loader_glNamedProgramLocalParameter4dvEXT;
-   tbl.glNamedProgramLocalParameter4fEXT = loader_glNamedProgramLocalParameter4fEXT;
-   tbl.glNamedProgramLocalParameter4fvEXT = loader_glNamedProgramLocalParameter4fvEXT;
-   tbl.glGetNamedProgramLocalParameterdvEXT = loader_glGetNamedProgramLocalParameterdvEXT;
-   tbl.glGetNamedProgramLocalParameterfvEXT = loader_glGetNamedProgramLocalParameterfvEXT;
-   tbl.glGetNamedProgramivEXT = loader_glGetNamedProgramivEXT;
-   tbl.glGetNamedProgramStringEXT = loader_glGetNamedProgramStringEXT;
-   tbl.glNamedProgramLocalParameters4fvEXT = loader_glNamedProgramLocalParameters4fvEXT;
-   tbl.glNamedProgramLocalParameterI4iEXT = loader_glNamedProgramLocalParameterI4iEXT;
-   tbl.glNamedProgramLocalParameterI4ivEXT = loader_glNamedProgramLocalParameterI4ivEXT;
-   tbl.glNamedProgramLocalParametersI4ivEXT = loader_glNamedProgramLocalParametersI4ivEXT;
-   tbl.glNamedProgramLocalParameterI4uiEXT = loader_glNamedProgramLocalParameterI4uiEXT;
-   tbl.glNamedProgramLocalParameterI4uivEXT = loader_glNamedProgramLocalParameterI4uivEXT;
-   tbl.glNamedProgramLocalParametersI4uivEXT = loader_glNamedProgramLocalParametersI4uivEXT;
-   tbl.glGetNamedProgramLocalParameterIivEXT = loader_glGetNamedProgramLocalParameterIivEXT;
-   tbl.glGetNamedProgramLocalParameterIuivEXT = loader_glGetNamedProgramLocalParameterIuivEXT;
-   tbl.glTextureParameterIivEXT = loader_glTextureParameterIivEXT;
-   tbl.glTextureParameterIuivEXT = loader_glTextureParameterIuivEXT;
-   tbl.glGetTextureParameterIivEXT = loader_glGetTextureParameterIivEXT;
-   tbl.glGetTextureParameterIuivEXT = loader_glGetTextureParameterIuivEXT;
-   tbl.glMultiTexParameterIivEXT = loader_glMultiTexParameterIivEXT;
-   tbl.glMultiTexParameterIuivEXT = loader_glMultiTexParameterIuivEXT;
-   tbl.glGetMultiTexParameterIivEXT = loader_glGetMultiTexParameterIivEXT;
-   tbl.glGetMultiTexParameterIuivEXT = loader_glGetMultiTexParameterIuivEXT;
-   tbl.glProgramUniform1fEXT = loader_glProgramUniform1fEXT;
-   tbl.glProgramUniform2fEXT = loader_glProgramUniform2fEXT;
-   tbl.glProgramUniform3fEXT = loader_glProgramUniform3fEXT;
-   tbl.glProgramUniform4fEXT = loader_glProgramUniform4fEXT;
-   tbl.glProgramUniform1iEXT = loader_glProgramUniform1iEXT;
-   tbl.glProgramUniform2iEXT = loader_glProgramUniform2iEXT;
-   tbl.glProgramUniform3iEXT = loader_glProgramUniform3iEXT;
-   tbl.glProgramUniform4iEXT = loader_glProgramUniform4iEXT;
-   tbl.glProgramUniform1fvEXT = loader_glProgramUniform1fvEXT;
-   tbl.glProgramUniform2fvEXT = loader_glProgramUniform2fvEXT;
-   tbl.glProgramUniform3fvEXT = loader_glProgramUniform3fvEXT;
-   tbl.glProgramUniform4fvEXT = loader_glProgramUniform4fvEXT;
-   tbl.glProgramUniform1ivEXT = loader_glProgramUniform1ivEXT;
-   tbl.glProgramUniform2ivEXT = loader_glProgramUniform2ivEXT;
-   tbl.glProgramUniform3ivEXT = loader_glProgramUniform3ivEXT;
-   tbl.glProgramUniform4ivEXT = loader_glProgramUniform4ivEXT;
-   tbl.glProgramUniformMatrix2fvEXT = loader_glProgramUniformMatrix2fvEXT;
-   tbl.glProgramUniformMatrix3fvEXT = loader_glProgramUniformMatrix3fvEXT;
-   tbl.glProgramUniformMatrix4fvEXT = loader_glProgramUniformMatrix4fvEXT;
-   tbl.glProgramUniformMatrix2x3fvEXT = loader_glProgramUniformMatrix2x3fvEXT;
-   tbl.glProgramUniformMatrix3x2fvEXT = loader_glProgramUniformMatrix3x2fvEXT;
-   tbl.glProgramUniformMatrix2x4fvEXT = loader_glProgramUniformMatrix2x4fvEXT;
-   tbl.glProgramUniformMatrix4x2fvEXT = loader_glProgramUniformMatrix4x2fvEXT;
-   tbl.glProgramUniformMatrix3x4fvEXT = loader_glProgramUniformMatrix3x4fvEXT;
-   tbl.glProgramUniformMatrix4x3fvEXT = loader_glProgramUniformMatrix4x3fvEXT;
-   tbl.glProgramUniform1uiEXT = loader_glProgramUniform1uiEXT;
-   tbl.glProgramUniform2uiEXT = loader_glProgramUniform2uiEXT;
-   tbl.glProgramUniform3uiEXT = loader_glProgramUniform3uiEXT;
-   tbl.glProgramUniform4uiEXT = loader_glProgramUniform4uiEXT;
-   tbl.glProgramUniform1uivEXT = loader_glProgramUniform1uivEXT;
-   tbl.glProgramUniform2uivEXT = loader_glProgramUniform2uivEXT;
-   tbl.glProgramUniform3uivEXT = loader_glProgramUniform3uivEXT;
-   tbl.glProgramUniform4uivEXT = loader_glProgramUniform4uivEXT;
-   tbl.glNamedBufferDataEXT = loader_glNamedBufferDataEXT;
-   tbl.glNamedBufferSubDataEXT = loader_glNamedBufferSubDataEXT;
-   tbl.glMapNamedBufferEXT = loader_glMapNamedBufferEXT;
-   tbl.glUnmapNamedBufferEXT = loader_glUnmapNamedBufferEXT;
-   tbl.glGetNamedBufferParameterivEXT = loader_glGetNamedBufferParameterivEXT;
-   tbl.glGetNamedBufferPointervEXT = loader_glGetNamedBufferPointervEXT;
-   tbl.glGetNamedBufferSubDataEXT = loader_glGetNamedBufferSubDataEXT;
-   tbl.glTextureBufferEXT = loader_glTextureBufferEXT;
-   tbl.glMultiTexBufferEXT = loader_glMultiTexBufferEXT;
-   tbl.glNamedRenderbufferStorageEXT = loader_glNamedRenderbufferStorageEXT;
-   tbl.glGetNamedRenderbufferParameterivEXT = loader_glGetNamedRenderbufferParameterivEXT;
-   tbl.glCheckNamedFramebufferStatusEXT = loader_glCheckNamedFramebufferStatusEXT;
-   tbl.glNamedFramebufferTexture1DEXT = loader_glNamedFramebufferTexture1DEXT;
-   tbl.glNamedFramebufferTexture2DEXT = loader_glNamedFramebufferTexture2DEXT;
-   tbl.glNamedFramebufferTexture3DEXT = loader_glNamedFramebufferTexture3DEXT;
-   tbl.glNamedFramebufferRenderbufferEXT = loader_glNamedFramebufferRenderbufferEXT;
-   tbl.glGetNamedFramebufferAttachmentParameterivEXT = loader_glGetNamedFramebufferAttachmentParameterivEXT;
-   tbl.glGenerateTextureMipmapEXT = loader_glGenerateTextureMipmapEXT;
-   tbl.glGenerateMultiTexMipmapEXT = loader_glGenerateMultiTexMipmapEXT;
-   tbl.glFramebufferDrawBufferEXT = loader_glFramebufferDrawBufferEXT;
-   tbl.glFramebufferDrawBuffersEXT = loader_glFramebufferDrawBuffersEXT;
-   tbl.glFramebufferReadBufferEXT = loader_glFramebufferReadBufferEXT;
-   tbl.glGetFramebufferParameterivEXT = loader_glGetFramebufferParameterivEXT;
-   tbl.glNamedRenderbufferStorageMultisampleEXT = loader_glNamedRenderbufferStorageMultisampleEXT;
-   tbl.glNamedRenderbufferStorageMultisampleCoverageEXT = loader_glNamedRenderbufferStorageMultisampleCoverageEXT;
-   tbl.glNamedFramebufferTextureEXT = loader_glNamedFramebufferTextureEXT;
-   tbl.glNamedFramebufferTextureLayerEXT = loader_glNamedFramebufferTextureLayerEXT;
-   tbl.glNamedFramebufferTextureFaceEXT = loader_glNamedFramebufferTextureFaceEXT;
-   tbl.glTextureRenderbufferEXT = loader_glTextureRenderbufferEXT;
-   tbl.glMultiTexRenderbufferEXT = loader_glMultiTexRenderbufferEXT;
-   tbl.glMapNamedBufferRangeEXT = loader_glMapNamedBufferRangeEXT;
-   tbl.glFlushMappedNamedBufferRangeEXT = loader_glFlushMappedNamedBufferRangeEXT;
-   tbl.glNamedCopyBufferSubDataEXT = loader_glNamedCopyBufferSubDataEXT;
-   tbl.glProgramUniform1dEXT = loader_glProgramUniform1dEXT;
-   tbl.glProgramUniform2dEXT = loader_glProgramUniform2dEXT;
-   tbl.glProgramUniform3dEXT = loader_glProgramUniform3dEXT;
-   tbl.glProgramUniform4dEXT = loader_glProgramUniform4dEXT;
-   tbl.glProgramUniform1dvEXT = loader_glProgramUniform1dvEXT;
-   tbl.glProgramUniform2dvEXT = loader_glProgramUniform2dvEXT;
-   tbl.glProgramUniform3dvEXT = loader_glProgramUniform3dvEXT;
-   tbl.glProgramUniform4dvEXT = loader_glProgramUniform4dvEXT;
-   tbl.glProgramUniformMatrix2dvEXT = loader_glProgramUniformMatrix2dvEXT;
-   tbl.glProgramUniformMatrix3dvEXT = loader_glProgramUniformMatrix3dvEXT;
-   tbl.glProgramUniformMatrix4dvEXT = loader_glProgramUniformMatrix4dvEXT;
-   tbl.glProgramUniformMatrix2x3dvEXT = loader_glProgramUniformMatrix2x3dvEXT;
-   tbl.glProgramUniformMatrix2x4dvEXT = loader_glProgramUniformMatrix2x4dvEXT;
-   tbl.glProgramUniformMatrix3x2dvEXT = loader_glProgramUniformMatrix3x2dvEXT;
-   tbl.glProgramUniformMatrix3x4dvEXT = loader_glProgramUniformMatrix3x4dvEXT;
-   tbl.glProgramUniformMatrix4x2dvEXT = loader_glProgramUniformMatrix4x2dvEXT;
-   tbl.glProgramUniformMatrix4x3dvEXT = loader_glProgramUniformMatrix4x3dvEXT;
-
-// GL_NV_explicit_multisample
-
-   tbl.glGetMultisamplefvNV = loader_glGetMultisamplefvNV;
-   tbl.glSampleMaskIndexedNV = loader_glSampleMaskIndexedNV;
-   tbl.glTexRenderbufferNV = loader_glTexRenderbufferNV;
-
-// GL_NV_transform_feedback2
-
-   tbl.glBindTransformFeedbackNV = loader_glBindTransformFeedbackNV;
-   tbl.glDeleteTransformFeedbacksNV = loader_glDeleteTransformFeedbacksNV;
-   tbl.glGenTransformFeedbacksNV = loader_glGenTransformFeedbacksNV;
-   tbl.glIsTransformFeedbackNV = loader_glIsTransformFeedbackNV;
-   tbl.glPauseTransformFeedbackNV = loader_glPauseTransformFeedbackNV;
-   tbl.glResumeTransformFeedbackNV = loader_glResumeTransformFeedbackNV;
-   tbl.glDrawTransformFeedbackNV = loader_glDrawTransformFeedbackNV;
-
-// GL_AMD_performance_monitor
-
-   tbl.glGetPerfMonitorGroupsAMD = loader_glGetPerfMonitorGroupsAMD;
-   tbl.glGetPerfMonitorCountersAMD = loader_glGetPerfMonitorCountersAMD;
-   tbl.glGetPerfMonitorGroupStringAMD = loader_glGetPerfMonitorGroupStringAMD;
-   tbl.glGetPerfMonitorCounterStringAMD = loader_glGetPerfMonitorCounterStringAMD;
-   tbl.glGetPerfMonitorCounterInfoAMD = loader_glGetPerfMonitorCounterInfoAMD;
-   tbl.glGenPerfMonitorsAMD = loader_glGenPerfMonitorsAMD;
-   tbl.glDeletePerfMonitorsAMD = loader_glDeletePerfMonitorsAMD;
-   tbl.glSelectPerfMonitorCountersAMD = loader_glSelectPerfMonitorCountersAMD;
-   tbl.glBeginPerfMonitorAMD = loader_glBeginPerfMonitorAMD;
-   tbl.glEndPerfMonitorAMD = loader_glEndPerfMonitorAMD;
-   tbl.glGetPerfMonitorCounterDataAMD = loader_glGetPerfMonitorCounterDataAMD;
-
-// GL_AMD_vertex_shader_tessellator
-
-   tbl.glTessellationFactorAMD = loader_glTessellationFactorAMD;
-   tbl.glTessellationModeAMD = loader_glTessellationModeAMD;
-
-// GL_EXT_provoking_vertex
-
-   tbl.glProvokingVertexEXT = loader_glProvokingVertexEXT;
-
-// GL_AMD_draw_buffers_blend
-
-   tbl.glBlendFuncIndexedAMD = loader_glBlendFuncIndexedAMD;
-   tbl.glBlendFuncSeparateIndexedAMD = loader_glBlendFuncSeparateIndexedAMD;
-   tbl.glBlendEquationIndexedAMD = loader_glBlendEquationIndexedAMD;
-   tbl.glBlendEquationSeparateIndexedAMD = loader_glBlendEquationSeparateIndexedAMD;
-
-// GL_APPLE_texture_range
-
-   tbl.glTextureRangeAPPLE = loader_glTextureRangeAPPLE;
-   tbl.glGetTexParameterPointervAPPLE = loader_glGetTexParameterPointervAPPLE;
-
-// GL_APPLE_vertex_program_evaluators
-
-   tbl.glEnableVertexAttribAPPLE = loader_glEnableVertexAttribAPPLE;
-   tbl.glDisableVertexAttribAPPLE = loader_glDisableVertexAttribAPPLE;
-   tbl.glIsVertexAttribEnabledAPPLE = loader_glIsVertexAttribEnabledAPPLE;
-   tbl.glMapVertexAttrib1dAPPLE = loader_glMapVertexAttrib1dAPPLE;
-   tbl.glMapVertexAttrib1fAPPLE = loader_glMapVertexAttrib1fAPPLE;
-   tbl.glMapVertexAttrib2dAPPLE = loader_glMapVertexAttrib2dAPPLE;
-   tbl.glMapVertexAttrib2fAPPLE = loader_glMapVertexAttrib2fAPPLE;
-
-// GL_APPLE_object_purgeable
-
-   tbl.glObjectPurgeableAPPLE = loader_glObjectPurgeableAPPLE;
-   tbl.glObjectUnpurgeableAPPLE = loader_glObjectUnpurgeableAPPLE;
-   tbl.glGetObjectParameterivAPPLE = loader_glGetObjectParameterivAPPLE;
-
-// GL_NV_video_capture
-
-   tbl.glBeginVideoCaptureNV = loader_glBeginVideoCaptureNV;
-   tbl.glBindVideoCaptureStreamBufferNV = loader_glBindVideoCaptureStreamBufferNV;
-   tbl.glBindVideoCaptureStreamTextureNV = loader_glBindVideoCaptureStreamTextureNV;
-   tbl.glEndVideoCaptureNV = loader_glEndVideoCaptureNV;
-   tbl.glGetVideoCaptureivNV = loader_glGetVideoCaptureivNV;
-   tbl.glGetVideoCaptureStreamivNV = loader_glGetVideoCaptureStreamivNV;
-   tbl.glGetVideoCaptureStreamfvNV = loader_glGetVideoCaptureStreamfvNV;
-   tbl.glGetVideoCaptureStreamdvNV = loader_glGetVideoCaptureStreamdvNV;
-   tbl.glVideoCaptureNV = loader_glVideoCaptureNV;
-   tbl.glVideoCaptureStreamParameterivNV = loader_glVideoCaptureStreamParameterivNV;
-   tbl.glVideoCaptureStreamParameterfvNV = loader_glVideoCaptureStreamParameterfvNV;
-   tbl.glVideoCaptureStreamParameterdvNV = loader_glVideoCaptureStreamParameterdvNV;
-
-// GL_NV_copy_image
-
-   tbl.glCopyImageSubDataNV = loader_glCopyImageSubDataNV;
-
-// GL_EXT_separate_shader_objects
-
-   tbl.glUseShaderProgramEXT = loader_glUseShaderProgramEXT;
-   tbl.glActiveProgramEXT = loader_glActiveProgramEXT;
-   tbl.glCreateShaderProgramEXT = loader_glCreateShaderProgramEXT;
-
-// GL_NV_shader_buffer_load
-
-   tbl.glMakeBufferResidentNV = loader_glMakeBufferResidentNV;
-   tbl.glMakeBufferNonResidentNV = loader_glMakeBufferNonResidentNV;
-   tbl.glIsBufferResidentNV = loader_glIsBufferResidentNV;
-   tbl.glMakeNamedBufferResidentNV = loader_glMakeNamedBufferResidentNV;
-   tbl.glMakeNamedBufferNonResidentNV = loader_glMakeNamedBufferNonResidentNV;
-   tbl.glIsNamedBufferResidentNV = loader_glIsNamedBufferResidentNV;
-   tbl.glGetBufferParameterui64vNV = loader_glGetBufferParameterui64vNV;
-   tbl.glGetNamedBufferParameterui64vNV = loader_glGetNamedBufferParameterui64vNV;
-   tbl.glGetIntegerui64vNV = loader_glGetIntegerui64vNV;
-   tbl.glUniformui64NV = loader_glUniformui64NV;
-   tbl.glUniformui64vNV = loader_glUniformui64vNV;
-   tbl.glGetUniformui64vNV = loader_glGetUniformui64vNV;
-   tbl.glProgramUniformui64NV = loader_glProgramUniformui64NV;
-   tbl.glProgramUniformui64vNV = loader_glProgramUniformui64vNV;
-
-// GL_NV_vertex_buffer_unified_memory
-
-   tbl.glBufferAddressRangeNV = loader_glBufferAddressRangeNV;
-   tbl.glVertexFormatNV = loader_glVertexFormatNV;
-   tbl.glNormalFormatNV = loader_glNormalFormatNV;
-   tbl.glColorFormatNV = loader_glColorFormatNV;
-   tbl.glIndexFormatNV = loader_glIndexFormatNV;
-   tbl.glTexCoordFormatNV = loader_glTexCoordFormatNV;
-   tbl.glEdgeFlagFormatNV = loader_glEdgeFlagFormatNV;
-   tbl.glSecondaryColorFormatNV = loader_glSecondaryColorFormatNV;
-   tbl.glFogCoordFormatNV = loader_glFogCoordFormatNV;
-   tbl.glVertexAttribFormatNV = loader_glVertexAttribFormatNV;
-   tbl.glVertexAttribIFormatNV = loader_glVertexAttribIFormatNV;
-   tbl.glGetIntegerui64i_vNV = loader_glGetIntegerui64i_vNV;
-
-// GL_NV_texture_barrier
-
-   tbl.glTextureBarrierNV = loader_glTextureBarrierNV;
-
-// GL_EXT_shader_image_load_store
-
-   tbl.glBindImageTextureEXT = loader_glBindImageTextureEXT;
-   tbl.glMemoryBarrierEXT = loader_glMemoryBarrierEXT;
-
-// GL_EXT_vertex_attrib_64bit
-
-   tbl.glVertexAttribL1dEXT = loader_glVertexAttribL1dEXT;
-   tbl.glVertexAttribL2dEXT = loader_glVertexAttribL2dEXT;
-   tbl.glVertexAttribL3dEXT = loader_glVertexAttribL3dEXT;
-   tbl.glVertexAttribL4dEXT = loader_glVertexAttribL4dEXT;
-   tbl.glVertexAttribL1dvEXT = loader_glVertexAttribL1dvEXT;
-   tbl.glVertexAttribL2dvEXT = loader_glVertexAttribL2dvEXT;
-   tbl.glVertexAttribL3dvEXT = loader_glVertexAttribL3dvEXT;
-   tbl.glVertexAttribL4dvEXT = loader_glVertexAttribL4dvEXT;
-   tbl.glVertexAttribLPointerEXT = loader_glVertexAttribLPointerEXT;
-   tbl.glVertexArrayVertexAttribLOffsetEXT = loader_glVertexArrayVertexAttribLOffsetEXT;
-   tbl.glGetVertexAttribLdvEXT = loader_glGetVertexAttribLdvEXT;
-
-// GL_NV_gpu_shader5
-
-   tbl.glUniform1i64NV = loader_glUniform1i64NV;
-   tbl.glUniform2i64NV = loader_glUniform2i64NV;
-   tbl.glUniform3i64NV = loader_glUniform3i64NV;
-   tbl.glUniform4i64NV = loader_glUniform4i64NV;
-   tbl.glUniform1i64vNV = loader_glUniform1i64vNV;
-   tbl.glUniform2i64vNV = loader_glUniform2i64vNV;
-   tbl.glUniform3i64vNV = loader_glUniform3i64vNV;
-   tbl.glUniform4i64vNV = loader_glUniform4i64vNV;
-   tbl.glUniform1ui64NV = loader_glUniform1ui64NV;
-   tbl.glUniform2ui64NV = loader_glUniform2ui64NV;
-   tbl.glUniform3ui64NV = loader_glUniform3ui64NV;
-   tbl.glUniform4ui64NV = loader_glUniform4ui64NV;
-   tbl.glUniform1ui64vNV = loader_glUniform1ui64vNV;
-   tbl.glUniform2ui64vNV = loader_glUniform2ui64vNV;
-   tbl.glUniform3ui64vNV = loader_glUniform3ui64vNV;
-   tbl.glUniform4ui64vNV = loader_glUniform4ui64vNV;
-   tbl.glProgramUniform1i64NV = loader_glProgramUniform1i64NV;
-   tbl.glProgramUniform2i64NV = loader_glProgramUniform2i64NV;
-   tbl.glProgramUniform3i64NV = loader_glProgramUniform3i64NV;
-   tbl.glProgramUniform4i64NV = loader_glProgramUniform4i64NV;
-   tbl.glProgramUniform1i64vNV = loader_glProgramUniform1i64vNV;
-   tbl.glProgramUniform2i64vNV = loader_glProgramUniform2i64vNV;
-   tbl.glProgramUniform3i64vNV = loader_glProgramUniform3i64vNV;
-   tbl.glProgramUniform4i64vNV = loader_glProgramUniform4i64vNV;
-   tbl.glProgramUniform1ui64NV = loader_glProgramUniform1ui64NV;
-   tbl.glProgramUniform2ui64NV = loader_glProgramUniform2ui64NV;
-   tbl.glProgramUniform3ui64NV = loader_glProgramUniform3ui64NV;
-   tbl.glProgramUniform4ui64NV = loader_glProgramUniform4ui64NV;
-   tbl.glProgramUniform1ui64vNV = loader_glProgramUniform1ui64vNV;
-   tbl.glProgramUniform2ui64vNV = loader_glProgramUniform2ui64vNV;
-   tbl.glProgramUniform3ui64vNV = loader_glProgramUniform3ui64vNV;
-   tbl.glProgramUniform4ui64vNV = loader_glProgramUniform4ui64vNV;
-   tbl.glGetUniformi64vNV = loader_glGetUniformi64vNV;
-
-// GL_NV_vertex_attrib_integer_64bit
-
-   tbl.glVertexAttribL1i64NV = loader_glVertexAttribL1i64NV;
-   tbl.glVertexAttribL2i64NV = loader_glVertexAttribL2i64NV;
-   tbl.glVertexAttribL3i64NV = loader_glVertexAttribL3i64NV;
-   tbl.glVertexAttribL4i64NV = loader_glVertexAttribL4i64NV;
-   tbl.glVertexAttribL1ui64NV = loader_glVertexAttribL1ui64NV;
-   tbl.glVertexAttribL2ui64NV = loader_glVertexAttribL2ui64NV;
-   tbl.glVertexAttribL3ui64NV = loader_glVertexAttribL3ui64NV;
-   tbl.glVertexAttribL4ui64NV = loader_glVertexAttribL4ui64NV;
-   tbl.glVertexAttribL1i64vNV = loader_glVertexAttribL1i64vNV;
-   tbl.glVertexAttribL2i64vNV = loader_glVertexAttribL2i64vNV;
-   tbl.glVertexAttribL3i64vNV = loader_glVertexAttribL3i64vNV;
-   tbl.glVertexAttribL4i64vNV = loader_glVertexAttribL4i64vNV;
-   tbl.glVertexAttribL1ui64vNV = loader_glVertexAttribL1ui64vNV;
-   tbl.glVertexAttribL2ui64vNV = loader_glVertexAttribL2ui64vNV;
-   tbl.glVertexAttribL3ui64vNV = loader_glVertexAttribL3ui64vNV;
-   tbl.glVertexAttribL4ui64vNV = loader_glVertexAttribL4ui64vNV;
-   tbl.glVertexAttribLFormatNV = loader_glVertexAttribLFormatNV;
-   tbl.glGetVertexAttribLi64vNV = loader_glGetVertexAttribLi64vNV;
-   tbl.glGetVertexAttribLui64vNV = loader_glGetVertexAttribLui64vNV;
-
-// GL_NV_vdpau_interop
-
-   tbl.glVDPAUInitNV = loader_glVDPAUInitNV;
-   tbl.glVDPAUFiniNV = loader_glVDPAUFiniNV;
-   tbl.glVDPAURegisterVideoSurfaceNV = loader_glVDPAURegisterVideoSurfaceNV;
-   tbl.glVDPAURegisterOutputSurfaceNV = loader_glVDPAURegisterOutputSurfaceNV;
-   tbl.glVDPAUIsSurfaceNV = loader_glVDPAUIsSurfaceNV;
-   tbl.glVDPAUUnregisterSurfaceNV = loader_glVDPAUUnregisterSurfaceNV;
-   tbl.glVDPAUGetSurfaceivNV = loader_glVDPAUGetSurfaceivNV;
-   tbl.glVDPAUSurfaceAccessNV = loader_glVDPAUSurfaceAccessNV;
-   tbl.glVDPAUMapSurfacesNV = loader_glVDPAUMapSurfacesNV;
-   tbl.glVDPAUUnmapSurfacesNV = loader_glVDPAUUnmapSurfacesNV;
-
-// GL_NV_path_rendering
-
-   tbl.glCopyPathNV = loader_glCopyPathNV;
-   tbl.glCoverFillPathInstancedNV = loader_glCoverFillPathInstancedNV;
-   tbl.glCoverFillPathNV = loader_glCoverFillPathNV;
-   tbl.glCoverStrokePathInstancedNV = loader_glCoverStrokePathInstancedNV;
-   tbl.glCoverStrokePathNV = loader_glCoverStrokePathNV;
-   tbl.glDeletePathsNV = loader_glDeletePathsNV;
-   tbl.glGenPathsNV = loader_glGenPathsNV;
-   tbl.glGetPathColorGenfvNV = loader_glGetPathColorGenfvNV;
-   tbl.glGetPathColorGenivNV = loader_glGetPathColorGenivNV;
-   tbl.glGetPathCommandsNV = loader_glGetPathCommandsNV;
-   tbl.glGetPathCoordsNV = loader_glGetPathCoordsNV;
-   tbl.glGetPathDashArrayNV = loader_glGetPathDashArrayNV;
-   tbl.glGetPathLengthNV = loader_glGetPathLengthNV;
-   tbl.glGetPathMetricRangeNV = loader_glGetPathMetricRangeNV;
-   tbl.glGetPathMetricsNV = loader_glGetPathMetricsNV;
-   tbl.glGetPathParameterfvNV = loader_glGetPathParameterfvNV;
-   tbl.glGetPathParameterivNV = loader_glGetPathParameterivNV;
-   tbl.glGetPathSpacingNV = loader_glGetPathSpacingNV;
-   tbl.glGetPathTexGenfvNV = loader_glGetPathTexGenfvNV;
-   tbl.glGetPathTexGenivNV = loader_glGetPathTexGenivNV;
-   tbl.glInterpolatePathsNV = loader_glInterpolatePathsNV;
-   tbl.glIsPathNV = loader_glIsPathNV;
-   tbl.glIsPointInFillPathNV = loader_glIsPointInFillPathNV;
-   tbl.glIsPointInStrokePathNV = loader_glIsPointInStrokePathNV;
-   tbl.glPathColorGenNV = loader_glPathColorGenNV;
-   tbl.glPathCommandsNV = loader_glPathCommandsNV;
-   tbl.glPathCoordsNV = loader_glPathCoordsNV;
-   tbl.glPathCoverDepthFuncNV = loader_glPathCoverDepthFuncNV;
-   tbl.glPathDashArrayNV = loader_glPathDashArrayNV;
-   tbl.glPathFogGenNV = loader_glPathFogGenNV;
-   tbl.glPathGlyphRangeNV = loader_glPathGlyphRangeNV;
-   tbl.glPathGlyphsNV = loader_glPathGlyphsNV;
-   tbl.glPathParameterfNV = loader_glPathParameterfNV;
-   tbl.glPathParameterfvNV = loader_glPathParameterfvNV;
-   tbl.glPathParameteriNV = loader_glPathParameteriNV;
-   tbl.glPathParameterivNV = loader_glPathParameterivNV;
-   tbl.glPathStencilDepthOffsetNV = loader_glPathStencilDepthOffsetNV;
-   tbl.glPathStencilFuncNV = loader_glPathStencilFuncNV;
-   tbl.glPathStringNV = loader_glPathStringNV;
-   tbl.glPathSubCommandsNV = loader_glPathSubCommandsNV;
-   tbl.glPathSubCoordsNV = loader_glPathSubCoordsNV;
-   tbl.glPathTexGenNV = loader_glPathTexGenNV;
-   tbl.glPointAlongPathNV = loader_glPointAlongPathNV;
-   tbl.glStencilFillPathInstancedNV = loader_glStencilFillPathInstancedNV;
-   tbl.glStencilFillPathNV = loader_glStencilFillPathNV;
-   tbl.glStencilStrokePathInstancedNV = loader_glStencilStrokePathInstancedNV;
-   tbl.glStencilStrokePathNV = loader_glStencilStrokePathNV;
-   tbl.glTransformPathNV = loader_glTransformPathNV;
-   tbl.glWeightPathsNV = loader_glWeightPathsNV;
-
-// GL_AMD_debug_output
-
-   tbl.glGetDebugMessageLogAMD = loader_glGetDebugMessageLogAMD;
-   tbl.glDebugMessageCallbackAMD = loader_glDebugMessageCallbackAMD;
-   tbl.glDebugMessageEnableAMD = loader_glDebugMessageEnableAMD;
-   tbl.glDebugMessageInsertAMD = loader_glDebugMessageInsertAMD;
-
-// GL_AMD_multi_draw_indirect
-
-   tbl.glMultiDrawArraysIndirectAMD = loader_glMultiDrawArraysIndirectAMD;
-   tbl.glMultiDrawElementsIndirectAMD = loader_glMultiDrawElementsIndirectAMD;
-
-// GL_AMD_name_gen_delete
-
-   tbl.glIsNameAMD = loader_glIsNameAMD;
-   tbl.glDeleteNamesAMD = loader_glDeleteNamesAMD;
-   tbl.glGenNamesAMD = loader_glGenNamesAMD;
-
-// GL_AMD_sample_positions
-
-   tbl.glSetMultisamplefvAMD = loader_glSetMultisamplefvAMD;
-
-// GL_AMD_stencil_operation_extended
-
-   tbl.glStencilOpValueAMD = loader_glStencilOpValueAMD;
-
-// GL_ARB_base_instance
-
-   tbl.glDrawArraysInstancedBaseInstance = loader_glDrawArraysInstancedBaseInstance;
-   tbl.glDrawElementsInstancedBaseInstance = loader_glDrawElementsInstancedBaseInstance;
-   tbl.glDrawElementsInstancedBaseVertexBaseInstance = loader_glDrawElementsInstancedBaseVertexBaseInstance;
-
-// GL_ARB_cl_event
-
-   tbl.glCreateSyncFromCLeventARB = loader_glCreateSyncFromCLeventARB;
-
-// GL_ARB_internalformat_query
-
-   tbl.glGetInternalformativ = loader_glGetInternalformativ;
-
-// GL_ARB_texture_storage
-
-   tbl.glTexStorage1D = loader_glTexStorage1D;
-   tbl.glTexStorage2D = loader_glTexStorage2D;
-   tbl.glTexStorage3D = loader_glTexStorage3D;
-   tbl.glTextureStorage1DEXT = loader_glTextureStorage1DEXT;
-   tbl.glTextureStorage2DEXT = loader_glTextureStorage2DEXT;
-   tbl.glTextureStorage3DEXT = loader_glTextureStorage3DEXT;
-
-// GL_ARB_transform_feedback_instanced
-
-   tbl.glDrawTransformFeedbackInstanced = loader_glDrawTransformFeedbackInstanced;
-   tbl.glDrawTransformFeedbackStreamInstanced = loader_glDrawTransformFeedbackStreamInstanced;
-
-// GL_EXT_x11_sync_object
-
-   tbl.glImportSyncEXT = loader_glImportSyncEXT;
-
-// GL_INTEL_texture_scissor
-
-   tbl.glTexScissorFuncINTEL = loader_glTexScissorFuncINTEL;
-   tbl.glTexScissorINTEL = loader_glTexScissorINTEL;
-
-// GL_NV_bindless_texture
-
-   tbl.glIsImageHandleResidentNV = loader_glIsImageHandleResidentNV;
-   tbl.glIsTextureHandleResidentNV = loader_glIsTextureHandleResidentNV;
-   tbl.glGetImageHandleNV = loader_glGetImageHandleNV;
-   tbl.glGetTextureHandleNV = loader_glGetTextureHandleNV;
-   tbl.glGetTextureSamplerHandleNV = loader_glGetTextureSamplerHandleNV;
-   tbl.glMakeImageHandleNonResidentNV = loader_glMakeImageHandleNonResidentNV;
-   tbl.glMakeImageHandleResidentNV = loader_glMakeImageHandleResidentNV;
-   tbl.glMakeTextureHandleNonResidentNV = loader_glMakeTextureHandleNonResidentNV;
-   tbl.glMakeTextureHandleResidentNV = loader_glMakeTextureHandleResidentNV;
-   tbl.glProgramUniformHandleui64NV = loader_glProgramUniformHandleui64NV;
-   tbl.glProgramUniformHandleui64vNV = loader_glProgramUniformHandleui64vNV;
-   tbl.glUniformHandleui64NV = loader_glUniformHandleui64NV;
-   tbl.glUniformHandleui64vNV = loader_glUniformHandleui64vNV;
-
-// GL_NV_texture_multisample
-
-   tbl.glTexImage2DMultisampleCoverageNV = loader_glTexImage2DMultisampleCoverageNV;
-   tbl.glTexImage3DMultisampleCoverageNV = loader_glTexImage3DMultisampleCoverageNV;
-   tbl.glTextureImage2DMultisampleCoverageNV = loader_glTextureImage2DMultisampleCoverageNV;
-   tbl.glTextureImage2DMultisampleNV = loader_glTextureImage2DMultisampleNV;
-   tbl.glTextureImage3DMultisampleCoverageNV = loader_glTextureImage3DMultisampleCoverageNV;
-   tbl.glTextureImage3DMultisampleNV = loader_glTextureImage3DMultisampleNV;
-
-// GL_SUN_read_video_pixels
-
-   tbl.glReadVideoPixelsSUN = loader_glReadVideoPixelsSUN;
-
-// GL_EXT_fragment_lighting
-
-   tbl.glFragmentColorMaterialEXT = loader_glFragmentColorMaterialEXT;
-   tbl.glFragmentLightModelfEXT = loader_glFragmentLightModelfEXT;
-   tbl.glFragmentLightModelfvEXT = loader_glFragmentLightModelfvEXT;
-   tbl.glFragmentLightModeliEXT = loader_glFragmentLightModeliEXT;
-   tbl.glFragmentLightModelivEXT = loader_glFragmentLightModelivEXT;
-   tbl.glFragmentLightfEXT = loader_glFragmentLightfEXT;
-   tbl.glFragmentLightfvEXT = loader_glFragmentLightfvEXT;
-   tbl.glFragmentLightiEXT = loader_glFragmentLightiEXT;
-   tbl.glFragmentLightivEXT = loader_glFragmentLightivEXT;
-   tbl.glFragmentMaterialfEXT = loader_glFragmentMaterialfEXT;
-   tbl.glFragmentMaterialfvEXT = loader_glFragmentMaterialfvEXT;
-   tbl.glFragmentMaterialiEXT = loader_glFragmentMaterialiEXT;
-   tbl.glFragmentMaterialivEXT = loader_glFragmentMaterialivEXT;
-   tbl.glGetFragmentLightfvEXT = loader_glGetFragmentLightfvEXT;
-   tbl.glGetFragmentLightivEXT = loader_glGetFragmentLightivEXT;
-   tbl.glGetFragmentMaterialfvEXT = loader_glGetFragmentMaterialfvEXT;
-   tbl.glGetFragmentMaterialivEXT = loader_glGetFragmentMaterialivEXT;
-   tbl.glLightEnviEXT = loader_glLightEnviEXT;
-
-// GL_EXT_debug_marker
-
-   tbl.glInsertEventMarkerEXT = loader_glInsertEventMarkerEXT;
-   tbl.glPushGroupMarkerEXT = loader_glPushGroupMarkerEXT;
-   tbl.glPopGroupMarkerEXT = loader_glPopGroupMarkerEXT;
-
-// GL_KTX_buffer_region
-
-   tbl.glBufferRegionEnabledEXT = loader_glBufferRegionEnabledEXT;
-   tbl.glNewBufferRegionEXT = loader_glNewBufferRegionEXT;
-   tbl.glDeleteBufferRegionEXT = loader_glDeleteBufferRegionEXT;
-   tbl.glReadBufferRegionEXT = loader_glReadBufferRegionEXT;
-   tbl.glDrawBufferRegionEXT = loader_glDrawBufferRegionEXT;
-
-// GL_SGIX_fog_texture
-
-   tbl.glTextureFogSGIX = loader_glTextureFogSGIX;
-
-// GL_APPLE_flush_render
-
-   tbl.glFlushRenderAPPLE = loader_glFlushRenderAPPLE;
-   tbl.glFinishRenderAPPLE = loader_glFinishRenderAPPLE;
-   tbl.glSwapAPPLE = loader_glSwapAPPLE;
-
-// GL_WIN_swap_hint
-
-   tbl.glAddSwapHintRectWIN = loader_glAddSwapHintRectWIN;
+  // GL_VERSION_1_0
+
+  tbl.glNewList = loader_glNewList;
+  tbl.glEndList = loader_glEndList;
+  tbl.glCallList = loader_glCallList;
+  tbl.glCallLists = loader_glCallLists;
+  tbl.glDeleteLists = loader_glDeleteLists;
+  tbl.glGenLists = loader_glGenLists;
+  tbl.glListBase = loader_glListBase;
+  tbl.glBegin = loader_glBegin;
+  tbl.glBitmap = loader_glBitmap;
+  tbl.glColor3b = loader_glColor3b;
+  tbl.glColor3bv = loader_glColor3bv;
+  tbl.glColor3d = loader_glColor3d;
+  tbl.glColor3dv = loader_glColor3dv;
+  tbl.glColor3f = loader_glColor3f;
+  tbl.glColor3fv = loader_glColor3fv;
+  tbl.glColor3i = loader_glColor3i;
+  tbl.glColor3iv = loader_glColor3iv;
+  tbl.glColor3s = loader_glColor3s;
+  tbl.glColor3sv = loader_glColor3sv;
+  tbl.glColor3ub = loader_glColor3ub;
+  tbl.glColor3ubv = loader_glColor3ubv;
+  tbl.glColor3ui = loader_glColor3ui;
+  tbl.glColor3uiv = loader_glColor3uiv;
+  tbl.glColor3us = loader_glColor3us;
+  tbl.glColor3usv = loader_glColor3usv;
+  tbl.glColor4b = loader_glColor4b;
+  tbl.glColor4bv = loader_glColor4bv;
+  tbl.glColor4d = loader_glColor4d;
+  tbl.glColor4dv = loader_glColor4dv;
+  tbl.glColor4f = loader_glColor4f;
+  tbl.glColor4fv = loader_glColor4fv;
+  tbl.glColor4i = loader_glColor4i;
+  tbl.glColor4iv = loader_glColor4iv;
+  tbl.glColor4s = loader_glColor4s;
+  tbl.glColor4sv = loader_glColor4sv;
+  tbl.glColor4ub = loader_glColor4ub;
+  tbl.glColor4ubv = loader_glColor4ubv;
+  tbl.glColor4ui = loader_glColor4ui;
+  tbl.glColor4uiv = loader_glColor4uiv;
+  tbl.glColor4us = loader_glColor4us;
+  tbl.glColor4usv = loader_glColor4usv;
+  tbl.glEdgeFlag = loader_glEdgeFlag;
+  tbl.glEdgeFlagv = loader_glEdgeFlagv;
+  tbl.glEnd = loader_glEnd;
+  tbl.glIndexd = loader_glIndexd;
+  tbl.glIndexdv = loader_glIndexdv;
+  tbl.glIndexf = loader_glIndexf;
+  tbl.glIndexfv = loader_glIndexfv;
+  tbl.glIndexi = loader_glIndexi;
+  tbl.glIndexiv = loader_glIndexiv;
+  tbl.glIndexs = loader_glIndexs;
+  tbl.glIndexsv = loader_glIndexsv;
+  tbl.glNormal3b = loader_glNormal3b;
+  tbl.glNormal3bv = loader_glNormal3bv;
+  tbl.glNormal3d = loader_glNormal3d;
+  tbl.glNormal3dv = loader_glNormal3dv;
+  tbl.glNormal3f = loader_glNormal3f;
+  tbl.glNormal3fv = loader_glNormal3fv;
+  tbl.glNormal3i = loader_glNormal3i;
+  tbl.glNormal3iv = loader_glNormal3iv;
+  tbl.glNormal3s = loader_glNormal3s;
+  tbl.glNormal3sv = loader_glNormal3sv;
+  tbl.glRasterPos2d = loader_glRasterPos2d;
+  tbl.glRasterPos2dv = loader_glRasterPos2dv;
+  tbl.glRasterPos2f = loader_glRasterPos2f;
+  tbl.glRasterPos2fv = loader_glRasterPos2fv;
+  tbl.glRasterPos2i = loader_glRasterPos2i;
+  tbl.glRasterPos2iv = loader_glRasterPos2iv;
+  tbl.glRasterPos2s = loader_glRasterPos2s;
+  tbl.glRasterPos2sv = loader_glRasterPos2sv;
+  tbl.glRasterPos3d = loader_glRasterPos3d;
+  tbl.glRasterPos3dv = loader_glRasterPos3dv;
+  tbl.glRasterPos3f = loader_glRasterPos3f;
+  tbl.glRasterPos3fv = loader_glRasterPos3fv;
+  tbl.glRasterPos3i = loader_glRasterPos3i;
+  tbl.glRasterPos3iv = loader_glRasterPos3iv;
+  tbl.glRasterPos3s = loader_glRasterPos3s;
+  tbl.glRasterPos3sv = loader_glRasterPos3sv;
+  tbl.glRasterPos4d = loader_glRasterPos4d;
+  tbl.glRasterPos4dv = loader_glRasterPos4dv;
+  tbl.glRasterPos4f = loader_glRasterPos4f;
+  tbl.glRasterPos4fv = loader_glRasterPos4fv;
+  tbl.glRasterPos4i = loader_glRasterPos4i;
+  tbl.glRasterPos4iv = loader_glRasterPos4iv;
+  tbl.glRasterPos4s = loader_glRasterPos4s;
+  tbl.glRasterPos4sv = loader_glRasterPos4sv;
+  tbl.glRectd = loader_glRectd;
+  tbl.glRectdv = loader_glRectdv;
+  tbl.glRectf = loader_glRectf;
+  tbl.glRectfv = loader_glRectfv;
+  tbl.glRecti = loader_glRecti;
+  tbl.glRectiv = loader_glRectiv;
+  tbl.glRects = loader_glRects;
+  tbl.glRectsv = loader_glRectsv;
+  tbl.glTexCoord1d = loader_glTexCoord1d;
+  tbl.glTexCoord1dv = loader_glTexCoord1dv;
+  tbl.glTexCoord1f = loader_glTexCoord1f;
+  tbl.glTexCoord1fv = loader_glTexCoord1fv;
+  tbl.glTexCoord1i = loader_glTexCoord1i;
+  tbl.glTexCoord1iv = loader_glTexCoord1iv;
+  tbl.glTexCoord1s = loader_glTexCoord1s;
+  tbl.glTexCoord1sv = loader_glTexCoord1sv;
+  tbl.glTexCoord2d = loader_glTexCoord2d;
+  tbl.glTexCoord2dv = loader_glTexCoord2dv;
+  tbl.glTexCoord2f = loader_glTexCoord2f;
+  tbl.glTexCoord2fv = loader_glTexCoord2fv;
+  tbl.glTexCoord2i = loader_glTexCoord2i;
+  tbl.glTexCoord2iv = loader_glTexCoord2iv;
+  tbl.glTexCoord2s = loader_glTexCoord2s;
+  tbl.glTexCoord2sv = loader_glTexCoord2sv;
+  tbl.glTexCoord3d = loader_glTexCoord3d;
+  tbl.glTexCoord3dv = loader_glTexCoord3dv;
+  tbl.glTexCoord3f = loader_glTexCoord3f;
+  tbl.glTexCoord3fv = loader_glTexCoord3fv;
+  tbl.glTexCoord3i = loader_glTexCoord3i;
+  tbl.glTexCoord3iv = loader_glTexCoord3iv;
+  tbl.glTexCoord3s = loader_glTexCoord3s;
+  tbl.glTexCoord3sv = loader_glTexCoord3sv;
+  tbl.glTexCoord4d = loader_glTexCoord4d;
+  tbl.glTexCoord4dv = loader_glTexCoord4dv;
+  tbl.glTexCoord4f = loader_glTexCoord4f;
+  tbl.glTexCoord4fv = loader_glTexCoord4fv;
+  tbl.glTexCoord4i = loader_glTexCoord4i;
+  tbl.glTexCoord4iv = loader_glTexCoord4iv;
+  tbl.glTexCoord4s = loader_glTexCoord4s;
+  tbl.glTexCoord4sv = loader_glTexCoord4sv;
+  tbl.glVertex2d = loader_glVertex2d;
+  tbl.glVertex2dv = loader_glVertex2dv;
+  tbl.glVertex2f = loader_glVertex2f;
+  tbl.glVertex2fv = loader_glVertex2fv;
+  tbl.glVertex2i = loader_glVertex2i;
+  tbl.glVertex2iv = loader_glVertex2iv;
+  tbl.glVertex2s = loader_glVertex2s;
+  tbl.glVertex2sv = loader_glVertex2sv;
+  tbl.glVertex3d = loader_glVertex3d;
+  tbl.glVertex3dv = loader_glVertex3dv;
+  tbl.glVertex3f = loader_glVertex3f;
+  tbl.glVertex3fv = loader_glVertex3fv;
+  tbl.glVertex3i = loader_glVertex3i;
+  tbl.glVertex3iv = loader_glVertex3iv;
+  tbl.glVertex3s = loader_glVertex3s;
+  tbl.glVertex3sv = loader_glVertex3sv;
+  tbl.glVertex4d = loader_glVertex4d;
+  tbl.glVertex4dv = loader_glVertex4dv;
+  tbl.glVertex4f = loader_glVertex4f;
+  tbl.glVertex4fv = loader_glVertex4fv;
+  tbl.glVertex4i = loader_glVertex4i;
+  tbl.glVertex4iv = loader_glVertex4iv;
+  tbl.glVertex4s = loader_glVertex4s;
+  tbl.glVertex4sv = loader_glVertex4sv;
+  tbl.glClipPlane = loader_glClipPlane;
+  tbl.glColorMaterial = loader_glColorMaterial;
+  tbl.glCullFace = loader_glCullFace;
+  tbl.glFogf = loader_glFogf;
+  tbl.glFogfv = loader_glFogfv;
+  tbl.glFogi = loader_glFogi;
+  tbl.glFogiv = loader_glFogiv;
+  tbl.glFrontFace = loader_glFrontFace;
+  tbl.glHint = loader_glHint;
+  tbl.glLightf = loader_glLightf;
+  tbl.glLightfv = loader_glLightfv;
+  tbl.glLighti = loader_glLighti;
+  tbl.glLightiv = loader_glLightiv;
+  tbl.glLightModelf = loader_glLightModelf;
+  tbl.glLightModelfv = loader_glLightModelfv;
+  tbl.glLightModeli = loader_glLightModeli;
+  tbl.glLightModeliv = loader_glLightModeliv;
+  tbl.glLineStipple = loader_glLineStipple;
+  tbl.glLineWidth = loader_glLineWidth;
+  tbl.glMaterialf = loader_glMaterialf;
+  tbl.glMaterialfv = loader_glMaterialfv;
+  tbl.glMateriali = loader_glMateriali;
+  tbl.glMaterialiv = loader_glMaterialiv;
+  tbl.glPointSize = loader_glPointSize;
+  tbl.glPolygonMode = loader_glPolygonMode;
+  tbl.glPolygonStipple = loader_glPolygonStipple;
+  tbl.glScissor = loader_glScissor;
+  tbl.glShadeModel = loader_glShadeModel;
+  tbl.glTexParameterf = loader_glTexParameterf;
+  tbl.glTexParameterfv = loader_glTexParameterfv;
+  tbl.glTexParameteri = loader_glTexParameteri;
+  tbl.glTexParameteriv = loader_glTexParameteriv;
+  tbl.glTexImage1D = loader_glTexImage1D;
+  tbl.glTexImage2D = loader_glTexImage2D;
+  tbl.glTexEnvf = loader_glTexEnvf;
+  tbl.glTexEnvfv = loader_glTexEnvfv;
+  tbl.glTexEnvi = loader_glTexEnvi;
+  tbl.glTexEnviv = loader_glTexEnviv;
+  tbl.glTexGend = loader_glTexGend;
+  tbl.glTexGendv = loader_glTexGendv;
+  tbl.glTexGenf = loader_glTexGenf;
+  tbl.glTexGenfv = loader_glTexGenfv;
+  tbl.glTexGeni = loader_glTexGeni;
+  tbl.glTexGeniv = loader_glTexGeniv;
+  tbl.glFeedbackBuffer = loader_glFeedbackBuffer;
+  tbl.glSelectBuffer = loader_glSelectBuffer;
+  tbl.glRenderMode = loader_glRenderMode;
+  tbl.glInitNames = loader_glInitNames;
+  tbl.glLoadName = loader_glLoadName;
+  tbl.glPassThrough = loader_glPassThrough;
+  tbl.glPopName = loader_glPopName;
+  tbl.glPushName = loader_glPushName;
+  tbl.glDrawBuffer = loader_glDrawBuffer;
+  tbl.glClear = loader_glClear;
+  tbl.glClearAccum = loader_glClearAccum;
+  tbl.glClearColor = loader_glClearColor;
+  tbl.glClearDepth = loader_glClearDepth;
+  tbl.glClearIndex = loader_glClearIndex;
+  tbl.glClearStencil = loader_glClearStencil;
+  tbl.glColorMask = loader_glColorMask;
+  tbl.glDepthMask = loader_glDepthMask;
+  tbl.glIndexMask = loader_glIndexMask;
+  tbl.glStencilMask = loader_glStencilMask;
+  tbl.glAccum = loader_glAccum;
+  tbl.glDisable = loader_glDisable;
+  tbl.glEnable = loader_glEnable;
+  tbl.glFinish = loader_glFinish;
+  tbl.glFlush = loader_glFlush;
+  tbl.glPopAttrib = loader_glPopAttrib;
+  tbl.glPushAttrib = loader_glPushAttrib;
+  tbl.glMap1d = loader_glMap1d;
+  tbl.glMap1f = loader_glMap1f;
+  tbl.glMap2d = loader_glMap2d;
+  tbl.glMap2f = loader_glMap2f;
+  tbl.glMapGrid1d = loader_glMapGrid1d;
+  tbl.glMapGrid1f = loader_glMapGrid1f;
+  tbl.glMapGrid2d = loader_glMapGrid2d;
+  tbl.glMapGrid2f = loader_glMapGrid2f;
+  tbl.glEvalCoord1d = loader_glEvalCoord1d;
+  tbl.glEvalCoord1dv = loader_glEvalCoord1dv;
+  tbl.glEvalCoord1f = loader_glEvalCoord1f;
+  tbl.glEvalCoord1fv = loader_glEvalCoord1fv;
+  tbl.glEvalCoord2d = loader_glEvalCoord2d;
+  tbl.glEvalCoord2dv = loader_glEvalCoord2dv;
+  tbl.glEvalCoord2f = loader_glEvalCoord2f;
+  tbl.glEvalCoord2fv = loader_glEvalCoord2fv;
+  tbl.glEvalMesh1 = loader_glEvalMesh1;
+  tbl.glEvalMesh2 = loader_glEvalMesh2;
+  tbl.glEvalPoint1 = loader_glEvalPoint1;
+  tbl.glEvalPoint2 = loader_glEvalPoint2;
+  tbl.glAlphaFunc = loader_glAlphaFunc;
+  tbl.glBlendFunc = loader_glBlendFunc;
+  tbl.glDepthFunc = loader_glDepthFunc;
+  tbl.glStencilFunc = loader_glStencilFunc;
+  tbl.glLogicOp = loader_glLogicOp;
+  tbl.glStencilOp = loader_glStencilOp;
+  tbl.glPixelZoom = loader_glPixelZoom;
+  tbl.glPixelTransferf = loader_glPixelTransferf;
+  tbl.glPixelTransferi = loader_glPixelTransferi;
+  tbl.glPixelStoref = loader_glPixelStoref;
+  tbl.glPixelStorei = loader_glPixelStorei;
+  tbl.glPixelMapfv = loader_glPixelMapfv;
+  tbl.glPixelMapuiv = loader_glPixelMapuiv;
+  tbl.glPixelMapusv = loader_glPixelMapusv;
+  tbl.glReadBuffer = loader_glReadBuffer;
+  tbl.glCopyPixels = loader_glCopyPixels;
+  tbl.glReadPixels = loader_glReadPixels;
+  tbl.glDrawPixels = loader_glDrawPixels;
+  tbl.glGetBooleanv = loader_glGetBooleanv;
+  tbl.glGetDoublev = loader_glGetDoublev;
+  tbl.glGetFloatv = loader_glGetFloatv;
+  tbl.glGetIntegerv = loader_glGetIntegerv;
+  tbl.glGetClipPlane = loader_glGetClipPlane;
+  tbl.glGetError = loader_glGetError;
+  tbl.glGetLightfv = loader_glGetLightfv;
+  tbl.glGetLightiv = loader_glGetLightiv;
+  tbl.glGetMapdv = loader_glGetMapdv;
+  tbl.glGetMapfv = loader_glGetMapfv;
+  tbl.glGetMapiv = loader_glGetMapiv;
+  tbl.glGetMaterialfv = loader_glGetMaterialfv;
+  tbl.glGetMaterialiv = loader_glGetMaterialiv;
+  tbl.glGetPixelMapfv = loader_glGetPixelMapfv;
+  tbl.glGetPixelMapuiv = loader_glGetPixelMapuiv;
+  tbl.glGetPixelMapusv = loader_glGetPixelMapusv;
+  tbl.glGetPolygonStipple = loader_glGetPolygonStipple;
+  tbl.glGetString = loader_glGetString;
+  tbl.glGetTexEnvfv = loader_glGetTexEnvfv;
+  tbl.glGetTexEnviv = loader_glGetTexEnviv;
+  tbl.glGetTexGendv = loader_glGetTexGendv;
+  tbl.glGetTexGenfv = loader_glGetTexGenfv;
+  tbl.glGetTexGeniv = loader_glGetTexGeniv;
+  tbl.glGetTexImage = loader_glGetTexImage;
+  tbl.glGetTexParameterfv = loader_glGetTexParameterfv;
+  tbl.glGetTexParameteriv = loader_glGetTexParameteriv;
+  tbl.glGetTexLevelParameterfv = loader_glGetTexLevelParameterfv;
+  tbl.glGetTexLevelParameteriv = loader_glGetTexLevelParameteriv;
+  tbl.glIsEnabled = loader_glIsEnabled;
+  tbl.glIsList = loader_glIsList;
+  tbl.glDepthRange = loader_glDepthRange;
+  tbl.glFrustum = loader_glFrustum;
+  tbl.glLoadIdentity = loader_glLoadIdentity;
+  tbl.glLoadMatrixd = loader_glLoadMatrixd;
+  tbl.glLoadMatrixf = loader_glLoadMatrixf;
+  tbl.glMatrixMode = loader_glMatrixMode;
+  tbl.glMultMatrixd = loader_glMultMatrixd;
+  tbl.glMultMatrixf = loader_glMultMatrixf;
+  tbl.glOrtho = loader_glOrtho;
+  tbl.glPopMatrix = loader_glPopMatrix;
+  tbl.glPushMatrix = loader_glPushMatrix;
+  tbl.glRotated = loader_glRotated;
+  tbl.glRotatef = loader_glRotatef;
+  tbl.glScaled = loader_glScaled;
+  tbl.glScalef = loader_glScalef;
+  tbl.glTranslated = loader_glTranslated;
+  tbl.glTranslatef = loader_glTranslatef;
+  tbl.glViewport = loader_glViewport;
+
+  // GL_VERSION_1_1
+
+  tbl.glArrayElement = loader_glArrayElement;
+  tbl.glDrawArrays = loader_glDrawArrays;
+  tbl.glDrawElements = loader_glDrawElements;
+  tbl.glInterleavedArrays = loader_glInterleavedArrays;
+  tbl.glDisableClientState = loader_glDisableClientState;
+  tbl.glEnableClientState = loader_glEnableClientState;
+  tbl.glGetPointerv = loader_glGetPointerv;
+  tbl.glColorPointer = loader_glColorPointer;
+  tbl.glEdgeFlagPointer = loader_glEdgeFlagPointer;
+  tbl.glIndexPointer = loader_glIndexPointer;
+  tbl.glNormalPointer = loader_glNormalPointer;
+  tbl.glTexCoordPointer = loader_glTexCoordPointer;
+  tbl.glVertexPointer = loader_glVertexPointer;
+  tbl.glPolygonOffset = loader_glPolygonOffset;
+  tbl.glCopyTexImage1D = loader_glCopyTexImage1D;
+  tbl.glCopyTexImage2D = loader_glCopyTexImage2D;
+  tbl.glCopyTexSubImage1D = loader_glCopyTexSubImage1D;
+  tbl.glCopyTexSubImage2D = loader_glCopyTexSubImage2D;
+  tbl.glTexSubImage1D = loader_glTexSubImage1D;
+  tbl.glTexSubImage2D = loader_glTexSubImage2D;
+  tbl.glAreTexturesResident = loader_glAreTexturesResident;
+  tbl.glBindTexture = loader_glBindTexture;
+  tbl.glDeleteTextures = loader_glDeleteTextures;
+  tbl.glGenTextures = loader_glGenTextures;
+  tbl.glIsTexture = loader_glIsTexture;
+  tbl.glPrioritizeTextures = loader_glPrioritizeTextures;
+  tbl.glIndexub = loader_glIndexub;
+  tbl.glIndexubv = loader_glIndexubv;
+  tbl.glPopClientAttrib = loader_glPopClientAttrib;
+  tbl.glPushClientAttrib = loader_glPushClientAttrib;
+
+  // GL_VERSION_1_2
+
+  tbl.glBlendColor = loader_glBlendColor;
+  tbl.glBlendEquation = loader_glBlendEquation;
+  tbl.glDrawRangeElements = loader_glDrawRangeElements;
+  tbl.glTexImage3D = loader_glTexImage3D;
+  tbl.glTexSubImage3D = loader_glTexSubImage3D;
+  tbl.glCopyTexSubImage3D = loader_glCopyTexSubImage3D;
+
+  // GL_ARB_imaging
+
+  tbl.glColorTable = loader_glColorTable;
+  tbl.glColorTableParameterfv = loader_glColorTableParameterfv;
+  tbl.glColorTableParameteriv = loader_glColorTableParameteriv;
+  tbl.glCopyColorTable = loader_glCopyColorTable;
+  tbl.glGetColorTable = loader_glGetColorTable;
+  tbl.glGetColorTableParameterfv = loader_glGetColorTableParameterfv;
+  tbl.glGetColorTableParameteriv = loader_glGetColorTableParameteriv;
+  tbl.glColorSubTable = loader_glColorSubTable;
+  tbl.glCopyColorSubTable = loader_glCopyColorSubTable;
+  tbl.glConvolutionFilter1D = loader_glConvolutionFilter1D;
+  tbl.glConvolutionFilter2D = loader_glConvolutionFilter2D;
+  tbl.glConvolutionParameterf = loader_glConvolutionParameterf;
+  tbl.glConvolutionParameterfv = loader_glConvolutionParameterfv;
+  tbl.glConvolutionParameteri = loader_glConvolutionParameteri;
+  tbl.glConvolutionParameteriv = loader_glConvolutionParameteriv;
+  tbl.glCopyConvolutionFilter1D = loader_glCopyConvolutionFilter1D;
+  tbl.glCopyConvolutionFilter2D = loader_glCopyConvolutionFilter2D;
+  tbl.glGetConvolutionFilter = loader_glGetConvolutionFilter;
+  tbl.glGetConvolutionParameterfv = loader_glGetConvolutionParameterfv;
+  tbl.glGetConvolutionParameteriv = loader_glGetConvolutionParameteriv;
+  tbl.glGetSeparableFilter = loader_glGetSeparableFilter;
+  tbl.glSeparableFilter2D = loader_glSeparableFilter2D;
+  tbl.glGetHistogram = loader_glGetHistogram;
+  tbl.glGetHistogramParameterfv = loader_glGetHistogramParameterfv;
+  tbl.glGetHistogramParameteriv = loader_glGetHistogramParameteriv;
+  tbl.glGetMinmax = loader_glGetMinmax;
+  tbl.glGetMinmaxParameterfv = loader_glGetMinmaxParameterfv;
+  tbl.glGetMinmaxParameteriv = loader_glGetMinmaxParameteriv;
+  tbl.glHistogram = loader_glHistogram;
+  tbl.glMinmax = loader_glMinmax;
+  tbl.glResetHistogram = loader_glResetHistogram;
+  tbl.glResetMinmax = loader_glResetMinmax;
+
+  // GL_VERSION_1_3
+
+  tbl.glActiveTexture = loader_glActiveTexture;
+  tbl.glSampleCoverage = loader_glSampleCoverage;
+  tbl.glCompressedTexImage3D = loader_glCompressedTexImage3D;
+  tbl.glCompressedTexImage2D = loader_glCompressedTexImage2D;
+  tbl.glCompressedTexImage1D = loader_glCompressedTexImage1D;
+  tbl.glCompressedTexSubImage3D = loader_glCompressedTexSubImage3D;
+  tbl.glCompressedTexSubImage2D = loader_glCompressedTexSubImage2D;
+  tbl.glCompressedTexSubImage1D = loader_glCompressedTexSubImage1D;
+  tbl.glGetCompressedTexImage = loader_glGetCompressedTexImage;
+  tbl.glClientActiveTexture = loader_glClientActiveTexture;
+  tbl.glMultiTexCoord1d = loader_glMultiTexCoord1d;
+  tbl.glMultiTexCoord1dv = loader_glMultiTexCoord1dv;
+  tbl.glMultiTexCoord1f = loader_glMultiTexCoord1f;
+  tbl.glMultiTexCoord1fv = loader_glMultiTexCoord1fv;
+  tbl.glMultiTexCoord1i = loader_glMultiTexCoord1i;
+  tbl.glMultiTexCoord1iv = loader_glMultiTexCoord1iv;
+  tbl.glMultiTexCoord1s = loader_glMultiTexCoord1s;
+  tbl.glMultiTexCoord1sv = loader_glMultiTexCoord1sv;
+  tbl.glMultiTexCoord2d = loader_glMultiTexCoord2d;
+  tbl.glMultiTexCoord2dv = loader_glMultiTexCoord2dv;
+  tbl.glMultiTexCoord2f = loader_glMultiTexCoord2f;
+  tbl.glMultiTexCoord2fv = loader_glMultiTexCoord2fv;
+  tbl.glMultiTexCoord2i = loader_glMultiTexCoord2i;
+  tbl.glMultiTexCoord2iv = loader_glMultiTexCoord2iv;
+  tbl.glMultiTexCoord2s = loader_glMultiTexCoord2s;
+  tbl.glMultiTexCoord2sv = loader_glMultiTexCoord2sv;
+  tbl.glMultiTexCoord3d = loader_glMultiTexCoord3d;
+  tbl.glMultiTexCoord3dv = loader_glMultiTexCoord3dv;
+  tbl.glMultiTexCoord3f = loader_glMultiTexCoord3f;
+  tbl.glMultiTexCoord3fv = loader_glMultiTexCoord3fv;
+  tbl.glMultiTexCoord3i = loader_glMultiTexCoord3i;
+  tbl.glMultiTexCoord3iv = loader_glMultiTexCoord3iv;
+  tbl.glMultiTexCoord3s = loader_glMultiTexCoord3s;
+  tbl.glMultiTexCoord3sv = loader_glMultiTexCoord3sv;
+  tbl.glMultiTexCoord4d = loader_glMultiTexCoord4d;
+  tbl.glMultiTexCoord4dv = loader_glMultiTexCoord4dv;
+  tbl.glMultiTexCoord4f = loader_glMultiTexCoord4f;
+  tbl.glMultiTexCoord4fv = loader_glMultiTexCoord4fv;
+  tbl.glMultiTexCoord4i = loader_glMultiTexCoord4i;
+  tbl.glMultiTexCoord4iv = loader_glMultiTexCoord4iv;
+  tbl.glMultiTexCoord4s = loader_glMultiTexCoord4s;
+  tbl.glMultiTexCoord4sv = loader_glMultiTexCoord4sv;
+  tbl.glLoadTransposeMatrixf = loader_glLoadTransposeMatrixf;
+  tbl.glLoadTransposeMatrixd = loader_glLoadTransposeMatrixd;
+  tbl.glMultTransposeMatrixf = loader_glMultTransposeMatrixf;
+  tbl.glMultTransposeMatrixd = loader_glMultTransposeMatrixd;
+
+  // GL_VERSION_1_4
+
+  tbl.glBlendFuncSeparate = loader_glBlendFuncSeparate;
+  tbl.glMultiDrawArrays = loader_glMultiDrawArrays;
+  tbl.glMultiDrawElements = loader_glMultiDrawElements;
+  tbl.glPointParameterf = loader_glPointParameterf;
+  tbl.glPointParameterfv = loader_glPointParameterfv;
+  tbl.glPointParameteri = loader_glPointParameteri;
+  tbl.glPointParameteriv = loader_glPointParameteriv;
+  tbl.glFogCoordf = loader_glFogCoordf;
+  tbl.glFogCoordfv = loader_glFogCoordfv;
+  tbl.glFogCoordd = loader_glFogCoordd;
+  tbl.glFogCoorddv = loader_glFogCoorddv;
+  tbl.glFogCoordPointer = loader_glFogCoordPointer;
+  tbl.glSecondaryColor3b = loader_glSecondaryColor3b;
+  tbl.glSecondaryColor3bv = loader_glSecondaryColor3bv;
+  tbl.glSecondaryColor3d = loader_glSecondaryColor3d;
+  tbl.glSecondaryColor3dv = loader_glSecondaryColor3dv;
+  tbl.glSecondaryColor3f = loader_glSecondaryColor3f;
+  tbl.glSecondaryColor3fv = loader_glSecondaryColor3fv;
+  tbl.glSecondaryColor3i = loader_glSecondaryColor3i;
+  tbl.glSecondaryColor3iv = loader_glSecondaryColor3iv;
+  tbl.glSecondaryColor3s = loader_glSecondaryColor3s;
+  tbl.glSecondaryColor3sv = loader_glSecondaryColor3sv;
+  tbl.glSecondaryColor3ub = loader_glSecondaryColor3ub;
+  tbl.glSecondaryColor3ubv = loader_glSecondaryColor3ubv;
+  tbl.glSecondaryColor3ui = loader_glSecondaryColor3ui;
+  tbl.glSecondaryColor3uiv = loader_glSecondaryColor3uiv;
+  tbl.glSecondaryColor3us = loader_glSecondaryColor3us;
+  tbl.glSecondaryColor3usv = loader_glSecondaryColor3usv;
+  tbl.glSecondaryColorPointer = loader_glSecondaryColorPointer;
+  tbl.glWindowPos2d = loader_glWindowPos2d;
+  tbl.glWindowPos2dv = loader_glWindowPos2dv;
+  tbl.glWindowPos2f = loader_glWindowPos2f;
+  tbl.glWindowPos2fv = loader_glWindowPos2fv;
+  tbl.glWindowPos2i = loader_glWindowPos2i;
+  tbl.glWindowPos2iv = loader_glWindowPos2iv;
+  tbl.glWindowPos2s = loader_glWindowPos2s;
+  tbl.glWindowPos2sv = loader_glWindowPos2sv;
+  tbl.glWindowPos3d = loader_glWindowPos3d;
+  tbl.glWindowPos3dv = loader_glWindowPos3dv;
+  tbl.glWindowPos3f = loader_glWindowPos3f;
+  tbl.glWindowPos3fv = loader_glWindowPos3fv;
+  tbl.glWindowPos3i = loader_glWindowPos3i;
+  tbl.glWindowPos3iv = loader_glWindowPos3iv;
+  tbl.glWindowPos3s = loader_glWindowPos3s;
+  tbl.glWindowPos3sv = loader_glWindowPos3sv;
+
+  // GL_VERSION_1_5
+
+  tbl.glGenQueries = loader_glGenQueries;
+  tbl.glDeleteQueries = loader_glDeleteQueries;
+  tbl.glIsQuery = loader_glIsQuery;
+  tbl.glBeginQuery = loader_glBeginQuery;
+  tbl.glEndQuery = loader_glEndQuery;
+  tbl.glGetQueryiv = loader_glGetQueryiv;
+  tbl.glGetQueryObjectiv = loader_glGetQueryObjectiv;
+  tbl.glGetQueryObjectuiv = loader_glGetQueryObjectuiv;
+  tbl.glBindBuffer = loader_glBindBuffer;
+  tbl.glDeleteBuffers = loader_glDeleteBuffers;
+  tbl.glGenBuffers = loader_glGenBuffers;
+  tbl.glIsBuffer = loader_glIsBuffer;
+  tbl.glBufferData = loader_glBufferData;
+  tbl.glBufferSubData = loader_glBufferSubData;
+  tbl.glGetBufferSubData = loader_glGetBufferSubData;
+  tbl.glMapBuffer = loader_glMapBuffer;
+  tbl.glUnmapBuffer = loader_glUnmapBuffer;
+  tbl.glGetBufferParameteriv = loader_glGetBufferParameteriv;
+  tbl.glGetBufferPointerv = loader_glGetBufferPointerv;
+
+  // GL_VERSION_2_0
+
+  tbl.glBlendEquationSeparate = loader_glBlendEquationSeparate;
+  tbl.glDrawBuffers = loader_glDrawBuffers;
+  tbl.glStencilOpSeparate = loader_glStencilOpSeparate;
+  tbl.glStencilFuncSeparate = loader_glStencilFuncSeparate;
+  tbl.glStencilMaskSeparate = loader_glStencilMaskSeparate;
+  tbl.glAttachShader = loader_glAttachShader;
+  tbl.glBindAttribLocation = loader_glBindAttribLocation;
+  tbl.glCompileShader = loader_glCompileShader;
+  tbl.glCreateProgram = loader_glCreateProgram;
+  tbl.glCreateShader = loader_glCreateShader;
+  tbl.glDeleteProgram = loader_glDeleteProgram;
+  tbl.glDeleteShader = loader_glDeleteShader;
+  tbl.glDetachShader = loader_glDetachShader;
+  tbl.glDisableVertexAttribArray = loader_glDisableVertexAttribArray;
+  tbl.glEnableVertexAttribArray = loader_glEnableVertexAttribArray;
+  tbl.glGetActiveAttrib = loader_glGetActiveAttrib;
+  tbl.glGetActiveUniform = loader_glGetActiveUniform;
+  tbl.glGetAttachedShaders = loader_glGetAttachedShaders;
+  tbl.glGetAttribLocation = loader_glGetAttribLocation;
+  tbl.glGetProgramiv = loader_glGetProgramiv;
+  tbl.glGetProgramInfoLog = loader_glGetProgramInfoLog;
+  tbl.glGetShaderiv = loader_glGetShaderiv;
+  tbl.glGetShaderInfoLog = loader_glGetShaderInfoLog;
+  tbl.glGetShaderSource = loader_glGetShaderSource;
+  tbl.glGetUniformLocation = loader_glGetUniformLocation;
+  tbl.glGetUniformfv = loader_glGetUniformfv;
+  tbl.glGetUniformiv = loader_glGetUniformiv;
+  tbl.glGetVertexAttribdv = loader_glGetVertexAttribdv;
+  tbl.glGetVertexAttribfv = loader_glGetVertexAttribfv;
+  tbl.glGetVertexAttribiv = loader_glGetVertexAttribiv;
+  tbl.glGetVertexAttribPointerv = loader_glGetVertexAttribPointerv;
+  tbl.glIsProgram = loader_glIsProgram;
+  tbl.glIsShader = loader_glIsShader;
+  tbl.glLinkProgram = loader_glLinkProgram;
+  tbl.glShaderSource = loader_glShaderSource;
+  tbl.glUseProgram = loader_glUseProgram;
+  tbl.glUniform1f = loader_glUniform1f;
+  tbl.glUniform2f = loader_glUniform2f;
+  tbl.glUniform3f = loader_glUniform3f;
+  tbl.glUniform4f = loader_glUniform4f;
+  tbl.glUniform1i = loader_glUniform1i;
+  tbl.glUniform2i = loader_glUniform2i;
+  tbl.glUniform3i = loader_glUniform3i;
+  tbl.glUniform4i = loader_glUniform4i;
+  tbl.glUniform1fv = loader_glUniform1fv;
+  tbl.glUniform2fv = loader_glUniform2fv;
+  tbl.glUniform3fv = loader_glUniform3fv;
+  tbl.glUniform4fv = loader_glUniform4fv;
+  tbl.glUniform1iv = loader_glUniform1iv;
+  tbl.glUniform2iv = loader_glUniform2iv;
+  tbl.glUniform3iv = loader_glUniform3iv;
+  tbl.glUniform4iv = loader_glUniform4iv;
+  tbl.glUniformMatrix2fv = loader_glUniformMatrix2fv;
+  tbl.glUniformMatrix3fv = loader_glUniformMatrix3fv;
+  tbl.glUniformMatrix4fv = loader_glUniformMatrix4fv;
+  tbl.glValidateProgram = loader_glValidateProgram;
+  tbl.glVertexAttrib1d = loader_glVertexAttrib1d;
+  tbl.glVertexAttrib1dv = loader_glVertexAttrib1dv;
+  tbl.glVertexAttrib1f = loader_glVertexAttrib1f;
+  tbl.glVertexAttrib1fv = loader_glVertexAttrib1fv;
+  tbl.glVertexAttrib1s = loader_glVertexAttrib1s;
+  tbl.glVertexAttrib1sv = loader_glVertexAttrib1sv;
+  tbl.glVertexAttrib2d = loader_glVertexAttrib2d;
+  tbl.glVertexAttrib2dv = loader_glVertexAttrib2dv;
+  tbl.glVertexAttrib2f = loader_glVertexAttrib2f;
+  tbl.glVertexAttrib2fv = loader_glVertexAttrib2fv;
+  tbl.glVertexAttrib2s = loader_glVertexAttrib2s;
+  tbl.glVertexAttrib2sv = loader_glVertexAttrib2sv;
+  tbl.glVertexAttrib3d = loader_glVertexAttrib3d;
+  tbl.glVertexAttrib3dv = loader_glVertexAttrib3dv;
+  tbl.glVertexAttrib3f = loader_glVertexAttrib3f;
+  tbl.glVertexAttrib3fv = loader_glVertexAttrib3fv;
+  tbl.glVertexAttrib3s = loader_glVertexAttrib3s;
+  tbl.glVertexAttrib3sv = loader_glVertexAttrib3sv;
+  tbl.glVertexAttrib4Nbv = loader_glVertexAttrib4Nbv;
+  tbl.glVertexAttrib4Niv = loader_glVertexAttrib4Niv;
+  tbl.glVertexAttrib4Nsv = loader_glVertexAttrib4Nsv;
+  tbl.glVertexAttrib4Nub = loader_glVertexAttrib4Nub;
+  tbl.glVertexAttrib4Nubv = loader_glVertexAttrib4Nubv;
+  tbl.glVertexAttrib4Nuiv = loader_glVertexAttrib4Nuiv;
+  tbl.glVertexAttrib4Nusv = loader_glVertexAttrib4Nusv;
+  tbl.glVertexAttrib4bv = loader_glVertexAttrib4bv;
+  tbl.glVertexAttrib4d = loader_glVertexAttrib4d;
+  tbl.glVertexAttrib4dv = loader_glVertexAttrib4dv;
+  tbl.glVertexAttrib4f = loader_glVertexAttrib4f;
+  tbl.glVertexAttrib4fv = loader_glVertexAttrib4fv;
+  tbl.glVertexAttrib4iv = loader_glVertexAttrib4iv;
+  tbl.glVertexAttrib4s = loader_glVertexAttrib4s;
+  tbl.glVertexAttrib4sv = loader_glVertexAttrib4sv;
+  tbl.glVertexAttrib4ubv = loader_glVertexAttrib4ubv;
+  tbl.glVertexAttrib4uiv = loader_glVertexAttrib4uiv;
+  tbl.glVertexAttrib4usv = loader_glVertexAttrib4usv;
+  tbl.glVertexAttribPointer = loader_glVertexAttribPointer;
+
+  // GL_VERSION_2_1
+
+  tbl.glUniformMatrix2x3fv = loader_glUniformMatrix2x3fv;
+  tbl.glUniformMatrix3x2fv = loader_glUniformMatrix3x2fv;
+  tbl.glUniformMatrix2x4fv = loader_glUniformMatrix2x4fv;
+  tbl.glUniformMatrix4x2fv = loader_glUniformMatrix4x2fv;
+  tbl.glUniformMatrix3x4fv = loader_glUniformMatrix3x4fv;
+  tbl.glUniformMatrix4x3fv = loader_glUniformMatrix4x3fv;
+
+  // GL_VERSION_3_0
+
+  tbl.glColorMaski = loader_glColorMaski;
+  tbl.glGetBooleani_v = loader_glGetBooleani_v;
+
+  // GL_ARB_uniform_buffer_object
+
+  tbl.glGetIntegeri_v = loader_glGetIntegeri_v;
+
+  // GL_VERSION_3_0
+
+  tbl.glEnablei = loader_glEnablei;
+  tbl.glDisablei = loader_glDisablei;
+  tbl.glIsEnabledi = loader_glIsEnabledi;
+  tbl.glBeginTransformFeedback = loader_glBeginTransformFeedback;
+  tbl.glEndTransformFeedback = loader_glEndTransformFeedback;
+
+  // GL_ARB_uniform_buffer_object
+
+  tbl.glBindBufferRange = loader_glBindBufferRange;
+  tbl.glBindBufferBase = loader_glBindBufferBase;
+
+  // GL_VERSION_3_0
+
+  tbl.glTransformFeedbackVaryings = loader_glTransformFeedbackVaryings;
+  tbl.glGetTransformFeedbackVarying = loader_glGetTransformFeedbackVarying;
+  tbl.glClampColor = loader_glClampColor;
+  tbl.glBeginConditionalRender = loader_glBeginConditionalRender;
+  tbl.glEndConditionalRender = loader_glEndConditionalRender;
+  tbl.glVertexAttribIPointer = loader_glVertexAttribIPointer;
+  tbl.glGetVertexAttribIiv = loader_glGetVertexAttribIiv;
+  tbl.glGetVertexAttribIuiv = loader_glGetVertexAttribIuiv;
+  tbl.glVertexAttribI1i = loader_glVertexAttribI1i;
+  tbl.glVertexAttribI2i = loader_glVertexAttribI2i;
+  tbl.glVertexAttribI3i = loader_glVertexAttribI3i;
+  tbl.glVertexAttribI4i = loader_glVertexAttribI4i;
+  tbl.glVertexAttribI1ui = loader_glVertexAttribI1ui;
+  tbl.glVertexAttribI2ui = loader_glVertexAttribI2ui;
+  tbl.glVertexAttribI3ui = loader_glVertexAttribI3ui;
+  tbl.glVertexAttribI4ui = loader_glVertexAttribI4ui;
+  tbl.glVertexAttribI1iv = loader_glVertexAttribI1iv;
+  tbl.glVertexAttribI2iv = loader_glVertexAttribI2iv;
+  tbl.glVertexAttribI3iv = loader_glVertexAttribI3iv;
+  tbl.glVertexAttribI4iv = loader_glVertexAttribI4iv;
+  tbl.glVertexAttribI1uiv = loader_glVertexAttribI1uiv;
+  tbl.glVertexAttribI2uiv = loader_glVertexAttribI2uiv;
+  tbl.glVertexAttribI3uiv = loader_glVertexAttribI3uiv;
+  tbl.glVertexAttribI4uiv = loader_glVertexAttribI4uiv;
+  tbl.glVertexAttribI4bv = loader_glVertexAttribI4bv;
+  tbl.glVertexAttribI4sv = loader_glVertexAttribI4sv;
+  tbl.glVertexAttribI4ubv = loader_glVertexAttribI4ubv;
+  tbl.glVertexAttribI4usv = loader_glVertexAttribI4usv;
+  tbl.glGetUniformuiv = loader_glGetUniformuiv;
+  tbl.glBindFragDataLocation = loader_glBindFragDataLocation;
+  tbl.glGetFragDataLocation = loader_glGetFragDataLocation;
+  tbl.glUniform1ui = loader_glUniform1ui;
+  tbl.glUniform2ui = loader_glUniform2ui;
+  tbl.glUniform3ui = loader_glUniform3ui;
+  tbl.glUniform4ui = loader_glUniform4ui;
+  tbl.glUniform1uiv = loader_glUniform1uiv;
+  tbl.glUniform2uiv = loader_glUniform2uiv;
+  tbl.glUniform3uiv = loader_glUniform3uiv;
+  tbl.glUniform4uiv = loader_glUniform4uiv;
+  tbl.glTexParameterIiv = loader_glTexParameterIiv;
+  tbl.glTexParameterIuiv = loader_glTexParameterIuiv;
+  tbl.glGetTexParameterIiv = loader_glGetTexParameterIiv;
+  tbl.glGetTexParameterIuiv = loader_glGetTexParameterIuiv;
+  tbl.glClearBufferiv = loader_glClearBufferiv;
+  tbl.glClearBufferuiv = loader_glClearBufferuiv;
+  tbl.glClearBufferfv = loader_glClearBufferfv;
+  tbl.glClearBufferfi = loader_glClearBufferfi;
+  tbl.glGetStringi = loader_glGetStringi;
+
+  // GL_VERSION_3_1
+
+  tbl.glDrawArraysInstanced = loader_glDrawArraysInstanced;
+  tbl.glDrawElementsInstanced = loader_glDrawElementsInstanced;
+  tbl.glTexBuffer = loader_glTexBuffer;
+  tbl.glPrimitiveRestartIndex = loader_glPrimitiveRestartIndex;
+
+  // GL_VERSION_3_2
+
+  tbl.glGetInteger64i_v = loader_glGetInteger64i_v;
+  tbl.glGetBufferParameteri64v = loader_glGetBufferParameteri64v;
+  tbl.glFramebufferTexture = loader_glFramebufferTexture;
+  tbl.glFramebufferTextureFace = loader_glFramebufferTextureFace;
+
+  // GL_ARB_sampler_objects
+
+  tbl.glGenSamplers = loader_glGenSamplers;
+  tbl.glDeleteSamplers = loader_glDeleteSamplers;
+  tbl.glIsSampler = loader_glIsSampler;
+  tbl.glBindSampler = loader_glBindSampler;
+  tbl.glSamplerParameteri = loader_glSamplerParameteri;
+  tbl.glSamplerParameterf = loader_glSamplerParameterf;
+  tbl.glSamplerParameteriv = loader_glSamplerParameteriv;
+  tbl.glSamplerParameterfv = loader_glSamplerParameterfv;
+  tbl.glSamplerParameterIiv = loader_glSamplerParameterIiv;
+  tbl.glSamplerParameterIuiv = loader_glSamplerParameterIuiv;
+  tbl.glGetSamplerParameteriv = loader_glGetSamplerParameteriv;
+  tbl.glGetSamplerParameterfv = loader_glGetSamplerParameterfv;
+  tbl.glGetSamplerParameterIiv = loader_glGetSamplerParameterIiv;
+  tbl.glGetSamplerParameterIuiv = loader_glGetSamplerParameterIuiv;
+
+  // GL_ARB_blend_func_extended
+
+  tbl.glBindFragDataLocationIndexed = loader_glBindFragDataLocationIndexed;
+  tbl.glGetFragDataIndex = loader_glGetFragDataIndex;
+
+  // GL_ARB_timer_query
+
+  tbl.glGetQueryObjecti64v = loader_glGetQueryObjecti64v;
+  tbl.glGetQueryObjectui64v = loader_glGetQueryObjectui64v;
+  tbl.glQueryCounter = loader_glQueryCounter;
+
+  // GL_VERSION_3_3
+
+  tbl.glVertexAttribDivisor = loader_glVertexAttribDivisor;
+
+  // GL_ARB_vertex_type_2_10_10_10_rev
+
+  tbl.glVertexP2ui = loader_glVertexP2ui;
+  tbl.glVertexP2uiv = loader_glVertexP2uiv;
+  tbl.glVertexP3ui = loader_glVertexP3ui;
+  tbl.glVertexP3uiv = loader_glVertexP3uiv;
+  tbl.glVertexP4ui = loader_glVertexP4ui;
+  tbl.glVertexP4uiv = loader_glVertexP4uiv;
+  tbl.glTexCoordP1ui = loader_glTexCoordP1ui;
+  tbl.glTexCoordP1uiv = loader_glTexCoordP1uiv;
+  tbl.glTexCoordP2ui = loader_glTexCoordP2ui;
+  tbl.glTexCoordP2uiv = loader_glTexCoordP2uiv;
+  tbl.glTexCoordP3ui = loader_glTexCoordP3ui;
+  tbl.glTexCoordP3uiv = loader_glTexCoordP3uiv;
+  tbl.glTexCoordP4ui = loader_glTexCoordP4ui;
+  tbl.glTexCoordP4uiv = loader_glTexCoordP4uiv;
+  tbl.glMultiTexCoordP1ui = loader_glMultiTexCoordP1ui;
+  tbl.glMultiTexCoordP1uiv = loader_glMultiTexCoordP1uiv;
+  tbl.glMultiTexCoordP2ui = loader_glMultiTexCoordP2ui;
+  tbl.glMultiTexCoordP2uiv = loader_glMultiTexCoordP2uiv;
+  tbl.glMultiTexCoordP3ui = loader_glMultiTexCoordP3ui;
+  tbl.glMultiTexCoordP3uiv = loader_glMultiTexCoordP3uiv;
+  tbl.glMultiTexCoordP4ui = loader_glMultiTexCoordP4ui;
+  tbl.glMultiTexCoordP4uiv = loader_glMultiTexCoordP4uiv;
+  tbl.glNormalP3ui = loader_glNormalP3ui;
+  tbl.glNormalP3uiv = loader_glNormalP3uiv;
+  tbl.glColorP3ui = loader_glColorP3ui;
+  tbl.glColorP3uiv = loader_glColorP3uiv;
+  tbl.glColorP4ui = loader_glColorP4ui;
+  tbl.glColorP4uiv = loader_glColorP4uiv;
+  tbl.glSecondaryColorP3ui = loader_glSecondaryColorP3ui;
+  tbl.glSecondaryColorP3uiv = loader_glSecondaryColorP3uiv;
+  tbl.glVertexAttribP1ui = loader_glVertexAttribP1ui;
+  tbl.glVertexAttribP1uiv = loader_glVertexAttribP1uiv;
+  tbl.glVertexAttribP2ui = loader_glVertexAttribP2ui;
+  tbl.glVertexAttribP2uiv = loader_glVertexAttribP2uiv;
+  tbl.glVertexAttribP3ui = loader_glVertexAttribP3ui;
+  tbl.glVertexAttribP3uiv = loader_glVertexAttribP3uiv;
+  tbl.glVertexAttribP4ui = loader_glVertexAttribP4ui;
+  tbl.glVertexAttribP4uiv = loader_glVertexAttribP4uiv;
+
+  // GL_VERSION_4_0
+
+  tbl.glBlendEquationi = loader_glBlendEquationi;
+  tbl.glBlendEquationSeparatei = loader_glBlendEquationSeparatei;
+  tbl.glBlendFunci = loader_glBlendFunci;
+  tbl.glBlendFuncSeparatei = loader_glBlendFuncSeparatei;
+
+  // GL_ARB_draw_indirect
+
+  tbl.glDrawArraysIndirect = loader_glDrawArraysIndirect;
+  tbl.glDrawElementsIndirect = loader_glDrawElementsIndirect;
+
+  // GL_ARB_gpu_shader_fp64
+
+  tbl.glUniform1d = loader_glUniform1d;
+  tbl.glUniform2d = loader_glUniform2d;
+  tbl.glUniform3d = loader_glUniform3d;
+  tbl.glUniform4d = loader_glUniform4d;
+  tbl.glUniform1dv = loader_glUniform1dv;
+  tbl.glUniform2dv = loader_glUniform2dv;
+  tbl.glUniform3dv = loader_glUniform3dv;
+  tbl.glUniform4dv = loader_glUniform4dv;
+  tbl.glUniformMatrix2dv = loader_glUniformMatrix2dv;
+  tbl.glUniformMatrix3dv = loader_glUniformMatrix3dv;
+  tbl.glUniformMatrix4dv = loader_glUniformMatrix4dv;
+  tbl.glUniformMatrix2x3dv = loader_glUniformMatrix2x3dv;
+  tbl.glUniformMatrix2x4dv = loader_glUniformMatrix2x4dv;
+  tbl.glUniformMatrix3x2dv = loader_glUniformMatrix3x2dv;
+  tbl.glUniformMatrix3x4dv = loader_glUniformMatrix3x4dv;
+  tbl.glUniformMatrix4x2dv = loader_glUniformMatrix4x2dv;
+  tbl.glUniformMatrix4x3dv = loader_glUniformMatrix4x3dv;
+  tbl.glGetUniformdv = loader_glGetUniformdv;
+
+  // GL_ARB_sample_shading
+
+  tbl.glMinSampleShading = loader_glMinSampleShading;
+
+  // GL_ARB_tessellation_shader
+
+  tbl.glPatchParameteri = loader_glPatchParameteri;
+  tbl.glPatchParameterfv = loader_glPatchParameterfv;
+
+  // GL_ARB_transform_feedback2
+
+  tbl.glGenTransformFeedbacks = loader_glGenTransformFeedbacks;
+  tbl.glDeleteTransformFeedbacks = loader_glDeleteTransformFeedbacks;
+  tbl.glBindTransformFeedback = loader_glBindTransformFeedback;
+  tbl.glIsTransformFeedback = loader_glIsTransformFeedback;
+  tbl.glPauseTransformFeedback = loader_glPauseTransformFeedback;
+  tbl.glResumeTransformFeedback = loader_glResumeTransformFeedback;
+  tbl.glDrawTransformFeedback = loader_glDrawTransformFeedback;
+
+  // GL_ARB_transform_feedback3
+
+  tbl.glDrawTransformFeedbackStream = loader_glDrawTransformFeedbackStream;
+  tbl.glBeginQueryIndexed = loader_glBeginQueryIndexed;
+  tbl.glEndQueryIndexed = loader_glEndQueryIndexed;
+  tbl.glGetQueryIndexediv = loader_glGetQueryIndexediv;
+
+  // GL_ARB_shader_subroutine
+
+  tbl.glGetSubroutineUniformLocation = loader_glGetSubroutineUniformLocation;
+  tbl.glGetSubroutineIndex = loader_glGetSubroutineIndex;
+  tbl.glGetActiveSubroutineUniformiv = loader_glGetActiveSubroutineUniformiv;
+  tbl.glGetActiveSubroutineUniformName = loader_glGetActiveSubroutineUniformName;
+  tbl.glGetActiveSubroutineName = loader_glGetActiveSubroutineName;
+  tbl.glUniformSubroutinesuiv = loader_glUniformSubroutinesuiv;
+  tbl.glGetUniformSubroutineuiv = loader_glGetUniformSubroutineuiv;
+  tbl.glGetProgramStageiv = loader_glGetProgramStageiv;
+
+  // GL_ARB_vertex_attrib_64bit
+
+  tbl.glVertexAttribL1d = loader_glVertexAttribL1d;
+  tbl.glVertexAttribL2d = loader_glVertexAttribL2d;
+  tbl.glVertexAttribL3d = loader_glVertexAttribL3d;
+  tbl.glVertexAttribL4d = loader_glVertexAttribL4d;
+  tbl.glVertexAttribL1dv = loader_glVertexAttribL1dv;
+  tbl.glVertexAttribL2dv = loader_glVertexAttribL2dv;
+  tbl.glVertexAttribL3dv = loader_glVertexAttribL3dv;
+  tbl.glVertexAttribL4dv = loader_glVertexAttribL4dv;
+  tbl.glVertexAttribLPointer = loader_glVertexAttribLPointer;
+  tbl.glGetVertexAttribLdv = loader_glGetVertexAttribLdv;
+
+  // GL_ARB_ES2_compatibility
+
+  tbl.glReleaseShaderCompiler = loader_glReleaseShaderCompiler;
+  tbl.glShaderBinary = loader_glShaderBinary;
+  tbl.glGetShaderPrecisionFormat = loader_glGetShaderPrecisionFormat;
+  tbl.glDepthRangef = loader_glDepthRangef;
+  tbl.glClearDepthf = loader_glClearDepthf;
+
+  // GL_ARB_get_program_binary
+
+  tbl.glGetProgramBinary = loader_glGetProgramBinary;
+  tbl.glProgramBinary = loader_glProgramBinary;
+  tbl.glProgramParameteri = loader_glProgramParameteri;
+
+  // GL_ARB_viewport_array
+
+  tbl.glViewportArrayv = loader_glViewportArrayv;
+  tbl.glViewportIndexedf = loader_glViewportIndexedf;
+  tbl.glViewportIndexedfv = loader_glViewportIndexedfv;
+  tbl.glScissorArrayv = loader_glScissorArrayv;
+  tbl.glScissorIndexed = loader_glScissorIndexed;
+  tbl.glScissorIndexedv = loader_glScissorIndexedv;
+  tbl.glDepthRangeArrayv = loader_glDepthRangeArrayv;
+  tbl.glDepthRangeIndexed = loader_glDepthRangeIndexed;
+  tbl.glGetFloati_v = loader_glGetFloati_v;
+  tbl.glGetDoublei_v = loader_glGetDoublei_v;
+
+  // GL_ARB_separate_shader_objects
+
+  tbl.glActiveShaderProgram = loader_glActiveShaderProgram;
+  tbl.glUseProgramStages = loader_glUseProgramStages;
+  tbl.glCreateShaderProgramv = loader_glCreateShaderProgramv;
+  tbl.glBindProgramPipeline = loader_glBindProgramPipeline;
+  tbl.glDeleteProgramPipelines = loader_glDeleteProgramPipelines;
+  tbl.glGenProgramPipelines = loader_glGenProgramPipelines;
+  tbl.glIsProgramPipeline = loader_glIsProgramPipeline;
+  tbl.glGetProgramPipelineiv = loader_glGetProgramPipelineiv;
+  tbl.glValidateProgramPipeline = loader_glValidateProgramPipeline;
+  tbl.glGetProgramPipelineInfoLog = loader_glGetProgramPipelineInfoLog;
+  tbl.glProgramUniform1f = loader_glProgramUniform1f;
+  tbl.glProgramUniform2f = loader_glProgramUniform2f;
+  tbl.glProgramUniform3f = loader_glProgramUniform3f;
+  tbl.glProgramUniform4f = loader_glProgramUniform4f;
+  tbl.glProgramUniform1i = loader_glProgramUniform1i;
+  tbl.glProgramUniform2i = loader_glProgramUniform2i;
+  tbl.glProgramUniform3i = loader_glProgramUniform3i;
+  tbl.glProgramUniform4i = loader_glProgramUniform4i;
+  tbl.glProgramUniform1fv = loader_glProgramUniform1fv;
+  tbl.glProgramUniform2fv = loader_glProgramUniform2fv;
+  tbl.glProgramUniform3fv = loader_glProgramUniform3fv;
+  tbl.glProgramUniform4fv = loader_glProgramUniform4fv;
+  tbl.glProgramUniform1iv = loader_glProgramUniform1iv;
+  tbl.glProgramUniform2iv = loader_glProgramUniform2iv;
+  tbl.glProgramUniform3iv = loader_glProgramUniform3iv;
+  tbl.glProgramUniform4iv = loader_glProgramUniform4iv;
+  tbl.glProgramUniformMatrix2fv = loader_glProgramUniformMatrix2fv;
+  tbl.glProgramUniformMatrix3fv = loader_glProgramUniformMatrix3fv;
+  tbl.glProgramUniformMatrix4fv = loader_glProgramUniformMatrix4fv;
+  tbl.glProgramUniformMatrix2x3fv = loader_glProgramUniformMatrix2x3fv;
+  tbl.glProgramUniformMatrix3x2fv = loader_glProgramUniformMatrix3x2fv;
+  tbl.glProgramUniformMatrix2x4fv = loader_glProgramUniformMatrix2x4fv;
+  tbl.glProgramUniformMatrix4x2fv = loader_glProgramUniformMatrix4x2fv;
+  tbl.glProgramUniformMatrix3x4fv = loader_glProgramUniformMatrix3x4fv;
+  tbl.glProgramUniformMatrix4x3fv = loader_glProgramUniformMatrix4x3fv;
+  tbl.glProgramUniform1ui = loader_glProgramUniform1ui;
+  tbl.glProgramUniform2ui = loader_glProgramUniform2ui;
+  tbl.glProgramUniform3ui = loader_glProgramUniform3ui;
+  tbl.glProgramUniform4ui = loader_glProgramUniform4ui;
+  tbl.glProgramUniform1uiv = loader_glProgramUniform1uiv;
+  tbl.glProgramUniform2uiv = loader_glProgramUniform2uiv;
+  tbl.glProgramUniform3uiv = loader_glProgramUniform3uiv;
+  tbl.glProgramUniform4uiv = loader_glProgramUniform4uiv;
+  tbl.glProgramUniform1d = loader_glProgramUniform1d;
+  tbl.glProgramUniform2d = loader_glProgramUniform2d;
+  tbl.glProgramUniform3d = loader_glProgramUniform3d;
+  tbl.glProgramUniform4d = loader_glProgramUniform4d;
+  tbl.glProgramUniform1dv = loader_glProgramUniform1dv;
+  tbl.glProgramUniform2dv = loader_glProgramUniform2dv;
+  tbl.glProgramUniform3dv = loader_glProgramUniform3dv;
+  tbl.glProgramUniform4dv = loader_glProgramUniform4dv;
+  tbl.glProgramUniformMatrix2dv = loader_glProgramUniformMatrix2dv;
+  tbl.glProgramUniformMatrix3dv = loader_glProgramUniformMatrix3dv;
+  tbl.glProgramUniformMatrix4dv = loader_glProgramUniformMatrix4dv;
+  tbl.glProgramUniformMatrix2x3dv = loader_glProgramUniformMatrix2x3dv;
+  tbl.glProgramUniformMatrix2x4dv = loader_glProgramUniformMatrix2x4dv;
+  tbl.glProgramUniformMatrix3x2dv = loader_glProgramUniformMatrix3x2dv;
+  tbl.glProgramUniformMatrix3x4dv = loader_glProgramUniformMatrix3x4dv;
+  tbl.glProgramUniformMatrix4x2dv = loader_glProgramUniformMatrix4x2dv;
+  tbl.glProgramUniformMatrix4x3dv = loader_glProgramUniformMatrix4x3dv;
+
+  // GL_ARB_multitexture
+
+  tbl.glActiveTextureARB = loader_glActiveTextureARB;
+  tbl.glClientActiveTextureARB = loader_glClientActiveTextureARB;
+  tbl.glMultiTexCoord1dARB = loader_glMultiTexCoord1dARB;
+  tbl.glMultiTexCoord1dvARB = loader_glMultiTexCoord1dvARB;
+  tbl.glMultiTexCoord1fARB = loader_glMultiTexCoord1fARB;
+  tbl.glMultiTexCoord1fvARB = loader_glMultiTexCoord1fvARB;
+  tbl.glMultiTexCoord1iARB = loader_glMultiTexCoord1iARB;
+  tbl.glMultiTexCoord1ivARB = loader_glMultiTexCoord1ivARB;
+  tbl.glMultiTexCoord1sARB = loader_glMultiTexCoord1sARB;
+  tbl.glMultiTexCoord1svARB = loader_glMultiTexCoord1svARB;
+  tbl.glMultiTexCoord2dARB = loader_glMultiTexCoord2dARB;
+  tbl.glMultiTexCoord2dvARB = loader_glMultiTexCoord2dvARB;
+  tbl.glMultiTexCoord2fARB = loader_glMultiTexCoord2fARB;
+  tbl.glMultiTexCoord2fvARB = loader_glMultiTexCoord2fvARB;
+  tbl.glMultiTexCoord2iARB = loader_glMultiTexCoord2iARB;
+  tbl.glMultiTexCoord2ivARB = loader_glMultiTexCoord2ivARB;
+  tbl.glMultiTexCoord2sARB = loader_glMultiTexCoord2sARB;
+  tbl.glMultiTexCoord2svARB = loader_glMultiTexCoord2svARB;
+  tbl.glMultiTexCoord3dARB = loader_glMultiTexCoord3dARB;
+  tbl.glMultiTexCoord3dvARB = loader_glMultiTexCoord3dvARB;
+  tbl.glMultiTexCoord3fARB = loader_glMultiTexCoord3fARB;
+  tbl.glMultiTexCoord3fvARB = loader_glMultiTexCoord3fvARB;
+  tbl.glMultiTexCoord3iARB = loader_glMultiTexCoord3iARB;
+  tbl.glMultiTexCoord3ivARB = loader_glMultiTexCoord3ivARB;
+  tbl.glMultiTexCoord3sARB = loader_glMultiTexCoord3sARB;
+  tbl.glMultiTexCoord3svARB = loader_glMultiTexCoord3svARB;
+  tbl.glMultiTexCoord4dARB = loader_glMultiTexCoord4dARB;
+  tbl.glMultiTexCoord4dvARB = loader_glMultiTexCoord4dvARB;
+  tbl.glMultiTexCoord4fARB = loader_glMultiTexCoord4fARB;
+  tbl.glMultiTexCoord4fvARB = loader_glMultiTexCoord4fvARB;
+  tbl.glMultiTexCoord4iARB = loader_glMultiTexCoord4iARB;
+  tbl.glMultiTexCoord4ivARB = loader_glMultiTexCoord4ivARB;
+  tbl.glMultiTexCoord4sARB = loader_glMultiTexCoord4sARB;
+  tbl.glMultiTexCoord4svARB = loader_glMultiTexCoord4svARB;
+
+  // GL_ARB_transpose_matrix
+
+  tbl.glLoadTransposeMatrixfARB = loader_glLoadTransposeMatrixfARB;
+  tbl.glLoadTransposeMatrixdARB = loader_glLoadTransposeMatrixdARB;
+  tbl.glMultTransposeMatrixfARB = loader_glMultTransposeMatrixfARB;
+  tbl.glMultTransposeMatrixdARB = loader_glMultTransposeMatrixdARB;
+
+  // GL_ARB_multisample
+
+  tbl.glSampleCoverageARB = loader_glSampleCoverageARB;
+
+  // GL_ARB_texture_compression
+
+  tbl.glCompressedTexImage3DARB = loader_glCompressedTexImage3DARB;
+  tbl.glCompressedTexImage2DARB = loader_glCompressedTexImage2DARB;
+  tbl.glCompressedTexImage1DARB = loader_glCompressedTexImage1DARB;
+  tbl.glCompressedTexSubImage3DARB = loader_glCompressedTexSubImage3DARB;
+  tbl.glCompressedTexSubImage2DARB = loader_glCompressedTexSubImage2DARB;
+  tbl.glCompressedTexSubImage1DARB = loader_glCompressedTexSubImage1DARB;
+  tbl.glGetCompressedTexImageARB = loader_glGetCompressedTexImageARB;
+
+  // GL_ARB_point_parameters
+
+  tbl.glPointParameterfARB = loader_glPointParameterfARB;
+  tbl.glPointParameterfvARB = loader_glPointParameterfvARB;
+
+  // GL_ARB_vertex_blend
+
+  tbl.glWeightbvARB = loader_glWeightbvARB;
+  tbl.glWeightsvARB = loader_glWeightsvARB;
+  tbl.glWeightivARB = loader_glWeightivARB;
+  tbl.glWeightfvARB = loader_glWeightfvARB;
+  tbl.glWeightdvARB = loader_glWeightdvARB;
+  tbl.glWeightubvARB = loader_glWeightubvARB;
+  tbl.glWeightusvARB = loader_glWeightusvARB;
+  tbl.glWeightuivARB = loader_glWeightuivARB;
+  tbl.glWeightPointerARB = loader_glWeightPointerARB;
+  tbl.glVertexBlendARB = loader_glVertexBlendARB;
+
+  // GL_ARB_matrix_palette
+
+  tbl.glCurrentPaletteMatrixARB = loader_glCurrentPaletteMatrixARB;
+  tbl.glMatrixIndexubvARB = loader_glMatrixIndexubvARB;
+  tbl.glMatrixIndexusvARB = loader_glMatrixIndexusvARB;
+  tbl.glMatrixIndexuivARB = loader_glMatrixIndexuivARB;
+  tbl.glMatrixIndexPointerARB = loader_glMatrixIndexPointerARB;
+
+  // GL_ARB_window_pos
+
+  tbl.glWindowPos2dARB = loader_glWindowPos2dARB;
+  tbl.glWindowPos2dvARB = loader_glWindowPos2dvARB;
+  tbl.glWindowPos2fARB = loader_glWindowPos2fARB;
+  tbl.glWindowPos2fvARB = loader_glWindowPos2fvARB;
+  tbl.glWindowPos2iARB = loader_glWindowPos2iARB;
+  tbl.glWindowPos2ivARB = loader_glWindowPos2ivARB;
+  tbl.glWindowPos2sARB = loader_glWindowPos2sARB;
+  tbl.glWindowPos2svARB = loader_glWindowPos2svARB;
+  tbl.glWindowPos3dARB = loader_glWindowPos3dARB;
+  tbl.glWindowPos3dvARB = loader_glWindowPos3dvARB;
+  tbl.glWindowPos3fARB = loader_glWindowPos3fARB;
+  tbl.glWindowPos3fvARB = loader_glWindowPos3fvARB;
+  tbl.glWindowPos3iARB = loader_glWindowPos3iARB;
+  tbl.glWindowPos3ivARB = loader_glWindowPos3ivARB;
+  tbl.glWindowPos3sARB = loader_glWindowPos3sARB;
+  tbl.glWindowPos3svARB = loader_glWindowPos3svARB;
+
+  // GL_ARB_vertex_program
+
+  tbl.glVertexAttrib1dARB = loader_glVertexAttrib1dARB;
+  tbl.glVertexAttrib1dvARB = loader_glVertexAttrib1dvARB;
+  tbl.glVertexAttrib1fARB = loader_glVertexAttrib1fARB;
+  tbl.glVertexAttrib1fvARB = loader_glVertexAttrib1fvARB;
+  tbl.glVertexAttrib1sARB = loader_glVertexAttrib1sARB;
+  tbl.glVertexAttrib1svARB = loader_glVertexAttrib1svARB;
+  tbl.glVertexAttrib2dARB = loader_glVertexAttrib2dARB;
+  tbl.glVertexAttrib2dvARB = loader_glVertexAttrib2dvARB;
+  tbl.glVertexAttrib2fARB = loader_glVertexAttrib2fARB;
+  tbl.glVertexAttrib2fvARB = loader_glVertexAttrib2fvARB;
+  tbl.glVertexAttrib2sARB = loader_glVertexAttrib2sARB;
+  tbl.glVertexAttrib2svARB = loader_glVertexAttrib2svARB;
+  tbl.glVertexAttrib3dARB = loader_glVertexAttrib3dARB;
+  tbl.glVertexAttrib3dvARB = loader_glVertexAttrib3dvARB;
+  tbl.glVertexAttrib3fARB = loader_glVertexAttrib3fARB;
+  tbl.glVertexAttrib3fvARB = loader_glVertexAttrib3fvARB;
+  tbl.glVertexAttrib3sARB = loader_glVertexAttrib3sARB;
+  tbl.glVertexAttrib3svARB = loader_glVertexAttrib3svARB;
+  tbl.glVertexAttrib4NbvARB = loader_glVertexAttrib4NbvARB;
+  tbl.glVertexAttrib4NivARB = loader_glVertexAttrib4NivARB;
+  tbl.glVertexAttrib4NsvARB = loader_glVertexAttrib4NsvARB;
+  tbl.glVertexAttrib4NubARB = loader_glVertexAttrib4NubARB;
+  tbl.glVertexAttrib4NubvARB = loader_glVertexAttrib4NubvARB;
+  tbl.glVertexAttrib4NuivARB = loader_glVertexAttrib4NuivARB;
+  tbl.glVertexAttrib4NusvARB = loader_glVertexAttrib4NusvARB;
+  tbl.glVertexAttrib4bvARB = loader_glVertexAttrib4bvARB;
+  tbl.glVertexAttrib4dARB = loader_glVertexAttrib4dARB;
+  tbl.glVertexAttrib4dvARB = loader_glVertexAttrib4dvARB;
+  tbl.glVertexAttrib4fARB = loader_glVertexAttrib4fARB;
+  tbl.glVertexAttrib4fvARB = loader_glVertexAttrib4fvARB;
+  tbl.glVertexAttrib4ivARB = loader_glVertexAttrib4ivARB;
+  tbl.glVertexAttrib4sARB = loader_glVertexAttrib4sARB;
+  tbl.glVertexAttrib4svARB = loader_glVertexAttrib4svARB;
+  tbl.glVertexAttrib4ubvARB = loader_glVertexAttrib4ubvARB;
+  tbl.glVertexAttrib4uivARB = loader_glVertexAttrib4uivARB;
+  tbl.glVertexAttrib4usvARB = loader_glVertexAttrib4usvARB;
+  tbl.glVertexAttribPointerARB = loader_glVertexAttribPointerARB;
+  tbl.glEnableVertexAttribArrayARB = loader_glEnableVertexAttribArrayARB;
+  tbl.glDisableVertexAttribArrayARB = loader_glDisableVertexAttribArrayARB;
+  tbl.glProgramStringARB = loader_glProgramStringARB;
+  tbl.glBindProgramARB = loader_glBindProgramARB;
+  tbl.glDeleteProgramsARB = loader_glDeleteProgramsARB;
+  tbl.glGenProgramsARB = loader_glGenProgramsARB;
+  tbl.glProgramEnvParameter4dARB = loader_glProgramEnvParameter4dARB;
+  tbl.glProgramEnvParameter4dvARB = loader_glProgramEnvParameter4dvARB;
+  tbl.glProgramEnvParameter4fARB = loader_glProgramEnvParameter4fARB;
+  tbl.glProgramEnvParameter4fvARB = loader_glProgramEnvParameter4fvARB;
+  tbl.glProgramLocalParameter4dARB = loader_glProgramLocalParameter4dARB;
+  tbl.glProgramLocalParameter4dvARB = loader_glProgramLocalParameter4dvARB;
+  tbl.glProgramLocalParameter4fARB = loader_glProgramLocalParameter4fARB;
+  tbl.glProgramLocalParameter4fvARB = loader_glProgramLocalParameter4fvARB;
+  tbl.glGetProgramEnvParameterdvARB = loader_glGetProgramEnvParameterdvARB;
+  tbl.glGetProgramEnvParameterfvARB = loader_glGetProgramEnvParameterfvARB;
+  tbl.glGetProgramLocalParameterdvARB = loader_glGetProgramLocalParameterdvARB;
+  tbl.glGetProgramLocalParameterfvARB = loader_glGetProgramLocalParameterfvARB;
+  tbl.glGetProgramivARB = loader_glGetProgramivARB;
+  tbl.glGetProgramStringARB = loader_glGetProgramStringARB;
+  tbl.glGetVertexAttribdvARB = loader_glGetVertexAttribdvARB;
+  tbl.glGetVertexAttribfvARB = loader_glGetVertexAttribfvARB;
+  tbl.glGetVertexAttribivARB = loader_glGetVertexAttribivARB;
+  tbl.glGetVertexAttribPointervARB = loader_glGetVertexAttribPointervARB;
+  tbl.glIsProgramARB = loader_glIsProgramARB;
+
+  // GL_ARB_vertex_buffer_object
+
+  tbl.glBindBufferARB = loader_glBindBufferARB;
+  tbl.glDeleteBuffersARB = loader_glDeleteBuffersARB;
+  tbl.glGenBuffersARB = loader_glGenBuffersARB;
+  tbl.glIsBufferARB = loader_glIsBufferARB;
+  tbl.glBufferDataARB = loader_glBufferDataARB;
+  tbl.glBufferSubDataARB = loader_glBufferSubDataARB;
+  tbl.glGetBufferSubDataARB = loader_glGetBufferSubDataARB;
+  tbl.glMapBufferARB = loader_glMapBufferARB;
+  tbl.glUnmapBufferARB = loader_glUnmapBufferARB;
+  tbl.glGetBufferParameterivARB = loader_glGetBufferParameterivARB;
+  tbl.glGetBufferPointervARB = loader_glGetBufferPointervARB;
+
+  // GL_ARB_occlusion_query
+
+  tbl.glGenQueriesARB = loader_glGenQueriesARB;
+  tbl.glDeleteQueriesARB = loader_glDeleteQueriesARB;
+  tbl.glIsQueryARB = loader_glIsQueryARB;
+  tbl.glBeginQueryARB = loader_glBeginQueryARB;
+  tbl.glEndQueryARB = loader_glEndQueryARB;
+  tbl.glGetQueryivARB = loader_glGetQueryivARB;
+  tbl.glGetQueryObjectivARB = loader_glGetQueryObjectivARB;
+  tbl.glGetQueryObjectuivARB = loader_glGetQueryObjectuivARB;
+
+  // GL_ARB_shader_objects
+
+  tbl.glDeleteObjectARB = loader_glDeleteObjectARB;
+  tbl.glGetHandleARB = loader_glGetHandleARB;
+  tbl.glDetachObjectARB = loader_glDetachObjectARB;
+  tbl.glCreateShaderObjectARB = loader_glCreateShaderObjectARB;
+  tbl.glShaderSourceARB = loader_glShaderSourceARB;
+  tbl.glCompileShaderARB = loader_glCompileShaderARB;
+  tbl.glCreateProgramObjectARB = loader_glCreateProgramObjectARB;
+  tbl.glAttachObjectARB = loader_glAttachObjectARB;
+  tbl.glLinkProgramARB = loader_glLinkProgramARB;
+  tbl.glUseProgramObjectARB = loader_glUseProgramObjectARB;
+  tbl.glValidateProgramARB = loader_glValidateProgramARB;
+  tbl.glUniform1fARB = loader_glUniform1fARB;
+  tbl.glUniform2fARB = loader_glUniform2fARB;
+  tbl.glUniform3fARB = loader_glUniform3fARB;
+  tbl.glUniform4fARB = loader_glUniform4fARB;
+  tbl.glUniform1iARB = loader_glUniform1iARB;
+  tbl.glUniform2iARB = loader_glUniform2iARB;
+  tbl.glUniform3iARB = loader_glUniform3iARB;
+  tbl.glUniform4iARB = loader_glUniform4iARB;
+  tbl.glUniform1fvARB = loader_glUniform1fvARB;
+  tbl.glUniform2fvARB = loader_glUniform2fvARB;
+  tbl.glUniform3fvARB = loader_glUniform3fvARB;
+  tbl.glUniform4fvARB = loader_glUniform4fvARB;
+  tbl.glUniform1ivARB = loader_glUniform1ivARB;
+  tbl.glUniform2ivARB = loader_glUniform2ivARB;
+  tbl.glUniform3ivARB = loader_glUniform3ivARB;
+  tbl.glUniform4ivARB = loader_glUniform4ivARB;
+  tbl.glUniformMatrix2fvARB = loader_glUniformMatrix2fvARB;
+  tbl.glUniformMatrix3fvARB = loader_glUniformMatrix3fvARB;
+  tbl.glUniformMatrix4fvARB = loader_glUniformMatrix4fvARB;
+  tbl.glGetObjectParameterfvARB = loader_glGetObjectParameterfvARB;
+  tbl.glGetObjectParameterivARB = loader_glGetObjectParameterivARB;
+  tbl.glGetInfoLogARB = loader_glGetInfoLogARB;
+  tbl.glGetAttachedObjectsARB = loader_glGetAttachedObjectsARB;
+  tbl.glGetUniformLocationARB = loader_glGetUniformLocationARB;
+  tbl.glGetActiveUniformARB = loader_glGetActiveUniformARB;
+  tbl.glGetUniformfvARB = loader_glGetUniformfvARB;
+  tbl.glGetUniformivARB = loader_glGetUniformivARB;
+  tbl.glGetShaderSourceARB = loader_glGetShaderSourceARB;
+
+  // GL_ARB_vertex_shader
+
+  tbl.glBindAttribLocationARB = loader_glBindAttribLocationARB;
+  tbl.glGetActiveAttribARB = loader_glGetActiveAttribARB;
+  tbl.glGetAttribLocationARB = loader_glGetAttribLocationARB;
+
+  // GL_ARB_draw_buffers
+
+  tbl.glDrawBuffersARB = loader_glDrawBuffersARB;
+
+  // GL_ARB_color_buffer_float
+
+  tbl.glClampColorARB = loader_glClampColorARB;
+
+  // GL_ARB_draw_instanced
+
+  tbl.glDrawArraysInstancedARB = loader_glDrawArraysInstancedARB;
+  tbl.glDrawElementsInstancedARB = loader_glDrawElementsInstancedARB;
+
+  // GL_ARB_framebuffer_object
+
+  tbl.glIsRenderbuffer = loader_glIsRenderbuffer;
+  tbl.glBindRenderbuffer = loader_glBindRenderbuffer;
+  tbl.glDeleteRenderbuffers = loader_glDeleteRenderbuffers;
+  tbl.glGenRenderbuffers = loader_glGenRenderbuffers;
+  tbl.glRenderbufferStorage = loader_glRenderbufferStorage;
+  tbl.glGetRenderbufferParameteriv = loader_glGetRenderbufferParameteriv;
+  tbl.glIsFramebuffer = loader_glIsFramebuffer;
+  tbl.glBindFramebuffer = loader_glBindFramebuffer;
+  tbl.glDeleteFramebuffers = loader_glDeleteFramebuffers;
+  tbl.glGenFramebuffers = loader_glGenFramebuffers;
+  tbl.glCheckFramebufferStatus = loader_glCheckFramebufferStatus;
+  tbl.glFramebufferTexture1D = loader_glFramebufferTexture1D;
+  tbl.glFramebufferTexture2D = loader_glFramebufferTexture2D;
+  tbl.glFramebufferTexture3D = loader_glFramebufferTexture3D;
+  tbl.glFramebufferRenderbuffer = loader_glFramebufferRenderbuffer;
+  tbl.glGetFramebufferAttachmentParameteriv = loader_glGetFramebufferAttachmentParameteriv;
+  tbl.glGenerateMipmap = loader_glGenerateMipmap;
+  tbl.glBlitFramebuffer = loader_glBlitFramebuffer;
+  tbl.glRenderbufferStorageMultisample = loader_glRenderbufferStorageMultisample;
+  tbl.glFramebufferTextureLayer = loader_glFramebufferTextureLayer;
+
+  // GL_ARB_geometry_shader4
+
+  tbl.glProgramParameteriARB = loader_glProgramParameteriARB;
+  tbl.glFramebufferTextureARB = loader_glFramebufferTextureARB;
+  tbl.glFramebufferTextureLayerARB = loader_glFramebufferTextureLayerARB;
+  tbl.glFramebufferTextureFaceARB = loader_glFramebufferTextureFaceARB;
+
+  // GL_ARB_instanced_arrays
+
+  tbl.glVertexAttribDivisorARB = loader_glVertexAttribDivisorARB;
+
+  // GL_ARB_map_buffer_range
+
+  tbl.glMapBufferRange = loader_glMapBufferRange;
+  tbl.glFlushMappedBufferRange = loader_glFlushMappedBufferRange;
+
+  // GL_ARB_texture_buffer_object
+
+  tbl.glTexBufferARB = loader_glTexBufferARB;
+
+  // GL_ARB_vertex_array_object
+
+  tbl.glBindVertexArray = loader_glBindVertexArray;
+  tbl.glDeleteVertexArrays = loader_glDeleteVertexArrays;
+  tbl.glGenVertexArrays = loader_glGenVertexArrays;
+  tbl.glIsVertexArray = loader_glIsVertexArray;
+
+  // GL_ARB_uniform_buffer_object
+
+  tbl.glGetUniformIndices = loader_glGetUniformIndices;
+  tbl.glGetActiveUniformsiv = loader_glGetActiveUniformsiv;
+  tbl.glGetActiveUniformName = loader_glGetActiveUniformName;
+  tbl.glGetUniformBlockIndex = loader_glGetUniformBlockIndex;
+  tbl.glGetActiveUniformBlockiv = loader_glGetActiveUniformBlockiv;
+  tbl.glGetActiveUniformBlockName = loader_glGetActiveUniformBlockName;
+  tbl.glUniformBlockBinding = loader_glUniformBlockBinding;
+
+  // GL_ARB_copy_buffer
+
+  tbl.glCopyBufferSubData = loader_glCopyBufferSubData;
+
+  // GL_ARB_draw_elements_base_vertex
+
+  tbl.glDrawElementsBaseVertex = loader_glDrawElementsBaseVertex;
+  tbl.glDrawRangeElementsBaseVertex = loader_glDrawRangeElementsBaseVertex;
+  tbl.glDrawElementsInstancedBaseVertex = loader_glDrawElementsInstancedBaseVertex;
+  tbl.glMultiDrawElementsBaseVertex = loader_glMultiDrawElementsBaseVertex;
+
+  // GL_ARB_provoking_vertex
+
+  tbl.glProvokingVertex = loader_glProvokingVertex;
+
+  // GL_ARB_sync
+
+  tbl.glFenceSync = loader_glFenceSync;
+  tbl.glIsSync = loader_glIsSync;
+  tbl.glDeleteSync = loader_glDeleteSync;
+  tbl.glClientWaitSync = loader_glClientWaitSync;
+  tbl.glWaitSync = loader_glWaitSync;
+  tbl.glGetInteger64v = loader_glGetInteger64v;
+  tbl.glGetSynciv = loader_glGetSynciv;
+
+  // GL_ARB_texture_multisample
+
+  tbl.glTexImage2DMultisample = loader_glTexImage2DMultisample;
+  tbl.glTexImage3DMultisample = loader_glTexImage3DMultisample;
+  tbl.glGetMultisamplefv = loader_glGetMultisamplefv;
+  tbl.glSampleMaski = loader_glSampleMaski;
+
+  // GL_ARB_draw_buffers_blend
+
+  tbl.glBlendEquationiARB = loader_glBlendEquationiARB;
+  tbl.glBlendEquationSeparateiARB = loader_glBlendEquationSeparateiARB;
+  tbl.glBlendFunciARB = loader_glBlendFunciARB;
+  tbl.glBlendFuncSeparateiARB = loader_glBlendFuncSeparateiARB;
+
+  // GL_ARB_sample_shading
+
+  tbl.glMinSampleShadingARB = loader_glMinSampleShadingARB;
+
+  // GL_ARB_shading_language_include
+
+  tbl.glNamedStringARB = loader_glNamedStringARB;
+  tbl.glDeleteNamedStringARB = loader_glDeleteNamedStringARB;
+  tbl.glCompileShaderIncludeARB = loader_glCompileShaderIncludeARB;
+  tbl.glIsNamedStringARB = loader_glIsNamedStringARB;
+  tbl.glGetNamedStringARB = loader_glGetNamedStringARB;
+  tbl.glGetNamedStringivARB = loader_glGetNamedStringivARB;
+
+  // GL_ARB_debug_output
+
+  tbl.glDebugMessageControlARB = loader_glDebugMessageControlARB;
+  tbl.glDebugMessageInsertARB = loader_glDebugMessageInsertARB;
+  tbl.glDebugMessageCallbackARB = loader_glDebugMessageCallbackARB;
+  tbl.glGetDebugMessageLogARB = loader_glGetDebugMessageLogARB;
+
+  // GL_ARB_robustness
+
+  tbl.glGetGraphicsResetStatusARB = loader_glGetGraphicsResetStatusARB;
+  tbl.glGetnMapdvARB = loader_glGetnMapdvARB;
+  tbl.glGetnMapfvARB = loader_glGetnMapfvARB;
+  tbl.glGetnMapivARB = loader_glGetnMapivARB;
+  tbl.glGetnPixelMapfvARB = loader_glGetnPixelMapfvARB;
+  tbl.glGetnPixelMapuivARB = loader_glGetnPixelMapuivARB;
+  tbl.glGetnPixelMapusvARB = loader_glGetnPixelMapusvARB;
+  tbl.glGetnPolygonStippleARB = loader_glGetnPolygonStippleARB;
+  tbl.glGetnTexImageARB = loader_glGetnTexImageARB;
+  tbl.glReadnPixelsARB = loader_glReadnPixelsARB;
+  tbl.glGetnColorTableARB = loader_glGetnColorTableARB;
+  tbl.glGetnConvolutionFilterARB = loader_glGetnConvolutionFilterARB;
+  tbl.glGetnSeparableFilterARB = loader_glGetnSeparableFilterARB;
+  tbl.glGetnHistogramARB = loader_glGetnHistogramARB;
+  tbl.glGetnMinmaxARB = loader_glGetnMinmaxARB;
+  tbl.glGetnCompressedTexImageARB = loader_glGetnCompressedTexImageARB;
+  tbl.glGetnUniformfvARB = loader_glGetnUniformfvARB;
+  tbl.glGetnUniformivARB = loader_glGetnUniformivARB;
+  tbl.glGetnUniformuivARB = loader_glGetnUniformuivARB;
+  tbl.glGetnUniformdvARB = loader_glGetnUniformdvARB;
+
+  // GL_EXT_blend_color
+
+  tbl.glBlendColorEXT = loader_glBlendColorEXT;
+
+  // GL_EXT_polygon_offset
+
+  tbl.glPolygonOffsetEXT = loader_glPolygonOffsetEXT;
+
+  // GL_EXT_texture3D
+
+  tbl.glTexImage3DEXT = loader_glTexImage3DEXT;
+
+  // GL_SGIS_texture_filter4
+
+  tbl.glGetTexFilterFuncSGIS = loader_glGetTexFilterFuncSGIS;
+  tbl.glTexFilterFuncSGIS = loader_glTexFilterFuncSGIS;
+
+  // GL_EXT_subtexture
+
+  tbl.glTexSubImage1DEXT = loader_glTexSubImage1DEXT;
+  tbl.glTexSubImage2DEXT = loader_glTexSubImage2DEXT;
+  tbl.glTexSubImage3DEXT = loader_glTexSubImage3DEXT;
+
+  // GL_EXT_copy_texture
+
+  tbl.glCopyTexImage1DEXT = loader_glCopyTexImage1DEXT;
+  tbl.glCopyTexImage2DEXT = loader_glCopyTexImage2DEXT;
+  tbl.glCopyTexSubImage1DEXT = loader_glCopyTexSubImage1DEXT;
+  tbl.glCopyTexSubImage2DEXT = loader_glCopyTexSubImage2DEXT;
+  tbl.glCopyTexSubImage3DEXT = loader_glCopyTexSubImage3DEXT;
+
+  // GL_EXT_histogram
+
+  tbl.glGetHistogramEXT = loader_glGetHistogramEXT;
+  tbl.glGetHistogramParameterfvEXT = loader_glGetHistogramParameterfvEXT;
+  tbl.glGetHistogramParameterivEXT = loader_glGetHistogramParameterivEXT;
+  tbl.glGetMinmaxEXT = loader_glGetMinmaxEXT;
+  tbl.glGetMinmaxParameterfvEXT = loader_glGetMinmaxParameterfvEXT;
+  tbl.glGetMinmaxParameterivEXT = loader_glGetMinmaxParameterivEXT;
+  tbl.glHistogramEXT = loader_glHistogramEXT;
+  tbl.glMinmaxEXT = loader_glMinmaxEXT;
+  tbl.glResetHistogramEXT = loader_glResetHistogramEXT;
+  tbl.glResetMinmaxEXT = loader_glResetMinmaxEXT;
+
+  // GL_EXT_convolution
+
+  tbl.glConvolutionFilter1DEXT = loader_glConvolutionFilter1DEXT;
+  tbl.glConvolutionFilter2DEXT = loader_glConvolutionFilter2DEXT;
+  tbl.glConvolutionParameterfEXT = loader_glConvolutionParameterfEXT;
+  tbl.glConvolutionParameterfvEXT = loader_glConvolutionParameterfvEXT;
+  tbl.glConvolutionParameteriEXT = loader_glConvolutionParameteriEXT;
+  tbl.glConvolutionParameterivEXT = loader_glConvolutionParameterivEXT;
+  tbl.glCopyConvolutionFilter1DEXT = loader_glCopyConvolutionFilter1DEXT;
+  tbl.glCopyConvolutionFilter2DEXT = loader_glCopyConvolutionFilter2DEXT;
+  tbl.glGetConvolutionFilterEXT = loader_glGetConvolutionFilterEXT;
+  tbl.glGetConvolutionParameterfvEXT = loader_glGetConvolutionParameterfvEXT;
+  tbl.glGetConvolutionParameterivEXT = loader_glGetConvolutionParameterivEXT;
+  tbl.glGetSeparableFilterEXT = loader_glGetSeparableFilterEXT;
+  tbl.glSeparableFilter2DEXT = loader_glSeparableFilter2DEXT;
+
+  // GL_SGI_color_table
+
+  tbl.glColorTableSGI = loader_glColorTableSGI;
+  tbl.glColorTableParameterfvSGI = loader_glColorTableParameterfvSGI;
+  tbl.glColorTableParameterivSGI = loader_glColorTableParameterivSGI;
+  tbl.glCopyColorTableSGI = loader_glCopyColorTableSGI;
+  tbl.glGetColorTableSGI = loader_glGetColorTableSGI;
+  tbl.glGetColorTableParameterfvSGI = loader_glGetColorTableParameterfvSGI;
+  tbl.glGetColorTableParameterivSGI = loader_glGetColorTableParameterivSGI;
+
+  // GL_SGIX_pixel_texture
+
+  tbl.glPixelTexGenSGIX = loader_glPixelTexGenSGIX;
+
+  // GL_SGIS_pixel_texture
+
+  tbl.glPixelTexGenParameteriSGIS = loader_glPixelTexGenParameteriSGIS;
+  tbl.glPixelTexGenParameterivSGIS = loader_glPixelTexGenParameterivSGIS;
+  tbl.glPixelTexGenParameterfSGIS = loader_glPixelTexGenParameterfSGIS;
+  tbl.glPixelTexGenParameterfvSGIS = loader_glPixelTexGenParameterfvSGIS;
+  tbl.glGetPixelTexGenParameterivSGIS = loader_glGetPixelTexGenParameterivSGIS;
+  tbl.glGetPixelTexGenParameterfvSGIS = loader_glGetPixelTexGenParameterfvSGIS;
+
+  // GL_SGIS_texture4D
+
+  tbl.glTexImage4DSGIS = loader_glTexImage4DSGIS;
+  tbl.glTexSubImage4DSGIS = loader_glTexSubImage4DSGIS;
+
+  // GL_EXT_texture_object
+
+  tbl.glAreTexturesResidentEXT = loader_glAreTexturesResidentEXT;
+  tbl.glBindTextureEXT = loader_glBindTextureEXT;
+  tbl.glDeleteTexturesEXT = loader_glDeleteTexturesEXT;
+  tbl.glGenTexturesEXT = loader_glGenTexturesEXT;
+  tbl.glIsTextureEXT = loader_glIsTextureEXT;
+  tbl.glPrioritizeTexturesEXT = loader_glPrioritizeTexturesEXT;
+
+  // GL_SGIS_detail_texture
+
+  tbl.glDetailTexFuncSGIS = loader_glDetailTexFuncSGIS;
+  tbl.glGetDetailTexFuncSGIS = loader_glGetDetailTexFuncSGIS;
+
+  // GL_SGIS_sharpen_texture
+
+  tbl.glSharpenTexFuncSGIS = loader_glSharpenTexFuncSGIS;
+  tbl.glGetSharpenTexFuncSGIS = loader_glGetSharpenTexFuncSGIS;
+
+  // GL_SGIS_multisample
+
+  tbl.glSampleMaskSGIS = loader_glSampleMaskSGIS;
+  tbl.glSamplePatternSGIS = loader_glSamplePatternSGIS;
+
+  // GL_EXT_vertex_array
+
+  tbl.glArrayElementEXT = loader_glArrayElementEXT;
+  tbl.glColorPointerEXT = loader_glColorPointerEXT;
+  tbl.glDrawArraysEXT = loader_glDrawArraysEXT;
+  tbl.glEdgeFlagPointerEXT = loader_glEdgeFlagPointerEXT;
+  tbl.glGetPointervEXT = loader_glGetPointervEXT;
+  tbl.glIndexPointerEXT = loader_glIndexPointerEXT;
+  tbl.glNormalPointerEXT = loader_glNormalPointerEXT;
+  tbl.glTexCoordPointerEXT = loader_glTexCoordPointerEXT;
+  tbl.glVertexPointerEXT = loader_glVertexPointerEXT;
+
+  // GL_EXT_blend_minmax
+
+  tbl.glBlendEquationEXT = loader_glBlendEquationEXT;
+
+  // GL_SGIX_sprite
+
+  tbl.glSpriteParameterfSGIX = loader_glSpriteParameterfSGIX;
+  tbl.glSpriteParameterfvSGIX = loader_glSpriteParameterfvSGIX;
+  tbl.glSpriteParameteriSGIX = loader_glSpriteParameteriSGIX;
+  tbl.glSpriteParameterivSGIX = loader_glSpriteParameterivSGIX;
+
+  // GL_EXT_point_parameters
+
+  tbl.glPointParameterfEXT = loader_glPointParameterfEXT;
+  tbl.glPointParameterfvEXT = loader_glPointParameterfvEXT;
+
+  // GL_SGIS_point_parameters
+
+  tbl.glPointParameterfSGIS = loader_glPointParameterfSGIS;
+  tbl.glPointParameterfvSGIS = loader_glPointParameterfvSGIS;
+
+  // GL_SGIX_instruments
+
+  tbl.glGetInstrumentsSGIX = loader_glGetInstrumentsSGIX;
+  tbl.glInstrumentsBufferSGIX = loader_glInstrumentsBufferSGIX;
+  tbl.glPollInstrumentsSGIX = loader_glPollInstrumentsSGIX;
+  tbl.glReadInstrumentsSGIX = loader_glReadInstrumentsSGIX;
+  tbl.glStartInstrumentsSGIX = loader_glStartInstrumentsSGIX;
+  tbl.glStopInstrumentsSGIX = loader_glStopInstrumentsSGIX;
+
+  // GL_SGIX_framezoom
+
+  tbl.glFrameZoomSGIX = loader_glFrameZoomSGIX;
+
+  // GL_SGIX_tag_sample_buffer
+
+  tbl.glTagSampleBufferSGIX = loader_glTagSampleBufferSGIX;
+
+  // GL_SGIX_polynomial_ffd
+
+  tbl.glDeformationMap3dSGIX = loader_glDeformationMap3dSGIX;
+  tbl.glDeformationMap3fSGIX = loader_glDeformationMap3fSGIX;
+  tbl.glDeformSGIX = loader_glDeformSGIX;
+  tbl.glLoadIdentityDeformationMapSGIX = loader_glLoadIdentityDeformationMapSGIX;
+
+  // GL_SGIX_reference_plane
+
+  tbl.glReferencePlaneSGIX = loader_glReferencePlaneSGIX;
+
+  // GL_SGIX_flush_raster
+
+  tbl.glFlushRasterSGIX = loader_glFlushRasterSGIX;
+
+  // GL_SGIS_fog_function
+
+  tbl.glFogFuncSGIS = loader_glFogFuncSGIS;
+  tbl.glGetFogFuncSGIS = loader_glGetFogFuncSGIS;
+
+  // GL_HP_image_transform
+
+  tbl.glImageTransformParameteriHP = loader_glImageTransformParameteriHP;
+  tbl.glImageTransformParameterfHP = loader_glImageTransformParameterfHP;
+  tbl.glImageTransformParameterivHP = loader_glImageTransformParameterivHP;
+  tbl.glImageTransformParameterfvHP = loader_glImageTransformParameterfvHP;
+  tbl.glGetImageTransformParameterivHP = loader_glGetImageTransformParameterivHP;
+  tbl.glGetImageTransformParameterfvHP = loader_glGetImageTransformParameterfvHP;
+
+  // GL_EXT_color_subtable
+
+  tbl.glColorSubTableEXT = loader_glColorSubTableEXT;
+  tbl.glCopyColorSubTableEXT = loader_glCopyColorSubTableEXT;
+
+  // GL_PGI_misc_hints
+
+  tbl.glHintPGI = loader_glHintPGI;
+
+  // GL_EXT_paletted_texture
+
+  tbl.glColorTableEXT = loader_glColorTableEXT;
+  tbl.glGetColorTableEXT = loader_glGetColorTableEXT;
+  tbl.glGetColorTableParameterivEXT = loader_glGetColorTableParameterivEXT;
+  tbl.glGetColorTableParameterfvEXT = loader_glGetColorTableParameterfvEXT;
+
+  // GL_SGIX_list_priority
+
+  tbl.glGetListParameterfvSGIX = loader_glGetListParameterfvSGIX;
+  tbl.glGetListParameterivSGIX = loader_glGetListParameterivSGIX;
+  tbl.glListParameterfSGIX = loader_glListParameterfSGIX;
+  tbl.glListParameterfvSGIX = loader_glListParameterfvSGIX;
+  tbl.glListParameteriSGIX = loader_glListParameteriSGIX;
+  tbl.glListParameterivSGIX = loader_glListParameterivSGIX;
+
+  // GL_EXT_index_material
+
+  tbl.glIndexMaterialEXT = loader_glIndexMaterialEXT;
+
+  // GL_EXT_index_func
+
+  tbl.glIndexFuncEXT = loader_glIndexFuncEXT;
+
+  // GL_EXT_compiled_vertex_array
+
+  tbl.glLockArraysEXT = loader_glLockArraysEXT;
+  tbl.glUnlockArraysEXT = loader_glUnlockArraysEXT;
+
+  // GL_EXT_cull_vertex
+
+  tbl.glCullParameterdvEXT = loader_glCullParameterdvEXT;
+  tbl.glCullParameterfvEXT = loader_glCullParameterfvEXT;
+
+  // GL_SGIX_fragment_lighting
+
+  tbl.glFragmentColorMaterialSGIX = loader_glFragmentColorMaterialSGIX;
+  tbl.glFragmentLightfSGIX = loader_glFragmentLightfSGIX;
+  tbl.glFragmentLightfvSGIX = loader_glFragmentLightfvSGIX;
+  tbl.glFragmentLightiSGIX = loader_glFragmentLightiSGIX;
+  tbl.glFragmentLightivSGIX = loader_glFragmentLightivSGIX;
+  tbl.glFragmentLightModelfSGIX = loader_glFragmentLightModelfSGIX;
+  tbl.glFragmentLightModelfvSGIX = loader_glFragmentLightModelfvSGIX;
+  tbl.glFragmentLightModeliSGIX = loader_glFragmentLightModeliSGIX;
+  tbl.glFragmentLightModelivSGIX = loader_glFragmentLightModelivSGIX;
+  tbl.glFragmentMaterialfSGIX = loader_glFragmentMaterialfSGIX;
+  tbl.glFragmentMaterialfvSGIX = loader_glFragmentMaterialfvSGIX;
+  tbl.glFragmentMaterialiSGIX = loader_glFragmentMaterialiSGIX;
+  tbl.glFragmentMaterialivSGIX = loader_glFragmentMaterialivSGIX;
+  tbl.glGetFragmentLightfvSGIX = loader_glGetFragmentLightfvSGIX;
+  tbl.glGetFragmentLightivSGIX = loader_glGetFragmentLightivSGIX;
+  tbl.glGetFragmentMaterialfvSGIX = loader_glGetFragmentMaterialfvSGIX;
+  tbl.glGetFragmentMaterialivSGIX = loader_glGetFragmentMaterialivSGIX;
+  tbl.glLightEnviSGIX = loader_glLightEnviSGIX;
+
+  // GL_EXT_draw_range_elements
+
+  tbl.glDrawRangeElementsEXT = loader_glDrawRangeElementsEXT;
+
+  // GL_EXT_light_texture
+
+  tbl.glApplyTextureEXT = loader_glApplyTextureEXT;
+  tbl.glTextureLightEXT = loader_glTextureLightEXT;
+  tbl.glTextureMaterialEXT = loader_glTextureMaterialEXT;
+
+  // GL_EXT_scene_marker
+
+  tbl.glBeginSceneEXT = loader_glBeginSceneEXT;
+  tbl.glEndSceneEXT = loader_glEndSceneEXT;
+
+  // GL_SGIX_async
+
+  tbl.glAsyncMarkerSGIX = loader_glAsyncMarkerSGIX;
+  tbl.glFinishAsyncSGIX = loader_glFinishAsyncSGIX;
+  tbl.glPollAsyncSGIX = loader_glPollAsyncSGIX;
+  tbl.glGenAsyncMarkersSGIX = loader_glGenAsyncMarkersSGIX;
+  tbl.glDeleteAsyncMarkersSGIX = loader_glDeleteAsyncMarkersSGIX;
+  tbl.glIsAsyncMarkerSGIX = loader_glIsAsyncMarkerSGIX;
+
+  // GL_INTEL_parallel_arrays
+
+  tbl.glVertexPointervINTEL = loader_glVertexPointervINTEL;
+  tbl.glNormalPointervINTEL = loader_glNormalPointervINTEL;
+  tbl.glColorPointervINTEL = loader_glColorPointervINTEL;
+  tbl.glTexCoordPointervINTEL = loader_glTexCoordPointervINTEL;
+
+  // GL_EXT_pixel_transform
+
+  tbl.glPixelTransformParameteriEXT = loader_glPixelTransformParameteriEXT;
+  tbl.glPixelTransformParameterfEXT = loader_glPixelTransformParameterfEXT;
+  tbl.glPixelTransformParameterivEXT = loader_glPixelTransformParameterivEXT;
+  tbl.glPixelTransformParameterfvEXT = loader_glPixelTransformParameterfvEXT;
+
+  // GL_EXT_secondary_color
+
+  tbl.glSecondaryColor3bEXT = loader_glSecondaryColor3bEXT;
+  tbl.glSecondaryColor3bvEXT = loader_glSecondaryColor3bvEXT;
+  tbl.glSecondaryColor3dEXT = loader_glSecondaryColor3dEXT;
+  tbl.glSecondaryColor3dvEXT = loader_glSecondaryColor3dvEXT;
+  tbl.glSecondaryColor3fEXT = loader_glSecondaryColor3fEXT;
+  tbl.glSecondaryColor3fvEXT = loader_glSecondaryColor3fvEXT;
+  tbl.glSecondaryColor3iEXT = loader_glSecondaryColor3iEXT;
+  tbl.glSecondaryColor3ivEXT = loader_glSecondaryColor3ivEXT;
+  tbl.glSecondaryColor3sEXT = loader_glSecondaryColor3sEXT;
+  tbl.glSecondaryColor3svEXT = loader_glSecondaryColor3svEXT;
+  tbl.glSecondaryColor3ubEXT = loader_glSecondaryColor3ubEXT;
+  tbl.glSecondaryColor3ubvEXT = loader_glSecondaryColor3ubvEXT;
+  tbl.glSecondaryColor3uiEXT = loader_glSecondaryColor3uiEXT;
+  tbl.glSecondaryColor3uivEXT = loader_glSecondaryColor3uivEXT;
+  tbl.glSecondaryColor3usEXT = loader_glSecondaryColor3usEXT;
+  tbl.glSecondaryColor3usvEXT = loader_glSecondaryColor3usvEXT;
+  tbl.glSecondaryColorPointerEXT = loader_glSecondaryColorPointerEXT;
+
+  // GL_EXT_texture_perturb_normal
+
+  tbl.glTextureNormalEXT = loader_glTextureNormalEXT;
+
+  // GL_EXT_multi_draw_arrays
+
+  tbl.glMultiDrawArraysEXT = loader_glMultiDrawArraysEXT;
+  tbl.glMultiDrawElementsEXT = loader_glMultiDrawElementsEXT;
+
+  // GL_EXT_fog_coord
+
+  tbl.glFogCoordfEXT = loader_glFogCoordfEXT;
+  tbl.glFogCoordfvEXT = loader_glFogCoordfvEXT;
+  tbl.glFogCoorddEXT = loader_glFogCoorddEXT;
+  tbl.glFogCoorddvEXT = loader_glFogCoorddvEXT;
+  tbl.glFogCoordPointerEXT = loader_glFogCoordPointerEXT;
+
+  // GL_EXT_coordinate_frame
+
+  tbl.glTangent3bEXT = loader_glTangent3bEXT;
+  tbl.glTangent3bvEXT = loader_glTangent3bvEXT;
+  tbl.glTangent3dEXT = loader_glTangent3dEXT;
+  tbl.glTangent3dvEXT = loader_glTangent3dvEXT;
+  tbl.glTangent3fEXT = loader_glTangent3fEXT;
+  tbl.glTangent3fvEXT = loader_glTangent3fvEXT;
+  tbl.glTangent3iEXT = loader_glTangent3iEXT;
+  tbl.glTangent3ivEXT = loader_glTangent3ivEXT;
+  tbl.glTangent3sEXT = loader_glTangent3sEXT;
+  tbl.glTangent3svEXT = loader_glTangent3svEXT;
+  tbl.glBinormal3bEXT = loader_glBinormal3bEXT;
+  tbl.glBinormal3bvEXT = loader_glBinormal3bvEXT;
+  tbl.glBinormal3dEXT = loader_glBinormal3dEXT;
+  tbl.glBinormal3dvEXT = loader_glBinormal3dvEXT;
+  tbl.glBinormal3fEXT = loader_glBinormal3fEXT;
+  tbl.glBinormal3fvEXT = loader_glBinormal3fvEXT;
+  tbl.glBinormal3iEXT = loader_glBinormal3iEXT;
+  tbl.glBinormal3ivEXT = loader_glBinormal3ivEXT;
+  tbl.glBinormal3sEXT = loader_glBinormal3sEXT;
+  tbl.glBinormal3svEXT = loader_glBinormal3svEXT;
+  tbl.glTangentPointerEXT = loader_glTangentPointerEXT;
+  tbl.glBinormalPointerEXT = loader_glBinormalPointerEXT;
+
+  // GL_SUNX_constant_data
+
+  tbl.glFinishTextureSUNX = loader_glFinishTextureSUNX;
+
+  // GL_SUN_global_alpha
+
+  tbl.glGlobalAlphaFactorbSUN = loader_glGlobalAlphaFactorbSUN;
+  tbl.glGlobalAlphaFactorsSUN = loader_glGlobalAlphaFactorsSUN;
+  tbl.glGlobalAlphaFactoriSUN = loader_glGlobalAlphaFactoriSUN;
+  tbl.glGlobalAlphaFactorfSUN = loader_glGlobalAlphaFactorfSUN;
+  tbl.glGlobalAlphaFactordSUN = loader_glGlobalAlphaFactordSUN;
+  tbl.glGlobalAlphaFactorubSUN = loader_glGlobalAlphaFactorubSUN;
+  tbl.glGlobalAlphaFactorusSUN = loader_glGlobalAlphaFactorusSUN;
+  tbl.glGlobalAlphaFactoruiSUN = loader_glGlobalAlphaFactoruiSUN;
+
+  // GL_SUN_triangle_list
+
+  tbl.glReplacementCodeuiSUN = loader_glReplacementCodeuiSUN;
+  tbl.glReplacementCodeusSUN = loader_glReplacementCodeusSUN;
+  tbl.glReplacementCodeubSUN = loader_glReplacementCodeubSUN;
+  tbl.glReplacementCodeuivSUN = loader_glReplacementCodeuivSUN;
+  tbl.glReplacementCodeusvSUN = loader_glReplacementCodeusvSUN;
+  tbl.glReplacementCodeubvSUN = loader_glReplacementCodeubvSUN;
+  tbl.glReplacementCodePointerSUN = loader_glReplacementCodePointerSUN;
+
+  // GL_SUN_vertex
+
+  tbl.glColor4ubVertex2fSUN = loader_glColor4ubVertex2fSUN;
+  tbl.glColor4ubVertex2fvSUN = loader_glColor4ubVertex2fvSUN;
+  tbl.glColor4ubVertex3fSUN = loader_glColor4ubVertex3fSUN;
+  tbl.glColor4ubVertex3fvSUN = loader_glColor4ubVertex3fvSUN;
+  tbl.glColor3fVertex3fSUN = loader_glColor3fVertex3fSUN;
+  tbl.glColor3fVertex3fvSUN = loader_glColor3fVertex3fvSUN;
+  tbl.glNormal3fVertex3fSUN = loader_glNormal3fVertex3fSUN;
+  tbl.glNormal3fVertex3fvSUN = loader_glNormal3fVertex3fvSUN;
+  tbl.glColor4fNormal3fVertex3fSUN = loader_glColor4fNormal3fVertex3fSUN;
+  tbl.glColor4fNormal3fVertex3fvSUN = loader_glColor4fNormal3fVertex3fvSUN;
+  tbl.glTexCoord2fVertex3fSUN = loader_glTexCoord2fVertex3fSUN;
+  tbl.glTexCoord2fVertex3fvSUN = loader_glTexCoord2fVertex3fvSUN;
+  tbl.glTexCoord4fVertex4fSUN = loader_glTexCoord4fVertex4fSUN;
+  tbl.glTexCoord4fVertex4fvSUN = loader_glTexCoord4fVertex4fvSUN;
+  tbl.glTexCoord2fColor4ubVertex3fSUN = loader_glTexCoord2fColor4ubVertex3fSUN;
+  tbl.glTexCoord2fColor4ubVertex3fvSUN = loader_glTexCoord2fColor4ubVertex3fvSUN;
+  tbl.glTexCoord2fColor3fVertex3fSUN = loader_glTexCoord2fColor3fVertex3fSUN;
+  tbl.glTexCoord2fColor3fVertex3fvSUN = loader_glTexCoord2fColor3fVertex3fvSUN;
+  tbl.glTexCoord2fNormal3fVertex3fSUN = loader_glTexCoord2fNormal3fVertex3fSUN;
+  tbl.glTexCoord2fNormal3fVertex3fvSUN = loader_glTexCoord2fNormal3fVertex3fvSUN;
+  tbl.glTexCoord2fColor4fNormal3fVertex3fSUN = loader_glTexCoord2fColor4fNormal3fVertex3fSUN;
+  tbl.glTexCoord2fColor4fNormal3fVertex3fvSUN = loader_glTexCoord2fColor4fNormal3fVertex3fvSUN;
+  tbl.glTexCoord4fColor4fNormal3fVertex4fSUN = loader_glTexCoord4fColor4fNormal3fVertex4fSUN;
+  tbl.glTexCoord4fColor4fNormal3fVertex4fvSUN = loader_glTexCoord4fColor4fNormal3fVertex4fvSUN;
+  tbl.glReplacementCodeuiVertex3fSUN = loader_glReplacementCodeuiVertex3fSUN;
+  tbl.glReplacementCodeuiVertex3fvSUN = loader_glReplacementCodeuiVertex3fvSUN;
+  tbl.glReplacementCodeuiColor4ubVertex3fSUN = loader_glReplacementCodeuiColor4ubVertex3fSUN;
+  tbl.glReplacementCodeuiColor4ubVertex3fvSUN = loader_glReplacementCodeuiColor4ubVertex3fvSUN;
+  tbl.glReplacementCodeuiColor3fVertex3fSUN = loader_glReplacementCodeuiColor3fVertex3fSUN;
+  tbl.glReplacementCodeuiColor3fVertex3fvSUN = loader_glReplacementCodeuiColor3fVertex3fvSUN;
+  tbl.glReplacementCodeuiNormal3fVertex3fSUN = loader_glReplacementCodeuiNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiNormal3fVertex3fvSUN = loader_glReplacementCodeuiNormal3fVertex3fvSUN;
+  tbl.glReplacementCodeuiColor4fNormal3fVertex3fSUN = loader_glReplacementCodeuiColor4fNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiColor4fNormal3fVertex3fvSUN = loader_glReplacementCodeuiColor4fNormal3fVertex3fvSUN;
+  tbl.glReplacementCodeuiTexCoord2fVertex3fSUN = loader_glReplacementCodeuiTexCoord2fVertex3fSUN;
+  tbl.glReplacementCodeuiTexCoord2fVertex3fvSUN = loader_glReplacementCodeuiTexCoord2fVertex3fvSUN;
+  tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN = loader_glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN = loader_glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN;
+  tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN = loader_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN = loader_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN;
+
+  // GL_EXT_blend_func_separate
+
+  tbl.glBlendFuncSeparateEXT = loader_glBlendFuncSeparateEXT;
+
+  // GL_INGR_blend_func_separate
+
+  tbl.glBlendFuncSeparateINGR = loader_glBlendFuncSeparateINGR;
+
+  // GL_EXT_vertex_weighting
+
+  tbl.glVertexWeightfEXT = loader_glVertexWeightfEXT;
+  tbl.glVertexWeightfvEXT = loader_glVertexWeightfvEXT;
+  tbl.glVertexWeightPointerEXT = loader_glVertexWeightPointerEXT;
+
+  // GL_NV_vertex_array_range
+
+  tbl.glFlushVertexArrayRangeNV = loader_glFlushVertexArrayRangeNV;
+  tbl.glVertexArrayRangeNV = loader_glVertexArrayRangeNV;
+
+  // GL_NV_register_combiners
+
+  tbl.glCombinerParameterfvNV = loader_glCombinerParameterfvNV;
+  tbl.glCombinerParameterfNV = loader_glCombinerParameterfNV;
+  tbl.glCombinerParameterivNV = loader_glCombinerParameterivNV;
+  tbl.glCombinerParameteriNV = loader_glCombinerParameteriNV;
+  tbl.glCombinerInputNV = loader_glCombinerInputNV;
+  tbl.glCombinerOutputNV = loader_glCombinerOutputNV;
+  tbl.glFinalCombinerInputNV = loader_glFinalCombinerInputNV;
+  tbl.glGetCombinerInputParameterfvNV = loader_glGetCombinerInputParameterfvNV;
+  tbl.glGetCombinerInputParameterivNV = loader_glGetCombinerInputParameterivNV;
+  tbl.glGetCombinerOutputParameterfvNV = loader_glGetCombinerOutputParameterfvNV;
+  tbl.glGetCombinerOutputParameterivNV = loader_glGetCombinerOutputParameterivNV;
+  tbl.glGetFinalCombinerInputParameterfvNV = loader_glGetFinalCombinerInputParameterfvNV;
+  tbl.glGetFinalCombinerInputParameterivNV = loader_glGetFinalCombinerInputParameterivNV;
+
+  // GL_MESA_resize_buffers
+
+  tbl.glResizeBuffersMESA = loader_glResizeBuffersMESA;
+
+  // GL_MESA_window_pos
+
+  tbl.glWindowPos2dMESA = loader_glWindowPos2dMESA;
+  tbl.glWindowPos2dvMESA = loader_glWindowPos2dvMESA;
+  tbl.glWindowPos2fMESA = loader_glWindowPos2fMESA;
+  tbl.glWindowPos2fvMESA = loader_glWindowPos2fvMESA;
+  tbl.glWindowPos2iMESA = loader_glWindowPos2iMESA;
+  tbl.glWindowPos2ivMESA = loader_glWindowPos2ivMESA;
+  tbl.glWindowPos2sMESA = loader_glWindowPos2sMESA;
+  tbl.glWindowPos2svMESA = loader_glWindowPos2svMESA;
+  tbl.glWindowPos3dMESA = loader_glWindowPos3dMESA;
+  tbl.glWindowPos3dvMESA = loader_glWindowPos3dvMESA;
+  tbl.glWindowPos3fMESA = loader_glWindowPos3fMESA;
+  tbl.glWindowPos3fvMESA = loader_glWindowPos3fvMESA;
+  tbl.glWindowPos3iMESA = loader_glWindowPos3iMESA;
+  tbl.glWindowPos3ivMESA = loader_glWindowPos3ivMESA;
+  tbl.glWindowPos3sMESA = loader_glWindowPos3sMESA;
+  tbl.glWindowPos3svMESA = loader_glWindowPos3svMESA;
+  tbl.glWindowPos4dMESA = loader_glWindowPos4dMESA;
+  tbl.glWindowPos4dvMESA = loader_glWindowPos4dvMESA;
+  tbl.glWindowPos4fMESA = loader_glWindowPos4fMESA;
+  tbl.glWindowPos4fvMESA = loader_glWindowPos4fvMESA;
+  tbl.glWindowPos4iMESA = loader_glWindowPos4iMESA;
+  tbl.glWindowPos4ivMESA = loader_glWindowPos4ivMESA;
+  tbl.glWindowPos4sMESA = loader_glWindowPos4sMESA;
+  tbl.glWindowPos4svMESA = loader_glWindowPos4svMESA;
+
+  // GL_IBM_multimode_draw_arrays
+
+  tbl.glMultiModeDrawArraysIBM = loader_glMultiModeDrawArraysIBM;
+  tbl.glMultiModeDrawElementsIBM = loader_glMultiModeDrawElementsIBM;
+
+  // GL_IBM_vertex_array_lists
+
+  tbl.glColorPointerListIBM = loader_glColorPointerListIBM;
+  tbl.glSecondaryColorPointerListIBM = loader_glSecondaryColorPointerListIBM;
+  tbl.glEdgeFlagPointerListIBM = loader_glEdgeFlagPointerListIBM;
+  tbl.glFogCoordPointerListIBM = loader_glFogCoordPointerListIBM;
+  tbl.glIndexPointerListIBM = loader_glIndexPointerListIBM;
+  tbl.glNormalPointerListIBM = loader_glNormalPointerListIBM;
+  tbl.glTexCoordPointerListIBM = loader_glTexCoordPointerListIBM;
+  tbl.glVertexPointerListIBM = loader_glVertexPointerListIBM;
+
+  // GL_3DFX_tbuffer
+
+  tbl.glTbufferMask3DFX = loader_glTbufferMask3DFX;
+
+  // GL_EXT_multisample
+
+  tbl.glSampleMaskEXT = loader_glSampleMaskEXT;
+  tbl.glSamplePatternEXT = loader_glSamplePatternEXT;
+
+  // GL_SGIS_texture_color_mask
+
+  tbl.glTextureColorMaskSGIS = loader_glTextureColorMaskSGIS;
+
+  // GL_SGIX_igloo_interface
+
+  tbl.glIglooInterfaceSGIX = loader_glIglooInterfaceSGIX;
+
+  // GL_NV_fence
+
+  tbl.glDeleteFencesNV = loader_glDeleteFencesNV;
+  tbl.glGenFencesNV = loader_glGenFencesNV;
+  tbl.glIsFenceNV = loader_glIsFenceNV;
+  tbl.glTestFenceNV = loader_glTestFenceNV;
+  tbl.glGetFenceivNV = loader_glGetFenceivNV;
+  tbl.glFinishFenceNV = loader_glFinishFenceNV;
+  tbl.glSetFenceNV = loader_glSetFenceNV;
+
+  // GL_NV_evaluators
+
+  tbl.glMapControlPointsNV = loader_glMapControlPointsNV;
+  tbl.glMapParameterivNV = loader_glMapParameterivNV;
+  tbl.glMapParameterfvNV = loader_glMapParameterfvNV;
+  tbl.glGetMapControlPointsNV = loader_glGetMapControlPointsNV;
+  tbl.glGetMapParameterivNV = loader_glGetMapParameterivNV;
+  tbl.glGetMapParameterfvNV = loader_glGetMapParameterfvNV;
+  tbl.glGetMapAttribParameterivNV = loader_glGetMapAttribParameterivNV;
+  tbl.glGetMapAttribParameterfvNV = loader_glGetMapAttribParameterfvNV;
+  tbl.glEvalMapsNV = loader_glEvalMapsNV;
+
+  // GL_NV_register_combiners2
+
+  tbl.glCombinerStageParameterfvNV = loader_glCombinerStageParameterfvNV;
+  tbl.glGetCombinerStageParameterfvNV = loader_glGetCombinerStageParameterfvNV;
+
+  // GL_NV_vertex_program
+
+  tbl.glAreProgramsResidentNV = loader_glAreProgramsResidentNV;
+  tbl.glBindProgramNV = loader_glBindProgramNV;
+  tbl.glDeleteProgramsNV = loader_glDeleteProgramsNV;
+  tbl.glExecuteProgramNV = loader_glExecuteProgramNV;
+  tbl.glGenProgramsNV = loader_glGenProgramsNV;
+  tbl.glGetProgramParameterdvNV = loader_glGetProgramParameterdvNV;
+  tbl.glGetProgramParameterfvNV = loader_glGetProgramParameterfvNV;
+  tbl.glGetProgramivNV = loader_glGetProgramivNV;
+  tbl.glGetProgramStringNV = loader_glGetProgramStringNV;
+  tbl.glGetTrackMatrixivNV = loader_glGetTrackMatrixivNV;
+  tbl.glGetVertexAttribdvNV = loader_glGetVertexAttribdvNV;
+  tbl.glGetVertexAttribfvNV = loader_glGetVertexAttribfvNV;
+  tbl.glGetVertexAttribivNV = loader_glGetVertexAttribivNV;
+  tbl.glGetVertexAttribPointervNV = loader_glGetVertexAttribPointervNV;
+  tbl.glIsProgramNV = loader_glIsProgramNV;
+  tbl.glLoadProgramNV = loader_glLoadProgramNV;
+  tbl.glProgramParameter4dNV = loader_glProgramParameter4dNV;
+  tbl.glProgramParameter4dvNV = loader_glProgramParameter4dvNV;
+  tbl.glProgramParameter4fNV = loader_glProgramParameter4fNV;
+  tbl.glProgramParameter4fvNV = loader_glProgramParameter4fvNV;
+  tbl.glProgramParameters4dvNV = loader_glProgramParameters4dvNV;
+  tbl.glProgramParameters4fvNV = loader_glProgramParameters4fvNV;
+  tbl.glRequestResidentProgramsNV = loader_glRequestResidentProgramsNV;
+  tbl.glTrackMatrixNV = loader_glTrackMatrixNV;
+  tbl.glVertexAttribPointerNV = loader_glVertexAttribPointerNV;
+  tbl.glVertexAttrib1dNV = loader_glVertexAttrib1dNV;
+  tbl.glVertexAttrib1dvNV = loader_glVertexAttrib1dvNV;
+  tbl.glVertexAttrib1fNV = loader_glVertexAttrib1fNV;
+  tbl.glVertexAttrib1fvNV = loader_glVertexAttrib1fvNV;
+  tbl.glVertexAttrib1sNV = loader_glVertexAttrib1sNV;
+  tbl.glVertexAttrib1svNV = loader_glVertexAttrib1svNV;
+  tbl.glVertexAttrib2dNV = loader_glVertexAttrib2dNV;
+  tbl.glVertexAttrib2dvNV = loader_glVertexAttrib2dvNV;
+  tbl.glVertexAttrib2fNV = loader_glVertexAttrib2fNV;
+  tbl.glVertexAttrib2fvNV = loader_glVertexAttrib2fvNV;
+  tbl.glVertexAttrib2sNV = loader_glVertexAttrib2sNV;
+  tbl.glVertexAttrib2svNV = loader_glVertexAttrib2svNV;
+  tbl.glVertexAttrib3dNV = loader_glVertexAttrib3dNV;
+  tbl.glVertexAttrib3dvNV = loader_glVertexAttrib3dvNV;
+  tbl.glVertexAttrib3fNV = loader_glVertexAttrib3fNV;
+  tbl.glVertexAttrib3fvNV = loader_glVertexAttrib3fvNV;
+  tbl.glVertexAttrib3sNV = loader_glVertexAttrib3sNV;
+  tbl.glVertexAttrib3svNV = loader_glVertexAttrib3svNV;
+  tbl.glVertexAttrib4dNV = loader_glVertexAttrib4dNV;
+  tbl.glVertexAttrib4dvNV = loader_glVertexAttrib4dvNV;
+  tbl.glVertexAttrib4fNV = loader_glVertexAttrib4fNV;
+  tbl.glVertexAttrib4fvNV = loader_glVertexAttrib4fvNV;
+  tbl.glVertexAttrib4sNV = loader_glVertexAttrib4sNV;
+  tbl.glVertexAttrib4svNV = loader_glVertexAttrib4svNV;
+  tbl.glVertexAttrib4ubNV = loader_glVertexAttrib4ubNV;
+  tbl.glVertexAttrib4ubvNV = loader_glVertexAttrib4ubvNV;
+  tbl.glVertexAttribs1dvNV = loader_glVertexAttribs1dvNV;
+  tbl.glVertexAttribs1fvNV = loader_glVertexAttribs1fvNV;
+  tbl.glVertexAttribs1svNV = loader_glVertexAttribs1svNV;
+  tbl.glVertexAttribs2dvNV = loader_glVertexAttribs2dvNV;
+  tbl.glVertexAttribs2fvNV = loader_glVertexAttribs2fvNV;
+  tbl.glVertexAttribs2svNV = loader_glVertexAttribs2svNV;
+  tbl.glVertexAttribs3dvNV = loader_glVertexAttribs3dvNV;
+  tbl.glVertexAttribs3fvNV = loader_glVertexAttribs3fvNV;
+  tbl.glVertexAttribs3svNV = loader_glVertexAttribs3svNV;
+  tbl.glVertexAttribs4dvNV = loader_glVertexAttribs4dvNV;
+  tbl.glVertexAttribs4fvNV = loader_glVertexAttribs4fvNV;
+  tbl.glVertexAttribs4svNV = loader_glVertexAttribs4svNV;
+  tbl.glVertexAttribs4ubvNV = loader_glVertexAttribs4ubvNV;
+
+  // GL_ATI_envmap_bumpmap
+
+  tbl.glTexBumpParameterivATI = loader_glTexBumpParameterivATI;
+  tbl.glTexBumpParameterfvATI = loader_glTexBumpParameterfvATI;
+  tbl.glGetTexBumpParameterivATI = loader_glGetTexBumpParameterivATI;
+  tbl.glGetTexBumpParameterfvATI = loader_glGetTexBumpParameterfvATI;
+
+  // GL_ATI_fragment_shader
+
+  tbl.glGenFragmentShadersATI = loader_glGenFragmentShadersATI;
+  tbl.glBindFragmentShaderATI = loader_glBindFragmentShaderATI;
+  tbl.glDeleteFragmentShaderATI = loader_glDeleteFragmentShaderATI;
+  tbl.glBeginFragmentShaderATI = loader_glBeginFragmentShaderATI;
+  tbl.glEndFragmentShaderATI = loader_glEndFragmentShaderATI;
+  tbl.glPassTexCoordATI = loader_glPassTexCoordATI;
+  tbl.glSampleMapATI = loader_glSampleMapATI;
+  tbl.glColorFragmentOp1ATI = loader_glColorFragmentOp1ATI;
+  tbl.glColorFragmentOp2ATI = loader_glColorFragmentOp2ATI;
+  tbl.glColorFragmentOp3ATI = loader_glColorFragmentOp3ATI;
+  tbl.glAlphaFragmentOp1ATI = loader_glAlphaFragmentOp1ATI;
+  tbl.glAlphaFragmentOp2ATI = loader_glAlphaFragmentOp2ATI;
+  tbl.glAlphaFragmentOp3ATI = loader_glAlphaFragmentOp3ATI;
+  tbl.glSetFragmentShaderConstantATI = loader_glSetFragmentShaderConstantATI;
+
+  // GL_ATI_pn_triangles
+
+  tbl.glPNTrianglesiATI = loader_glPNTrianglesiATI;
+  tbl.glPNTrianglesfATI = loader_glPNTrianglesfATI;
+
+  // GL_ATI_vertex_array_object
+
+  tbl.glNewObjectBufferATI = loader_glNewObjectBufferATI;
+  tbl.glIsObjectBufferATI = loader_glIsObjectBufferATI;
+  tbl.glUpdateObjectBufferATI = loader_glUpdateObjectBufferATI;
+  tbl.glGetObjectBufferfvATI = loader_glGetObjectBufferfvATI;
+  tbl.glGetObjectBufferivATI = loader_glGetObjectBufferivATI;
+  tbl.glFreeObjectBufferATI = loader_glFreeObjectBufferATI;
+  tbl.glArrayObjectATI = loader_glArrayObjectATI;
+  tbl.glGetArrayObjectfvATI = loader_glGetArrayObjectfvATI;
+  tbl.glGetArrayObjectivATI = loader_glGetArrayObjectivATI;
+  tbl.glVariantArrayObjectATI = loader_glVariantArrayObjectATI;
+  tbl.glGetVariantArrayObjectfvATI = loader_glGetVariantArrayObjectfvATI;
+  tbl.glGetVariantArrayObjectivATI = loader_glGetVariantArrayObjectivATI;
+
+  // GL_EXT_vertex_shader
+
+  tbl.glBeginVertexShaderEXT = loader_glBeginVertexShaderEXT;
+  tbl.glEndVertexShaderEXT = loader_glEndVertexShaderEXT;
+  tbl.glBindVertexShaderEXT = loader_glBindVertexShaderEXT;
+  tbl.glGenVertexShadersEXT = loader_glGenVertexShadersEXT;
+  tbl.glDeleteVertexShaderEXT = loader_glDeleteVertexShaderEXT;
+  tbl.glShaderOp1EXT = loader_glShaderOp1EXT;
+  tbl.glShaderOp2EXT = loader_glShaderOp2EXT;
+  tbl.glShaderOp3EXT = loader_glShaderOp3EXT;
+  tbl.glSwizzleEXT = loader_glSwizzleEXT;
+  tbl.glWriteMaskEXT = loader_glWriteMaskEXT;
+  tbl.glInsertComponentEXT = loader_glInsertComponentEXT;
+  tbl.glExtractComponentEXT = loader_glExtractComponentEXT;
+  tbl.glGenSymbolsEXT = loader_glGenSymbolsEXT;
+  tbl.glSetInvariantEXT = loader_glSetInvariantEXT;
+  tbl.glSetLocalConstantEXT = loader_glSetLocalConstantEXT;
+  tbl.glVariantbvEXT = loader_glVariantbvEXT;
+  tbl.glVariantsvEXT = loader_glVariantsvEXT;
+  tbl.glVariantivEXT = loader_glVariantivEXT;
+  tbl.glVariantfvEXT = loader_glVariantfvEXT;
+  tbl.glVariantdvEXT = loader_glVariantdvEXT;
+  tbl.glVariantubvEXT = loader_glVariantubvEXT;
+  tbl.glVariantusvEXT = loader_glVariantusvEXT;
+  tbl.glVariantuivEXT = loader_glVariantuivEXT;
+  tbl.glVariantPointerEXT = loader_glVariantPointerEXT;
+  tbl.glEnableVariantClientStateEXT = loader_glEnableVariantClientStateEXT;
+  tbl.glDisableVariantClientStateEXT = loader_glDisableVariantClientStateEXT;
+  tbl.glBindLightParameterEXT = loader_glBindLightParameterEXT;
+  tbl.glBindMaterialParameterEXT = loader_glBindMaterialParameterEXT;
+  tbl.glBindTexGenParameterEXT = loader_glBindTexGenParameterEXT;
+  tbl.glBindTextureUnitParameterEXT = loader_glBindTextureUnitParameterEXT;
+  tbl.glBindParameterEXT = loader_glBindParameterEXT;
+  tbl.glIsVariantEnabledEXT = loader_glIsVariantEnabledEXT;
+  tbl.glGetVariantBooleanvEXT = loader_glGetVariantBooleanvEXT;
+  tbl.glGetVariantIntegervEXT = loader_glGetVariantIntegervEXT;
+  tbl.glGetVariantFloatvEXT = loader_glGetVariantFloatvEXT;
+  tbl.glGetVariantPointervEXT = loader_glGetVariantPointervEXT;
+  tbl.glGetInvariantBooleanvEXT = loader_glGetInvariantBooleanvEXT;
+  tbl.glGetInvariantIntegervEXT = loader_glGetInvariantIntegervEXT;
+  tbl.glGetInvariantFloatvEXT = loader_glGetInvariantFloatvEXT;
+  tbl.glGetLocalConstantBooleanvEXT = loader_glGetLocalConstantBooleanvEXT;
+  tbl.glGetLocalConstantIntegervEXT = loader_glGetLocalConstantIntegervEXT;
+  tbl.glGetLocalConstantFloatvEXT = loader_glGetLocalConstantFloatvEXT;
+
+  // GL_ATI_vertex_streams
+
+  tbl.glVertexStream1sATI = loader_glVertexStream1sATI;
+  tbl.glVertexStream1svATI = loader_glVertexStream1svATI;
+  tbl.glVertexStream1iATI = loader_glVertexStream1iATI;
+  tbl.glVertexStream1ivATI = loader_glVertexStream1ivATI;
+  tbl.glVertexStream1fATI = loader_glVertexStream1fATI;
+  tbl.glVertexStream1fvATI = loader_glVertexStream1fvATI;
+  tbl.glVertexStream1dATI = loader_glVertexStream1dATI;
+  tbl.glVertexStream1dvATI = loader_glVertexStream1dvATI;
+  tbl.glVertexStream2sATI = loader_glVertexStream2sATI;
+  tbl.glVertexStream2svATI = loader_glVertexStream2svATI;
+  tbl.glVertexStream2iATI = loader_glVertexStream2iATI;
+  tbl.glVertexStream2ivATI = loader_glVertexStream2ivATI;
+  tbl.glVertexStream2fATI = loader_glVertexStream2fATI;
+  tbl.glVertexStream2fvATI = loader_glVertexStream2fvATI;
+  tbl.glVertexStream2dATI = loader_glVertexStream2dATI;
+  tbl.glVertexStream2dvATI = loader_glVertexStream2dvATI;
+  tbl.glVertexStream3sATI = loader_glVertexStream3sATI;
+  tbl.glVertexStream3svATI = loader_glVertexStream3svATI;
+  tbl.glVertexStream3iATI = loader_glVertexStream3iATI;
+  tbl.glVertexStream3ivATI = loader_glVertexStream3ivATI;
+  tbl.glVertexStream3fATI = loader_glVertexStream3fATI;
+  tbl.glVertexStream3fvATI = loader_glVertexStream3fvATI;
+  tbl.glVertexStream3dATI = loader_glVertexStream3dATI;
+  tbl.glVertexStream3dvATI = loader_glVertexStream3dvATI;
+  tbl.glVertexStream4sATI = loader_glVertexStream4sATI;
+  tbl.glVertexStream4svATI = loader_glVertexStream4svATI;
+  tbl.glVertexStream4iATI = loader_glVertexStream4iATI;
+  tbl.glVertexStream4ivATI = loader_glVertexStream4ivATI;
+  tbl.glVertexStream4fATI = loader_glVertexStream4fATI;
+  tbl.glVertexStream4fvATI = loader_glVertexStream4fvATI;
+  tbl.glVertexStream4dATI = loader_glVertexStream4dATI;
+  tbl.glVertexStream4dvATI = loader_glVertexStream4dvATI;
+  tbl.glNormalStream3bATI = loader_glNormalStream3bATI;
+  tbl.glNormalStream3bvATI = loader_glNormalStream3bvATI;
+  tbl.glNormalStream3sATI = loader_glNormalStream3sATI;
+  tbl.glNormalStream3svATI = loader_glNormalStream3svATI;
+  tbl.glNormalStream3iATI = loader_glNormalStream3iATI;
+  tbl.glNormalStream3ivATI = loader_glNormalStream3ivATI;
+  tbl.glNormalStream3fATI = loader_glNormalStream3fATI;
+  tbl.glNormalStream3fvATI = loader_glNormalStream3fvATI;
+  tbl.glNormalStream3dATI = loader_glNormalStream3dATI;
+  tbl.glNormalStream3dvATI = loader_glNormalStream3dvATI;
+  tbl.glClientActiveVertexStreamATI = loader_glClientActiveVertexStreamATI;
+  tbl.glVertexBlendEnviATI = loader_glVertexBlendEnviATI;
+  tbl.glVertexBlendEnvfATI = loader_glVertexBlendEnvfATI;
+
+  // GL_ATI_element_array
+
+  tbl.glElementPointerATI = loader_glElementPointerATI;
+  tbl.glDrawElementArrayATI = loader_glDrawElementArrayATI;
+  tbl.glDrawRangeElementArrayATI = loader_glDrawRangeElementArrayATI;
+
+  // GL_SUN_mesh_array
+
+  tbl.glDrawMeshArraysSUN = loader_glDrawMeshArraysSUN;
+
+  // GL_NV_occlusion_query
+
+  tbl.glGenOcclusionQueriesNV = loader_glGenOcclusionQueriesNV;
+  tbl.glDeleteOcclusionQueriesNV = loader_glDeleteOcclusionQueriesNV;
+  tbl.glIsOcclusionQueryNV = loader_glIsOcclusionQueryNV;
+  tbl.glBeginOcclusionQueryNV = loader_glBeginOcclusionQueryNV;
+  tbl.glEndOcclusionQueryNV = loader_glEndOcclusionQueryNV;
+  tbl.glGetOcclusionQueryivNV = loader_glGetOcclusionQueryivNV;
+  tbl.glGetOcclusionQueryuivNV = loader_glGetOcclusionQueryuivNV;
+
+  // GL_NV_point_sprite
+
+  tbl.glPointParameteriNV = loader_glPointParameteriNV;
+  tbl.glPointParameterivNV = loader_glPointParameterivNV;
+
+  // GL_EXT_stencil_two_side
+
+  tbl.glActiveStencilFaceEXT = loader_glActiveStencilFaceEXT;
+
+  // GL_APPLE_element_array
+
+  tbl.glElementPointerAPPLE = loader_glElementPointerAPPLE;
+  tbl.glDrawElementArrayAPPLE = loader_glDrawElementArrayAPPLE;
+  tbl.glDrawRangeElementArrayAPPLE = loader_glDrawRangeElementArrayAPPLE;
+  tbl.glMultiDrawElementArrayAPPLE = loader_glMultiDrawElementArrayAPPLE;
+  tbl.glMultiDrawRangeElementArrayAPPLE = loader_glMultiDrawRangeElementArrayAPPLE;
+
+  // GL_APPLE_fence
+
+  tbl.glGenFencesAPPLE = loader_glGenFencesAPPLE;
+  tbl.glDeleteFencesAPPLE = loader_glDeleteFencesAPPLE;
+  tbl.glSetFenceAPPLE = loader_glSetFenceAPPLE;
+  tbl.glIsFenceAPPLE = loader_glIsFenceAPPLE;
+  tbl.glTestFenceAPPLE = loader_glTestFenceAPPLE;
+  tbl.glFinishFenceAPPLE = loader_glFinishFenceAPPLE;
+  tbl.glTestObjectAPPLE = loader_glTestObjectAPPLE;
+  tbl.glFinishObjectAPPLE = loader_glFinishObjectAPPLE;
+
+  // GL_APPLE_vertex_array_object
+
+  tbl.glBindVertexArrayAPPLE = loader_glBindVertexArrayAPPLE;
+  tbl.glDeleteVertexArraysAPPLE = loader_glDeleteVertexArraysAPPLE;
+  tbl.glGenVertexArraysAPPLE = loader_glGenVertexArraysAPPLE;
+  tbl.glIsVertexArrayAPPLE = loader_glIsVertexArrayAPPLE;
+
+  // GL_APPLE_vertex_array_range
+
+  tbl.glVertexArrayRangeAPPLE = loader_glVertexArrayRangeAPPLE;
+  tbl.glFlushVertexArrayRangeAPPLE = loader_glFlushVertexArrayRangeAPPLE;
+  tbl.glVertexArrayParameteriAPPLE = loader_glVertexArrayParameteriAPPLE;
+
+  // GL_ATI_draw_buffers
+
+  tbl.glDrawBuffersATI = loader_glDrawBuffersATI;
+
+  // GL_NV_fragment_program
+
+  tbl.glProgramNamedParameter4fNV = loader_glProgramNamedParameter4fNV;
+  tbl.glProgramNamedParameter4dNV = loader_glProgramNamedParameter4dNV;
+  tbl.glProgramNamedParameter4fvNV = loader_glProgramNamedParameter4fvNV;
+  tbl.glProgramNamedParameter4dvNV = loader_glProgramNamedParameter4dvNV;
+  tbl.glGetProgramNamedParameterfvNV = loader_glGetProgramNamedParameterfvNV;
+  tbl.glGetProgramNamedParameterdvNV = loader_glGetProgramNamedParameterdvNV;
+
+  // GL_NV_half_float
+
+  tbl.glVertex2hNV = loader_glVertex2hNV;
+  tbl.glVertex2hvNV = loader_glVertex2hvNV;
+  tbl.glVertex3hNV = loader_glVertex3hNV;
+  tbl.glVertex3hvNV = loader_glVertex3hvNV;
+  tbl.glVertex4hNV = loader_glVertex4hNV;
+  tbl.glVertex4hvNV = loader_glVertex4hvNV;
+  tbl.glNormal3hNV = loader_glNormal3hNV;
+  tbl.glNormal3hvNV = loader_glNormal3hvNV;
+  tbl.glColor3hNV = loader_glColor3hNV;
+  tbl.glColor3hvNV = loader_glColor3hvNV;
+  tbl.glColor4hNV = loader_glColor4hNV;
+  tbl.glColor4hvNV = loader_glColor4hvNV;
+  tbl.glTexCoord1hNV = loader_glTexCoord1hNV;
+  tbl.glTexCoord1hvNV = loader_glTexCoord1hvNV;
+  tbl.glTexCoord2hNV = loader_glTexCoord2hNV;
+  tbl.glTexCoord2hvNV = loader_glTexCoord2hvNV;
+  tbl.glTexCoord3hNV = loader_glTexCoord3hNV;
+  tbl.glTexCoord3hvNV = loader_glTexCoord3hvNV;
+  tbl.glTexCoord4hNV = loader_glTexCoord4hNV;
+  tbl.glTexCoord4hvNV = loader_glTexCoord4hvNV;
+  tbl.glMultiTexCoord1hNV = loader_glMultiTexCoord1hNV;
+  tbl.glMultiTexCoord1hvNV = loader_glMultiTexCoord1hvNV;
+  tbl.glMultiTexCoord2hNV = loader_glMultiTexCoord2hNV;
+  tbl.glMultiTexCoord2hvNV = loader_glMultiTexCoord2hvNV;
+  tbl.glMultiTexCoord3hNV = loader_glMultiTexCoord3hNV;
+  tbl.glMultiTexCoord3hvNV = loader_glMultiTexCoord3hvNV;
+  tbl.glMultiTexCoord4hNV = loader_glMultiTexCoord4hNV;
+  tbl.glMultiTexCoord4hvNV = loader_glMultiTexCoord4hvNV;
+  tbl.glFogCoordhNV = loader_glFogCoordhNV;
+  tbl.glFogCoordhvNV = loader_glFogCoordhvNV;
+  tbl.glSecondaryColor3hNV = loader_glSecondaryColor3hNV;
+  tbl.glSecondaryColor3hvNV = loader_glSecondaryColor3hvNV;
+  tbl.glVertexWeighthNV = loader_glVertexWeighthNV;
+  tbl.glVertexWeighthvNV = loader_glVertexWeighthvNV;
+  tbl.glVertexAttrib1hNV = loader_glVertexAttrib1hNV;
+  tbl.glVertexAttrib1hvNV = loader_glVertexAttrib1hvNV;
+  tbl.glVertexAttrib2hNV = loader_glVertexAttrib2hNV;
+  tbl.glVertexAttrib2hvNV = loader_glVertexAttrib2hvNV;
+  tbl.glVertexAttrib3hNV = loader_glVertexAttrib3hNV;
+  tbl.glVertexAttrib3hvNV = loader_glVertexAttrib3hvNV;
+  tbl.glVertexAttrib4hNV = loader_glVertexAttrib4hNV;
+  tbl.glVertexAttrib4hvNV = loader_glVertexAttrib4hvNV;
+  tbl.glVertexAttribs1hvNV = loader_glVertexAttribs1hvNV;
+  tbl.glVertexAttribs2hvNV = loader_glVertexAttribs2hvNV;
+  tbl.glVertexAttribs3hvNV = loader_glVertexAttribs3hvNV;
+  tbl.glVertexAttribs4hvNV = loader_glVertexAttribs4hvNV;
+
+  // GL_NV_pixel_data_range
+
+  tbl.glPixelDataRangeNV = loader_glPixelDataRangeNV;
+  tbl.glFlushPixelDataRangeNV = loader_glFlushPixelDataRangeNV;
+
+  // GL_NV_primitive_restart
+
+  tbl.glPrimitiveRestartNV = loader_glPrimitiveRestartNV;
+  tbl.glPrimitiveRestartIndexNV = loader_glPrimitiveRestartIndexNV;
+
+  // GL_ATI_map_object_buffer
+
+  tbl.glMapObjectBufferATI = loader_glMapObjectBufferATI;
+  tbl.glUnmapObjectBufferATI = loader_glUnmapObjectBufferATI;
+
+  // GL_ATI_separate_stencil
+
+  tbl.glStencilOpSeparateATI = loader_glStencilOpSeparateATI;
+  tbl.glStencilFuncSeparateATI = loader_glStencilFuncSeparateATI;
+
+  // GL_ATI_vertex_attrib_array_object
+
+  tbl.glVertexAttribArrayObjectATI = loader_glVertexAttribArrayObjectATI;
+  tbl.glGetVertexAttribArrayObjectfvATI = loader_glGetVertexAttribArrayObjectfvATI;
+  tbl.glGetVertexAttribArrayObjectivATI = loader_glGetVertexAttribArrayObjectivATI;
+
+  // GL_EXT_depth_bounds_test
+
+  tbl.glDepthBoundsEXT = loader_glDepthBoundsEXT;
+
+  // GL_EXT_blend_equation_separate
+
+  tbl.glBlendEquationSeparateEXT = loader_glBlendEquationSeparateEXT;
+
+  // GL_EXT_framebuffer_object
+
+  tbl.glIsRenderbufferEXT = loader_glIsRenderbufferEXT;
+  tbl.glBindRenderbufferEXT = loader_glBindRenderbufferEXT;
+  tbl.glDeleteRenderbuffersEXT = loader_glDeleteRenderbuffersEXT;
+  tbl.glGenRenderbuffersEXT = loader_glGenRenderbuffersEXT;
+  tbl.glRenderbufferStorageEXT = loader_glRenderbufferStorageEXT;
+  tbl.glGetRenderbufferParameterivEXT = loader_glGetRenderbufferParameterivEXT;
+  tbl.glIsFramebufferEXT = loader_glIsFramebufferEXT;
+  tbl.glBindFramebufferEXT = loader_glBindFramebufferEXT;
+  tbl.glDeleteFramebuffersEXT = loader_glDeleteFramebuffersEXT;
+  tbl.glGenFramebuffersEXT = loader_glGenFramebuffersEXT;
+  tbl.glCheckFramebufferStatusEXT = loader_glCheckFramebufferStatusEXT;
+  tbl.glFramebufferTexture1DEXT = loader_glFramebufferTexture1DEXT;
+  tbl.glFramebufferTexture2DEXT = loader_glFramebufferTexture2DEXT;
+  tbl.glFramebufferTexture3DEXT = loader_glFramebufferTexture3DEXT;
+  tbl.glFramebufferRenderbufferEXT = loader_glFramebufferRenderbufferEXT;
+  tbl.glGetFramebufferAttachmentParameterivEXT = loader_glGetFramebufferAttachmentParameterivEXT;
+  tbl.glGenerateMipmapEXT = loader_glGenerateMipmapEXT;
+
+  // GL_GREMEDY_string_marker
+
+  tbl.glStringMarkerGREMEDY = loader_glStringMarkerGREMEDY;
+
+  // GL_EXT_stencil_clear_tag
+
+  tbl.glStencilClearTagEXT = loader_glStencilClearTagEXT;
+
+  // GL_EXT_framebuffer_blit
+
+  tbl.glBlitFramebufferEXT = loader_glBlitFramebufferEXT;
+
+  // GL_EXT_framebuffer_multisample
+
+  tbl.glRenderbufferStorageMultisampleEXT = loader_glRenderbufferStorageMultisampleEXT;
+
+  // GL_EXT_timer_query
+
+  tbl.glGetQueryObjecti64vEXT = loader_glGetQueryObjecti64vEXT;
+  tbl.glGetQueryObjectui64vEXT = loader_glGetQueryObjectui64vEXT;
+
+  // GL_EXT_gpu_program_parameters
+
+  tbl.glProgramEnvParameters4fvEXT = loader_glProgramEnvParameters4fvEXT;
+  tbl.glProgramLocalParameters4fvEXT = loader_glProgramLocalParameters4fvEXT;
+
+  // GL_APPLE_flush_buffer_range
+
+  tbl.glBufferParameteriAPPLE = loader_glBufferParameteriAPPLE;
+  tbl.glFlushMappedBufferRangeAPPLE = loader_glFlushMappedBufferRangeAPPLE;
+
+  // GL_NV_gpu_program4
+
+  tbl.glProgramLocalParameterI4iNV = loader_glProgramLocalParameterI4iNV;
+  tbl.glProgramLocalParameterI4ivNV = loader_glProgramLocalParameterI4ivNV;
+  tbl.glProgramLocalParametersI4ivNV = loader_glProgramLocalParametersI4ivNV;
+  tbl.glProgramLocalParameterI4uiNV = loader_glProgramLocalParameterI4uiNV;
+  tbl.glProgramLocalParameterI4uivNV = loader_glProgramLocalParameterI4uivNV;
+  tbl.glProgramLocalParametersI4uivNV = loader_glProgramLocalParametersI4uivNV;
+  tbl.glProgramEnvParameterI4iNV = loader_glProgramEnvParameterI4iNV;
+  tbl.glProgramEnvParameterI4ivNV = loader_glProgramEnvParameterI4ivNV;
+  tbl.glProgramEnvParametersI4ivNV = loader_glProgramEnvParametersI4ivNV;
+  tbl.glProgramEnvParameterI4uiNV = loader_glProgramEnvParameterI4uiNV;
+  tbl.glProgramEnvParameterI4uivNV = loader_glProgramEnvParameterI4uivNV;
+  tbl.glProgramEnvParametersI4uivNV = loader_glProgramEnvParametersI4uivNV;
+  tbl.glGetProgramLocalParameterIivNV = loader_glGetProgramLocalParameterIivNV;
+  tbl.glGetProgramLocalParameterIuivNV = loader_glGetProgramLocalParameterIuivNV;
+  tbl.glGetProgramEnvParameterIivNV = loader_glGetProgramEnvParameterIivNV;
+  tbl.glGetProgramEnvParameterIuivNV = loader_glGetProgramEnvParameterIuivNV;
+
+  // GL_NV_geometry_program4
+
+  tbl.glProgramVertexLimitNV = loader_glProgramVertexLimitNV;
+  tbl.glFramebufferTextureEXT = loader_glFramebufferTextureEXT;
+  tbl.glFramebufferTextureFaceEXT = loader_glFramebufferTextureFaceEXT;
+
+  // GL_EXT_geometry_shader4
+
+  tbl.glProgramParameteriEXT = loader_glProgramParameteriEXT;
+
+  // GL_NV_vertex_program4
+
+  tbl.glVertexAttribI1iEXT = loader_glVertexAttribI1iEXT;
+  tbl.glVertexAttribI2iEXT = loader_glVertexAttribI2iEXT;
+  tbl.glVertexAttribI3iEXT = loader_glVertexAttribI3iEXT;
+  tbl.glVertexAttribI4iEXT = loader_glVertexAttribI4iEXT;
+  tbl.glVertexAttribI1uiEXT = loader_glVertexAttribI1uiEXT;
+  tbl.glVertexAttribI2uiEXT = loader_glVertexAttribI2uiEXT;
+  tbl.glVertexAttribI3uiEXT = loader_glVertexAttribI3uiEXT;
+  tbl.glVertexAttribI4uiEXT = loader_glVertexAttribI4uiEXT;
+  tbl.glVertexAttribI1ivEXT = loader_glVertexAttribI1ivEXT;
+  tbl.glVertexAttribI2ivEXT = loader_glVertexAttribI2ivEXT;
+  tbl.glVertexAttribI3ivEXT = loader_glVertexAttribI3ivEXT;
+  tbl.glVertexAttribI4ivEXT = loader_glVertexAttribI4ivEXT;
+  tbl.glVertexAttribI1uivEXT = loader_glVertexAttribI1uivEXT;
+  tbl.glVertexAttribI2uivEXT = loader_glVertexAttribI2uivEXT;
+  tbl.glVertexAttribI3uivEXT = loader_glVertexAttribI3uivEXT;
+  tbl.glVertexAttribI4uivEXT = loader_glVertexAttribI4uivEXT;
+  tbl.glVertexAttribI4bvEXT = loader_glVertexAttribI4bvEXT;
+  tbl.glVertexAttribI4svEXT = loader_glVertexAttribI4svEXT;
+  tbl.glVertexAttribI4ubvEXT = loader_glVertexAttribI4ubvEXT;
+  tbl.glVertexAttribI4usvEXT = loader_glVertexAttribI4usvEXT;
+  tbl.glVertexAttribIPointerEXT = loader_glVertexAttribIPointerEXT;
+  tbl.glGetVertexAttribIivEXT = loader_glGetVertexAttribIivEXT;
+  tbl.glGetVertexAttribIuivEXT = loader_glGetVertexAttribIuivEXT;
+
+  // GL_EXT_gpu_shader4
+
+  tbl.glGetUniformuivEXT = loader_glGetUniformuivEXT;
+  tbl.glBindFragDataLocationEXT = loader_glBindFragDataLocationEXT;
+  tbl.glGetFragDataLocationEXT = loader_glGetFragDataLocationEXT;
+  tbl.glUniform1uiEXT = loader_glUniform1uiEXT;
+  tbl.glUniform2uiEXT = loader_glUniform2uiEXT;
+  tbl.glUniform3uiEXT = loader_glUniform3uiEXT;
+  tbl.glUniform4uiEXT = loader_glUniform4uiEXT;
+  tbl.glUniform1uivEXT = loader_glUniform1uivEXT;
+  tbl.glUniform2uivEXT = loader_glUniform2uivEXT;
+  tbl.glUniform3uivEXT = loader_glUniform3uivEXT;
+  tbl.glUniform4uivEXT = loader_glUniform4uivEXT;
+
+  // GL_EXT_draw_instanced
+
+  tbl.glDrawArraysInstancedEXT = loader_glDrawArraysInstancedEXT;
+  tbl.glDrawElementsInstancedEXT = loader_glDrawElementsInstancedEXT;
+
+  // GL_EXT_texture_array
+
+  tbl.glFramebufferTextureLayerEXT = loader_glFramebufferTextureLayerEXT;
+
+  // GL_EXT_texture_buffer_object
+
+  tbl.glTexBufferEXT = loader_glTexBufferEXT;
+
+  // GL_NV_depth_buffer_float
+
+  tbl.glDepthRangedNV = loader_glDepthRangedNV;
+  tbl.glClearDepthdNV = loader_glClearDepthdNV;
+  tbl.glDepthBoundsdNV = loader_glDepthBoundsdNV;
+
+  // GL_NV_framebuffer_multisample_coverage
+
+  tbl.glRenderbufferStorageMultisampleCoverageNV = loader_glRenderbufferStorageMultisampleCoverageNV;
+
+  // GL_NV_parameter_buffer_object
+
+  tbl.glProgramBufferParametersfvNV = loader_glProgramBufferParametersfvNV;
+  tbl.glProgramBufferParametersIivNV = loader_glProgramBufferParametersIivNV;
+  tbl.glProgramBufferParametersIuivNV = loader_glProgramBufferParametersIuivNV;
+
+  // GL_EXT_draw_buffers2
+
+  tbl.glColorMaskIndexedEXT = loader_glColorMaskIndexedEXT;
+  tbl.glGetBooleanIndexedvEXT = loader_glGetBooleanIndexedvEXT;
+  tbl.glGetIntegerIndexedvEXT = loader_glGetIntegerIndexedvEXT;
+  tbl.glEnableIndexedEXT = loader_glEnableIndexedEXT;
+  tbl.glDisableIndexedEXT = loader_glDisableIndexedEXT;
+  tbl.glIsEnabledIndexedEXT = loader_glIsEnabledIndexedEXT;
+
+  // GL_NV_transform_feedback
+
+  tbl.glBeginTransformFeedbackNV = loader_glBeginTransformFeedbackNV;
+  tbl.glEndTransformFeedbackNV = loader_glEndTransformFeedbackNV;
+  tbl.glTransformFeedbackAttribsNV = loader_glTransformFeedbackAttribsNV;
+  tbl.glBindBufferRangeNV = loader_glBindBufferRangeNV;
+  tbl.glBindBufferOffsetNV = loader_glBindBufferOffsetNV;
+  tbl.glBindBufferBaseNV = loader_glBindBufferBaseNV;
+  tbl.glTransformFeedbackVaryingsNV = loader_glTransformFeedbackVaryingsNV;
+  tbl.glActiveVaryingNV = loader_glActiveVaryingNV;
+  tbl.glGetVaryingLocationNV = loader_glGetVaryingLocationNV;
+  tbl.glGetActiveVaryingNV = loader_glGetActiveVaryingNV;
+  tbl.glGetTransformFeedbackVaryingNV = loader_glGetTransformFeedbackVaryingNV;
+
+  // GL_EXT_bindable_uniform
+
+  tbl.glUniformBufferEXT = loader_glUniformBufferEXT;
+  tbl.glGetUniformBufferSizeEXT = loader_glGetUniformBufferSizeEXT;
+  tbl.glGetUniformOffsetEXT = loader_glGetUniformOffsetEXT;
+
+  // GL_EXT_texture_integer
+
+  tbl.glTexParameterIivEXT = loader_glTexParameterIivEXT;
+  tbl.glTexParameterIuivEXT = loader_glTexParameterIuivEXT;
+  tbl.glGetTexParameterIivEXT = loader_glGetTexParameterIivEXT;
+  tbl.glGetTexParameterIuivEXT = loader_glGetTexParameterIuivEXT;
+  tbl.glClearColorIiEXT = loader_glClearColorIiEXT;
+  tbl.glClearColorIuiEXT = loader_glClearColorIuiEXT;
+
+  // GL_GREMEDY_frame_terminator
+
+  tbl.glFrameTerminatorGREMEDY = loader_glFrameTerminatorGREMEDY;
+
+  // GL_NV_conditional_render
+
+  tbl.glBeginConditionalRenderNV = loader_glBeginConditionalRenderNV;
+  tbl.glEndConditionalRenderNV = loader_glEndConditionalRenderNV;
+
+  // GL_NV_present_video
+
+  tbl.glPresentFrameKeyedNV = loader_glPresentFrameKeyedNV;
+  tbl.glPresentFrameDualFillNV = loader_glPresentFrameDualFillNV;
+  tbl.glGetVideoivNV = loader_glGetVideoivNV;
+  tbl.glGetVideouivNV = loader_glGetVideouivNV;
+  tbl.glGetVideoi64vNV = loader_glGetVideoi64vNV;
+  tbl.glGetVideoui64vNV = loader_glGetVideoui64vNV;
+
+  // GL_EXT_transform_feedback
+
+  tbl.glBeginTransformFeedbackEXT = loader_glBeginTransformFeedbackEXT;
+  tbl.glEndTransformFeedbackEXT = loader_glEndTransformFeedbackEXT;
+  tbl.glBindBufferRangeEXT = loader_glBindBufferRangeEXT;
+  tbl.glBindBufferOffsetEXT = loader_glBindBufferOffsetEXT;
+  tbl.glBindBufferBaseEXT = loader_glBindBufferBaseEXT;
+  tbl.glTransformFeedbackVaryingsEXT = loader_glTransformFeedbackVaryingsEXT;
+  tbl.glGetTransformFeedbackVaryingEXT = loader_glGetTransformFeedbackVaryingEXT;
+
+  // GL_EXT_direct_state_access
+
+  tbl.glClientAttribDefaultEXT = loader_glClientAttribDefaultEXT;
+  tbl.glPushClientAttribDefaultEXT = loader_glPushClientAttribDefaultEXT;
+  tbl.glMatrixLoadfEXT = loader_glMatrixLoadfEXT;
+  tbl.glMatrixLoaddEXT = loader_glMatrixLoaddEXT;
+  tbl.glMatrixMultfEXT = loader_glMatrixMultfEXT;
+  tbl.glMatrixMultdEXT = loader_glMatrixMultdEXT;
+  tbl.glMatrixLoadIdentityEXT = loader_glMatrixLoadIdentityEXT;
+  tbl.glMatrixRotatefEXT = loader_glMatrixRotatefEXT;
+  tbl.glMatrixRotatedEXT = loader_glMatrixRotatedEXT;
+  tbl.glMatrixScalefEXT = loader_glMatrixScalefEXT;
+  tbl.glMatrixScaledEXT = loader_glMatrixScaledEXT;
+  tbl.glMatrixTranslatefEXT = loader_glMatrixTranslatefEXT;
+  tbl.glMatrixTranslatedEXT = loader_glMatrixTranslatedEXT;
+  tbl.glMatrixFrustumEXT = loader_glMatrixFrustumEXT;
+  tbl.glMatrixOrthoEXT = loader_glMatrixOrthoEXT;
+  tbl.glMatrixPopEXT = loader_glMatrixPopEXT;
+  tbl.glMatrixPushEXT = loader_glMatrixPushEXT;
+  tbl.glMatrixLoadTransposefEXT = loader_glMatrixLoadTransposefEXT;
+  tbl.glMatrixLoadTransposedEXT = loader_glMatrixLoadTransposedEXT;
+  tbl.glMatrixMultTransposefEXT = loader_glMatrixMultTransposefEXT;
+  tbl.glMatrixMultTransposedEXT = loader_glMatrixMultTransposedEXT;
+  tbl.glTextureParameterfEXT = loader_glTextureParameterfEXT;
+  tbl.glTextureParameterfvEXT = loader_glTextureParameterfvEXT;
+  tbl.glTextureParameteriEXT = loader_glTextureParameteriEXT;
+  tbl.glTextureParameterivEXT = loader_glTextureParameterivEXT;
+  tbl.glTextureImage1DEXT = loader_glTextureImage1DEXT;
+  tbl.glTextureImage2DEXT = loader_glTextureImage2DEXT;
+  tbl.glTextureSubImage1DEXT = loader_glTextureSubImage1DEXT;
+  tbl.glTextureSubImage2DEXT = loader_glTextureSubImage2DEXT;
+  tbl.glCopyTextureImage1DEXT = loader_glCopyTextureImage1DEXT;
+  tbl.glCopyTextureImage2DEXT = loader_glCopyTextureImage2DEXT;
+  tbl.glCopyTextureSubImage1DEXT = loader_glCopyTextureSubImage1DEXT;
+  tbl.glCopyTextureSubImage2DEXT = loader_glCopyTextureSubImage2DEXT;
+  tbl.glGetTextureImageEXT = loader_glGetTextureImageEXT;
+  tbl.glGetTextureParameterfvEXT = loader_glGetTextureParameterfvEXT;
+  tbl.glGetTextureParameterivEXT = loader_glGetTextureParameterivEXT;
+  tbl.glGetTextureLevelParameterfvEXT = loader_glGetTextureLevelParameterfvEXT;
+  tbl.glGetTextureLevelParameterivEXT = loader_glGetTextureLevelParameterivEXT;
+  tbl.glTextureImage3DEXT = loader_glTextureImage3DEXT;
+  tbl.glTextureSubImage3DEXT = loader_glTextureSubImage3DEXT;
+  tbl.glCopyTextureSubImage3DEXT = loader_glCopyTextureSubImage3DEXT;
+  tbl.glMultiTexParameterfEXT = loader_glMultiTexParameterfEXT;
+  tbl.glMultiTexParameterfvEXT = loader_glMultiTexParameterfvEXT;
+  tbl.glMultiTexParameteriEXT = loader_glMultiTexParameteriEXT;
+  tbl.glMultiTexParameterivEXT = loader_glMultiTexParameterivEXT;
+  tbl.glMultiTexImage1DEXT = loader_glMultiTexImage1DEXT;
+  tbl.glMultiTexImage2DEXT = loader_glMultiTexImage2DEXT;
+  tbl.glMultiTexSubImage1DEXT = loader_glMultiTexSubImage1DEXT;
+  tbl.glMultiTexSubImage2DEXT = loader_glMultiTexSubImage2DEXT;
+  tbl.glCopyMultiTexImage1DEXT = loader_glCopyMultiTexImage1DEXT;
+  tbl.glCopyMultiTexImage2DEXT = loader_glCopyMultiTexImage2DEXT;
+  tbl.glCopyMultiTexSubImage1DEXT = loader_glCopyMultiTexSubImage1DEXT;
+  tbl.glCopyMultiTexSubImage2DEXT = loader_glCopyMultiTexSubImage2DEXT;
+  tbl.glGetMultiTexImageEXT = loader_glGetMultiTexImageEXT;
+  tbl.glGetMultiTexParameterfvEXT = loader_glGetMultiTexParameterfvEXT;
+  tbl.glGetMultiTexParameterivEXT = loader_glGetMultiTexParameterivEXT;
+  tbl.glGetMultiTexLevelParameterfvEXT = loader_glGetMultiTexLevelParameterfvEXT;
+  tbl.glGetMultiTexLevelParameterivEXT = loader_glGetMultiTexLevelParameterivEXT;
+  tbl.glMultiTexImage3DEXT = loader_glMultiTexImage3DEXT;
+  tbl.glMultiTexSubImage3DEXT = loader_glMultiTexSubImage3DEXT;
+  tbl.glCopyMultiTexSubImage3DEXT = loader_glCopyMultiTexSubImage3DEXT;
+  tbl.glBindMultiTextureEXT = loader_glBindMultiTextureEXT;
+  tbl.glEnableClientStateIndexedEXT = loader_glEnableClientStateIndexedEXT;
+  tbl.glDisableClientStateIndexedEXT = loader_glDisableClientStateIndexedEXT;
+  tbl.glMultiTexCoordPointerEXT = loader_glMultiTexCoordPointerEXT;
+  tbl.glMultiTexEnvfEXT = loader_glMultiTexEnvfEXT;
+  tbl.glMultiTexEnvfvEXT = loader_glMultiTexEnvfvEXT;
+  tbl.glMultiTexEnviEXT = loader_glMultiTexEnviEXT;
+  tbl.glMultiTexEnvivEXT = loader_glMultiTexEnvivEXT;
+  tbl.glMultiTexGendEXT = loader_glMultiTexGendEXT;
+  tbl.glMultiTexGendvEXT = loader_glMultiTexGendvEXT;
+  tbl.glMultiTexGenfEXT = loader_glMultiTexGenfEXT;
+  tbl.glMultiTexGenfvEXT = loader_glMultiTexGenfvEXT;
+  tbl.glMultiTexGeniEXT = loader_glMultiTexGeniEXT;
+  tbl.glMultiTexGenivEXT = loader_glMultiTexGenivEXT;
+  tbl.glGetMultiTexEnvfvEXT = loader_glGetMultiTexEnvfvEXT;
+  tbl.glGetMultiTexEnvivEXT = loader_glGetMultiTexEnvivEXT;
+  tbl.glGetMultiTexGendvEXT = loader_glGetMultiTexGendvEXT;
+  tbl.glGetMultiTexGenfvEXT = loader_glGetMultiTexGenfvEXT;
+  tbl.glGetMultiTexGenivEXT = loader_glGetMultiTexGenivEXT;
+  tbl.glGetFloatIndexedvEXT = loader_glGetFloatIndexedvEXT;
+  tbl.glGetDoubleIndexedvEXT = loader_glGetDoubleIndexedvEXT;
+  tbl.glGetPointerIndexedvEXT = loader_glGetPointerIndexedvEXT;
+  tbl.glCompressedTextureImage3DEXT = loader_glCompressedTextureImage3DEXT;
+  tbl.glCompressedTextureImage2DEXT = loader_glCompressedTextureImage2DEXT;
+  tbl.glCompressedTextureImage1DEXT = loader_glCompressedTextureImage1DEXT;
+  tbl.glCompressedTextureSubImage3DEXT = loader_glCompressedTextureSubImage3DEXT;
+  tbl.glCompressedTextureSubImage2DEXT = loader_glCompressedTextureSubImage2DEXT;
+  tbl.glCompressedTextureSubImage1DEXT = loader_glCompressedTextureSubImage1DEXT;
+  tbl.glGetCompressedTextureImageEXT = loader_glGetCompressedTextureImageEXT;
+  tbl.glCompressedMultiTexImage3DEXT = loader_glCompressedMultiTexImage3DEXT;
+  tbl.glCompressedMultiTexImage2DEXT = loader_glCompressedMultiTexImage2DEXT;
+  tbl.glCompressedMultiTexImage1DEXT = loader_glCompressedMultiTexImage1DEXT;
+  tbl.glCompressedMultiTexSubImage3DEXT = loader_glCompressedMultiTexSubImage3DEXT;
+  tbl.glCompressedMultiTexSubImage2DEXT = loader_glCompressedMultiTexSubImage2DEXT;
+  tbl.glCompressedMultiTexSubImage1DEXT = loader_glCompressedMultiTexSubImage1DEXT;
+  tbl.glGetCompressedMultiTexImageEXT = loader_glGetCompressedMultiTexImageEXT;
+  tbl.glNamedProgramStringEXT = loader_glNamedProgramStringEXT;
+  tbl.glNamedProgramLocalParameter4dEXT = loader_glNamedProgramLocalParameter4dEXT;
+  tbl.glNamedProgramLocalParameter4dvEXT = loader_glNamedProgramLocalParameter4dvEXT;
+  tbl.glNamedProgramLocalParameter4fEXT = loader_glNamedProgramLocalParameter4fEXT;
+  tbl.glNamedProgramLocalParameter4fvEXT = loader_glNamedProgramLocalParameter4fvEXT;
+  tbl.glGetNamedProgramLocalParameterdvEXT = loader_glGetNamedProgramLocalParameterdvEXT;
+  tbl.glGetNamedProgramLocalParameterfvEXT = loader_glGetNamedProgramLocalParameterfvEXT;
+  tbl.glGetNamedProgramivEXT = loader_glGetNamedProgramivEXT;
+  tbl.glGetNamedProgramStringEXT = loader_glGetNamedProgramStringEXT;
+  tbl.glNamedProgramLocalParameters4fvEXT = loader_glNamedProgramLocalParameters4fvEXT;
+  tbl.glNamedProgramLocalParameterI4iEXT = loader_glNamedProgramLocalParameterI4iEXT;
+  tbl.glNamedProgramLocalParameterI4ivEXT = loader_glNamedProgramLocalParameterI4ivEXT;
+  tbl.glNamedProgramLocalParametersI4ivEXT = loader_glNamedProgramLocalParametersI4ivEXT;
+  tbl.glNamedProgramLocalParameterI4uiEXT = loader_glNamedProgramLocalParameterI4uiEXT;
+  tbl.glNamedProgramLocalParameterI4uivEXT = loader_glNamedProgramLocalParameterI4uivEXT;
+  tbl.glNamedProgramLocalParametersI4uivEXT = loader_glNamedProgramLocalParametersI4uivEXT;
+  tbl.glGetNamedProgramLocalParameterIivEXT = loader_glGetNamedProgramLocalParameterIivEXT;
+  tbl.glGetNamedProgramLocalParameterIuivEXT = loader_glGetNamedProgramLocalParameterIuivEXT;
+  tbl.glTextureParameterIivEXT = loader_glTextureParameterIivEXT;
+  tbl.glTextureParameterIuivEXT = loader_glTextureParameterIuivEXT;
+  tbl.glGetTextureParameterIivEXT = loader_glGetTextureParameterIivEXT;
+  tbl.glGetTextureParameterIuivEXT = loader_glGetTextureParameterIuivEXT;
+  tbl.glMultiTexParameterIivEXT = loader_glMultiTexParameterIivEXT;
+  tbl.glMultiTexParameterIuivEXT = loader_glMultiTexParameterIuivEXT;
+  tbl.glGetMultiTexParameterIivEXT = loader_glGetMultiTexParameterIivEXT;
+  tbl.glGetMultiTexParameterIuivEXT = loader_glGetMultiTexParameterIuivEXT;
+  tbl.glProgramUniform1fEXT = loader_glProgramUniform1fEXT;
+  tbl.glProgramUniform2fEXT = loader_glProgramUniform2fEXT;
+  tbl.glProgramUniform3fEXT = loader_glProgramUniform3fEXT;
+  tbl.glProgramUniform4fEXT = loader_glProgramUniform4fEXT;
+  tbl.glProgramUniform1iEXT = loader_glProgramUniform1iEXT;
+  tbl.glProgramUniform2iEXT = loader_glProgramUniform2iEXT;
+  tbl.glProgramUniform3iEXT = loader_glProgramUniform3iEXT;
+  tbl.glProgramUniform4iEXT = loader_glProgramUniform4iEXT;
+  tbl.glProgramUniform1fvEXT = loader_glProgramUniform1fvEXT;
+  tbl.glProgramUniform2fvEXT = loader_glProgramUniform2fvEXT;
+  tbl.glProgramUniform3fvEXT = loader_glProgramUniform3fvEXT;
+  tbl.glProgramUniform4fvEXT = loader_glProgramUniform4fvEXT;
+  tbl.glProgramUniform1ivEXT = loader_glProgramUniform1ivEXT;
+  tbl.glProgramUniform2ivEXT = loader_glProgramUniform2ivEXT;
+  tbl.glProgramUniform3ivEXT = loader_glProgramUniform3ivEXT;
+  tbl.glProgramUniform4ivEXT = loader_glProgramUniform4ivEXT;
+  tbl.glProgramUniformMatrix2fvEXT = loader_glProgramUniformMatrix2fvEXT;
+  tbl.glProgramUniformMatrix3fvEXT = loader_glProgramUniformMatrix3fvEXT;
+  tbl.glProgramUniformMatrix4fvEXT = loader_glProgramUniformMatrix4fvEXT;
+  tbl.glProgramUniformMatrix2x3fvEXT = loader_glProgramUniformMatrix2x3fvEXT;
+  tbl.glProgramUniformMatrix3x2fvEXT = loader_glProgramUniformMatrix3x2fvEXT;
+  tbl.glProgramUniformMatrix2x4fvEXT = loader_glProgramUniformMatrix2x4fvEXT;
+  tbl.glProgramUniformMatrix4x2fvEXT = loader_glProgramUniformMatrix4x2fvEXT;
+  tbl.glProgramUniformMatrix3x4fvEXT = loader_glProgramUniformMatrix3x4fvEXT;
+  tbl.glProgramUniformMatrix4x3fvEXT = loader_glProgramUniformMatrix4x3fvEXT;
+  tbl.glProgramUniform1uiEXT = loader_glProgramUniform1uiEXT;
+  tbl.glProgramUniform2uiEXT = loader_glProgramUniform2uiEXT;
+  tbl.glProgramUniform3uiEXT = loader_glProgramUniform3uiEXT;
+  tbl.glProgramUniform4uiEXT = loader_glProgramUniform4uiEXT;
+  tbl.glProgramUniform1uivEXT = loader_glProgramUniform1uivEXT;
+  tbl.glProgramUniform2uivEXT = loader_glProgramUniform2uivEXT;
+  tbl.glProgramUniform3uivEXT = loader_glProgramUniform3uivEXT;
+  tbl.glProgramUniform4uivEXT = loader_glProgramUniform4uivEXT;
+  tbl.glNamedBufferDataEXT = loader_glNamedBufferDataEXT;
+  tbl.glNamedBufferSubDataEXT = loader_glNamedBufferSubDataEXT;
+  tbl.glMapNamedBufferEXT = loader_glMapNamedBufferEXT;
+  tbl.glUnmapNamedBufferEXT = loader_glUnmapNamedBufferEXT;
+  tbl.glGetNamedBufferParameterivEXT = loader_glGetNamedBufferParameterivEXT;
+  tbl.glGetNamedBufferPointervEXT = loader_glGetNamedBufferPointervEXT;
+  tbl.glGetNamedBufferSubDataEXT = loader_glGetNamedBufferSubDataEXT;
+  tbl.glTextureBufferEXT = loader_glTextureBufferEXT;
+  tbl.glMultiTexBufferEXT = loader_glMultiTexBufferEXT;
+  tbl.glNamedRenderbufferStorageEXT = loader_glNamedRenderbufferStorageEXT;
+  tbl.glGetNamedRenderbufferParameterivEXT = loader_glGetNamedRenderbufferParameterivEXT;
+  tbl.glCheckNamedFramebufferStatusEXT = loader_glCheckNamedFramebufferStatusEXT;
+  tbl.glNamedFramebufferTexture1DEXT = loader_glNamedFramebufferTexture1DEXT;
+  tbl.glNamedFramebufferTexture2DEXT = loader_glNamedFramebufferTexture2DEXT;
+  tbl.glNamedFramebufferTexture3DEXT = loader_glNamedFramebufferTexture3DEXT;
+  tbl.glNamedFramebufferRenderbufferEXT = loader_glNamedFramebufferRenderbufferEXT;
+  tbl.glGetNamedFramebufferAttachmentParameterivEXT = loader_glGetNamedFramebufferAttachmentParameterivEXT;
+  tbl.glGenerateTextureMipmapEXT = loader_glGenerateTextureMipmapEXT;
+  tbl.glGenerateMultiTexMipmapEXT = loader_glGenerateMultiTexMipmapEXT;
+  tbl.glFramebufferDrawBufferEXT = loader_glFramebufferDrawBufferEXT;
+  tbl.glFramebufferDrawBuffersEXT = loader_glFramebufferDrawBuffersEXT;
+  tbl.glFramebufferReadBufferEXT = loader_glFramebufferReadBufferEXT;
+  tbl.glGetFramebufferParameterivEXT = loader_glGetFramebufferParameterivEXT;
+  tbl.glNamedRenderbufferStorageMultisampleEXT = loader_glNamedRenderbufferStorageMultisampleEXT;
+  tbl.glNamedRenderbufferStorageMultisampleCoverageEXT = loader_glNamedRenderbufferStorageMultisampleCoverageEXT;
+  tbl.glNamedFramebufferTextureEXT = loader_glNamedFramebufferTextureEXT;
+  tbl.glNamedFramebufferTextureLayerEXT = loader_glNamedFramebufferTextureLayerEXT;
+  tbl.glNamedFramebufferTextureFaceEXT = loader_glNamedFramebufferTextureFaceEXT;
+  tbl.glTextureRenderbufferEXT = loader_glTextureRenderbufferEXT;
+  tbl.glMultiTexRenderbufferEXT = loader_glMultiTexRenderbufferEXT;
+  tbl.glMapNamedBufferRangeEXT = loader_glMapNamedBufferRangeEXT;
+  tbl.glFlushMappedNamedBufferRangeEXT = loader_glFlushMappedNamedBufferRangeEXT;
+  tbl.glNamedCopyBufferSubDataEXT = loader_glNamedCopyBufferSubDataEXT;
+  tbl.glProgramUniform1dEXT = loader_glProgramUniform1dEXT;
+  tbl.glProgramUniform2dEXT = loader_glProgramUniform2dEXT;
+  tbl.glProgramUniform3dEXT = loader_glProgramUniform3dEXT;
+  tbl.glProgramUniform4dEXT = loader_glProgramUniform4dEXT;
+  tbl.glProgramUniform1dvEXT = loader_glProgramUniform1dvEXT;
+  tbl.glProgramUniform2dvEXT = loader_glProgramUniform2dvEXT;
+  tbl.glProgramUniform3dvEXT = loader_glProgramUniform3dvEXT;
+  tbl.glProgramUniform4dvEXT = loader_glProgramUniform4dvEXT;
+  tbl.glProgramUniformMatrix2dvEXT = loader_glProgramUniformMatrix2dvEXT;
+  tbl.glProgramUniformMatrix3dvEXT = loader_glProgramUniformMatrix3dvEXT;
+  tbl.glProgramUniformMatrix4dvEXT = loader_glProgramUniformMatrix4dvEXT;
+  tbl.glProgramUniformMatrix2x3dvEXT = loader_glProgramUniformMatrix2x3dvEXT;
+  tbl.glProgramUniformMatrix2x4dvEXT = loader_glProgramUniformMatrix2x4dvEXT;
+  tbl.glProgramUniformMatrix3x2dvEXT = loader_glProgramUniformMatrix3x2dvEXT;
+  tbl.glProgramUniformMatrix3x4dvEXT = loader_glProgramUniformMatrix3x4dvEXT;
+  tbl.glProgramUniformMatrix4x2dvEXT = loader_glProgramUniformMatrix4x2dvEXT;
+  tbl.glProgramUniformMatrix4x3dvEXT = loader_glProgramUniformMatrix4x3dvEXT;
+
+  // GL_NV_explicit_multisample
+
+  tbl.glGetMultisamplefvNV = loader_glGetMultisamplefvNV;
+  tbl.glSampleMaskIndexedNV = loader_glSampleMaskIndexedNV;
+  tbl.glTexRenderbufferNV = loader_glTexRenderbufferNV;
+
+  // GL_NV_transform_feedback2
+
+  tbl.glBindTransformFeedbackNV = loader_glBindTransformFeedbackNV;
+  tbl.glDeleteTransformFeedbacksNV = loader_glDeleteTransformFeedbacksNV;
+  tbl.glGenTransformFeedbacksNV = loader_glGenTransformFeedbacksNV;
+  tbl.glIsTransformFeedbackNV = loader_glIsTransformFeedbackNV;
+  tbl.glPauseTransformFeedbackNV = loader_glPauseTransformFeedbackNV;
+  tbl.glResumeTransformFeedbackNV = loader_glResumeTransformFeedbackNV;
+  tbl.glDrawTransformFeedbackNV = loader_glDrawTransformFeedbackNV;
+
+  // GL_AMD_performance_monitor
+
+  tbl.glGetPerfMonitorGroupsAMD = loader_glGetPerfMonitorGroupsAMD;
+  tbl.glGetPerfMonitorCountersAMD = loader_glGetPerfMonitorCountersAMD;
+  tbl.glGetPerfMonitorGroupStringAMD = loader_glGetPerfMonitorGroupStringAMD;
+  tbl.glGetPerfMonitorCounterStringAMD = loader_glGetPerfMonitorCounterStringAMD;
+  tbl.glGetPerfMonitorCounterInfoAMD = loader_glGetPerfMonitorCounterInfoAMD;
+  tbl.glGenPerfMonitorsAMD = loader_glGenPerfMonitorsAMD;
+  tbl.glDeletePerfMonitorsAMD = loader_glDeletePerfMonitorsAMD;
+  tbl.glSelectPerfMonitorCountersAMD = loader_glSelectPerfMonitorCountersAMD;
+  tbl.glBeginPerfMonitorAMD = loader_glBeginPerfMonitorAMD;
+  tbl.glEndPerfMonitorAMD = loader_glEndPerfMonitorAMD;
+  tbl.glGetPerfMonitorCounterDataAMD = loader_glGetPerfMonitorCounterDataAMD;
+
+  // GL_AMD_vertex_shader_tessellator
+
+  tbl.glTessellationFactorAMD = loader_glTessellationFactorAMD;
+  tbl.glTessellationModeAMD = loader_glTessellationModeAMD;
+
+  // GL_EXT_provoking_vertex
+
+  tbl.glProvokingVertexEXT = loader_glProvokingVertexEXT;
+
+  // GL_AMD_draw_buffers_blend
+
+  tbl.glBlendFuncIndexedAMD = loader_glBlendFuncIndexedAMD;
+  tbl.glBlendFuncSeparateIndexedAMD = loader_glBlendFuncSeparateIndexedAMD;
+  tbl.glBlendEquationIndexedAMD = loader_glBlendEquationIndexedAMD;
+  tbl.glBlendEquationSeparateIndexedAMD = loader_glBlendEquationSeparateIndexedAMD;
+
+  // GL_APPLE_texture_range
+
+  tbl.glTextureRangeAPPLE = loader_glTextureRangeAPPLE;
+  tbl.glGetTexParameterPointervAPPLE = loader_glGetTexParameterPointervAPPLE;
+
+  // GL_APPLE_vertex_program_evaluators
+
+  tbl.glEnableVertexAttribAPPLE = loader_glEnableVertexAttribAPPLE;
+  tbl.glDisableVertexAttribAPPLE = loader_glDisableVertexAttribAPPLE;
+  tbl.glIsVertexAttribEnabledAPPLE = loader_glIsVertexAttribEnabledAPPLE;
+  tbl.glMapVertexAttrib1dAPPLE = loader_glMapVertexAttrib1dAPPLE;
+  tbl.glMapVertexAttrib1fAPPLE = loader_glMapVertexAttrib1fAPPLE;
+  tbl.glMapVertexAttrib2dAPPLE = loader_glMapVertexAttrib2dAPPLE;
+  tbl.glMapVertexAttrib2fAPPLE = loader_glMapVertexAttrib2fAPPLE;
+
+  // GL_APPLE_object_purgeable
+
+  tbl.glObjectPurgeableAPPLE = loader_glObjectPurgeableAPPLE;
+  tbl.glObjectUnpurgeableAPPLE = loader_glObjectUnpurgeableAPPLE;
+  tbl.glGetObjectParameterivAPPLE = loader_glGetObjectParameterivAPPLE;
+
+  // GL_NV_video_capture
+
+  tbl.glBeginVideoCaptureNV = loader_glBeginVideoCaptureNV;
+  tbl.glBindVideoCaptureStreamBufferNV = loader_glBindVideoCaptureStreamBufferNV;
+  tbl.glBindVideoCaptureStreamTextureNV = loader_glBindVideoCaptureStreamTextureNV;
+  tbl.glEndVideoCaptureNV = loader_glEndVideoCaptureNV;
+  tbl.glGetVideoCaptureivNV = loader_glGetVideoCaptureivNV;
+  tbl.glGetVideoCaptureStreamivNV = loader_glGetVideoCaptureStreamivNV;
+  tbl.glGetVideoCaptureStreamfvNV = loader_glGetVideoCaptureStreamfvNV;
+  tbl.glGetVideoCaptureStreamdvNV = loader_glGetVideoCaptureStreamdvNV;
+  tbl.glVideoCaptureNV = loader_glVideoCaptureNV;
+  tbl.glVideoCaptureStreamParameterivNV = loader_glVideoCaptureStreamParameterivNV;
+  tbl.glVideoCaptureStreamParameterfvNV = loader_glVideoCaptureStreamParameterfvNV;
+  tbl.glVideoCaptureStreamParameterdvNV = loader_glVideoCaptureStreamParameterdvNV;
+
+  // GL_NV_copy_image
+
+  tbl.glCopyImageSubDataNV = loader_glCopyImageSubDataNV;
+
+  // GL_EXT_separate_shader_objects
+
+  tbl.glUseShaderProgramEXT = loader_glUseShaderProgramEXT;
+  tbl.glActiveProgramEXT = loader_glActiveProgramEXT;
+  tbl.glCreateShaderProgramEXT = loader_glCreateShaderProgramEXT;
+
+  // GL_NV_shader_buffer_load
+
+  tbl.glMakeBufferResidentNV = loader_glMakeBufferResidentNV;
+  tbl.glMakeBufferNonResidentNV = loader_glMakeBufferNonResidentNV;
+  tbl.glIsBufferResidentNV = loader_glIsBufferResidentNV;
+  tbl.glMakeNamedBufferResidentNV = loader_glMakeNamedBufferResidentNV;
+  tbl.glMakeNamedBufferNonResidentNV = loader_glMakeNamedBufferNonResidentNV;
+  tbl.glIsNamedBufferResidentNV = loader_glIsNamedBufferResidentNV;
+  tbl.glGetBufferParameterui64vNV = loader_glGetBufferParameterui64vNV;
+  tbl.glGetNamedBufferParameterui64vNV = loader_glGetNamedBufferParameterui64vNV;
+  tbl.glGetIntegerui64vNV = loader_glGetIntegerui64vNV;
+  tbl.glUniformui64NV = loader_glUniformui64NV;
+  tbl.glUniformui64vNV = loader_glUniformui64vNV;
+  tbl.glGetUniformui64vNV = loader_glGetUniformui64vNV;
+  tbl.glProgramUniformui64NV = loader_glProgramUniformui64NV;
+  tbl.glProgramUniformui64vNV = loader_glProgramUniformui64vNV;
+
+  // GL_NV_vertex_buffer_unified_memory
+
+  tbl.glBufferAddressRangeNV = loader_glBufferAddressRangeNV;
+  tbl.glVertexFormatNV = loader_glVertexFormatNV;
+  tbl.glNormalFormatNV = loader_glNormalFormatNV;
+  tbl.glColorFormatNV = loader_glColorFormatNV;
+  tbl.glIndexFormatNV = loader_glIndexFormatNV;
+  tbl.glTexCoordFormatNV = loader_glTexCoordFormatNV;
+  tbl.glEdgeFlagFormatNV = loader_glEdgeFlagFormatNV;
+  tbl.glSecondaryColorFormatNV = loader_glSecondaryColorFormatNV;
+  tbl.glFogCoordFormatNV = loader_glFogCoordFormatNV;
+  tbl.glVertexAttribFormatNV = loader_glVertexAttribFormatNV;
+  tbl.glVertexAttribIFormatNV = loader_glVertexAttribIFormatNV;
+  tbl.glGetIntegerui64i_vNV = loader_glGetIntegerui64i_vNV;
+
+  // GL_NV_texture_barrier
+
+  tbl.glTextureBarrierNV = loader_glTextureBarrierNV;
+
+  // GL_EXT_shader_image_load_store
+
+  tbl.glBindImageTextureEXT = loader_glBindImageTextureEXT;
+  tbl.glMemoryBarrierEXT = loader_glMemoryBarrierEXT;
+
+  // GL_EXT_vertex_attrib_64bit
+
+  tbl.glVertexAttribL1dEXT = loader_glVertexAttribL1dEXT;
+  tbl.glVertexAttribL2dEXT = loader_glVertexAttribL2dEXT;
+  tbl.glVertexAttribL3dEXT = loader_glVertexAttribL3dEXT;
+  tbl.glVertexAttribL4dEXT = loader_glVertexAttribL4dEXT;
+  tbl.glVertexAttribL1dvEXT = loader_glVertexAttribL1dvEXT;
+  tbl.glVertexAttribL2dvEXT = loader_glVertexAttribL2dvEXT;
+  tbl.glVertexAttribL3dvEXT = loader_glVertexAttribL3dvEXT;
+  tbl.glVertexAttribL4dvEXT = loader_glVertexAttribL4dvEXT;
+  tbl.glVertexAttribLPointerEXT = loader_glVertexAttribLPointerEXT;
+  tbl.glVertexArrayVertexAttribLOffsetEXT = loader_glVertexArrayVertexAttribLOffsetEXT;
+  tbl.glGetVertexAttribLdvEXT = loader_glGetVertexAttribLdvEXT;
+
+  // GL_NV_gpu_shader5
+
+  tbl.glUniform1i64NV = loader_glUniform1i64NV;
+  tbl.glUniform2i64NV = loader_glUniform2i64NV;
+  tbl.glUniform3i64NV = loader_glUniform3i64NV;
+  tbl.glUniform4i64NV = loader_glUniform4i64NV;
+  tbl.glUniform1i64vNV = loader_glUniform1i64vNV;
+  tbl.glUniform2i64vNV = loader_glUniform2i64vNV;
+  tbl.glUniform3i64vNV = loader_glUniform3i64vNV;
+  tbl.glUniform4i64vNV = loader_glUniform4i64vNV;
+  tbl.glUniform1ui64NV = loader_glUniform1ui64NV;
+  tbl.glUniform2ui64NV = loader_glUniform2ui64NV;
+  tbl.glUniform3ui64NV = loader_glUniform3ui64NV;
+  tbl.glUniform4ui64NV = loader_glUniform4ui64NV;
+  tbl.glUniform1ui64vNV = loader_glUniform1ui64vNV;
+  tbl.glUniform2ui64vNV = loader_glUniform2ui64vNV;
+  tbl.glUniform3ui64vNV = loader_glUniform3ui64vNV;
+  tbl.glUniform4ui64vNV = loader_glUniform4ui64vNV;
+  tbl.glProgramUniform1i64NV = loader_glProgramUniform1i64NV;
+  tbl.glProgramUniform2i64NV = loader_glProgramUniform2i64NV;
+  tbl.glProgramUniform3i64NV = loader_glProgramUniform3i64NV;
+  tbl.glProgramUniform4i64NV = loader_glProgramUniform4i64NV;
+  tbl.glProgramUniform1i64vNV = loader_glProgramUniform1i64vNV;
+  tbl.glProgramUniform2i64vNV = loader_glProgramUniform2i64vNV;
+  tbl.glProgramUniform3i64vNV = loader_glProgramUniform3i64vNV;
+  tbl.glProgramUniform4i64vNV = loader_glProgramUniform4i64vNV;
+  tbl.glProgramUniform1ui64NV = loader_glProgramUniform1ui64NV;
+  tbl.glProgramUniform2ui64NV = loader_glProgramUniform2ui64NV;
+  tbl.glProgramUniform3ui64NV = loader_glProgramUniform3ui64NV;
+  tbl.glProgramUniform4ui64NV = loader_glProgramUniform4ui64NV;
+  tbl.glProgramUniform1ui64vNV = loader_glProgramUniform1ui64vNV;
+  tbl.glProgramUniform2ui64vNV = loader_glProgramUniform2ui64vNV;
+  tbl.glProgramUniform3ui64vNV = loader_glProgramUniform3ui64vNV;
+  tbl.glProgramUniform4ui64vNV = loader_glProgramUniform4ui64vNV;
+  tbl.glGetUniformi64vNV = loader_glGetUniformi64vNV;
+
+  // GL_NV_vertex_attrib_integer_64bit
+
+  tbl.glVertexAttribL1i64NV = loader_glVertexAttribL1i64NV;
+  tbl.glVertexAttribL2i64NV = loader_glVertexAttribL2i64NV;
+  tbl.glVertexAttribL3i64NV = loader_glVertexAttribL3i64NV;
+  tbl.glVertexAttribL4i64NV = loader_glVertexAttribL4i64NV;
+  tbl.glVertexAttribL1ui64NV = loader_glVertexAttribL1ui64NV;
+  tbl.glVertexAttribL2ui64NV = loader_glVertexAttribL2ui64NV;
+  tbl.glVertexAttribL3ui64NV = loader_glVertexAttribL3ui64NV;
+  tbl.glVertexAttribL4ui64NV = loader_glVertexAttribL4ui64NV;
+  tbl.glVertexAttribL1i64vNV = loader_glVertexAttribL1i64vNV;
+  tbl.glVertexAttribL2i64vNV = loader_glVertexAttribL2i64vNV;
+  tbl.glVertexAttribL3i64vNV = loader_glVertexAttribL3i64vNV;
+  tbl.glVertexAttribL4i64vNV = loader_glVertexAttribL4i64vNV;
+  tbl.glVertexAttribL1ui64vNV = loader_glVertexAttribL1ui64vNV;
+  tbl.glVertexAttribL2ui64vNV = loader_glVertexAttribL2ui64vNV;
+  tbl.glVertexAttribL3ui64vNV = loader_glVertexAttribL3ui64vNV;
+  tbl.glVertexAttribL4ui64vNV = loader_glVertexAttribL4ui64vNV;
+  tbl.glVertexAttribLFormatNV = loader_glVertexAttribLFormatNV;
+  tbl.glGetVertexAttribLi64vNV = loader_glGetVertexAttribLi64vNV;
+  tbl.glGetVertexAttribLui64vNV = loader_glGetVertexAttribLui64vNV;
+
+  // GL_NV_vdpau_interop
+
+  tbl.glVDPAUInitNV = loader_glVDPAUInitNV;
+  tbl.glVDPAUFiniNV = loader_glVDPAUFiniNV;
+  tbl.glVDPAURegisterVideoSurfaceNV = loader_glVDPAURegisterVideoSurfaceNV;
+  tbl.glVDPAURegisterOutputSurfaceNV = loader_glVDPAURegisterOutputSurfaceNV;
+  tbl.glVDPAUIsSurfaceNV = loader_glVDPAUIsSurfaceNV;
+  tbl.glVDPAUUnregisterSurfaceNV = loader_glVDPAUUnregisterSurfaceNV;
+  tbl.glVDPAUGetSurfaceivNV = loader_glVDPAUGetSurfaceivNV;
+  tbl.glVDPAUSurfaceAccessNV = loader_glVDPAUSurfaceAccessNV;
+  tbl.glVDPAUMapSurfacesNV = loader_glVDPAUMapSurfacesNV;
+  tbl.glVDPAUUnmapSurfacesNV = loader_glVDPAUUnmapSurfacesNV;
+
+  // GL_NV_path_rendering
+
+  tbl.glCopyPathNV = loader_glCopyPathNV;
+  tbl.glCoverFillPathInstancedNV = loader_glCoverFillPathInstancedNV;
+  tbl.glCoverFillPathNV = loader_glCoverFillPathNV;
+  tbl.glCoverStrokePathInstancedNV = loader_glCoverStrokePathInstancedNV;
+  tbl.glCoverStrokePathNV = loader_glCoverStrokePathNV;
+  tbl.glDeletePathsNV = loader_glDeletePathsNV;
+  tbl.glGenPathsNV = loader_glGenPathsNV;
+  tbl.glGetPathColorGenfvNV = loader_glGetPathColorGenfvNV;
+  tbl.glGetPathColorGenivNV = loader_glGetPathColorGenivNV;
+  tbl.glGetPathCommandsNV = loader_glGetPathCommandsNV;
+  tbl.glGetPathCoordsNV = loader_glGetPathCoordsNV;
+  tbl.glGetPathDashArrayNV = loader_glGetPathDashArrayNV;
+  tbl.glGetPathLengthNV = loader_glGetPathLengthNV;
+  tbl.glGetPathMetricRangeNV = loader_glGetPathMetricRangeNV;
+  tbl.glGetPathMetricsNV = loader_glGetPathMetricsNV;
+  tbl.glGetPathParameterfvNV = loader_glGetPathParameterfvNV;
+  tbl.glGetPathParameterivNV = loader_glGetPathParameterivNV;
+  tbl.glGetPathSpacingNV = loader_glGetPathSpacingNV;
+  tbl.glGetPathTexGenfvNV = loader_glGetPathTexGenfvNV;
+  tbl.glGetPathTexGenivNV = loader_glGetPathTexGenivNV;
+  tbl.glInterpolatePathsNV = loader_glInterpolatePathsNV;
+  tbl.glIsPathNV = loader_glIsPathNV;
+  tbl.glIsPointInFillPathNV = loader_glIsPointInFillPathNV;
+  tbl.glIsPointInStrokePathNV = loader_glIsPointInStrokePathNV;
+  tbl.glPathColorGenNV = loader_glPathColorGenNV;
+  tbl.glPathCommandsNV = loader_glPathCommandsNV;
+  tbl.glPathCoordsNV = loader_glPathCoordsNV;
+  tbl.glPathCoverDepthFuncNV = loader_glPathCoverDepthFuncNV;
+  tbl.glPathDashArrayNV = loader_glPathDashArrayNV;
+  tbl.glPathFogGenNV = loader_glPathFogGenNV;
+  tbl.glPathGlyphRangeNV = loader_glPathGlyphRangeNV;
+  tbl.glPathGlyphsNV = loader_glPathGlyphsNV;
+  tbl.glPathParameterfNV = loader_glPathParameterfNV;
+  tbl.glPathParameterfvNV = loader_glPathParameterfvNV;
+  tbl.glPathParameteriNV = loader_glPathParameteriNV;
+  tbl.glPathParameterivNV = loader_glPathParameterivNV;
+  tbl.glPathStencilDepthOffsetNV = loader_glPathStencilDepthOffsetNV;
+  tbl.glPathStencilFuncNV = loader_glPathStencilFuncNV;
+  tbl.glPathStringNV = loader_glPathStringNV;
+  tbl.glPathSubCommandsNV = loader_glPathSubCommandsNV;
+  tbl.glPathSubCoordsNV = loader_glPathSubCoordsNV;
+  tbl.glPathTexGenNV = loader_glPathTexGenNV;
+  tbl.glPointAlongPathNV = loader_glPointAlongPathNV;
+  tbl.glStencilFillPathInstancedNV = loader_glStencilFillPathInstancedNV;
+  tbl.glStencilFillPathNV = loader_glStencilFillPathNV;
+  tbl.glStencilStrokePathInstancedNV = loader_glStencilStrokePathInstancedNV;
+  tbl.glStencilStrokePathNV = loader_glStencilStrokePathNV;
+  tbl.glTransformPathNV = loader_glTransformPathNV;
+  tbl.glWeightPathsNV = loader_glWeightPathsNV;
+
+  // GL_REGAL_extension_query
+
+  tbl.glGetExtensionREGAL = loader_glGetExtensionREGAL;
+  tbl.glIsSupportedREGAL = loader_glIsSupportedREGAL;
+
+  // GL_REGAL_error_string
+
+  tbl.glErrorStringREGAL = loader_glErrorStringREGAL;
+
+  // GL_AMD_debug_output
+
+  tbl.glGetDebugMessageLogAMD = loader_glGetDebugMessageLogAMD;
+  tbl.glDebugMessageCallbackAMD = loader_glDebugMessageCallbackAMD;
+  tbl.glDebugMessageEnableAMD = loader_glDebugMessageEnableAMD;
+  tbl.glDebugMessageInsertAMD = loader_glDebugMessageInsertAMD;
+
+  // GL_AMD_multi_draw_indirect
+
+  tbl.glMultiDrawArraysIndirectAMD = loader_glMultiDrawArraysIndirectAMD;
+  tbl.glMultiDrawElementsIndirectAMD = loader_glMultiDrawElementsIndirectAMD;
+
+  // GL_AMD_name_gen_delete
+
+  tbl.glIsNameAMD = loader_glIsNameAMD;
+  tbl.glDeleteNamesAMD = loader_glDeleteNamesAMD;
+  tbl.glGenNamesAMD = loader_glGenNamesAMD;
+
+  // GL_AMD_sample_positions
+
+  tbl.glSetMultisamplefvAMD = loader_glSetMultisamplefvAMD;
+
+  // GL_AMD_stencil_operation_extended
+
+  tbl.glStencilOpValueAMD = loader_glStencilOpValueAMD;
+
+  // GL_ARB_base_instance
+
+  tbl.glDrawArraysInstancedBaseInstance = loader_glDrawArraysInstancedBaseInstance;
+  tbl.glDrawElementsInstancedBaseInstance = loader_glDrawElementsInstancedBaseInstance;
+  tbl.glDrawElementsInstancedBaseVertexBaseInstance = loader_glDrawElementsInstancedBaseVertexBaseInstance;
+
+  // GL_ARB_cl_event
+
+  tbl.glCreateSyncFromCLeventARB = loader_glCreateSyncFromCLeventARB;
+
+  // GL_ARB_internalformat_query
+
+  tbl.glGetInternalformativ = loader_glGetInternalformativ;
+
+  // GL_ARB_texture_storage
+
+  tbl.glTexStorage1D = loader_glTexStorage1D;
+  tbl.glTexStorage2D = loader_glTexStorage2D;
+  tbl.glTexStorage3D = loader_glTexStorage3D;
+  tbl.glTextureStorage1DEXT = loader_glTextureStorage1DEXT;
+  tbl.glTextureStorage2DEXT = loader_glTextureStorage2DEXT;
+  tbl.glTextureStorage3DEXT = loader_glTextureStorage3DEXT;
+
+  // GL_ARB_transform_feedback_instanced
+
+  tbl.glDrawTransformFeedbackInstanced = loader_glDrawTransformFeedbackInstanced;
+  tbl.glDrawTransformFeedbackStreamInstanced = loader_glDrawTransformFeedbackStreamInstanced;
+
+  // GL_EXT_x11_sync_object
+
+  tbl.glImportSyncEXT = loader_glImportSyncEXT;
+
+  // GL_INTEL_texture_scissor
+
+  tbl.glTexScissorFuncINTEL = loader_glTexScissorFuncINTEL;
+  tbl.glTexScissorINTEL = loader_glTexScissorINTEL;
+
+  // GL_NV_bindless_texture
+
+  tbl.glIsImageHandleResidentNV = loader_glIsImageHandleResidentNV;
+  tbl.glIsTextureHandleResidentNV = loader_glIsTextureHandleResidentNV;
+  tbl.glGetImageHandleNV = loader_glGetImageHandleNV;
+  tbl.glGetTextureHandleNV = loader_glGetTextureHandleNV;
+  tbl.glGetTextureSamplerHandleNV = loader_glGetTextureSamplerHandleNV;
+  tbl.glMakeImageHandleNonResidentNV = loader_glMakeImageHandleNonResidentNV;
+  tbl.glMakeImageHandleResidentNV = loader_glMakeImageHandleResidentNV;
+  tbl.glMakeTextureHandleNonResidentNV = loader_glMakeTextureHandleNonResidentNV;
+  tbl.glMakeTextureHandleResidentNV = loader_glMakeTextureHandleResidentNV;
+  tbl.glProgramUniformHandleui64NV = loader_glProgramUniformHandleui64NV;
+  tbl.glProgramUniformHandleui64vNV = loader_glProgramUniformHandleui64vNV;
+  tbl.glUniformHandleui64NV = loader_glUniformHandleui64NV;
+  tbl.glUniformHandleui64vNV = loader_glUniformHandleui64vNV;
+
+  // GL_NV_texture_multisample
+
+  tbl.glTexImage2DMultisampleCoverageNV = loader_glTexImage2DMultisampleCoverageNV;
+  tbl.glTexImage3DMultisampleCoverageNV = loader_glTexImage3DMultisampleCoverageNV;
+  tbl.glTextureImage2DMultisampleCoverageNV = loader_glTextureImage2DMultisampleCoverageNV;
+  tbl.glTextureImage2DMultisampleNV = loader_glTextureImage2DMultisampleNV;
+  tbl.glTextureImage3DMultisampleCoverageNV = loader_glTextureImage3DMultisampleCoverageNV;
+  tbl.glTextureImage3DMultisampleNV = loader_glTextureImage3DMultisampleNV;
+
+  // GL_SUN_read_video_pixels
+
+  tbl.glReadVideoPixelsSUN = loader_glReadVideoPixelsSUN;
+
+  // GL_EXT_fragment_lighting
+
+  tbl.glFragmentColorMaterialEXT = loader_glFragmentColorMaterialEXT;
+  tbl.glFragmentLightModelfEXT = loader_glFragmentLightModelfEXT;
+  tbl.glFragmentLightModelfvEXT = loader_glFragmentLightModelfvEXT;
+  tbl.glFragmentLightModeliEXT = loader_glFragmentLightModeliEXT;
+  tbl.glFragmentLightModelivEXT = loader_glFragmentLightModelivEXT;
+  tbl.glFragmentLightfEXT = loader_glFragmentLightfEXT;
+  tbl.glFragmentLightfvEXT = loader_glFragmentLightfvEXT;
+  tbl.glFragmentLightiEXT = loader_glFragmentLightiEXT;
+  tbl.glFragmentLightivEXT = loader_glFragmentLightivEXT;
+  tbl.glFragmentMaterialfEXT = loader_glFragmentMaterialfEXT;
+  tbl.glFragmentMaterialfvEXT = loader_glFragmentMaterialfvEXT;
+  tbl.glFragmentMaterialiEXT = loader_glFragmentMaterialiEXT;
+  tbl.glFragmentMaterialivEXT = loader_glFragmentMaterialivEXT;
+  tbl.glGetFragmentLightfvEXT = loader_glGetFragmentLightfvEXT;
+  tbl.glGetFragmentLightivEXT = loader_glGetFragmentLightivEXT;
+  tbl.glGetFragmentMaterialfvEXT = loader_glGetFragmentMaterialfvEXT;
+  tbl.glGetFragmentMaterialivEXT = loader_glGetFragmentMaterialivEXT;
+  tbl.glLightEnviEXT = loader_glLightEnviEXT;
+
+  // GL_EXT_debug_marker
+
+  tbl.glInsertEventMarkerEXT = loader_glInsertEventMarkerEXT;
+  tbl.glPushGroupMarkerEXT = loader_glPushGroupMarkerEXT;
+  tbl.glPopGroupMarkerEXT = loader_glPopGroupMarkerEXT;
+
+  // GL_KTX_buffer_region
+
+  tbl.glBufferRegionEnabledEXT = loader_glBufferRegionEnabledEXT;
+  tbl.glNewBufferRegionEXT = loader_glNewBufferRegionEXT;
+  tbl.glDeleteBufferRegionEXT = loader_glDeleteBufferRegionEXT;
+  tbl.glReadBufferRegionEXT = loader_glReadBufferRegionEXT;
+  tbl.glDrawBufferRegionEXT = loader_glDrawBufferRegionEXT;
+
+  // GL_SGIX_fog_texture
+
+  tbl.glTextureFogSGIX = loader_glTextureFogSGIX;
+
+  // GL_APPLE_flush_render
+
+  tbl.glFlushRenderAPPLE = loader_glFlushRenderAPPLE;
+  tbl.glFinishRenderAPPLE = loader_glFinishRenderAPPLE;
+  tbl.glSwapAPPLE = loader_glSwapAPPLE;
+
+  // GL_WIN_swap_hint
+
+  tbl.glAddSwapHintRectWIN = loader_glAddSwapHintRectWIN;
 
 }
 

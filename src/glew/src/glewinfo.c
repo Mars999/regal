@@ -39,6 +39,10 @@
 #include <GL/glxew.h>
 #endif
 
+#ifdef GLEW_REGAL
+#include <GL/Regal.h>
+#endif
+
 static FILE* f;
 
 #ifdef GLEW_MX
@@ -5605,6 +5609,38 @@ static void _glewInfo_GL_PGI_vertex_hints (void)
 
 #endif /* GL_PGI_vertex_hints */
 
+#ifdef GL_REGAL_error_string
+
+static void _glewInfo_GL_REGAL_error_string (void)
+{
+  glewPrintExt("GL_REGAL_error_string", GLEW_REGAL_error_string, glewIsSupported("GL_REGAL_error_string"), glewGetExtension("GL_REGAL_error_string"));
+
+  glewInfoFunc("glErrorStringREGAL", glErrorStringREGAL == NULL);
+}
+
+#endif /* GL_REGAL_error_string */
+
+#ifdef GL_REGAL_extension_query
+
+static void _glewInfo_GL_REGAL_extension_query (void)
+{
+  glewPrintExt("GL_REGAL_extension_query", GLEW_REGAL_extension_query, glewIsSupported("GL_REGAL_extension_query"), glewGetExtension("GL_REGAL_extension_query"));
+
+  glewInfoFunc("glGetExtensionREGAL", glGetExtensionREGAL == NULL);
+  glewInfoFunc("glIsSupportedREGAL", glIsSupportedREGAL == NULL);
+}
+
+#endif /* GL_REGAL_extension_query */
+
+#ifdef GL_REGAL_log
+
+static void _glewInfo_GL_REGAL_log (void)
+{
+  glewPrintExt("GL_REGAL_log", GLEW_REGAL_log, glewIsSupported("GL_REGAL_log"), glewGetExtension("GL_REGAL_log"));
+}
+
+#endif /* GL_REGAL_log */
+
 #ifdef GL_REND_screen_coordinates
 
 static void _glewInfo_GL_REND_screen_coordinates (void)
@@ -8690,6 +8726,15 @@ static void glewInfo (void)
 #ifdef GL_PGI_vertex_hints
   _glewInfo_GL_PGI_vertex_hints();
 #endif /* GL_PGI_vertex_hints */
+#ifdef GL_REGAL_error_string
+  _glewInfo_GL_REGAL_error_string();
+#endif /* GL_REGAL_error_string */
+#ifdef GL_REGAL_extension_query
+  _glewInfo_GL_REGAL_extension_query();
+#endif /* GL_REGAL_extension_query */
+#ifdef GL_REGAL_log
+  _glewInfo_GL_REGAL_log();
+#endif /* GL_REGAL_log */
 #ifdef GL_REND_screen_coordinates
   _glewInfo_GL_REND_screen_coordinates();
 #endif /* GL_REND_screen_coordinates */
@@ -9416,6 +9461,10 @@ GLboolean glewCreateContext ()
   /*aglSetDrawable(ctx, GetWindowPort(wnd));*/
   octx = aglGetCurrentContext();
   if (GL_FALSE == aglSetCurrentContext(ctx)) return GL_TRUE;
+  /* Needed for Regal on the Mac */
+  #if defined(GLEW_REGAL) && defined(__APPLE__)
+  RegalMakeCurrent(octx);
+  #endif
   return GL_FALSE;
 }
 

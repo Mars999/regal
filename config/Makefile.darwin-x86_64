@@ -9,7 +9,8 @@ ifneq (undefined, $(origin REGAL_APPLE_GLX))
 CFLAGS.EXTRA += -I/usr/X11R6/include -D'REGAL_APPLE_GLX'
 LDFLAGS.GL = -L/usr/X11R6/lib -lXmu -lXi -lGLU -lGL -lXext -lX11
 else
-LDFLAGS.GL   = -framework AGL -framework OpenGL
+LDFLAGS.AGL  = -framework AGL
+LDFLAGS.GL   = $(LDFLAGS.AGL) -framework OpenGL
 LDFLAGS.GLUT = -framework GLUT
 endif
 LDFLAGS.STATIC =

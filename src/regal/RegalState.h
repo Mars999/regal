@@ -35,6 +35,8 @@
 
 REGAL_GLOBAL_BEGIN
 
+#include <cstring>    // For memset, memcpy
+
 #include <string>
 #include <algorithm>  // For std::swap
 
@@ -84,6 +86,225 @@ namespace State {
   typedef ::boost::print::string_list<std::string> string_list;
 
   //
+  // glPushAttrib(GL_ENABLE_BIT)
+  //
+
+  struct Enable
+  {
+    GLboolean   alphaTest;             // GL_ALPHA_TEST
+    GLboolean   autoNormal;            // GL_AUTO_NORMAL
+    GLboolean   blend;                 // GL_BLEND
+                                       // TODO: Enable bits for the user-definable clipping planes
+    GLboolean   colorMaterial;         // GL_COLOR_MATERIAL
+    GLboolean   cullFace;              // GL_CULL_FACE
+    GLboolean   depthTest;             // GL_DEPTH_TEST
+    GLboolean   dither;                // GL_DITHER
+    GLboolean   fog;                   // GL_FOG
+    GLboolean   light[8];              // GL_LIGHTi where 0 <= i < GL_MAX_LIGHTS
+    GLboolean   lighting;              // GL_LIGHTING
+    GLboolean   lineSmooth;            // GL_LINE_SMOOTH
+    GLboolean   lineStipple;           // GL_LINE_STIPPLE
+    GLboolean   colorLogicOp;          // GL_COLOR_LOGIC_OP
+    GLboolean   indexLogicOp;          // GL_INDEX_LOGIC_OP
+                                       // TODO: GL_MAP1_x where x is a map type
+                                       // TODO: GL_MAP2_x where x is a map type
+    GLboolean   multisample;           // GL_MULTISAMPLE
+    GLboolean   normalize;             // GL_NORMALIZE
+    GLboolean   pointSmooth;           // GL_POINT_SMOOTH
+    GLboolean   polygonOffsetLine;     // GL_POLYGON_OFFSET_LINE
+    GLboolean   polygonOffsetFill;     // GL_POLYGON_OFFSET_FILL
+    GLboolean   polygonOffsetPoint;    // GL_POLYGON_OFFSET_POINT
+    GLboolean   polygonSmooth;         // GL_POLYGON_SMOOTH
+    GLboolean   polygonStipple;        // GL_POLYGON_STIPPLE
+    GLboolean   sampleAlphaToCoverage; // GL_SAMPLE_ALPHA_TO_COVERAGE
+    GLboolean   sampleAlphaToOne;      // GL_SAMPLE_ALPHA_TO_ONE
+    GLboolean   sampleCoverage;        // GL_SAMPLE_COVERAGE
+    GLboolean   scissorTest;           // GL_SCISSOR_TEST
+    GLboolean   stenclTest;            // GL_STENCIL_TEST
+    GLboolean   texture1d;             // GL_TEXTURE_1D
+    GLboolean   texture2d;             // GL_TEXTURE_2D
+    GLboolean   texture3d;             // GL_TEXTURE_3D
+
+    inline Enable()
+    : alphaTest(GL_FALSE), autoNormal(GL_FALSE), blend(GL_FALSE),
+      colorMaterial(GL_FALSE), cullFace(GL_FALSE), depthTest(GL_FALSE),
+      dither(GL_FALSE), fog(GL_FALSE),
+      lighting(GL_FALSE), lineSmooth(GL_FALSE), lineStipple(GL_FALSE),
+      colorLogicOp(GL_FALSE), indexLogicOp(GL_FALSE),
+      multisample(GL_FALSE), normalize(GL_FALSE), pointSmooth(GL_FALSE),
+      polygonOffsetLine(GL_FALSE), polygonOffsetFill(GL_FALSE), polygonOffsetPoint(GL_FALSE),
+      polygonSmooth(GL_FALSE), polygonStipple(GL_FALSE),
+      sampleAlphaToCoverage(GL_FALSE), sampleAlphaToOne(GL_FALSE), sampleCoverage(GL_FALSE),
+      scissorTest(GL_FALSE), stenclTest(GL_FALSE),
+      texture1d(GL_FALSE), texture2d(GL_FALSE), texture3d(GL_FALSE)
+    {
+      std::memset(light,0,sizeof(light));
+    }
+
+    inline Enable(const Enable &other)
+    {
+      if (this!=&other)
+        std::memcpy(this,&other,sizeof(Enable));
+    }
+
+    inline Enable &operator=(const Enable &other)
+    {
+      if (this!=&other)
+        std::memcpy(this,&other,sizeof(Enable));
+      return *this;
+    }
+
+    inline void glEnable(GLenum cap)
+    {
+      switch (cap)
+      {
+        case GL_ALPHA_TEST: alphaTest = GL_TRUE; break;
+        /* TODO */
+        default:                                 break;
+      }
+    }
+
+    inline void glDisable(GLenum cap)
+    {
+      switch (cap)
+      {
+        case GL_ALPHA_TEST: alphaTest = GL_FALSE; break;
+        /* ... TODO ... */
+        default:                                  break;
+      }
+    }
+
+    inline GLboolean glIsEnabled(GLenum cap)
+    {
+      switch (cap)
+      {
+        case GL_ALPHA_TEST: return alphaTest;
+        /* ... TODO ... */
+        default:                                 break;
+      }
+      return GL_FALSE;
+    }
+
+    inline Enable &get(DispatchTable &dt)
+    {
+      RegalAssert(dt.glIsEnabled);
+      alphaTest     = dt.glIsEnabled(GL_ALPHA_TEST);
+      autoNormal    = dt.glIsEnabled(GL_AUTO_NORMAL);
+      blend         = dt.glIsEnabled(GL_BLEND);
+      colorMaterial = dt.glIsEnabled(GL_COLOR_MATERIAL);
+      cullFace      = dt.glIsEnabled(GL_CULL_FACE);
+      depthTest     = dt.glIsEnabled(GL_DEPTH_TEST);
+      dither        = dt.glIsEnabled(GL_DITHER);
+      fog           = dt.glIsEnabled(GL_FOG);
+      light[0]      = dt.glIsEnabled(GL_LIGHT0);
+      light[1]      = dt.glIsEnabled(GL_LIGHT1);
+      light[2]      = dt.glIsEnabled(GL_LIGHT2);
+      light[3]      = dt.glIsEnabled(GL_LIGHT3);
+      light[4]      = dt.glIsEnabled(GL_LIGHT4);
+      light[5]      = dt.glIsEnabled(GL_LIGHT5);
+      light[6]      = dt.glIsEnabled(GL_LIGHT6);
+      light[7]      = dt.glIsEnabled(GL_LIGHT7);
+      lighting      = dt.glIsEnabled(GL_LIGHTING);
+      lineSmooth    = dt.glIsEnabled(GL_LINE_SMOOTH);
+      lineStipple   = dt.glIsEnabled(GL_LINE_STIPPLE);
+      colorLogicOp  = dt.glIsEnabled(GL_COLOR_LOGIC_OP);
+      indexLogicOp  = dt.glIsEnabled(GL_INDEX_LOGIC_OP);
+      fog           = dt.glIsEnabled(GL_FOG);
+
+      // TODO: GL_MAP1_x where x is a map type
+      // TODO: GL_MAP2_x where x is a map type
+
+      multisample           = dt.glIsEnabled(GL_MULTISAMPLE);
+      normalize             = dt.glIsEnabled(GL_NORMALIZE);
+      pointSmooth           = dt.glIsEnabled(GL_POINT_SMOOTH);
+      polygonOffsetLine     = dt.glIsEnabled(GL_POLYGON_OFFSET_LINE);
+      polygonOffsetFill     = dt.glIsEnabled(GL_POLYGON_OFFSET_FILL);
+      polygonOffsetPoint    = dt.glIsEnabled(GL_POLYGON_OFFSET_POINT);
+      polygonSmooth         = dt.glIsEnabled(GL_POLYGON_SMOOTH);
+      polygonStipple        = dt.glIsEnabled(GL_POLYGON_STIPPLE);
+      sampleAlphaToCoverage = dt.glIsEnabled(GL_SAMPLE_ALPHA_TO_COVERAGE);
+      sampleAlphaToOne      = dt.glIsEnabled(GL_SAMPLE_ALPHA_TO_ONE);
+      sampleCoverage        = dt.glIsEnabled(GL_SAMPLE_COVERAGE);
+      scissorTest           = dt.glIsEnabled(GL_SCISSOR_TEST);
+      stenclTest            = dt.glIsEnabled(GL_STENCIL_TEST);
+      texture1d             = dt.glIsEnabled(GL_TEXTURE_1D);
+      texture2d             = dt.glIsEnabled(GL_TEXTURE_2D);
+      texture3d             = dt.glIsEnabled(GL_TEXTURE_3D);
+
+      return *this;
+    }
+
+    inline static void setEnable(DispatchTable &dt, const GLenum cap, const GLboolean enable)
+    {
+      RegalAssert(dt.glEnable);
+      RegalAssert(dt.glDisable);
+      if (enable)
+        dt.glEnable(cap);
+      else
+        dt.glDisable(cap);
+    }
+
+    inline const Enable &set(DispatchTable &dt) const
+    {
+      setEnable(dt,GL_ALPHA_TEST,alphaTest);
+      setEnable(dt,GL_AUTO_NORMAL,autoNormal);
+      setEnable(dt,GL_BLEND,blend);
+      setEnable(dt,GL_COLOR_MATERIAL,colorMaterial);
+      setEnable(dt,GL_CULL_FACE,cullFace);
+      setEnable(dt,GL_DEPTH_TEST,depthTest);
+      setEnable(dt,GL_DITHER,dither);
+      setEnable(dt,GL_FOG,fog);
+      setEnable(dt,GL_LIGHT0,light[0]);
+      setEnable(dt,GL_LIGHT1,light[1]);
+      setEnable(dt,GL_LIGHT2,light[2]);
+      setEnable(dt,GL_LIGHT3,light[3]);
+      setEnable(dt,GL_LIGHT4,light[4]);
+      setEnable(dt,GL_LIGHT5,light[5]);
+      setEnable(dt,GL_LIGHT6,light[6]);
+      setEnable(dt,GL_LIGHT7,light[7]);
+      setEnable(dt,GL_LIGHTING,lighting);
+      setEnable(dt,GL_LINE_SMOOTH,lineSmooth);
+      setEnable(dt,GL_LINE_STIPPLE,lineStipple);
+      setEnable(dt,GL_COLOR_LOGIC_OP,colorLogicOp);
+      setEnable(dt,GL_INDEX_LOGIC_OP,indexLogicOp);
+
+      // TODO: GL_MAP1_x where x is a map type
+      // TODO: GL_MAP2_x where x is a map type
+
+      setEnable(dt,GL_MULTISAMPLE,multisample);
+      setEnable(dt,GL_NORMALIZE,normalize);
+      setEnable(dt,GL_POINT_SMOOTH,pointSmooth);
+      setEnable(dt,GL_POLYGON_OFFSET_LINE,polygonOffsetLine);
+      setEnable(dt,GL_POLYGON_OFFSET_FILL,polygonOffsetFill);
+      setEnable(dt,GL_POLYGON_OFFSET_POINT,polygonOffsetPoint);
+      setEnable(dt,GL_POLYGON_SMOOTH,polygonSmooth);
+      setEnable(dt,GL_POLYGON_STIPPLE,polygonStipple);
+      setEnable(dt,GL_SAMPLE_ALPHA_TO_COVERAGE,sampleAlphaToCoverage);
+      setEnable(dt,GL_SAMPLE_ALPHA_TO_ONE,sampleAlphaToOne);
+      setEnable(dt,GL_SAMPLE_COVERAGE,sampleCoverage);
+      setEnable(dt,GL_SCISSOR_TEST,scissorTest);
+      setEnable(dt,GL_STENCIL_TEST,stenclTest);
+      setEnable(dt,GL_TEXTURE_1D,texture1d);
+      setEnable(dt,GL_TEXTURE_2D,texture2d);
+      setEnable(dt,GL_TEXTURE_3D,texture3d);
+
+      return *this;
+    }
+
+    inline std::string toString() const
+    {
+      string_list tmp;
+#if 0
+      tmp << print_string(enable ? "glEnable" : "glDisable","(GL_DEPTH_TEST);\n");
+      tmp << print_string("glDepthfunc(",Token::toString(func),");\n");
+      tmp << print_string("glClearDepth(",clear,");\n");
+      tmp << print_string("glDepthMask(",mask ? "GL_TRUE" : "GL_FALSE",");\n");
+#endif
+      return tmp;
+    }
+  };
+
+  //
   // glPushAttrib(GL_DEPTH_BUFFER_BIT)
   //
 
@@ -127,7 +348,7 @@ namespace State {
     {
       RegalAssert(dt.glIsEnabled);
       enable = dt.glIsEnabled(GL_DEPTH_TEST);
-  
+
       RegalAssert(dt.glGetIntegerv);
       dt.glGetIntegerv(GL_DEPTH_FUNC,reinterpret_cast<GLint *>(&func));
 
@@ -467,7 +688,7 @@ namespace State {
     {
       RegalAssert(dt.glIsEnabled);
       cullEnable = dt.glIsEnabled(GL_CULL_FACE);
-  
+
       RegalAssert(dt.glGetIntegerv);
       dt.glGetIntegerv(GL_CULL_FACE_MODE,reinterpret_cast<GLint *>(&cull));
       dt.glGetIntegerv(GL_FRONT_FACE,reinterpret_cast<GLint *>(&frontFace));

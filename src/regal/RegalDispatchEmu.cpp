@@ -30102,6 +30102,10 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
 
 // GL_NV_path_rendering
 
+// GL_REGAL_extension_query
+
+// GL_REGAL_error_string
+
 // GL_AMD_debug_output
 
 // GL_AMD_multi_draw_indirect

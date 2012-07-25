@@ -25992,6 +25992,46 @@ static void REGAL_CALL log_glWeightPathsNV(GLuint resultPath, GLsizei numPaths, 
     rCtx->dsp->driverTbl.glWeightPathsNV(resultPath, numPaths, paths, weights);
 }
 
+// GL_REGAL_extension_query
+
+static GLboolean REGAL_CALL log_glGetExtensionREGAL(const GLchar *ext)
+{
+    GTrace("glGetExtensionREGAL(", boost::print::quote(ext,'"'), ")");;
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalAssert(rCtx);
+    RegalAssert(rCtx->dsp);
+    DispatchStateScopedStepDown stepDown(rCtx->dsp);
+    RegalAssert(rCtx->dsp->curr);
+    GLboolean  ret =rCtx->dsp->driverTbl.glGetExtensionREGAL(ext);
+    return ret;
+}
+
+static GLboolean REGAL_CALL log_glIsSupportedREGAL(const GLchar *ext)
+{
+    GTrace("glIsSupportedREGAL(", boost::print::quote(ext,'"'), ")");;
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalAssert(rCtx);
+    RegalAssert(rCtx->dsp);
+    DispatchStateScopedStepDown stepDown(rCtx->dsp);
+    RegalAssert(rCtx->dsp->curr);
+    GLboolean  ret =rCtx->dsp->driverTbl.glIsSupportedREGAL(ext);
+    return ret;
+}
+
+// GL_REGAL_error_string
+
+static const GLchar *REGAL_CALL log_glErrorStringREGAL(GLenum error)
+{
+    GTrace("glErrorStringREGAL(", toString(error), ")");;
+    RegalContext * rCtx = GET_REGAL_CONTEXT();
+    RegalAssert(rCtx);
+    RegalAssert(rCtx->dsp);
+    DispatchStateScopedStepDown stepDown(rCtx->dsp);
+    RegalAssert(rCtx->dsp->curr);
+    const GLchar * ret =rCtx->dsp->driverTbl.glErrorStringREGAL(error);
+    return ret;
+}
+
 // GL_AMD_debug_output
 
 static GLuint REGAL_CALL log_glGetDebugMessageLogAMD(GLuint count, GLsizei bufsize, GLenum *categories, GLuint *severities, GLuint *ids, GLsizei *lengths, GLchar *message)
@@ -26914,3089 +26954,3098 @@ REGAL_NAMESPACE_BEGIN
 void InitDispatchTableLog(DispatchTable &tbl)
 {
 
-// GL_VERSION_1_0
-
-   tbl.glNewList = log_glNewList;
-   tbl.glEndList = log_glEndList;
-   tbl.glCallList = log_glCallList;
-   tbl.glCallLists = log_glCallLists;
-   tbl.glDeleteLists = log_glDeleteLists;
-   tbl.glGenLists = log_glGenLists;
-   tbl.glListBase = log_glListBase;
-   tbl.glBegin = log_glBegin;
-   tbl.glBitmap = log_glBitmap;
-   tbl.glColor3b = log_glColor3b;
-   tbl.glColor3bv = log_glColor3bv;
-   tbl.glColor3d = log_glColor3d;
-   tbl.glColor3dv = log_glColor3dv;
-   tbl.glColor3f = log_glColor3f;
-   tbl.glColor3fv = log_glColor3fv;
-   tbl.glColor3i = log_glColor3i;
-   tbl.glColor3iv = log_glColor3iv;
-   tbl.glColor3s = log_glColor3s;
-   tbl.glColor3sv = log_glColor3sv;
-   tbl.glColor3ub = log_glColor3ub;
-   tbl.glColor3ubv = log_glColor3ubv;
-   tbl.glColor3ui = log_glColor3ui;
-   tbl.glColor3uiv = log_glColor3uiv;
-   tbl.glColor3us = log_glColor3us;
-   tbl.glColor3usv = log_glColor3usv;
-   tbl.glColor4b = log_glColor4b;
-   tbl.glColor4bv = log_glColor4bv;
-   tbl.glColor4d = log_glColor4d;
-   tbl.glColor4dv = log_glColor4dv;
-   tbl.glColor4f = log_glColor4f;
-   tbl.glColor4fv = log_glColor4fv;
-   tbl.glColor4i = log_glColor4i;
-   tbl.glColor4iv = log_glColor4iv;
-   tbl.glColor4s = log_glColor4s;
-   tbl.glColor4sv = log_glColor4sv;
-   tbl.glColor4ub = log_glColor4ub;
-   tbl.glColor4ubv = log_glColor4ubv;
-   tbl.glColor4ui = log_glColor4ui;
-   tbl.glColor4uiv = log_glColor4uiv;
-   tbl.glColor4us = log_glColor4us;
-   tbl.glColor4usv = log_glColor4usv;
-   tbl.glEdgeFlag = log_glEdgeFlag;
-   tbl.glEdgeFlagv = log_glEdgeFlagv;
-   tbl.glEnd = log_glEnd;
-   tbl.glIndexd = log_glIndexd;
-   tbl.glIndexdv = log_glIndexdv;
-   tbl.glIndexf = log_glIndexf;
-   tbl.glIndexfv = log_glIndexfv;
-   tbl.glIndexi = log_glIndexi;
-   tbl.glIndexiv = log_glIndexiv;
-   tbl.glIndexs = log_glIndexs;
-   tbl.glIndexsv = log_glIndexsv;
-   tbl.glNormal3b = log_glNormal3b;
-   tbl.glNormal3bv = log_glNormal3bv;
-   tbl.glNormal3d = log_glNormal3d;
-   tbl.glNormal3dv = log_glNormal3dv;
-   tbl.glNormal3f = log_glNormal3f;
-   tbl.glNormal3fv = log_glNormal3fv;
-   tbl.glNormal3i = log_glNormal3i;
-   tbl.glNormal3iv = log_glNormal3iv;
-   tbl.glNormal3s = log_glNormal3s;
-   tbl.glNormal3sv = log_glNormal3sv;
-   tbl.glRasterPos2d = log_glRasterPos2d;
-   tbl.glRasterPos2dv = log_glRasterPos2dv;
-   tbl.glRasterPos2f = log_glRasterPos2f;
-   tbl.glRasterPos2fv = log_glRasterPos2fv;
-   tbl.glRasterPos2i = log_glRasterPos2i;
-   tbl.glRasterPos2iv = log_glRasterPos2iv;
-   tbl.glRasterPos2s = log_glRasterPos2s;
-   tbl.glRasterPos2sv = log_glRasterPos2sv;
-   tbl.glRasterPos3d = log_glRasterPos3d;
-   tbl.glRasterPos3dv = log_glRasterPos3dv;
-   tbl.glRasterPos3f = log_glRasterPos3f;
-   tbl.glRasterPos3fv = log_glRasterPos3fv;
-   tbl.glRasterPos3i = log_glRasterPos3i;
-   tbl.glRasterPos3iv = log_glRasterPos3iv;
-   tbl.glRasterPos3s = log_glRasterPos3s;
-   tbl.glRasterPos3sv = log_glRasterPos3sv;
-   tbl.glRasterPos4d = log_glRasterPos4d;
-   tbl.glRasterPos4dv = log_glRasterPos4dv;
-   tbl.glRasterPos4f = log_glRasterPos4f;
-   tbl.glRasterPos4fv = log_glRasterPos4fv;
-   tbl.glRasterPos4i = log_glRasterPos4i;
-   tbl.glRasterPos4iv = log_glRasterPos4iv;
-   tbl.glRasterPos4s = log_glRasterPos4s;
-   tbl.glRasterPos4sv = log_glRasterPos4sv;
-   tbl.glRectd = log_glRectd;
-   tbl.glRectdv = log_glRectdv;
-   tbl.glRectf = log_glRectf;
-   tbl.glRectfv = log_glRectfv;
-   tbl.glRecti = log_glRecti;
-   tbl.glRectiv = log_glRectiv;
-   tbl.glRects = log_glRects;
-   tbl.glRectsv = log_glRectsv;
-   tbl.glTexCoord1d = log_glTexCoord1d;
-   tbl.glTexCoord1dv = log_glTexCoord1dv;
-   tbl.glTexCoord1f = log_glTexCoord1f;
-   tbl.glTexCoord1fv = log_glTexCoord1fv;
-   tbl.glTexCoord1i = log_glTexCoord1i;
-   tbl.glTexCoord1iv = log_glTexCoord1iv;
-   tbl.glTexCoord1s = log_glTexCoord1s;
-   tbl.glTexCoord1sv = log_glTexCoord1sv;
-   tbl.glTexCoord2d = log_glTexCoord2d;
-   tbl.glTexCoord2dv = log_glTexCoord2dv;
-   tbl.glTexCoord2f = log_glTexCoord2f;
-   tbl.glTexCoord2fv = log_glTexCoord2fv;
-   tbl.glTexCoord2i = log_glTexCoord2i;
-   tbl.glTexCoord2iv = log_glTexCoord2iv;
-   tbl.glTexCoord2s = log_glTexCoord2s;
-   tbl.glTexCoord2sv = log_glTexCoord2sv;
-   tbl.glTexCoord3d = log_glTexCoord3d;
-   tbl.glTexCoord3dv = log_glTexCoord3dv;
-   tbl.glTexCoord3f = log_glTexCoord3f;
-   tbl.glTexCoord3fv = log_glTexCoord3fv;
-   tbl.glTexCoord3i = log_glTexCoord3i;
-   tbl.glTexCoord3iv = log_glTexCoord3iv;
-   tbl.glTexCoord3s = log_glTexCoord3s;
-   tbl.glTexCoord3sv = log_glTexCoord3sv;
-   tbl.glTexCoord4d = log_glTexCoord4d;
-   tbl.glTexCoord4dv = log_glTexCoord4dv;
-   tbl.glTexCoord4f = log_glTexCoord4f;
-   tbl.glTexCoord4fv = log_glTexCoord4fv;
-   tbl.glTexCoord4i = log_glTexCoord4i;
-   tbl.glTexCoord4iv = log_glTexCoord4iv;
-   tbl.glTexCoord4s = log_glTexCoord4s;
-   tbl.glTexCoord4sv = log_glTexCoord4sv;
-   tbl.glVertex2d = log_glVertex2d;
-   tbl.glVertex2dv = log_glVertex2dv;
-   tbl.glVertex2f = log_glVertex2f;
-   tbl.glVertex2fv = log_glVertex2fv;
-   tbl.glVertex2i = log_glVertex2i;
-   tbl.glVertex2iv = log_glVertex2iv;
-   tbl.glVertex2s = log_glVertex2s;
-   tbl.glVertex2sv = log_glVertex2sv;
-   tbl.glVertex3d = log_glVertex3d;
-   tbl.glVertex3dv = log_glVertex3dv;
-   tbl.glVertex3f = log_glVertex3f;
-   tbl.glVertex3fv = log_glVertex3fv;
-   tbl.glVertex3i = log_glVertex3i;
-   tbl.glVertex3iv = log_glVertex3iv;
-   tbl.glVertex3s = log_glVertex3s;
-   tbl.glVertex3sv = log_glVertex3sv;
-   tbl.glVertex4d = log_glVertex4d;
-   tbl.glVertex4dv = log_glVertex4dv;
-   tbl.glVertex4f = log_glVertex4f;
-   tbl.glVertex4fv = log_glVertex4fv;
-   tbl.glVertex4i = log_glVertex4i;
-   tbl.glVertex4iv = log_glVertex4iv;
-   tbl.glVertex4s = log_glVertex4s;
-   tbl.glVertex4sv = log_glVertex4sv;
-   tbl.glClipPlane = log_glClipPlane;
-   tbl.glColorMaterial = log_glColorMaterial;
-   tbl.glCullFace = log_glCullFace;
-   tbl.glFogf = log_glFogf;
-   tbl.glFogfv = log_glFogfv;
-   tbl.glFogi = log_glFogi;
-   tbl.glFogiv = log_glFogiv;
-   tbl.glFrontFace = log_glFrontFace;
-   tbl.glHint = log_glHint;
-   tbl.glLightf = log_glLightf;
-   tbl.glLightfv = log_glLightfv;
-   tbl.glLighti = log_glLighti;
-   tbl.glLightiv = log_glLightiv;
-   tbl.glLightModelf = log_glLightModelf;
-   tbl.glLightModelfv = log_glLightModelfv;
-   tbl.glLightModeli = log_glLightModeli;
-   tbl.glLightModeliv = log_glLightModeliv;
-   tbl.glLineStipple = log_glLineStipple;
-   tbl.glLineWidth = log_glLineWidth;
-   tbl.glMaterialf = log_glMaterialf;
-   tbl.glMaterialfv = log_glMaterialfv;
-   tbl.glMateriali = log_glMateriali;
-   tbl.glMaterialiv = log_glMaterialiv;
-   tbl.glPointSize = log_glPointSize;
-   tbl.glPolygonMode = log_glPolygonMode;
-   tbl.glPolygonStipple = log_glPolygonStipple;
-   tbl.glScissor = log_glScissor;
-   tbl.glShadeModel = log_glShadeModel;
-   tbl.glTexParameterf = log_glTexParameterf;
-   tbl.glTexParameterfv = log_glTexParameterfv;
-   tbl.glTexParameteri = log_glTexParameteri;
-   tbl.glTexParameteriv = log_glTexParameteriv;
-   tbl.glTexImage1D = log_glTexImage1D;
-   tbl.glTexImage2D = log_glTexImage2D;
-   tbl.glTexEnvf = log_glTexEnvf;
-   tbl.glTexEnvfv = log_glTexEnvfv;
-   tbl.glTexEnvi = log_glTexEnvi;
-   tbl.glTexEnviv = log_glTexEnviv;
-   tbl.glTexGend = log_glTexGend;
-   tbl.glTexGendv = log_glTexGendv;
-   tbl.glTexGenf = log_glTexGenf;
-   tbl.glTexGenfv = log_glTexGenfv;
-   tbl.glTexGeni = log_glTexGeni;
-   tbl.glTexGeniv = log_glTexGeniv;
-   tbl.glFeedbackBuffer = log_glFeedbackBuffer;
-   tbl.glSelectBuffer = log_glSelectBuffer;
-   tbl.glRenderMode = log_glRenderMode;
-   tbl.glInitNames = log_glInitNames;
-   tbl.glLoadName = log_glLoadName;
-   tbl.glPassThrough = log_glPassThrough;
-   tbl.glPopName = log_glPopName;
-   tbl.glPushName = log_glPushName;
-   tbl.glDrawBuffer = log_glDrawBuffer;
-   tbl.glClear = log_glClear;
-   tbl.glClearAccum = log_glClearAccum;
-   tbl.glClearColor = log_glClearColor;
-   tbl.glClearDepth = log_glClearDepth;
-   tbl.glClearIndex = log_glClearIndex;
-   tbl.glClearStencil = log_glClearStencil;
-   tbl.glColorMask = log_glColorMask;
-   tbl.glDepthMask = log_glDepthMask;
-   tbl.glIndexMask = log_glIndexMask;
-   tbl.glStencilMask = log_glStencilMask;
-   tbl.glAccum = log_glAccum;
-   tbl.glDisable = log_glDisable;
-   tbl.glEnable = log_glEnable;
-   tbl.glFinish = log_glFinish;
-   tbl.glFlush = log_glFlush;
-   tbl.glPopAttrib = log_glPopAttrib;
-   tbl.glPushAttrib = log_glPushAttrib;
-   tbl.glMap1d = log_glMap1d;
-   tbl.glMap1f = log_glMap1f;
-   tbl.glMap2d = log_glMap2d;
-   tbl.glMap2f = log_glMap2f;
-   tbl.glMapGrid1d = log_glMapGrid1d;
-   tbl.glMapGrid1f = log_glMapGrid1f;
-   tbl.glMapGrid2d = log_glMapGrid2d;
-   tbl.glMapGrid2f = log_glMapGrid2f;
-   tbl.glEvalCoord1d = log_glEvalCoord1d;
-   tbl.glEvalCoord1dv = log_glEvalCoord1dv;
-   tbl.glEvalCoord1f = log_glEvalCoord1f;
-   tbl.glEvalCoord1fv = log_glEvalCoord1fv;
-   tbl.glEvalCoord2d = log_glEvalCoord2d;
-   tbl.glEvalCoord2dv = log_glEvalCoord2dv;
-   tbl.glEvalCoord2f = log_glEvalCoord2f;
-   tbl.glEvalCoord2fv = log_glEvalCoord2fv;
-   tbl.glEvalMesh1 = log_glEvalMesh1;
-   tbl.glEvalMesh2 = log_glEvalMesh2;
-   tbl.glEvalPoint1 = log_glEvalPoint1;
-   tbl.glEvalPoint2 = log_glEvalPoint2;
-   tbl.glAlphaFunc = log_glAlphaFunc;
-   tbl.glBlendFunc = log_glBlendFunc;
-   tbl.glDepthFunc = log_glDepthFunc;
-   tbl.glStencilFunc = log_glStencilFunc;
-   tbl.glLogicOp = log_glLogicOp;
-   tbl.glStencilOp = log_glStencilOp;
-   tbl.glPixelZoom = log_glPixelZoom;
-   tbl.glPixelTransferf = log_glPixelTransferf;
-   tbl.glPixelTransferi = log_glPixelTransferi;
-   tbl.glPixelStoref = log_glPixelStoref;
-   tbl.glPixelStorei = log_glPixelStorei;
-   tbl.glPixelMapfv = log_glPixelMapfv;
-   tbl.glPixelMapuiv = log_glPixelMapuiv;
-   tbl.glPixelMapusv = log_glPixelMapusv;
-   tbl.glReadBuffer = log_glReadBuffer;
-   tbl.glCopyPixels = log_glCopyPixels;
-   tbl.glReadPixels = log_glReadPixels;
-   tbl.glDrawPixels = log_glDrawPixels;
-   tbl.glGetBooleanv = log_glGetBooleanv;
-   tbl.glGetDoublev = log_glGetDoublev;
-   tbl.glGetFloatv = log_glGetFloatv;
-   tbl.glGetIntegerv = log_glGetIntegerv;
-   tbl.glGetClipPlane = log_glGetClipPlane;
-   tbl.glGetError = log_glGetError;
-   tbl.glGetLightfv = log_glGetLightfv;
-   tbl.glGetLightiv = log_glGetLightiv;
-   tbl.glGetMapdv = log_glGetMapdv;
-   tbl.glGetMapfv = log_glGetMapfv;
-   tbl.glGetMapiv = log_glGetMapiv;
-   tbl.glGetMaterialfv = log_glGetMaterialfv;
-   tbl.glGetMaterialiv = log_glGetMaterialiv;
-   tbl.glGetPixelMapfv = log_glGetPixelMapfv;
-   tbl.glGetPixelMapuiv = log_glGetPixelMapuiv;
-   tbl.glGetPixelMapusv = log_glGetPixelMapusv;
-   tbl.glGetPolygonStipple = log_glGetPolygonStipple;
-   tbl.glGetString = log_glGetString;
-   tbl.glGetTexEnvfv = log_glGetTexEnvfv;
-   tbl.glGetTexEnviv = log_glGetTexEnviv;
-   tbl.glGetTexGendv = log_glGetTexGendv;
-   tbl.glGetTexGenfv = log_glGetTexGenfv;
-   tbl.glGetTexGeniv = log_glGetTexGeniv;
-   tbl.glGetTexImage = log_glGetTexImage;
-   tbl.glGetTexParameterfv = log_glGetTexParameterfv;
-   tbl.glGetTexParameteriv = log_glGetTexParameteriv;
-   tbl.glGetTexLevelParameterfv = log_glGetTexLevelParameterfv;
-   tbl.glGetTexLevelParameteriv = log_glGetTexLevelParameteriv;
-   tbl.glIsEnabled = log_glIsEnabled;
-   tbl.glIsList = log_glIsList;
-   tbl.glDepthRange = log_glDepthRange;
-   tbl.glFrustum = log_glFrustum;
-   tbl.glLoadIdentity = log_glLoadIdentity;
-   tbl.glLoadMatrixd = log_glLoadMatrixd;
-   tbl.glLoadMatrixf = log_glLoadMatrixf;
-   tbl.glMatrixMode = log_glMatrixMode;
-   tbl.glMultMatrixd = log_glMultMatrixd;
-   tbl.glMultMatrixf = log_glMultMatrixf;
-   tbl.glOrtho = log_glOrtho;
-   tbl.glPopMatrix = log_glPopMatrix;
-   tbl.glPushMatrix = log_glPushMatrix;
-   tbl.glRotated = log_glRotated;
-   tbl.glRotatef = log_glRotatef;
-   tbl.glScaled = log_glScaled;
-   tbl.glScalef = log_glScalef;
-   tbl.glTranslated = log_glTranslated;
-   tbl.glTranslatef = log_glTranslatef;
-   tbl.glViewport = log_glViewport;
-
-// GL_VERSION_1_1
-
-   tbl.glArrayElement = log_glArrayElement;
-   tbl.glDrawArrays = log_glDrawArrays;
-   tbl.glDrawElements = log_glDrawElements;
-   tbl.glInterleavedArrays = log_glInterleavedArrays;
-   tbl.glDisableClientState = log_glDisableClientState;
-   tbl.glEnableClientState = log_glEnableClientState;
-   tbl.glGetPointerv = log_glGetPointerv;
-   tbl.glColorPointer = log_glColorPointer;
-   tbl.glEdgeFlagPointer = log_glEdgeFlagPointer;
-   tbl.glIndexPointer = log_glIndexPointer;
-   tbl.glNormalPointer = log_glNormalPointer;
-   tbl.glTexCoordPointer = log_glTexCoordPointer;
-   tbl.glVertexPointer = log_glVertexPointer;
-   tbl.glPolygonOffset = log_glPolygonOffset;
-   tbl.glCopyTexImage1D = log_glCopyTexImage1D;
-   tbl.glCopyTexImage2D = log_glCopyTexImage2D;
-   tbl.glCopyTexSubImage1D = log_glCopyTexSubImage1D;
-   tbl.glCopyTexSubImage2D = log_glCopyTexSubImage2D;
-   tbl.glTexSubImage1D = log_glTexSubImage1D;
-   tbl.glTexSubImage2D = log_glTexSubImage2D;
-   tbl.glAreTexturesResident = log_glAreTexturesResident;
-   tbl.glBindTexture = log_glBindTexture;
-   tbl.glDeleteTextures = log_glDeleteTextures;
-   tbl.glGenTextures = log_glGenTextures;
-   tbl.glIsTexture = log_glIsTexture;
-   tbl.glPrioritizeTextures = log_glPrioritizeTextures;
-   tbl.glIndexub = log_glIndexub;
-   tbl.glIndexubv = log_glIndexubv;
-   tbl.glPopClientAttrib = log_glPopClientAttrib;
-   tbl.glPushClientAttrib = log_glPushClientAttrib;
-
-// GL_VERSION_1_2
-
-   tbl.glBlendColor = log_glBlendColor;
-   tbl.glBlendEquation = log_glBlendEquation;
-   tbl.glDrawRangeElements = log_glDrawRangeElements;
-   tbl.glTexImage3D = log_glTexImage3D;
-   tbl.glTexSubImage3D = log_glTexSubImage3D;
-   tbl.glCopyTexSubImage3D = log_glCopyTexSubImage3D;
-
-// GL_ARB_imaging
-
-   tbl.glColorTable = log_glColorTable;
-   tbl.glColorTableParameterfv = log_glColorTableParameterfv;
-   tbl.glColorTableParameteriv = log_glColorTableParameteriv;
-   tbl.glCopyColorTable = log_glCopyColorTable;
-   tbl.glGetColorTable = log_glGetColorTable;
-   tbl.glGetColorTableParameterfv = log_glGetColorTableParameterfv;
-   tbl.glGetColorTableParameteriv = log_glGetColorTableParameteriv;
-   tbl.glColorSubTable = log_glColorSubTable;
-   tbl.glCopyColorSubTable = log_glCopyColorSubTable;
-   tbl.glConvolutionFilter1D = log_glConvolutionFilter1D;
-   tbl.glConvolutionFilter2D = log_glConvolutionFilter2D;
-   tbl.glConvolutionParameterf = log_glConvolutionParameterf;
-   tbl.glConvolutionParameterfv = log_glConvolutionParameterfv;
-   tbl.glConvolutionParameteri = log_glConvolutionParameteri;
-   tbl.glConvolutionParameteriv = log_glConvolutionParameteriv;
-   tbl.glCopyConvolutionFilter1D = log_glCopyConvolutionFilter1D;
-   tbl.glCopyConvolutionFilter2D = log_glCopyConvolutionFilter2D;
-   tbl.glGetConvolutionFilter = log_glGetConvolutionFilter;
-   tbl.glGetConvolutionParameterfv = log_glGetConvolutionParameterfv;
-   tbl.glGetConvolutionParameteriv = log_glGetConvolutionParameteriv;
-   tbl.glGetSeparableFilter = log_glGetSeparableFilter;
-   tbl.glSeparableFilter2D = log_glSeparableFilter2D;
-   tbl.glGetHistogram = log_glGetHistogram;
-   tbl.glGetHistogramParameterfv = log_glGetHistogramParameterfv;
-   tbl.glGetHistogramParameteriv = log_glGetHistogramParameteriv;
-   tbl.glGetMinmax = log_glGetMinmax;
-   tbl.glGetMinmaxParameterfv = log_glGetMinmaxParameterfv;
-   tbl.glGetMinmaxParameteriv = log_glGetMinmaxParameteriv;
-   tbl.glHistogram = log_glHistogram;
-   tbl.glMinmax = log_glMinmax;
-   tbl.glResetHistogram = log_glResetHistogram;
-   tbl.glResetMinmax = log_glResetMinmax;
-
-// GL_VERSION_1_3
-
-   tbl.glActiveTexture = log_glActiveTexture;
-   tbl.glSampleCoverage = log_glSampleCoverage;
-   tbl.glCompressedTexImage3D = log_glCompressedTexImage3D;
-   tbl.glCompressedTexImage2D = log_glCompressedTexImage2D;
-   tbl.glCompressedTexImage1D = log_glCompressedTexImage1D;
-   tbl.glCompressedTexSubImage3D = log_glCompressedTexSubImage3D;
-   tbl.glCompressedTexSubImage2D = log_glCompressedTexSubImage2D;
-   tbl.glCompressedTexSubImage1D = log_glCompressedTexSubImage1D;
-   tbl.glGetCompressedTexImage = log_glGetCompressedTexImage;
-   tbl.glClientActiveTexture = log_glClientActiveTexture;
-   tbl.glMultiTexCoord1d = log_glMultiTexCoord1d;
-   tbl.glMultiTexCoord1dv = log_glMultiTexCoord1dv;
-   tbl.glMultiTexCoord1f = log_glMultiTexCoord1f;
-   tbl.glMultiTexCoord1fv = log_glMultiTexCoord1fv;
-   tbl.glMultiTexCoord1i = log_glMultiTexCoord1i;
-   tbl.glMultiTexCoord1iv = log_glMultiTexCoord1iv;
-   tbl.glMultiTexCoord1s = log_glMultiTexCoord1s;
-   tbl.glMultiTexCoord1sv = log_glMultiTexCoord1sv;
-   tbl.glMultiTexCoord2d = log_glMultiTexCoord2d;
-   tbl.glMultiTexCoord2dv = log_glMultiTexCoord2dv;
-   tbl.glMultiTexCoord2f = log_glMultiTexCoord2f;
-   tbl.glMultiTexCoord2fv = log_glMultiTexCoord2fv;
-   tbl.glMultiTexCoord2i = log_glMultiTexCoord2i;
-   tbl.glMultiTexCoord2iv = log_glMultiTexCoord2iv;
-   tbl.glMultiTexCoord2s = log_glMultiTexCoord2s;
-   tbl.glMultiTexCoord2sv = log_glMultiTexCoord2sv;
-   tbl.glMultiTexCoord3d = log_glMultiTexCoord3d;
-   tbl.glMultiTexCoord3dv = log_glMultiTexCoord3dv;
-   tbl.glMultiTexCoord3f = log_glMultiTexCoord3f;
-   tbl.glMultiTexCoord3fv = log_glMultiTexCoord3fv;
-   tbl.glMultiTexCoord3i = log_glMultiTexCoord3i;
-   tbl.glMultiTexCoord3iv = log_glMultiTexCoord3iv;
-   tbl.glMultiTexCoord3s = log_glMultiTexCoord3s;
-   tbl.glMultiTexCoord3sv = log_glMultiTexCoord3sv;
-   tbl.glMultiTexCoord4d = log_glMultiTexCoord4d;
-   tbl.glMultiTexCoord4dv = log_glMultiTexCoord4dv;
-   tbl.glMultiTexCoord4f = log_glMultiTexCoord4f;
-   tbl.glMultiTexCoord4fv = log_glMultiTexCoord4fv;
-   tbl.glMultiTexCoord4i = log_glMultiTexCoord4i;
-   tbl.glMultiTexCoord4iv = log_glMultiTexCoord4iv;
-   tbl.glMultiTexCoord4s = log_glMultiTexCoord4s;
-   tbl.glMultiTexCoord4sv = log_glMultiTexCoord4sv;
-   tbl.glLoadTransposeMatrixf = log_glLoadTransposeMatrixf;
-   tbl.glLoadTransposeMatrixd = log_glLoadTransposeMatrixd;
-   tbl.glMultTransposeMatrixf = log_glMultTransposeMatrixf;
-   tbl.glMultTransposeMatrixd = log_glMultTransposeMatrixd;
-
-// GL_VERSION_1_4
-
-   tbl.glBlendFuncSeparate = log_glBlendFuncSeparate;
-   tbl.glMultiDrawArrays = log_glMultiDrawArrays;
-   tbl.glMultiDrawElements = log_glMultiDrawElements;
-   tbl.glPointParameterf = log_glPointParameterf;
-   tbl.glPointParameterfv = log_glPointParameterfv;
-   tbl.glPointParameteri = log_glPointParameteri;
-   tbl.glPointParameteriv = log_glPointParameteriv;
-   tbl.glFogCoordf = log_glFogCoordf;
-   tbl.glFogCoordfv = log_glFogCoordfv;
-   tbl.glFogCoordd = log_glFogCoordd;
-   tbl.glFogCoorddv = log_glFogCoorddv;
-   tbl.glFogCoordPointer = log_glFogCoordPointer;
-   tbl.glSecondaryColor3b = log_glSecondaryColor3b;
-   tbl.glSecondaryColor3bv = log_glSecondaryColor3bv;
-   tbl.glSecondaryColor3d = log_glSecondaryColor3d;
-   tbl.glSecondaryColor3dv = log_glSecondaryColor3dv;
-   tbl.glSecondaryColor3f = log_glSecondaryColor3f;
-   tbl.glSecondaryColor3fv = log_glSecondaryColor3fv;
-   tbl.glSecondaryColor3i = log_glSecondaryColor3i;
-   tbl.glSecondaryColor3iv = log_glSecondaryColor3iv;
-   tbl.glSecondaryColor3s = log_glSecondaryColor3s;
-   tbl.glSecondaryColor3sv = log_glSecondaryColor3sv;
-   tbl.glSecondaryColor3ub = log_glSecondaryColor3ub;
-   tbl.glSecondaryColor3ubv = log_glSecondaryColor3ubv;
-   tbl.glSecondaryColor3ui = log_glSecondaryColor3ui;
-   tbl.glSecondaryColor3uiv = log_glSecondaryColor3uiv;
-   tbl.glSecondaryColor3us = log_glSecondaryColor3us;
-   tbl.glSecondaryColor3usv = log_glSecondaryColor3usv;
-   tbl.glSecondaryColorPointer = log_glSecondaryColorPointer;
-   tbl.glWindowPos2d = log_glWindowPos2d;
-   tbl.glWindowPos2dv = log_glWindowPos2dv;
-   tbl.glWindowPos2f = log_glWindowPos2f;
-   tbl.glWindowPos2fv = log_glWindowPos2fv;
-   tbl.glWindowPos2i = log_glWindowPos2i;
-   tbl.glWindowPos2iv = log_glWindowPos2iv;
-   tbl.glWindowPos2s = log_glWindowPos2s;
-   tbl.glWindowPos2sv = log_glWindowPos2sv;
-   tbl.glWindowPos3d = log_glWindowPos3d;
-   tbl.glWindowPos3dv = log_glWindowPos3dv;
-   tbl.glWindowPos3f = log_glWindowPos3f;
-   tbl.glWindowPos3fv = log_glWindowPos3fv;
-   tbl.glWindowPos3i = log_glWindowPos3i;
-   tbl.glWindowPos3iv = log_glWindowPos3iv;
-   tbl.glWindowPos3s = log_glWindowPos3s;
-   tbl.glWindowPos3sv = log_glWindowPos3sv;
-
-// GL_VERSION_1_5
-
-   tbl.glGenQueries = log_glGenQueries;
-   tbl.glDeleteQueries = log_glDeleteQueries;
-   tbl.glIsQuery = log_glIsQuery;
-   tbl.glBeginQuery = log_glBeginQuery;
-   tbl.glEndQuery = log_glEndQuery;
-   tbl.glGetQueryiv = log_glGetQueryiv;
-   tbl.glGetQueryObjectiv = log_glGetQueryObjectiv;
-   tbl.glGetQueryObjectuiv = log_glGetQueryObjectuiv;
-   tbl.glBindBuffer = log_glBindBuffer;
-   tbl.glDeleteBuffers = log_glDeleteBuffers;
-   tbl.glGenBuffers = log_glGenBuffers;
-   tbl.glIsBuffer = log_glIsBuffer;
-   tbl.glBufferData = log_glBufferData;
-   tbl.glBufferSubData = log_glBufferSubData;
-   tbl.glGetBufferSubData = log_glGetBufferSubData;
-   tbl.glMapBuffer = log_glMapBuffer;
-   tbl.glUnmapBuffer = log_glUnmapBuffer;
-   tbl.glGetBufferParameteriv = log_glGetBufferParameteriv;
-   tbl.glGetBufferPointerv = log_glGetBufferPointerv;
-
-// GL_VERSION_2_0
-
-   tbl.glBlendEquationSeparate = log_glBlendEquationSeparate;
-   tbl.glDrawBuffers = log_glDrawBuffers;
-   tbl.glStencilOpSeparate = log_glStencilOpSeparate;
-   tbl.glStencilFuncSeparate = log_glStencilFuncSeparate;
-   tbl.glStencilMaskSeparate = log_glStencilMaskSeparate;
-   tbl.glAttachShader = log_glAttachShader;
-   tbl.glBindAttribLocation = log_glBindAttribLocation;
-   tbl.glCompileShader = log_glCompileShader;
-   tbl.glCreateProgram = log_glCreateProgram;
-   tbl.glCreateShader = log_glCreateShader;
-   tbl.glDeleteProgram = log_glDeleteProgram;
-   tbl.glDeleteShader = log_glDeleteShader;
-   tbl.glDetachShader = log_glDetachShader;
-   tbl.glDisableVertexAttribArray = log_glDisableVertexAttribArray;
-   tbl.glEnableVertexAttribArray = log_glEnableVertexAttribArray;
-   tbl.glGetActiveAttrib = log_glGetActiveAttrib;
-   tbl.glGetActiveUniform = log_glGetActiveUniform;
-   tbl.glGetAttachedShaders = log_glGetAttachedShaders;
-   tbl.glGetAttribLocation = log_glGetAttribLocation;
-   tbl.glGetProgramiv = log_glGetProgramiv;
-   tbl.glGetProgramInfoLog = log_glGetProgramInfoLog;
-   tbl.glGetShaderiv = log_glGetShaderiv;
-   tbl.glGetShaderInfoLog = log_glGetShaderInfoLog;
-   tbl.glGetShaderSource = log_glGetShaderSource;
-   tbl.glGetUniformLocation = log_glGetUniformLocation;
-   tbl.glGetUniformfv = log_glGetUniformfv;
-   tbl.glGetUniformiv = log_glGetUniformiv;
-   tbl.glGetVertexAttribdv = log_glGetVertexAttribdv;
-   tbl.glGetVertexAttribfv = log_glGetVertexAttribfv;
-   tbl.glGetVertexAttribiv = log_glGetVertexAttribiv;
-   tbl.glGetVertexAttribPointerv = log_glGetVertexAttribPointerv;
-   tbl.glIsProgram = log_glIsProgram;
-   tbl.glIsShader = log_glIsShader;
-   tbl.glLinkProgram = log_glLinkProgram;
-   tbl.glShaderSource = log_glShaderSource;
-   tbl.glUseProgram = log_glUseProgram;
-   tbl.glUniform1f = log_glUniform1f;
-   tbl.glUniform2f = log_glUniform2f;
-   tbl.glUniform3f = log_glUniform3f;
-   tbl.glUniform4f = log_glUniform4f;
-   tbl.glUniform1i = log_glUniform1i;
-   tbl.glUniform2i = log_glUniform2i;
-   tbl.glUniform3i = log_glUniform3i;
-   tbl.glUniform4i = log_glUniform4i;
-   tbl.glUniform1fv = log_glUniform1fv;
-   tbl.glUniform2fv = log_glUniform2fv;
-   tbl.glUniform3fv = log_glUniform3fv;
-   tbl.glUniform4fv = log_glUniform4fv;
-   tbl.glUniform1iv = log_glUniform1iv;
-   tbl.glUniform2iv = log_glUniform2iv;
-   tbl.glUniform3iv = log_glUniform3iv;
-   tbl.glUniform4iv = log_glUniform4iv;
-   tbl.glUniformMatrix2fv = log_glUniformMatrix2fv;
-   tbl.glUniformMatrix3fv = log_glUniformMatrix3fv;
-   tbl.glUniformMatrix4fv = log_glUniformMatrix4fv;
-   tbl.glValidateProgram = log_glValidateProgram;
-   tbl.glVertexAttrib1d = log_glVertexAttrib1d;
-   tbl.glVertexAttrib1dv = log_glVertexAttrib1dv;
-   tbl.glVertexAttrib1f = log_glVertexAttrib1f;
-   tbl.glVertexAttrib1fv = log_glVertexAttrib1fv;
-   tbl.glVertexAttrib1s = log_glVertexAttrib1s;
-   tbl.glVertexAttrib1sv = log_glVertexAttrib1sv;
-   tbl.glVertexAttrib2d = log_glVertexAttrib2d;
-   tbl.glVertexAttrib2dv = log_glVertexAttrib2dv;
-   tbl.glVertexAttrib2f = log_glVertexAttrib2f;
-   tbl.glVertexAttrib2fv = log_glVertexAttrib2fv;
-   tbl.glVertexAttrib2s = log_glVertexAttrib2s;
-   tbl.glVertexAttrib2sv = log_glVertexAttrib2sv;
-   tbl.glVertexAttrib3d = log_glVertexAttrib3d;
-   tbl.glVertexAttrib3dv = log_glVertexAttrib3dv;
-   tbl.glVertexAttrib3f = log_glVertexAttrib3f;
-   tbl.glVertexAttrib3fv = log_glVertexAttrib3fv;
-   tbl.glVertexAttrib3s = log_glVertexAttrib3s;
-   tbl.glVertexAttrib3sv = log_glVertexAttrib3sv;
-   tbl.glVertexAttrib4Nbv = log_glVertexAttrib4Nbv;
-   tbl.glVertexAttrib4Niv = log_glVertexAttrib4Niv;
-   tbl.glVertexAttrib4Nsv = log_glVertexAttrib4Nsv;
-   tbl.glVertexAttrib4Nub = log_glVertexAttrib4Nub;
-   tbl.glVertexAttrib4Nubv = log_glVertexAttrib4Nubv;
-   tbl.glVertexAttrib4Nuiv = log_glVertexAttrib4Nuiv;
-   tbl.glVertexAttrib4Nusv = log_glVertexAttrib4Nusv;
-   tbl.glVertexAttrib4bv = log_glVertexAttrib4bv;
-   tbl.glVertexAttrib4d = log_glVertexAttrib4d;
-   tbl.glVertexAttrib4dv = log_glVertexAttrib4dv;
-   tbl.glVertexAttrib4f = log_glVertexAttrib4f;
-   tbl.glVertexAttrib4fv = log_glVertexAttrib4fv;
-   tbl.glVertexAttrib4iv = log_glVertexAttrib4iv;
-   tbl.glVertexAttrib4s = log_glVertexAttrib4s;
-   tbl.glVertexAttrib4sv = log_glVertexAttrib4sv;
-   tbl.glVertexAttrib4ubv = log_glVertexAttrib4ubv;
-   tbl.glVertexAttrib4uiv = log_glVertexAttrib4uiv;
-   tbl.glVertexAttrib4usv = log_glVertexAttrib4usv;
-   tbl.glVertexAttribPointer = log_glVertexAttribPointer;
-
-// GL_VERSION_2_1
-
-   tbl.glUniformMatrix2x3fv = log_glUniformMatrix2x3fv;
-   tbl.glUniformMatrix3x2fv = log_glUniformMatrix3x2fv;
-   tbl.glUniformMatrix2x4fv = log_glUniformMatrix2x4fv;
-   tbl.glUniformMatrix4x2fv = log_glUniformMatrix4x2fv;
-   tbl.glUniformMatrix3x4fv = log_glUniformMatrix3x4fv;
-   tbl.glUniformMatrix4x3fv = log_glUniformMatrix4x3fv;
-
-// GL_VERSION_3_0
-
-   tbl.glColorMaski = log_glColorMaski;
-   tbl.glGetBooleani_v = log_glGetBooleani_v;
-
-// GL_ARB_uniform_buffer_object
-
-   tbl.glGetIntegeri_v = log_glGetIntegeri_v;
-
-// GL_VERSION_3_0
-
-   tbl.glEnablei = log_glEnablei;
-   tbl.glDisablei = log_glDisablei;
-   tbl.glIsEnabledi = log_glIsEnabledi;
-   tbl.glBeginTransformFeedback = log_glBeginTransformFeedback;
-   tbl.glEndTransformFeedback = log_glEndTransformFeedback;
-
-// GL_ARB_uniform_buffer_object
-
-   tbl.glBindBufferRange = log_glBindBufferRange;
-   tbl.glBindBufferBase = log_glBindBufferBase;
-
-// GL_VERSION_3_0
-
-   tbl.glTransformFeedbackVaryings = log_glTransformFeedbackVaryings;
-   tbl.glGetTransformFeedbackVarying = log_glGetTransformFeedbackVarying;
-   tbl.glClampColor = log_glClampColor;
-   tbl.glBeginConditionalRender = log_glBeginConditionalRender;
-   tbl.glEndConditionalRender = log_glEndConditionalRender;
-   tbl.glVertexAttribIPointer = log_glVertexAttribIPointer;
-   tbl.glGetVertexAttribIiv = log_glGetVertexAttribIiv;
-   tbl.glGetVertexAttribIuiv = log_glGetVertexAttribIuiv;
-   tbl.glVertexAttribI1i = log_glVertexAttribI1i;
-   tbl.glVertexAttribI2i = log_glVertexAttribI2i;
-   tbl.glVertexAttribI3i = log_glVertexAttribI3i;
-   tbl.glVertexAttribI4i = log_glVertexAttribI4i;
-   tbl.glVertexAttribI1ui = log_glVertexAttribI1ui;
-   tbl.glVertexAttribI2ui = log_glVertexAttribI2ui;
-   tbl.glVertexAttribI3ui = log_glVertexAttribI3ui;
-   tbl.glVertexAttribI4ui = log_glVertexAttribI4ui;
-   tbl.glVertexAttribI1iv = log_glVertexAttribI1iv;
-   tbl.glVertexAttribI2iv = log_glVertexAttribI2iv;
-   tbl.glVertexAttribI3iv = log_glVertexAttribI3iv;
-   tbl.glVertexAttribI4iv = log_glVertexAttribI4iv;
-   tbl.glVertexAttribI1uiv = log_glVertexAttribI1uiv;
-   tbl.glVertexAttribI2uiv = log_glVertexAttribI2uiv;
-   tbl.glVertexAttribI3uiv = log_glVertexAttribI3uiv;
-   tbl.glVertexAttribI4uiv = log_glVertexAttribI4uiv;
-   tbl.glVertexAttribI4bv = log_glVertexAttribI4bv;
-   tbl.glVertexAttribI4sv = log_glVertexAttribI4sv;
-   tbl.glVertexAttribI4ubv = log_glVertexAttribI4ubv;
-   tbl.glVertexAttribI4usv = log_glVertexAttribI4usv;
-   tbl.glGetUniformuiv = log_glGetUniformuiv;
-   tbl.glBindFragDataLocation = log_glBindFragDataLocation;
-   tbl.glGetFragDataLocation = log_glGetFragDataLocation;
-   tbl.glUniform1ui = log_glUniform1ui;
-   tbl.glUniform2ui = log_glUniform2ui;
-   tbl.glUniform3ui = log_glUniform3ui;
-   tbl.glUniform4ui = log_glUniform4ui;
-   tbl.glUniform1uiv = log_glUniform1uiv;
-   tbl.glUniform2uiv = log_glUniform2uiv;
-   tbl.glUniform3uiv = log_glUniform3uiv;
-   tbl.glUniform4uiv = log_glUniform4uiv;
-   tbl.glTexParameterIiv = log_glTexParameterIiv;
-   tbl.glTexParameterIuiv = log_glTexParameterIuiv;
-   tbl.glGetTexParameterIiv = log_glGetTexParameterIiv;
-   tbl.glGetTexParameterIuiv = log_glGetTexParameterIuiv;
-   tbl.glClearBufferiv = log_glClearBufferiv;
-   tbl.glClearBufferuiv = log_glClearBufferuiv;
-   tbl.glClearBufferfv = log_glClearBufferfv;
-   tbl.glClearBufferfi = log_glClearBufferfi;
-   tbl.glGetStringi = log_glGetStringi;
-
-// GL_VERSION_3_1
-
-   tbl.glDrawArraysInstanced = log_glDrawArraysInstanced;
-   tbl.glDrawElementsInstanced = log_glDrawElementsInstanced;
-   tbl.glTexBuffer = log_glTexBuffer;
-   tbl.glPrimitiveRestartIndex = log_glPrimitiveRestartIndex;
-
-// GL_VERSION_3_2
-
-   tbl.glGetInteger64i_v = log_glGetInteger64i_v;
-   tbl.glGetBufferParameteri64v = log_glGetBufferParameteri64v;
-   tbl.glFramebufferTexture = log_glFramebufferTexture;
-   tbl.glFramebufferTextureFace = log_glFramebufferTextureFace;
-
-// GL_ARB_sampler_objects
-
-   tbl.glGenSamplers = log_glGenSamplers;
-   tbl.glDeleteSamplers = log_glDeleteSamplers;
-   tbl.glIsSampler = log_glIsSampler;
-   tbl.glBindSampler = log_glBindSampler;
-   tbl.glSamplerParameteri = log_glSamplerParameteri;
-   tbl.glSamplerParameterf = log_glSamplerParameterf;
-   tbl.glSamplerParameteriv = log_glSamplerParameteriv;
-   tbl.glSamplerParameterfv = log_glSamplerParameterfv;
-   tbl.glSamplerParameterIiv = log_glSamplerParameterIiv;
-   tbl.glSamplerParameterIuiv = log_glSamplerParameterIuiv;
-   tbl.glGetSamplerParameteriv = log_glGetSamplerParameteriv;
-   tbl.glGetSamplerParameterfv = log_glGetSamplerParameterfv;
-   tbl.glGetSamplerParameterIiv = log_glGetSamplerParameterIiv;
-   tbl.glGetSamplerParameterIuiv = log_glGetSamplerParameterIuiv;
-
-// GL_ARB_blend_func_extended
-
-   tbl.glBindFragDataLocationIndexed = log_glBindFragDataLocationIndexed;
-   tbl.glGetFragDataIndex = log_glGetFragDataIndex;
-
-// GL_ARB_timer_query
-
-   tbl.glGetQueryObjecti64v = log_glGetQueryObjecti64v;
-   tbl.glGetQueryObjectui64v = log_glGetQueryObjectui64v;
-   tbl.glQueryCounter = log_glQueryCounter;
-
-// GL_VERSION_3_3
-
-   tbl.glVertexAttribDivisor = log_glVertexAttribDivisor;
-
-// GL_ARB_vertex_type_2_10_10_10_rev
-
-   tbl.glVertexP2ui = log_glVertexP2ui;
-   tbl.glVertexP2uiv = log_glVertexP2uiv;
-   tbl.glVertexP3ui = log_glVertexP3ui;
-   tbl.glVertexP3uiv = log_glVertexP3uiv;
-   tbl.glVertexP4ui = log_glVertexP4ui;
-   tbl.glVertexP4uiv = log_glVertexP4uiv;
-   tbl.glTexCoordP1ui = log_glTexCoordP1ui;
-   tbl.glTexCoordP1uiv = log_glTexCoordP1uiv;
-   tbl.glTexCoordP2ui = log_glTexCoordP2ui;
-   tbl.glTexCoordP2uiv = log_glTexCoordP2uiv;
-   tbl.glTexCoordP3ui = log_glTexCoordP3ui;
-   tbl.glTexCoordP3uiv = log_glTexCoordP3uiv;
-   tbl.glTexCoordP4ui = log_glTexCoordP4ui;
-   tbl.glTexCoordP4uiv = log_glTexCoordP4uiv;
-   tbl.glMultiTexCoordP1ui = log_glMultiTexCoordP1ui;
-   tbl.glMultiTexCoordP1uiv = log_glMultiTexCoordP1uiv;
-   tbl.glMultiTexCoordP2ui = log_glMultiTexCoordP2ui;
-   tbl.glMultiTexCoordP2uiv = log_glMultiTexCoordP2uiv;
-   tbl.glMultiTexCoordP3ui = log_glMultiTexCoordP3ui;
-   tbl.glMultiTexCoordP3uiv = log_glMultiTexCoordP3uiv;
-   tbl.glMultiTexCoordP4ui = log_glMultiTexCoordP4ui;
-   tbl.glMultiTexCoordP4uiv = log_glMultiTexCoordP4uiv;
-   tbl.glNormalP3ui = log_glNormalP3ui;
-   tbl.glNormalP3uiv = log_glNormalP3uiv;
-   tbl.glColorP3ui = log_glColorP3ui;
-   tbl.glColorP3uiv = log_glColorP3uiv;
-   tbl.glColorP4ui = log_glColorP4ui;
-   tbl.glColorP4uiv = log_glColorP4uiv;
-   tbl.glSecondaryColorP3ui = log_glSecondaryColorP3ui;
-   tbl.glSecondaryColorP3uiv = log_glSecondaryColorP3uiv;
-   tbl.glVertexAttribP1ui = log_glVertexAttribP1ui;
-   tbl.glVertexAttribP1uiv = log_glVertexAttribP1uiv;
-   tbl.glVertexAttribP2ui = log_glVertexAttribP2ui;
-   tbl.glVertexAttribP2uiv = log_glVertexAttribP2uiv;
-   tbl.glVertexAttribP3ui = log_glVertexAttribP3ui;
-   tbl.glVertexAttribP3uiv = log_glVertexAttribP3uiv;
-   tbl.glVertexAttribP4ui = log_glVertexAttribP4ui;
-   tbl.glVertexAttribP4uiv = log_glVertexAttribP4uiv;
-
-// GL_VERSION_4_0
-
-   tbl.glBlendEquationi = log_glBlendEquationi;
-   tbl.glBlendEquationSeparatei = log_glBlendEquationSeparatei;
-   tbl.glBlendFunci = log_glBlendFunci;
-   tbl.glBlendFuncSeparatei = log_glBlendFuncSeparatei;
-
-// GL_ARB_draw_indirect
-
-   tbl.glDrawArraysIndirect = log_glDrawArraysIndirect;
-   tbl.glDrawElementsIndirect = log_glDrawElementsIndirect;
-
-// GL_ARB_gpu_shader_fp64
-
-   tbl.glUniform1d = log_glUniform1d;
-   tbl.glUniform2d = log_glUniform2d;
-   tbl.glUniform3d = log_glUniform3d;
-   tbl.glUniform4d = log_glUniform4d;
-   tbl.glUniform1dv = log_glUniform1dv;
-   tbl.glUniform2dv = log_glUniform2dv;
-   tbl.glUniform3dv = log_glUniform3dv;
-   tbl.glUniform4dv = log_glUniform4dv;
-   tbl.glUniformMatrix2dv = log_glUniformMatrix2dv;
-   tbl.glUniformMatrix3dv = log_glUniformMatrix3dv;
-   tbl.glUniformMatrix4dv = log_glUniformMatrix4dv;
-   tbl.glUniformMatrix2x3dv = log_glUniformMatrix2x3dv;
-   tbl.glUniformMatrix2x4dv = log_glUniformMatrix2x4dv;
-   tbl.glUniformMatrix3x2dv = log_glUniformMatrix3x2dv;
-   tbl.glUniformMatrix3x4dv = log_glUniformMatrix3x4dv;
-   tbl.glUniformMatrix4x2dv = log_glUniformMatrix4x2dv;
-   tbl.glUniformMatrix4x3dv = log_glUniformMatrix4x3dv;
-   tbl.glGetUniformdv = log_glGetUniformdv;
-
-// GL_ARB_sample_shading
-
-   tbl.glMinSampleShading = log_glMinSampleShading;
-
-// GL_ARB_tessellation_shader
-
-   tbl.glPatchParameteri = log_glPatchParameteri;
-   tbl.glPatchParameterfv = log_glPatchParameterfv;
-
-// GL_ARB_transform_feedback2
-
-   tbl.glGenTransformFeedbacks = log_glGenTransformFeedbacks;
-   tbl.glDeleteTransformFeedbacks = log_glDeleteTransformFeedbacks;
-   tbl.glBindTransformFeedback = log_glBindTransformFeedback;
-   tbl.glIsTransformFeedback = log_glIsTransformFeedback;
-   tbl.glPauseTransformFeedback = log_glPauseTransformFeedback;
-   tbl.glResumeTransformFeedback = log_glResumeTransformFeedback;
-   tbl.glDrawTransformFeedback = log_glDrawTransformFeedback;
-
-// GL_ARB_transform_feedback3
-
-   tbl.glDrawTransformFeedbackStream = log_glDrawTransformFeedbackStream;
-   tbl.glBeginQueryIndexed = log_glBeginQueryIndexed;
-   tbl.glEndQueryIndexed = log_glEndQueryIndexed;
-   tbl.glGetQueryIndexediv = log_glGetQueryIndexediv;
-
-// GL_ARB_shader_subroutine
-
-   tbl.glGetSubroutineUniformLocation = log_glGetSubroutineUniformLocation;
-   tbl.glGetSubroutineIndex = log_glGetSubroutineIndex;
-   tbl.glGetActiveSubroutineUniformiv = log_glGetActiveSubroutineUniformiv;
-   tbl.glGetActiveSubroutineUniformName = log_glGetActiveSubroutineUniformName;
-   tbl.glGetActiveSubroutineName = log_glGetActiveSubroutineName;
-   tbl.glUniformSubroutinesuiv = log_glUniformSubroutinesuiv;
-   tbl.glGetUniformSubroutineuiv = log_glGetUniformSubroutineuiv;
-   tbl.glGetProgramStageiv = log_glGetProgramStageiv;
-
-// GL_ARB_vertex_attrib_64bit
-
-   tbl.glVertexAttribL1d = log_glVertexAttribL1d;
-   tbl.glVertexAttribL2d = log_glVertexAttribL2d;
-   tbl.glVertexAttribL3d = log_glVertexAttribL3d;
-   tbl.glVertexAttribL4d = log_glVertexAttribL4d;
-   tbl.glVertexAttribL1dv = log_glVertexAttribL1dv;
-   tbl.glVertexAttribL2dv = log_glVertexAttribL2dv;
-   tbl.glVertexAttribL3dv = log_glVertexAttribL3dv;
-   tbl.glVertexAttribL4dv = log_glVertexAttribL4dv;
-   tbl.glVertexAttribLPointer = log_glVertexAttribLPointer;
-   tbl.glGetVertexAttribLdv = log_glGetVertexAttribLdv;
-
-// GL_ARB_ES2_compatibility
-
-   tbl.glReleaseShaderCompiler = log_glReleaseShaderCompiler;
-   tbl.glShaderBinary = log_glShaderBinary;
-   tbl.glGetShaderPrecisionFormat = log_glGetShaderPrecisionFormat;
-   tbl.glDepthRangef = log_glDepthRangef;
-   tbl.glClearDepthf = log_glClearDepthf;
-
-// GL_ARB_get_program_binary
-
-   tbl.glGetProgramBinary = log_glGetProgramBinary;
-   tbl.glProgramBinary = log_glProgramBinary;
-   tbl.glProgramParameteri = log_glProgramParameteri;
-
-// GL_ARB_viewport_array
-
-   tbl.glViewportArrayv = log_glViewportArrayv;
-   tbl.glViewportIndexedf = log_glViewportIndexedf;
-   tbl.glViewportIndexedfv = log_glViewportIndexedfv;
-   tbl.glScissorArrayv = log_glScissorArrayv;
-   tbl.glScissorIndexed = log_glScissorIndexed;
-   tbl.glScissorIndexedv = log_glScissorIndexedv;
-   tbl.glDepthRangeArrayv = log_glDepthRangeArrayv;
-   tbl.glDepthRangeIndexed = log_glDepthRangeIndexed;
-   tbl.glGetFloati_v = log_glGetFloati_v;
-   tbl.glGetDoublei_v = log_glGetDoublei_v;
-
-// GL_ARB_separate_shader_objects
-
-   tbl.glActiveShaderProgram = log_glActiveShaderProgram;
-   tbl.glUseProgramStages = log_glUseProgramStages;
-   tbl.glCreateShaderProgramv = log_glCreateShaderProgramv;
-   tbl.glBindProgramPipeline = log_glBindProgramPipeline;
-   tbl.glDeleteProgramPipelines = log_glDeleteProgramPipelines;
-   tbl.glGenProgramPipelines = log_glGenProgramPipelines;
-   tbl.glIsProgramPipeline = log_glIsProgramPipeline;
-   tbl.glGetProgramPipelineiv = log_glGetProgramPipelineiv;
-   tbl.glValidateProgramPipeline = log_glValidateProgramPipeline;
-   tbl.glGetProgramPipelineInfoLog = log_glGetProgramPipelineInfoLog;
-   tbl.glProgramUniform1f = log_glProgramUniform1f;
-   tbl.glProgramUniform2f = log_glProgramUniform2f;
-   tbl.glProgramUniform3f = log_glProgramUniform3f;
-   tbl.glProgramUniform4f = log_glProgramUniform4f;
-   tbl.glProgramUniform1i = log_glProgramUniform1i;
-   tbl.glProgramUniform2i = log_glProgramUniform2i;
-   tbl.glProgramUniform3i = log_glProgramUniform3i;
-   tbl.glProgramUniform4i = log_glProgramUniform4i;
-   tbl.glProgramUniform1fv = log_glProgramUniform1fv;
-   tbl.glProgramUniform2fv = log_glProgramUniform2fv;
-   tbl.glProgramUniform3fv = log_glProgramUniform3fv;
-   tbl.glProgramUniform4fv = log_glProgramUniform4fv;
-   tbl.glProgramUniform1iv = log_glProgramUniform1iv;
-   tbl.glProgramUniform2iv = log_glProgramUniform2iv;
-   tbl.glProgramUniform3iv = log_glProgramUniform3iv;
-   tbl.glProgramUniform4iv = log_glProgramUniform4iv;
-   tbl.glProgramUniformMatrix2fv = log_glProgramUniformMatrix2fv;
-   tbl.glProgramUniformMatrix3fv = log_glProgramUniformMatrix3fv;
-   tbl.glProgramUniformMatrix4fv = log_glProgramUniformMatrix4fv;
-   tbl.glProgramUniformMatrix2x3fv = log_glProgramUniformMatrix2x3fv;
-   tbl.glProgramUniformMatrix3x2fv = log_glProgramUniformMatrix3x2fv;
-   tbl.glProgramUniformMatrix2x4fv = log_glProgramUniformMatrix2x4fv;
-   tbl.glProgramUniformMatrix4x2fv = log_glProgramUniformMatrix4x2fv;
-   tbl.glProgramUniformMatrix3x4fv = log_glProgramUniformMatrix3x4fv;
-   tbl.glProgramUniformMatrix4x3fv = log_glProgramUniformMatrix4x3fv;
-   tbl.glProgramUniform1ui = log_glProgramUniform1ui;
-   tbl.glProgramUniform2ui = log_glProgramUniform2ui;
-   tbl.glProgramUniform3ui = log_glProgramUniform3ui;
-   tbl.glProgramUniform4ui = log_glProgramUniform4ui;
-   tbl.glProgramUniform1uiv = log_glProgramUniform1uiv;
-   tbl.glProgramUniform2uiv = log_glProgramUniform2uiv;
-   tbl.glProgramUniform3uiv = log_glProgramUniform3uiv;
-   tbl.glProgramUniform4uiv = log_glProgramUniform4uiv;
-   tbl.glProgramUniform1d = log_glProgramUniform1d;
-   tbl.glProgramUniform2d = log_glProgramUniform2d;
-   tbl.glProgramUniform3d = log_glProgramUniform3d;
-   tbl.glProgramUniform4d = log_glProgramUniform4d;
-   tbl.glProgramUniform1dv = log_glProgramUniform1dv;
-   tbl.glProgramUniform2dv = log_glProgramUniform2dv;
-   tbl.glProgramUniform3dv = log_glProgramUniform3dv;
-   tbl.glProgramUniform4dv = log_glProgramUniform4dv;
-   tbl.glProgramUniformMatrix2dv = log_glProgramUniformMatrix2dv;
-   tbl.glProgramUniformMatrix3dv = log_glProgramUniformMatrix3dv;
-   tbl.glProgramUniformMatrix4dv = log_glProgramUniformMatrix4dv;
-   tbl.glProgramUniformMatrix2x3dv = log_glProgramUniformMatrix2x3dv;
-   tbl.glProgramUniformMatrix2x4dv = log_glProgramUniformMatrix2x4dv;
-   tbl.glProgramUniformMatrix3x2dv = log_glProgramUniformMatrix3x2dv;
-   tbl.glProgramUniformMatrix3x4dv = log_glProgramUniformMatrix3x4dv;
-   tbl.glProgramUniformMatrix4x2dv = log_glProgramUniformMatrix4x2dv;
-   tbl.glProgramUniformMatrix4x3dv = log_glProgramUniformMatrix4x3dv;
-
-// GL_ARB_multitexture
-
-   tbl.glActiveTextureARB = log_glActiveTextureARB;
-   tbl.glClientActiveTextureARB = log_glClientActiveTextureARB;
-   tbl.glMultiTexCoord1dARB = log_glMultiTexCoord1dARB;
-   tbl.glMultiTexCoord1dvARB = log_glMultiTexCoord1dvARB;
-   tbl.glMultiTexCoord1fARB = log_glMultiTexCoord1fARB;
-   tbl.glMultiTexCoord1fvARB = log_glMultiTexCoord1fvARB;
-   tbl.glMultiTexCoord1iARB = log_glMultiTexCoord1iARB;
-   tbl.glMultiTexCoord1ivARB = log_glMultiTexCoord1ivARB;
-   tbl.glMultiTexCoord1sARB = log_glMultiTexCoord1sARB;
-   tbl.glMultiTexCoord1svARB = log_glMultiTexCoord1svARB;
-   tbl.glMultiTexCoord2dARB = log_glMultiTexCoord2dARB;
-   tbl.glMultiTexCoord2dvARB = log_glMultiTexCoord2dvARB;
-   tbl.glMultiTexCoord2fARB = log_glMultiTexCoord2fARB;
-   tbl.glMultiTexCoord2fvARB = log_glMultiTexCoord2fvARB;
-   tbl.glMultiTexCoord2iARB = log_glMultiTexCoord2iARB;
-   tbl.glMultiTexCoord2ivARB = log_glMultiTexCoord2ivARB;
-   tbl.glMultiTexCoord2sARB = log_glMultiTexCoord2sARB;
-   tbl.glMultiTexCoord2svARB = log_glMultiTexCoord2svARB;
-   tbl.glMultiTexCoord3dARB = log_glMultiTexCoord3dARB;
-   tbl.glMultiTexCoord3dvARB = log_glMultiTexCoord3dvARB;
-   tbl.glMultiTexCoord3fARB = log_glMultiTexCoord3fARB;
-   tbl.glMultiTexCoord3fvARB = log_glMultiTexCoord3fvARB;
-   tbl.glMultiTexCoord3iARB = log_glMultiTexCoord3iARB;
-   tbl.glMultiTexCoord3ivARB = log_glMultiTexCoord3ivARB;
-   tbl.glMultiTexCoord3sARB = log_glMultiTexCoord3sARB;
-   tbl.glMultiTexCoord3svARB = log_glMultiTexCoord3svARB;
-   tbl.glMultiTexCoord4dARB = log_glMultiTexCoord4dARB;
-   tbl.glMultiTexCoord4dvARB = log_glMultiTexCoord4dvARB;
-   tbl.glMultiTexCoord4fARB = log_glMultiTexCoord4fARB;
-   tbl.glMultiTexCoord4fvARB = log_glMultiTexCoord4fvARB;
-   tbl.glMultiTexCoord4iARB = log_glMultiTexCoord4iARB;
-   tbl.glMultiTexCoord4ivARB = log_glMultiTexCoord4ivARB;
-   tbl.glMultiTexCoord4sARB = log_glMultiTexCoord4sARB;
-   tbl.glMultiTexCoord4svARB = log_glMultiTexCoord4svARB;
-
-// GL_ARB_transpose_matrix
-
-   tbl.glLoadTransposeMatrixfARB = log_glLoadTransposeMatrixfARB;
-   tbl.glLoadTransposeMatrixdARB = log_glLoadTransposeMatrixdARB;
-   tbl.glMultTransposeMatrixfARB = log_glMultTransposeMatrixfARB;
-   tbl.glMultTransposeMatrixdARB = log_glMultTransposeMatrixdARB;
-
-// GL_ARB_multisample
-
-   tbl.glSampleCoverageARB = log_glSampleCoverageARB;
-
-// GL_ARB_texture_compression
-
-   tbl.glCompressedTexImage3DARB = log_glCompressedTexImage3DARB;
-   tbl.glCompressedTexImage2DARB = log_glCompressedTexImage2DARB;
-   tbl.glCompressedTexImage1DARB = log_glCompressedTexImage1DARB;
-   tbl.glCompressedTexSubImage3DARB = log_glCompressedTexSubImage3DARB;
-   tbl.glCompressedTexSubImage2DARB = log_glCompressedTexSubImage2DARB;
-   tbl.glCompressedTexSubImage1DARB = log_glCompressedTexSubImage1DARB;
-   tbl.glGetCompressedTexImageARB = log_glGetCompressedTexImageARB;
-
-// GL_ARB_point_parameters
-
-   tbl.glPointParameterfARB = log_glPointParameterfARB;
-   tbl.glPointParameterfvARB = log_glPointParameterfvARB;
-
-// GL_ARB_vertex_blend
-
-   tbl.glWeightbvARB = log_glWeightbvARB;
-   tbl.glWeightsvARB = log_glWeightsvARB;
-   tbl.glWeightivARB = log_glWeightivARB;
-   tbl.glWeightfvARB = log_glWeightfvARB;
-   tbl.glWeightdvARB = log_glWeightdvARB;
-   tbl.glWeightubvARB = log_glWeightubvARB;
-   tbl.glWeightusvARB = log_glWeightusvARB;
-   tbl.glWeightuivARB = log_glWeightuivARB;
-   tbl.glWeightPointerARB = log_glWeightPointerARB;
-   tbl.glVertexBlendARB = log_glVertexBlendARB;
-
-// GL_ARB_matrix_palette
-
-   tbl.glCurrentPaletteMatrixARB = log_glCurrentPaletteMatrixARB;
-   tbl.glMatrixIndexubvARB = log_glMatrixIndexubvARB;
-   tbl.glMatrixIndexusvARB = log_glMatrixIndexusvARB;
-   tbl.glMatrixIndexuivARB = log_glMatrixIndexuivARB;
-   tbl.glMatrixIndexPointerARB = log_glMatrixIndexPointerARB;
-
-// GL_ARB_window_pos
-
-   tbl.glWindowPos2dARB = log_glWindowPos2dARB;
-   tbl.glWindowPos2dvARB = log_glWindowPos2dvARB;
-   tbl.glWindowPos2fARB = log_glWindowPos2fARB;
-   tbl.glWindowPos2fvARB = log_glWindowPos2fvARB;
-   tbl.glWindowPos2iARB = log_glWindowPos2iARB;
-   tbl.glWindowPos2ivARB = log_glWindowPos2ivARB;
-   tbl.glWindowPos2sARB = log_glWindowPos2sARB;
-   tbl.glWindowPos2svARB = log_glWindowPos2svARB;
-   tbl.glWindowPos3dARB = log_glWindowPos3dARB;
-   tbl.glWindowPos3dvARB = log_glWindowPos3dvARB;
-   tbl.glWindowPos3fARB = log_glWindowPos3fARB;
-   tbl.glWindowPos3fvARB = log_glWindowPos3fvARB;
-   tbl.glWindowPos3iARB = log_glWindowPos3iARB;
-   tbl.glWindowPos3ivARB = log_glWindowPos3ivARB;
-   tbl.glWindowPos3sARB = log_glWindowPos3sARB;
-   tbl.glWindowPos3svARB = log_glWindowPos3svARB;
-
-// GL_ARB_vertex_program
-
-   tbl.glVertexAttrib1dARB = log_glVertexAttrib1dARB;
-   tbl.glVertexAttrib1dvARB = log_glVertexAttrib1dvARB;
-   tbl.glVertexAttrib1fARB = log_glVertexAttrib1fARB;
-   tbl.glVertexAttrib1fvARB = log_glVertexAttrib1fvARB;
-   tbl.glVertexAttrib1sARB = log_glVertexAttrib1sARB;
-   tbl.glVertexAttrib1svARB = log_glVertexAttrib1svARB;
-   tbl.glVertexAttrib2dARB = log_glVertexAttrib2dARB;
-   tbl.glVertexAttrib2dvARB = log_glVertexAttrib2dvARB;
-   tbl.glVertexAttrib2fARB = log_glVertexAttrib2fARB;
-   tbl.glVertexAttrib2fvARB = log_glVertexAttrib2fvARB;
-   tbl.glVertexAttrib2sARB = log_glVertexAttrib2sARB;
-   tbl.glVertexAttrib2svARB = log_glVertexAttrib2svARB;
-   tbl.glVertexAttrib3dARB = log_glVertexAttrib3dARB;
-   tbl.glVertexAttrib3dvARB = log_glVertexAttrib3dvARB;
-   tbl.glVertexAttrib3fARB = log_glVertexAttrib3fARB;
-   tbl.glVertexAttrib3fvARB = log_glVertexAttrib3fvARB;
-   tbl.glVertexAttrib3sARB = log_glVertexAttrib3sARB;
-   tbl.glVertexAttrib3svARB = log_glVertexAttrib3svARB;
-   tbl.glVertexAttrib4NbvARB = log_glVertexAttrib4NbvARB;
-   tbl.glVertexAttrib4NivARB = log_glVertexAttrib4NivARB;
-   tbl.glVertexAttrib4NsvARB = log_glVertexAttrib4NsvARB;
-   tbl.glVertexAttrib4NubARB = log_glVertexAttrib4NubARB;
-   tbl.glVertexAttrib4NubvARB = log_glVertexAttrib4NubvARB;
-   tbl.glVertexAttrib4NuivARB = log_glVertexAttrib4NuivARB;
-   tbl.glVertexAttrib4NusvARB = log_glVertexAttrib4NusvARB;
-   tbl.glVertexAttrib4bvARB = log_glVertexAttrib4bvARB;
-   tbl.glVertexAttrib4dARB = log_glVertexAttrib4dARB;
-   tbl.glVertexAttrib4dvARB = log_glVertexAttrib4dvARB;
-   tbl.glVertexAttrib4fARB = log_glVertexAttrib4fARB;
-   tbl.glVertexAttrib4fvARB = log_glVertexAttrib4fvARB;
-   tbl.glVertexAttrib4ivARB = log_glVertexAttrib4ivARB;
-   tbl.glVertexAttrib4sARB = log_glVertexAttrib4sARB;
-   tbl.glVertexAttrib4svARB = log_glVertexAttrib4svARB;
-   tbl.glVertexAttrib4ubvARB = log_glVertexAttrib4ubvARB;
-   tbl.glVertexAttrib4uivARB = log_glVertexAttrib4uivARB;
-   tbl.glVertexAttrib4usvARB = log_glVertexAttrib4usvARB;
-   tbl.glVertexAttribPointerARB = log_glVertexAttribPointerARB;
-   tbl.glEnableVertexAttribArrayARB = log_glEnableVertexAttribArrayARB;
-   tbl.glDisableVertexAttribArrayARB = log_glDisableVertexAttribArrayARB;
-   tbl.glProgramStringARB = log_glProgramStringARB;
-   tbl.glBindProgramARB = log_glBindProgramARB;
-   tbl.glDeleteProgramsARB = log_glDeleteProgramsARB;
-   tbl.glGenProgramsARB = log_glGenProgramsARB;
-   tbl.glProgramEnvParameter4dARB = log_glProgramEnvParameter4dARB;
-   tbl.glProgramEnvParameter4dvARB = log_glProgramEnvParameter4dvARB;
-   tbl.glProgramEnvParameter4fARB = log_glProgramEnvParameter4fARB;
-   tbl.glProgramEnvParameter4fvARB = log_glProgramEnvParameter4fvARB;
-   tbl.glProgramLocalParameter4dARB = log_glProgramLocalParameter4dARB;
-   tbl.glProgramLocalParameter4dvARB = log_glProgramLocalParameter4dvARB;
-   tbl.glProgramLocalParameter4fARB = log_glProgramLocalParameter4fARB;
-   tbl.glProgramLocalParameter4fvARB = log_glProgramLocalParameter4fvARB;
-   tbl.glGetProgramEnvParameterdvARB = log_glGetProgramEnvParameterdvARB;
-   tbl.glGetProgramEnvParameterfvARB = log_glGetProgramEnvParameterfvARB;
-   tbl.glGetProgramLocalParameterdvARB = log_glGetProgramLocalParameterdvARB;
-   tbl.glGetProgramLocalParameterfvARB = log_glGetProgramLocalParameterfvARB;
-   tbl.glGetProgramivARB = log_glGetProgramivARB;
-   tbl.glGetProgramStringARB = log_glGetProgramStringARB;
-   tbl.glGetVertexAttribdvARB = log_glGetVertexAttribdvARB;
-   tbl.glGetVertexAttribfvARB = log_glGetVertexAttribfvARB;
-   tbl.glGetVertexAttribivARB = log_glGetVertexAttribivARB;
-   tbl.glGetVertexAttribPointervARB = log_glGetVertexAttribPointervARB;
-   tbl.glIsProgramARB = log_glIsProgramARB;
-
-// GL_ARB_vertex_buffer_object
-
-   tbl.glBindBufferARB = log_glBindBufferARB;
-   tbl.glDeleteBuffersARB = log_glDeleteBuffersARB;
-   tbl.glGenBuffersARB = log_glGenBuffersARB;
-   tbl.glIsBufferARB = log_glIsBufferARB;
-   tbl.glBufferDataARB = log_glBufferDataARB;
-   tbl.glBufferSubDataARB = log_glBufferSubDataARB;
-   tbl.glGetBufferSubDataARB = log_glGetBufferSubDataARB;
-   tbl.glMapBufferARB = log_glMapBufferARB;
-   tbl.glUnmapBufferARB = log_glUnmapBufferARB;
-   tbl.glGetBufferParameterivARB = log_glGetBufferParameterivARB;
-   tbl.glGetBufferPointervARB = log_glGetBufferPointervARB;
-
-// GL_ARB_occlusion_query
-
-   tbl.glGenQueriesARB = log_glGenQueriesARB;
-   tbl.glDeleteQueriesARB = log_glDeleteQueriesARB;
-   tbl.glIsQueryARB = log_glIsQueryARB;
-   tbl.glBeginQueryARB = log_glBeginQueryARB;
-   tbl.glEndQueryARB = log_glEndQueryARB;
-   tbl.glGetQueryivARB = log_glGetQueryivARB;
-   tbl.glGetQueryObjectivARB = log_glGetQueryObjectivARB;
-   tbl.glGetQueryObjectuivARB = log_glGetQueryObjectuivARB;
-
-// GL_ARB_shader_objects
-
-   tbl.glDeleteObjectARB = log_glDeleteObjectARB;
-   tbl.glGetHandleARB = log_glGetHandleARB;
-   tbl.glDetachObjectARB = log_glDetachObjectARB;
-   tbl.glCreateShaderObjectARB = log_glCreateShaderObjectARB;
-   tbl.glShaderSourceARB = log_glShaderSourceARB;
-   tbl.glCompileShaderARB = log_glCompileShaderARB;
-   tbl.glCreateProgramObjectARB = log_glCreateProgramObjectARB;
-   tbl.glAttachObjectARB = log_glAttachObjectARB;
-   tbl.glLinkProgramARB = log_glLinkProgramARB;
-   tbl.glUseProgramObjectARB = log_glUseProgramObjectARB;
-   tbl.glValidateProgramARB = log_glValidateProgramARB;
-   tbl.glUniform1fARB = log_glUniform1fARB;
-   tbl.glUniform2fARB = log_glUniform2fARB;
-   tbl.glUniform3fARB = log_glUniform3fARB;
-   tbl.glUniform4fARB = log_glUniform4fARB;
-   tbl.glUniform1iARB = log_glUniform1iARB;
-   tbl.glUniform2iARB = log_glUniform2iARB;
-   tbl.glUniform3iARB = log_glUniform3iARB;
-   tbl.glUniform4iARB = log_glUniform4iARB;
-   tbl.glUniform1fvARB = log_glUniform1fvARB;
-   tbl.glUniform2fvARB = log_glUniform2fvARB;
-   tbl.glUniform3fvARB = log_glUniform3fvARB;
-   tbl.glUniform4fvARB = log_glUniform4fvARB;
-   tbl.glUniform1ivARB = log_glUniform1ivARB;
-   tbl.glUniform2ivARB = log_glUniform2ivARB;
-   tbl.glUniform3ivARB = log_glUniform3ivARB;
-   tbl.glUniform4ivARB = log_glUniform4ivARB;
-   tbl.glUniformMatrix2fvARB = log_glUniformMatrix2fvARB;
-   tbl.glUniformMatrix3fvARB = log_glUniformMatrix3fvARB;
-   tbl.glUniformMatrix4fvARB = log_glUniformMatrix4fvARB;
-   tbl.glGetObjectParameterfvARB = log_glGetObjectParameterfvARB;
-   tbl.glGetObjectParameterivARB = log_glGetObjectParameterivARB;
-   tbl.glGetInfoLogARB = log_glGetInfoLogARB;
-   tbl.glGetAttachedObjectsARB = log_glGetAttachedObjectsARB;
-   tbl.glGetUniformLocationARB = log_glGetUniformLocationARB;
-   tbl.glGetActiveUniformARB = log_glGetActiveUniformARB;
-   tbl.glGetUniformfvARB = log_glGetUniformfvARB;
-   tbl.glGetUniformivARB = log_glGetUniformivARB;
-   tbl.glGetShaderSourceARB = log_glGetShaderSourceARB;
-
-// GL_ARB_vertex_shader
-
-   tbl.glBindAttribLocationARB = log_glBindAttribLocationARB;
-   tbl.glGetActiveAttribARB = log_glGetActiveAttribARB;
-   tbl.glGetAttribLocationARB = log_glGetAttribLocationARB;
-
-// GL_ARB_draw_buffers
-
-   tbl.glDrawBuffersARB = log_glDrawBuffersARB;
-
-// GL_ARB_color_buffer_float
-
-   tbl.glClampColorARB = log_glClampColorARB;
-
-// GL_ARB_draw_instanced
-
-   tbl.glDrawArraysInstancedARB = log_glDrawArraysInstancedARB;
-   tbl.glDrawElementsInstancedARB = log_glDrawElementsInstancedARB;
-
-// GL_ARB_framebuffer_object
-
-   tbl.glIsRenderbuffer = log_glIsRenderbuffer;
-   tbl.glBindRenderbuffer = log_glBindRenderbuffer;
-   tbl.glDeleteRenderbuffers = log_glDeleteRenderbuffers;
-   tbl.glGenRenderbuffers = log_glGenRenderbuffers;
-   tbl.glRenderbufferStorage = log_glRenderbufferStorage;
-   tbl.glGetRenderbufferParameteriv = log_glGetRenderbufferParameteriv;
-   tbl.glIsFramebuffer = log_glIsFramebuffer;
-   tbl.glBindFramebuffer = log_glBindFramebuffer;
-   tbl.glDeleteFramebuffers = log_glDeleteFramebuffers;
-   tbl.glGenFramebuffers = log_glGenFramebuffers;
-   tbl.glCheckFramebufferStatus = log_glCheckFramebufferStatus;
-   tbl.glFramebufferTexture1D = log_glFramebufferTexture1D;
-   tbl.glFramebufferTexture2D = log_glFramebufferTexture2D;
-   tbl.glFramebufferTexture3D = log_glFramebufferTexture3D;
-   tbl.glFramebufferRenderbuffer = log_glFramebufferRenderbuffer;
-   tbl.glGetFramebufferAttachmentParameteriv = log_glGetFramebufferAttachmentParameteriv;
-   tbl.glGenerateMipmap = log_glGenerateMipmap;
-   tbl.glBlitFramebuffer = log_glBlitFramebuffer;
-   tbl.glRenderbufferStorageMultisample = log_glRenderbufferStorageMultisample;
-   tbl.glFramebufferTextureLayer = log_glFramebufferTextureLayer;
-
-// GL_ARB_geometry_shader4
-
-   tbl.glProgramParameteriARB = log_glProgramParameteriARB;
-   tbl.glFramebufferTextureARB = log_glFramebufferTextureARB;
-   tbl.glFramebufferTextureLayerARB = log_glFramebufferTextureLayerARB;
-   tbl.glFramebufferTextureFaceARB = log_glFramebufferTextureFaceARB;
-
-// GL_ARB_instanced_arrays
-
-   tbl.glVertexAttribDivisorARB = log_glVertexAttribDivisorARB;
-
-// GL_ARB_map_buffer_range
-
-   tbl.glMapBufferRange = log_glMapBufferRange;
-   tbl.glFlushMappedBufferRange = log_glFlushMappedBufferRange;
-
-// GL_ARB_texture_buffer_object
-
-   tbl.glTexBufferARB = log_glTexBufferARB;
-
-// GL_ARB_vertex_array_object
-
-   tbl.glBindVertexArray = log_glBindVertexArray;
-   tbl.glDeleteVertexArrays = log_glDeleteVertexArrays;
-   tbl.glGenVertexArrays = log_glGenVertexArrays;
-   tbl.glIsVertexArray = log_glIsVertexArray;
-
-// GL_ARB_uniform_buffer_object
-
-   tbl.glGetUniformIndices = log_glGetUniformIndices;
-   tbl.glGetActiveUniformsiv = log_glGetActiveUniformsiv;
-   tbl.glGetActiveUniformName = log_glGetActiveUniformName;
-   tbl.glGetUniformBlockIndex = log_glGetUniformBlockIndex;
-   tbl.glGetActiveUniformBlockiv = log_glGetActiveUniformBlockiv;
-   tbl.glGetActiveUniformBlockName = log_glGetActiveUniformBlockName;
-   tbl.glUniformBlockBinding = log_glUniformBlockBinding;
-
-// GL_ARB_copy_buffer
-
-   tbl.glCopyBufferSubData = log_glCopyBufferSubData;
-
-// GL_ARB_draw_elements_base_vertex
-
-   tbl.glDrawElementsBaseVertex = log_glDrawElementsBaseVertex;
-   tbl.glDrawRangeElementsBaseVertex = log_glDrawRangeElementsBaseVertex;
-   tbl.glDrawElementsInstancedBaseVertex = log_glDrawElementsInstancedBaseVertex;
-   tbl.glMultiDrawElementsBaseVertex = log_glMultiDrawElementsBaseVertex;
-
-// GL_ARB_provoking_vertex
-
-   tbl.glProvokingVertex = log_glProvokingVertex;
-
-// GL_ARB_sync
-
-   tbl.glFenceSync = log_glFenceSync;
-   tbl.glIsSync = log_glIsSync;
-   tbl.glDeleteSync = log_glDeleteSync;
-   tbl.glClientWaitSync = log_glClientWaitSync;
-   tbl.glWaitSync = log_glWaitSync;
-   tbl.glGetInteger64v = log_glGetInteger64v;
-   tbl.glGetSynciv = log_glGetSynciv;
-
-// GL_ARB_texture_multisample
-
-   tbl.glTexImage2DMultisample = log_glTexImage2DMultisample;
-   tbl.glTexImage3DMultisample = log_glTexImage3DMultisample;
-   tbl.glGetMultisamplefv = log_glGetMultisamplefv;
-   tbl.glSampleMaski = log_glSampleMaski;
-
-// GL_ARB_draw_buffers_blend
-
-   tbl.glBlendEquationiARB = log_glBlendEquationiARB;
-   tbl.glBlendEquationSeparateiARB = log_glBlendEquationSeparateiARB;
-   tbl.glBlendFunciARB = log_glBlendFunciARB;
-   tbl.glBlendFuncSeparateiARB = log_glBlendFuncSeparateiARB;
-
-// GL_ARB_sample_shading
-
-   tbl.glMinSampleShadingARB = log_glMinSampleShadingARB;
-
-// GL_ARB_shading_language_include
-
-   tbl.glNamedStringARB = log_glNamedStringARB;
-   tbl.glDeleteNamedStringARB = log_glDeleteNamedStringARB;
-   tbl.glCompileShaderIncludeARB = log_glCompileShaderIncludeARB;
-   tbl.glIsNamedStringARB = log_glIsNamedStringARB;
-   tbl.glGetNamedStringARB = log_glGetNamedStringARB;
-   tbl.glGetNamedStringivARB = log_glGetNamedStringivARB;
-
-// GL_ARB_debug_output
-
-   tbl.glDebugMessageControlARB = log_glDebugMessageControlARB;
-   tbl.glDebugMessageInsertARB = log_glDebugMessageInsertARB;
-   tbl.glDebugMessageCallbackARB = log_glDebugMessageCallbackARB;
-   tbl.glGetDebugMessageLogARB = log_glGetDebugMessageLogARB;
-
-// GL_ARB_robustness
-
-   tbl.glGetGraphicsResetStatusARB = log_glGetGraphicsResetStatusARB;
-   tbl.glGetnMapdvARB = log_glGetnMapdvARB;
-   tbl.glGetnMapfvARB = log_glGetnMapfvARB;
-   tbl.glGetnMapivARB = log_glGetnMapivARB;
-   tbl.glGetnPixelMapfvARB = log_glGetnPixelMapfvARB;
-   tbl.glGetnPixelMapuivARB = log_glGetnPixelMapuivARB;
-   tbl.glGetnPixelMapusvARB = log_glGetnPixelMapusvARB;
-   tbl.glGetnPolygonStippleARB = log_glGetnPolygonStippleARB;
-   tbl.glGetnTexImageARB = log_glGetnTexImageARB;
-   tbl.glReadnPixelsARB = log_glReadnPixelsARB;
-   tbl.glGetnColorTableARB = log_glGetnColorTableARB;
-   tbl.glGetnConvolutionFilterARB = log_glGetnConvolutionFilterARB;
-   tbl.glGetnSeparableFilterARB = log_glGetnSeparableFilterARB;
-   tbl.glGetnHistogramARB = log_glGetnHistogramARB;
-   tbl.glGetnMinmaxARB = log_glGetnMinmaxARB;
-   tbl.glGetnCompressedTexImageARB = log_glGetnCompressedTexImageARB;
-   tbl.glGetnUniformfvARB = log_glGetnUniformfvARB;
-   tbl.glGetnUniformivARB = log_glGetnUniformivARB;
-   tbl.glGetnUniformuivARB = log_glGetnUniformuivARB;
-   tbl.glGetnUniformdvARB = log_glGetnUniformdvARB;
-
-// GL_EXT_blend_color
-
-   tbl.glBlendColorEXT = log_glBlendColorEXT;
-
-// GL_EXT_polygon_offset
-
-   tbl.glPolygonOffsetEXT = log_glPolygonOffsetEXT;
-
-// GL_EXT_texture3D
-
-   tbl.glTexImage3DEXT = log_glTexImage3DEXT;
-
-// GL_SGIS_texture_filter4
-
-   tbl.glGetTexFilterFuncSGIS = log_glGetTexFilterFuncSGIS;
-   tbl.glTexFilterFuncSGIS = log_glTexFilterFuncSGIS;
-
-// GL_EXT_subtexture
-
-   tbl.glTexSubImage1DEXT = log_glTexSubImage1DEXT;
-   tbl.glTexSubImage2DEXT = log_glTexSubImage2DEXT;
-   tbl.glTexSubImage3DEXT = log_glTexSubImage3DEXT;
-
-// GL_EXT_copy_texture
-
-   tbl.glCopyTexImage1DEXT = log_glCopyTexImage1DEXT;
-   tbl.glCopyTexImage2DEXT = log_glCopyTexImage2DEXT;
-   tbl.glCopyTexSubImage1DEXT = log_glCopyTexSubImage1DEXT;
-   tbl.glCopyTexSubImage2DEXT = log_glCopyTexSubImage2DEXT;
-   tbl.glCopyTexSubImage3DEXT = log_glCopyTexSubImage3DEXT;
-
-// GL_EXT_histogram
-
-   tbl.glGetHistogramEXT = log_glGetHistogramEXT;
-   tbl.glGetHistogramParameterfvEXT = log_glGetHistogramParameterfvEXT;
-   tbl.glGetHistogramParameterivEXT = log_glGetHistogramParameterivEXT;
-   tbl.glGetMinmaxEXT = log_glGetMinmaxEXT;
-   tbl.glGetMinmaxParameterfvEXT = log_glGetMinmaxParameterfvEXT;
-   tbl.glGetMinmaxParameterivEXT = log_glGetMinmaxParameterivEXT;
-   tbl.glHistogramEXT = log_glHistogramEXT;
-   tbl.glMinmaxEXT = log_glMinmaxEXT;
-   tbl.glResetHistogramEXT = log_glResetHistogramEXT;
-   tbl.glResetMinmaxEXT = log_glResetMinmaxEXT;
-
-// GL_EXT_convolution
-
-   tbl.glConvolutionFilter1DEXT = log_glConvolutionFilter1DEXT;
-   tbl.glConvolutionFilter2DEXT = log_glConvolutionFilter2DEXT;
-   tbl.glConvolutionParameterfEXT = log_glConvolutionParameterfEXT;
-   tbl.glConvolutionParameterfvEXT = log_glConvolutionParameterfvEXT;
-   tbl.glConvolutionParameteriEXT = log_glConvolutionParameteriEXT;
-   tbl.glConvolutionParameterivEXT = log_glConvolutionParameterivEXT;
-   tbl.glCopyConvolutionFilter1DEXT = log_glCopyConvolutionFilter1DEXT;
-   tbl.glCopyConvolutionFilter2DEXT = log_glCopyConvolutionFilter2DEXT;
-   tbl.glGetConvolutionFilterEXT = log_glGetConvolutionFilterEXT;
-   tbl.glGetConvolutionParameterfvEXT = log_glGetConvolutionParameterfvEXT;
-   tbl.glGetConvolutionParameterivEXT = log_glGetConvolutionParameterivEXT;
-   tbl.glGetSeparableFilterEXT = log_glGetSeparableFilterEXT;
-   tbl.glSeparableFilter2DEXT = log_glSeparableFilter2DEXT;
-
-// GL_SGI_color_table
-
-   tbl.glColorTableSGI = log_glColorTableSGI;
-   tbl.glColorTableParameterfvSGI = log_glColorTableParameterfvSGI;
-   tbl.glColorTableParameterivSGI = log_glColorTableParameterivSGI;
-   tbl.glCopyColorTableSGI = log_glCopyColorTableSGI;
-   tbl.glGetColorTableSGI = log_glGetColorTableSGI;
-   tbl.glGetColorTableParameterfvSGI = log_glGetColorTableParameterfvSGI;
-   tbl.glGetColorTableParameterivSGI = log_glGetColorTableParameterivSGI;
-
-// GL_SGIX_pixel_texture
-
-   tbl.glPixelTexGenSGIX = log_glPixelTexGenSGIX;
-
-// GL_SGIS_pixel_texture
-
-   tbl.glPixelTexGenParameteriSGIS = log_glPixelTexGenParameteriSGIS;
-   tbl.glPixelTexGenParameterivSGIS = log_glPixelTexGenParameterivSGIS;
-   tbl.glPixelTexGenParameterfSGIS = log_glPixelTexGenParameterfSGIS;
-   tbl.glPixelTexGenParameterfvSGIS = log_glPixelTexGenParameterfvSGIS;
-   tbl.glGetPixelTexGenParameterivSGIS = log_glGetPixelTexGenParameterivSGIS;
-   tbl.glGetPixelTexGenParameterfvSGIS = log_glGetPixelTexGenParameterfvSGIS;
-
-// GL_SGIS_texture4D
-
-   tbl.glTexImage4DSGIS = log_glTexImage4DSGIS;
-   tbl.glTexSubImage4DSGIS = log_glTexSubImage4DSGIS;
-
-// GL_EXT_texture_object
-
-   tbl.glAreTexturesResidentEXT = log_glAreTexturesResidentEXT;
-   tbl.glBindTextureEXT = log_glBindTextureEXT;
-   tbl.glDeleteTexturesEXT = log_glDeleteTexturesEXT;
-   tbl.glGenTexturesEXT = log_glGenTexturesEXT;
-   tbl.glIsTextureEXT = log_glIsTextureEXT;
-   tbl.glPrioritizeTexturesEXT = log_glPrioritizeTexturesEXT;
-
-// GL_SGIS_detail_texture
-
-   tbl.glDetailTexFuncSGIS = log_glDetailTexFuncSGIS;
-   tbl.glGetDetailTexFuncSGIS = log_glGetDetailTexFuncSGIS;
-
-// GL_SGIS_sharpen_texture
-
-   tbl.glSharpenTexFuncSGIS = log_glSharpenTexFuncSGIS;
-   tbl.glGetSharpenTexFuncSGIS = log_glGetSharpenTexFuncSGIS;
-
-// GL_SGIS_multisample
-
-   tbl.glSampleMaskSGIS = log_glSampleMaskSGIS;
-   tbl.glSamplePatternSGIS = log_glSamplePatternSGIS;
-
-// GL_EXT_vertex_array
-
-   tbl.glArrayElementEXT = log_glArrayElementEXT;
-   tbl.glColorPointerEXT = log_glColorPointerEXT;
-   tbl.glDrawArraysEXT = log_glDrawArraysEXT;
-   tbl.glEdgeFlagPointerEXT = log_glEdgeFlagPointerEXT;
-   tbl.glGetPointervEXT = log_glGetPointervEXT;
-   tbl.glIndexPointerEXT = log_glIndexPointerEXT;
-   tbl.glNormalPointerEXT = log_glNormalPointerEXT;
-   tbl.glTexCoordPointerEXT = log_glTexCoordPointerEXT;
-   tbl.glVertexPointerEXT = log_glVertexPointerEXT;
-
-// GL_EXT_blend_minmax
-
-   tbl.glBlendEquationEXT = log_glBlendEquationEXT;
-
-// GL_SGIX_sprite
-
-   tbl.glSpriteParameterfSGIX = log_glSpriteParameterfSGIX;
-   tbl.glSpriteParameterfvSGIX = log_glSpriteParameterfvSGIX;
-   tbl.glSpriteParameteriSGIX = log_glSpriteParameteriSGIX;
-   tbl.glSpriteParameterivSGIX = log_glSpriteParameterivSGIX;
-
-// GL_EXT_point_parameters
-
-   tbl.glPointParameterfEXT = log_glPointParameterfEXT;
-   tbl.glPointParameterfvEXT = log_glPointParameterfvEXT;
-
-// GL_SGIS_point_parameters
-
-   tbl.glPointParameterfSGIS = log_glPointParameterfSGIS;
-   tbl.glPointParameterfvSGIS = log_glPointParameterfvSGIS;
-
-// GL_SGIX_instruments
-
-   tbl.glGetInstrumentsSGIX = log_glGetInstrumentsSGIX;
-   tbl.glInstrumentsBufferSGIX = log_glInstrumentsBufferSGIX;
-   tbl.glPollInstrumentsSGIX = log_glPollInstrumentsSGIX;
-   tbl.glReadInstrumentsSGIX = log_glReadInstrumentsSGIX;
-   tbl.glStartInstrumentsSGIX = log_glStartInstrumentsSGIX;
-   tbl.glStopInstrumentsSGIX = log_glStopInstrumentsSGIX;
-
-// GL_SGIX_framezoom
-
-   tbl.glFrameZoomSGIX = log_glFrameZoomSGIX;
-
-// GL_SGIX_tag_sample_buffer
-
-   tbl.glTagSampleBufferSGIX = log_glTagSampleBufferSGIX;
-
-// GL_SGIX_polynomial_ffd
-
-   tbl.glDeformationMap3dSGIX = log_glDeformationMap3dSGIX;
-   tbl.glDeformationMap3fSGIX = log_glDeformationMap3fSGIX;
-   tbl.glDeformSGIX = log_glDeformSGIX;
-   tbl.glLoadIdentityDeformationMapSGIX = log_glLoadIdentityDeformationMapSGIX;
-
-// GL_SGIX_reference_plane
-
-   tbl.glReferencePlaneSGIX = log_glReferencePlaneSGIX;
-
-// GL_SGIX_flush_raster
-
-   tbl.glFlushRasterSGIX = log_glFlushRasterSGIX;
-
-// GL_SGIS_fog_function
-
-   tbl.glFogFuncSGIS = log_glFogFuncSGIS;
-   tbl.glGetFogFuncSGIS = log_glGetFogFuncSGIS;
-
-// GL_HP_image_transform
-
-   tbl.glImageTransformParameteriHP = log_glImageTransformParameteriHP;
-   tbl.glImageTransformParameterfHP = log_glImageTransformParameterfHP;
-   tbl.glImageTransformParameterivHP = log_glImageTransformParameterivHP;
-   tbl.glImageTransformParameterfvHP = log_glImageTransformParameterfvHP;
-   tbl.glGetImageTransformParameterivHP = log_glGetImageTransformParameterivHP;
-   tbl.glGetImageTransformParameterfvHP = log_glGetImageTransformParameterfvHP;
-
-// GL_EXT_color_subtable
-
-   tbl.glColorSubTableEXT = log_glColorSubTableEXT;
-   tbl.glCopyColorSubTableEXT = log_glCopyColorSubTableEXT;
-
-// GL_PGI_misc_hints
-
-   tbl.glHintPGI = log_glHintPGI;
-
-// GL_EXT_paletted_texture
-
-   tbl.glColorTableEXT = log_glColorTableEXT;
-   tbl.glGetColorTableEXT = log_glGetColorTableEXT;
-   tbl.glGetColorTableParameterivEXT = log_glGetColorTableParameterivEXT;
-   tbl.glGetColorTableParameterfvEXT = log_glGetColorTableParameterfvEXT;
-
-// GL_SGIX_list_priority
-
-   tbl.glGetListParameterfvSGIX = log_glGetListParameterfvSGIX;
-   tbl.glGetListParameterivSGIX = log_glGetListParameterivSGIX;
-   tbl.glListParameterfSGIX = log_glListParameterfSGIX;
-   tbl.glListParameterfvSGIX = log_glListParameterfvSGIX;
-   tbl.glListParameteriSGIX = log_glListParameteriSGIX;
-   tbl.glListParameterivSGIX = log_glListParameterivSGIX;
-
-// GL_EXT_index_material
-
-   tbl.glIndexMaterialEXT = log_glIndexMaterialEXT;
-
-// GL_EXT_index_func
-
-   tbl.glIndexFuncEXT = log_glIndexFuncEXT;
-
-// GL_EXT_compiled_vertex_array
-
-   tbl.glLockArraysEXT = log_glLockArraysEXT;
-   tbl.glUnlockArraysEXT = log_glUnlockArraysEXT;
-
-// GL_EXT_cull_vertex
-
-   tbl.glCullParameterdvEXT = log_glCullParameterdvEXT;
-   tbl.glCullParameterfvEXT = log_glCullParameterfvEXT;
-
-// GL_SGIX_fragment_lighting
-
-   tbl.glFragmentColorMaterialSGIX = log_glFragmentColorMaterialSGIX;
-   tbl.glFragmentLightfSGIX = log_glFragmentLightfSGIX;
-   tbl.glFragmentLightfvSGIX = log_glFragmentLightfvSGIX;
-   tbl.glFragmentLightiSGIX = log_glFragmentLightiSGIX;
-   tbl.glFragmentLightivSGIX = log_glFragmentLightivSGIX;
-   tbl.glFragmentLightModelfSGIX = log_glFragmentLightModelfSGIX;
-   tbl.glFragmentLightModelfvSGIX = log_glFragmentLightModelfvSGIX;
-   tbl.glFragmentLightModeliSGIX = log_glFragmentLightModeliSGIX;
-   tbl.glFragmentLightModelivSGIX = log_glFragmentLightModelivSGIX;
-   tbl.glFragmentMaterialfSGIX = log_glFragmentMaterialfSGIX;
-   tbl.glFragmentMaterialfvSGIX = log_glFragmentMaterialfvSGIX;
-   tbl.glFragmentMaterialiSGIX = log_glFragmentMaterialiSGIX;
-   tbl.glFragmentMaterialivSGIX = log_glFragmentMaterialivSGIX;
-   tbl.glGetFragmentLightfvSGIX = log_glGetFragmentLightfvSGIX;
-   tbl.glGetFragmentLightivSGIX = log_glGetFragmentLightivSGIX;
-   tbl.glGetFragmentMaterialfvSGIX = log_glGetFragmentMaterialfvSGIX;
-   tbl.glGetFragmentMaterialivSGIX = log_glGetFragmentMaterialivSGIX;
-   tbl.glLightEnviSGIX = log_glLightEnviSGIX;
-
-// GL_EXT_draw_range_elements
-
-   tbl.glDrawRangeElementsEXT = log_glDrawRangeElementsEXT;
-
-// GL_EXT_light_texture
-
-   tbl.glApplyTextureEXT = log_glApplyTextureEXT;
-   tbl.glTextureLightEXT = log_glTextureLightEXT;
-   tbl.glTextureMaterialEXT = log_glTextureMaterialEXT;
-
-// GL_EXT_scene_marker
-
-   tbl.glBeginSceneEXT = log_glBeginSceneEXT;
-   tbl.glEndSceneEXT = log_glEndSceneEXT;
-
-// GL_SGIX_async
-
-   tbl.glAsyncMarkerSGIX = log_glAsyncMarkerSGIX;
-   tbl.glFinishAsyncSGIX = log_glFinishAsyncSGIX;
-   tbl.glPollAsyncSGIX = log_glPollAsyncSGIX;
-   tbl.glGenAsyncMarkersSGIX = log_glGenAsyncMarkersSGIX;
-   tbl.glDeleteAsyncMarkersSGIX = log_glDeleteAsyncMarkersSGIX;
-   tbl.glIsAsyncMarkerSGIX = log_glIsAsyncMarkerSGIX;
-
-// GL_INTEL_parallel_arrays
-
-   tbl.glVertexPointervINTEL = log_glVertexPointervINTEL;
-   tbl.glNormalPointervINTEL = log_glNormalPointervINTEL;
-   tbl.glColorPointervINTEL = log_glColorPointervINTEL;
-   tbl.glTexCoordPointervINTEL = log_glTexCoordPointervINTEL;
-
-// GL_EXT_pixel_transform
-
-   tbl.glPixelTransformParameteriEXT = log_glPixelTransformParameteriEXT;
-   tbl.glPixelTransformParameterfEXT = log_glPixelTransformParameterfEXT;
-   tbl.glPixelTransformParameterivEXT = log_glPixelTransformParameterivEXT;
-   tbl.glPixelTransformParameterfvEXT = log_glPixelTransformParameterfvEXT;
-
-// GL_EXT_secondary_color
-
-   tbl.glSecondaryColor3bEXT = log_glSecondaryColor3bEXT;
-   tbl.glSecondaryColor3bvEXT = log_glSecondaryColor3bvEXT;
-   tbl.glSecondaryColor3dEXT = log_glSecondaryColor3dEXT;
-   tbl.glSecondaryColor3dvEXT = log_glSecondaryColor3dvEXT;
-   tbl.glSecondaryColor3fEXT = log_glSecondaryColor3fEXT;
-   tbl.glSecondaryColor3fvEXT = log_glSecondaryColor3fvEXT;
-   tbl.glSecondaryColor3iEXT = log_glSecondaryColor3iEXT;
-   tbl.glSecondaryColor3ivEXT = log_glSecondaryColor3ivEXT;
-   tbl.glSecondaryColor3sEXT = log_glSecondaryColor3sEXT;
-   tbl.glSecondaryColor3svEXT = log_glSecondaryColor3svEXT;
-   tbl.glSecondaryColor3ubEXT = log_glSecondaryColor3ubEXT;
-   tbl.glSecondaryColor3ubvEXT = log_glSecondaryColor3ubvEXT;
-   tbl.glSecondaryColor3uiEXT = log_glSecondaryColor3uiEXT;
-   tbl.glSecondaryColor3uivEXT = log_glSecondaryColor3uivEXT;
-   tbl.glSecondaryColor3usEXT = log_glSecondaryColor3usEXT;
-   tbl.glSecondaryColor3usvEXT = log_glSecondaryColor3usvEXT;
-   tbl.glSecondaryColorPointerEXT = log_glSecondaryColorPointerEXT;
-
-// GL_EXT_texture_perturb_normal
-
-   tbl.glTextureNormalEXT = log_glTextureNormalEXT;
-
-// GL_EXT_multi_draw_arrays
-
-   tbl.glMultiDrawArraysEXT = log_glMultiDrawArraysEXT;
-   tbl.glMultiDrawElementsEXT = log_glMultiDrawElementsEXT;
-
-// GL_EXT_fog_coord
-
-   tbl.glFogCoordfEXT = log_glFogCoordfEXT;
-   tbl.glFogCoordfvEXT = log_glFogCoordfvEXT;
-   tbl.glFogCoorddEXT = log_glFogCoorddEXT;
-   tbl.glFogCoorddvEXT = log_glFogCoorddvEXT;
-   tbl.glFogCoordPointerEXT = log_glFogCoordPointerEXT;
-
-// GL_EXT_coordinate_frame
-
-   tbl.glTangent3bEXT = log_glTangent3bEXT;
-   tbl.glTangent3bvEXT = log_glTangent3bvEXT;
-   tbl.glTangent3dEXT = log_glTangent3dEXT;
-   tbl.glTangent3dvEXT = log_glTangent3dvEXT;
-   tbl.glTangent3fEXT = log_glTangent3fEXT;
-   tbl.glTangent3fvEXT = log_glTangent3fvEXT;
-   tbl.glTangent3iEXT = log_glTangent3iEXT;
-   tbl.glTangent3ivEXT = log_glTangent3ivEXT;
-   tbl.glTangent3sEXT = log_glTangent3sEXT;
-   tbl.glTangent3svEXT = log_glTangent3svEXT;
-   tbl.glBinormal3bEXT = log_glBinormal3bEXT;
-   tbl.glBinormal3bvEXT = log_glBinormal3bvEXT;
-   tbl.glBinormal3dEXT = log_glBinormal3dEXT;
-   tbl.glBinormal3dvEXT = log_glBinormal3dvEXT;
-   tbl.glBinormal3fEXT = log_glBinormal3fEXT;
-   tbl.glBinormal3fvEXT = log_glBinormal3fvEXT;
-   tbl.glBinormal3iEXT = log_glBinormal3iEXT;
-   tbl.glBinormal3ivEXT = log_glBinormal3ivEXT;
-   tbl.glBinormal3sEXT = log_glBinormal3sEXT;
-   tbl.glBinormal3svEXT = log_glBinormal3svEXT;
-   tbl.glTangentPointerEXT = log_glTangentPointerEXT;
-   tbl.glBinormalPointerEXT = log_glBinormalPointerEXT;
-
-// GL_SUNX_constant_data
-
-   tbl.glFinishTextureSUNX = log_glFinishTextureSUNX;
-
-// GL_SUN_global_alpha
-
-   tbl.glGlobalAlphaFactorbSUN = log_glGlobalAlphaFactorbSUN;
-   tbl.glGlobalAlphaFactorsSUN = log_glGlobalAlphaFactorsSUN;
-   tbl.glGlobalAlphaFactoriSUN = log_glGlobalAlphaFactoriSUN;
-   tbl.glGlobalAlphaFactorfSUN = log_glGlobalAlphaFactorfSUN;
-   tbl.glGlobalAlphaFactordSUN = log_glGlobalAlphaFactordSUN;
-   tbl.glGlobalAlphaFactorubSUN = log_glGlobalAlphaFactorubSUN;
-   tbl.glGlobalAlphaFactorusSUN = log_glGlobalAlphaFactorusSUN;
-   tbl.glGlobalAlphaFactoruiSUN = log_glGlobalAlphaFactoruiSUN;
-
-// GL_SUN_triangle_list
-
-   tbl.glReplacementCodeuiSUN = log_glReplacementCodeuiSUN;
-   tbl.glReplacementCodeusSUN = log_glReplacementCodeusSUN;
-   tbl.glReplacementCodeubSUN = log_glReplacementCodeubSUN;
-   tbl.glReplacementCodeuivSUN = log_glReplacementCodeuivSUN;
-   tbl.glReplacementCodeusvSUN = log_glReplacementCodeusvSUN;
-   tbl.glReplacementCodeubvSUN = log_glReplacementCodeubvSUN;
-   tbl.glReplacementCodePointerSUN = log_glReplacementCodePointerSUN;
-
-// GL_SUN_vertex
-
-   tbl.glColor4ubVertex2fSUN = log_glColor4ubVertex2fSUN;
-   tbl.glColor4ubVertex2fvSUN = log_glColor4ubVertex2fvSUN;
-   tbl.glColor4ubVertex3fSUN = log_glColor4ubVertex3fSUN;
-   tbl.glColor4ubVertex3fvSUN = log_glColor4ubVertex3fvSUN;
-   tbl.glColor3fVertex3fSUN = log_glColor3fVertex3fSUN;
-   tbl.glColor3fVertex3fvSUN = log_glColor3fVertex3fvSUN;
-   tbl.glNormal3fVertex3fSUN = log_glNormal3fVertex3fSUN;
-   tbl.glNormal3fVertex3fvSUN = log_glNormal3fVertex3fvSUN;
-   tbl.glColor4fNormal3fVertex3fSUN = log_glColor4fNormal3fVertex3fSUN;
-   tbl.glColor4fNormal3fVertex3fvSUN = log_glColor4fNormal3fVertex3fvSUN;
-   tbl.glTexCoord2fVertex3fSUN = log_glTexCoord2fVertex3fSUN;
-   tbl.glTexCoord2fVertex3fvSUN = log_glTexCoord2fVertex3fvSUN;
-   tbl.glTexCoord4fVertex4fSUN = log_glTexCoord4fVertex4fSUN;
-   tbl.glTexCoord4fVertex4fvSUN = log_glTexCoord4fVertex4fvSUN;
-   tbl.glTexCoord2fColor4ubVertex3fSUN = log_glTexCoord2fColor4ubVertex3fSUN;
-   tbl.glTexCoord2fColor4ubVertex3fvSUN = log_glTexCoord2fColor4ubVertex3fvSUN;
-   tbl.glTexCoord2fColor3fVertex3fSUN = log_glTexCoord2fColor3fVertex3fSUN;
-   tbl.glTexCoord2fColor3fVertex3fvSUN = log_glTexCoord2fColor3fVertex3fvSUN;
-   tbl.glTexCoord2fNormal3fVertex3fSUN = log_glTexCoord2fNormal3fVertex3fSUN;
-   tbl.glTexCoord2fNormal3fVertex3fvSUN = log_glTexCoord2fNormal3fVertex3fvSUN;
-   tbl.glTexCoord2fColor4fNormal3fVertex3fSUN = log_glTexCoord2fColor4fNormal3fVertex3fSUN;
-   tbl.glTexCoord2fColor4fNormal3fVertex3fvSUN = log_glTexCoord2fColor4fNormal3fVertex3fvSUN;
-   tbl.glTexCoord4fColor4fNormal3fVertex4fSUN = log_glTexCoord4fColor4fNormal3fVertex4fSUN;
-   tbl.glTexCoord4fColor4fNormal3fVertex4fvSUN = log_glTexCoord4fColor4fNormal3fVertex4fvSUN;
-   tbl.glReplacementCodeuiVertex3fSUN = log_glReplacementCodeuiVertex3fSUN;
-   tbl.glReplacementCodeuiVertex3fvSUN = log_glReplacementCodeuiVertex3fvSUN;
-   tbl.glReplacementCodeuiColor4ubVertex3fSUN = log_glReplacementCodeuiColor4ubVertex3fSUN;
-   tbl.glReplacementCodeuiColor4ubVertex3fvSUN = log_glReplacementCodeuiColor4ubVertex3fvSUN;
-   tbl.glReplacementCodeuiColor3fVertex3fSUN = log_glReplacementCodeuiColor3fVertex3fSUN;
-   tbl.glReplacementCodeuiColor3fVertex3fvSUN = log_glReplacementCodeuiColor3fVertex3fvSUN;
-   tbl.glReplacementCodeuiNormal3fVertex3fSUN = log_glReplacementCodeuiNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiNormal3fVertex3fvSUN = log_glReplacementCodeuiNormal3fVertex3fvSUN;
-   tbl.glReplacementCodeuiColor4fNormal3fVertex3fSUN = log_glReplacementCodeuiColor4fNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiColor4fNormal3fVertex3fvSUN = log_glReplacementCodeuiColor4fNormal3fVertex3fvSUN;
-   tbl.glReplacementCodeuiTexCoord2fVertex3fSUN = log_glReplacementCodeuiTexCoord2fVertex3fSUN;
-   tbl.glReplacementCodeuiTexCoord2fVertex3fvSUN = log_glReplacementCodeuiTexCoord2fVertex3fvSUN;
-   tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN = log_glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN = log_glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN;
-   tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN = log_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN;
-   tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN = log_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN;
-
-// GL_EXT_blend_func_separate
-
-   tbl.glBlendFuncSeparateEXT = log_glBlendFuncSeparateEXT;
-
-// GL_INGR_blend_func_separate
-
-   tbl.glBlendFuncSeparateINGR = log_glBlendFuncSeparateINGR;
-
-// GL_EXT_vertex_weighting
-
-   tbl.glVertexWeightfEXT = log_glVertexWeightfEXT;
-   tbl.glVertexWeightfvEXT = log_glVertexWeightfvEXT;
-   tbl.glVertexWeightPointerEXT = log_glVertexWeightPointerEXT;
-
-// GL_NV_vertex_array_range
-
-   tbl.glFlushVertexArrayRangeNV = log_glFlushVertexArrayRangeNV;
-   tbl.glVertexArrayRangeNV = log_glVertexArrayRangeNV;
-
-// GL_NV_register_combiners
-
-   tbl.glCombinerParameterfvNV = log_glCombinerParameterfvNV;
-   tbl.glCombinerParameterfNV = log_glCombinerParameterfNV;
-   tbl.glCombinerParameterivNV = log_glCombinerParameterivNV;
-   tbl.glCombinerParameteriNV = log_glCombinerParameteriNV;
-   tbl.glCombinerInputNV = log_glCombinerInputNV;
-   tbl.glCombinerOutputNV = log_glCombinerOutputNV;
-   tbl.glFinalCombinerInputNV = log_glFinalCombinerInputNV;
-   tbl.glGetCombinerInputParameterfvNV = log_glGetCombinerInputParameterfvNV;
-   tbl.glGetCombinerInputParameterivNV = log_glGetCombinerInputParameterivNV;
-   tbl.glGetCombinerOutputParameterfvNV = log_glGetCombinerOutputParameterfvNV;
-   tbl.glGetCombinerOutputParameterivNV = log_glGetCombinerOutputParameterivNV;
-   tbl.glGetFinalCombinerInputParameterfvNV = log_glGetFinalCombinerInputParameterfvNV;
-   tbl.glGetFinalCombinerInputParameterivNV = log_glGetFinalCombinerInputParameterivNV;
-
-// GL_MESA_resize_buffers
-
-   tbl.glResizeBuffersMESA = log_glResizeBuffersMESA;
-
-// GL_MESA_window_pos
-
-   tbl.glWindowPos2dMESA = log_glWindowPos2dMESA;
-   tbl.glWindowPos2dvMESA = log_glWindowPos2dvMESA;
-   tbl.glWindowPos2fMESA = log_glWindowPos2fMESA;
-   tbl.glWindowPos2fvMESA = log_glWindowPos2fvMESA;
-   tbl.glWindowPos2iMESA = log_glWindowPos2iMESA;
-   tbl.glWindowPos2ivMESA = log_glWindowPos2ivMESA;
-   tbl.glWindowPos2sMESA = log_glWindowPos2sMESA;
-   tbl.glWindowPos2svMESA = log_glWindowPos2svMESA;
-   tbl.glWindowPos3dMESA = log_glWindowPos3dMESA;
-   tbl.glWindowPos3dvMESA = log_glWindowPos3dvMESA;
-   tbl.glWindowPos3fMESA = log_glWindowPos3fMESA;
-   tbl.glWindowPos3fvMESA = log_glWindowPos3fvMESA;
-   tbl.glWindowPos3iMESA = log_glWindowPos3iMESA;
-   tbl.glWindowPos3ivMESA = log_glWindowPos3ivMESA;
-   tbl.glWindowPos3sMESA = log_glWindowPos3sMESA;
-   tbl.glWindowPos3svMESA = log_glWindowPos3svMESA;
-   tbl.glWindowPos4dMESA = log_glWindowPos4dMESA;
-   tbl.glWindowPos4dvMESA = log_glWindowPos4dvMESA;
-   tbl.glWindowPos4fMESA = log_glWindowPos4fMESA;
-   tbl.glWindowPos4fvMESA = log_glWindowPos4fvMESA;
-   tbl.glWindowPos4iMESA = log_glWindowPos4iMESA;
-   tbl.glWindowPos4ivMESA = log_glWindowPos4ivMESA;
-   tbl.glWindowPos4sMESA = log_glWindowPos4sMESA;
-   tbl.glWindowPos4svMESA = log_glWindowPos4svMESA;
-
-// GL_IBM_multimode_draw_arrays
-
-   tbl.glMultiModeDrawArraysIBM = log_glMultiModeDrawArraysIBM;
-   tbl.glMultiModeDrawElementsIBM = log_glMultiModeDrawElementsIBM;
-
-// GL_IBM_vertex_array_lists
-
-   tbl.glColorPointerListIBM = log_glColorPointerListIBM;
-   tbl.glSecondaryColorPointerListIBM = log_glSecondaryColorPointerListIBM;
-   tbl.glEdgeFlagPointerListIBM = log_glEdgeFlagPointerListIBM;
-   tbl.glFogCoordPointerListIBM = log_glFogCoordPointerListIBM;
-   tbl.glIndexPointerListIBM = log_glIndexPointerListIBM;
-   tbl.glNormalPointerListIBM = log_glNormalPointerListIBM;
-   tbl.glTexCoordPointerListIBM = log_glTexCoordPointerListIBM;
-   tbl.glVertexPointerListIBM = log_glVertexPointerListIBM;
-
-// GL_3DFX_tbuffer
-
-   tbl.glTbufferMask3DFX = log_glTbufferMask3DFX;
-
-// GL_EXT_multisample
-
-   tbl.glSampleMaskEXT = log_glSampleMaskEXT;
-   tbl.glSamplePatternEXT = log_glSamplePatternEXT;
-
-// GL_SGIS_texture_color_mask
-
-   tbl.glTextureColorMaskSGIS = log_glTextureColorMaskSGIS;
-
-// GL_SGIX_igloo_interface
-
-   tbl.glIglooInterfaceSGIX = log_glIglooInterfaceSGIX;
-
-// GL_NV_fence
-
-   tbl.glDeleteFencesNV = log_glDeleteFencesNV;
-   tbl.glGenFencesNV = log_glGenFencesNV;
-   tbl.glIsFenceNV = log_glIsFenceNV;
-   tbl.glTestFenceNV = log_glTestFenceNV;
-   tbl.glGetFenceivNV = log_glGetFenceivNV;
-   tbl.glFinishFenceNV = log_glFinishFenceNV;
-   tbl.glSetFenceNV = log_glSetFenceNV;
-
-// GL_NV_evaluators
-
-   tbl.glMapControlPointsNV = log_glMapControlPointsNV;
-   tbl.glMapParameterivNV = log_glMapParameterivNV;
-   tbl.glMapParameterfvNV = log_glMapParameterfvNV;
-   tbl.glGetMapControlPointsNV = log_glGetMapControlPointsNV;
-   tbl.glGetMapParameterivNV = log_glGetMapParameterivNV;
-   tbl.glGetMapParameterfvNV = log_glGetMapParameterfvNV;
-   tbl.glGetMapAttribParameterivNV = log_glGetMapAttribParameterivNV;
-   tbl.glGetMapAttribParameterfvNV = log_glGetMapAttribParameterfvNV;
-   tbl.glEvalMapsNV = log_glEvalMapsNV;
-
-// GL_NV_register_combiners2
-
-   tbl.glCombinerStageParameterfvNV = log_glCombinerStageParameterfvNV;
-   tbl.glGetCombinerStageParameterfvNV = log_glGetCombinerStageParameterfvNV;
-
-// GL_NV_vertex_program
-
-   tbl.glAreProgramsResidentNV = log_glAreProgramsResidentNV;
-   tbl.glBindProgramNV = log_glBindProgramNV;
-   tbl.glDeleteProgramsNV = log_glDeleteProgramsNV;
-   tbl.glExecuteProgramNV = log_glExecuteProgramNV;
-   tbl.glGenProgramsNV = log_glGenProgramsNV;
-   tbl.glGetProgramParameterdvNV = log_glGetProgramParameterdvNV;
-   tbl.glGetProgramParameterfvNV = log_glGetProgramParameterfvNV;
-   tbl.glGetProgramivNV = log_glGetProgramivNV;
-   tbl.glGetProgramStringNV = log_glGetProgramStringNV;
-   tbl.glGetTrackMatrixivNV = log_glGetTrackMatrixivNV;
-   tbl.glGetVertexAttribdvNV = log_glGetVertexAttribdvNV;
-   tbl.glGetVertexAttribfvNV = log_glGetVertexAttribfvNV;
-   tbl.glGetVertexAttribivNV = log_glGetVertexAttribivNV;
-   tbl.glGetVertexAttribPointervNV = log_glGetVertexAttribPointervNV;
-   tbl.glIsProgramNV = log_glIsProgramNV;
-   tbl.glLoadProgramNV = log_glLoadProgramNV;
-   tbl.glProgramParameter4dNV = log_glProgramParameter4dNV;
-   tbl.glProgramParameter4dvNV = log_glProgramParameter4dvNV;
-   tbl.glProgramParameter4fNV = log_glProgramParameter4fNV;
-   tbl.glProgramParameter4fvNV = log_glProgramParameter4fvNV;
-   tbl.glProgramParameters4dvNV = log_glProgramParameters4dvNV;
-   tbl.glProgramParameters4fvNV = log_glProgramParameters4fvNV;
-   tbl.glRequestResidentProgramsNV = log_glRequestResidentProgramsNV;
-   tbl.glTrackMatrixNV = log_glTrackMatrixNV;
-   tbl.glVertexAttribPointerNV = log_glVertexAttribPointerNV;
-   tbl.glVertexAttrib1dNV = log_glVertexAttrib1dNV;
-   tbl.glVertexAttrib1dvNV = log_glVertexAttrib1dvNV;
-   tbl.glVertexAttrib1fNV = log_glVertexAttrib1fNV;
-   tbl.glVertexAttrib1fvNV = log_glVertexAttrib1fvNV;
-   tbl.glVertexAttrib1sNV = log_glVertexAttrib1sNV;
-   tbl.glVertexAttrib1svNV = log_glVertexAttrib1svNV;
-   tbl.glVertexAttrib2dNV = log_glVertexAttrib2dNV;
-   tbl.glVertexAttrib2dvNV = log_glVertexAttrib2dvNV;
-   tbl.glVertexAttrib2fNV = log_glVertexAttrib2fNV;
-   tbl.glVertexAttrib2fvNV = log_glVertexAttrib2fvNV;
-   tbl.glVertexAttrib2sNV = log_glVertexAttrib2sNV;
-   tbl.glVertexAttrib2svNV = log_glVertexAttrib2svNV;
-   tbl.glVertexAttrib3dNV = log_glVertexAttrib3dNV;
-   tbl.glVertexAttrib3dvNV = log_glVertexAttrib3dvNV;
-   tbl.glVertexAttrib3fNV = log_glVertexAttrib3fNV;
-   tbl.glVertexAttrib3fvNV = log_glVertexAttrib3fvNV;
-   tbl.glVertexAttrib3sNV = log_glVertexAttrib3sNV;
-   tbl.glVertexAttrib3svNV = log_glVertexAttrib3svNV;
-   tbl.glVertexAttrib4dNV = log_glVertexAttrib4dNV;
-   tbl.glVertexAttrib4dvNV = log_glVertexAttrib4dvNV;
-   tbl.glVertexAttrib4fNV = log_glVertexAttrib4fNV;
-   tbl.glVertexAttrib4fvNV = log_glVertexAttrib4fvNV;
-   tbl.glVertexAttrib4sNV = log_glVertexAttrib4sNV;
-   tbl.glVertexAttrib4svNV = log_glVertexAttrib4svNV;
-   tbl.glVertexAttrib4ubNV = log_glVertexAttrib4ubNV;
-   tbl.glVertexAttrib4ubvNV = log_glVertexAttrib4ubvNV;
-   tbl.glVertexAttribs1dvNV = log_glVertexAttribs1dvNV;
-   tbl.glVertexAttribs1fvNV = log_glVertexAttribs1fvNV;
-   tbl.glVertexAttribs1svNV = log_glVertexAttribs1svNV;
-   tbl.glVertexAttribs2dvNV = log_glVertexAttribs2dvNV;
-   tbl.glVertexAttribs2fvNV = log_glVertexAttribs2fvNV;
-   tbl.glVertexAttribs2svNV = log_glVertexAttribs2svNV;
-   tbl.glVertexAttribs3dvNV = log_glVertexAttribs3dvNV;
-   tbl.glVertexAttribs3fvNV = log_glVertexAttribs3fvNV;
-   tbl.glVertexAttribs3svNV = log_glVertexAttribs3svNV;
-   tbl.glVertexAttribs4dvNV = log_glVertexAttribs4dvNV;
-   tbl.glVertexAttribs4fvNV = log_glVertexAttribs4fvNV;
-   tbl.glVertexAttribs4svNV = log_glVertexAttribs4svNV;
-   tbl.glVertexAttribs4ubvNV = log_glVertexAttribs4ubvNV;
-
-// GL_ATI_envmap_bumpmap
-
-   tbl.glTexBumpParameterivATI = log_glTexBumpParameterivATI;
-   tbl.glTexBumpParameterfvATI = log_glTexBumpParameterfvATI;
-   tbl.glGetTexBumpParameterivATI = log_glGetTexBumpParameterivATI;
-   tbl.glGetTexBumpParameterfvATI = log_glGetTexBumpParameterfvATI;
-
-// GL_ATI_fragment_shader
-
-   tbl.glGenFragmentShadersATI = log_glGenFragmentShadersATI;
-   tbl.glBindFragmentShaderATI = log_glBindFragmentShaderATI;
-   tbl.glDeleteFragmentShaderATI = log_glDeleteFragmentShaderATI;
-   tbl.glBeginFragmentShaderATI = log_glBeginFragmentShaderATI;
-   tbl.glEndFragmentShaderATI = log_glEndFragmentShaderATI;
-   tbl.glPassTexCoordATI = log_glPassTexCoordATI;
-   tbl.glSampleMapATI = log_glSampleMapATI;
-   tbl.glColorFragmentOp1ATI = log_glColorFragmentOp1ATI;
-   tbl.glColorFragmentOp2ATI = log_glColorFragmentOp2ATI;
-   tbl.glColorFragmentOp3ATI = log_glColorFragmentOp3ATI;
-   tbl.glAlphaFragmentOp1ATI = log_glAlphaFragmentOp1ATI;
-   tbl.glAlphaFragmentOp2ATI = log_glAlphaFragmentOp2ATI;
-   tbl.glAlphaFragmentOp3ATI = log_glAlphaFragmentOp3ATI;
-   tbl.glSetFragmentShaderConstantATI = log_glSetFragmentShaderConstantATI;
-
-// GL_ATI_pn_triangles
-
-   tbl.glPNTrianglesiATI = log_glPNTrianglesiATI;
-   tbl.glPNTrianglesfATI = log_glPNTrianglesfATI;
-
-// GL_ATI_vertex_array_object
-
-   tbl.glNewObjectBufferATI = log_glNewObjectBufferATI;
-   tbl.glIsObjectBufferATI = log_glIsObjectBufferATI;
-   tbl.glUpdateObjectBufferATI = log_glUpdateObjectBufferATI;
-   tbl.glGetObjectBufferfvATI = log_glGetObjectBufferfvATI;
-   tbl.glGetObjectBufferivATI = log_glGetObjectBufferivATI;
-   tbl.glFreeObjectBufferATI = log_glFreeObjectBufferATI;
-   tbl.glArrayObjectATI = log_glArrayObjectATI;
-   tbl.glGetArrayObjectfvATI = log_glGetArrayObjectfvATI;
-   tbl.glGetArrayObjectivATI = log_glGetArrayObjectivATI;
-   tbl.glVariantArrayObjectATI = log_glVariantArrayObjectATI;
-   tbl.glGetVariantArrayObjectfvATI = log_glGetVariantArrayObjectfvATI;
-   tbl.glGetVariantArrayObjectivATI = log_glGetVariantArrayObjectivATI;
-
-// GL_EXT_vertex_shader
-
-   tbl.glBeginVertexShaderEXT = log_glBeginVertexShaderEXT;
-   tbl.glEndVertexShaderEXT = log_glEndVertexShaderEXT;
-   tbl.glBindVertexShaderEXT = log_glBindVertexShaderEXT;
-   tbl.glGenVertexShadersEXT = log_glGenVertexShadersEXT;
-   tbl.glDeleteVertexShaderEXT = log_glDeleteVertexShaderEXT;
-   tbl.glShaderOp1EXT = log_glShaderOp1EXT;
-   tbl.glShaderOp2EXT = log_glShaderOp2EXT;
-   tbl.glShaderOp3EXT = log_glShaderOp3EXT;
-   tbl.glSwizzleEXT = log_glSwizzleEXT;
-   tbl.glWriteMaskEXT = log_glWriteMaskEXT;
-   tbl.glInsertComponentEXT = log_glInsertComponentEXT;
-   tbl.glExtractComponentEXT = log_glExtractComponentEXT;
-   tbl.glGenSymbolsEXT = log_glGenSymbolsEXT;
-   tbl.glSetInvariantEXT = log_glSetInvariantEXT;
-   tbl.glSetLocalConstantEXT = log_glSetLocalConstantEXT;
-   tbl.glVariantbvEXT = log_glVariantbvEXT;
-   tbl.glVariantsvEXT = log_glVariantsvEXT;
-   tbl.glVariantivEXT = log_glVariantivEXT;
-   tbl.glVariantfvEXT = log_glVariantfvEXT;
-   tbl.glVariantdvEXT = log_glVariantdvEXT;
-   tbl.glVariantubvEXT = log_glVariantubvEXT;
-   tbl.glVariantusvEXT = log_glVariantusvEXT;
-   tbl.glVariantuivEXT = log_glVariantuivEXT;
-   tbl.glVariantPointerEXT = log_glVariantPointerEXT;
-   tbl.glEnableVariantClientStateEXT = log_glEnableVariantClientStateEXT;
-   tbl.glDisableVariantClientStateEXT = log_glDisableVariantClientStateEXT;
-   tbl.glBindLightParameterEXT = log_glBindLightParameterEXT;
-   tbl.glBindMaterialParameterEXT = log_glBindMaterialParameterEXT;
-   tbl.glBindTexGenParameterEXT = log_glBindTexGenParameterEXT;
-   tbl.glBindTextureUnitParameterEXT = log_glBindTextureUnitParameterEXT;
-   tbl.glBindParameterEXT = log_glBindParameterEXT;
-   tbl.glIsVariantEnabledEXT = log_glIsVariantEnabledEXT;
-   tbl.glGetVariantBooleanvEXT = log_glGetVariantBooleanvEXT;
-   tbl.glGetVariantIntegervEXT = log_glGetVariantIntegervEXT;
-   tbl.glGetVariantFloatvEXT = log_glGetVariantFloatvEXT;
-   tbl.glGetVariantPointervEXT = log_glGetVariantPointervEXT;
-   tbl.glGetInvariantBooleanvEXT = log_glGetInvariantBooleanvEXT;
-   tbl.glGetInvariantIntegervEXT = log_glGetInvariantIntegervEXT;
-   tbl.glGetInvariantFloatvEXT = log_glGetInvariantFloatvEXT;
-   tbl.glGetLocalConstantBooleanvEXT = log_glGetLocalConstantBooleanvEXT;
-   tbl.glGetLocalConstantIntegervEXT = log_glGetLocalConstantIntegervEXT;
-   tbl.glGetLocalConstantFloatvEXT = log_glGetLocalConstantFloatvEXT;
-
-// GL_ATI_vertex_streams
-
-   tbl.glVertexStream1sATI = log_glVertexStream1sATI;
-   tbl.glVertexStream1svATI = log_glVertexStream1svATI;
-   tbl.glVertexStream1iATI = log_glVertexStream1iATI;
-   tbl.glVertexStream1ivATI = log_glVertexStream1ivATI;
-   tbl.glVertexStream1fATI = log_glVertexStream1fATI;
-   tbl.glVertexStream1fvATI = log_glVertexStream1fvATI;
-   tbl.glVertexStream1dATI = log_glVertexStream1dATI;
-   tbl.glVertexStream1dvATI = log_glVertexStream1dvATI;
-   tbl.glVertexStream2sATI = log_glVertexStream2sATI;
-   tbl.glVertexStream2svATI = log_glVertexStream2svATI;
-   tbl.glVertexStream2iATI = log_glVertexStream2iATI;
-   tbl.glVertexStream2ivATI = log_glVertexStream2ivATI;
-   tbl.glVertexStream2fATI = log_glVertexStream2fATI;
-   tbl.glVertexStream2fvATI = log_glVertexStream2fvATI;
-   tbl.glVertexStream2dATI = log_glVertexStream2dATI;
-   tbl.glVertexStream2dvATI = log_glVertexStream2dvATI;
-   tbl.glVertexStream3sATI = log_glVertexStream3sATI;
-   tbl.glVertexStream3svATI = log_glVertexStream3svATI;
-   tbl.glVertexStream3iATI = log_glVertexStream3iATI;
-   tbl.glVertexStream3ivATI = log_glVertexStream3ivATI;
-   tbl.glVertexStream3fATI = log_glVertexStream3fATI;
-   tbl.glVertexStream3fvATI = log_glVertexStream3fvATI;
-   tbl.glVertexStream3dATI = log_glVertexStream3dATI;
-   tbl.glVertexStream3dvATI = log_glVertexStream3dvATI;
-   tbl.glVertexStream4sATI = log_glVertexStream4sATI;
-   tbl.glVertexStream4svATI = log_glVertexStream4svATI;
-   tbl.glVertexStream4iATI = log_glVertexStream4iATI;
-   tbl.glVertexStream4ivATI = log_glVertexStream4ivATI;
-   tbl.glVertexStream4fATI = log_glVertexStream4fATI;
-   tbl.glVertexStream4fvATI = log_glVertexStream4fvATI;
-   tbl.glVertexStream4dATI = log_glVertexStream4dATI;
-   tbl.glVertexStream4dvATI = log_glVertexStream4dvATI;
-   tbl.glNormalStream3bATI = log_glNormalStream3bATI;
-   tbl.glNormalStream3bvATI = log_glNormalStream3bvATI;
-   tbl.glNormalStream3sATI = log_glNormalStream3sATI;
-   tbl.glNormalStream3svATI = log_glNormalStream3svATI;
-   tbl.glNormalStream3iATI = log_glNormalStream3iATI;
-   tbl.glNormalStream3ivATI = log_glNormalStream3ivATI;
-   tbl.glNormalStream3fATI = log_glNormalStream3fATI;
-   tbl.glNormalStream3fvATI = log_glNormalStream3fvATI;
-   tbl.glNormalStream3dATI = log_glNormalStream3dATI;
-   tbl.glNormalStream3dvATI = log_glNormalStream3dvATI;
-   tbl.glClientActiveVertexStreamATI = log_glClientActiveVertexStreamATI;
-   tbl.glVertexBlendEnviATI = log_glVertexBlendEnviATI;
-   tbl.glVertexBlendEnvfATI = log_glVertexBlendEnvfATI;
-
-// GL_ATI_element_array
-
-   tbl.glElementPointerATI = log_glElementPointerATI;
-   tbl.glDrawElementArrayATI = log_glDrawElementArrayATI;
-   tbl.glDrawRangeElementArrayATI = log_glDrawRangeElementArrayATI;
-
-// GL_SUN_mesh_array
-
-   tbl.glDrawMeshArraysSUN = log_glDrawMeshArraysSUN;
-
-// GL_NV_occlusion_query
-
-   tbl.glGenOcclusionQueriesNV = log_glGenOcclusionQueriesNV;
-   tbl.glDeleteOcclusionQueriesNV = log_glDeleteOcclusionQueriesNV;
-   tbl.glIsOcclusionQueryNV = log_glIsOcclusionQueryNV;
-   tbl.glBeginOcclusionQueryNV = log_glBeginOcclusionQueryNV;
-   tbl.glEndOcclusionQueryNV = log_glEndOcclusionQueryNV;
-   tbl.glGetOcclusionQueryivNV = log_glGetOcclusionQueryivNV;
-   tbl.glGetOcclusionQueryuivNV = log_glGetOcclusionQueryuivNV;
-
-// GL_NV_point_sprite
-
-   tbl.glPointParameteriNV = log_glPointParameteriNV;
-   tbl.glPointParameterivNV = log_glPointParameterivNV;
-
-// GL_EXT_stencil_two_side
-
-   tbl.glActiveStencilFaceEXT = log_glActiveStencilFaceEXT;
-
-// GL_APPLE_element_array
-
-   tbl.glElementPointerAPPLE = log_glElementPointerAPPLE;
-   tbl.glDrawElementArrayAPPLE = log_glDrawElementArrayAPPLE;
-   tbl.glDrawRangeElementArrayAPPLE = log_glDrawRangeElementArrayAPPLE;
-   tbl.glMultiDrawElementArrayAPPLE = log_glMultiDrawElementArrayAPPLE;
-   tbl.glMultiDrawRangeElementArrayAPPLE = log_glMultiDrawRangeElementArrayAPPLE;
-
-// GL_APPLE_fence
-
-   tbl.glGenFencesAPPLE = log_glGenFencesAPPLE;
-   tbl.glDeleteFencesAPPLE = log_glDeleteFencesAPPLE;
-   tbl.glSetFenceAPPLE = log_glSetFenceAPPLE;
-   tbl.glIsFenceAPPLE = log_glIsFenceAPPLE;
-   tbl.glTestFenceAPPLE = log_glTestFenceAPPLE;
-   tbl.glFinishFenceAPPLE = log_glFinishFenceAPPLE;
-   tbl.glTestObjectAPPLE = log_glTestObjectAPPLE;
-   tbl.glFinishObjectAPPLE = log_glFinishObjectAPPLE;
-
-// GL_APPLE_vertex_array_object
-
-   tbl.glBindVertexArrayAPPLE = log_glBindVertexArrayAPPLE;
-   tbl.glDeleteVertexArraysAPPLE = log_glDeleteVertexArraysAPPLE;
-   tbl.glGenVertexArraysAPPLE = log_glGenVertexArraysAPPLE;
-   tbl.glIsVertexArrayAPPLE = log_glIsVertexArrayAPPLE;
-
-// GL_APPLE_vertex_array_range
-
-   tbl.glVertexArrayRangeAPPLE = log_glVertexArrayRangeAPPLE;
-   tbl.glFlushVertexArrayRangeAPPLE = log_glFlushVertexArrayRangeAPPLE;
-   tbl.glVertexArrayParameteriAPPLE = log_glVertexArrayParameteriAPPLE;
-
-// GL_ATI_draw_buffers
-
-   tbl.glDrawBuffersATI = log_glDrawBuffersATI;
-
-// GL_NV_fragment_program
-
-   tbl.glProgramNamedParameter4fNV = log_glProgramNamedParameter4fNV;
-   tbl.glProgramNamedParameter4dNV = log_glProgramNamedParameter4dNV;
-   tbl.glProgramNamedParameter4fvNV = log_glProgramNamedParameter4fvNV;
-   tbl.glProgramNamedParameter4dvNV = log_glProgramNamedParameter4dvNV;
-   tbl.glGetProgramNamedParameterfvNV = log_glGetProgramNamedParameterfvNV;
-   tbl.glGetProgramNamedParameterdvNV = log_glGetProgramNamedParameterdvNV;
-
-// GL_NV_half_float
-
-   tbl.glVertex2hNV = log_glVertex2hNV;
-   tbl.glVertex2hvNV = log_glVertex2hvNV;
-   tbl.glVertex3hNV = log_glVertex3hNV;
-   tbl.glVertex3hvNV = log_glVertex3hvNV;
-   tbl.glVertex4hNV = log_glVertex4hNV;
-   tbl.glVertex4hvNV = log_glVertex4hvNV;
-   tbl.glNormal3hNV = log_glNormal3hNV;
-   tbl.glNormal3hvNV = log_glNormal3hvNV;
-   tbl.glColor3hNV = log_glColor3hNV;
-   tbl.glColor3hvNV = log_glColor3hvNV;
-   tbl.glColor4hNV = log_glColor4hNV;
-   tbl.glColor4hvNV = log_glColor4hvNV;
-   tbl.glTexCoord1hNV = log_glTexCoord1hNV;
-   tbl.glTexCoord1hvNV = log_glTexCoord1hvNV;
-   tbl.glTexCoord2hNV = log_glTexCoord2hNV;
-   tbl.glTexCoord2hvNV = log_glTexCoord2hvNV;
-   tbl.glTexCoord3hNV = log_glTexCoord3hNV;
-   tbl.glTexCoord3hvNV = log_glTexCoord3hvNV;
-   tbl.glTexCoord4hNV = log_glTexCoord4hNV;
-   tbl.glTexCoord4hvNV = log_glTexCoord4hvNV;
-   tbl.glMultiTexCoord1hNV = log_glMultiTexCoord1hNV;
-   tbl.glMultiTexCoord1hvNV = log_glMultiTexCoord1hvNV;
-   tbl.glMultiTexCoord2hNV = log_glMultiTexCoord2hNV;
-   tbl.glMultiTexCoord2hvNV = log_glMultiTexCoord2hvNV;
-   tbl.glMultiTexCoord3hNV = log_glMultiTexCoord3hNV;
-   tbl.glMultiTexCoord3hvNV = log_glMultiTexCoord3hvNV;
-   tbl.glMultiTexCoord4hNV = log_glMultiTexCoord4hNV;
-   tbl.glMultiTexCoord4hvNV = log_glMultiTexCoord4hvNV;
-   tbl.glFogCoordhNV = log_glFogCoordhNV;
-   tbl.glFogCoordhvNV = log_glFogCoordhvNV;
-   tbl.glSecondaryColor3hNV = log_glSecondaryColor3hNV;
-   tbl.glSecondaryColor3hvNV = log_glSecondaryColor3hvNV;
-   tbl.glVertexWeighthNV = log_glVertexWeighthNV;
-   tbl.glVertexWeighthvNV = log_glVertexWeighthvNV;
-   tbl.glVertexAttrib1hNV = log_glVertexAttrib1hNV;
-   tbl.glVertexAttrib1hvNV = log_glVertexAttrib1hvNV;
-   tbl.glVertexAttrib2hNV = log_glVertexAttrib2hNV;
-   tbl.glVertexAttrib2hvNV = log_glVertexAttrib2hvNV;
-   tbl.glVertexAttrib3hNV = log_glVertexAttrib3hNV;
-   tbl.glVertexAttrib3hvNV = log_glVertexAttrib3hvNV;
-   tbl.glVertexAttrib4hNV = log_glVertexAttrib4hNV;
-   tbl.glVertexAttrib4hvNV = log_glVertexAttrib4hvNV;
-   tbl.glVertexAttribs1hvNV = log_glVertexAttribs1hvNV;
-   tbl.glVertexAttribs2hvNV = log_glVertexAttribs2hvNV;
-   tbl.glVertexAttribs3hvNV = log_glVertexAttribs3hvNV;
-   tbl.glVertexAttribs4hvNV = log_glVertexAttribs4hvNV;
-
-// GL_NV_pixel_data_range
-
-   tbl.glPixelDataRangeNV = log_glPixelDataRangeNV;
-   tbl.glFlushPixelDataRangeNV = log_glFlushPixelDataRangeNV;
-
-// GL_NV_primitive_restart
-
-   tbl.glPrimitiveRestartNV = log_glPrimitiveRestartNV;
-   tbl.glPrimitiveRestartIndexNV = log_glPrimitiveRestartIndexNV;
-
-// GL_ATI_map_object_buffer
-
-   tbl.glMapObjectBufferATI = log_glMapObjectBufferATI;
-   tbl.glUnmapObjectBufferATI = log_glUnmapObjectBufferATI;
-
-// GL_ATI_separate_stencil
-
-   tbl.glStencilOpSeparateATI = log_glStencilOpSeparateATI;
-   tbl.glStencilFuncSeparateATI = log_glStencilFuncSeparateATI;
-
-// GL_ATI_vertex_attrib_array_object
-
-   tbl.glVertexAttribArrayObjectATI = log_glVertexAttribArrayObjectATI;
-   tbl.glGetVertexAttribArrayObjectfvATI = log_glGetVertexAttribArrayObjectfvATI;
-   tbl.glGetVertexAttribArrayObjectivATI = log_glGetVertexAttribArrayObjectivATI;
-
-// GL_EXT_depth_bounds_test
-
-   tbl.glDepthBoundsEXT = log_glDepthBoundsEXT;
-
-// GL_EXT_blend_equation_separate
-
-   tbl.glBlendEquationSeparateEXT = log_glBlendEquationSeparateEXT;
-
-// GL_EXT_framebuffer_object
-
-   tbl.glIsRenderbufferEXT = log_glIsRenderbufferEXT;
-   tbl.glBindRenderbufferEXT = log_glBindRenderbufferEXT;
-   tbl.glDeleteRenderbuffersEXT = log_glDeleteRenderbuffersEXT;
-   tbl.glGenRenderbuffersEXT = log_glGenRenderbuffersEXT;
-   tbl.glRenderbufferStorageEXT = log_glRenderbufferStorageEXT;
-   tbl.glGetRenderbufferParameterivEXT = log_glGetRenderbufferParameterivEXT;
-   tbl.glIsFramebufferEXT = log_glIsFramebufferEXT;
-   tbl.glBindFramebufferEXT = log_glBindFramebufferEXT;
-   tbl.glDeleteFramebuffersEXT = log_glDeleteFramebuffersEXT;
-   tbl.glGenFramebuffersEXT = log_glGenFramebuffersEXT;
-   tbl.glCheckFramebufferStatusEXT = log_glCheckFramebufferStatusEXT;
-   tbl.glFramebufferTexture1DEXT = log_glFramebufferTexture1DEXT;
-   tbl.glFramebufferTexture2DEXT = log_glFramebufferTexture2DEXT;
-   tbl.glFramebufferTexture3DEXT = log_glFramebufferTexture3DEXT;
-   tbl.glFramebufferRenderbufferEXT = log_glFramebufferRenderbufferEXT;
-   tbl.glGetFramebufferAttachmentParameterivEXT = log_glGetFramebufferAttachmentParameterivEXT;
-   tbl.glGenerateMipmapEXT = log_glGenerateMipmapEXT;
-
-// GL_GREMEDY_string_marker
-
-   tbl.glStringMarkerGREMEDY = log_glStringMarkerGREMEDY;
-
-// GL_EXT_stencil_clear_tag
-
-   tbl.glStencilClearTagEXT = log_glStencilClearTagEXT;
-
-// GL_EXT_framebuffer_blit
-
-   tbl.glBlitFramebufferEXT = log_glBlitFramebufferEXT;
-
-// GL_EXT_framebuffer_multisample
-
-   tbl.glRenderbufferStorageMultisampleEXT = log_glRenderbufferStorageMultisampleEXT;
-
-// GL_EXT_timer_query
-
-   tbl.glGetQueryObjecti64vEXT = log_glGetQueryObjecti64vEXT;
-   tbl.glGetQueryObjectui64vEXT = log_glGetQueryObjectui64vEXT;
-
-// GL_EXT_gpu_program_parameters
-
-   tbl.glProgramEnvParameters4fvEXT = log_glProgramEnvParameters4fvEXT;
-   tbl.glProgramLocalParameters4fvEXT = log_glProgramLocalParameters4fvEXT;
-
-// GL_APPLE_flush_buffer_range
-
-   tbl.glBufferParameteriAPPLE = log_glBufferParameteriAPPLE;
-   tbl.glFlushMappedBufferRangeAPPLE = log_glFlushMappedBufferRangeAPPLE;
-
-// GL_NV_gpu_program4
-
-   tbl.glProgramLocalParameterI4iNV = log_glProgramLocalParameterI4iNV;
-   tbl.glProgramLocalParameterI4ivNV = log_glProgramLocalParameterI4ivNV;
-   tbl.glProgramLocalParametersI4ivNV = log_glProgramLocalParametersI4ivNV;
-   tbl.glProgramLocalParameterI4uiNV = log_glProgramLocalParameterI4uiNV;
-   tbl.glProgramLocalParameterI4uivNV = log_glProgramLocalParameterI4uivNV;
-   tbl.glProgramLocalParametersI4uivNV = log_glProgramLocalParametersI4uivNV;
-   tbl.glProgramEnvParameterI4iNV = log_glProgramEnvParameterI4iNV;
-   tbl.glProgramEnvParameterI4ivNV = log_glProgramEnvParameterI4ivNV;
-   tbl.glProgramEnvParametersI4ivNV = log_glProgramEnvParametersI4ivNV;
-   tbl.glProgramEnvParameterI4uiNV = log_glProgramEnvParameterI4uiNV;
-   tbl.glProgramEnvParameterI4uivNV = log_glProgramEnvParameterI4uivNV;
-   tbl.glProgramEnvParametersI4uivNV = log_glProgramEnvParametersI4uivNV;
-   tbl.glGetProgramLocalParameterIivNV = log_glGetProgramLocalParameterIivNV;
-   tbl.glGetProgramLocalParameterIuivNV = log_glGetProgramLocalParameterIuivNV;
-   tbl.glGetProgramEnvParameterIivNV = log_glGetProgramEnvParameterIivNV;
-   tbl.glGetProgramEnvParameterIuivNV = log_glGetProgramEnvParameterIuivNV;
-
-// GL_NV_geometry_program4
-
-   tbl.glProgramVertexLimitNV = log_glProgramVertexLimitNV;
-   tbl.glFramebufferTextureEXT = log_glFramebufferTextureEXT;
-   tbl.glFramebufferTextureFaceEXT = log_glFramebufferTextureFaceEXT;
-
-// GL_EXT_geometry_shader4
-
-   tbl.glProgramParameteriEXT = log_glProgramParameteriEXT;
-
-// GL_NV_vertex_program4
-
-   tbl.glVertexAttribI1iEXT = log_glVertexAttribI1iEXT;
-   tbl.glVertexAttribI2iEXT = log_glVertexAttribI2iEXT;
-   tbl.glVertexAttribI3iEXT = log_glVertexAttribI3iEXT;
-   tbl.glVertexAttribI4iEXT = log_glVertexAttribI4iEXT;
-   tbl.glVertexAttribI1uiEXT = log_glVertexAttribI1uiEXT;
-   tbl.glVertexAttribI2uiEXT = log_glVertexAttribI2uiEXT;
-   tbl.glVertexAttribI3uiEXT = log_glVertexAttribI3uiEXT;
-   tbl.glVertexAttribI4uiEXT = log_glVertexAttribI4uiEXT;
-   tbl.glVertexAttribI1ivEXT = log_glVertexAttribI1ivEXT;
-   tbl.glVertexAttribI2ivEXT = log_glVertexAttribI2ivEXT;
-   tbl.glVertexAttribI3ivEXT = log_glVertexAttribI3ivEXT;
-   tbl.glVertexAttribI4ivEXT = log_glVertexAttribI4ivEXT;
-   tbl.glVertexAttribI1uivEXT = log_glVertexAttribI1uivEXT;
-   tbl.glVertexAttribI2uivEXT = log_glVertexAttribI2uivEXT;
-   tbl.glVertexAttribI3uivEXT = log_glVertexAttribI3uivEXT;
-   tbl.glVertexAttribI4uivEXT = log_glVertexAttribI4uivEXT;
-   tbl.glVertexAttribI4bvEXT = log_glVertexAttribI4bvEXT;
-   tbl.glVertexAttribI4svEXT = log_glVertexAttribI4svEXT;
-   tbl.glVertexAttribI4ubvEXT = log_glVertexAttribI4ubvEXT;
-   tbl.glVertexAttribI4usvEXT = log_glVertexAttribI4usvEXT;
-   tbl.glVertexAttribIPointerEXT = log_glVertexAttribIPointerEXT;
-   tbl.glGetVertexAttribIivEXT = log_glGetVertexAttribIivEXT;
-   tbl.glGetVertexAttribIuivEXT = log_glGetVertexAttribIuivEXT;
-
-// GL_EXT_gpu_shader4
-
-   tbl.glGetUniformuivEXT = log_glGetUniformuivEXT;
-   tbl.glBindFragDataLocationEXT = log_glBindFragDataLocationEXT;
-   tbl.glGetFragDataLocationEXT = log_glGetFragDataLocationEXT;
-   tbl.glUniform1uiEXT = log_glUniform1uiEXT;
-   tbl.glUniform2uiEXT = log_glUniform2uiEXT;
-   tbl.glUniform3uiEXT = log_glUniform3uiEXT;
-   tbl.glUniform4uiEXT = log_glUniform4uiEXT;
-   tbl.glUniform1uivEXT = log_glUniform1uivEXT;
-   tbl.glUniform2uivEXT = log_glUniform2uivEXT;
-   tbl.glUniform3uivEXT = log_glUniform3uivEXT;
-   tbl.glUniform4uivEXT = log_glUniform4uivEXT;
-
-// GL_EXT_draw_instanced
-
-   tbl.glDrawArraysInstancedEXT = log_glDrawArraysInstancedEXT;
-   tbl.glDrawElementsInstancedEXT = log_glDrawElementsInstancedEXT;
-
-// GL_EXT_texture_array
-
-   tbl.glFramebufferTextureLayerEXT = log_glFramebufferTextureLayerEXT;
-
-// GL_EXT_texture_buffer_object
-
-   tbl.glTexBufferEXT = log_glTexBufferEXT;
-
-// GL_NV_depth_buffer_float
-
-   tbl.glDepthRangedNV = log_glDepthRangedNV;
-   tbl.glClearDepthdNV = log_glClearDepthdNV;
-   tbl.glDepthBoundsdNV = log_glDepthBoundsdNV;
-
-// GL_NV_framebuffer_multisample_coverage
-
-   tbl.glRenderbufferStorageMultisampleCoverageNV = log_glRenderbufferStorageMultisampleCoverageNV;
-
-// GL_NV_parameter_buffer_object
-
-   tbl.glProgramBufferParametersfvNV = log_glProgramBufferParametersfvNV;
-   tbl.glProgramBufferParametersIivNV = log_glProgramBufferParametersIivNV;
-   tbl.glProgramBufferParametersIuivNV = log_glProgramBufferParametersIuivNV;
-
-// GL_EXT_draw_buffers2
-
-   tbl.glColorMaskIndexedEXT = log_glColorMaskIndexedEXT;
-   tbl.glGetBooleanIndexedvEXT = log_glGetBooleanIndexedvEXT;
-   tbl.glGetIntegerIndexedvEXT = log_glGetIntegerIndexedvEXT;
-   tbl.glEnableIndexedEXT = log_glEnableIndexedEXT;
-   tbl.glDisableIndexedEXT = log_glDisableIndexedEXT;
-   tbl.glIsEnabledIndexedEXT = log_glIsEnabledIndexedEXT;
-
-// GL_NV_transform_feedback
-
-   tbl.glBeginTransformFeedbackNV = log_glBeginTransformFeedbackNV;
-   tbl.glEndTransformFeedbackNV = log_glEndTransformFeedbackNV;
-   tbl.glTransformFeedbackAttribsNV = log_glTransformFeedbackAttribsNV;
-   tbl.glBindBufferRangeNV = log_glBindBufferRangeNV;
-   tbl.glBindBufferOffsetNV = log_glBindBufferOffsetNV;
-   tbl.glBindBufferBaseNV = log_glBindBufferBaseNV;
-   tbl.glTransformFeedbackVaryingsNV = log_glTransformFeedbackVaryingsNV;
-   tbl.glActiveVaryingNV = log_glActiveVaryingNV;
-   tbl.glGetVaryingLocationNV = log_glGetVaryingLocationNV;
-   tbl.glGetActiveVaryingNV = log_glGetActiveVaryingNV;
-   tbl.glGetTransformFeedbackVaryingNV = log_glGetTransformFeedbackVaryingNV;
-
-// GL_EXT_bindable_uniform
-
-   tbl.glUniformBufferEXT = log_glUniformBufferEXT;
-   tbl.glGetUniformBufferSizeEXT = log_glGetUniformBufferSizeEXT;
-   tbl.glGetUniformOffsetEXT = log_glGetUniformOffsetEXT;
-
-// GL_EXT_texture_integer
-
-   tbl.glTexParameterIivEXT = log_glTexParameterIivEXT;
-   tbl.glTexParameterIuivEXT = log_glTexParameterIuivEXT;
-   tbl.glGetTexParameterIivEXT = log_glGetTexParameterIivEXT;
-   tbl.glGetTexParameterIuivEXT = log_glGetTexParameterIuivEXT;
-   tbl.glClearColorIiEXT = log_glClearColorIiEXT;
-   tbl.glClearColorIuiEXT = log_glClearColorIuiEXT;
-
-// GL_GREMEDY_frame_terminator
-
-   tbl.glFrameTerminatorGREMEDY = log_glFrameTerminatorGREMEDY;
-
-// GL_NV_conditional_render
-
-   tbl.glBeginConditionalRenderNV = log_glBeginConditionalRenderNV;
-   tbl.glEndConditionalRenderNV = log_glEndConditionalRenderNV;
-
-// GL_NV_present_video
-
-   tbl.glPresentFrameKeyedNV = log_glPresentFrameKeyedNV;
-   tbl.glPresentFrameDualFillNV = log_glPresentFrameDualFillNV;
-   tbl.glGetVideoivNV = log_glGetVideoivNV;
-   tbl.glGetVideouivNV = log_glGetVideouivNV;
-   tbl.glGetVideoi64vNV = log_glGetVideoi64vNV;
-   tbl.glGetVideoui64vNV = log_glGetVideoui64vNV;
-
-// GL_EXT_transform_feedback
-
-   tbl.glBeginTransformFeedbackEXT = log_glBeginTransformFeedbackEXT;
-   tbl.glEndTransformFeedbackEXT = log_glEndTransformFeedbackEXT;
-   tbl.glBindBufferRangeEXT = log_glBindBufferRangeEXT;
-   tbl.glBindBufferOffsetEXT = log_glBindBufferOffsetEXT;
-   tbl.glBindBufferBaseEXT = log_glBindBufferBaseEXT;
-   tbl.glTransformFeedbackVaryingsEXT = log_glTransformFeedbackVaryingsEXT;
-   tbl.glGetTransformFeedbackVaryingEXT = log_glGetTransformFeedbackVaryingEXT;
-
-// GL_EXT_direct_state_access
-
-   tbl.glClientAttribDefaultEXT = log_glClientAttribDefaultEXT;
-   tbl.glPushClientAttribDefaultEXT = log_glPushClientAttribDefaultEXT;
-   tbl.glMatrixLoadfEXT = log_glMatrixLoadfEXT;
-   tbl.glMatrixLoaddEXT = log_glMatrixLoaddEXT;
-   tbl.glMatrixMultfEXT = log_glMatrixMultfEXT;
-   tbl.glMatrixMultdEXT = log_glMatrixMultdEXT;
-   tbl.glMatrixLoadIdentityEXT = log_glMatrixLoadIdentityEXT;
-   tbl.glMatrixRotatefEXT = log_glMatrixRotatefEXT;
-   tbl.glMatrixRotatedEXT = log_glMatrixRotatedEXT;
-   tbl.glMatrixScalefEXT = log_glMatrixScalefEXT;
-   tbl.glMatrixScaledEXT = log_glMatrixScaledEXT;
-   tbl.glMatrixTranslatefEXT = log_glMatrixTranslatefEXT;
-   tbl.glMatrixTranslatedEXT = log_glMatrixTranslatedEXT;
-   tbl.glMatrixFrustumEXT = log_glMatrixFrustumEXT;
-   tbl.glMatrixOrthoEXT = log_glMatrixOrthoEXT;
-   tbl.glMatrixPopEXT = log_glMatrixPopEXT;
-   tbl.glMatrixPushEXT = log_glMatrixPushEXT;
-   tbl.glMatrixLoadTransposefEXT = log_glMatrixLoadTransposefEXT;
-   tbl.glMatrixLoadTransposedEXT = log_glMatrixLoadTransposedEXT;
-   tbl.glMatrixMultTransposefEXT = log_glMatrixMultTransposefEXT;
-   tbl.glMatrixMultTransposedEXT = log_glMatrixMultTransposedEXT;
-   tbl.glTextureParameterfEXT = log_glTextureParameterfEXT;
-   tbl.glTextureParameterfvEXT = log_glTextureParameterfvEXT;
-   tbl.glTextureParameteriEXT = log_glTextureParameteriEXT;
-   tbl.glTextureParameterivEXT = log_glTextureParameterivEXT;
-   tbl.glTextureImage1DEXT = log_glTextureImage1DEXT;
-   tbl.glTextureImage2DEXT = log_glTextureImage2DEXT;
-   tbl.glTextureSubImage1DEXT = log_glTextureSubImage1DEXT;
-   tbl.glTextureSubImage2DEXT = log_glTextureSubImage2DEXT;
-   tbl.glCopyTextureImage1DEXT = log_glCopyTextureImage1DEXT;
-   tbl.glCopyTextureImage2DEXT = log_glCopyTextureImage2DEXT;
-   tbl.glCopyTextureSubImage1DEXT = log_glCopyTextureSubImage1DEXT;
-   tbl.glCopyTextureSubImage2DEXT = log_glCopyTextureSubImage2DEXT;
-   tbl.glGetTextureImageEXT = log_glGetTextureImageEXT;
-   tbl.glGetTextureParameterfvEXT = log_glGetTextureParameterfvEXT;
-   tbl.glGetTextureParameterivEXT = log_glGetTextureParameterivEXT;
-   tbl.glGetTextureLevelParameterfvEXT = log_glGetTextureLevelParameterfvEXT;
-   tbl.glGetTextureLevelParameterivEXT = log_glGetTextureLevelParameterivEXT;
-   tbl.glTextureImage3DEXT = log_glTextureImage3DEXT;
-   tbl.glTextureSubImage3DEXT = log_glTextureSubImage3DEXT;
-   tbl.glCopyTextureSubImage3DEXT = log_glCopyTextureSubImage3DEXT;
-   tbl.glMultiTexParameterfEXT = log_glMultiTexParameterfEXT;
-   tbl.glMultiTexParameterfvEXT = log_glMultiTexParameterfvEXT;
-   tbl.glMultiTexParameteriEXT = log_glMultiTexParameteriEXT;
-   tbl.glMultiTexParameterivEXT = log_glMultiTexParameterivEXT;
-   tbl.glMultiTexImage1DEXT = log_glMultiTexImage1DEXT;
-   tbl.glMultiTexImage2DEXT = log_glMultiTexImage2DEXT;
-   tbl.glMultiTexSubImage1DEXT = log_glMultiTexSubImage1DEXT;
-   tbl.glMultiTexSubImage2DEXT = log_glMultiTexSubImage2DEXT;
-   tbl.glCopyMultiTexImage1DEXT = log_glCopyMultiTexImage1DEXT;
-   tbl.glCopyMultiTexImage2DEXT = log_glCopyMultiTexImage2DEXT;
-   tbl.glCopyMultiTexSubImage1DEXT = log_glCopyMultiTexSubImage1DEXT;
-   tbl.glCopyMultiTexSubImage2DEXT = log_glCopyMultiTexSubImage2DEXT;
-   tbl.glGetMultiTexImageEXT = log_glGetMultiTexImageEXT;
-   tbl.glGetMultiTexParameterfvEXT = log_glGetMultiTexParameterfvEXT;
-   tbl.glGetMultiTexParameterivEXT = log_glGetMultiTexParameterivEXT;
-   tbl.glGetMultiTexLevelParameterfvEXT = log_glGetMultiTexLevelParameterfvEXT;
-   tbl.glGetMultiTexLevelParameterivEXT = log_glGetMultiTexLevelParameterivEXT;
-   tbl.glMultiTexImage3DEXT = log_glMultiTexImage3DEXT;
-   tbl.glMultiTexSubImage3DEXT = log_glMultiTexSubImage3DEXT;
-   tbl.glCopyMultiTexSubImage3DEXT = log_glCopyMultiTexSubImage3DEXT;
-   tbl.glBindMultiTextureEXT = log_glBindMultiTextureEXT;
-   tbl.glEnableClientStateIndexedEXT = log_glEnableClientStateIndexedEXT;
-   tbl.glDisableClientStateIndexedEXT = log_glDisableClientStateIndexedEXT;
-   tbl.glMultiTexCoordPointerEXT = log_glMultiTexCoordPointerEXT;
-   tbl.glMultiTexEnvfEXT = log_glMultiTexEnvfEXT;
-   tbl.glMultiTexEnvfvEXT = log_glMultiTexEnvfvEXT;
-   tbl.glMultiTexEnviEXT = log_glMultiTexEnviEXT;
-   tbl.glMultiTexEnvivEXT = log_glMultiTexEnvivEXT;
-   tbl.glMultiTexGendEXT = log_glMultiTexGendEXT;
-   tbl.glMultiTexGendvEXT = log_glMultiTexGendvEXT;
-   tbl.glMultiTexGenfEXT = log_glMultiTexGenfEXT;
-   tbl.glMultiTexGenfvEXT = log_glMultiTexGenfvEXT;
-   tbl.glMultiTexGeniEXT = log_glMultiTexGeniEXT;
-   tbl.glMultiTexGenivEXT = log_glMultiTexGenivEXT;
-   tbl.glGetMultiTexEnvfvEXT = log_glGetMultiTexEnvfvEXT;
-   tbl.glGetMultiTexEnvivEXT = log_glGetMultiTexEnvivEXT;
-   tbl.glGetMultiTexGendvEXT = log_glGetMultiTexGendvEXT;
-   tbl.glGetMultiTexGenfvEXT = log_glGetMultiTexGenfvEXT;
-   tbl.glGetMultiTexGenivEXT = log_glGetMultiTexGenivEXT;
-   tbl.glGetFloatIndexedvEXT = log_glGetFloatIndexedvEXT;
-   tbl.glGetDoubleIndexedvEXT = log_glGetDoubleIndexedvEXT;
-   tbl.glGetPointerIndexedvEXT = log_glGetPointerIndexedvEXT;
-   tbl.glCompressedTextureImage3DEXT = log_glCompressedTextureImage3DEXT;
-   tbl.glCompressedTextureImage2DEXT = log_glCompressedTextureImage2DEXT;
-   tbl.glCompressedTextureImage1DEXT = log_glCompressedTextureImage1DEXT;
-   tbl.glCompressedTextureSubImage3DEXT = log_glCompressedTextureSubImage3DEXT;
-   tbl.glCompressedTextureSubImage2DEXT = log_glCompressedTextureSubImage2DEXT;
-   tbl.glCompressedTextureSubImage1DEXT = log_glCompressedTextureSubImage1DEXT;
-   tbl.glGetCompressedTextureImageEXT = log_glGetCompressedTextureImageEXT;
-   tbl.glCompressedMultiTexImage3DEXT = log_glCompressedMultiTexImage3DEXT;
-   tbl.glCompressedMultiTexImage2DEXT = log_glCompressedMultiTexImage2DEXT;
-   tbl.glCompressedMultiTexImage1DEXT = log_glCompressedMultiTexImage1DEXT;
-   tbl.glCompressedMultiTexSubImage3DEXT = log_glCompressedMultiTexSubImage3DEXT;
-   tbl.glCompressedMultiTexSubImage2DEXT = log_glCompressedMultiTexSubImage2DEXT;
-   tbl.glCompressedMultiTexSubImage1DEXT = log_glCompressedMultiTexSubImage1DEXT;
-   tbl.glGetCompressedMultiTexImageEXT = log_glGetCompressedMultiTexImageEXT;
-   tbl.glNamedProgramStringEXT = log_glNamedProgramStringEXT;
-   tbl.glNamedProgramLocalParameter4dEXT = log_glNamedProgramLocalParameter4dEXT;
-   tbl.glNamedProgramLocalParameter4dvEXT = log_glNamedProgramLocalParameter4dvEXT;
-   tbl.glNamedProgramLocalParameter4fEXT = log_glNamedProgramLocalParameter4fEXT;
-   tbl.glNamedProgramLocalParameter4fvEXT = log_glNamedProgramLocalParameter4fvEXT;
-   tbl.glGetNamedProgramLocalParameterdvEXT = log_glGetNamedProgramLocalParameterdvEXT;
-   tbl.glGetNamedProgramLocalParameterfvEXT = log_glGetNamedProgramLocalParameterfvEXT;
-   tbl.glGetNamedProgramivEXT = log_glGetNamedProgramivEXT;
-   tbl.glGetNamedProgramStringEXT = log_glGetNamedProgramStringEXT;
-   tbl.glNamedProgramLocalParameters4fvEXT = log_glNamedProgramLocalParameters4fvEXT;
-   tbl.glNamedProgramLocalParameterI4iEXT = log_glNamedProgramLocalParameterI4iEXT;
-   tbl.glNamedProgramLocalParameterI4ivEXT = log_glNamedProgramLocalParameterI4ivEXT;
-   tbl.glNamedProgramLocalParametersI4ivEXT = log_glNamedProgramLocalParametersI4ivEXT;
-   tbl.glNamedProgramLocalParameterI4uiEXT = log_glNamedProgramLocalParameterI4uiEXT;
-   tbl.glNamedProgramLocalParameterI4uivEXT = log_glNamedProgramLocalParameterI4uivEXT;
-   tbl.glNamedProgramLocalParametersI4uivEXT = log_glNamedProgramLocalParametersI4uivEXT;
-   tbl.glGetNamedProgramLocalParameterIivEXT = log_glGetNamedProgramLocalParameterIivEXT;
-   tbl.glGetNamedProgramLocalParameterIuivEXT = log_glGetNamedProgramLocalParameterIuivEXT;
-   tbl.glTextureParameterIivEXT = log_glTextureParameterIivEXT;
-   tbl.glTextureParameterIuivEXT = log_glTextureParameterIuivEXT;
-   tbl.glGetTextureParameterIivEXT = log_glGetTextureParameterIivEXT;
-   tbl.glGetTextureParameterIuivEXT = log_glGetTextureParameterIuivEXT;
-   tbl.glMultiTexParameterIivEXT = log_glMultiTexParameterIivEXT;
-   tbl.glMultiTexParameterIuivEXT = log_glMultiTexParameterIuivEXT;
-   tbl.glGetMultiTexParameterIivEXT = log_glGetMultiTexParameterIivEXT;
-   tbl.glGetMultiTexParameterIuivEXT = log_glGetMultiTexParameterIuivEXT;
-   tbl.glProgramUniform1fEXT = log_glProgramUniform1fEXT;
-   tbl.glProgramUniform2fEXT = log_glProgramUniform2fEXT;
-   tbl.glProgramUniform3fEXT = log_glProgramUniform3fEXT;
-   tbl.glProgramUniform4fEXT = log_glProgramUniform4fEXT;
-   tbl.glProgramUniform1iEXT = log_glProgramUniform1iEXT;
-   tbl.glProgramUniform2iEXT = log_glProgramUniform2iEXT;
-   tbl.glProgramUniform3iEXT = log_glProgramUniform3iEXT;
-   tbl.glProgramUniform4iEXT = log_glProgramUniform4iEXT;
-   tbl.glProgramUniform1fvEXT = log_glProgramUniform1fvEXT;
-   tbl.glProgramUniform2fvEXT = log_glProgramUniform2fvEXT;
-   tbl.glProgramUniform3fvEXT = log_glProgramUniform3fvEXT;
-   tbl.glProgramUniform4fvEXT = log_glProgramUniform4fvEXT;
-   tbl.glProgramUniform1ivEXT = log_glProgramUniform1ivEXT;
-   tbl.glProgramUniform2ivEXT = log_glProgramUniform2ivEXT;
-   tbl.glProgramUniform3ivEXT = log_glProgramUniform3ivEXT;
-   tbl.glProgramUniform4ivEXT = log_glProgramUniform4ivEXT;
-   tbl.glProgramUniformMatrix2fvEXT = log_glProgramUniformMatrix2fvEXT;
-   tbl.glProgramUniformMatrix3fvEXT = log_glProgramUniformMatrix3fvEXT;
-   tbl.glProgramUniformMatrix4fvEXT = log_glProgramUniformMatrix4fvEXT;
-   tbl.glProgramUniformMatrix2x3fvEXT = log_glProgramUniformMatrix2x3fvEXT;
-   tbl.glProgramUniformMatrix3x2fvEXT = log_glProgramUniformMatrix3x2fvEXT;
-   tbl.glProgramUniformMatrix2x4fvEXT = log_glProgramUniformMatrix2x4fvEXT;
-   tbl.glProgramUniformMatrix4x2fvEXT = log_glProgramUniformMatrix4x2fvEXT;
-   tbl.glProgramUniformMatrix3x4fvEXT = log_glProgramUniformMatrix3x4fvEXT;
-   tbl.glProgramUniformMatrix4x3fvEXT = log_glProgramUniformMatrix4x3fvEXT;
-   tbl.glProgramUniform1uiEXT = log_glProgramUniform1uiEXT;
-   tbl.glProgramUniform2uiEXT = log_glProgramUniform2uiEXT;
-   tbl.glProgramUniform3uiEXT = log_glProgramUniform3uiEXT;
-   tbl.glProgramUniform4uiEXT = log_glProgramUniform4uiEXT;
-   tbl.glProgramUniform1uivEXT = log_glProgramUniform1uivEXT;
-   tbl.glProgramUniform2uivEXT = log_glProgramUniform2uivEXT;
-   tbl.glProgramUniform3uivEXT = log_glProgramUniform3uivEXT;
-   tbl.glProgramUniform4uivEXT = log_glProgramUniform4uivEXT;
-   tbl.glNamedBufferDataEXT = log_glNamedBufferDataEXT;
-   tbl.glNamedBufferSubDataEXT = log_glNamedBufferSubDataEXT;
-   tbl.glMapNamedBufferEXT = log_glMapNamedBufferEXT;
-   tbl.glUnmapNamedBufferEXT = log_glUnmapNamedBufferEXT;
-   tbl.glGetNamedBufferParameterivEXT = log_glGetNamedBufferParameterivEXT;
-   tbl.glGetNamedBufferPointervEXT = log_glGetNamedBufferPointervEXT;
-   tbl.glGetNamedBufferSubDataEXT = log_glGetNamedBufferSubDataEXT;
-   tbl.glTextureBufferEXT = log_glTextureBufferEXT;
-   tbl.glMultiTexBufferEXT = log_glMultiTexBufferEXT;
-   tbl.glNamedRenderbufferStorageEXT = log_glNamedRenderbufferStorageEXT;
-   tbl.glGetNamedRenderbufferParameterivEXT = log_glGetNamedRenderbufferParameterivEXT;
-   tbl.glCheckNamedFramebufferStatusEXT = log_glCheckNamedFramebufferStatusEXT;
-   tbl.glNamedFramebufferTexture1DEXT = log_glNamedFramebufferTexture1DEXT;
-   tbl.glNamedFramebufferTexture2DEXT = log_glNamedFramebufferTexture2DEXT;
-   tbl.glNamedFramebufferTexture3DEXT = log_glNamedFramebufferTexture3DEXT;
-   tbl.glNamedFramebufferRenderbufferEXT = log_glNamedFramebufferRenderbufferEXT;
-   tbl.glGetNamedFramebufferAttachmentParameterivEXT = log_glGetNamedFramebufferAttachmentParameterivEXT;
-   tbl.glGenerateTextureMipmapEXT = log_glGenerateTextureMipmapEXT;
-   tbl.glGenerateMultiTexMipmapEXT = log_glGenerateMultiTexMipmapEXT;
-   tbl.glFramebufferDrawBufferEXT = log_glFramebufferDrawBufferEXT;
-   tbl.glFramebufferDrawBuffersEXT = log_glFramebufferDrawBuffersEXT;
-   tbl.glFramebufferReadBufferEXT = log_glFramebufferReadBufferEXT;
-   tbl.glGetFramebufferParameterivEXT = log_glGetFramebufferParameterivEXT;
-   tbl.glNamedRenderbufferStorageMultisampleEXT = log_glNamedRenderbufferStorageMultisampleEXT;
-   tbl.glNamedRenderbufferStorageMultisampleCoverageEXT = log_glNamedRenderbufferStorageMultisampleCoverageEXT;
-   tbl.glNamedFramebufferTextureEXT = log_glNamedFramebufferTextureEXT;
-   tbl.glNamedFramebufferTextureLayerEXT = log_glNamedFramebufferTextureLayerEXT;
-   tbl.glNamedFramebufferTextureFaceEXT = log_glNamedFramebufferTextureFaceEXT;
-   tbl.glTextureRenderbufferEXT = log_glTextureRenderbufferEXT;
-   tbl.glMultiTexRenderbufferEXT = log_glMultiTexRenderbufferEXT;
-   tbl.glMapNamedBufferRangeEXT = log_glMapNamedBufferRangeEXT;
-   tbl.glFlushMappedNamedBufferRangeEXT = log_glFlushMappedNamedBufferRangeEXT;
-   tbl.glNamedCopyBufferSubDataEXT = log_glNamedCopyBufferSubDataEXT;
-   tbl.glProgramUniform1dEXT = log_glProgramUniform1dEXT;
-   tbl.glProgramUniform2dEXT = log_glProgramUniform2dEXT;
-   tbl.glProgramUniform3dEXT = log_glProgramUniform3dEXT;
-   tbl.glProgramUniform4dEXT = log_glProgramUniform4dEXT;
-   tbl.glProgramUniform1dvEXT = log_glProgramUniform1dvEXT;
-   tbl.glProgramUniform2dvEXT = log_glProgramUniform2dvEXT;
-   tbl.glProgramUniform3dvEXT = log_glProgramUniform3dvEXT;
-   tbl.glProgramUniform4dvEXT = log_glProgramUniform4dvEXT;
-   tbl.glProgramUniformMatrix2dvEXT = log_glProgramUniformMatrix2dvEXT;
-   tbl.glProgramUniformMatrix3dvEXT = log_glProgramUniformMatrix3dvEXT;
-   tbl.glProgramUniformMatrix4dvEXT = log_glProgramUniformMatrix4dvEXT;
-   tbl.glProgramUniformMatrix2x3dvEXT = log_glProgramUniformMatrix2x3dvEXT;
-   tbl.glProgramUniformMatrix2x4dvEXT = log_glProgramUniformMatrix2x4dvEXT;
-   tbl.glProgramUniformMatrix3x2dvEXT = log_glProgramUniformMatrix3x2dvEXT;
-   tbl.glProgramUniformMatrix3x4dvEXT = log_glProgramUniformMatrix3x4dvEXT;
-   tbl.glProgramUniformMatrix4x2dvEXT = log_glProgramUniformMatrix4x2dvEXT;
-   tbl.glProgramUniformMatrix4x3dvEXT = log_glProgramUniformMatrix4x3dvEXT;
-
-// GL_NV_explicit_multisample
-
-   tbl.glGetMultisamplefvNV = log_glGetMultisamplefvNV;
-   tbl.glSampleMaskIndexedNV = log_glSampleMaskIndexedNV;
-   tbl.glTexRenderbufferNV = log_glTexRenderbufferNV;
-
-// GL_NV_transform_feedback2
-
-   tbl.glBindTransformFeedbackNV = log_glBindTransformFeedbackNV;
-   tbl.glDeleteTransformFeedbacksNV = log_glDeleteTransformFeedbacksNV;
-   tbl.glGenTransformFeedbacksNV = log_glGenTransformFeedbacksNV;
-   tbl.glIsTransformFeedbackNV = log_glIsTransformFeedbackNV;
-   tbl.glPauseTransformFeedbackNV = log_glPauseTransformFeedbackNV;
-   tbl.glResumeTransformFeedbackNV = log_glResumeTransformFeedbackNV;
-   tbl.glDrawTransformFeedbackNV = log_glDrawTransformFeedbackNV;
-
-// GL_AMD_performance_monitor
-
-   tbl.glGetPerfMonitorGroupsAMD = log_glGetPerfMonitorGroupsAMD;
-   tbl.glGetPerfMonitorCountersAMD = log_glGetPerfMonitorCountersAMD;
-   tbl.glGetPerfMonitorGroupStringAMD = log_glGetPerfMonitorGroupStringAMD;
-   tbl.glGetPerfMonitorCounterStringAMD = log_glGetPerfMonitorCounterStringAMD;
-   tbl.glGetPerfMonitorCounterInfoAMD = log_glGetPerfMonitorCounterInfoAMD;
-   tbl.glGenPerfMonitorsAMD = log_glGenPerfMonitorsAMD;
-   tbl.glDeletePerfMonitorsAMD = log_glDeletePerfMonitorsAMD;
-   tbl.glSelectPerfMonitorCountersAMD = log_glSelectPerfMonitorCountersAMD;
-   tbl.glBeginPerfMonitorAMD = log_glBeginPerfMonitorAMD;
-   tbl.glEndPerfMonitorAMD = log_glEndPerfMonitorAMD;
-   tbl.glGetPerfMonitorCounterDataAMD = log_glGetPerfMonitorCounterDataAMD;
-
-// GL_AMD_vertex_shader_tessellator
-
-   tbl.glTessellationFactorAMD = log_glTessellationFactorAMD;
-   tbl.glTessellationModeAMD = log_glTessellationModeAMD;
-
-// GL_EXT_provoking_vertex
-
-   tbl.glProvokingVertexEXT = log_glProvokingVertexEXT;
-
-// GL_AMD_draw_buffers_blend
-
-   tbl.glBlendFuncIndexedAMD = log_glBlendFuncIndexedAMD;
-   tbl.glBlendFuncSeparateIndexedAMD = log_glBlendFuncSeparateIndexedAMD;
-   tbl.glBlendEquationIndexedAMD = log_glBlendEquationIndexedAMD;
-   tbl.glBlendEquationSeparateIndexedAMD = log_glBlendEquationSeparateIndexedAMD;
-
-// GL_APPLE_texture_range
-
-   tbl.glTextureRangeAPPLE = log_glTextureRangeAPPLE;
-   tbl.glGetTexParameterPointervAPPLE = log_glGetTexParameterPointervAPPLE;
-
-// GL_APPLE_vertex_program_evaluators
-
-   tbl.glEnableVertexAttribAPPLE = log_glEnableVertexAttribAPPLE;
-   tbl.glDisableVertexAttribAPPLE = log_glDisableVertexAttribAPPLE;
-   tbl.glIsVertexAttribEnabledAPPLE = log_glIsVertexAttribEnabledAPPLE;
-   tbl.glMapVertexAttrib1dAPPLE = log_glMapVertexAttrib1dAPPLE;
-   tbl.glMapVertexAttrib1fAPPLE = log_glMapVertexAttrib1fAPPLE;
-   tbl.glMapVertexAttrib2dAPPLE = log_glMapVertexAttrib2dAPPLE;
-   tbl.glMapVertexAttrib2fAPPLE = log_glMapVertexAttrib2fAPPLE;
-
-// GL_APPLE_object_purgeable
-
-   tbl.glObjectPurgeableAPPLE = log_glObjectPurgeableAPPLE;
-   tbl.glObjectUnpurgeableAPPLE = log_glObjectUnpurgeableAPPLE;
-   tbl.glGetObjectParameterivAPPLE = log_glGetObjectParameterivAPPLE;
-
-// GL_NV_video_capture
-
-   tbl.glBeginVideoCaptureNV = log_glBeginVideoCaptureNV;
-   tbl.glBindVideoCaptureStreamBufferNV = log_glBindVideoCaptureStreamBufferNV;
-   tbl.glBindVideoCaptureStreamTextureNV = log_glBindVideoCaptureStreamTextureNV;
-   tbl.glEndVideoCaptureNV = log_glEndVideoCaptureNV;
-   tbl.glGetVideoCaptureivNV = log_glGetVideoCaptureivNV;
-   tbl.glGetVideoCaptureStreamivNV = log_glGetVideoCaptureStreamivNV;
-   tbl.glGetVideoCaptureStreamfvNV = log_glGetVideoCaptureStreamfvNV;
-   tbl.glGetVideoCaptureStreamdvNV = log_glGetVideoCaptureStreamdvNV;
-   tbl.glVideoCaptureNV = log_glVideoCaptureNV;
-   tbl.glVideoCaptureStreamParameterivNV = log_glVideoCaptureStreamParameterivNV;
-   tbl.glVideoCaptureStreamParameterfvNV = log_glVideoCaptureStreamParameterfvNV;
-   tbl.glVideoCaptureStreamParameterdvNV = log_glVideoCaptureStreamParameterdvNV;
-
-// GL_NV_copy_image
-
-   tbl.glCopyImageSubDataNV = log_glCopyImageSubDataNV;
-
-// GL_EXT_separate_shader_objects
-
-   tbl.glUseShaderProgramEXT = log_glUseShaderProgramEXT;
-   tbl.glActiveProgramEXT = log_glActiveProgramEXT;
-   tbl.glCreateShaderProgramEXT = log_glCreateShaderProgramEXT;
-
-// GL_NV_shader_buffer_load
-
-   tbl.glMakeBufferResidentNV = log_glMakeBufferResidentNV;
-   tbl.glMakeBufferNonResidentNV = log_glMakeBufferNonResidentNV;
-   tbl.glIsBufferResidentNV = log_glIsBufferResidentNV;
-   tbl.glMakeNamedBufferResidentNV = log_glMakeNamedBufferResidentNV;
-   tbl.glMakeNamedBufferNonResidentNV = log_glMakeNamedBufferNonResidentNV;
-   tbl.glIsNamedBufferResidentNV = log_glIsNamedBufferResidentNV;
-   tbl.glGetBufferParameterui64vNV = log_glGetBufferParameterui64vNV;
-   tbl.glGetNamedBufferParameterui64vNV = log_glGetNamedBufferParameterui64vNV;
-   tbl.glGetIntegerui64vNV = log_glGetIntegerui64vNV;
-   tbl.glUniformui64NV = log_glUniformui64NV;
-   tbl.glUniformui64vNV = log_glUniformui64vNV;
-   tbl.glGetUniformui64vNV = log_glGetUniformui64vNV;
-   tbl.glProgramUniformui64NV = log_glProgramUniformui64NV;
-   tbl.glProgramUniformui64vNV = log_glProgramUniformui64vNV;
-
-// GL_NV_vertex_buffer_unified_memory
-
-   tbl.glBufferAddressRangeNV = log_glBufferAddressRangeNV;
-   tbl.glVertexFormatNV = log_glVertexFormatNV;
-   tbl.glNormalFormatNV = log_glNormalFormatNV;
-   tbl.glColorFormatNV = log_glColorFormatNV;
-   tbl.glIndexFormatNV = log_glIndexFormatNV;
-   tbl.glTexCoordFormatNV = log_glTexCoordFormatNV;
-   tbl.glEdgeFlagFormatNV = log_glEdgeFlagFormatNV;
-   tbl.glSecondaryColorFormatNV = log_glSecondaryColorFormatNV;
-   tbl.glFogCoordFormatNV = log_glFogCoordFormatNV;
-   tbl.glVertexAttribFormatNV = log_glVertexAttribFormatNV;
-   tbl.glVertexAttribIFormatNV = log_glVertexAttribIFormatNV;
-   tbl.glGetIntegerui64i_vNV = log_glGetIntegerui64i_vNV;
-
-// GL_NV_texture_barrier
-
-   tbl.glTextureBarrierNV = log_glTextureBarrierNV;
-
-// GL_EXT_shader_image_load_store
-
-   tbl.glBindImageTextureEXT = log_glBindImageTextureEXT;
-   tbl.glMemoryBarrierEXT = log_glMemoryBarrierEXT;
-
-// GL_EXT_vertex_attrib_64bit
-
-   tbl.glVertexAttribL1dEXT = log_glVertexAttribL1dEXT;
-   tbl.glVertexAttribL2dEXT = log_glVertexAttribL2dEXT;
-   tbl.glVertexAttribL3dEXT = log_glVertexAttribL3dEXT;
-   tbl.glVertexAttribL4dEXT = log_glVertexAttribL4dEXT;
-   tbl.glVertexAttribL1dvEXT = log_glVertexAttribL1dvEXT;
-   tbl.glVertexAttribL2dvEXT = log_glVertexAttribL2dvEXT;
-   tbl.glVertexAttribL3dvEXT = log_glVertexAttribL3dvEXT;
-   tbl.glVertexAttribL4dvEXT = log_glVertexAttribL4dvEXT;
-   tbl.glVertexAttribLPointerEXT = log_glVertexAttribLPointerEXT;
-   tbl.glVertexArrayVertexAttribLOffsetEXT = log_glVertexArrayVertexAttribLOffsetEXT;
-   tbl.glGetVertexAttribLdvEXT = log_glGetVertexAttribLdvEXT;
-
-// GL_NV_gpu_shader5
-
-   tbl.glUniform1i64NV = log_glUniform1i64NV;
-   tbl.glUniform2i64NV = log_glUniform2i64NV;
-   tbl.glUniform3i64NV = log_glUniform3i64NV;
-   tbl.glUniform4i64NV = log_glUniform4i64NV;
-   tbl.glUniform1i64vNV = log_glUniform1i64vNV;
-   tbl.glUniform2i64vNV = log_glUniform2i64vNV;
-   tbl.glUniform3i64vNV = log_glUniform3i64vNV;
-   tbl.glUniform4i64vNV = log_glUniform4i64vNV;
-   tbl.glUniform1ui64NV = log_glUniform1ui64NV;
-   tbl.glUniform2ui64NV = log_glUniform2ui64NV;
-   tbl.glUniform3ui64NV = log_glUniform3ui64NV;
-   tbl.glUniform4ui64NV = log_glUniform4ui64NV;
-   tbl.glUniform1ui64vNV = log_glUniform1ui64vNV;
-   tbl.glUniform2ui64vNV = log_glUniform2ui64vNV;
-   tbl.glUniform3ui64vNV = log_glUniform3ui64vNV;
-   tbl.glUniform4ui64vNV = log_glUniform4ui64vNV;
-   tbl.glProgramUniform1i64NV = log_glProgramUniform1i64NV;
-   tbl.glProgramUniform2i64NV = log_glProgramUniform2i64NV;
-   tbl.glProgramUniform3i64NV = log_glProgramUniform3i64NV;
-   tbl.glProgramUniform4i64NV = log_glProgramUniform4i64NV;
-   tbl.glProgramUniform1i64vNV = log_glProgramUniform1i64vNV;
-   tbl.glProgramUniform2i64vNV = log_glProgramUniform2i64vNV;
-   tbl.glProgramUniform3i64vNV = log_glProgramUniform3i64vNV;
-   tbl.glProgramUniform4i64vNV = log_glProgramUniform4i64vNV;
-   tbl.glProgramUniform1ui64NV = log_glProgramUniform1ui64NV;
-   tbl.glProgramUniform2ui64NV = log_glProgramUniform2ui64NV;
-   tbl.glProgramUniform3ui64NV = log_glProgramUniform3ui64NV;
-   tbl.glProgramUniform4ui64NV = log_glProgramUniform4ui64NV;
-   tbl.glProgramUniform1ui64vNV = log_glProgramUniform1ui64vNV;
-   tbl.glProgramUniform2ui64vNV = log_glProgramUniform2ui64vNV;
-   tbl.glProgramUniform3ui64vNV = log_glProgramUniform3ui64vNV;
-   tbl.glProgramUniform4ui64vNV = log_glProgramUniform4ui64vNV;
-   tbl.glGetUniformi64vNV = log_glGetUniformi64vNV;
-
-// GL_NV_vertex_attrib_integer_64bit
-
-   tbl.glVertexAttribL1i64NV = log_glVertexAttribL1i64NV;
-   tbl.glVertexAttribL2i64NV = log_glVertexAttribL2i64NV;
-   tbl.glVertexAttribL3i64NV = log_glVertexAttribL3i64NV;
-   tbl.glVertexAttribL4i64NV = log_glVertexAttribL4i64NV;
-   tbl.glVertexAttribL1ui64NV = log_glVertexAttribL1ui64NV;
-   tbl.glVertexAttribL2ui64NV = log_glVertexAttribL2ui64NV;
-   tbl.glVertexAttribL3ui64NV = log_glVertexAttribL3ui64NV;
-   tbl.glVertexAttribL4ui64NV = log_glVertexAttribL4ui64NV;
-   tbl.glVertexAttribL1i64vNV = log_glVertexAttribL1i64vNV;
-   tbl.glVertexAttribL2i64vNV = log_glVertexAttribL2i64vNV;
-   tbl.glVertexAttribL3i64vNV = log_glVertexAttribL3i64vNV;
-   tbl.glVertexAttribL4i64vNV = log_glVertexAttribL4i64vNV;
-   tbl.glVertexAttribL1ui64vNV = log_glVertexAttribL1ui64vNV;
-   tbl.glVertexAttribL2ui64vNV = log_glVertexAttribL2ui64vNV;
-   tbl.glVertexAttribL3ui64vNV = log_glVertexAttribL3ui64vNV;
-   tbl.glVertexAttribL4ui64vNV = log_glVertexAttribL4ui64vNV;
-   tbl.glVertexAttribLFormatNV = log_glVertexAttribLFormatNV;
-   tbl.glGetVertexAttribLi64vNV = log_glGetVertexAttribLi64vNV;
-   tbl.glGetVertexAttribLui64vNV = log_glGetVertexAttribLui64vNV;
-
-// GL_NV_vdpau_interop
-
-   tbl.glVDPAUInitNV = log_glVDPAUInitNV;
-   tbl.glVDPAUFiniNV = log_glVDPAUFiniNV;
-   tbl.glVDPAURegisterVideoSurfaceNV = log_glVDPAURegisterVideoSurfaceNV;
-   tbl.glVDPAURegisterOutputSurfaceNV = log_glVDPAURegisterOutputSurfaceNV;
-   tbl.glVDPAUIsSurfaceNV = log_glVDPAUIsSurfaceNV;
-   tbl.glVDPAUUnregisterSurfaceNV = log_glVDPAUUnregisterSurfaceNV;
-   tbl.glVDPAUGetSurfaceivNV = log_glVDPAUGetSurfaceivNV;
-   tbl.glVDPAUSurfaceAccessNV = log_glVDPAUSurfaceAccessNV;
-   tbl.glVDPAUMapSurfacesNV = log_glVDPAUMapSurfacesNV;
-   tbl.glVDPAUUnmapSurfacesNV = log_glVDPAUUnmapSurfacesNV;
-
-// GL_NV_path_rendering
-
-   tbl.glCopyPathNV = log_glCopyPathNV;
-   tbl.glCoverFillPathInstancedNV = log_glCoverFillPathInstancedNV;
-   tbl.glCoverFillPathNV = log_glCoverFillPathNV;
-   tbl.glCoverStrokePathInstancedNV = log_glCoverStrokePathInstancedNV;
-   tbl.glCoverStrokePathNV = log_glCoverStrokePathNV;
-   tbl.glDeletePathsNV = log_glDeletePathsNV;
-   tbl.glGenPathsNV = log_glGenPathsNV;
-   tbl.glGetPathColorGenfvNV = log_glGetPathColorGenfvNV;
-   tbl.glGetPathColorGenivNV = log_glGetPathColorGenivNV;
-   tbl.glGetPathCommandsNV = log_glGetPathCommandsNV;
-   tbl.glGetPathCoordsNV = log_glGetPathCoordsNV;
-   tbl.glGetPathDashArrayNV = log_glGetPathDashArrayNV;
-   tbl.glGetPathLengthNV = log_glGetPathLengthNV;
-   tbl.glGetPathMetricRangeNV = log_glGetPathMetricRangeNV;
-   tbl.glGetPathMetricsNV = log_glGetPathMetricsNV;
-   tbl.glGetPathParameterfvNV = log_glGetPathParameterfvNV;
-   tbl.glGetPathParameterivNV = log_glGetPathParameterivNV;
-   tbl.glGetPathSpacingNV = log_glGetPathSpacingNV;
-   tbl.glGetPathTexGenfvNV = log_glGetPathTexGenfvNV;
-   tbl.glGetPathTexGenivNV = log_glGetPathTexGenivNV;
-   tbl.glInterpolatePathsNV = log_glInterpolatePathsNV;
-   tbl.glIsPathNV = log_glIsPathNV;
-   tbl.glIsPointInFillPathNV = log_glIsPointInFillPathNV;
-   tbl.glIsPointInStrokePathNV = log_glIsPointInStrokePathNV;
-   tbl.glPathColorGenNV = log_glPathColorGenNV;
-   tbl.glPathCommandsNV = log_glPathCommandsNV;
-   tbl.glPathCoordsNV = log_glPathCoordsNV;
-   tbl.glPathCoverDepthFuncNV = log_glPathCoverDepthFuncNV;
-   tbl.glPathDashArrayNV = log_glPathDashArrayNV;
-   tbl.glPathFogGenNV = log_glPathFogGenNV;
-   tbl.glPathGlyphRangeNV = log_glPathGlyphRangeNV;
-   tbl.glPathGlyphsNV = log_glPathGlyphsNV;
-   tbl.glPathParameterfNV = log_glPathParameterfNV;
-   tbl.glPathParameterfvNV = log_glPathParameterfvNV;
-   tbl.glPathParameteriNV = log_glPathParameteriNV;
-   tbl.glPathParameterivNV = log_glPathParameterivNV;
-   tbl.glPathStencilDepthOffsetNV = log_glPathStencilDepthOffsetNV;
-   tbl.glPathStencilFuncNV = log_glPathStencilFuncNV;
-   tbl.glPathStringNV = log_glPathStringNV;
-   tbl.glPathSubCommandsNV = log_glPathSubCommandsNV;
-   tbl.glPathSubCoordsNV = log_glPathSubCoordsNV;
-   tbl.glPathTexGenNV = log_glPathTexGenNV;
-   tbl.glPointAlongPathNV = log_glPointAlongPathNV;
-   tbl.glStencilFillPathInstancedNV = log_glStencilFillPathInstancedNV;
-   tbl.glStencilFillPathNV = log_glStencilFillPathNV;
-   tbl.glStencilStrokePathInstancedNV = log_glStencilStrokePathInstancedNV;
-   tbl.glStencilStrokePathNV = log_glStencilStrokePathNV;
-   tbl.glTransformPathNV = log_glTransformPathNV;
-   tbl.glWeightPathsNV = log_glWeightPathsNV;
-
-// GL_AMD_debug_output
-
-   tbl.glGetDebugMessageLogAMD = log_glGetDebugMessageLogAMD;
-   tbl.glDebugMessageCallbackAMD = log_glDebugMessageCallbackAMD;
-   tbl.glDebugMessageEnableAMD = log_glDebugMessageEnableAMD;
-   tbl.glDebugMessageInsertAMD = log_glDebugMessageInsertAMD;
-
-// GL_AMD_multi_draw_indirect
-
-   tbl.glMultiDrawArraysIndirectAMD = log_glMultiDrawArraysIndirectAMD;
-   tbl.glMultiDrawElementsIndirectAMD = log_glMultiDrawElementsIndirectAMD;
-
-// GL_AMD_name_gen_delete
-
-   tbl.glIsNameAMD = log_glIsNameAMD;
-   tbl.glDeleteNamesAMD = log_glDeleteNamesAMD;
-   tbl.glGenNamesAMD = log_glGenNamesAMD;
-
-// GL_AMD_sample_positions
-
-   tbl.glSetMultisamplefvAMD = log_glSetMultisamplefvAMD;
-
-// GL_AMD_stencil_operation_extended
-
-   tbl.glStencilOpValueAMD = log_glStencilOpValueAMD;
-
-// GL_ARB_base_instance
-
-   tbl.glDrawArraysInstancedBaseInstance = log_glDrawArraysInstancedBaseInstance;
-   tbl.glDrawElementsInstancedBaseInstance = log_glDrawElementsInstancedBaseInstance;
-   tbl.glDrawElementsInstancedBaseVertexBaseInstance = log_glDrawElementsInstancedBaseVertexBaseInstance;
-
-// GL_ARB_cl_event
-
-   tbl.glCreateSyncFromCLeventARB = log_glCreateSyncFromCLeventARB;
-
-// GL_ARB_internalformat_query
-
-   tbl.glGetInternalformativ = log_glGetInternalformativ;
-
-// GL_ARB_texture_storage
-
-   tbl.glTexStorage1D = log_glTexStorage1D;
-   tbl.glTexStorage2D = log_glTexStorage2D;
-   tbl.glTexStorage3D = log_glTexStorage3D;
-   tbl.glTextureStorage1DEXT = log_glTextureStorage1DEXT;
-   tbl.glTextureStorage2DEXT = log_glTextureStorage2DEXT;
-   tbl.glTextureStorage3DEXT = log_glTextureStorage3DEXT;
-
-// GL_ARB_transform_feedback_instanced
-
-   tbl.glDrawTransformFeedbackInstanced = log_glDrawTransformFeedbackInstanced;
-   tbl.glDrawTransformFeedbackStreamInstanced = log_glDrawTransformFeedbackStreamInstanced;
-
-// GL_EXT_x11_sync_object
-
-   tbl.glImportSyncEXT = log_glImportSyncEXT;
-
-// GL_INTEL_texture_scissor
-
-   tbl.glTexScissorFuncINTEL = log_glTexScissorFuncINTEL;
-   tbl.glTexScissorINTEL = log_glTexScissorINTEL;
-
-// GL_NV_bindless_texture
-
-   tbl.glIsImageHandleResidentNV = log_glIsImageHandleResidentNV;
-   tbl.glIsTextureHandleResidentNV = log_glIsTextureHandleResidentNV;
-   tbl.glGetImageHandleNV = log_glGetImageHandleNV;
-   tbl.glGetTextureHandleNV = log_glGetTextureHandleNV;
-   tbl.glGetTextureSamplerHandleNV = log_glGetTextureSamplerHandleNV;
-   tbl.glMakeImageHandleNonResidentNV = log_glMakeImageHandleNonResidentNV;
-   tbl.glMakeImageHandleResidentNV = log_glMakeImageHandleResidentNV;
-   tbl.glMakeTextureHandleNonResidentNV = log_glMakeTextureHandleNonResidentNV;
-   tbl.glMakeTextureHandleResidentNV = log_glMakeTextureHandleResidentNV;
-   tbl.glProgramUniformHandleui64NV = log_glProgramUniformHandleui64NV;
-   tbl.glProgramUniformHandleui64vNV = log_glProgramUniformHandleui64vNV;
-   tbl.glUniformHandleui64NV = log_glUniformHandleui64NV;
-   tbl.glUniformHandleui64vNV = log_glUniformHandleui64vNV;
-
-// GL_NV_texture_multisample
-
-   tbl.glTexImage2DMultisampleCoverageNV = log_glTexImage2DMultisampleCoverageNV;
-   tbl.glTexImage3DMultisampleCoverageNV = log_glTexImage3DMultisampleCoverageNV;
-   tbl.glTextureImage2DMultisampleCoverageNV = log_glTextureImage2DMultisampleCoverageNV;
-   tbl.glTextureImage2DMultisampleNV = log_glTextureImage2DMultisampleNV;
-   tbl.glTextureImage3DMultisampleCoverageNV = log_glTextureImage3DMultisampleCoverageNV;
-   tbl.glTextureImage3DMultisampleNV = log_glTextureImage3DMultisampleNV;
-
-// GL_SUN_read_video_pixels
-
-   tbl.glReadVideoPixelsSUN = log_glReadVideoPixelsSUN;
-
-// GL_EXT_fragment_lighting
-
-   tbl.glFragmentColorMaterialEXT = log_glFragmentColorMaterialEXT;
-   tbl.glFragmentLightModelfEXT = log_glFragmentLightModelfEXT;
-   tbl.glFragmentLightModelfvEXT = log_glFragmentLightModelfvEXT;
-   tbl.glFragmentLightModeliEXT = log_glFragmentLightModeliEXT;
-   tbl.glFragmentLightModelivEXT = log_glFragmentLightModelivEXT;
-   tbl.glFragmentLightfEXT = log_glFragmentLightfEXT;
-   tbl.glFragmentLightfvEXT = log_glFragmentLightfvEXT;
-   tbl.glFragmentLightiEXT = log_glFragmentLightiEXT;
-   tbl.glFragmentLightivEXT = log_glFragmentLightivEXT;
-   tbl.glFragmentMaterialfEXT = log_glFragmentMaterialfEXT;
-   tbl.glFragmentMaterialfvEXT = log_glFragmentMaterialfvEXT;
-   tbl.glFragmentMaterialiEXT = log_glFragmentMaterialiEXT;
-   tbl.glFragmentMaterialivEXT = log_glFragmentMaterialivEXT;
-   tbl.glGetFragmentLightfvEXT = log_glGetFragmentLightfvEXT;
-   tbl.glGetFragmentLightivEXT = log_glGetFragmentLightivEXT;
-   tbl.glGetFragmentMaterialfvEXT = log_glGetFragmentMaterialfvEXT;
-   tbl.glGetFragmentMaterialivEXT = log_glGetFragmentMaterialivEXT;
-   tbl.glLightEnviEXT = log_glLightEnviEXT;
-
-// GL_EXT_debug_marker
-
-   tbl.glInsertEventMarkerEXT = log_glInsertEventMarkerEXT;
-   tbl.glPushGroupMarkerEXT = log_glPushGroupMarkerEXT;
-   tbl.glPopGroupMarkerEXT = log_glPopGroupMarkerEXT;
-
-// GL_KTX_buffer_region
-
-   tbl.glBufferRegionEnabledEXT = log_glBufferRegionEnabledEXT;
-   tbl.glNewBufferRegionEXT = log_glNewBufferRegionEXT;
-   tbl.glDeleteBufferRegionEXT = log_glDeleteBufferRegionEXT;
-   tbl.glReadBufferRegionEXT = log_glReadBufferRegionEXT;
-   tbl.glDrawBufferRegionEXT = log_glDrawBufferRegionEXT;
-
-// GL_SGIX_fog_texture
-
-   tbl.glTextureFogSGIX = log_glTextureFogSGIX;
-
-// GL_APPLE_flush_render
-
-   tbl.glFlushRenderAPPLE = log_glFlushRenderAPPLE;
-   tbl.glFinishRenderAPPLE = log_glFinishRenderAPPLE;
-   tbl.glSwapAPPLE = log_glSwapAPPLE;
-
-// GL_WIN_swap_hint
-
-   tbl.glAddSwapHintRectWIN = log_glAddSwapHintRectWIN;
+  // GL_VERSION_1_0
+
+  tbl.glNewList = log_glNewList;
+  tbl.glEndList = log_glEndList;
+  tbl.glCallList = log_glCallList;
+  tbl.glCallLists = log_glCallLists;
+  tbl.glDeleteLists = log_glDeleteLists;
+  tbl.glGenLists = log_glGenLists;
+  tbl.glListBase = log_glListBase;
+  tbl.glBegin = log_glBegin;
+  tbl.glBitmap = log_glBitmap;
+  tbl.glColor3b = log_glColor3b;
+  tbl.glColor3bv = log_glColor3bv;
+  tbl.glColor3d = log_glColor3d;
+  tbl.glColor3dv = log_glColor3dv;
+  tbl.glColor3f = log_glColor3f;
+  tbl.glColor3fv = log_glColor3fv;
+  tbl.glColor3i = log_glColor3i;
+  tbl.glColor3iv = log_glColor3iv;
+  tbl.glColor3s = log_glColor3s;
+  tbl.glColor3sv = log_glColor3sv;
+  tbl.glColor3ub = log_glColor3ub;
+  tbl.glColor3ubv = log_glColor3ubv;
+  tbl.glColor3ui = log_glColor3ui;
+  tbl.glColor3uiv = log_glColor3uiv;
+  tbl.glColor3us = log_glColor3us;
+  tbl.glColor3usv = log_glColor3usv;
+  tbl.glColor4b = log_glColor4b;
+  tbl.glColor4bv = log_glColor4bv;
+  tbl.glColor4d = log_glColor4d;
+  tbl.glColor4dv = log_glColor4dv;
+  tbl.glColor4f = log_glColor4f;
+  tbl.glColor4fv = log_glColor4fv;
+  tbl.glColor4i = log_glColor4i;
+  tbl.glColor4iv = log_glColor4iv;
+  tbl.glColor4s = log_glColor4s;
+  tbl.glColor4sv = log_glColor4sv;
+  tbl.glColor4ub = log_glColor4ub;
+  tbl.glColor4ubv = log_glColor4ubv;
+  tbl.glColor4ui = log_glColor4ui;
+  tbl.glColor4uiv = log_glColor4uiv;
+  tbl.glColor4us = log_glColor4us;
+  tbl.glColor4usv = log_glColor4usv;
+  tbl.glEdgeFlag = log_glEdgeFlag;
+  tbl.glEdgeFlagv = log_glEdgeFlagv;
+  tbl.glEnd = log_glEnd;
+  tbl.glIndexd = log_glIndexd;
+  tbl.glIndexdv = log_glIndexdv;
+  tbl.glIndexf = log_glIndexf;
+  tbl.glIndexfv = log_glIndexfv;
+  tbl.glIndexi = log_glIndexi;
+  tbl.glIndexiv = log_glIndexiv;
+  tbl.glIndexs = log_glIndexs;
+  tbl.glIndexsv = log_glIndexsv;
+  tbl.glNormal3b = log_glNormal3b;
+  tbl.glNormal3bv = log_glNormal3bv;
+  tbl.glNormal3d = log_glNormal3d;
+  tbl.glNormal3dv = log_glNormal3dv;
+  tbl.glNormal3f = log_glNormal3f;
+  tbl.glNormal3fv = log_glNormal3fv;
+  tbl.glNormal3i = log_glNormal3i;
+  tbl.glNormal3iv = log_glNormal3iv;
+  tbl.glNormal3s = log_glNormal3s;
+  tbl.glNormal3sv = log_glNormal3sv;
+  tbl.glRasterPos2d = log_glRasterPos2d;
+  tbl.glRasterPos2dv = log_glRasterPos2dv;
+  tbl.glRasterPos2f = log_glRasterPos2f;
+  tbl.glRasterPos2fv = log_glRasterPos2fv;
+  tbl.glRasterPos2i = log_glRasterPos2i;
+  tbl.glRasterPos2iv = log_glRasterPos2iv;
+  tbl.glRasterPos2s = log_glRasterPos2s;
+  tbl.glRasterPos2sv = log_glRasterPos2sv;
+  tbl.glRasterPos3d = log_glRasterPos3d;
+  tbl.glRasterPos3dv = log_glRasterPos3dv;
+  tbl.glRasterPos3f = log_glRasterPos3f;
+  tbl.glRasterPos3fv = log_glRasterPos3fv;
+  tbl.glRasterPos3i = log_glRasterPos3i;
+  tbl.glRasterPos3iv = log_glRasterPos3iv;
+  tbl.glRasterPos3s = log_glRasterPos3s;
+  tbl.glRasterPos3sv = log_glRasterPos3sv;
+  tbl.glRasterPos4d = log_glRasterPos4d;
+  tbl.glRasterPos4dv = log_glRasterPos4dv;
+  tbl.glRasterPos4f = log_glRasterPos4f;
+  tbl.glRasterPos4fv = log_glRasterPos4fv;
+  tbl.glRasterPos4i = log_glRasterPos4i;
+  tbl.glRasterPos4iv = log_glRasterPos4iv;
+  tbl.glRasterPos4s = log_glRasterPos4s;
+  tbl.glRasterPos4sv = log_glRasterPos4sv;
+  tbl.glRectd = log_glRectd;
+  tbl.glRectdv = log_glRectdv;
+  tbl.glRectf = log_glRectf;
+  tbl.glRectfv = log_glRectfv;
+  tbl.glRecti = log_glRecti;
+  tbl.glRectiv = log_glRectiv;
+  tbl.glRects = log_glRects;
+  tbl.glRectsv = log_glRectsv;
+  tbl.glTexCoord1d = log_glTexCoord1d;
+  tbl.glTexCoord1dv = log_glTexCoord1dv;
+  tbl.glTexCoord1f = log_glTexCoord1f;
+  tbl.glTexCoord1fv = log_glTexCoord1fv;
+  tbl.glTexCoord1i = log_glTexCoord1i;
+  tbl.glTexCoord1iv = log_glTexCoord1iv;
+  tbl.glTexCoord1s = log_glTexCoord1s;
+  tbl.glTexCoord1sv = log_glTexCoord1sv;
+  tbl.glTexCoord2d = log_glTexCoord2d;
+  tbl.glTexCoord2dv = log_glTexCoord2dv;
+  tbl.glTexCoord2f = log_glTexCoord2f;
+  tbl.glTexCoord2fv = log_glTexCoord2fv;
+  tbl.glTexCoord2i = log_glTexCoord2i;
+  tbl.glTexCoord2iv = log_glTexCoord2iv;
+  tbl.glTexCoord2s = log_glTexCoord2s;
+  tbl.glTexCoord2sv = log_glTexCoord2sv;
+  tbl.glTexCoord3d = log_glTexCoord3d;
+  tbl.glTexCoord3dv = log_glTexCoord3dv;
+  tbl.glTexCoord3f = log_glTexCoord3f;
+  tbl.glTexCoord3fv = log_glTexCoord3fv;
+  tbl.glTexCoord3i = log_glTexCoord3i;
+  tbl.glTexCoord3iv = log_glTexCoord3iv;
+  tbl.glTexCoord3s = log_glTexCoord3s;
+  tbl.glTexCoord3sv = log_glTexCoord3sv;
+  tbl.glTexCoord4d = log_glTexCoord4d;
+  tbl.glTexCoord4dv = log_glTexCoord4dv;
+  tbl.glTexCoord4f = log_glTexCoord4f;
+  tbl.glTexCoord4fv = log_glTexCoord4fv;
+  tbl.glTexCoord4i = log_glTexCoord4i;
+  tbl.glTexCoord4iv = log_glTexCoord4iv;
+  tbl.glTexCoord4s = log_glTexCoord4s;
+  tbl.glTexCoord4sv = log_glTexCoord4sv;
+  tbl.glVertex2d = log_glVertex2d;
+  tbl.glVertex2dv = log_glVertex2dv;
+  tbl.glVertex2f = log_glVertex2f;
+  tbl.glVertex2fv = log_glVertex2fv;
+  tbl.glVertex2i = log_glVertex2i;
+  tbl.glVertex2iv = log_glVertex2iv;
+  tbl.glVertex2s = log_glVertex2s;
+  tbl.glVertex2sv = log_glVertex2sv;
+  tbl.glVertex3d = log_glVertex3d;
+  tbl.glVertex3dv = log_glVertex3dv;
+  tbl.glVertex3f = log_glVertex3f;
+  tbl.glVertex3fv = log_glVertex3fv;
+  tbl.glVertex3i = log_glVertex3i;
+  tbl.glVertex3iv = log_glVertex3iv;
+  tbl.glVertex3s = log_glVertex3s;
+  tbl.glVertex3sv = log_glVertex3sv;
+  tbl.glVertex4d = log_glVertex4d;
+  tbl.glVertex4dv = log_glVertex4dv;
+  tbl.glVertex4f = log_glVertex4f;
+  tbl.glVertex4fv = log_glVertex4fv;
+  tbl.glVertex4i = log_glVertex4i;
+  tbl.glVertex4iv = log_glVertex4iv;
+  tbl.glVertex4s = log_glVertex4s;
+  tbl.glVertex4sv = log_glVertex4sv;
+  tbl.glClipPlane = log_glClipPlane;
+  tbl.glColorMaterial = log_glColorMaterial;
+  tbl.glCullFace = log_glCullFace;
+  tbl.glFogf = log_glFogf;
+  tbl.glFogfv = log_glFogfv;
+  tbl.glFogi = log_glFogi;
+  tbl.glFogiv = log_glFogiv;
+  tbl.glFrontFace = log_glFrontFace;
+  tbl.glHint = log_glHint;
+  tbl.glLightf = log_glLightf;
+  tbl.glLightfv = log_glLightfv;
+  tbl.glLighti = log_glLighti;
+  tbl.glLightiv = log_glLightiv;
+  tbl.glLightModelf = log_glLightModelf;
+  tbl.glLightModelfv = log_glLightModelfv;
+  tbl.glLightModeli = log_glLightModeli;
+  tbl.glLightModeliv = log_glLightModeliv;
+  tbl.glLineStipple = log_glLineStipple;
+  tbl.glLineWidth = log_glLineWidth;
+  tbl.glMaterialf = log_glMaterialf;
+  tbl.glMaterialfv = log_glMaterialfv;
+  tbl.glMateriali = log_glMateriali;
+  tbl.glMaterialiv = log_glMaterialiv;
+  tbl.glPointSize = log_glPointSize;
+  tbl.glPolygonMode = log_glPolygonMode;
+  tbl.glPolygonStipple = log_glPolygonStipple;
+  tbl.glScissor = log_glScissor;
+  tbl.glShadeModel = log_glShadeModel;
+  tbl.glTexParameterf = log_glTexParameterf;
+  tbl.glTexParameterfv = log_glTexParameterfv;
+  tbl.glTexParameteri = log_glTexParameteri;
+  tbl.glTexParameteriv = log_glTexParameteriv;
+  tbl.glTexImage1D = log_glTexImage1D;
+  tbl.glTexImage2D = log_glTexImage2D;
+  tbl.glTexEnvf = log_glTexEnvf;
+  tbl.glTexEnvfv = log_glTexEnvfv;
+  tbl.glTexEnvi = log_glTexEnvi;
+  tbl.glTexEnviv = log_glTexEnviv;
+  tbl.glTexGend = log_glTexGend;
+  tbl.glTexGendv = log_glTexGendv;
+  tbl.glTexGenf = log_glTexGenf;
+  tbl.glTexGenfv = log_glTexGenfv;
+  tbl.glTexGeni = log_glTexGeni;
+  tbl.glTexGeniv = log_glTexGeniv;
+  tbl.glFeedbackBuffer = log_glFeedbackBuffer;
+  tbl.glSelectBuffer = log_glSelectBuffer;
+  tbl.glRenderMode = log_glRenderMode;
+  tbl.glInitNames = log_glInitNames;
+  tbl.glLoadName = log_glLoadName;
+  tbl.glPassThrough = log_glPassThrough;
+  tbl.glPopName = log_glPopName;
+  tbl.glPushName = log_glPushName;
+  tbl.glDrawBuffer = log_glDrawBuffer;
+  tbl.glClear = log_glClear;
+  tbl.glClearAccum = log_glClearAccum;
+  tbl.glClearColor = log_glClearColor;
+  tbl.glClearDepth = log_glClearDepth;
+  tbl.glClearIndex = log_glClearIndex;
+  tbl.glClearStencil = log_glClearStencil;
+  tbl.glColorMask = log_glColorMask;
+  tbl.glDepthMask = log_glDepthMask;
+  tbl.glIndexMask = log_glIndexMask;
+  tbl.glStencilMask = log_glStencilMask;
+  tbl.glAccum = log_glAccum;
+  tbl.glDisable = log_glDisable;
+  tbl.glEnable = log_glEnable;
+  tbl.glFinish = log_glFinish;
+  tbl.glFlush = log_glFlush;
+  tbl.glPopAttrib = log_glPopAttrib;
+  tbl.glPushAttrib = log_glPushAttrib;
+  tbl.glMap1d = log_glMap1d;
+  tbl.glMap1f = log_glMap1f;
+  tbl.glMap2d = log_glMap2d;
+  tbl.glMap2f = log_glMap2f;
+  tbl.glMapGrid1d = log_glMapGrid1d;
+  tbl.glMapGrid1f = log_glMapGrid1f;
+  tbl.glMapGrid2d = log_glMapGrid2d;
+  tbl.glMapGrid2f = log_glMapGrid2f;
+  tbl.glEvalCoord1d = log_glEvalCoord1d;
+  tbl.glEvalCoord1dv = log_glEvalCoord1dv;
+  tbl.glEvalCoord1f = log_glEvalCoord1f;
+  tbl.glEvalCoord1fv = log_glEvalCoord1fv;
+  tbl.glEvalCoord2d = log_glEvalCoord2d;
+  tbl.glEvalCoord2dv = log_glEvalCoord2dv;
+  tbl.glEvalCoord2f = log_glEvalCoord2f;
+  tbl.glEvalCoord2fv = log_glEvalCoord2fv;
+  tbl.glEvalMesh1 = log_glEvalMesh1;
+  tbl.glEvalMesh2 = log_glEvalMesh2;
+  tbl.glEvalPoint1 = log_glEvalPoint1;
+  tbl.glEvalPoint2 = log_glEvalPoint2;
+  tbl.glAlphaFunc = log_glAlphaFunc;
+  tbl.glBlendFunc = log_glBlendFunc;
+  tbl.glDepthFunc = log_glDepthFunc;
+  tbl.glStencilFunc = log_glStencilFunc;
+  tbl.glLogicOp = log_glLogicOp;
+  tbl.glStencilOp = log_glStencilOp;
+  tbl.glPixelZoom = log_glPixelZoom;
+  tbl.glPixelTransferf = log_glPixelTransferf;
+  tbl.glPixelTransferi = log_glPixelTransferi;
+  tbl.glPixelStoref = log_glPixelStoref;
+  tbl.glPixelStorei = log_glPixelStorei;
+  tbl.glPixelMapfv = log_glPixelMapfv;
+  tbl.glPixelMapuiv = log_glPixelMapuiv;
+  tbl.glPixelMapusv = log_glPixelMapusv;
+  tbl.glReadBuffer = log_glReadBuffer;
+  tbl.glCopyPixels = log_glCopyPixels;
+  tbl.glReadPixels = log_glReadPixels;
+  tbl.glDrawPixels = log_glDrawPixels;
+  tbl.glGetBooleanv = log_glGetBooleanv;
+  tbl.glGetDoublev = log_glGetDoublev;
+  tbl.glGetFloatv = log_glGetFloatv;
+  tbl.glGetIntegerv = log_glGetIntegerv;
+  tbl.glGetClipPlane = log_glGetClipPlane;
+  tbl.glGetError = log_glGetError;
+  tbl.glGetLightfv = log_glGetLightfv;
+  tbl.glGetLightiv = log_glGetLightiv;
+  tbl.glGetMapdv = log_glGetMapdv;
+  tbl.glGetMapfv = log_glGetMapfv;
+  tbl.glGetMapiv = log_glGetMapiv;
+  tbl.glGetMaterialfv = log_glGetMaterialfv;
+  tbl.glGetMaterialiv = log_glGetMaterialiv;
+  tbl.glGetPixelMapfv = log_glGetPixelMapfv;
+  tbl.glGetPixelMapuiv = log_glGetPixelMapuiv;
+  tbl.glGetPixelMapusv = log_glGetPixelMapusv;
+  tbl.glGetPolygonStipple = log_glGetPolygonStipple;
+  tbl.glGetString = log_glGetString;
+  tbl.glGetTexEnvfv = log_glGetTexEnvfv;
+  tbl.glGetTexEnviv = log_glGetTexEnviv;
+  tbl.glGetTexGendv = log_glGetTexGendv;
+  tbl.glGetTexGenfv = log_glGetTexGenfv;
+  tbl.glGetTexGeniv = log_glGetTexGeniv;
+  tbl.glGetTexImage = log_glGetTexImage;
+  tbl.glGetTexParameterfv = log_glGetTexParameterfv;
+  tbl.glGetTexParameteriv = log_glGetTexParameteriv;
+  tbl.glGetTexLevelParameterfv = log_glGetTexLevelParameterfv;
+  tbl.glGetTexLevelParameteriv = log_glGetTexLevelParameteriv;
+  tbl.glIsEnabled = log_glIsEnabled;
+  tbl.glIsList = log_glIsList;
+  tbl.glDepthRange = log_glDepthRange;
+  tbl.glFrustum = log_glFrustum;
+  tbl.glLoadIdentity = log_glLoadIdentity;
+  tbl.glLoadMatrixd = log_glLoadMatrixd;
+  tbl.glLoadMatrixf = log_glLoadMatrixf;
+  tbl.glMatrixMode = log_glMatrixMode;
+  tbl.glMultMatrixd = log_glMultMatrixd;
+  tbl.glMultMatrixf = log_glMultMatrixf;
+  tbl.glOrtho = log_glOrtho;
+  tbl.glPopMatrix = log_glPopMatrix;
+  tbl.glPushMatrix = log_glPushMatrix;
+  tbl.glRotated = log_glRotated;
+  tbl.glRotatef = log_glRotatef;
+  tbl.glScaled = log_glScaled;
+  tbl.glScalef = log_glScalef;
+  tbl.glTranslated = log_glTranslated;
+  tbl.glTranslatef = log_glTranslatef;
+  tbl.glViewport = log_glViewport;
+
+  // GL_VERSION_1_1
+
+  tbl.glArrayElement = log_glArrayElement;
+  tbl.glDrawArrays = log_glDrawArrays;
+  tbl.glDrawElements = log_glDrawElements;
+  tbl.glInterleavedArrays = log_glInterleavedArrays;
+  tbl.glDisableClientState = log_glDisableClientState;
+  tbl.glEnableClientState = log_glEnableClientState;
+  tbl.glGetPointerv = log_glGetPointerv;
+  tbl.glColorPointer = log_glColorPointer;
+  tbl.glEdgeFlagPointer = log_glEdgeFlagPointer;
+  tbl.glIndexPointer = log_glIndexPointer;
+  tbl.glNormalPointer = log_glNormalPointer;
+  tbl.glTexCoordPointer = log_glTexCoordPointer;
+  tbl.glVertexPointer = log_glVertexPointer;
+  tbl.glPolygonOffset = log_glPolygonOffset;
+  tbl.glCopyTexImage1D = log_glCopyTexImage1D;
+  tbl.glCopyTexImage2D = log_glCopyTexImage2D;
+  tbl.glCopyTexSubImage1D = log_glCopyTexSubImage1D;
+  tbl.glCopyTexSubImage2D = log_glCopyTexSubImage2D;
+  tbl.glTexSubImage1D = log_glTexSubImage1D;
+  tbl.glTexSubImage2D = log_glTexSubImage2D;
+  tbl.glAreTexturesResident = log_glAreTexturesResident;
+  tbl.glBindTexture = log_glBindTexture;
+  tbl.glDeleteTextures = log_glDeleteTextures;
+  tbl.glGenTextures = log_glGenTextures;
+  tbl.glIsTexture = log_glIsTexture;
+  tbl.glPrioritizeTextures = log_glPrioritizeTextures;
+  tbl.glIndexub = log_glIndexub;
+  tbl.glIndexubv = log_glIndexubv;
+  tbl.glPopClientAttrib = log_glPopClientAttrib;
+  tbl.glPushClientAttrib = log_glPushClientAttrib;
+
+  // GL_VERSION_1_2
+
+  tbl.glBlendColor = log_glBlendColor;
+  tbl.glBlendEquation = log_glBlendEquation;
+  tbl.glDrawRangeElements = log_glDrawRangeElements;
+  tbl.glTexImage3D = log_glTexImage3D;
+  tbl.glTexSubImage3D = log_glTexSubImage3D;
+  tbl.glCopyTexSubImage3D = log_glCopyTexSubImage3D;
+
+  // GL_ARB_imaging
+
+  tbl.glColorTable = log_glColorTable;
+  tbl.glColorTableParameterfv = log_glColorTableParameterfv;
+  tbl.glColorTableParameteriv = log_glColorTableParameteriv;
+  tbl.glCopyColorTable = log_glCopyColorTable;
+  tbl.glGetColorTable = log_glGetColorTable;
+  tbl.glGetColorTableParameterfv = log_glGetColorTableParameterfv;
+  tbl.glGetColorTableParameteriv = log_glGetColorTableParameteriv;
+  tbl.glColorSubTable = log_glColorSubTable;
+  tbl.glCopyColorSubTable = log_glCopyColorSubTable;
+  tbl.glConvolutionFilter1D = log_glConvolutionFilter1D;
+  tbl.glConvolutionFilter2D = log_glConvolutionFilter2D;
+  tbl.glConvolutionParameterf = log_glConvolutionParameterf;
+  tbl.glConvolutionParameterfv = log_glConvolutionParameterfv;
+  tbl.glConvolutionParameteri = log_glConvolutionParameteri;
+  tbl.glConvolutionParameteriv = log_glConvolutionParameteriv;
+  tbl.glCopyConvolutionFilter1D = log_glCopyConvolutionFilter1D;
+  tbl.glCopyConvolutionFilter2D = log_glCopyConvolutionFilter2D;
+  tbl.glGetConvolutionFilter = log_glGetConvolutionFilter;
+  tbl.glGetConvolutionParameterfv = log_glGetConvolutionParameterfv;
+  tbl.glGetConvolutionParameteriv = log_glGetConvolutionParameteriv;
+  tbl.glGetSeparableFilter = log_glGetSeparableFilter;
+  tbl.glSeparableFilter2D = log_glSeparableFilter2D;
+  tbl.glGetHistogram = log_glGetHistogram;
+  tbl.glGetHistogramParameterfv = log_glGetHistogramParameterfv;
+  tbl.glGetHistogramParameteriv = log_glGetHistogramParameteriv;
+  tbl.glGetMinmax = log_glGetMinmax;
+  tbl.glGetMinmaxParameterfv = log_glGetMinmaxParameterfv;
+  tbl.glGetMinmaxParameteriv = log_glGetMinmaxParameteriv;
+  tbl.glHistogram = log_glHistogram;
+  tbl.glMinmax = log_glMinmax;
+  tbl.glResetHistogram = log_glResetHistogram;
+  tbl.glResetMinmax = log_glResetMinmax;
+
+  // GL_VERSION_1_3
+
+  tbl.glActiveTexture = log_glActiveTexture;
+  tbl.glSampleCoverage = log_glSampleCoverage;
+  tbl.glCompressedTexImage3D = log_glCompressedTexImage3D;
+  tbl.glCompressedTexImage2D = log_glCompressedTexImage2D;
+  tbl.glCompressedTexImage1D = log_glCompressedTexImage1D;
+  tbl.glCompressedTexSubImage3D = log_glCompressedTexSubImage3D;
+  tbl.glCompressedTexSubImage2D = log_glCompressedTexSubImage2D;
+  tbl.glCompressedTexSubImage1D = log_glCompressedTexSubImage1D;
+  tbl.glGetCompressedTexImage = log_glGetCompressedTexImage;
+  tbl.glClientActiveTexture = log_glClientActiveTexture;
+  tbl.glMultiTexCoord1d = log_glMultiTexCoord1d;
+  tbl.glMultiTexCoord1dv = log_glMultiTexCoord1dv;
+  tbl.glMultiTexCoord1f = log_glMultiTexCoord1f;
+  tbl.glMultiTexCoord1fv = log_glMultiTexCoord1fv;
+  tbl.glMultiTexCoord1i = log_glMultiTexCoord1i;
+  tbl.glMultiTexCoord1iv = log_glMultiTexCoord1iv;
+  tbl.glMultiTexCoord1s = log_glMultiTexCoord1s;
+  tbl.glMultiTexCoord1sv = log_glMultiTexCoord1sv;
+  tbl.glMultiTexCoord2d = log_glMultiTexCoord2d;
+  tbl.glMultiTexCoord2dv = log_glMultiTexCoord2dv;
+  tbl.glMultiTexCoord2f = log_glMultiTexCoord2f;
+  tbl.glMultiTexCoord2fv = log_glMultiTexCoord2fv;
+  tbl.glMultiTexCoord2i = log_glMultiTexCoord2i;
+  tbl.glMultiTexCoord2iv = log_glMultiTexCoord2iv;
+  tbl.glMultiTexCoord2s = log_glMultiTexCoord2s;
+  tbl.glMultiTexCoord2sv = log_glMultiTexCoord2sv;
+  tbl.glMultiTexCoord3d = log_glMultiTexCoord3d;
+  tbl.glMultiTexCoord3dv = log_glMultiTexCoord3dv;
+  tbl.glMultiTexCoord3f = log_glMultiTexCoord3f;
+  tbl.glMultiTexCoord3fv = log_glMultiTexCoord3fv;
+  tbl.glMultiTexCoord3i = log_glMultiTexCoord3i;
+  tbl.glMultiTexCoord3iv = log_glMultiTexCoord3iv;
+  tbl.glMultiTexCoord3s = log_glMultiTexCoord3s;
+  tbl.glMultiTexCoord3sv = log_glMultiTexCoord3sv;
+  tbl.glMultiTexCoord4d = log_glMultiTexCoord4d;
+  tbl.glMultiTexCoord4dv = log_glMultiTexCoord4dv;
+  tbl.glMultiTexCoord4f = log_glMultiTexCoord4f;
+  tbl.glMultiTexCoord4fv = log_glMultiTexCoord4fv;
+  tbl.glMultiTexCoord4i = log_glMultiTexCoord4i;
+  tbl.glMultiTexCoord4iv = log_glMultiTexCoord4iv;
+  tbl.glMultiTexCoord4s = log_glMultiTexCoord4s;
+  tbl.glMultiTexCoord4sv = log_glMultiTexCoord4sv;
+  tbl.glLoadTransposeMatrixf = log_glLoadTransposeMatrixf;
+  tbl.glLoadTransposeMatrixd = log_glLoadTransposeMatrixd;
+  tbl.glMultTransposeMatrixf = log_glMultTransposeMatrixf;
+  tbl.glMultTransposeMatrixd = log_glMultTransposeMatrixd;
+
+  // GL_VERSION_1_4
+
+  tbl.glBlendFuncSeparate = log_glBlendFuncSeparate;
+  tbl.glMultiDrawArrays = log_glMultiDrawArrays;
+  tbl.glMultiDrawElements = log_glMultiDrawElements;
+  tbl.glPointParameterf = log_glPointParameterf;
+  tbl.glPointParameterfv = log_glPointParameterfv;
+  tbl.glPointParameteri = log_glPointParameteri;
+  tbl.glPointParameteriv = log_glPointParameteriv;
+  tbl.glFogCoordf = log_glFogCoordf;
+  tbl.glFogCoordfv = log_glFogCoordfv;
+  tbl.glFogCoordd = log_glFogCoordd;
+  tbl.glFogCoorddv = log_glFogCoorddv;
+  tbl.glFogCoordPointer = log_glFogCoordPointer;
+  tbl.glSecondaryColor3b = log_glSecondaryColor3b;
+  tbl.glSecondaryColor3bv = log_glSecondaryColor3bv;
+  tbl.glSecondaryColor3d = log_glSecondaryColor3d;
+  tbl.glSecondaryColor3dv = log_glSecondaryColor3dv;
+  tbl.glSecondaryColor3f = log_glSecondaryColor3f;
+  tbl.glSecondaryColor3fv = log_glSecondaryColor3fv;
+  tbl.glSecondaryColor3i = log_glSecondaryColor3i;
+  tbl.glSecondaryColor3iv = log_glSecondaryColor3iv;
+  tbl.glSecondaryColor3s = log_glSecondaryColor3s;
+  tbl.glSecondaryColor3sv = log_glSecondaryColor3sv;
+  tbl.glSecondaryColor3ub = log_glSecondaryColor3ub;
+  tbl.glSecondaryColor3ubv = log_glSecondaryColor3ubv;
+  tbl.glSecondaryColor3ui = log_glSecondaryColor3ui;
+  tbl.glSecondaryColor3uiv = log_glSecondaryColor3uiv;
+  tbl.glSecondaryColor3us = log_glSecondaryColor3us;
+  tbl.glSecondaryColor3usv = log_glSecondaryColor3usv;
+  tbl.glSecondaryColorPointer = log_glSecondaryColorPointer;
+  tbl.glWindowPos2d = log_glWindowPos2d;
+  tbl.glWindowPos2dv = log_glWindowPos2dv;
+  tbl.glWindowPos2f = log_glWindowPos2f;
+  tbl.glWindowPos2fv = log_glWindowPos2fv;
+  tbl.glWindowPos2i = log_glWindowPos2i;
+  tbl.glWindowPos2iv = log_glWindowPos2iv;
+  tbl.glWindowPos2s = log_glWindowPos2s;
+  tbl.glWindowPos2sv = log_glWindowPos2sv;
+  tbl.glWindowPos3d = log_glWindowPos3d;
+  tbl.glWindowPos3dv = log_glWindowPos3dv;
+  tbl.glWindowPos3f = log_glWindowPos3f;
+  tbl.glWindowPos3fv = log_glWindowPos3fv;
+  tbl.glWindowPos3i = log_glWindowPos3i;
+  tbl.glWindowPos3iv = log_glWindowPos3iv;
+  tbl.glWindowPos3s = log_glWindowPos3s;
+  tbl.glWindowPos3sv = log_glWindowPos3sv;
+
+  // GL_VERSION_1_5
+
+  tbl.glGenQueries = log_glGenQueries;
+  tbl.glDeleteQueries = log_glDeleteQueries;
+  tbl.glIsQuery = log_glIsQuery;
+  tbl.glBeginQuery = log_glBeginQuery;
+  tbl.glEndQuery = log_glEndQuery;
+  tbl.glGetQueryiv = log_glGetQueryiv;
+  tbl.glGetQueryObjectiv = log_glGetQueryObjectiv;
+  tbl.glGetQueryObjectuiv = log_glGetQueryObjectuiv;
+  tbl.glBindBuffer = log_glBindBuffer;
+  tbl.glDeleteBuffers = log_glDeleteBuffers;
+  tbl.glGenBuffers = log_glGenBuffers;
+  tbl.glIsBuffer = log_glIsBuffer;
+  tbl.glBufferData = log_glBufferData;
+  tbl.glBufferSubData = log_glBufferSubData;
+  tbl.glGetBufferSubData = log_glGetBufferSubData;
+  tbl.glMapBuffer = log_glMapBuffer;
+  tbl.glUnmapBuffer = log_glUnmapBuffer;
+  tbl.glGetBufferParameteriv = log_glGetBufferParameteriv;
+  tbl.glGetBufferPointerv = log_glGetBufferPointerv;
+
+  // GL_VERSION_2_0
+
+  tbl.glBlendEquationSeparate = log_glBlendEquationSeparate;
+  tbl.glDrawBuffers = log_glDrawBuffers;
+  tbl.glStencilOpSeparate = log_glStencilOpSeparate;
+  tbl.glStencilFuncSeparate = log_glStencilFuncSeparate;
+  tbl.glStencilMaskSeparate = log_glStencilMaskSeparate;
+  tbl.glAttachShader = log_glAttachShader;
+  tbl.glBindAttribLocation = log_glBindAttribLocation;
+  tbl.glCompileShader = log_glCompileShader;
+  tbl.glCreateProgram = log_glCreateProgram;
+  tbl.glCreateShader = log_glCreateShader;
+  tbl.glDeleteProgram = log_glDeleteProgram;
+  tbl.glDeleteShader = log_glDeleteShader;
+  tbl.glDetachShader = log_glDetachShader;
+  tbl.glDisableVertexAttribArray = log_glDisableVertexAttribArray;
+  tbl.glEnableVertexAttribArray = log_glEnableVertexAttribArray;
+  tbl.glGetActiveAttrib = log_glGetActiveAttrib;
+  tbl.glGetActiveUniform = log_glGetActiveUniform;
+  tbl.glGetAttachedShaders = log_glGetAttachedShaders;
+  tbl.glGetAttribLocation = log_glGetAttribLocation;
+  tbl.glGetProgramiv = log_glGetProgramiv;
+  tbl.glGetProgramInfoLog = log_glGetProgramInfoLog;
+  tbl.glGetShaderiv = log_glGetShaderiv;
+  tbl.glGetShaderInfoLog = log_glGetShaderInfoLog;
+  tbl.glGetShaderSource = log_glGetShaderSource;
+  tbl.glGetUniformLocation = log_glGetUniformLocation;
+  tbl.glGetUniformfv = log_glGetUniformfv;
+  tbl.glGetUniformiv = log_glGetUniformiv;
+  tbl.glGetVertexAttribdv = log_glGetVertexAttribdv;
+  tbl.glGetVertexAttribfv = log_glGetVertexAttribfv;
+  tbl.glGetVertexAttribiv = log_glGetVertexAttribiv;
+  tbl.glGetVertexAttribPointerv = log_glGetVertexAttribPointerv;
+  tbl.glIsProgram = log_glIsProgram;
+  tbl.glIsShader = log_glIsShader;
+  tbl.glLinkProgram = log_glLinkProgram;
+  tbl.glShaderSource = log_glShaderSource;
+  tbl.glUseProgram = log_glUseProgram;
+  tbl.glUniform1f = log_glUniform1f;
+  tbl.glUniform2f = log_glUniform2f;
+  tbl.glUniform3f = log_glUniform3f;
+  tbl.glUniform4f = log_glUniform4f;
+  tbl.glUniform1i = log_glUniform1i;
+  tbl.glUniform2i = log_glUniform2i;
+  tbl.glUniform3i = log_glUniform3i;
+  tbl.glUniform4i = log_glUniform4i;
+  tbl.glUniform1fv = log_glUniform1fv;
+  tbl.glUniform2fv = log_glUniform2fv;
+  tbl.glUniform3fv = log_glUniform3fv;
+  tbl.glUniform4fv = log_glUniform4fv;
+  tbl.glUniform1iv = log_glUniform1iv;
+  tbl.glUniform2iv = log_glUniform2iv;
+  tbl.glUniform3iv = log_glUniform3iv;
+  tbl.glUniform4iv = log_glUniform4iv;
+  tbl.glUniformMatrix2fv = log_glUniformMatrix2fv;
+  tbl.glUniformMatrix3fv = log_glUniformMatrix3fv;
+  tbl.glUniformMatrix4fv = log_glUniformMatrix4fv;
+  tbl.glValidateProgram = log_glValidateProgram;
+  tbl.glVertexAttrib1d = log_glVertexAttrib1d;
+  tbl.glVertexAttrib1dv = log_glVertexAttrib1dv;
+  tbl.glVertexAttrib1f = log_glVertexAttrib1f;
+  tbl.glVertexAttrib1fv = log_glVertexAttrib1fv;
+  tbl.glVertexAttrib1s = log_glVertexAttrib1s;
+  tbl.glVertexAttrib1sv = log_glVertexAttrib1sv;
+  tbl.glVertexAttrib2d = log_glVertexAttrib2d;
+  tbl.glVertexAttrib2dv = log_glVertexAttrib2dv;
+  tbl.glVertexAttrib2f = log_glVertexAttrib2f;
+  tbl.glVertexAttrib2fv = log_glVertexAttrib2fv;
+  tbl.glVertexAttrib2s = log_glVertexAttrib2s;
+  tbl.glVertexAttrib2sv = log_glVertexAttrib2sv;
+  tbl.glVertexAttrib3d = log_glVertexAttrib3d;
+  tbl.glVertexAttrib3dv = log_glVertexAttrib3dv;
+  tbl.glVertexAttrib3f = log_glVertexAttrib3f;
+  tbl.glVertexAttrib3fv = log_glVertexAttrib3fv;
+  tbl.glVertexAttrib3s = log_glVertexAttrib3s;
+  tbl.glVertexAttrib3sv = log_glVertexAttrib3sv;
+  tbl.glVertexAttrib4Nbv = log_glVertexAttrib4Nbv;
+  tbl.glVertexAttrib4Niv = log_glVertexAttrib4Niv;
+  tbl.glVertexAttrib4Nsv = log_glVertexAttrib4Nsv;
+  tbl.glVertexAttrib4Nub = log_glVertexAttrib4Nub;
+  tbl.glVertexAttrib4Nubv = log_glVertexAttrib4Nubv;
+  tbl.glVertexAttrib4Nuiv = log_glVertexAttrib4Nuiv;
+  tbl.glVertexAttrib4Nusv = log_glVertexAttrib4Nusv;
+  tbl.glVertexAttrib4bv = log_glVertexAttrib4bv;
+  tbl.glVertexAttrib4d = log_glVertexAttrib4d;
+  tbl.glVertexAttrib4dv = log_glVertexAttrib4dv;
+  tbl.glVertexAttrib4f = log_glVertexAttrib4f;
+  tbl.glVertexAttrib4fv = log_glVertexAttrib4fv;
+  tbl.glVertexAttrib4iv = log_glVertexAttrib4iv;
+  tbl.glVertexAttrib4s = log_glVertexAttrib4s;
+  tbl.glVertexAttrib4sv = log_glVertexAttrib4sv;
+  tbl.glVertexAttrib4ubv = log_glVertexAttrib4ubv;
+  tbl.glVertexAttrib4uiv = log_glVertexAttrib4uiv;
+  tbl.glVertexAttrib4usv = log_glVertexAttrib4usv;
+  tbl.glVertexAttribPointer = log_glVertexAttribPointer;
+
+  // GL_VERSION_2_1
+
+  tbl.glUniformMatrix2x3fv = log_glUniformMatrix2x3fv;
+  tbl.glUniformMatrix3x2fv = log_glUniformMatrix3x2fv;
+  tbl.glUniformMatrix2x4fv = log_glUniformMatrix2x4fv;
+  tbl.glUniformMatrix4x2fv = log_glUniformMatrix4x2fv;
+  tbl.glUniformMatrix3x4fv = log_glUniformMatrix3x4fv;
+  tbl.glUniformMatrix4x3fv = log_glUniformMatrix4x3fv;
+
+  // GL_VERSION_3_0
+
+  tbl.glColorMaski = log_glColorMaski;
+  tbl.glGetBooleani_v = log_glGetBooleani_v;
+
+  // GL_ARB_uniform_buffer_object
+
+  tbl.glGetIntegeri_v = log_glGetIntegeri_v;
+
+  // GL_VERSION_3_0
+
+  tbl.glEnablei = log_glEnablei;
+  tbl.glDisablei = log_glDisablei;
+  tbl.glIsEnabledi = log_glIsEnabledi;
+  tbl.glBeginTransformFeedback = log_glBeginTransformFeedback;
+  tbl.glEndTransformFeedback = log_glEndTransformFeedback;
+
+  // GL_ARB_uniform_buffer_object
+
+  tbl.glBindBufferRange = log_glBindBufferRange;
+  tbl.glBindBufferBase = log_glBindBufferBase;
+
+  // GL_VERSION_3_0
+
+  tbl.glTransformFeedbackVaryings = log_glTransformFeedbackVaryings;
+  tbl.glGetTransformFeedbackVarying = log_glGetTransformFeedbackVarying;
+  tbl.glClampColor = log_glClampColor;
+  tbl.glBeginConditionalRender = log_glBeginConditionalRender;
+  tbl.glEndConditionalRender = log_glEndConditionalRender;
+  tbl.glVertexAttribIPointer = log_glVertexAttribIPointer;
+  tbl.glGetVertexAttribIiv = log_glGetVertexAttribIiv;
+  tbl.glGetVertexAttribIuiv = log_glGetVertexAttribIuiv;
+  tbl.glVertexAttribI1i = log_glVertexAttribI1i;
+  tbl.glVertexAttribI2i = log_glVertexAttribI2i;
+  tbl.glVertexAttribI3i = log_glVertexAttribI3i;
+  tbl.glVertexAttribI4i = log_glVertexAttribI4i;
+  tbl.glVertexAttribI1ui = log_glVertexAttribI1ui;
+  tbl.glVertexAttribI2ui = log_glVertexAttribI2ui;
+  tbl.glVertexAttribI3ui = log_glVertexAttribI3ui;
+  tbl.glVertexAttribI4ui = log_glVertexAttribI4ui;
+  tbl.glVertexAttribI1iv = log_glVertexAttribI1iv;
+  tbl.glVertexAttribI2iv = log_glVertexAttribI2iv;
+  tbl.glVertexAttribI3iv = log_glVertexAttribI3iv;
+  tbl.glVertexAttribI4iv = log_glVertexAttribI4iv;
+  tbl.glVertexAttribI1uiv = log_glVertexAttribI1uiv;
+  tbl.glVertexAttribI2uiv = log_glVertexAttribI2uiv;
+  tbl.glVertexAttribI3uiv = log_glVertexAttribI3uiv;
+  tbl.glVertexAttribI4uiv = log_glVertexAttribI4uiv;
+  tbl.glVertexAttribI4bv = log_glVertexAttribI4bv;
+  tbl.glVertexAttribI4sv = log_glVertexAttribI4sv;
+  tbl.glVertexAttribI4ubv = log_glVertexAttribI4ubv;
+  tbl.glVertexAttribI4usv = log_glVertexAttribI4usv;
+  tbl.glGetUniformuiv = log_glGetUniformuiv;
+  tbl.glBindFragDataLocation = log_glBindFragDataLocation;
+  tbl.glGetFragDataLocation = log_glGetFragDataLocation;
+  tbl.glUniform1ui = log_glUniform1ui;
+  tbl.glUniform2ui = log_glUniform2ui;
+  tbl.glUniform3ui = log_glUniform3ui;
+  tbl.glUniform4ui = log_glUniform4ui;
+  tbl.glUniform1uiv = log_glUniform1uiv;
+  tbl.glUniform2uiv = log_glUniform2uiv;
+  tbl.glUniform3uiv = log_glUniform3uiv;
+  tbl.glUniform4uiv = log_glUniform4uiv;
+  tbl.glTexParameterIiv = log_glTexParameterIiv;
+  tbl.glTexParameterIuiv = log_glTexParameterIuiv;
+  tbl.glGetTexParameterIiv = log_glGetTexParameterIiv;
+  tbl.glGetTexParameterIuiv = log_glGetTexParameterIuiv;
+  tbl.glClearBufferiv = log_glClearBufferiv;
+  tbl.glClearBufferuiv = log_glClearBufferuiv;
+  tbl.glClearBufferfv = log_glClearBufferfv;
+  tbl.glClearBufferfi = log_glClearBufferfi;
+  tbl.glGetStringi = log_glGetStringi;
+
+  // GL_VERSION_3_1
+
+  tbl.glDrawArraysInstanced = log_glDrawArraysInstanced;
+  tbl.glDrawElementsInstanced = log_glDrawElementsInstanced;
+  tbl.glTexBuffer = log_glTexBuffer;
+  tbl.glPrimitiveRestartIndex = log_glPrimitiveRestartIndex;
+
+  // GL_VERSION_3_2
+
+  tbl.glGetInteger64i_v = log_glGetInteger64i_v;
+  tbl.glGetBufferParameteri64v = log_glGetBufferParameteri64v;
+  tbl.glFramebufferTexture = log_glFramebufferTexture;
+  tbl.glFramebufferTextureFace = log_glFramebufferTextureFace;
+
+  // GL_ARB_sampler_objects
+
+  tbl.glGenSamplers = log_glGenSamplers;
+  tbl.glDeleteSamplers = log_glDeleteSamplers;
+  tbl.glIsSampler = log_glIsSampler;
+  tbl.glBindSampler = log_glBindSampler;
+  tbl.glSamplerParameteri = log_glSamplerParameteri;
+  tbl.glSamplerParameterf = log_glSamplerParameterf;
+  tbl.glSamplerParameteriv = log_glSamplerParameteriv;
+  tbl.glSamplerParameterfv = log_glSamplerParameterfv;
+  tbl.glSamplerParameterIiv = log_glSamplerParameterIiv;
+  tbl.glSamplerParameterIuiv = log_glSamplerParameterIuiv;
+  tbl.glGetSamplerParameteriv = log_glGetSamplerParameteriv;
+  tbl.glGetSamplerParameterfv = log_glGetSamplerParameterfv;
+  tbl.glGetSamplerParameterIiv = log_glGetSamplerParameterIiv;
+  tbl.glGetSamplerParameterIuiv = log_glGetSamplerParameterIuiv;
+
+  // GL_ARB_blend_func_extended
+
+  tbl.glBindFragDataLocationIndexed = log_glBindFragDataLocationIndexed;
+  tbl.glGetFragDataIndex = log_glGetFragDataIndex;
+
+  // GL_ARB_timer_query
+
+  tbl.glGetQueryObjecti64v = log_glGetQueryObjecti64v;
+  tbl.glGetQueryObjectui64v = log_glGetQueryObjectui64v;
+  tbl.glQueryCounter = log_glQueryCounter;
+
+  // GL_VERSION_3_3
+
+  tbl.glVertexAttribDivisor = log_glVertexAttribDivisor;
+
+  // GL_ARB_vertex_type_2_10_10_10_rev
+
+  tbl.glVertexP2ui = log_glVertexP2ui;
+  tbl.glVertexP2uiv = log_glVertexP2uiv;
+  tbl.glVertexP3ui = log_glVertexP3ui;
+  tbl.glVertexP3uiv = log_glVertexP3uiv;
+  tbl.glVertexP4ui = log_glVertexP4ui;
+  tbl.glVertexP4uiv = log_glVertexP4uiv;
+  tbl.glTexCoordP1ui = log_glTexCoordP1ui;
+  tbl.glTexCoordP1uiv = log_glTexCoordP1uiv;
+  tbl.glTexCoordP2ui = log_glTexCoordP2ui;
+  tbl.glTexCoordP2uiv = log_glTexCoordP2uiv;
+  tbl.glTexCoordP3ui = log_glTexCoordP3ui;
+  tbl.glTexCoordP3uiv = log_glTexCoordP3uiv;
+  tbl.glTexCoordP4ui = log_glTexCoordP4ui;
+  tbl.glTexCoordP4uiv = log_glTexCoordP4uiv;
+  tbl.glMultiTexCoordP1ui = log_glMultiTexCoordP1ui;
+  tbl.glMultiTexCoordP1uiv = log_glMultiTexCoordP1uiv;
+  tbl.glMultiTexCoordP2ui = log_glMultiTexCoordP2ui;
+  tbl.glMultiTexCoordP2uiv = log_glMultiTexCoordP2uiv;
+  tbl.glMultiTexCoordP3ui = log_glMultiTexCoordP3ui;
+  tbl.glMultiTexCoordP3uiv = log_glMultiTexCoordP3uiv;
+  tbl.glMultiTexCoordP4ui = log_glMultiTexCoordP4ui;
+  tbl.glMultiTexCoordP4uiv = log_glMultiTexCoordP4uiv;
+  tbl.glNormalP3ui = log_glNormalP3ui;
+  tbl.glNormalP3uiv = log_glNormalP3uiv;
+  tbl.glColorP3ui = log_glColorP3ui;
+  tbl.glColorP3uiv = log_glColorP3uiv;
+  tbl.glColorP4ui = log_glColorP4ui;
+  tbl.glColorP4uiv = log_glColorP4uiv;
+  tbl.glSecondaryColorP3ui = log_glSecondaryColorP3ui;
+  tbl.glSecondaryColorP3uiv = log_glSecondaryColorP3uiv;
+  tbl.glVertexAttribP1ui = log_glVertexAttribP1ui;
+  tbl.glVertexAttribP1uiv = log_glVertexAttribP1uiv;
+  tbl.glVertexAttribP2ui = log_glVertexAttribP2ui;
+  tbl.glVertexAttribP2uiv = log_glVertexAttribP2uiv;
+  tbl.glVertexAttribP3ui = log_glVertexAttribP3ui;
+  tbl.glVertexAttribP3uiv = log_glVertexAttribP3uiv;
+  tbl.glVertexAttribP4ui = log_glVertexAttribP4ui;
+  tbl.glVertexAttribP4uiv = log_glVertexAttribP4uiv;
+
+  // GL_VERSION_4_0
+
+  tbl.glBlendEquationi = log_glBlendEquationi;
+  tbl.glBlendEquationSeparatei = log_glBlendEquationSeparatei;
+  tbl.glBlendFunci = log_glBlendFunci;
+  tbl.glBlendFuncSeparatei = log_glBlendFuncSeparatei;
+
+  // GL_ARB_draw_indirect
+
+  tbl.glDrawArraysIndirect = log_glDrawArraysIndirect;
+  tbl.glDrawElementsIndirect = log_glDrawElementsIndirect;
+
+  // GL_ARB_gpu_shader_fp64
+
+  tbl.glUniform1d = log_glUniform1d;
+  tbl.glUniform2d = log_glUniform2d;
+  tbl.glUniform3d = log_glUniform3d;
+  tbl.glUniform4d = log_glUniform4d;
+  tbl.glUniform1dv = log_glUniform1dv;
+  tbl.glUniform2dv = log_glUniform2dv;
+  tbl.glUniform3dv = log_glUniform3dv;
+  tbl.glUniform4dv = log_glUniform4dv;
+  tbl.glUniformMatrix2dv = log_glUniformMatrix2dv;
+  tbl.glUniformMatrix3dv = log_glUniformMatrix3dv;
+  tbl.glUniformMatrix4dv = log_glUniformMatrix4dv;
+  tbl.glUniformMatrix2x3dv = log_glUniformMatrix2x3dv;
+  tbl.glUniformMatrix2x4dv = log_glUniformMatrix2x4dv;
+  tbl.glUniformMatrix3x2dv = log_glUniformMatrix3x2dv;
+  tbl.glUniformMatrix3x4dv = log_glUniformMatrix3x4dv;
+  tbl.glUniformMatrix4x2dv = log_glUniformMatrix4x2dv;
+  tbl.glUniformMatrix4x3dv = log_glUniformMatrix4x3dv;
+  tbl.glGetUniformdv = log_glGetUniformdv;
+
+  // GL_ARB_sample_shading
+
+  tbl.glMinSampleShading = log_glMinSampleShading;
+
+  // GL_ARB_tessellation_shader
+
+  tbl.glPatchParameteri = log_glPatchParameteri;
+  tbl.glPatchParameterfv = log_glPatchParameterfv;
+
+  // GL_ARB_transform_feedback2
+
+  tbl.glGenTransformFeedbacks = log_glGenTransformFeedbacks;
+  tbl.glDeleteTransformFeedbacks = log_glDeleteTransformFeedbacks;
+  tbl.glBindTransformFeedback = log_glBindTransformFeedback;
+  tbl.glIsTransformFeedback = log_glIsTransformFeedback;
+  tbl.glPauseTransformFeedback = log_glPauseTransformFeedback;
+  tbl.glResumeTransformFeedback = log_glResumeTransformFeedback;
+  tbl.glDrawTransformFeedback = log_glDrawTransformFeedback;
+
+  // GL_ARB_transform_feedback3
+
+  tbl.glDrawTransformFeedbackStream = log_glDrawTransformFeedbackStream;
+  tbl.glBeginQueryIndexed = log_glBeginQueryIndexed;
+  tbl.glEndQueryIndexed = log_glEndQueryIndexed;
+  tbl.glGetQueryIndexediv = log_glGetQueryIndexediv;
+
+  // GL_ARB_shader_subroutine
+
+  tbl.glGetSubroutineUniformLocation = log_glGetSubroutineUniformLocation;
+  tbl.glGetSubroutineIndex = log_glGetSubroutineIndex;
+  tbl.glGetActiveSubroutineUniformiv = log_glGetActiveSubroutineUniformiv;
+  tbl.glGetActiveSubroutineUniformName = log_glGetActiveSubroutineUniformName;
+  tbl.glGetActiveSubroutineName = log_glGetActiveSubroutineName;
+  tbl.glUniformSubroutinesuiv = log_glUniformSubroutinesuiv;
+  tbl.glGetUniformSubroutineuiv = log_glGetUniformSubroutineuiv;
+  tbl.glGetProgramStageiv = log_glGetProgramStageiv;
+
+  // GL_ARB_vertex_attrib_64bit
+
+  tbl.glVertexAttribL1d = log_glVertexAttribL1d;
+  tbl.glVertexAttribL2d = log_glVertexAttribL2d;
+  tbl.glVertexAttribL3d = log_glVertexAttribL3d;
+  tbl.glVertexAttribL4d = log_glVertexAttribL4d;
+  tbl.glVertexAttribL1dv = log_glVertexAttribL1dv;
+  tbl.glVertexAttribL2dv = log_glVertexAttribL2dv;
+  tbl.glVertexAttribL3dv = log_glVertexAttribL3dv;
+  tbl.glVertexAttribL4dv = log_glVertexAttribL4dv;
+  tbl.glVertexAttribLPointer = log_glVertexAttribLPointer;
+  tbl.glGetVertexAttribLdv = log_glGetVertexAttribLdv;
+
+  // GL_ARB_ES2_compatibility
+
+  tbl.glReleaseShaderCompiler = log_glReleaseShaderCompiler;
+  tbl.glShaderBinary = log_glShaderBinary;
+  tbl.glGetShaderPrecisionFormat = log_glGetShaderPrecisionFormat;
+  tbl.glDepthRangef = log_glDepthRangef;
+  tbl.glClearDepthf = log_glClearDepthf;
+
+  // GL_ARB_get_program_binary
+
+  tbl.glGetProgramBinary = log_glGetProgramBinary;
+  tbl.glProgramBinary = log_glProgramBinary;
+  tbl.glProgramParameteri = log_glProgramParameteri;
+
+  // GL_ARB_viewport_array
+
+  tbl.glViewportArrayv = log_glViewportArrayv;
+  tbl.glViewportIndexedf = log_glViewportIndexedf;
+  tbl.glViewportIndexedfv = log_glViewportIndexedfv;
+  tbl.glScissorArrayv = log_glScissorArrayv;
+  tbl.glScissorIndexed = log_glScissorIndexed;
+  tbl.glScissorIndexedv = log_glScissorIndexedv;
+  tbl.glDepthRangeArrayv = log_glDepthRangeArrayv;
+  tbl.glDepthRangeIndexed = log_glDepthRangeIndexed;
+  tbl.glGetFloati_v = log_glGetFloati_v;
+  tbl.glGetDoublei_v = log_glGetDoublei_v;
+
+  // GL_ARB_separate_shader_objects
+
+  tbl.glActiveShaderProgram = log_glActiveShaderProgram;
+  tbl.glUseProgramStages = log_glUseProgramStages;
+  tbl.glCreateShaderProgramv = log_glCreateShaderProgramv;
+  tbl.glBindProgramPipeline = log_glBindProgramPipeline;
+  tbl.glDeleteProgramPipelines = log_glDeleteProgramPipelines;
+  tbl.glGenProgramPipelines = log_glGenProgramPipelines;
+  tbl.glIsProgramPipeline = log_glIsProgramPipeline;
+  tbl.glGetProgramPipelineiv = log_glGetProgramPipelineiv;
+  tbl.glValidateProgramPipeline = log_glValidateProgramPipeline;
+  tbl.glGetProgramPipelineInfoLog = log_glGetProgramPipelineInfoLog;
+  tbl.glProgramUniform1f = log_glProgramUniform1f;
+  tbl.glProgramUniform2f = log_glProgramUniform2f;
+  tbl.glProgramUniform3f = log_glProgramUniform3f;
+  tbl.glProgramUniform4f = log_glProgramUniform4f;
+  tbl.glProgramUniform1i = log_glProgramUniform1i;
+  tbl.glProgramUniform2i = log_glProgramUniform2i;
+  tbl.glProgramUniform3i = log_glProgramUniform3i;
+  tbl.glProgramUniform4i = log_glProgramUniform4i;
+  tbl.glProgramUniform1fv = log_glProgramUniform1fv;
+  tbl.glProgramUniform2fv = log_glProgramUniform2fv;
+  tbl.glProgramUniform3fv = log_glProgramUniform3fv;
+  tbl.glProgramUniform4fv = log_glProgramUniform4fv;
+  tbl.glProgramUniform1iv = log_glProgramUniform1iv;
+  tbl.glProgramUniform2iv = log_glProgramUniform2iv;
+  tbl.glProgramUniform3iv = log_glProgramUniform3iv;
+  tbl.glProgramUniform4iv = log_glProgramUniform4iv;
+  tbl.glProgramUniformMatrix2fv = log_glProgramUniformMatrix2fv;
+  tbl.glProgramUniformMatrix3fv = log_glProgramUniformMatrix3fv;
+  tbl.glProgramUniformMatrix4fv = log_glProgramUniformMatrix4fv;
+  tbl.glProgramUniformMatrix2x3fv = log_glProgramUniformMatrix2x3fv;
+  tbl.glProgramUniformMatrix3x2fv = log_glProgramUniformMatrix3x2fv;
+  tbl.glProgramUniformMatrix2x4fv = log_glProgramUniformMatrix2x4fv;
+  tbl.glProgramUniformMatrix4x2fv = log_glProgramUniformMatrix4x2fv;
+  tbl.glProgramUniformMatrix3x4fv = log_glProgramUniformMatrix3x4fv;
+  tbl.glProgramUniformMatrix4x3fv = log_glProgramUniformMatrix4x3fv;
+  tbl.glProgramUniform1ui = log_glProgramUniform1ui;
+  tbl.glProgramUniform2ui = log_glProgramUniform2ui;
+  tbl.glProgramUniform3ui = log_glProgramUniform3ui;
+  tbl.glProgramUniform4ui = log_glProgramUniform4ui;
+  tbl.glProgramUniform1uiv = log_glProgramUniform1uiv;
+  tbl.glProgramUniform2uiv = log_glProgramUniform2uiv;
+  tbl.glProgramUniform3uiv = log_glProgramUniform3uiv;
+  tbl.glProgramUniform4uiv = log_glProgramUniform4uiv;
+  tbl.glProgramUniform1d = log_glProgramUniform1d;
+  tbl.glProgramUniform2d = log_glProgramUniform2d;
+  tbl.glProgramUniform3d = log_glProgramUniform3d;
+  tbl.glProgramUniform4d = log_glProgramUniform4d;
+  tbl.glProgramUniform1dv = log_glProgramUniform1dv;
+  tbl.glProgramUniform2dv = log_glProgramUniform2dv;
+  tbl.glProgramUniform3dv = log_glProgramUniform3dv;
+  tbl.glProgramUniform4dv = log_glProgramUniform4dv;
+  tbl.glProgramUniformMatrix2dv = log_glProgramUniformMatrix2dv;
+  tbl.glProgramUniformMatrix3dv = log_glProgramUniformMatrix3dv;
+  tbl.glProgramUniformMatrix4dv = log_glProgramUniformMatrix4dv;
+  tbl.glProgramUniformMatrix2x3dv = log_glProgramUniformMatrix2x3dv;
+  tbl.glProgramUniformMatrix2x4dv = log_glProgramUniformMatrix2x4dv;
+  tbl.glProgramUniformMatrix3x2dv = log_glProgramUniformMatrix3x2dv;
+  tbl.glProgramUniformMatrix3x4dv = log_glProgramUniformMatrix3x4dv;
+  tbl.glProgramUniformMatrix4x2dv = log_glProgramUniformMatrix4x2dv;
+  tbl.glProgramUniformMatrix4x3dv = log_glProgramUniformMatrix4x3dv;
+
+  // GL_ARB_multitexture
+
+  tbl.glActiveTextureARB = log_glActiveTextureARB;
+  tbl.glClientActiveTextureARB = log_glClientActiveTextureARB;
+  tbl.glMultiTexCoord1dARB = log_glMultiTexCoord1dARB;
+  tbl.glMultiTexCoord1dvARB = log_glMultiTexCoord1dvARB;
+  tbl.glMultiTexCoord1fARB = log_glMultiTexCoord1fARB;
+  tbl.glMultiTexCoord1fvARB = log_glMultiTexCoord1fvARB;
+  tbl.glMultiTexCoord1iARB = log_glMultiTexCoord1iARB;
+  tbl.glMultiTexCoord1ivARB = log_glMultiTexCoord1ivARB;
+  tbl.glMultiTexCoord1sARB = log_glMultiTexCoord1sARB;
+  tbl.glMultiTexCoord1svARB = log_glMultiTexCoord1svARB;
+  tbl.glMultiTexCoord2dARB = log_glMultiTexCoord2dARB;
+  tbl.glMultiTexCoord2dvARB = log_glMultiTexCoord2dvARB;
+  tbl.glMultiTexCoord2fARB = log_glMultiTexCoord2fARB;
+  tbl.glMultiTexCoord2fvARB = log_glMultiTexCoord2fvARB;
+  tbl.glMultiTexCoord2iARB = log_glMultiTexCoord2iARB;
+  tbl.glMultiTexCoord2ivARB = log_glMultiTexCoord2ivARB;
+  tbl.glMultiTexCoord2sARB = log_glMultiTexCoord2sARB;
+  tbl.glMultiTexCoord2svARB = log_glMultiTexCoord2svARB;
+  tbl.glMultiTexCoord3dARB = log_glMultiTexCoord3dARB;
+  tbl.glMultiTexCoord3dvARB = log_glMultiTexCoord3dvARB;
+  tbl.glMultiTexCoord3fARB = log_glMultiTexCoord3fARB;
+  tbl.glMultiTexCoord3fvARB = log_glMultiTexCoord3fvARB;
+  tbl.glMultiTexCoord3iARB = log_glMultiTexCoord3iARB;
+  tbl.glMultiTexCoord3ivARB = log_glMultiTexCoord3ivARB;
+  tbl.glMultiTexCoord3sARB = log_glMultiTexCoord3sARB;
+  tbl.glMultiTexCoord3svARB = log_glMultiTexCoord3svARB;
+  tbl.glMultiTexCoord4dARB = log_glMultiTexCoord4dARB;
+  tbl.glMultiTexCoord4dvARB = log_glMultiTexCoord4dvARB;
+  tbl.glMultiTexCoord4fARB = log_glMultiTexCoord4fARB;
+  tbl.glMultiTexCoord4fvARB = log_glMultiTexCoord4fvARB;
+  tbl.glMultiTexCoord4iARB = log_glMultiTexCoord4iARB;
+  tbl.glMultiTexCoord4ivARB = log_glMultiTexCoord4ivARB;
+  tbl.glMultiTexCoord4sARB = log_glMultiTexCoord4sARB;
+  tbl.glMultiTexCoord4svARB = log_glMultiTexCoord4svARB;
+
+  // GL_ARB_transpose_matrix
+
+  tbl.glLoadTransposeMatrixfARB = log_glLoadTransposeMatrixfARB;
+  tbl.glLoadTransposeMatrixdARB = log_glLoadTransposeMatrixdARB;
+  tbl.glMultTransposeMatrixfARB = log_glMultTransposeMatrixfARB;
+  tbl.glMultTransposeMatrixdARB = log_glMultTransposeMatrixdARB;
+
+  // GL_ARB_multisample
+
+  tbl.glSampleCoverageARB = log_glSampleCoverageARB;
+
+  // GL_ARB_texture_compression
+
+  tbl.glCompressedTexImage3DARB = log_glCompressedTexImage3DARB;
+  tbl.glCompressedTexImage2DARB = log_glCompressedTexImage2DARB;
+  tbl.glCompressedTexImage1DARB = log_glCompressedTexImage1DARB;
+  tbl.glCompressedTexSubImage3DARB = log_glCompressedTexSubImage3DARB;
+  tbl.glCompressedTexSubImage2DARB = log_glCompressedTexSubImage2DARB;
+  tbl.glCompressedTexSubImage1DARB = log_glCompressedTexSubImage1DARB;
+  tbl.glGetCompressedTexImageARB = log_glGetCompressedTexImageARB;
+
+  // GL_ARB_point_parameters
+
+  tbl.glPointParameterfARB = log_glPointParameterfARB;
+  tbl.glPointParameterfvARB = log_glPointParameterfvARB;
+
+  // GL_ARB_vertex_blend
+
+  tbl.glWeightbvARB = log_glWeightbvARB;
+  tbl.glWeightsvARB = log_glWeightsvARB;
+  tbl.glWeightivARB = log_glWeightivARB;
+  tbl.glWeightfvARB = log_glWeightfvARB;
+  tbl.glWeightdvARB = log_glWeightdvARB;
+  tbl.glWeightubvARB = log_glWeightubvARB;
+  tbl.glWeightusvARB = log_glWeightusvARB;
+  tbl.glWeightuivARB = log_glWeightuivARB;
+  tbl.glWeightPointerARB = log_glWeightPointerARB;
+  tbl.glVertexBlendARB = log_glVertexBlendARB;
+
+  // GL_ARB_matrix_palette
+
+  tbl.glCurrentPaletteMatrixARB = log_glCurrentPaletteMatrixARB;
+  tbl.glMatrixIndexubvARB = log_glMatrixIndexubvARB;
+  tbl.glMatrixIndexusvARB = log_glMatrixIndexusvARB;
+  tbl.glMatrixIndexuivARB = log_glMatrixIndexuivARB;
+  tbl.glMatrixIndexPointerARB = log_glMatrixIndexPointerARB;
+
+  // GL_ARB_window_pos
+
+  tbl.glWindowPos2dARB = log_glWindowPos2dARB;
+  tbl.glWindowPos2dvARB = log_glWindowPos2dvARB;
+  tbl.glWindowPos2fARB = log_glWindowPos2fARB;
+  tbl.glWindowPos2fvARB = log_glWindowPos2fvARB;
+  tbl.glWindowPos2iARB = log_glWindowPos2iARB;
+  tbl.glWindowPos2ivARB = log_glWindowPos2ivARB;
+  tbl.glWindowPos2sARB = log_glWindowPos2sARB;
+  tbl.glWindowPos2svARB = log_glWindowPos2svARB;
+  tbl.glWindowPos3dARB = log_glWindowPos3dARB;
+  tbl.glWindowPos3dvARB = log_glWindowPos3dvARB;
+  tbl.glWindowPos3fARB = log_glWindowPos3fARB;
+  tbl.glWindowPos3fvARB = log_glWindowPos3fvARB;
+  tbl.glWindowPos3iARB = log_glWindowPos3iARB;
+  tbl.glWindowPos3ivARB = log_glWindowPos3ivARB;
+  tbl.glWindowPos3sARB = log_glWindowPos3sARB;
+  tbl.glWindowPos3svARB = log_glWindowPos3svARB;
+
+  // GL_ARB_vertex_program
+
+  tbl.glVertexAttrib1dARB = log_glVertexAttrib1dARB;
+  tbl.glVertexAttrib1dvARB = log_glVertexAttrib1dvARB;
+  tbl.glVertexAttrib1fARB = log_glVertexAttrib1fARB;
+  tbl.glVertexAttrib1fvARB = log_glVertexAttrib1fvARB;
+  tbl.glVertexAttrib1sARB = log_glVertexAttrib1sARB;
+  tbl.glVertexAttrib1svARB = log_glVertexAttrib1svARB;
+  tbl.glVertexAttrib2dARB = log_glVertexAttrib2dARB;
+  tbl.glVertexAttrib2dvARB = log_glVertexAttrib2dvARB;
+  tbl.glVertexAttrib2fARB = log_glVertexAttrib2fARB;
+  tbl.glVertexAttrib2fvARB = log_glVertexAttrib2fvARB;
+  tbl.glVertexAttrib2sARB = log_glVertexAttrib2sARB;
+  tbl.glVertexAttrib2svARB = log_glVertexAttrib2svARB;
+  tbl.glVertexAttrib3dARB = log_glVertexAttrib3dARB;
+  tbl.glVertexAttrib3dvARB = log_glVertexAttrib3dvARB;
+  tbl.glVertexAttrib3fARB = log_glVertexAttrib3fARB;
+  tbl.glVertexAttrib3fvARB = log_glVertexAttrib3fvARB;
+  tbl.glVertexAttrib3sARB = log_glVertexAttrib3sARB;
+  tbl.glVertexAttrib3svARB = log_glVertexAttrib3svARB;
+  tbl.glVertexAttrib4NbvARB = log_glVertexAttrib4NbvARB;
+  tbl.glVertexAttrib4NivARB = log_glVertexAttrib4NivARB;
+  tbl.glVertexAttrib4NsvARB = log_glVertexAttrib4NsvARB;
+  tbl.glVertexAttrib4NubARB = log_glVertexAttrib4NubARB;
+  tbl.glVertexAttrib4NubvARB = log_glVertexAttrib4NubvARB;
+  tbl.glVertexAttrib4NuivARB = log_glVertexAttrib4NuivARB;
+  tbl.glVertexAttrib4NusvARB = log_glVertexAttrib4NusvARB;
+  tbl.glVertexAttrib4bvARB = log_glVertexAttrib4bvARB;
+  tbl.glVertexAttrib4dARB = log_glVertexAttrib4dARB;
+  tbl.glVertexAttrib4dvARB = log_glVertexAttrib4dvARB;
+  tbl.glVertexAttrib4fARB = log_glVertexAttrib4fARB;
+  tbl.glVertexAttrib4fvARB = log_glVertexAttrib4fvARB;
+  tbl.glVertexAttrib4ivARB = log_glVertexAttrib4ivARB;
+  tbl.glVertexAttrib4sARB = log_glVertexAttrib4sARB;
+  tbl.glVertexAttrib4svARB = log_glVertexAttrib4svARB;
+  tbl.glVertexAttrib4ubvARB = log_glVertexAttrib4ubvARB;
+  tbl.glVertexAttrib4uivARB = log_glVertexAttrib4uivARB;
+  tbl.glVertexAttrib4usvARB = log_glVertexAttrib4usvARB;
+  tbl.glVertexAttribPointerARB = log_glVertexAttribPointerARB;
+  tbl.glEnableVertexAttribArrayARB = log_glEnableVertexAttribArrayARB;
+  tbl.glDisableVertexAttribArrayARB = log_glDisableVertexAttribArrayARB;
+  tbl.glProgramStringARB = log_glProgramStringARB;
+  tbl.glBindProgramARB = log_glBindProgramARB;
+  tbl.glDeleteProgramsARB = log_glDeleteProgramsARB;
+  tbl.glGenProgramsARB = log_glGenProgramsARB;
+  tbl.glProgramEnvParameter4dARB = log_glProgramEnvParameter4dARB;
+  tbl.glProgramEnvParameter4dvARB = log_glProgramEnvParameter4dvARB;
+  tbl.glProgramEnvParameter4fARB = log_glProgramEnvParameter4fARB;
+  tbl.glProgramEnvParameter4fvARB = log_glProgramEnvParameter4fvARB;
+  tbl.glProgramLocalParameter4dARB = log_glProgramLocalParameter4dARB;
+  tbl.glProgramLocalParameter4dvARB = log_glProgramLocalParameter4dvARB;
+  tbl.glProgramLocalParameter4fARB = log_glProgramLocalParameter4fARB;
+  tbl.glProgramLocalParameter4fvARB = log_glProgramLocalParameter4fvARB;
+  tbl.glGetProgramEnvParameterdvARB = log_glGetProgramEnvParameterdvARB;
+  tbl.glGetProgramEnvParameterfvARB = log_glGetProgramEnvParameterfvARB;
+  tbl.glGetProgramLocalParameterdvARB = log_glGetProgramLocalParameterdvARB;
+  tbl.glGetProgramLocalParameterfvARB = log_glGetProgramLocalParameterfvARB;
+  tbl.glGetProgramivARB = log_glGetProgramivARB;
+  tbl.glGetProgramStringARB = log_glGetProgramStringARB;
+  tbl.glGetVertexAttribdvARB = log_glGetVertexAttribdvARB;
+  tbl.glGetVertexAttribfvARB = log_glGetVertexAttribfvARB;
+  tbl.glGetVertexAttribivARB = log_glGetVertexAttribivARB;
+  tbl.glGetVertexAttribPointervARB = log_glGetVertexAttribPointervARB;
+  tbl.glIsProgramARB = log_glIsProgramARB;
+
+  // GL_ARB_vertex_buffer_object
+
+  tbl.glBindBufferARB = log_glBindBufferARB;
+  tbl.glDeleteBuffersARB = log_glDeleteBuffersARB;
+  tbl.glGenBuffersARB = log_glGenBuffersARB;
+  tbl.glIsBufferARB = log_glIsBufferARB;
+  tbl.glBufferDataARB = log_glBufferDataARB;
+  tbl.glBufferSubDataARB = log_glBufferSubDataARB;
+  tbl.glGetBufferSubDataARB = log_glGetBufferSubDataARB;
+  tbl.glMapBufferARB = log_glMapBufferARB;
+  tbl.glUnmapBufferARB = log_glUnmapBufferARB;
+  tbl.glGetBufferParameterivARB = log_glGetBufferParameterivARB;
+  tbl.glGetBufferPointervARB = log_glGetBufferPointervARB;
+
+  // GL_ARB_occlusion_query
+
+  tbl.glGenQueriesARB = log_glGenQueriesARB;
+  tbl.glDeleteQueriesARB = log_glDeleteQueriesARB;
+  tbl.glIsQueryARB = log_glIsQueryARB;
+  tbl.glBeginQueryARB = log_glBeginQueryARB;
+  tbl.glEndQueryARB = log_glEndQueryARB;
+  tbl.glGetQueryivARB = log_glGetQueryivARB;
+  tbl.glGetQueryObjectivARB = log_glGetQueryObjectivARB;
+  tbl.glGetQueryObjectuivARB = log_glGetQueryObjectuivARB;
+
+  // GL_ARB_shader_objects
+
+  tbl.glDeleteObjectARB = log_glDeleteObjectARB;
+  tbl.glGetHandleARB = log_glGetHandleARB;
+  tbl.glDetachObjectARB = log_glDetachObjectARB;
+  tbl.glCreateShaderObjectARB = log_glCreateShaderObjectARB;
+  tbl.glShaderSourceARB = log_glShaderSourceARB;
+  tbl.glCompileShaderARB = log_glCompileShaderARB;
+  tbl.glCreateProgramObjectARB = log_glCreateProgramObjectARB;
+  tbl.glAttachObjectARB = log_glAttachObjectARB;
+  tbl.glLinkProgramARB = log_glLinkProgramARB;
+  tbl.glUseProgramObjectARB = log_glUseProgramObjectARB;
+  tbl.glValidateProgramARB = log_glValidateProgramARB;
+  tbl.glUniform1fARB = log_glUniform1fARB;
+  tbl.glUniform2fARB = log_glUniform2fARB;
+  tbl.glUniform3fARB = log_glUniform3fARB;
+  tbl.glUniform4fARB = log_glUniform4fARB;
+  tbl.glUniform1iARB = log_glUniform1iARB;
+  tbl.glUniform2iARB = log_glUniform2iARB;
+  tbl.glUniform3iARB = log_glUniform3iARB;
+  tbl.glUniform4iARB = log_glUniform4iARB;
+  tbl.glUniform1fvARB = log_glUniform1fvARB;
+  tbl.glUniform2fvARB = log_glUniform2fvARB;
+  tbl.glUniform3fvARB = log_glUniform3fvARB;
+  tbl.glUniform4fvARB = log_glUniform4fvARB;
+  tbl.glUniform1ivARB = log_glUniform1ivARB;
+  tbl.glUniform2ivARB = log_glUniform2ivARB;
+  tbl.glUniform3ivARB = log_glUniform3ivARB;
+  tbl.glUniform4ivARB = log_glUniform4ivARB;
+  tbl.glUniformMatrix2fvARB = log_glUniformMatrix2fvARB;
+  tbl.glUniformMatrix3fvARB = log_glUniformMatrix3fvARB;
+  tbl.glUniformMatrix4fvARB = log_glUniformMatrix4fvARB;
+  tbl.glGetObjectParameterfvARB = log_glGetObjectParameterfvARB;
+  tbl.glGetObjectParameterivARB = log_glGetObjectParameterivARB;
+  tbl.glGetInfoLogARB = log_glGetInfoLogARB;
+  tbl.glGetAttachedObjectsARB = log_glGetAttachedObjectsARB;
+  tbl.glGetUniformLocationARB = log_glGetUniformLocationARB;
+  tbl.glGetActiveUniformARB = log_glGetActiveUniformARB;
+  tbl.glGetUniformfvARB = log_glGetUniformfvARB;
+  tbl.glGetUniformivARB = log_glGetUniformivARB;
+  tbl.glGetShaderSourceARB = log_glGetShaderSourceARB;
+
+  // GL_ARB_vertex_shader
+
+  tbl.glBindAttribLocationARB = log_glBindAttribLocationARB;
+  tbl.glGetActiveAttribARB = log_glGetActiveAttribARB;
+  tbl.glGetAttribLocationARB = log_glGetAttribLocationARB;
+
+  // GL_ARB_draw_buffers
+
+  tbl.glDrawBuffersARB = log_glDrawBuffersARB;
+
+  // GL_ARB_color_buffer_float
+
+  tbl.glClampColorARB = log_glClampColorARB;
+
+  // GL_ARB_draw_instanced
+
+  tbl.glDrawArraysInstancedARB = log_glDrawArraysInstancedARB;
+  tbl.glDrawElementsInstancedARB = log_glDrawElementsInstancedARB;
+
+  // GL_ARB_framebuffer_object
+
+  tbl.glIsRenderbuffer = log_glIsRenderbuffer;
+  tbl.glBindRenderbuffer = log_glBindRenderbuffer;
+  tbl.glDeleteRenderbuffers = log_glDeleteRenderbuffers;
+  tbl.glGenRenderbuffers = log_glGenRenderbuffers;
+  tbl.glRenderbufferStorage = log_glRenderbufferStorage;
+  tbl.glGetRenderbufferParameteriv = log_glGetRenderbufferParameteriv;
+  tbl.glIsFramebuffer = log_glIsFramebuffer;
+  tbl.glBindFramebuffer = log_glBindFramebuffer;
+  tbl.glDeleteFramebuffers = log_glDeleteFramebuffers;
+  tbl.glGenFramebuffers = log_glGenFramebuffers;
+  tbl.glCheckFramebufferStatus = log_glCheckFramebufferStatus;
+  tbl.glFramebufferTexture1D = log_glFramebufferTexture1D;
+  tbl.glFramebufferTexture2D = log_glFramebufferTexture2D;
+  tbl.glFramebufferTexture3D = log_glFramebufferTexture3D;
+  tbl.glFramebufferRenderbuffer = log_glFramebufferRenderbuffer;
+  tbl.glGetFramebufferAttachmentParameteriv = log_glGetFramebufferAttachmentParameteriv;
+  tbl.glGenerateMipmap = log_glGenerateMipmap;
+  tbl.glBlitFramebuffer = log_glBlitFramebuffer;
+  tbl.glRenderbufferStorageMultisample = log_glRenderbufferStorageMultisample;
+  tbl.glFramebufferTextureLayer = log_glFramebufferTextureLayer;
+
+  // GL_ARB_geometry_shader4
+
+  tbl.glProgramParameteriARB = log_glProgramParameteriARB;
+  tbl.glFramebufferTextureARB = log_glFramebufferTextureARB;
+  tbl.glFramebufferTextureLayerARB = log_glFramebufferTextureLayerARB;
+  tbl.glFramebufferTextureFaceARB = log_glFramebufferTextureFaceARB;
+
+  // GL_ARB_instanced_arrays
+
+  tbl.glVertexAttribDivisorARB = log_glVertexAttribDivisorARB;
+
+  // GL_ARB_map_buffer_range
+
+  tbl.glMapBufferRange = log_glMapBufferRange;
+  tbl.glFlushMappedBufferRange = log_glFlushMappedBufferRange;
+
+  // GL_ARB_texture_buffer_object
+
+  tbl.glTexBufferARB = log_glTexBufferARB;
+
+  // GL_ARB_vertex_array_object
+
+  tbl.glBindVertexArray = log_glBindVertexArray;
+  tbl.glDeleteVertexArrays = log_glDeleteVertexArrays;
+  tbl.glGenVertexArrays = log_glGenVertexArrays;
+  tbl.glIsVertexArray = log_glIsVertexArray;
+
+  // GL_ARB_uniform_buffer_object
+
+  tbl.glGetUniformIndices = log_glGetUniformIndices;
+  tbl.glGetActiveUniformsiv = log_glGetActiveUniformsiv;
+  tbl.glGetActiveUniformName = log_glGetActiveUniformName;
+  tbl.glGetUniformBlockIndex = log_glGetUniformBlockIndex;
+  tbl.glGetActiveUniformBlockiv = log_glGetActiveUniformBlockiv;
+  tbl.glGetActiveUniformBlockName = log_glGetActiveUniformBlockName;
+  tbl.glUniformBlockBinding = log_glUniformBlockBinding;
+
+  // GL_ARB_copy_buffer
+
+  tbl.glCopyBufferSubData = log_glCopyBufferSubData;
+
+  // GL_ARB_draw_elements_base_vertex
+
+  tbl.glDrawElementsBaseVertex = log_glDrawElementsBaseVertex;
+  tbl.glDrawRangeElementsBaseVertex = log_glDrawRangeElementsBaseVertex;
+  tbl.glDrawElementsInstancedBaseVertex = log_glDrawElementsInstancedBaseVertex;
+  tbl.glMultiDrawElementsBaseVertex = log_glMultiDrawElementsBaseVertex;
+
+  // GL_ARB_provoking_vertex
+
+  tbl.glProvokingVertex = log_glProvokingVertex;
+
+  // GL_ARB_sync
+
+  tbl.glFenceSync = log_glFenceSync;
+  tbl.glIsSync = log_glIsSync;
+  tbl.glDeleteSync = log_glDeleteSync;
+  tbl.glClientWaitSync = log_glClientWaitSync;
+  tbl.glWaitSync = log_glWaitSync;
+  tbl.glGetInteger64v = log_glGetInteger64v;
+  tbl.glGetSynciv = log_glGetSynciv;
+
+  // GL_ARB_texture_multisample
+
+  tbl.glTexImage2DMultisample = log_glTexImage2DMultisample;
+  tbl.glTexImage3DMultisample = log_glTexImage3DMultisample;
+  tbl.glGetMultisamplefv = log_glGetMultisamplefv;
+  tbl.glSampleMaski = log_glSampleMaski;
+
+  // GL_ARB_draw_buffers_blend
+
+  tbl.glBlendEquationiARB = log_glBlendEquationiARB;
+  tbl.glBlendEquationSeparateiARB = log_glBlendEquationSeparateiARB;
+  tbl.glBlendFunciARB = log_glBlendFunciARB;
+  tbl.glBlendFuncSeparateiARB = log_glBlendFuncSeparateiARB;
+
+  // GL_ARB_sample_shading
+
+  tbl.glMinSampleShadingARB = log_glMinSampleShadingARB;
+
+  // GL_ARB_shading_language_include
+
+  tbl.glNamedStringARB = log_glNamedStringARB;
+  tbl.glDeleteNamedStringARB = log_glDeleteNamedStringARB;
+  tbl.glCompileShaderIncludeARB = log_glCompileShaderIncludeARB;
+  tbl.glIsNamedStringARB = log_glIsNamedStringARB;
+  tbl.glGetNamedStringARB = log_glGetNamedStringARB;
+  tbl.glGetNamedStringivARB = log_glGetNamedStringivARB;
+
+  // GL_ARB_debug_output
+
+  tbl.glDebugMessageControlARB = log_glDebugMessageControlARB;
+  tbl.glDebugMessageInsertARB = log_glDebugMessageInsertARB;
+  tbl.glDebugMessageCallbackARB = log_glDebugMessageCallbackARB;
+  tbl.glGetDebugMessageLogARB = log_glGetDebugMessageLogARB;
+
+  // GL_ARB_robustness
+
+  tbl.glGetGraphicsResetStatusARB = log_glGetGraphicsResetStatusARB;
+  tbl.glGetnMapdvARB = log_glGetnMapdvARB;
+  tbl.glGetnMapfvARB = log_glGetnMapfvARB;
+  tbl.glGetnMapivARB = log_glGetnMapivARB;
+  tbl.glGetnPixelMapfvARB = log_glGetnPixelMapfvARB;
+  tbl.glGetnPixelMapuivARB = log_glGetnPixelMapuivARB;
+  tbl.glGetnPixelMapusvARB = log_glGetnPixelMapusvARB;
+  tbl.glGetnPolygonStippleARB = log_glGetnPolygonStippleARB;
+  tbl.glGetnTexImageARB = log_glGetnTexImageARB;
+  tbl.glReadnPixelsARB = log_glReadnPixelsARB;
+  tbl.glGetnColorTableARB = log_glGetnColorTableARB;
+  tbl.glGetnConvolutionFilterARB = log_glGetnConvolutionFilterARB;
+  tbl.glGetnSeparableFilterARB = log_glGetnSeparableFilterARB;
+  tbl.glGetnHistogramARB = log_glGetnHistogramARB;
+  tbl.glGetnMinmaxARB = log_glGetnMinmaxARB;
+  tbl.glGetnCompressedTexImageARB = log_glGetnCompressedTexImageARB;
+  tbl.glGetnUniformfvARB = log_glGetnUniformfvARB;
+  tbl.glGetnUniformivARB = log_glGetnUniformivARB;
+  tbl.glGetnUniformuivARB = log_glGetnUniformuivARB;
+  tbl.glGetnUniformdvARB = log_glGetnUniformdvARB;
+
+  // GL_EXT_blend_color
+
+  tbl.glBlendColorEXT = log_glBlendColorEXT;
+
+  // GL_EXT_polygon_offset
+
+  tbl.glPolygonOffsetEXT = log_glPolygonOffsetEXT;
+
+  // GL_EXT_texture3D
+
+  tbl.glTexImage3DEXT = log_glTexImage3DEXT;
+
+  // GL_SGIS_texture_filter4
+
+  tbl.glGetTexFilterFuncSGIS = log_glGetTexFilterFuncSGIS;
+  tbl.glTexFilterFuncSGIS = log_glTexFilterFuncSGIS;
+
+  // GL_EXT_subtexture
+
+  tbl.glTexSubImage1DEXT = log_glTexSubImage1DEXT;
+  tbl.glTexSubImage2DEXT = log_glTexSubImage2DEXT;
+  tbl.glTexSubImage3DEXT = log_glTexSubImage3DEXT;
+
+  // GL_EXT_copy_texture
+
+  tbl.glCopyTexImage1DEXT = log_glCopyTexImage1DEXT;
+  tbl.glCopyTexImage2DEXT = log_glCopyTexImage2DEXT;
+  tbl.glCopyTexSubImage1DEXT = log_glCopyTexSubImage1DEXT;
+  tbl.glCopyTexSubImage2DEXT = log_glCopyTexSubImage2DEXT;
+  tbl.glCopyTexSubImage3DEXT = log_glCopyTexSubImage3DEXT;
+
+  // GL_EXT_histogram
+
+  tbl.glGetHistogramEXT = log_glGetHistogramEXT;
+  tbl.glGetHistogramParameterfvEXT = log_glGetHistogramParameterfvEXT;
+  tbl.glGetHistogramParameterivEXT = log_glGetHistogramParameterivEXT;
+  tbl.glGetMinmaxEXT = log_glGetMinmaxEXT;
+  tbl.glGetMinmaxParameterfvEXT = log_glGetMinmaxParameterfvEXT;
+  tbl.glGetMinmaxParameterivEXT = log_glGetMinmaxParameterivEXT;
+  tbl.glHistogramEXT = log_glHistogramEXT;
+  tbl.glMinmaxEXT = log_glMinmaxEXT;
+  tbl.glResetHistogramEXT = log_glResetHistogramEXT;
+  tbl.glResetMinmaxEXT = log_glResetMinmaxEXT;
+
+  // GL_EXT_convolution
+
+  tbl.glConvolutionFilter1DEXT = log_glConvolutionFilter1DEXT;
+  tbl.glConvolutionFilter2DEXT = log_glConvolutionFilter2DEXT;
+  tbl.glConvolutionParameterfEXT = log_glConvolutionParameterfEXT;
+  tbl.glConvolutionParameterfvEXT = log_glConvolutionParameterfvEXT;
+  tbl.glConvolutionParameteriEXT = log_glConvolutionParameteriEXT;
+  tbl.glConvolutionParameterivEXT = log_glConvolutionParameterivEXT;
+  tbl.glCopyConvolutionFilter1DEXT = log_glCopyConvolutionFilter1DEXT;
+  tbl.glCopyConvolutionFilter2DEXT = log_glCopyConvolutionFilter2DEXT;
+  tbl.glGetConvolutionFilterEXT = log_glGetConvolutionFilterEXT;
+  tbl.glGetConvolutionParameterfvEXT = log_glGetConvolutionParameterfvEXT;
+  tbl.glGetConvolutionParameterivEXT = log_glGetConvolutionParameterivEXT;
+  tbl.glGetSeparableFilterEXT = log_glGetSeparableFilterEXT;
+  tbl.glSeparableFilter2DEXT = log_glSeparableFilter2DEXT;
+
+  // GL_SGI_color_table
+
+  tbl.glColorTableSGI = log_glColorTableSGI;
+  tbl.glColorTableParameterfvSGI = log_glColorTableParameterfvSGI;
+  tbl.glColorTableParameterivSGI = log_glColorTableParameterivSGI;
+  tbl.glCopyColorTableSGI = log_glCopyColorTableSGI;
+  tbl.glGetColorTableSGI = log_glGetColorTableSGI;
+  tbl.glGetColorTableParameterfvSGI = log_glGetColorTableParameterfvSGI;
+  tbl.glGetColorTableParameterivSGI = log_glGetColorTableParameterivSGI;
+
+  // GL_SGIX_pixel_texture
+
+  tbl.glPixelTexGenSGIX = log_glPixelTexGenSGIX;
+
+  // GL_SGIS_pixel_texture
+
+  tbl.glPixelTexGenParameteriSGIS = log_glPixelTexGenParameteriSGIS;
+  tbl.glPixelTexGenParameterivSGIS = log_glPixelTexGenParameterivSGIS;
+  tbl.glPixelTexGenParameterfSGIS = log_glPixelTexGenParameterfSGIS;
+  tbl.glPixelTexGenParameterfvSGIS = log_glPixelTexGenParameterfvSGIS;
+  tbl.glGetPixelTexGenParameterivSGIS = log_glGetPixelTexGenParameterivSGIS;
+  tbl.glGetPixelTexGenParameterfvSGIS = log_glGetPixelTexGenParameterfvSGIS;
+
+  // GL_SGIS_texture4D
+
+  tbl.glTexImage4DSGIS = log_glTexImage4DSGIS;
+  tbl.glTexSubImage4DSGIS = log_glTexSubImage4DSGIS;
+
+  // GL_EXT_texture_object
+
+  tbl.glAreTexturesResidentEXT = log_glAreTexturesResidentEXT;
+  tbl.glBindTextureEXT = log_glBindTextureEXT;
+  tbl.glDeleteTexturesEXT = log_glDeleteTexturesEXT;
+  tbl.glGenTexturesEXT = log_glGenTexturesEXT;
+  tbl.glIsTextureEXT = log_glIsTextureEXT;
+  tbl.glPrioritizeTexturesEXT = log_glPrioritizeTexturesEXT;
+
+  // GL_SGIS_detail_texture
+
+  tbl.glDetailTexFuncSGIS = log_glDetailTexFuncSGIS;
+  tbl.glGetDetailTexFuncSGIS = log_glGetDetailTexFuncSGIS;
+
+  // GL_SGIS_sharpen_texture
+
+  tbl.glSharpenTexFuncSGIS = log_glSharpenTexFuncSGIS;
+  tbl.glGetSharpenTexFuncSGIS = log_glGetSharpenTexFuncSGIS;
+
+  // GL_SGIS_multisample
+
+  tbl.glSampleMaskSGIS = log_glSampleMaskSGIS;
+  tbl.glSamplePatternSGIS = log_glSamplePatternSGIS;
+
+  // GL_EXT_vertex_array
+
+  tbl.glArrayElementEXT = log_glArrayElementEXT;
+  tbl.glColorPointerEXT = log_glColorPointerEXT;
+  tbl.glDrawArraysEXT = log_glDrawArraysEXT;
+  tbl.glEdgeFlagPointerEXT = log_glEdgeFlagPointerEXT;
+  tbl.glGetPointervEXT = log_glGetPointervEXT;
+  tbl.glIndexPointerEXT = log_glIndexPointerEXT;
+  tbl.glNormalPointerEXT = log_glNormalPointerEXT;
+  tbl.glTexCoordPointerEXT = log_glTexCoordPointerEXT;
+  tbl.glVertexPointerEXT = log_glVertexPointerEXT;
+
+  // GL_EXT_blend_minmax
+
+  tbl.glBlendEquationEXT = log_glBlendEquationEXT;
+
+  // GL_SGIX_sprite
+
+  tbl.glSpriteParameterfSGIX = log_glSpriteParameterfSGIX;
+  tbl.glSpriteParameterfvSGIX = log_glSpriteParameterfvSGIX;
+  tbl.glSpriteParameteriSGIX = log_glSpriteParameteriSGIX;
+  tbl.glSpriteParameterivSGIX = log_glSpriteParameterivSGIX;
+
+  // GL_EXT_point_parameters
+
+  tbl.glPointParameterfEXT = log_glPointParameterfEXT;
+  tbl.glPointParameterfvEXT = log_glPointParameterfvEXT;
+
+  // GL_SGIS_point_parameters
+
+  tbl.glPointParameterfSGIS = log_glPointParameterfSGIS;
+  tbl.glPointParameterfvSGIS = log_glPointParameterfvSGIS;
+
+  // GL_SGIX_instruments
+
+  tbl.glGetInstrumentsSGIX = log_glGetInstrumentsSGIX;
+  tbl.glInstrumentsBufferSGIX = log_glInstrumentsBufferSGIX;
+  tbl.glPollInstrumentsSGIX = log_glPollInstrumentsSGIX;
+  tbl.glReadInstrumentsSGIX = log_glReadInstrumentsSGIX;
+  tbl.glStartInstrumentsSGIX = log_glStartInstrumentsSGIX;
+  tbl.glStopInstrumentsSGIX = log_glStopInstrumentsSGIX;
+
+  // GL_SGIX_framezoom
+
+  tbl.glFrameZoomSGIX = log_glFrameZoomSGIX;
+
+  // GL_SGIX_tag_sample_buffer
+
+  tbl.glTagSampleBufferSGIX = log_glTagSampleBufferSGIX;
+
+  // GL_SGIX_polynomial_ffd
+
+  tbl.glDeformationMap3dSGIX = log_glDeformationMap3dSGIX;
+  tbl.glDeformationMap3fSGIX = log_glDeformationMap3fSGIX;
+  tbl.glDeformSGIX = log_glDeformSGIX;
+  tbl.glLoadIdentityDeformationMapSGIX = log_glLoadIdentityDeformationMapSGIX;
+
+  // GL_SGIX_reference_plane
+
+  tbl.glReferencePlaneSGIX = log_glReferencePlaneSGIX;
+
+  // GL_SGIX_flush_raster
+
+  tbl.glFlushRasterSGIX = log_glFlushRasterSGIX;
+
+  // GL_SGIS_fog_function
+
+  tbl.glFogFuncSGIS = log_glFogFuncSGIS;
+  tbl.glGetFogFuncSGIS = log_glGetFogFuncSGIS;
+
+  // GL_HP_image_transform
+
+  tbl.glImageTransformParameteriHP = log_glImageTransformParameteriHP;
+  tbl.glImageTransformParameterfHP = log_glImageTransformParameterfHP;
+  tbl.glImageTransformParameterivHP = log_glImageTransformParameterivHP;
+  tbl.glImageTransformParameterfvHP = log_glImageTransformParameterfvHP;
+  tbl.glGetImageTransformParameterivHP = log_glGetImageTransformParameterivHP;
+  tbl.glGetImageTransformParameterfvHP = log_glGetImageTransformParameterfvHP;
+
+  // GL_EXT_color_subtable
+
+  tbl.glColorSubTableEXT = log_glColorSubTableEXT;
+  tbl.glCopyColorSubTableEXT = log_glCopyColorSubTableEXT;
+
+  // GL_PGI_misc_hints
+
+  tbl.glHintPGI = log_glHintPGI;
+
+  // GL_EXT_paletted_texture
+
+  tbl.glColorTableEXT = log_glColorTableEXT;
+  tbl.glGetColorTableEXT = log_glGetColorTableEXT;
+  tbl.glGetColorTableParameterivEXT = log_glGetColorTableParameterivEXT;
+  tbl.glGetColorTableParameterfvEXT = log_glGetColorTableParameterfvEXT;
+
+  // GL_SGIX_list_priority
+
+  tbl.glGetListParameterfvSGIX = log_glGetListParameterfvSGIX;
+  tbl.glGetListParameterivSGIX = log_glGetListParameterivSGIX;
+  tbl.glListParameterfSGIX = log_glListParameterfSGIX;
+  tbl.glListParameterfvSGIX = log_glListParameterfvSGIX;
+  tbl.glListParameteriSGIX = log_glListParameteriSGIX;
+  tbl.glListParameterivSGIX = log_glListParameterivSGIX;
+
+  // GL_EXT_index_material
+
+  tbl.glIndexMaterialEXT = log_glIndexMaterialEXT;
+
+  // GL_EXT_index_func
+
+  tbl.glIndexFuncEXT = log_glIndexFuncEXT;
+
+  // GL_EXT_compiled_vertex_array
+
+  tbl.glLockArraysEXT = log_glLockArraysEXT;
+  tbl.glUnlockArraysEXT = log_glUnlockArraysEXT;
+
+  // GL_EXT_cull_vertex
+
+  tbl.glCullParameterdvEXT = log_glCullParameterdvEXT;
+  tbl.glCullParameterfvEXT = log_glCullParameterfvEXT;
+
+  // GL_SGIX_fragment_lighting
+
+  tbl.glFragmentColorMaterialSGIX = log_glFragmentColorMaterialSGIX;
+  tbl.glFragmentLightfSGIX = log_glFragmentLightfSGIX;
+  tbl.glFragmentLightfvSGIX = log_glFragmentLightfvSGIX;
+  tbl.glFragmentLightiSGIX = log_glFragmentLightiSGIX;
+  tbl.glFragmentLightivSGIX = log_glFragmentLightivSGIX;
+  tbl.glFragmentLightModelfSGIX = log_glFragmentLightModelfSGIX;
+  tbl.glFragmentLightModelfvSGIX = log_glFragmentLightModelfvSGIX;
+  tbl.glFragmentLightModeliSGIX = log_glFragmentLightModeliSGIX;
+  tbl.glFragmentLightModelivSGIX = log_glFragmentLightModelivSGIX;
+  tbl.glFragmentMaterialfSGIX = log_glFragmentMaterialfSGIX;
+  tbl.glFragmentMaterialfvSGIX = log_glFragmentMaterialfvSGIX;
+  tbl.glFragmentMaterialiSGIX = log_glFragmentMaterialiSGIX;
+  tbl.glFragmentMaterialivSGIX = log_glFragmentMaterialivSGIX;
+  tbl.glGetFragmentLightfvSGIX = log_glGetFragmentLightfvSGIX;
+  tbl.glGetFragmentLightivSGIX = log_glGetFragmentLightivSGIX;
+  tbl.glGetFragmentMaterialfvSGIX = log_glGetFragmentMaterialfvSGIX;
+  tbl.glGetFragmentMaterialivSGIX = log_glGetFragmentMaterialivSGIX;
+  tbl.glLightEnviSGIX = log_glLightEnviSGIX;
+
+  // GL_EXT_draw_range_elements
+
+  tbl.glDrawRangeElementsEXT = log_glDrawRangeElementsEXT;
+
+  // GL_EXT_light_texture
+
+  tbl.glApplyTextureEXT = log_glApplyTextureEXT;
+  tbl.glTextureLightEXT = log_glTextureLightEXT;
+  tbl.glTextureMaterialEXT = log_glTextureMaterialEXT;
+
+  // GL_EXT_scene_marker
+
+  tbl.glBeginSceneEXT = log_glBeginSceneEXT;
+  tbl.glEndSceneEXT = log_glEndSceneEXT;
+
+  // GL_SGIX_async
+
+  tbl.glAsyncMarkerSGIX = log_glAsyncMarkerSGIX;
+  tbl.glFinishAsyncSGIX = log_glFinishAsyncSGIX;
+  tbl.glPollAsyncSGIX = log_glPollAsyncSGIX;
+  tbl.glGenAsyncMarkersSGIX = log_glGenAsyncMarkersSGIX;
+  tbl.glDeleteAsyncMarkersSGIX = log_glDeleteAsyncMarkersSGIX;
+  tbl.glIsAsyncMarkerSGIX = log_glIsAsyncMarkerSGIX;
+
+  // GL_INTEL_parallel_arrays
+
+  tbl.glVertexPointervINTEL = log_glVertexPointervINTEL;
+  tbl.glNormalPointervINTEL = log_glNormalPointervINTEL;
+  tbl.glColorPointervINTEL = log_glColorPointervINTEL;
+  tbl.glTexCoordPointervINTEL = log_glTexCoordPointervINTEL;
+
+  // GL_EXT_pixel_transform
+
+  tbl.glPixelTransformParameteriEXT = log_glPixelTransformParameteriEXT;
+  tbl.glPixelTransformParameterfEXT = log_glPixelTransformParameterfEXT;
+  tbl.glPixelTransformParameterivEXT = log_glPixelTransformParameterivEXT;
+  tbl.glPixelTransformParameterfvEXT = log_glPixelTransformParameterfvEXT;
+
+  // GL_EXT_secondary_color
+
+  tbl.glSecondaryColor3bEXT = log_glSecondaryColor3bEXT;
+  tbl.glSecondaryColor3bvEXT = log_glSecondaryColor3bvEXT;
+  tbl.glSecondaryColor3dEXT = log_glSecondaryColor3dEXT;
+  tbl.glSecondaryColor3dvEXT = log_glSecondaryColor3dvEXT;
+  tbl.glSecondaryColor3fEXT = log_glSecondaryColor3fEXT;
+  tbl.glSecondaryColor3fvEXT = log_glSecondaryColor3fvEXT;
+  tbl.glSecondaryColor3iEXT = log_glSecondaryColor3iEXT;
+  tbl.glSecondaryColor3ivEXT = log_glSecondaryColor3ivEXT;
+  tbl.glSecondaryColor3sEXT = log_glSecondaryColor3sEXT;
+  tbl.glSecondaryColor3svEXT = log_glSecondaryColor3svEXT;
+  tbl.glSecondaryColor3ubEXT = log_glSecondaryColor3ubEXT;
+  tbl.glSecondaryColor3ubvEXT = log_glSecondaryColor3ubvEXT;
+  tbl.glSecondaryColor3uiEXT = log_glSecondaryColor3uiEXT;
+  tbl.glSecondaryColor3uivEXT = log_glSecondaryColor3uivEXT;
+  tbl.glSecondaryColor3usEXT = log_glSecondaryColor3usEXT;
+  tbl.glSecondaryColor3usvEXT = log_glSecondaryColor3usvEXT;
+  tbl.glSecondaryColorPointerEXT = log_glSecondaryColorPointerEXT;
+
+  // GL_EXT_texture_perturb_normal
+
+  tbl.glTextureNormalEXT = log_glTextureNormalEXT;
+
+  // GL_EXT_multi_draw_arrays
+
+  tbl.glMultiDrawArraysEXT = log_glMultiDrawArraysEXT;
+  tbl.glMultiDrawElementsEXT = log_glMultiDrawElementsEXT;
+
+  // GL_EXT_fog_coord
+
+  tbl.glFogCoordfEXT = log_glFogCoordfEXT;
+  tbl.glFogCoordfvEXT = log_glFogCoordfvEXT;
+  tbl.glFogCoorddEXT = log_glFogCoorddEXT;
+  tbl.glFogCoorddvEXT = log_glFogCoorddvEXT;
+  tbl.glFogCoordPointerEXT = log_glFogCoordPointerEXT;
+
+  // GL_EXT_coordinate_frame
+
+  tbl.glTangent3bEXT = log_glTangent3bEXT;
+  tbl.glTangent3bvEXT = log_glTangent3bvEXT;
+  tbl.glTangent3dEXT = log_glTangent3dEXT;
+  tbl.glTangent3dvEXT = log_glTangent3dvEXT;
+  tbl.glTangent3fEXT = log_glTangent3fEXT;
+  tbl.glTangent3fvEXT = log_glTangent3fvEXT;
+  tbl.glTangent3iEXT = log_glTangent3iEXT;
+  tbl.glTangent3ivEXT = log_glTangent3ivEXT;
+  tbl.glTangent3sEXT = log_glTangent3sEXT;
+  tbl.glTangent3svEXT = log_glTangent3svEXT;
+  tbl.glBinormal3bEXT = log_glBinormal3bEXT;
+  tbl.glBinormal3bvEXT = log_glBinormal3bvEXT;
+  tbl.glBinormal3dEXT = log_glBinormal3dEXT;
+  tbl.glBinormal3dvEXT = log_glBinormal3dvEXT;
+  tbl.glBinormal3fEXT = log_glBinormal3fEXT;
+  tbl.glBinormal3fvEXT = log_glBinormal3fvEXT;
+  tbl.glBinormal3iEXT = log_glBinormal3iEXT;
+  tbl.glBinormal3ivEXT = log_glBinormal3ivEXT;
+  tbl.glBinormal3sEXT = log_glBinormal3sEXT;
+  tbl.glBinormal3svEXT = log_glBinormal3svEXT;
+  tbl.glTangentPointerEXT = log_glTangentPointerEXT;
+  tbl.glBinormalPointerEXT = log_glBinormalPointerEXT;
+
+  // GL_SUNX_constant_data
+
+  tbl.glFinishTextureSUNX = log_glFinishTextureSUNX;
+
+  // GL_SUN_global_alpha
+
+  tbl.glGlobalAlphaFactorbSUN = log_glGlobalAlphaFactorbSUN;
+  tbl.glGlobalAlphaFactorsSUN = log_glGlobalAlphaFactorsSUN;
+  tbl.glGlobalAlphaFactoriSUN = log_glGlobalAlphaFactoriSUN;
+  tbl.glGlobalAlphaFactorfSUN = log_glGlobalAlphaFactorfSUN;
+  tbl.glGlobalAlphaFactordSUN = log_glGlobalAlphaFactordSUN;
+  tbl.glGlobalAlphaFactorubSUN = log_glGlobalAlphaFactorubSUN;
+  tbl.glGlobalAlphaFactorusSUN = log_glGlobalAlphaFactorusSUN;
+  tbl.glGlobalAlphaFactoruiSUN = log_glGlobalAlphaFactoruiSUN;
+
+  // GL_SUN_triangle_list
+
+  tbl.glReplacementCodeuiSUN = log_glReplacementCodeuiSUN;
+  tbl.glReplacementCodeusSUN = log_glReplacementCodeusSUN;
+  tbl.glReplacementCodeubSUN = log_glReplacementCodeubSUN;
+  tbl.glReplacementCodeuivSUN = log_glReplacementCodeuivSUN;
+  tbl.glReplacementCodeusvSUN = log_glReplacementCodeusvSUN;
+  tbl.glReplacementCodeubvSUN = log_glReplacementCodeubvSUN;
+  tbl.glReplacementCodePointerSUN = log_glReplacementCodePointerSUN;
+
+  // GL_SUN_vertex
+
+  tbl.glColor4ubVertex2fSUN = log_glColor4ubVertex2fSUN;
+  tbl.glColor4ubVertex2fvSUN = log_glColor4ubVertex2fvSUN;
+  tbl.glColor4ubVertex3fSUN = log_glColor4ubVertex3fSUN;
+  tbl.glColor4ubVertex3fvSUN = log_glColor4ubVertex3fvSUN;
+  tbl.glColor3fVertex3fSUN = log_glColor3fVertex3fSUN;
+  tbl.glColor3fVertex3fvSUN = log_glColor3fVertex3fvSUN;
+  tbl.glNormal3fVertex3fSUN = log_glNormal3fVertex3fSUN;
+  tbl.glNormal3fVertex3fvSUN = log_glNormal3fVertex3fvSUN;
+  tbl.glColor4fNormal3fVertex3fSUN = log_glColor4fNormal3fVertex3fSUN;
+  tbl.glColor4fNormal3fVertex3fvSUN = log_glColor4fNormal3fVertex3fvSUN;
+  tbl.glTexCoord2fVertex3fSUN = log_glTexCoord2fVertex3fSUN;
+  tbl.glTexCoord2fVertex3fvSUN = log_glTexCoord2fVertex3fvSUN;
+  tbl.glTexCoord4fVertex4fSUN = log_glTexCoord4fVertex4fSUN;
+  tbl.glTexCoord4fVertex4fvSUN = log_glTexCoord4fVertex4fvSUN;
+  tbl.glTexCoord2fColor4ubVertex3fSUN = log_glTexCoord2fColor4ubVertex3fSUN;
+  tbl.glTexCoord2fColor4ubVertex3fvSUN = log_glTexCoord2fColor4ubVertex3fvSUN;
+  tbl.glTexCoord2fColor3fVertex3fSUN = log_glTexCoord2fColor3fVertex3fSUN;
+  tbl.glTexCoord2fColor3fVertex3fvSUN = log_glTexCoord2fColor3fVertex3fvSUN;
+  tbl.glTexCoord2fNormal3fVertex3fSUN = log_glTexCoord2fNormal3fVertex3fSUN;
+  tbl.glTexCoord2fNormal3fVertex3fvSUN = log_glTexCoord2fNormal3fVertex3fvSUN;
+  tbl.glTexCoord2fColor4fNormal3fVertex3fSUN = log_glTexCoord2fColor4fNormal3fVertex3fSUN;
+  tbl.glTexCoord2fColor4fNormal3fVertex3fvSUN = log_glTexCoord2fColor4fNormal3fVertex3fvSUN;
+  tbl.glTexCoord4fColor4fNormal3fVertex4fSUN = log_glTexCoord4fColor4fNormal3fVertex4fSUN;
+  tbl.glTexCoord4fColor4fNormal3fVertex4fvSUN = log_glTexCoord4fColor4fNormal3fVertex4fvSUN;
+  tbl.glReplacementCodeuiVertex3fSUN = log_glReplacementCodeuiVertex3fSUN;
+  tbl.glReplacementCodeuiVertex3fvSUN = log_glReplacementCodeuiVertex3fvSUN;
+  tbl.glReplacementCodeuiColor4ubVertex3fSUN = log_glReplacementCodeuiColor4ubVertex3fSUN;
+  tbl.glReplacementCodeuiColor4ubVertex3fvSUN = log_glReplacementCodeuiColor4ubVertex3fvSUN;
+  tbl.glReplacementCodeuiColor3fVertex3fSUN = log_glReplacementCodeuiColor3fVertex3fSUN;
+  tbl.glReplacementCodeuiColor3fVertex3fvSUN = log_glReplacementCodeuiColor3fVertex3fvSUN;
+  tbl.glReplacementCodeuiNormal3fVertex3fSUN = log_glReplacementCodeuiNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiNormal3fVertex3fvSUN = log_glReplacementCodeuiNormal3fVertex3fvSUN;
+  tbl.glReplacementCodeuiColor4fNormal3fVertex3fSUN = log_glReplacementCodeuiColor4fNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiColor4fNormal3fVertex3fvSUN = log_glReplacementCodeuiColor4fNormal3fVertex3fvSUN;
+  tbl.glReplacementCodeuiTexCoord2fVertex3fSUN = log_glReplacementCodeuiTexCoord2fVertex3fSUN;
+  tbl.glReplacementCodeuiTexCoord2fVertex3fvSUN = log_glReplacementCodeuiTexCoord2fVertex3fvSUN;
+  tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN = log_glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN = log_glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN;
+  tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN = log_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN;
+  tbl.glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN = log_glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN;
+
+  // GL_EXT_blend_func_separate
+
+  tbl.glBlendFuncSeparateEXT = log_glBlendFuncSeparateEXT;
+
+  // GL_INGR_blend_func_separate
+
+  tbl.glBlendFuncSeparateINGR = log_glBlendFuncSeparateINGR;
+
+  // GL_EXT_vertex_weighting
+
+  tbl.glVertexWeightfEXT = log_glVertexWeightfEXT;
+  tbl.glVertexWeightfvEXT = log_glVertexWeightfvEXT;
+  tbl.glVertexWeightPointerEXT = log_glVertexWeightPointerEXT;
+
+  // GL_NV_vertex_array_range
+
+  tbl.glFlushVertexArrayRangeNV = log_glFlushVertexArrayRangeNV;
+  tbl.glVertexArrayRangeNV = log_glVertexArrayRangeNV;
+
+  // GL_NV_register_combiners
+
+  tbl.glCombinerParameterfvNV = log_glCombinerParameterfvNV;
+  tbl.glCombinerParameterfNV = log_glCombinerParameterfNV;
+  tbl.glCombinerParameterivNV = log_glCombinerParameterivNV;
+  tbl.glCombinerParameteriNV = log_glCombinerParameteriNV;
+  tbl.glCombinerInputNV = log_glCombinerInputNV;
+  tbl.glCombinerOutputNV = log_glCombinerOutputNV;
+  tbl.glFinalCombinerInputNV = log_glFinalCombinerInputNV;
+  tbl.glGetCombinerInputParameterfvNV = log_glGetCombinerInputParameterfvNV;
+  tbl.glGetCombinerInputParameterivNV = log_glGetCombinerInputParameterivNV;
+  tbl.glGetCombinerOutputParameterfvNV = log_glGetCombinerOutputParameterfvNV;
+  tbl.glGetCombinerOutputParameterivNV = log_glGetCombinerOutputParameterivNV;
+  tbl.glGetFinalCombinerInputParameterfvNV = log_glGetFinalCombinerInputParameterfvNV;
+  tbl.glGetFinalCombinerInputParameterivNV = log_glGetFinalCombinerInputParameterivNV;
+
+  // GL_MESA_resize_buffers
+
+  tbl.glResizeBuffersMESA = log_glResizeBuffersMESA;
+
+  // GL_MESA_window_pos
+
+  tbl.glWindowPos2dMESA = log_glWindowPos2dMESA;
+  tbl.glWindowPos2dvMESA = log_glWindowPos2dvMESA;
+  tbl.glWindowPos2fMESA = log_glWindowPos2fMESA;
+  tbl.glWindowPos2fvMESA = log_glWindowPos2fvMESA;
+  tbl.glWindowPos2iMESA = log_glWindowPos2iMESA;
+  tbl.glWindowPos2ivMESA = log_glWindowPos2ivMESA;
+  tbl.glWindowPos2sMESA = log_glWindowPos2sMESA;
+  tbl.glWindowPos2svMESA = log_glWindowPos2svMESA;
+  tbl.glWindowPos3dMESA = log_glWindowPos3dMESA;
+  tbl.glWindowPos3dvMESA = log_glWindowPos3dvMESA;
+  tbl.glWindowPos3fMESA = log_glWindowPos3fMESA;
+  tbl.glWindowPos3fvMESA = log_glWindowPos3fvMESA;
+  tbl.glWindowPos3iMESA = log_glWindowPos3iMESA;
+  tbl.glWindowPos3ivMESA = log_glWindowPos3ivMESA;
+  tbl.glWindowPos3sMESA = log_glWindowPos3sMESA;
+  tbl.glWindowPos3svMESA = log_glWindowPos3svMESA;
+  tbl.glWindowPos4dMESA = log_glWindowPos4dMESA;
+  tbl.glWindowPos4dvMESA = log_glWindowPos4dvMESA;
+  tbl.glWindowPos4fMESA = log_glWindowPos4fMESA;
+  tbl.glWindowPos4fvMESA = log_glWindowPos4fvMESA;
+  tbl.glWindowPos4iMESA = log_glWindowPos4iMESA;
+  tbl.glWindowPos4ivMESA = log_glWindowPos4ivMESA;
+  tbl.glWindowPos4sMESA = log_glWindowPos4sMESA;
+  tbl.glWindowPos4svMESA = log_glWindowPos4svMESA;
+
+  // GL_IBM_multimode_draw_arrays
+
+  tbl.glMultiModeDrawArraysIBM = log_glMultiModeDrawArraysIBM;
+  tbl.glMultiModeDrawElementsIBM = log_glMultiModeDrawElementsIBM;
+
+  // GL_IBM_vertex_array_lists
+
+  tbl.glColorPointerListIBM = log_glColorPointerListIBM;
+  tbl.glSecondaryColorPointerListIBM = log_glSecondaryColorPointerListIBM;
+  tbl.glEdgeFlagPointerListIBM = log_glEdgeFlagPointerListIBM;
+  tbl.glFogCoordPointerListIBM = log_glFogCoordPointerListIBM;
+  tbl.glIndexPointerListIBM = log_glIndexPointerListIBM;
+  tbl.glNormalPointerListIBM = log_glNormalPointerListIBM;
+  tbl.glTexCoordPointerListIBM = log_glTexCoordPointerListIBM;
+  tbl.glVertexPointerListIBM = log_glVertexPointerListIBM;
+
+  // GL_3DFX_tbuffer
+
+  tbl.glTbufferMask3DFX = log_glTbufferMask3DFX;
+
+  // GL_EXT_multisample
+
+  tbl.glSampleMaskEXT = log_glSampleMaskEXT;
+  tbl.glSamplePatternEXT = log_glSamplePatternEXT;
+
+  // GL_SGIS_texture_color_mask
+
+  tbl.glTextureColorMaskSGIS = log_glTextureColorMaskSGIS;
+
+  // GL_SGIX_igloo_interface
+
+  tbl.glIglooInterfaceSGIX = log_glIglooInterfaceSGIX;
+
+  // GL_NV_fence
+
+  tbl.glDeleteFencesNV = log_glDeleteFencesNV;
+  tbl.glGenFencesNV = log_glGenFencesNV;
+  tbl.glIsFenceNV = log_glIsFenceNV;
+  tbl.glTestFenceNV = log_glTestFenceNV;
+  tbl.glGetFenceivNV = log_glGetFenceivNV;
+  tbl.glFinishFenceNV = log_glFinishFenceNV;
+  tbl.glSetFenceNV = log_glSetFenceNV;
+
+  // GL_NV_evaluators
+
+  tbl.glMapControlPointsNV = log_glMapControlPointsNV;
+  tbl.glMapParameterivNV = log_glMapParameterivNV;
+  tbl.glMapParameterfvNV = log_glMapParameterfvNV;
+  tbl.glGetMapControlPointsNV = log_glGetMapControlPointsNV;
+  tbl.glGetMapParameterivNV = log_glGetMapParameterivNV;
+  tbl.glGetMapParameterfvNV = log_glGetMapParameterfvNV;
+  tbl.glGetMapAttribParameterivNV = log_glGetMapAttribParameterivNV;
+  tbl.glGetMapAttribParameterfvNV = log_glGetMapAttribParameterfvNV;
+  tbl.glEvalMapsNV = log_glEvalMapsNV;
+
+  // GL_NV_register_combiners2
+
+  tbl.glCombinerStageParameterfvNV = log_glCombinerStageParameterfvNV;
+  tbl.glGetCombinerStageParameterfvNV = log_glGetCombinerStageParameterfvNV;
+
+  // GL_NV_vertex_program
+
+  tbl.glAreProgramsResidentNV = log_glAreProgramsResidentNV;
+  tbl.glBindProgramNV = log_glBindProgramNV;
+  tbl.glDeleteProgramsNV = log_glDeleteProgramsNV;
+  tbl.glExecuteProgramNV = log_glExecuteProgramNV;
+  tbl.glGenProgramsNV = log_glGenProgramsNV;
+  tbl.glGetProgramParameterdvNV = log_glGetProgramParameterdvNV;
+  tbl.glGetProgramParameterfvNV = log_glGetProgramParameterfvNV;
+  tbl.glGetProgramivNV = log_glGetProgramivNV;
+  tbl.glGetProgramStringNV = log_glGetProgramStringNV;
+  tbl.glGetTrackMatrixivNV = log_glGetTrackMatrixivNV;
+  tbl.glGetVertexAttribdvNV = log_glGetVertexAttribdvNV;
+  tbl.glGetVertexAttribfvNV = log_glGetVertexAttribfvNV;
+  tbl.glGetVertexAttribivNV = log_glGetVertexAttribivNV;
+  tbl.glGetVertexAttribPointervNV = log_glGetVertexAttribPointervNV;
+  tbl.glIsProgramNV = log_glIsProgramNV;
+  tbl.glLoadProgramNV = log_glLoadProgramNV;
+  tbl.glProgramParameter4dNV = log_glProgramParameter4dNV;
+  tbl.glProgramParameter4dvNV = log_glProgramParameter4dvNV;
+  tbl.glProgramParameter4fNV = log_glProgramParameter4fNV;
+  tbl.glProgramParameter4fvNV = log_glProgramParameter4fvNV;
+  tbl.glProgramParameters4dvNV = log_glProgramParameters4dvNV;
+  tbl.glProgramParameters4fvNV = log_glProgramParameters4fvNV;
+  tbl.glRequestResidentProgramsNV = log_glRequestResidentProgramsNV;
+  tbl.glTrackMatrixNV = log_glTrackMatrixNV;
+  tbl.glVertexAttribPointerNV = log_glVertexAttribPointerNV;
+  tbl.glVertexAttrib1dNV = log_glVertexAttrib1dNV;
+  tbl.glVertexAttrib1dvNV = log_glVertexAttrib1dvNV;
+  tbl.glVertexAttrib1fNV = log_glVertexAttrib1fNV;
+  tbl.glVertexAttrib1fvNV = log_glVertexAttrib1fvNV;
+  tbl.glVertexAttrib1sNV = log_glVertexAttrib1sNV;
+  tbl.glVertexAttrib1svNV = log_glVertexAttrib1svNV;
+  tbl.glVertexAttrib2dNV = log_glVertexAttrib2dNV;
+  tbl.glVertexAttrib2dvNV = log_glVertexAttrib2dvNV;
+  tbl.glVertexAttrib2fNV = log_glVertexAttrib2fNV;
+  tbl.glVertexAttrib2fvNV = log_glVertexAttrib2fvNV;
+  tbl.glVertexAttrib2sNV = log_glVertexAttrib2sNV;
+  tbl.glVertexAttrib2svNV = log_glVertexAttrib2svNV;
+  tbl.glVertexAttrib3dNV = log_glVertexAttrib3dNV;
+  tbl.glVertexAttrib3dvNV = log_glVertexAttrib3dvNV;
+  tbl.glVertexAttrib3fNV = log_glVertexAttrib3fNV;
+  tbl.glVertexAttrib3fvNV = log_glVertexAttrib3fvNV;
+  tbl.glVertexAttrib3sNV = log_glVertexAttrib3sNV;
+  tbl.glVertexAttrib3svNV = log_glVertexAttrib3svNV;
+  tbl.glVertexAttrib4dNV = log_glVertexAttrib4dNV;
+  tbl.glVertexAttrib4dvNV = log_glVertexAttrib4dvNV;
+  tbl.glVertexAttrib4fNV = log_glVertexAttrib4fNV;
+  tbl.glVertexAttrib4fvNV = log_glVertexAttrib4fvNV;
+  tbl.glVertexAttrib4sNV = log_glVertexAttrib4sNV;
+  tbl.glVertexAttrib4svNV = log_glVertexAttrib4svNV;
+  tbl.glVertexAttrib4ubNV = log_glVertexAttrib4ubNV;
+  tbl.glVertexAttrib4ubvNV = log_glVertexAttrib4ubvNV;
+  tbl.glVertexAttribs1dvNV = log_glVertexAttribs1dvNV;
+  tbl.glVertexAttribs1fvNV = log_glVertexAttribs1fvNV;
+  tbl.glVertexAttribs1svNV = log_glVertexAttribs1svNV;
+  tbl.glVertexAttribs2dvNV = log_glVertexAttribs2dvNV;
+  tbl.glVertexAttribs2fvNV = log_glVertexAttribs2fvNV;
+  tbl.glVertexAttribs2svNV = log_glVertexAttribs2svNV;
+  tbl.glVertexAttribs3dvNV = log_glVertexAttribs3dvNV;
+  tbl.glVertexAttribs3fvNV = log_glVertexAttribs3fvNV;
+  tbl.glVertexAttribs3svNV = log_glVertexAttribs3svNV;
+  tbl.glVertexAttribs4dvNV = log_glVertexAttribs4dvNV;
+  tbl.glVertexAttribs4fvNV = log_glVertexAttribs4fvNV;
+  tbl.glVertexAttribs4svNV = log_glVertexAttribs4svNV;
+  tbl.glVertexAttribs4ubvNV = log_glVertexAttribs4ubvNV;
+
+  // GL_ATI_envmap_bumpmap
+
+  tbl.glTexBumpParameterivATI = log_glTexBumpParameterivATI;
+  tbl.glTexBumpParameterfvATI = log_glTexBumpParameterfvATI;
+  tbl.glGetTexBumpParameterivATI = log_glGetTexBumpParameterivATI;
+  tbl.glGetTexBumpParameterfvATI = log_glGetTexBumpParameterfvATI;
+
+  // GL_ATI_fragment_shader
+
+  tbl.glGenFragmentShadersATI = log_glGenFragmentShadersATI;
+  tbl.glBindFragmentShaderATI = log_glBindFragmentShaderATI;
+  tbl.glDeleteFragmentShaderATI = log_glDeleteFragmentShaderATI;
+  tbl.glBeginFragmentShaderATI = log_glBeginFragmentShaderATI;
+  tbl.glEndFragmentShaderATI = log_glEndFragmentShaderATI;
+  tbl.glPassTexCoordATI = log_glPassTexCoordATI;
+  tbl.glSampleMapATI = log_glSampleMapATI;
+  tbl.glColorFragmentOp1ATI = log_glColorFragmentOp1ATI;
+  tbl.glColorFragmentOp2ATI = log_glColorFragmentOp2ATI;
+  tbl.glColorFragmentOp3ATI = log_glColorFragmentOp3ATI;
+  tbl.glAlphaFragmentOp1ATI = log_glAlphaFragmentOp1ATI;
+  tbl.glAlphaFragmentOp2ATI = log_glAlphaFragmentOp2ATI;
+  tbl.glAlphaFragmentOp3ATI = log_glAlphaFragmentOp3ATI;
+  tbl.glSetFragmentShaderConstantATI = log_glSetFragmentShaderConstantATI;
+
+  // GL_ATI_pn_triangles
+
+  tbl.glPNTrianglesiATI = log_glPNTrianglesiATI;
+  tbl.glPNTrianglesfATI = log_glPNTrianglesfATI;
+
+  // GL_ATI_vertex_array_object
+
+  tbl.glNewObjectBufferATI = log_glNewObjectBufferATI;
+  tbl.glIsObjectBufferATI = log_glIsObjectBufferATI;
+  tbl.glUpdateObjectBufferATI = log_glUpdateObjectBufferATI;
+  tbl.glGetObjectBufferfvATI = log_glGetObjectBufferfvATI;
+  tbl.glGetObjectBufferivATI = log_glGetObjectBufferivATI;
+  tbl.glFreeObjectBufferATI = log_glFreeObjectBufferATI;
+  tbl.glArrayObjectATI = log_glArrayObjectATI;
+  tbl.glGetArrayObjectfvATI = log_glGetArrayObjectfvATI;
+  tbl.glGetArrayObjectivATI = log_glGetArrayObjectivATI;
+  tbl.glVariantArrayObjectATI = log_glVariantArrayObjectATI;
+  tbl.glGetVariantArrayObjectfvATI = log_glGetVariantArrayObjectfvATI;
+  tbl.glGetVariantArrayObjectivATI = log_glGetVariantArrayObjectivATI;
+
+  // GL_EXT_vertex_shader
+
+  tbl.glBeginVertexShaderEXT = log_glBeginVertexShaderEXT;
+  tbl.glEndVertexShaderEXT = log_glEndVertexShaderEXT;
+  tbl.glBindVertexShaderEXT = log_glBindVertexShaderEXT;
+  tbl.glGenVertexShadersEXT = log_glGenVertexShadersEXT;
+  tbl.glDeleteVertexShaderEXT = log_glDeleteVertexShaderEXT;
+  tbl.glShaderOp1EXT = log_glShaderOp1EXT;
+  tbl.glShaderOp2EXT = log_glShaderOp2EXT;
+  tbl.glShaderOp3EXT = log_glShaderOp3EXT;
+  tbl.glSwizzleEXT = log_glSwizzleEXT;
+  tbl.glWriteMaskEXT = log_glWriteMaskEXT;
+  tbl.glInsertComponentEXT = log_glInsertComponentEXT;
+  tbl.glExtractComponentEXT = log_glExtractComponentEXT;
+  tbl.glGenSymbolsEXT = log_glGenSymbolsEXT;
+  tbl.glSetInvariantEXT = log_glSetInvariantEXT;
+  tbl.glSetLocalConstantEXT = log_glSetLocalConstantEXT;
+  tbl.glVariantbvEXT = log_glVariantbvEXT;
+  tbl.glVariantsvEXT = log_glVariantsvEXT;
+  tbl.glVariantivEXT = log_glVariantivEXT;
+  tbl.glVariantfvEXT = log_glVariantfvEXT;
+  tbl.glVariantdvEXT = log_glVariantdvEXT;
+  tbl.glVariantubvEXT = log_glVariantubvEXT;
+  tbl.glVariantusvEXT = log_glVariantusvEXT;
+  tbl.glVariantuivEXT = log_glVariantuivEXT;
+  tbl.glVariantPointerEXT = log_glVariantPointerEXT;
+  tbl.glEnableVariantClientStateEXT = log_glEnableVariantClientStateEXT;
+  tbl.glDisableVariantClientStateEXT = log_glDisableVariantClientStateEXT;
+  tbl.glBindLightParameterEXT = log_glBindLightParameterEXT;
+  tbl.glBindMaterialParameterEXT = log_glBindMaterialParameterEXT;
+  tbl.glBindTexGenParameterEXT = log_glBindTexGenParameterEXT;
+  tbl.glBindTextureUnitParameterEXT = log_glBindTextureUnitParameterEXT;
+  tbl.glBindParameterEXT = log_glBindParameterEXT;
+  tbl.glIsVariantEnabledEXT = log_glIsVariantEnabledEXT;
+  tbl.glGetVariantBooleanvEXT = log_glGetVariantBooleanvEXT;
+  tbl.glGetVariantIntegervEXT = log_glGetVariantIntegervEXT;
+  tbl.glGetVariantFloatvEXT = log_glGetVariantFloatvEXT;
+  tbl.glGetVariantPointervEXT = log_glGetVariantPointervEXT;
+  tbl.glGetInvariantBooleanvEXT = log_glGetInvariantBooleanvEXT;
+  tbl.glGetInvariantIntegervEXT = log_glGetInvariantIntegervEXT;
+  tbl.glGetInvariantFloatvEXT = log_glGetInvariantFloatvEXT;
+  tbl.glGetLocalConstantBooleanvEXT = log_glGetLocalConstantBooleanvEXT;
+  tbl.glGetLocalConstantIntegervEXT = log_glGetLocalConstantIntegervEXT;
+  tbl.glGetLocalConstantFloatvEXT = log_glGetLocalConstantFloatvEXT;
+
+  // GL_ATI_vertex_streams
+
+  tbl.glVertexStream1sATI = log_glVertexStream1sATI;
+  tbl.glVertexStream1svATI = log_glVertexStream1svATI;
+  tbl.glVertexStream1iATI = log_glVertexStream1iATI;
+  tbl.glVertexStream1ivATI = log_glVertexStream1ivATI;
+  tbl.glVertexStream1fATI = log_glVertexStream1fATI;
+  tbl.glVertexStream1fvATI = log_glVertexStream1fvATI;
+  tbl.glVertexStream1dATI = log_glVertexStream1dATI;
+  tbl.glVertexStream1dvATI = log_glVertexStream1dvATI;
+  tbl.glVertexStream2sATI = log_glVertexStream2sATI;
+  tbl.glVertexStream2svATI = log_glVertexStream2svATI;
+  tbl.glVertexStream2iATI = log_glVertexStream2iATI;
+  tbl.glVertexStream2ivATI = log_glVertexStream2ivATI;
+  tbl.glVertexStream2fATI = log_glVertexStream2fATI;
+  tbl.glVertexStream2fvATI = log_glVertexStream2fvATI;
+  tbl.glVertexStream2dATI = log_glVertexStream2dATI;
+  tbl.glVertexStream2dvATI = log_glVertexStream2dvATI;
+  tbl.glVertexStream3sATI = log_glVertexStream3sATI;
+  tbl.glVertexStream3svATI = log_glVertexStream3svATI;
+  tbl.glVertexStream3iATI = log_glVertexStream3iATI;
+  tbl.glVertexStream3ivATI = log_glVertexStream3ivATI;
+  tbl.glVertexStream3fATI = log_glVertexStream3fATI;
+  tbl.glVertexStream3fvATI = log_glVertexStream3fvATI;
+  tbl.glVertexStream3dATI = log_glVertexStream3dATI;
+  tbl.glVertexStream3dvATI = log_glVertexStream3dvATI;
+  tbl.glVertexStream4sATI = log_glVertexStream4sATI;
+  tbl.glVertexStream4svATI = log_glVertexStream4svATI;
+  tbl.glVertexStream4iATI = log_glVertexStream4iATI;
+  tbl.glVertexStream4ivATI = log_glVertexStream4ivATI;
+  tbl.glVertexStream4fATI = log_glVertexStream4fATI;
+  tbl.glVertexStream4fvATI = log_glVertexStream4fvATI;
+  tbl.glVertexStream4dATI = log_glVertexStream4dATI;
+  tbl.glVertexStream4dvATI = log_glVertexStream4dvATI;
+  tbl.glNormalStream3bATI = log_glNormalStream3bATI;
+  tbl.glNormalStream3bvATI = log_glNormalStream3bvATI;
+  tbl.glNormalStream3sATI = log_glNormalStream3sATI;
+  tbl.glNormalStream3svATI = log_glNormalStream3svATI;
+  tbl.glNormalStream3iATI = log_glNormalStream3iATI;
+  tbl.glNormalStream3ivATI = log_glNormalStream3ivATI;
+  tbl.glNormalStream3fATI = log_glNormalStream3fATI;
+  tbl.glNormalStream3fvATI = log_glNormalStream3fvATI;
+  tbl.glNormalStream3dATI = log_glNormalStream3dATI;
+  tbl.glNormalStream3dvATI = log_glNormalStream3dvATI;
+  tbl.glClientActiveVertexStreamATI = log_glClientActiveVertexStreamATI;
+  tbl.glVertexBlendEnviATI = log_glVertexBlendEnviATI;
+  tbl.glVertexBlendEnvfATI = log_glVertexBlendEnvfATI;
+
+  // GL_ATI_element_array
+
+  tbl.glElementPointerATI = log_glElementPointerATI;
+  tbl.glDrawElementArrayATI = log_glDrawElementArrayATI;
+  tbl.glDrawRangeElementArrayATI = log_glDrawRangeElementArrayATI;
+
+  // GL_SUN_mesh_array
+
+  tbl.glDrawMeshArraysSUN = log_glDrawMeshArraysSUN;
+
+  // GL_NV_occlusion_query
+
+  tbl.glGenOcclusionQueriesNV = log_glGenOcclusionQueriesNV;
+  tbl.glDeleteOcclusionQueriesNV = log_glDeleteOcclusionQueriesNV;
+  tbl.glIsOcclusionQueryNV = log_glIsOcclusionQueryNV;
+  tbl.glBeginOcclusionQueryNV = log_glBeginOcclusionQueryNV;
+  tbl.glEndOcclusionQueryNV = log_glEndOcclusionQueryNV;
+  tbl.glGetOcclusionQueryivNV = log_glGetOcclusionQueryivNV;
+  tbl.glGetOcclusionQueryuivNV = log_glGetOcclusionQueryuivNV;
+
+  // GL_NV_point_sprite
+
+  tbl.glPointParameteriNV = log_glPointParameteriNV;
+  tbl.glPointParameterivNV = log_glPointParameterivNV;
+
+  // GL_EXT_stencil_two_side
+
+  tbl.glActiveStencilFaceEXT = log_glActiveStencilFaceEXT;
+
+  // GL_APPLE_element_array
+
+  tbl.glElementPointerAPPLE = log_glElementPointerAPPLE;
+  tbl.glDrawElementArrayAPPLE = log_glDrawElementArrayAPPLE;
+  tbl.glDrawRangeElementArrayAPPLE = log_glDrawRangeElementArrayAPPLE;
+  tbl.glMultiDrawElementArrayAPPLE = log_glMultiDrawElementArrayAPPLE;
+  tbl.glMultiDrawRangeElementArrayAPPLE = log_glMultiDrawRangeElementArrayAPPLE;
+
+  // GL_APPLE_fence
+
+  tbl.glGenFencesAPPLE = log_glGenFencesAPPLE;
+  tbl.glDeleteFencesAPPLE = log_glDeleteFencesAPPLE;
+  tbl.glSetFenceAPPLE = log_glSetFenceAPPLE;
+  tbl.glIsFenceAPPLE = log_glIsFenceAPPLE;
+  tbl.glTestFenceAPPLE = log_glTestFenceAPPLE;
+  tbl.glFinishFenceAPPLE = log_glFinishFenceAPPLE;
+  tbl.glTestObjectAPPLE = log_glTestObjectAPPLE;
+  tbl.glFinishObjectAPPLE = log_glFinishObjectAPPLE;
+
+  // GL_APPLE_vertex_array_object
+
+  tbl.glBindVertexArrayAPPLE = log_glBindVertexArrayAPPLE;
+  tbl.glDeleteVertexArraysAPPLE = log_glDeleteVertexArraysAPPLE;
+  tbl.glGenVertexArraysAPPLE = log_glGenVertexArraysAPPLE;
+  tbl.glIsVertexArrayAPPLE = log_glIsVertexArrayAPPLE;
+
+  // GL_APPLE_vertex_array_range
+
+  tbl.glVertexArrayRangeAPPLE = log_glVertexArrayRangeAPPLE;
+  tbl.glFlushVertexArrayRangeAPPLE = log_glFlushVertexArrayRangeAPPLE;
+  tbl.glVertexArrayParameteriAPPLE = log_glVertexArrayParameteriAPPLE;
+
+  // GL_ATI_draw_buffers
+
+  tbl.glDrawBuffersATI = log_glDrawBuffersATI;
+
+  // GL_NV_fragment_program
+
+  tbl.glProgramNamedParameter4fNV = log_glProgramNamedParameter4fNV;
+  tbl.glProgramNamedParameter4dNV = log_glProgramNamedParameter4dNV;
+  tbl.glProgramNamedParameter4fvNV = log_glProgramNamedParameter4fvNV;
+  tbl.glProgramNamedParameter4dvNV = log_glProgramNamedParameter4dvNV;
+  tbl.glGetProgramNamedParameterfvNV = log_glGetProgramNamedParameterfvNV;
+  tbl.glGetProgramNamedParameterdvNV = log_glGetProgramNamedParameterdvNV;
+
+  // GL_NV_half_float
+
+  tbl.glVertex2hNV = log_glVertex2hNV;
+  tbl.glVertex2hvNV = log_glVertex2hvNV;
+  tbl.glVertex3hNV = log_glVertex3hNV;
+  tbl.glVertex3hvNV = log_glVertex3hvNV;
+  tbl.glVertex4hNV = log_glVertex4hNV;
+  tbl.glVertex4hvNV = log_glVertex4hvNV;
+  tbl.glNormal3hNV = log_glNormal3hNV;
+  tbl.glNormal3hvNV = log_glNormal3hvNV;
+  tbl.glColor3hNV = log_glColor3hNV;
+  tbl.glColor3hvNV = log_glColor3hvNV;
+  tbl.glColor4hNV = log_glColor4hNV;
+  tbl.glColor4hvNV = log_glColor4hvNV;
+  tbl.glTexCoord1hNV = log_glTexCoord1hNV;
+  tbl.glTexCoord1hvNV = log_glTexCoord1hvNV;
+  tbl.glTexCoord2hNV = log_glTexCoord2hNV;
+  tbl.glTexCoord2hvNV = log_glTexCoord2hvNV;
+  tbl.glTexCoord3hNV = log_glTexCoord3hNV;
+  tbl.glTexCoord3hvNV = log_glTexCoord3hvNV;
+  tbl.glTexCoord4hNV = log_glTexCoord4hNV;
+  tbl.glTexCoord4hvNV = log_glTexCoord4hvNV;
+  tbl.glMultiTexCoord1hNV = log_glMultiTexCoord1hNV;
+  tbl.glMultiTexCoord1hvNV = log_glMultiTexCoord1hvNV;
+  tbl.glMultiTexCoord2hNV = log_glMultiTexCoord2hNV;
+  tbl.glMultiTexCoord2hvNV = log_glMultiTexCoord2hvNV;
+  tbl.glMultiTexCoord3hNV = log_glMultiTexCoord3hNV;
+  tbl.glMultiTexCoord3hvNV = log_glMultiTexCoord3hvNV;
+  tbl.glMultiTexCoord4hNV = log_glMultiTexCoord4hNV;
+  tbl.glMultiTexCoord4hvNV = log_glMultiTexCoord4hvNV;
+  tbl.glFogCoordhNV = log_glFogCoordhNV;
+  tbl.glFogCoordhvNV = log_glFogCoordhvNV;
+  tbl.glSecondaryColor3hNV = log_glSecondaryColor3hNV;
+  tbl.glSecondaryColor3hvNV = log_glSecondaryColor3hvNV;
+  tbl.glVertexWeighthNV = log_glVertexWeighthNV;
+  tbl.glVertexWeighthvNV = log_glVertexWeighthvNV;
+  tbl.glVertexAttrib1hNV = log_glVertexAttrib1hNV;
+  tbl.glVertexAttrib1hvNV = log_glVertexAttrib1hvNV;
+  tbl.glVertexAttrib2hNV = log_glVertexAttrib2hNV;
+  tbl.glVertexAttrib2hvNV = log_glVertexAttrib2hvNV;
+  tbl.glVertexAttrib3hNV = log_glVertexAttrib3hNV;
+  tbl.glVertexAttrib3hvNV = log_glVertexAttrib3hvNV;
+  tbl.glVertexAttrib4hNV = log_glVertexAttrib4hNV;
+  tbl.glVertexAttrib4hvNV = log_glVertexAttrib4hvNV;
+  tbl.glVertexAttribs1hvNV = log_glVertexAttribs1hvNV;
+  tbl.glVertexAttribs2hvNV = log_glVertexAttribs2hvNV;
+  tbl.glVertexAttribs3hvNV = log_glVertexAttribs3hvNV;
+  tbl.glVertexAttribs4hvNV = log_glVertexAttribs4hvNV;
+
+  // GL_NV_pixel_data_range
+
+  tbl.glPixelDataRangeNV = log_glPixelDataRangeNV;
+  tbl.glFlushPixelDataRangeNV = log_glFlushPixelDataRangeNV;
+
+  // GL_NV_primitive_restart
+
+  tbl.glPrimitiveRestartNV = log_glPrimitiveRestartNV;
+  tbl.glPrimitiveRestartIndexNV = log_glPrimitiveRestartIndexNV;
+
+  // GL_ATI_map_object_buffer
+
+  tbl.glMapObjectBufferATI = log_glMapObjectBufferATI;
+  tbl.glUnmapObjectBufferATI = log_glUnmapObjectBufferATI;
+
+  // GL_ATI_separate_stencil
+
+  tbl.glStencilOpSeparateATI = log_glStencilOpSeparateATI;
+  tbl.glStencilFuncSeparateATI = log_glStencilFuncSeparateATI;
+
+  // GL_ATI_vertex_attrib_array_object
+
+  tbl.glVertexAttribArrayObjectATI = log_glVertexAttribArrayObjectATI;
+  tbl.glGetVertexAttribArrayObjectfvATI = log_glGetVertexAttribArrayObjectfvATI;
+  tbl.glGetVertexAttribArrayObjectivATI = log_glGetVertexAttribArrayObjectivATI;
+
+  // GL_EXT_depth_bounds_test
+
+  tbl.glDepthBoundsEXT = log_glDepthBoundsEXT;
+
+  // GL_EXT_blend_equation_separate
+
+  tbl.glBlendEquationSeparateEXT = log_glBlendEquationSeparateEXT;
+
+  // GL_EXT_framebuffer_object
+
+  tbl.glIsRenderbufferEXT = log_glIsRenderbufferEXT;
+  tbl.glBindRenderbufferEXT = log_glBindRenderbufferEXT;
+  tbl.glDeleteRenderbuffersEXT = log_glDeleteRenderbuffersEXT;
+  tbl.glGenRenderbuffersEXT = log_glGenRenderbuffersEXT;
+  tbl.glRenderbufferStorageEXT = log_glRenderbufferStorageEXT;
+  tbl.glGetRenderbufferParameterivEXT = log_glGetRenderbufferParameterivEXT;
+  tbl.glIsFramebufferEXT = log_glIsFramebufferEXT;
+  tbl.glBindFramebufferEXT = log_glBindFramebufferEXT;
+  tbl.glDeleteFramebuffersEXT = log_glDeleteFramebuffersEXT;
+  tbl.glGenFramebuffersEXT = log_glGenFramebuffersEXT;
+  tbl.glCheckFramebufferStatusEXT = log_glCheckFramebufferStatusEXT;
+  tbl.glFramebufferTexture1DEXT = log_glFramebufferTexture1DEXT;
+  tbl.glFramebufferTexture2DEXT = log_glFramebufferTexture2DEXT;
+  tbl.glFramebufferTexture3DEXT = log_glFramebufferTexture3DEXT;
+  tbl.glFramebufferRenderbufferEXT = log_glFramebufferRenderbufferEXT;
+  tbl.glGetFramebufferAttachmentParameterivEXT = log_glGetFramebufferAttachmentParameterivEXT;
+  tbl.glGenerateMipmapEXT = log_glGenerateMipmapEXT;
+
+  // GL_GREMEDY_string_marker
+
+  tbl.glStringMarkerGREMEDY = log_glStringMarkerGREMEDY;
+
+  // GL_EXT_stencil_clear_tag
+
+  tbl.glStencilClearTagEXT = log_glStencilClearTagEXT;
+
+  // GL_EXT_framebuffer_blit
+
+  tbl.glBlitFramebufferEXT = log_glBlitFramebufferEXT;
+
+  // GL_EXT_framebuffer_multisample
+
+  tbl.glRenderbufferStorageMultisampleEXT = log_glRenderbufferStorageMultisampleEXT;
+
+  // GL_EXT_timer_query
+
+  tbl.glGetQueryObjecti64vEXT = log_glGetQueryObjecti64vEXT;
+  tbl.glGetQueryObjectui64vEXT = log_glGetQueryObjectui64vEXT;
+
+  // GL_EXT_gpu_program_parameters
+
+  tbl.glProgramEnvParameters4fvEXT = log_glProgramEnvParameters4fvEXT;
+  tbl.glProgramLocalParameters4fvEXT = log_glProgramLocalParameters4fvEXT;
+
+  // GL_APPLE_flush_buffer_range
+
+  tbl.glBufferParameteriAPPLE = log_glBufferParameteriAPPLE;
+  tbl.glFlushMappedBufferRangeAPPLE = log_glFlushMappedBufferRangeAPPLE;
+
+  // GL_NV_gpu_program4
+
+  tbl.glProgramLocalParameterI4iNV = log_glProgramLocalParameterI4iNV;
+  tbl.glProgramLocalParameterI4ivNV = log_glProgramLocalParameterI4ivNV;
+  tbl.glProgramLocalParametersI4ivNV = log_glProgramLocalParametersI4ivNV;
+  tbl.glProgramLocalParameterI4uiNV = log_glProgramLocalParameterI4uiNV;
+  tbl.glProgramLocalParameterI4uivNV = log_glProgramLocalParameterI4uivNV;
+  tbl.glProgramLocalParametersI4uivNV = log_glProgramLocalParametersI4uivNV;
+  tbl.glProgramEnvParameterI4iNV = log_glProgramEnvParameterI4iNV;
+  tbl.glProgramEnvParameterI4ivNV = log_glProgramEnvParameterI4ivNV;
+  tbl.glProgramEnvParametersI4ivNV = log_glProgramEnvParametersI4ivNV;
+  tbl.glProgramEnvParameterI4uiNV = log_glProgramEnvParameterI4uiNV;
+  tbl.glProgramEnvParameterI4uivNV = log_glProgramEnvParameterI4uivNV;
+  tbl.glProgramEnvParametersI4uivNV = log_glProgramEnvParametersI4uivNV;
+  tbl.glGetProgramLocalParameterIivNV = log_glGetProgramLocalParameterIivNV;
+  tbl.glGetProgramLocalParameterIuivNV = log_glGetProgramLocalParameterIuivNV;
+  tbl.glGetProgramEnvParameterIivNV = log_glGetProgramEnvParameterIivNV;
+  tbl.glGetProgramEnvParameterIuivNV = log_glGetProgramEnvParameterIuivNV;
+
+  // GL_NV_geometry_program4
+
+  tbl.glProgramVertexLimitNV = log_glProgramVertexLimitNV;
+  tbl.glFramebufferTextureEXT = log_glFramebufferTextureEXT;
+  tbl.glFramebufferTextureFaceEXT = log_glFramebufferTextureFaceEXT;
+
+  // GL_EXT_geometry_shader4
+
+  tbl.glProgramParameteriEXT = log_glProgramParameteriEXT;
+
+  // GL_NV_vertex_program4
+
+  tbl.glVertexAttribI1iEXT = log_glVertexAttribI1iEXT;
+  tbl.glVertexAttribI2iEXT = log_glVertexAttribI2iEXT;
+  tbl.glVertexAttribI3iEXT = log_glVertexAttribI3iEXT;
+  tbl.glVertexAttribI4iEXT = log_glVertexAttribI4iEXT;
+  tbl.glVertexAttribI1uiEXT = log_glVertexAttribI1uiEXT;
+  tbl.glVertexAttribI2uiEXT = log_glVertexAttribI2uiEXT;
+  tbl.glVertexAttribI3uiEXT = log_glVertexAttribI3uiEXT;
+  tbl.glVertexAttribI4uiEXT = log_glVertexAttribI4uiEXT;
+  tbl.glVertexAttribI1ivEXT = log_glVertexAttribI1ivEXT;
+  tbl.glVertexAttribI2ivEXT = log_glVertexAttribI2ivEXT;
+  tbl.glVertexAttribI3ivEXT = log_glVertexAttribI3ivEXT;
+  tbl.glVertexAttribI4ivEXT = log_glVertexAttribI4ivEXT;
+  tbl.glVertexAttribI1uivEXT = log_glVertexAttribI1uivEXT;
+  tbl.glVertexAttribI2uivEXT = log_glVertexAttribI2uivEXT;
+  tbl.glVertexAttribI3uivEXT = log_glVertexAttribI3uivEXT;
+  tbl.glVertexAttribI4uivEXT = log_glVertexAttribI4uivEXT;
+  tbl.glVertexAttribI4bvEXT = log_glVertexAttribI4bvEXT;
+  tbl.glVertexAttribI4svEXT = log_glVertexAttribI4svEXT;
+  tbl.glVertexAttribI4ubvEXT = log_glVertexAttribI4ubvEXT;
+  tbl.glVertexAttribI4usvEXT = log_glVertexAttribI4usvEXT;
+  tbl.glVertexAttribIPointerEXT = log_glVertexAttribIPointerEXT;
+  tbl.glGetVertexAttribIivEXT = log_glGetVertexAttribIivEXT;
+  tbl.glGetVertexAttribIuivEXT = log_glGetVertexAttribIuivEXT;
+
+  // GL_EXT_gpu_shader4
+
+  tbl.glGetUniformuivEXT = log_glGetUniformuivEXT;
+  tbl.glBindFragDataLocationEXT = log_glBindFragDataLocationEXT;
+  tbl.glGetFragDataLocationEXT = log_glGetFragDataLocationEXT;
+  tbl.glUniform1uiEXT = log_glUniform1uiEXT;
+  tbl.glUniform2uiEXT = log_glUniform2uiEXT;
+  tbl.glUniform3uiEXT = log_glUniform3uiEXT;
+  tbl.glUniform4uiEXT = log_glUniform4uiEXT;
+  tbl.glUniform1uivEXT = log_glUniform1uivEXT;
+  tbl.glUniform2uivEXT = log_glUniform2uivEXT;
+  tbl.glUniform3uivEXT = log_glUniform3uivEXT;
+  tbl.glUniform4uivEXT = log_glUniform4uivEXT;
+
+  // GL_EXT_draw_instanced
+
+  tbl.glDrawArraysInstancedEXT = log_glDrawArraysInstancedEXT;
+  tbl.glDrawElementsInstancedEXT = log_glDrawElementsInstancedEXT;
+
+  // GL_EXT_texture_array
+
+  tbl.glFramebufferTextureLayerEXT = log_glFramebufferTextureLayerEXT;
+
+  // GL_EXT_texture_buffer_object
+
+  tbl.glTexBufferEXT = log_glTexBufferEXT;
+
+  // GL_NV_depth_buffer_float
+
+  tbl.glDepthRangedNV = log_glDepthRangedNV;
+  tbl.glClearDepthdNV = log_glClearDepthdNV;
+  tbl.glDepthBoundsdNV = log_glDepthBoundsdNV;
+
+  // GL_NV_framebuffer_multisample_coverage
+
+  tbl.glRenderbufferStorageMultisampleCoverageNV = log_glRenderbufferStorageMultisampleCoverageNV;
+
+  // GL_NV_parameter_buffer_object
+
+  tbl.glProgramBufferParametersfvNV = log_glProgramBufferParametersfvNV;
+  tbl.glProgramBufferParametersIivNV = log_glProgramBufferParametersIivNV;
+  tbl.glProgramBufferParametersIuivNV = log_glProgramBufferParametersIuivNV;
+
+  // GL_EXT_draw_buffers2
+
+  tbl.glColorMaskIndexedEXT = log_glColorMaskIndexedEXT;
+  tbl.glGetBooleanIndexedvEXT = log_glGetBooleanIndexedvEXT;
+  tbl.glGetIntegerIndexedvEXT = log_glGetIntegerIndexedvEXT;
+  tbl.glEnableIndexedEXT = log_glEnableIndexedEXT;
+  tbl.glDisableIndexedEXT = log_glDisableIndexedEXT;
+  tbl.glIsEnabledIndexedEXT = log_glIsEnabledIndexedEXT;
+
+  // GL_NV_transform_feedback
+
+  tbl.glBeginTransformFeedbackNV = log_glBeginTransformFeedbackNV;
+  tbl.glEndTransformFeedbackNV = log_glEndTransformFeedbackNV;
+  tbl.glTransformFeedbackAttribsNV = log_glTransformFeedbackAttribsNV;
+  tbl.glBindBufferRangeNV = log_glBindBufferRangeNV;
+  tbl.glBindBufferOffsetNV = log_glBindBufferOffsetNV;
+  tbl.glBindBufferBaseNV = log_glBindBufferBaseNV;
+  tbl.glTransformFeedbackVaryingsNV = log_glTransformFeedbackVaryingsNV;
+  tbl.glActiveVaryingNV = log_glActiveVaryingNV;
+  tbl.glGetVaryingLocationNV = log_glGetVaryingLocationNV;
+  tbl.glGetActiveVaryingNV = log_glGetActiveVaryingNV;
+  tbl.glGetTransformFeedbackVaryingNV = log_glGetTransformFeedbackVaryingNV;
+
+  // GL_EXT_bindable_uniform
+
+  tbl.glUniformBufferEXT = log_glUniformBufferEXT;
+  tbl.glGetUniformBufferSizeEXT = log_glGetUniformBufferSizeEXT;
+  tbl.glGetUniformOffsetEXT = log_glGetUniformOffsetEXT;
+
+  // GL_EXT_texture_integer
+
+  tbl.glTexParameterIivEXT = log_glTexParameterIivEXT;
+  tbl.glTexParameterIuivEXT = log_glTexParameterIuivEXT;
+  tbl.glGetTexParameterIivEXT = log_glGetTexParameterIivEXT;
+  tbl.glGetTexParameterIuivEXT = log_glGetTexParameterIuivEXT;
+  tbl.glClearColorIiEXT = log_glClearColorIiEXT;
+  tbl.glClearColorIuiEXT = log_glClearColorIuiEXT;
+
+  // GL_GREMEDY_frame_terminator
+
+  tbl.glFrameTerminatorGREMEDY = log_glFrameTerminatorGREMEDY;
+
+  // GL_NV_conditional_render
+
+  tbl.glBeginConditionalRenderNV = log_glBeginConditionalRenderNV;
+  tbl.glEndConditionalRenderNV = log_glEndConditionalRenderNV;
+
+  // GL_NV_present_video
+
+  tbl.glPresentFrameKeyedNV = log_glPresentFrameKeyedNV;
+  tbl.glPresentFrameDualFillNV = log_glPresentFrameDualFillNV;
+  tbl.glGetVideoivNV = log_glGetVideoivNV;
+  tbl.glGetVideouivNV = log_glGetVideouivNV;
+  tbl.glGetVideoi64vNV = log_glGetVideoi64vNV;
+  tbl.glGetVideoui64vNV = log_glGetVideoui64vNV;
+
+  // GL_EXT_transform_feedback
+
+  tbl.glBeginTransformFeedbackEXT = log_glBeginTransformFeedbackEXT;
+  tbl.glEndTransformFeedbackEXT = log_glEndTransformFeedbackEXT;
+  tbl.glBindBufferRangeEXT = log_glBindBufferRangeEXT;
+  tbl.glBindBufferOffsetEXT = log_glBindBufferOffsetEXT;
+  tbl.glBindBufferBaseEXT = log_glBindBufferBaseEXT;
+  tbl.glTransformFeedbackVaryingsEXT = log_glTransformFeedbackVaryingsEXT;
+  tbl.glGetTransformFeedbackVaryingEXT = log_glGetTransformFeedbackVaryingEXT;
+
+  // GL_EXT_direct_state_access
+
+  tbl.glClientAttribDefaultEXT = log_glClientAttribDefaultEXT;
+  tbl.glPushClientAttribDefaultEXT = log_glPushClientAttribDefaultEXT;
+  tbl.glMatrixLoadfEXT = log_glMatrixLoadfEXT;
+  tbl.glMatrixLoaddEXT = log_glMatrixLoaddEXT;
+  tbl.glMatrixMultfEXT = log_glMatrixMultfEXT;
+  tbl.glMatrixMultdEXT = log_glMatrixMultdEXT;
+  tbl.glMatrixLoadIdentityEXT = log_glMatrixLoadIdentityEXT;
+  tbl.glMatrixRotatefEXT = log_glMatrixRotatefEXT;
+  tbl.glMatrixRotatedEXT = log_glMatrixRotatedEXT;
+  tbl.glMatrixScalefEXT = log_glMatrixScalefEXT;
+  tbl.glMatrixScaledEXT = log_glMatrixScaledEXT;
+  tbl.glMatrixTranslatefEXT = log_glMatrixTranslatefEXT;
+  tbl.glMatrixTranslatedEXT = log_glMatrixTranslatedEXT;
+  tbl.glMatrixFrustumEXT = log_glMatrixFrustumEXT;
+  tbl.glMatrixOrthoEXT = log_glMatrixOrthoEXT;
+  tbl.glMatrixPopEXT = log_glMatrixPopEXT;
+  tbl.glMatrixPushEXT = log_glMatrixPushEXT;
+  tbl.glMatrixLoadTransposefEXT = log_glMatrixLoadTransposefEXT;
+  tbl.glMatrixLoadTransposedEXT = log_glMatrixLoadTransposedEXT;
+  tbl.glMatrixMultTransposefEXT = log_glMatrixMultTransposefEXT;
+  tbl.glMatrixMultTransposedEXT = log_glMatrixMultTransposedEXT;
+  tbl.glTextureParameterfEXT = log_glTextureParameterfEXT;
+  tbl.glTextureParameterfvEXT = log_glTextureParameterfvEXT;
+  tbl.glTextureParameteriEXT = log_glTextureParameteriEXT;
+  tbl.glTextureParameterivEXT = log_glTextureParameterivEXT;
+  tbl.glTextureImage1DEXT = log_glTextureImage1DEXT;
+  tbl.glTextureImage2DEXT = log_glTextureImage2DEXT;
+  tbl.glTextureSubImage1DEXT = log_glTextureSubImage1DEXT;
+  tbl.glTextureSubImage2DEXT = log_glTextureSubImage2DEXT;
+  tbl.glCopyTextureImage1DEXT = log_glCopyTextureImage1DEXT;
+  tbl.glCopyTextureImage2DEXT = log_glCopyTextureImage2DEXT;
+  tbl.glCopyTextureSubImage1DEXT = log_glCopyTextureSubImage1DEXT;
+  tbl.glCopyTextureSubImage2DEXT = log_glCopyTextureSubImage2DEXT;
+  tbl.glGetTextureImageEXT = log_glGetTextureImageEXT;
+  tbl.glGetTextureParameterfvEXT = log_glGetTextureParameterfvEXT;
+  tbl.glGetTextureParameterivEXT = log_glGetTextureParameterivEXT;
+  tbl.glGetTextureLevelParameterfvEXT = log_glGetTextureLevelParameterfvEXT;
+  tbl.glGetTextureLevelParameterivEXT = log_glGetTextureLevelParameterivEXT;
+  tbl.glTextureImage3DEXT = log_glTextureImage3DEXT;
+  tbl.glTextureSubImage3DEXT = log_glTextureSubImage3DEXT;
+  tbl.glCopyTextureSubImage3DEXT = log_glCopyTextureSubImage3DEXT;
+  tbl.glMultiTexParameterfEXT = log_glMultiTexParameterfEXT;
+  tbl.glMultiTexParameterfvEXT = log_glMultiTexParameterfvEXT;
+  tbl.glMultiTexParameteriEXT = log_glMultiTexParameteriEXT;
+  tbl.glMultiTexParameterivEXT = log_glMultiTexParameterivEXT;
+  tbl.glMultiTexImage1DEXT = log_glMultiTexImage1DEXT;
+  tbl.glMultiTexImage2DEXT = log_glMultiTexImage2DEXT;
+  tbl.glMultiTexSubImage1DEXT = log_glMultiTexSubImage1DEXT;
+  tbl.glMultiTexSubImage2DEXT = log_glMultiTexSubImage2DEXT;
+  tbl.glCopyMultiTexImage1DEXT = log_glCopyMultiTexImage1DEXT;
+  tbl.glCopyMultiTexImage2DEXT = log_glCopyMultiTexImage2DEXT;
+  tbl.glCopyMultiTexSubImage1DEXT = log_glCopyMultiTexSubImage1DEXT;
+  tbl.glCopyMultiTexSubImage2DEXT = log_glCopyMultiTexSubImage2DEXT;
+  tbl.glGetMultiTexImageEXT = log_glGetMultiTexImageEXT;
+  tbl.glGetMultiTexParameterfvEXT = log_glGetMultiTexParameterfvEXT;
+  tbl.glGetMultiTexParameterivEXT = log_glGetMultiTexParameterivEXT;
+  tbl.glGetMultiTexLevelParameterfvEXT = log_glGetMultiTexLevelParameterfvEXT;
+  tbl.glGetMultiTexLevelParameterivEXT = log_glGetMultiTexLevelParameterivEXT;
+  tbl.glMultiTexImage3DEXT = log_glMultiTexImage3DEXT;
+  tbl.glMultiTexSubImage3DEXT = log_glMultiTexSubImage3DEXT;
+  tbl.glCopyMultiTexSubImage3DEXT = log_glCopyMultiTexSubImage3DEXT;
+  tbl.glBindMultiTextureEXT = log_glBindMultiTextureEXT;
+  tbl.glEnableClientStateIndexedEXT = log_glEnableClientStateIndexedEXT;
+  tbl.glDisableClientStateIndexedEXT = log_glDisableClientStateIndexedEXT;
+  tbl.glMultiTexCoordPointerEXT = log_glMultiTexCoordPointerEXT;
+  tbl.glMultiTexEnvfEXT = log_glMultiTexEnvfEXT;
+  tbl.glMultiTexEnvfvEXT = log_glMultiTexEnvfvEXT;
+  tbl.glMultiTexEnviEXT = log_glMultiTexEnviEXT;
+  tbl.glMultiTexEnvivEXT = log_glMultiTexEnvivEXT;
+  tbl.glMultiTexGendEXT = log_glMultiTexGendEXT;
+  tbl.glMultiTexGendvEXT = log_glMultiTexGendvEXT;
+  tbl.glMultiTexGenfEXT = log_glMultiTexGenfEXT;
+  tbl.glMultiTexGenfvEXT = log_glMultiTexGenfvEXT;
+  tbl.glMultiTexGeniEXT = log_glMultiTexGeniEXT;
+  tbl.glMultiTexGenivEXT = log_glMultiTexGenivEXT;
+  tbl.glGetMultiTexEnvfvEXT = log_glGetMultiTexEnvfvEXT;
+  tbl.glGetMultiTexEnvivEXT = log_glGetMultiTexEnvivEXT;
+  tbl.glGetMultiTexGendvEXT = log_glGetMultiTexGendvEXT;
+  tbl.glGetMultiTexGenfvEXT = log_glGetMultiTexGenfvEXT;
+  tbl.glGetMultiTexGenivEXT = log_glGetMultiTexGenivEXT;
+  tbl.glGetFloatIndexedvEXT = log_glGetFloatIndexedvEXT;
+  tbl.glGetDoubleIndexedvEXT = log_glGetDoubleIndexedvEXT;
+  tbl.glGetPointerIndexedvEXT = log_glGetPointerIndexedvEXT;
+  tbl.glCompressedTextureImage3DEXT = log_glCompressedTextureImage3DEXT;
+  tbl.glCompressedTextureImage2DEXT = log_glCompressedTextureImage2DEXT;
+  tbl.glCompressedTextureImage1DEXT = log_glCompressedTextureImage1DEXT;
+  tbl.glCompressedTextureSubImage3DEXT = log_glCompressedTextureSubImage3DEXT;
+  tbl.glCompressedTextureSubImage2DEXT = log_glCompressedTextureSubImage2DEXT;
+  tbl.glCompressedTextureSubImage1DEXT = log_glCompressedTextureSubImage1DEXT;
+  tbl.glGetCompressedTextureImageEXT = log_glGetCompressedTextureImageEXT;
+  tbl.glCompressedMultiTexImage3DEXT = log_glCompressedMultiTexImage3DEXT;
+  tbl.glCompressedMultiTexImage2DEXT = log_glCompressedMultiTexImage2DEXT;
+  tbl.glCompressedMultiTexImage1DEXT = log_glCompressedMultiTexImage1DEXT;
+  tbl.glCompressedMultiTexSubImage3DEXT = log_glCompressedMultiTexSubImage3DEXT;
+  tbl.glCompressedMultiTexSubImage2DEXT = log_glCompressedMultiTexSubImage2DEXT;
+  tbl.glCompressedMultiTexSubImage1DEXT = log_glCompressedMultiTexSubImage1DEXT;
+  tbl.glGetCompressedMultiTexImageEXT = log_glGetCompressedMultiTexImageEXT;
+  tbl.glNamedProgramStringEXT = log_glNamedProgramStringEXT;
+  tbl.glNamedProgramLocalParameter4dEXT = log_glNamedProgramLocalParameter4dEXT;
+  tbl.glNamedProgramLocalParameter4dvEXT = log_glNamedProgramLocalParameter4dvEXT;
+  tbl.glNamedProgramLocalParameter4fEXT = log_glNamedProgramLocalParameter4fEXT;
+  tbl.glNamedProgramLocalParameter4fvEXT = log_glNamedProgramLocalParameter4fvEXT;
+  tbl.glGetNamedProgramLocalParameterdvEXT = log_glGetNamedProgramLocalParameterdvEXT;
+  tbl.glGetNamedProgramLocalParameterfvEXT = log_glGetNamedProgramLocalParameterfvEXT;
+  tbl.glGetNamedProgramivEXT = log_glGetNamedProgramivEXT;
+  tbl.glGetNamedProgramStringEXT = log_glGetNamedProgramStringEXT;
+  tbl.glNamedProgramLocalParameters4fvEXT = log_glNamedProgramLocalParameters4fvEXT;
+  tbl.glNamedProgramLocalParameterI4iEXT = log_glNamedProgramLocalParameterI4iEXT;
+  tbl.glNamedProgramLocalParameterI4ivEXT = log_glNamedProgramLocalParameterI4ivEXT;
+  tbl.glNamedProgramLocalParametersI4ivEXT = log_glNamedProgramLocalParametersI4ivEXT;
+  tbl.glNamedProgramLocalParameterI4uiEXT = log_glNamedProgramLocalParameterI4uiEXT;
+  tbl.glNamedProgramLocalParameterI4uivEXT = log_glNamedProgramLocalParameterI4uivEXT;
+  tbl.glNamedProgramLocalParametersI4uivEXT = log_glNamedProgramLocalParametersI4uivEXT;
+  tbl.glGetNamedProgramLocalParameterIivEXT = log_glGetNamedProgramLocalParameterIivEXT;
+  tbl.glGetNamedProgramLocalParameterIuivEXT = log_glGetNamedProgramLocalParameterIuivEXT;
+  tbl.glTextureParameterIivEXT = log_glTextureParameterIivEXT;
+  tbl.glTextureParameterIuivEXT = log_glTextureParameterIuivEXT;
+  tbl.glGetTextureParameterIivEXT = log_glGetTextureParameterIivEXT;
+  tbl.glGetTextureParameterIuivEXT = log_glGetTextureParameterIuivEXT;
+  tbl.glMultiTexParameterIivEXT = log_glMultiTexParameterIivEXT;
+  tbl.glMultiTexParameterIuivEXT = log_glMultiTexParameterIuivEXT;
+  tbl.glGetMultiTexParameterIivEXT = log_glGetMultiTexParameterIivEXT;
+  tbl.glGetMultiTexParameterIuivEXT = log_glGetMultiTexParameterIuivEXT;
+  tbl.glProgramUniform1fEXT = log_glProgramUniform1fEXT;
+  tbl.glProgramUniform2fEXT = log_glProgramUniform2fEXT;
+  tbl.glProgramUniform3fEXT = log_glProgramUniform3fEXT;
+  tbl.glProgramUniform4fEXT = log_glProgramUniform4fEXT;
+  tbl.glProgramUniform1iEXT = log_glProgramUniform1iEXT;
+  tbl.glProgramUniform2iEXT = log_glProgramUniform2iEXT;
+  tbl.glProgramUniform3iEXT = log_glProgramUniform3iEXT;
+  tbl.glProgramUniform4iEXT = log_glProgramUniform4iEXT;
+  tbl.glProgramUniform1fvEXT = log_glProgramUniform1fvEXT;
+  tbl.glProgramUniform2fvEXT = log_glProgramUniform2fvEXT;
+  tbl.glProgramUniform3fvEXT = log_glProgramUniform3fvEXT;
+  tbl.glProgramUniform4fvEXT = log_glProgramUniform4fvEXT;
+  tbl.glProgramUniform1ivEXT = log_glProgramUniform1ivEXT;
+  tbl.glProgramUniform2ivEXT = log_glProgramUniform2ivEXT;
+  tbl.glProgramUniform3ivEXT = log_glProgramUniform3ivEXT;
+  tbl.glProgramUniform4ivEXT = log_glProgramUniform4ivEXT;
+  tbl.glProgramUniformMatrix2fvEXT = log_glProgramUniformMatrix2fvEXT;
+  tbl.glProgramUniformMatrix3fvEXT = log_glProgramUniformMatrix3fvEXT;
+  tbl.glProgramUniformMatrix4fvEXT = log_glProgramUniformMatrix4fvEXT;
+  tbl.glProgramUniformMatrix2x3fvEXT = log_glProgramUniformMatrix2x3fvEXT;
+  tbl.glProgramUniformMatrix3x2fvEXT = log_glProgramUniformMatrix3x2fvEXT;
+  tbl.glProgramUniformMatrix2x4fvEXT = log_glProgramUniformMatrix2x4fvEXT;
+  tbl.glProgramUniformMatrix4x2fvEXT = log_glProgramUniformMatrix4x2fvEXT;
+  tbl.glProgramUniformMatrix3x4fvEXT = log_glProgramUniformMatrix3x4fvEXT;
+  tbl.glProgramUniformMatrix4x3fvEXT = log_glProgramUniformMatrix4x3fvEXT;
+  tbl.glProgramUniform1uiEXT = log_glProgramUniform1uiEXT;
+  tbl.glProgramUniform2uiEXT = log_glProgramUniform2uiEXT;
+  tbl.glProgramUniform3uiEXT = log_glProgramUniform3uiEXT;
+  tbl.glProgramUniform4uiEXT = log_glProgramUniform4uiEXT;
+  tbl.glProgramUniform1uivEXT = log_glProgramUniform1uivEXT;
+  tbl.glProgramUniform2uivEXT = log_glProgramUniform2uivEXT;
+  tbl.glProgramUniform3uivEXT = log_glProgramUniform3uivEXT;
+  tbl.glProgramUniform4uivEXT = log_glProgramUniform4uivEXT;
+  tbl.glNamedBufferDataEXT = log_glNamedBufferDataEXT;
+  tbl.glNamedBufferSubDataEXT = log_glNamedBufferSubDataEXT;
+  tbl.glMapNamedBufferEXT = log_glMapNamedBufferEXT;
+  tbl.glUnmapNamedBufferEXT = log_glUnmapNamedBufferEXT;
+  tbl.glGetNamedBufferParameterivEXT = log_glGetNamedBufferParameterivEXT;
+  tbl.glGetNamedBufferPointervEXT = log_glGetNamedBufferPointervEXT;
+  tbl.glGetNamedBufferSubDataEXT = log_glGetNamedBufferSubDataEXT;
+  tbl.glTextureBufferEXT = log_glTextureBufferEXT;
+  tbl.glMultiTexBufferEXT = log_glMultiTexBufferEXT;
+  tbl.glNamedRenderbufferStorageEXT = log_glNamedRenderbufferStorageEXT;
+  tbl.glGetNamedRenderbufferParameterivEXT = log_glGetNamedRenderbufferParameterivEXT;
+  tbl.glCheckNamedFramebufferStatusEXT = log_glCheckNamedFramebufferStatusEXT;
+  tbl.glNamedFramebufferTexture1DEXT = log_glNamedFramebufferTexture1DEXT;
+  tbl.glNamedFramebufferTexture2DEXT = log_glNamedFramebufferTexture2DEXT;
+  tbl.glNamedFramebufferTexture3DEXT = log_glNamedFramebufferTexture3DEXT;
+  tbl.glNamedFramebufferRenderbufferEXT = log_glNamedFramebufferRenderbufferEXT;
+  tbl.glGetNamedFramebufferAttachmentParameterivEXT = log_glGetNamedFramebufferAttachmentParameterivEXT;
+  tbl.glGenerateTextureMipmapEXT = log_glGenerateTextureMipmapEXT;
+  tbl.glGenerateMultiTexMipmapEXT = log_glGenerateMultiTexMipmapEXT;
+  tbl.glFramebufferDrawBufferEXT = log_glFramebufferDrawBufferEXT;
+  tbl.glFramebufferDrawBuffersEXT = log_glFramebufferDrawBuffersEXT;
+  tbl.glFramebufferReadBufferEXT = log_glFramebufferReadBufferEXT;
+  tbl.glGetFramebufferParameterivEXT = log_glGetFramebufferParameterivEXT;
+  tbl.glNamedRenderbufferStorageMultisampleEXT = log_glNamedRenderbufferStorageMultisampleEXT;
+  tbl.glNamedRenderbufferStorageMultisampleCoverageEXT = log_glNamedRenderbufferStorageMultisampleCoverageEXT;
+  tbl.glNamedFramebufferTextureEXT = log_glNamedFramebufferTextureEXT;
+  tbl.glNamedFramebufferTextureLayerEXT = log_glNamedFramebufferTextureLayerEXT;
+  tbl.glNamedFramebufferTextureFaceEXT = log_glNamedFramebufferTextureFaceEXT;
+  tbl.glTextureRenderbufferEXT = log_glTextureRenderbufferEXT;
+  tbl.glMultiTexRenderbufferEXT = log_glMultiTexRenderbufferEXT;
+  tbl.glMapNamedBufferRangeEXT = log_glMapNamedBufferRangeEXT;
+  tbl.glFlushMappedNamedBufferRangeEXT = log_glFlushMappedNamedBufferRangeEXT;
+  tbl.glNamedCopyBufferSubDataEXT = log_glNamedCopyBufferSubDataEXT;
+  tbl.glProgramUniform1dEXT = log_glProgramUniform1dEXT;
+  tbl.glProgramUniform2dEXT = log_glProgramUniform2dEXT;
+  tbl.glProgramUniform3dEXT = log_glProgramUniform3dEXT;
+  tbl.glProgramUniform4dEXT = log_glProgramUniform4dEXT;
+  tbl.glProgramUniform1dvEXT = log_glProgramUniform1dvEXT;
+  tbl.glProgramUniform2dvEXT = log_glProgramUniform2dvEXT;
+  tbl.glProgramUniform3dvEXT = log_glProgramUniform3dvEXT;
+  tbl.glProgramUniform4dvEXT = log_glProgramUniform4dvEXT;
+  tbl.glProgramUniformMatrix2dvEXT = log_glProgramUniformMatrix2dvEXT;
+  tbl.glProgramUniformMatrix3dvEXT = log_glProgramUniformMatrix3dvEXT;
+  tbl.glProgramUniformMatrix4dvEXT = log_glProgramUniformMatrix4dvEXT;
+  tbl.glProgramUniformMatrix2x3dvEXT = log_glProgramUniformMatrix2x3dvEXT;
+  tbl.glProgramUniformMatrix2x4dvEXT = log_glProgramUniformMatrix2x4dvEXT;
+  tbl.glProgramUniformMatrix3x2dvEXT = log_glProgramUniformMatrix3x2dvEXT;
+  tbl.glProgramUniformMatrix3x4dvEXT = log_glProgramUniformMatrix3x4dvEXT;
+  tbl.glProgramUniformMatrix4x2dvEXT = log_glProgramUniformMatrix4x2dvEXT;
+  tbl.glProgramUniformMatrix4x3dvEXT = log_glProgramUniformMatrix4x3dvEXT;
+
+  // GL_NV_explicit_multisample
+
+  tbl.glGetMultisamplefvNV = log_glGetMultisamplefvNV;
+  tbl.glSampleMaskIndexedNV = log_glSampleMaskIndexedNV;
+  tbl.glTexRenderbufferNV = log_glTexRenderbufferNV;
+
+  // GL_NV_transform_feedback2
+
+  tbl.glBindTransformFeedbackNV = log_glBindTransformFeedbackNV;
+  tbl.glDeleteTransformFeedbacksNV = log_glDeleteTransformFeedbacksNV;
+  tbl.glGenTransformFeedbacksNV = log_glGenTransformFeedbacksNV;
+  tbl.glIsTransformFeedbackNV = log_glIsTransformFeedbackNV;
+  tbl.glPauseTransformFeedbackNV = log_glPauseTransformFeedbackNV;
+  tbl.glResumeTransformFeedbackNV = log_glResumeTransformFeedbackNV;
+  tbl.glDrawTransformFeedbackNV = log_glDrawTransformFeedbackNV;
+
+  // GL_AMD_performance_monitor
+
+  tbl.glGetPerfMonitorGroupsAMD = log_glGetPerfMonitorGroupsAMD;
+  tbl.glGetPerfMonitorCountersAMD = log_glGetPerfMonitorCountersAMD;
+  tbl.glGetPerfMonitorGroupStringAMD = log_glGetPerfMonitorGroupStringAMD;
+  tbl.glGetPerfMonitorCounterStringAMD = log_glGetPerfMonitorCounterStringAMD;
+  tbl.glGetPerfMonitorCounterInfoAMD = log_glGetPerfMonitorCounterInfoAMD;
+  tbl.glGenPerfMonitorsAMD = log_glGenPerfMonitorsAMD;
+  tbl.glDeletePerfMonitorsAMD = log_glDeletePerfMonitorsAMD;
+  tbl.glSelectPerfMonitorCountersAMD = log_glSelectPerfMonitorCountersAMD;
+  tbl.glBeginPerfMonitorAMD = log_glBeginPerfMonitorAMD;
+  tbl.glEndPerfMonitorAMD = log_glEndPerfMonitorAMD;
+  tbl.glGetPerfMonitorCounterDataAMD = log_glGetPerfMonitorCounterDataAMD;
+
+  // GL_AMD_vertex_shader_tessellator
+
+  tbl.glTessellationFactorAMD = log_glTessellationFactorAMD;
+  tbl.glTessellationModeAMD = log_glTessellationModeAMD;
+
+  // GL_EXT_provoking_vertex
+
+  tbl.glProvokingVertexEXT = log_glProvokingVertexEXT;
+
+  // GL_AMD_draw_buffers_blend
+
+  tbl.glBlendFuncIndexedAMD = log_glBlendFuncIndexedAMD;
+  tbl.glBlendFuncSeparateIndexedAMD = log_glBlendFuncSeparateIndexedAMD;
+  tbl.glBlendEquationIndexedAMD = log_glBlendEquationIndexedAMD;
+  tbl.glBlendEquationSeparateIndexedAMD = log_glBlendEquationSeparateIndexedAMD;
+
+  // GL_APPLE_texture_range
+
+  tbl.glTextureRangeAPPLE = log_glTextureRangeAPPLE;
+  tbl.glGetTexParameterPointervAPPLE = log_glGetTexParameterPointervAPPLE;
+
+  // GL_APPLE_vertex_program_evaluators
+
+  tbl.glEnableVertexAttribAPPLE = log_glEnableVertexAttribAPPLE;
+  tbl.glDisableVertexAttribAPPLE = log_glDisableVertexAttribAPPLE;
+  tbl.glIsVertexAttribEnabledAPPLE = log_glIsVertexAttribEnabledAPPLE;
+  tbl.glMapVertexAttrib1dAPPLE = log_glMapVertexAttrib1dAPPLE;
+  tbl.glMapVertexAttrib1fAPPLE = log_glMapVertexAttrib1fAPPLE;
+  tbl.glMapVertexAttrib2dAPPLE = log_glMapVertexAttrib2dAPPLE;
+  tbl.glMapVertexAttrib2fAPPLE = log_glMapVertexAttrib2fAPPLE;
+
+  // GL_APPLE_object_purgeable
+
+  tbl.glObjectPurgeableAPPLE = log_glObjectPurgeableAPPLE;
+  tbl.glObjectUnpurgeableAPPLE = log_glObjectUnpurgeableAPPLE;
+  tbl.glGetObjectParameterivAPPLE = log_glGetObjectParameterivAPPLE;
+
+  // GL_NV_video_capture
+
+  tbl.glBeginVideoCaptureNV = log_glBeginVideoCaptureNV;
+  tbl.glBindVideoCaptureStreamBufferNV = log_glBindVideoCaptureStreamBufferNV;
+  tbl.glBindVideoCaptureStreamTextureNV = log_glBindVideoCaptureStreamTextureNV;
+  tbl.glEndVideoCaptureNV = log_glEndVideoCaptureNV;
+  tbl.glGetVideoCaptureivNV = log_glGetVideoCaptureivNV;
+  tbl.glGetVideoCaptureStreamivNV = log_glGetVideoCaptureStreamivNV;
+  tbl.glGetVideoCaptureStreamfvNV = log_glGetVideoCaptureStreamfvNV;
+  tbl.glGetVideoCaptureStreamdvNV = log_glGetVideoCaptureStreamdvNV;
+  tbl.glVideoCaptureNV = log_glVideoCaptureNV;
+  tbl.glVideoCaptureStreamParameterivNV = log_glVideoCaptureStreamParameterivNV;
+  tbl.glVideoCaptureStreamParameterfvNV = log_glVideoCaptureStreamParameterfvNV;
+  tbl.glVideoCaptureStreamParameterdvNV = log_glVideoCaptureStreamParameterdvNV;
+
+  // GL_NV_copy_image
+
+  tbl.glCopyImageSubDataNV = log_glCopyImageSubDataNV;
+
+  // GL_EXT_separate_shader_objects
+
+  tbl.glUseShaderProgramEXT = log_glUseShaderProgramEXT;
+  tbl.glActiveProgramEXT = log_glActiveProgramEXT;
+  tbl.glCreateShaderProgramEXT = log_glCreateShaderProgramEXT;
+
+  // GL_NV_shader_buffer_load
+
+  tbl.glMakeBufferResidentNV = log_glMakeBufferResidentNV;
+  tbl.glMakeBufferNonResidentNV = log_glMakeBufferNonResidentNV;
+  tbl.glIsBufferResidentNV = log_glIsBufferResidentNV;
+  tbl.glMakeNamedBufferResidentNV = log_glMakeNamedBufferResidentNV;
+  tbl.glMakeNamedBufferNonResidentNV = log_glMakeNamedBufferNonResidentNV;
+  tbl.glIsNamedBufferResidentNV = log_glIsNamedBufferResidentNV;
+  tbl.glGetBufferParameterui64vNV = log_glGetBufferParameterui64vNV;
+  tbl.glGetNamedBufferParameterui64vNV = log_glGetNamedBufferParameterui64vNV;
+  tbl.glGetIntegerui64vNV = log_glGetIntegerui64vNV;
+  tbl.glUniformui64NV = log_glUniformui64NV;
+  tbl.glUniformui64vNV = log_glUniformui64vNV;
+  tbl.glGetUniformui64vNV = log_glGetUniformui64vNV;
+  tbl.glProgramUniformui64NV = log_glProgramUniformui64NV;
+  tbl.glProgramUniformui64vNV = log_glProgramUniformui64vNV;
+
+  // GL_NV_vertex_buffer_unified_memory
+
+  tbl.glBufferAddressRangeNV = log_glBufferAddressRangeNV;
+  tbl.glVertexFormatNV = log_glVertexFormatNV;
+  tbl.glNormalFormatNV = log_glNormalFormatNV;
+  tbl.glColorFormatNV = log_glColorFormatNV;
+  tbl.glIndexFormatNV = log_glIndexFormatNV;
+  tbl.glTexCoordFormatNV = log_glTexCoordFormatNV;
+  tbl.glEdgeFlagFormatNV = log_glEdgeFlagFormatNV;
+  tbl.glSecondaryColorFormatNV = log_glSecondaryColorFormatNV;
+  tbl.glFogCoordFormatNV = log_glFogCoordFormatNV;
+  tbl.glVertexAttribFormatNV = log_glVertexAttribFormatNV;
+  tbl.glVertexAttribIFormatNV = log_glVertexAttribIFormatNV;
+  tbl.glGetIntegerui64i_vNV = log_glGetIntegerui64i_vNV;
+
+  // GL_NV_texture_barrier
+
+  tbl.glTextureBarrierNV = log_glTextureBarrierNV;
+
+  // GL_EXT_shader_image_load_store
+
+  tbl.glBindImageTextureEXT = log_glBindImageTextureEXT;
+  tbl.glMemoryBarrierEXT = log_glMemoryBarrierEXT;
+
+  // GL_EXT_vertex_attrib_64bit
+
+  tbl.glVertexAttribL1dEXT = log_glVertexAttribL1dEXT;
+  tbl.glVertexAttribL2dEXT = log_glVertexAttribL2dEXT;
+  tbl.glVertexAttribL3dEXT = log_glVertexAttribL3dEXT;
+  tbl.glVertexAttribL4dEXT = log_glVertexAttribL4dEXT;
+  tbl.glVertexAttribL1dvEXT = log_glVertexAttribL1dvEXT;
+  tbl.glVertexAttribL2dvEXT = log_glVertexAttribL2dvEXT;
+  tbl.glVertexAttribL3dvEXT = log_glVertexAttribL3dvEXT;
+  tbl.glVertexAttribL4dvEXT = log_glVertexAttribL4dvEXT;
+  tbl.glVertexAttribLPointerEXT = log_glVertexAttribLPointerEXT;
+  tbl.glVertexArrayVertexAttribLOffsetEXT = log_glVertexArrayVertexAttribLOffsetEXT;
+  tbl.glGetVertexAttribLdvEXT = log_glGetVertexAttribLdvEXT;
+
+  // GL_NV_gpu_shader5
+
+  tbl.glUniform1i64NV = log_glUniform1i64NV;
+  tbl.glUniform2i64NV = log_glUniform2i64NV;
+  tbl.glUniform3i64NV = log_glUniform3i64NV;
+  tbl.glUniform4i64NV = log_glUniform4i64NV;
+  tbl.glUniform1i64vNV = log_glUniform1i64vNV;
+  tbl.glUniform2i64vNV = log_glUniform2i64vNV;
+  tbl.glUniform3i64vNV = log_glUniform3i64vNV;
+  tbl.glUniform4i64vNV = log_glUniform4i64vNV;
+  tbl.glUniform1ui64NV = log_glUniform1ui64NV;
+  tbl.glUniform2ui64NV = log_glUniform2ui64NV;
+  tbl.glUniform3ui64NV = log_glUniform3ui64NV;
+  tbl.glUniform4ui64NV = log_glUniform4ui64NV;
+  tbl.glUniform1ui64vNV = log_glUniform1ui64vNV;
+  tbl.glUniform2ui64vNV = log_glUniform2ui64vNV;
+  tbl.glUniform3ui64vNV = log_glUniform3ui64vNV;
+  tbl.glUniform4ui64vNV = log_glUniform4ui64vNV;
+  tbl.glProgramUniform1i64NV = log_glProgramUniform1i64NV;
+  tbl.glProgramUniform2i64NV = log_glProgramUniform2i64NV;
+  tbl.glProgramUniform3i64NV = log_glProgramUniform3i64NV;
+  tbl.glProgramUniform4i64NV = log_glProgramUniform4i64NV;
+  tbl.glProgramUniform1i64vNV = log_glProgramUniform1i64vNV;
+  tbl.glProgramUniform2i64vNV = log_glProgramUniform2i64vNV;
+  tbl.glProgramUniform3i64vNV = log_glProgramUniform3i64vNV;
+  tbl.glProgramUniform4i64vNV = log_glProgramUniform4i64vNV;
+  tbl.glProgramUniform1ui64NV = log_glProgramUniform1ui64NV;
+  tbl.glProgramUniform2ui64NV = log_glProgramUniform2ui64NV;
+  tbl.glProgramUniform3ui64NV = log_glProgramUniform3ui64NV;
+  tbl.glProgramUniform4ui64NV = log_glProgramUniform4ui64NV;
+  tbl.glProgramUniform1ui64vNV = log_glProgramUniform1ui64vNV;
+  tbl.glProgramUniform2ui64vNV = log_glProgramUniform2ui64vNV;
+  tbl.glProgramUniform3ui64vNV = log_glProgramUniform3ui64vNV;
+  tbl.glProgramUniform4ui64vNV = log_glProgramUniform4ui64vNV;
+  tbl.glGetUniformi64vNV = log_glGetUniformi64vNV;
+
+  // GL_NV_vertex_attrib_integer_64bit
+
+  tbl.glVertexAttribL1i64NV = log_glVertexAttribL1i64NV;
+  tbl.glVertexAttribL2i64NV = log_glVertexAttribL2i64NV;
+  tbl.glVertexAttribL3i64NV = log_glVertexAttribL3i64NV;
+  tbl.glVertexAttribL4i64NV = log_glVertexAttribL4i64NV;
+  tbl.glVertexAttribL1ui64NV = log_glVertexAttribL1ui64NV;
+  tbl.glVertexAttribL2ui64NV = log_glVertexAttribL2ui64NV;
+  tbl.glVertexAttribL3ui64NV = log_glVertexAttribL3ui64NV;
+  tbl.glVertexAttribL4ui64NV = log_glVertexAttribL4ui64NV;
+  tbl.glVertexAttribL1i64vNV = log_glVertexAttribL1i64vNV;
+  tbl.glVertexAttribL2i64vNV = log_glVertexAttribL2i64vNV;
+  tbl.glVertexAttribL3i64vNV = log_glVertexAttribL3i64vNV;
+  tbl.glVertexAttribL4i64vNV = log_glVertexAttribL4i64vNV;
+  tbl.glVertexAttribL1ui64vNV = log_glVertexAttribL1ui64vNV;
+  tbl.glVertexAttribL2ui64vNV = log_glVertexAttribL2ui64vNV;
+  tbl.glVertexAttribL3ui64vNV = log_glVertexAttribL3ui64vNV;
+  tbl.glVertexAttribL4ui64vNV = log_glVertexAttribL4ui64vNV;
+  tbl.glVertexAttribLFormatNV = log_glVertexAttribLFormatNV;
+  tbl.glGetVertexAttribLi64vNV = log_glGetVertexAttribLi64vNV;
+  tbl.glGetVertexAttribLui64vNV = log_glGetVertexAttribLui64vNV;
+
+  // GL_NV_vdpau_interop
+
+  tbl.glVDPAUInitNV = log_glVDPAUInitNV;
+  tbl.glVDPAUFiniNV = log_glVDPAUFiniNV;
+  tbl.glVDPAURegisterVideoSurfaceNV = log_glVDPAURegisterVideoSurfaceNV;
+  tbl.glVDPAURegisterOutputSurfaceNV = log_glVDPAURegisterOutputSurfaceNV;
+  tbl.glVDPAUIsSurfaceNV = log_glVDPAUIsSurfaceNV;
+  tbl.glVDPAUUnregisterSurfaceNV = log_glVDPAUUnregisterSurfaceNV;
+  tbl.glVDPAUGetSurfaceivNV = log_glVDPAUGetSurfaceivNV;
+  tbl.glVDPAUSurfaceAccessNV = log_glVDPAUSurfaceAccessNV;
+  tbl.glVDPAUMapSurfacesNV = log_glVDPAUMapSurfacesNV;
+  tbl.glVDPAUUnmapSurfacesNV = log_glVDPAUUnmapSurfacesNV;
+
+  // GL_NV_path_rendering
+
+  tbl.glCopyPathNV = log_glCopyPathNV;
+  tbl.glCoverFillPathInstancedNV = log_glCoverFillPathInstancedNV;
+  tbl.glCoverFillPathNV = log_glCoverFillPathNV;
+  tbl.glCoverStrokePathInstancedNV = log_glCoverStrokePathInstancedNV;
+  tbl.glCoverStrokePathNV = log_glCoverStrokePathNV;
+  tbl.glDeletePathsNV = log_glDeletePathsNV;
+  tbl.glGenPathsNV = log_glGenPathsNV;
+  tbl.glGetPathColorGenfvNV = log_glGetPathColorGenfvNV;
+  tbl.glGetPathColorGenivNV = log_glGetPathColorGenivNV;
+  tbl.glGetPathCommandsNV = log_glGetPathCommandsNV;
+  tbl.glGetPathCoordsNV = log_glGetPathCoordsNV;
+  tbl.glGetPathDashArrayNV = log_glGetPathDashArrayNV;
+  tbl.glGetPathLengthNV = log_glGetPathLengthNV;
+  tbl.glGetPathMetricRangeNV = log_glGetPathMetricRangeNV;
+  tbl.glGetPathMetricsNV = log_glGetPathMetricsNV;
+  tbl.glGetPathParameterfvNV = log_glGetPathParameterfvNV;
+  tbl.glGetPathParameterivNV = log_glGetPathParameterivNV;
+  tbl.glGetPathSpacingNV = log_glGetPathSpacingNV;
+  tbl.glGetPathTexGenfvNV = log_glGetPathTexGenfvNV;
+  tbl.glGetPathTexGenivNV = log_glGetPathTexGenivNV;
+  tbl.glInterpolatePathsNV = log_glInterpolatePathsNV;
+  tbl.glIsPathNV = log_glIsPathNV;
+  tbl.glIsPointInFillPathNV = log_glIsPointInFillPathNV;
+  tbl.glIsPointInStrokePathNV = log_glIsPointInStrokePathNV;
+  tbl.glPathColorGenNV = log_glPathColorGenNV;
+  tbl.glPathCommandsNV = log_glPathCommandsNV;
+  tbl.glPathCoordsNV = log_glPathCoordsNV;
+  tbl.glPathCoverDepthFuncNV = log_glPathCoverDepthFuncNV;
+  tbl.glPathDashArrayNV = log_glPathDashArrayNV;
+  tbl.glPathFogGenNV = log_glPathFogGenNV;
+  tbl.glPathGlyphRangeNV = log_glPathGlyphRangeNV;
+  tbl.glPathGlyphsNV = log_glPathGlyphsNV;
+  tbl.glPathParameterfNV = log_glPathParameterfNV;
+  tbl.glPathParameterfvNV = log_glPathParameterfvNV;
+  tbl.glPathParameteriNV = log_glPathParameteriNV;
+  tbl.glPathParameterivNV = log_glPathParameterivNV;
+  tbl.glPathStencilDepthOffsetNV = log_glPathStencilDepthOffsetNV;
+  tbl.glPathStencilFuncNV = log_glPathStencilFuncNV;
+  tbl.glPathStringNV = log_glPathStringNV;
+  tbl.glPathSubCommandsNV = log_glPathSubCommandsNV;
+  tbl.glPathSubCoordsNV = log_glPathSubCoordsNV;
+  tbl.glPathTexGenNV = log_glPathTexGenNV;
+  tbl.glPointAlongPathNV = log_glPointAlongPathNV;
+  tbl.glStencilFillPathInstancedNV = log_glStencilFillPathInstancedNV;
+  tbl.glStencilFillPathNV = log_glStencilFillPathNV;
+  tbl.glStencilStrokePathInstancedNV = log_glStencilStrokePathInstancedNV;
+  tbl.glStencilStrokePathNV = log_glStencilStrokePathNV;
+  tbl.glTransformPathNV = log_glTransformPathNV;
+  tbl.glWeightPathsNV = log_glWeightPathsNV;
+
+  // GL_REGAL_extension_query
+
+  tbl.glGetExtensionREGAL = log_glGetExtensionREGAL;
+  tbl.glIsSupportedREGAL = log_glIsSupportedREGAL;
+
+  // GL_REGAL_error_string
+
+  tbl.glErrorStringREGAL = log_glErrorStringREGAL;
+
+  // GL_AMD_debug_output
+
+  tbl.glGetDebugMessageLogAMD = log_glGetDebugMessageLogAMD;
+  tbl.glDebugMessageCallbackAMD = log_glDebugMessageCallbackAMD;
+  tbl.glDebugMessageEnableAMD = log_glDebugMessageEnableAMD;
+  tbl.glDebugMessageInsertAMD = log_glDebugMessageInsertAMD;
+
+  // GL_AMD_multi_draw_indirect
+
+  tbl.glMultiDrawArraysIndirectAMD = log_glMultiDrawArraysIndirectAMD;
+  tbl.glMultiDrawElementsIndirectAMD = log_glMultiDrawElementsIndirectAMD;
+
+  // GL_AMD_name_gen_delete
+
+  tbl.glIsNameAMD = log_glIsNameAMD;
+  tbl.glDeleteNamesAMD = log_glDeleteNamesAMD;
+  tbl.glGenNamesAMD = log_glGenNamesAMD;
+
+  // GL_AMD_sample_positions
+
+  tbl.glSetMultisamplefvAMD = log_glSetMultisamplefvAMD;
+
+  // GL_AMD_stencil_operation_extended
+
+  tbl.glStencilOpValueAMD = log_glStencilOpValueAMD;
+
+  // GL_ARB_base_instance
+
+  tbl.glDrawArraysInstancedBaseInstance = log_glDrawArraysInstancedBaseInstance;
+  tbl.glDrawElementsInstancedBaseInstance = log_glDrawElementsInstancedBaseInstance;
+  tbl.glDrawElementsInstancedBaseVertexBaseInstance = log_glDrawElementsInstancedBaseVertexBaseInstance;
+
+  // GL_ARB_cl_event
+
+  tbl.glCreateSyncFromCLeventARB = log_glCreateSyncFromCLeventARB;
+
+  // GL_ARB_internalformat_query
+
+  tbl.glGetInternalformativ = log_glGetInternalformativ;
+
+  // GL_ARB_texture_storage
+
+  tbl.glTexStorage1D = log_glTexStorage1D;
+  tbl.glTexStorage2D = log_glTexStorage2D;
+  tbl.glTexStorage3D = log_glTexStorage3D;
+  tbl.glTextureStorage1DEXT = log_glTextureStorage1DEXT;
+  tbl.glTextureStorage2DEXT = log_glTextureStorage2DEXT;
+  tbl.glTextureStorage3DEXT = log_glTextureStorage3DEXT;
+
+  // GL_ARB_transform_feedback_instanced
+
+  tbl.glDrawTransformFeedbackInstanced = log_glDrawTransformFeedbackInstanced;
+  tbl.glDrawTransformFeedbackStreamInstanced = log_glDrawTransformFeedbackStreamInstanced;
+
+  // GL_EXT_x11_sync_object
+
+  tbl.glImportSyncEXT = log_glImportSyncEXT;
+
+  // GL_INTEL_texture_scissor
+
+  tbl.glTexScissorFuncINTEL = log_glTexScissorFuncINTEL;
+  tbl.glTexScissorINTEL = log_glTexScissorINTEL;
+
+  // GL_NV_bindless_texture
+
+  tbl.glIsImageHandleResidentNV = log_glIsImageHandleResidentNV;
+  tbl.glIsTextureHandleResidentNV = log_glIsTextureHandleResidentNV;
+  tbl.glGetImageHandleNV = log_glGetImageHandleNV;
+  tbl.glGetTextureHandleNV = log_glGetTextureHandleNV;
+  tbl.glGetTextureSamplerHandleNV = log_glGetTextureSamplerHandleNV;
+  tbl.glMakeImageHandleNonResidentNV = log_glMakeImageHandleNonResidentNV;
+  tbl.glMakeImageHandleResidentNV = log_glMakeImageHandleResidentNV;
+  tbl.glMakeTextureHandleNonResidentNV = log_glMakeTextureHandleNonResidentNV;
+  tbl.glMakeTextureHandleResidentNV = log_glMakeTextureHandleResidentNV;
+  tbl.glProgramUniformHandleui64NV = log_glProgramUniformHandleui64NV;
+  tbl.glProgramUniformHandleui64vNV = log_glProgramUniformHandleui64vNV;
+  tbl.glUniformHandleui64NV = log_glUniformHandleui64NV;
+  tbl.glUniformHandleui64vNV = log_glUniformHandleui64vNV;
+
+  // GL_NV_texture_multisample
+
+  tbl.glTexImage2DMultisampleCoverageNV = log_glTexImage2DMultisampleCoverageNV;
+  tbl.glTexImage3DMultisampleCoverageNV = log_glTexImage3DMultisampleCoverageNV;
+  tbl.glTextureImage2DMultisampleCoverageNV = log_glTextureImage2DMultisampleCoverageNV;
+  tbl.glTextureImage2DMultisampleNV = log_glTextureImage2DMultisampleNV;
+  tbl.glTextureImage3DMultisampleCoverageNV = log_glTextureImage3DMultisampleCoverageNV;
+  tbl.glTextureImage3DMultisampleNV = log_glTextureImage3DMultisampleNV;
+
+  // GL_SUN_read_video_pixels
+
+  tbl.glReadVideoPixelsSUN = log_glReadVideoPixelsSUN;
+
+  // GL_EXT_fragment_lighting
+
+  tbl.glFragmentColorMaterialEXT = log_glFragmentColorMaterialEXT;
+  tbl.glFragmentLightModelfEXT = log_glFragmentLightModelfEXT;
+  tbl.glFragmentLightModelfvEXT = log_glFragmentLightModelfvEXT;
+  tbl.glFragmentLightModeliEXT = log_glFragmentLightModeliEXT;
+  tbl.glFragmentLightModelivEXT = log_glFragmentLightModelivEXT;
+  tbl.glFragmentLightfEXT = log_glFragmentLightfEXT;
+  tbl.glFragmentLightfvEXT = log_glFragmentLightfvEXT;
+  tbl.glFragmentLightiEXT = log_glFragmentLightiEXT;
+  tbl.glFragmentLightivEXT = log_glFragmentLightivEXT;
+  tbl.glFragmentMaterialfEXT = log_glFragmentMaterialfEXT;
+  tbl.glFragmentMaterialfvEXT = log_glFragmentMaterialfvEXT;
+  tbl.glFragmentMaterialiEXT = log_glFragmentMaterialiEXT;
+  tbl.glFragmentMaterialivEXT = log_glFragmentMaterialivEXT;
+  tbl.glGetFragmentLightfvEXT = log_glGetFragmentLightfvEXT;
+  tbl.glGetFragmentLightivEXT = log_glGetFragmentLightivEXT;
+  tbl.glGetFragmentMaterialfvEXT = log_glGetFragmentMaterialfvEXT;
+  tbl.glGetFragmentMaterialivEXT = log_glGetFragmentMaterialivEXT;
+  tbl.glLightEnviEXT = log_glLightEnviEXT;
+
+  // GL_EXT_debug_marker
+
+  tbl.glInsertEventMarkerEXT = log_glInsertEventMarkerEXT;
+  tbl.glPushGroupMarkerEXT = log_glPushGroupMarkerEXT;
+  tbl.glPopGroupMarkerEXT = log_glPopGroupMarkerEXT;
+
+  // GL_KTX_buffer_region
+
+  tbl.glBufferRegionEnabledEXT = log_glBufferRegionEnabledEXT;
+  tbl.glNewBufferRegionEXT = log_glNewBufferRegionEXT;
+  tbl.glDeleteBufferRegionEXT = log_glDeleteBufferRegionEXT;
+  tbl.glReadBufferRegionEXT = log_glReadBufferRegionEXT;
+  tbl.glDrawBufferRegionEXT = log_glDrawBufferRegionEXT;
+
+  // GL_SGIX_fog_texture
+
+  tbl.glTextureFogSGIX = log_glTextureFogSGIX;
+
+  // GL_APPLE_flush_render
+
+  tbl.glFlushRenderAPPLE = log_glFlushRenderAPPLE;
+  tbl.glFinishRenderAPPLE = log_glFinishRenderAPPLE;
+  tbl.glSwapAPPLE = log_glSwapAPPLE;
+
+  // GL_WIN_swap_hint
+
+  tbl.glAddSwapHintRectWIN = log_glAddSwapHintRectWIN;
 
 }
 

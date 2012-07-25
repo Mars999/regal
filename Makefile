@@ -117,7 +117,7 @@ GLEW.SRCS        += src/glew/src/glew.c
 GLEW.SRCS.NAMES := $(notdir $(GLEW.SRCS))
 GLEW.OBJS       := $(addprefix tmp/$(SYSTEM)/glew/shared/,$(GLEW.SRCS.NAMES))
 GLEW.OBJS       := $(GLEW.OBJS:.c=.o)
-GLEW.CFLAGS     := -Isrc/glew/include -Isrc/glu/include -DGLEW_EXPORTS -DGLEW_BUILD
+GLEW.CFLAGS     := -Isrc/glew/include -Isrc/glu/include -DGLEW_EXPORTS -DGLEW_BUILD -DGLEW_REGAL
 GLEW.LIBS       := -Llib -lRegal
 GLEW.SHARED     := libRegalGLEW.$(EXT.DYNAMIC)
 GLEW.STATIC     := libRegalGLEW.a
@@ -133,6 +133,32 @@ lib/$(GLEW.SHARED): $(GLEW.OBJS) lib/$(LIB.SHARED)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
+
+#
+# RegalGLEW glewinfo
+#
+
+GLEWINFO.SRCS       += src/glew/src/glewinfo.c 
+GLEWINFO.SRCS.NAMES := $(notdir $(GLEWINFO.SRCS))
+GLEWINFO.OBJS       := $(addprefix tmp/$(SYSTEM)/glewinfo/static/,$(GLEWINFO.SRCS.NAMES))
+GLEWINFO.OBJS       := $(GLEWINFO.OBJS:.c=.o)
+GLEWINFO.CFLAGS     := -Iinclude -Isrc/glew/include -DGLEW_REGAL
+GLEWINFO.LIBS       += -Llib -lRegal -lRegalGLEW $(LDFLAGS.GLUT) $(LDFLAGS.AGL)
+
+ifneq ($(filter linux%,$(SYSTEM)),)
+GLEWINFO.LIBS       += -lX11
+endif
+
+tmp/$(SYSTEM)/glewinfo/static/%.o: src/glew/src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(GLEWINFO.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+bin/glewinfo: $(GLEWINFO.OBJS) lib/$(LIB.SHARED) lib/$(GLEW.SHARED)
+	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(GLEWINFO.LIBS)
+ifneq ($(STRIP),)
+	$(STRIP) -x $@
+endif
+
 
 ifneq ($(filter darwin%,$(SYSTEM)),)
 glut.lib:
@@ -223,7 +249,7 @@ endif
 
 # Examples
 
-regal.bin: bin bin/dreamtorus bin/tiger
+regal.bin: lib bin bin/glewinfo bin/dreamtorus bin/tiger
 
 bin:
 	mkdir bin
