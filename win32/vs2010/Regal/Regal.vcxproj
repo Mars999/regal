@@ -54,7 +54,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_HAS_EXCEPTIONS=0;REGAL_EXPORTS;REGAL_SYS_WGL_DECLARE_WGL;REGAL_DECL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../../include;$(SolutionDir)/../../../src/boost</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../../include;$(SolutionDir)/../../../src/boost;$(SolutionDir)/../../../src/mongoose</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -66,6 +66,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>$(SolutionDir)../../../src/regal/Regal.def</ModuleDefinitionFile>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;ws2_32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -81,7 +82,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_HAS_EXCEPTIONS=0;REGAL_EXPORTS;REGAL_SYS_WGL_DECLARE_WGL;REGAL_DECL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../../include;$(SolutionDir)/../../../src/boost</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../../include;$(SolutionDir)/../../../src/boost;$(SolutionDir)/../../../src/mongoose</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -94,6 +95,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>$(SolutionDir)../../../src/regal/Regal.def</ModuleDefinitionFile>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;ws2_32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -124,6 +126,7 @@
     <ClInclude Include="..\..\..\src\regal\RegalVao.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\mongoose\mongoose.c" />
     <ClCompile Include="..\..\..\src\regal\Regal.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalConfig.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalContext.cpp" />
@@ -134,7 +137,9 @@
     <ClCompile Include="..\..\..\src\regal\RegalDispatchLoader.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalDispatchLog.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalDllMain.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalFavicon.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalHelper.cpp" />
+    <ClCompile Include="..\..\..\src\regal\RegalHttp.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalIff.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalInit.cpp" />
     <ClCompile Include="..\..\..\src\regal\RegalLog.cpp" />

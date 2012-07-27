@@ -28,8 +28,10 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __REGAL_INIT_H__
-#define __REGAL_INIT_H__
+#include "pch.h" /* For MS precompiled header support */
+
+#ifndef __REGAL_HTTP_H__
+#define __REGAL_HTTP_H__
 
 #include "RegalUtil.h"
 
@@ -39,12 +41,17 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-struct Init
+namespace Http
 {
-  Init();
-  ~Init();
-};
+  extern void Init();
+
+  extern void Start();
+  extern void Stop();
+
+  extern int port;
+}
 
 REGAL_NAMESPACE_END
 
 #endif
+

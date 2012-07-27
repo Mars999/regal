@@ -43,15 +43,16 @@ REGAL_GLOBAL_BEGIN
 
 #include <map>
 #include <string>
+
 #include "RegalLog.h"
-#include "RegalToken.h"
+#include "RegalEnum.h"
 
 REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
 struct DebugTexImage {
-    RegalEnum internalFormat;
+    Enum internalFormat;
     GLsizei width;
     GLsizei height;
     GLint border;
@@ -60,7 +61,7 @@ struct DebugTexImage {
 struct DebugTexObject {
     const char * label;
     GLuint name;
-    RegalEnum target;
+    Enum target;
     DebugTexImage mips[16];
     GLfloat minLod;
     GLfloat maxLod;
@@ -84,7 +85,7 @@ struct DebugProgramObject {
 
 struct DebugInfo {
 
-    RegalEnum matrixMode;
+    Enum matrixMode;
     GLint clientActiveTextureIndex;
     GLint activeTextureIndex;
 
@@ -103,7 +104,7 @@ struct DebugInfo {
 
     void MatrixMode( RegalContext * ctx, GLenum mode ) {
         UNUSED_PARAMETER(ctx);
-        matrixMode = static_cast<RegalEnum>(mode);
+        matrixMode = static_cast<Enum>(mode);
     }
 
     void ClientActiveTexture( RegalContext * ctx, GLenum texture ) {

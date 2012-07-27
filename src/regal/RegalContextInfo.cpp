@@ -451,11 +451,6 @@ ContextInfo::init(const RegalContext &context)
 
   Info("OpenGL extensions: ",extensions);
 
-  // Vendor, rendering, version, extensions reported by Regal to application
-
-  set<string> e;
-  e.insert(extList.begin(),extList.end());
-
   // TODO - filter out extensions Regal doesn't support?
 
 #ifdef REGAL_GL_VENDOR
@@ -476,6 +471,8 @@ ContextInfo::init(const RegalContext &context)
   regalVersion = version;
 #endif
 
+  set<string> e;
+
 #ifdef REGAL_GL_EXTENSIONS
   regalExtensions = REGAL_EQUOTE(REGAL_GL_EXTENSIONS);
 #else
@@ -484,8 +481,10 @@ ContextInfo::init(const RegalContext &context)
     "GL_REGAL_extension_query",
     "GL_REGAL_log"
   };
+  e.insert(extList.begin(),extList.end());
   e.insert(&ourExtensions[0],&ourExtensions[3]);
   regalExtensions = ::boost::print::detail::join(e,string(" "));
+  e.clear();
 #endif
 
 #ifndef REGAL_NO_GETENV
@@ -533,6 +532,10 @@ ContextInfo::init(const RegalContext &context)
   glx_version_1_2 = glx_version_1_3 || (glx_version_major == 1 && glx_version_minor == 2);
   glx_version_1_1 = glx_version_1_2 || (glx_version_major == 1 && glx_version_minor == 1);
   glx_version_1_0 = glx_version_1_1 || glx_version_major == 1;
+
+  // Vendor, rendering, version, extensions reported by Regal to application
+
+  e.insert(extList.begin(),extList.end());
 
   gl_3dfx_tbuffer = e.find("GL_3DFX_tbuffer")!=e.end();
   gl_amd_debug_output = e.find("GL_AMD_debug_output")!=e.end();

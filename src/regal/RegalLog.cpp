@@ -73,11 +73,16 @@ namespace Logging {
   bool enableError    = true;
   bool enableWarning  = true;
   bool enableInfo     = true;
-  bool enableRegal    = false;
-  bool enableOpenGL   = false;
+  bool enableApp      = false;
+  bool enableDriver   = false;
   bool enableInternal = false;
+  bool enableHttp     = true;
 
   int maxLines = (REGAL_LOG_MAX_LINES);
+
+  std::list<std::string> buffer;
+  std::size_t            bufferSize  = 0;
+  std::size_t            bufferLimit = 500;
 
   void Init()
   {
@@ -86,28 +91,37 @@ namespace Logging {
     const char *error    = GetEnv("REGAL_LOG_ERROR");
     const char *warning  = GetEnv("REGAL_LOG_WARNING");
     const char *info     = GetEnv("REGAL_LOG_INFO");
-    const char *regal    = GetEnv("REGAL_LOG_REGAL");
-    const char *opengl   = GetEnv("REGAL_LOG_OPENGL");
+    const char *app      = GetEnv("REGAL_LOG_APP");
+    const char *driver   = GetEnv("REGAL_LOG_DRIVER");
     const char *internal = GetEnv("REGAL_LOG_INTERNAL");
+    const char *http     = GetEnv("REGAL_LOG_HTTP");
 
     if (error)    enableError    = atoi(error)!=0;
     if (warning)  enableWarning  = atoi(warning)!=0;
     if (info)     enableInfo     = atoi(info)!=0;
-    if (regal)    enableRegal    = atoi(regal)!=0;
-    if (opengl)   enableOpenGL   = atoi(opengl)!=0;
+    if (app)      enableApp      = atoi(app)!=0;
+    if (driver)   enableDriver   = atoi(driver)!=0;
     if (internal) enableInternal = atoi(internal)!=0;
+    if (http)     enableHttp     = atoi(http)!=0;
 
     const char *api = GetEnv("REGAL_LOG_API");
     const char *all = GetEnv("REGAL_LOG_ALL");
 
     if (api && atoi(api))
-      enableRegal = enableOpenGL = true;
+      enableApp = enableDriver = true;
 
     if (all && atoi(all))
-      enableError = enableWarning = enableInfo = enableRegal = enableOpenGL = enableInternal = true;
-      
+      enableError = enableWarning = enableInfo = enableApp = enableDriver = enableInternal = enableHttp = true;
+
     const char *ml = GetEnv("REGAL_LOG_MAX_LINES");
     if (ml) maxLines = atoi(ml);
+
+    const char *bl = GetEnv("REGAL_HTTP_LOG_LIMIT");
+    if (bl) bufferLimit = atoi(bl);
+#endif
+
+#ifdef REGAL_HTTP_LOG_LIMIT
+  bufferLimit = REGAL_HTTP_LOG_LIMIT;
 #endif
 
 #if REGAL_LOG_ERROR
@@ -122,16 +136,20 @@ namespace Logging {
     Info("REGAL_LOG_INFO     ", enableInfo     ? "enabled" : "disabled");
 #endif
 
-#if REGAL_LOG_REGAL
-    Info("REGAL_LOG_REGAL    ", enableRegal    ? "enabled" : "disabled");
+#if REGAL_LOG_APP
+    Info("REGAL_LOG_APP      ", enableApp      ? "enabled" : "disabled");
 #endif
 
-#if REGAL_LOG_OPENGL
-    Info("REGAL_LOG_OPENGL   ", enableOpenGL   ? "enabled" : "disabled");
+#if REGAL_LOG_DRIVER
+    Info("REGAL_LOG_DRIVER   ", enableDriver   ? "enabled" : "disabled");
 #endif
 
 #if REGAL_LOG_INTERNAL
     Info("REGAL_LOG_INTERNAL ", enableInternal ? "enabled" : "disabled");
+#endif
+
+#if REGAL_LOG_HTTP
+    Info("REGAL_LOG_HTTP     ", enableHttp     ? "enabled" : "disabled");
 #endif
   }
 
@@ -153,10 +171,27 @@ namespace Logging {
   inline string message(const char *prefix, const char *delim, const string &str)
   {
     const static string trimSuffix(" ...");
-    
+
     std::string trimPrefix = print_string(prefix ? prefix : "", delim ? delim : "", string(indent(),' '));
-    
+
     return print_string(trim(str,'\n',maxLines>0 ? maxLines : ~0,trimPrefix,trimSuffix), '\n');
+  }
+
+  // Append to the log buffer
+
+  inline void append(string &str)
+  {
+    buffer.push_back(string());
+    buffer.back().swap(str);
+    bufferSize++;
+
+    // Prune the buffer list, as necessary
+
+    while (bufferSize>bufferLimit)
+    {
+      buffer.pop_front();
+      --bufferSize;
+    }
   }
 
 #if defined(REGAL_SYS_WGL)
@@ -169,6 +204,7 @@ namespace Logging {
       OutputDebugStringA( m.c_str() );
       fprintf( stderr, "%s", m.c_str() );
       fflush( stderr );
+      append(m);
     }
   }
 
@@ -183,7 +219,11 @@ namespace Logging {
   void Output(const char *prefix, const char *delim, const string &str)
   {
     if (str.length())
-      __android_log_print(ANDROID_LOG_INFO, LOG_TAG, message(prefix,delim,str).c_str());
+    {
+      string m = message(prefix,delim,str);
+      __android_log_print(ANDROID_LOG_INFO, LOG_TAG, m.c_str());
+      append(m);
+    }
   }
 
 #else
@@ -192,8 +232,10 @@ namespace Logging {
   {
     if (str.length())
     {
-      fprintf( stdout, "%s", message(prefix,delim,str).c_str());
-      fflush( stdout );
+      string m = message(prefix,delim,str);
+      fprintf(stdout, "%s", m.c_str());
+      fflush(stdout);
+      append(m);
     }
   }
 

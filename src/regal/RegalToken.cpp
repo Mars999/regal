@@ -2765,9 +2765,10 @@ namespace Token {
       case 0x00009319: return "GL_LOG_ERROR_REGAL";
       case 0x0000931a: return "GL_LOG_WARNING_REGAL";
       case 0x0000931b: return "GL_LOG_INFO_REGAL";
-      case 0x0000931c: return "GL_LOG_REGAL_REGAL";
-      case 0x0000931d: return "GL_LOG_OPENGL_REGAL";
+      case 0x0000931c: return "GL_LOG_APP_REGAL";
+      case 0x0000931d: return "GL_LOG_DRIVER_REGAL";
       case 0x0000931e: return "GL_LOG_INTERNAL_REGAL";
+      case 0x0000931f: return "GL_LOG_STATUS_REGAL";
       case 0x00009380: return "GL_NUM_SAMPLE_COUNTS";
       case 0x00010000: return "GL_COLOR3_BIT_PGI";
       case 0x00019262: return "GL_RASTER_POSITION_UNCLIPPED_IBM";

@@ -382,13 +382,13 @@ namespace State {
       return *this;
     }
 
-    inline std::string toString() const
+    inline std::string toString(const char *delim = "\n") const
     {
       string_list tmp;
-      tmp << print_string(enable ? "glEnable" : "glDisable","(GL_DEPTH_TEST);\n");
-      tmp << print_string("glDepthfunc(",Token::toString(func),");\n");
-      tmp << print_string("glClearDepth(",clear,");\n");
-      tmp << print_string("glDepthMask(",mask ? "GL_TRUE" : "GL_FALSE",");\n");
+      tmp << print_string(enable ? "glEnable" : "glDisable","(GL_DEPTH_TEST);",delim);
+      tmp << print_string("glDepthfunc(",Token::toString(func),");",delim);
+      tmp << print_string("glClearDepth(",clear,");",delim);
+      tmp << print_string("glDepthMask(",mask ? "GL_TRUE" : "GL_FALSE",");",delim);
       return tmp;
     }
   };
@@ -453,12 +453,12 @@ namespace State {
       return *this;
     }
 
-    inline std::string toString(GLenum face) const
+    inline std::string toString(GLenum face,const char *delim = "\n") const
     {
       string_list tmp;
-      tmp << print_string("glStencilFuncSeparate(",Token::toString(face),",",Token::toString(func),",",ref,",0x",hex(valueMask),");\n");
-      tmp << print_string("glStencilMaskSeparate(",Token::toString(face),",0x",hex(writeMask),");\n");
-      tmp << print_string("glStencilOpSeparate(",Token::toString(face),",",Token::toString(fail),",",Token::toString(zfail),",",Token::toString(zpass),");\n");
+      tmp << print_string("glStencilFuncSeparate(",Token::toString(face),",",Token::toString(func),",",ref,",0x",hex(valueMask),");",delim);
+      tmp << print_string("glStencilMaskSeparate(",Token::toString(face),",0x",hex(writeMask),");",delim);
+      tmp << print_string("glStencilOpSeparate(",Token::toString(face),",",Token::toString(fail),",",Token::toString(zfail),",",Token::toString(zpass),");",delim);
       return tmp;
     }
   };
@@ -603,13 +603,13 @@ namespace State {
       return *this;
     }
 
-    inline std::string toString() const
+    inline std::string toString(const char *delim = "\n") const
     {
       string_list tmp;
-      tmp << print_string(enable ? "glEnable" : "glDisable","(GL_STENCIL_TEST);\n");
-      tmp << print_string("glClearStencil(",clear,");\n");
-      tmp << front.toString(GL_FRONT);
-      tmp << front.toString(GL_BACK);
+      tmp << print_string(enable ? "glEnable" : "glDisable","(GL_STENCIL_TEST);",delim);
+      tmp << print_string("glClearStencil(",clear,");",delim);
+      tmp << front.toString(GL_FRONT,delim);
+      tmp << front.toString(GL_BACK,delim);
       return tmp;
     }
   };
@@ -758,19 +758,19 @@ namespace State {
       return *this;
     }
 
-    inline std::string toString() const
+    inline std::string toString(const char *delim = "\n") const
     {
       string_list tmp;
-      tmp << print_string(cullEnable ? "glEnable" : "glDisable","(GL_CULL_FACE);\n");
-      tmp << print_string("glCullFace(",Token::toString(cull),");\n");
-      tmp << print_string("glFrontFace(",Token::toString(frontFace),");\n");
-      tmp << print_string("glPolygonMode(GL_FRONT,",Token::toString(frontMode),");\n");
-      tmp << print_string("glPolygonMode(GL_BACK,",Token::toString(backMode),");\n");
-      tmp << print_string(smoothEnable  ? "glEnable" : "glDisable","(GL_POLYGON_SMOOTH);\n");
-      tmp << print_string(stippleEnable ? "glEnable" : "glDisable","(GL_POLYGON_STIPPLE);\n");
-      tmp << print_string(offsetFill    ? "glEnable" : "glDisable","(GL_POLYGON_OFFSET_FILL);\n");
-      tmp << print_string(offsetLine    ? "glEnable" : "glDisable","(GL_POLYGON_OFFSET_LINE);\n");
-      tmp << print_string(offsetPoint   ? "glEnable" : "glDisable","(GL_POLYGON_OFFSET_POINT);\n");
+      tmp << print_string(cullEnable ? "glEnable" : "glDisable","(GL_CULL_FACE);",delim);
+      tmp << print_string("glCullFace(",Token::toString(cull),");",delim);
+      tmp << print_string("glFrontFace(",Token::toString(frontFace),");",delim);
+      tmp << print_string("glPolygonMode(GL_FRONT,",Token::toString(frontMode),");",delim);
+      tmp << print_string("glPolygonMode(GL_BACK,",Token::toString(backMode),");",delim);
+      tmp << print_string(smoothEnable  ? "glEnable" : "glDisable","(GL_POLYGON_SMOOTH);",delim);
+      tmp << print_string(stippleEnable ? "glEnable" : "glDisable","(GL_POLYGON_STIPPLE);",delim);
+      tmp << print_string(offsetFill    ? "glEnable" : "glDisable","(GL_POLYGON_OFFSET_FILL);",delim);
+      tmp << print_string(offsetLine    ? "glEnable" : "glDisable","(GL_POLYGON_OFFSET_LINE);",delim);
+      tmp << print_string(offsetPoint   ? "glEnable" : "glDisable","(GL_POLYGON_OFFSET_POINT);",delim);
       return tmp;
     }
   };

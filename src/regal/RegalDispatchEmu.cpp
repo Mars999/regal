@@ -6424,8 +6424,8 @@ static void REGAL_CALL emu_glDisable(GLenum cap)
                case GL_LOG_ERROR_REGAL:    Logging::enableError    = false; return;
                case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = false; return;
                case GL_LOG_INFO_REGAL:     Logging::enableInfo     = false; return;
-               case GL_LOG_REGAL_REGAL:    Logging::enableRegal    = false; return;
-               case GL_LOG_OPENGL_REGAL:   Logging::enableOpenGL   = false; return;
+               case GL_LOG_APP_REGAL:      Logging::enableApp      = false; return;
+               case GL_LOG_DRIVER_REGAL:   Logging::enableDriver   = false; return;
                case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = false; return;
                default: break;
              }
@@ -6494,8 +6494,8 @@ static void REGAL_CALL emu_glEnable(GLenum cap)
                case GL_LOG_ERROR_REGAL:    Logging::enableError    = true; return;
                case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = true; return;
                case GL_LOG_INFO_REGAL:     Logging::enableInfo     = true; return;
-               case GL_LOG_REGAL_REGAL:    Logging::enableRegal    = true; return;
-               case GL_LOG_OPENGL_REGAL:   Logging::enableOpenGL   = true; return;
+               case GL_LOG_APP_REGAL:      Logging::enableApp      = true; return;
+               case GL_LOG_DRIVER_REGAL:   Logging::enableDriver   = true; return;
                case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = true; return;
                default: break;
              }
@@ -7418,8 +7418,8 @@ static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
                case GL_LOG_ERROR_REGAL:    return Logging::enableError    ? GL_TRUE : GL_FALSE;
                case GL_LOG_WARNING_REGAL:  return Logging::enableWarning  ? GL_TRUE : GL_FALSE;
                case GL_LOG_INFO_REGAL:     return Logging::enableInfo     ? GL_TRUE : GL_FALSE;
-               case GL_LOG_REGAL_REGAL:    return Logging::enableRegal    ? GL_TRUE : GL_FALSE;
-               case GL_LOG_OPENGL_REGAL:   return Logging::enableOpenGL   ? GL_TRUE : GL_FALSE;
+               case GL_LOG_APP_REGAL:      return Logging::enableApp      ? GL_TRUE : GL_FALSE;
+               case GL_LOG_DRIVER_REGAL:   return Logging::enableDriver   ? GL_TRUE : GL_FALSE;
                case GL_LOG_INTERNAL_REGAL: return Logging::enableInternal ? GL_TRUE : GL_FALSE;
                default: break;
              }

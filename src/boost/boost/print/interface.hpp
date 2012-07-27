@@ -317,9 +317,15 @@ void write(char *&i, const char *val)
 template<> inline
 void write(std::string::iterator &i, const char *val)
 {
-  char *j = &(*i);
-  write<char *>(j,val);
-  i += j-&(*i);
+  // if i==string::end() it's a runtime error on Windows VC10
+  // to dereference
+
+  if (val[0]!='\0')
+  {
+    char *j = &(*i);
+    write<char *>(j,val);
+    i += j-&(*i);
+  }
 }
 #endif
 

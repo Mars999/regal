@@ -39,6 +39,7 @@ using namespace std;
 
 #include "RegalLog.h"
 #include "RegalInit.h"
+#include "RegalHttp.h"
 #include "RegalToken.h"
 #include "RegalDispatch.h"
 #include "RegalDispatchState.h"
@@ -77,6 +78,14 @@ Init::Init()
 #endif
 
   Logging::Init();
+  Http::Init();
+
+  Http::Start();
+}
+
+Init::~Init()
+{
+  Http::Stop();
 }
 
 #if REGAL_SYS_WGL

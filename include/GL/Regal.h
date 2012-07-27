@@ -18054,9 +18054,10 @@ REGAL_DECL GLboolean REGAL_CALL glIsSupportedREGAL(const GLchar *ext);
 #define GL_LOG_ERROR_REGAL    0x9319     /* 37657 */
 #define GL_LOG_WARNING_REGAL  0x931a     /* 37658 */
 #define GL_LOG_INFO_REGAL     0x931b     /* 37659 */
-#define GL_LOG_REGAL_REGAL    0x931c     /* 37660 */
-#define GL_LOG_OPENGL_REGAL   0x931d     /* 37661 */
+#define GL_LOG_APP_REGAL      0x931c     /* 37660 */
+#define GL_LOG_DRIVER_REGAL   0x931d     /* 37661 */
 #define GL_LOG_INTERNAL_REGAL 0x931e     /* 37662 */
+#define GL_LOG_STATUS_REGAL   0x931f     /* 37663 */
 #endif
 
 /**

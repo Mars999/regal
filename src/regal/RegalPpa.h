@@ -46,6 +46,7 @@ REGAL_GLOBAL_BEGIN
 #include <GL/Regal.h>
 
 #include "RegalState.h"
+#include "RegalEmu.h"
 #include "RegalLog.h"
 #include "RegalToken.h"
 #include "RegalDispatchState.h"

@@ -63,19 +63,28 @@ LIB.SRCS           += src/regal/RegalDispatchLog.cpp
 LIB.SRCS           += src/regal/RegalDispatchDebug.cpp
 LIB.SRCS           += src/regal/RegalDispatchError.cpp
 LIB.SRCS           += src/regal/RegalDispatchLoader.cpp
+LIB.SRCS           += src/regal/RegalHttp.cpp
+LIB.SRCS           += src/regal/RegalFavicon.cpp
+
+LIB.SRCS           += src/mongoose/mongoose.c
 
 LIB.SRCS.NAMES     := $(notdir $(LIB.SRCS))
 
-LIB.INCLUDE        := -Isrc/boost
+LIB.INCLUDE        += -Isrc/boost
+LIB.INCLUDE        += -Isrc/mongoose
 
 LIB.DEPS           :=
 LIB.DEPS           += include/GL/Regal.h
 LIB.DEPS           += src/regal/RegalPrivate.h
 
 LIB.OBJS           := $(addprefix tmp/$(SYSTEM)/regal/static/,$(LIB.SRCS.NAMES))
+LIB.OBJS           := $(LIB.OBJS:.c=.o)
 LIB.OBJS           := $(LIB.OBJS:.cpp=.o)
 LIB.SOBJS          := $(addprefix tmp/$(SYSTEM)/regal/shared/,$(LIB.SRCS.NAMES))
+LIB.SOBJS          := $(LIB.SOBJS:.c=.o)
 LIB.SOBJS          := $(LIB.SOBJS:.cpp=.o)
+
+#CFLAGS += -DREGAL_NO_HTTP
 
 regal.lib: lib lib/$(LIB.SHARED) lib/$(LIB.STATIC)
 
@@ -106,6 +115,14 @@ tmp/$(SYSTEM)/regal/static/%.o: src/regal/%.cpp $(LIB.DEPS)
 	$(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 tmp/$(SYSTEM)/regal/shared/%.o: src/regal/%.cpp $(LIB.DEPS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
+
+tmp/$(SYSTEM)/regal/static/%.o: src/mongoose/%.c $(LIB.DEPS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
+
+tmp/$(SYSTEM)/regal/shared/%.o: src/mongoose/%.c $(LIB.DEPS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 

@@ -28,23 +28,19 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __REGAL_INIT_H__
-#define __REGAL_INIT_H__
+#ifndef __REGAL_FAVICON_H__
+#define __REGAL_FAVICON_H__
+
+#ifndef REGAL_NO_HTTP
 
 #include "RegalUtil.h"
 
-REGAL_GLOBAL_BEGIN
-
-REGAL_GLOBAL_END
-
 REGAL_NAMESPACE_BEGIN
 
-struct Init
-{
-  Init();
-  ~Init();
-};
+extern unsigned char favicon[2238];
 
 REGAL_NAMESPACE_END
+
+#endif
 
 #endif

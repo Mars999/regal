@@ -36,6 +36,7 @@
 REGAL_GLOBAL_BEGIN
 
 #include <string>
+#include <list>
 
 #include <boost/print/print_string.hpp>
 
@@ -57,19 +58,19 @@ REGAL_NAMESPACE_BEGIN
 # define REGAL_LOG_INFO 1
 #endif
 
-#ifndef REGAL_LOG_REGAL
+#ifndef REGAL_LOG_APP
 # ifdef NDEBUG
-#  define REGAL_LOG_REGAL 0
+#  define REGAL_LOG_APP 0
 # else
-#  define REGAL_LOG_REGAL 1
+#  define REGAL_LOG_APP 1
 # endif
 #endif
 
-#ifndef REGAL_LOG_OPENGL
+#ifndef REGAL_LOG_DRIVER
 # ifdef NDEBUG
-#  define REGAL_LOG_OPENGL 0
+#  define REGAL_LOG_DRIVER 0
 # else
-#  define REGAL_LOG_OPENGL 1
+#  define REGAL_LOG_DRIVER 1
 # endif
 #endif
 
@@ -81,6 +82,10 @@ REGAL_NAMESPACE_BEGIN
 # endif
 #endif
 
+#ifndef REGAL_LOG_HTTP
+# define REGAL_LOG_HTTP 1
+#endif
+
 #ifndef REGAL_LOG_MAX_LINES
 # define REGAL_LOG_MAX_LINES -1 // unlimited by default
 #endif
@@ -89,15 +94,17 @@ REGAL_NAMESPACE_BEGIN
 # undef REGAL_LOG_ERROR
 # undef REGAL_LOG_WARNING
 # undef REGAL_LOG_INFO
-# undef REGAL_LOG_REGAL
-# undef REGAL_LOG_OPENGL
+# undef REGAL_LOG_APP
+# undef REGAL_LOG_DRIVER
 # undef REGAL_LOG_INTERNAL
+# undef REGAL_LOG_HTTP
 # define REGAL_LOG_ERROR    REGAL_LOG_ALL
 # define REGAL_LOG_WARNING  REGAL_LOG_ALL
 # define REGAL_LOG_INFO     REGAL_LOG_ALL
-# define REGAL_LOG_REGAL    REGAL_LOG_ALL
-# define REGAL_LOG_OPENGL   REGAL_LOG_ALL
+# define REGAL_LOG_APP      REGAL_LOG_ALL
+# define REGAL_LOG_DRIVER   REGAL_LOG_ALL
 # define REGAL_LOG_INTERNAL REGAL_LOG_ALL
+# define REGAL_LOG_HTTP     REGAL_LOG_ALL
 #endif
 
 namespace Logging
@@ -111,11 +118,20 @@ namespace Logging
   extern bool enableError;
   extern bool enableWarning;
   extern bool enableInfo;
-  extern bool enableRegal;
-  extern bool enableOpenGL;
+  extern bool enableApp;
+  extern bool enableDriver;
   extern bool enableInternal;
+  extern bool enableHttp;
+
+  // Logging configuration
 
   extern int  maxLines;
+
+  // Buffering for HTTP query purposes
+
+  extern std::list<std::string> buffer;
+  extern std::size_t            bufferSize;
+  extern std::size_t            bufferLimit;
 }
 
 #if REGAL_LOG_ERROR
@@ -123,7 +139,7 @@ namespace Logging
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableError) \
     ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "error   ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
-#define Error(...)
+#define Error(...) {}
 #endif
 
 #if REGAL_LOG_WARNING
@@ -131,7 +147,7 @@ namespace Logging
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableWarning) \
     ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "warning ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
-#define Warning(...)
+#define Warning(...) {}
 #endif
 
 #if REGAL_LOG_INFO
@@ -139,23 +155,23 @@ namespace Logging
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableInfo) \
     ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "info    ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
-#define Info(...)
+#define Info(...) {}
 #endif
 
-#if REGAL_LOG_REGAL
+#if REGAL_LOG_APP
 #define RTrace(...) { \
-  if (::REGAL_NAMESPACE_INTERNAL::Logging::enableRegal) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "regal   ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
+  if (::REGAL_NAMESPACE_INTERNAL::Logging::enableApp) \
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "app     ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
-#define RTrace(...)
+#define RTrace(...) {}
 #endif
 
-#if REGAL_LOG_OPENGL
+#if REGAL_LOG_DRIVER
 #define GTrace(...) { \
-  if (::REGAL_NAMESPACE_INTERNAL::Logging::enableOpenGL) \
-    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "opengl  ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
+  if (::REGAL_NAMESPACE_INTERNAL::Logging::enableDriver) \
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "driver  ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
-#define GTrace(...)
+#define GTrace(...) {}
 #endif
 
 #if REGAL_LOG_INTERNAL
@@ -163,7 +179,15 @@ namespace Logging
   if (::REGAL_NAMESPACE_INTERNAL::Logging::enableInternal) \
     ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "internal", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
 #else
-#define ITrace(...)
+#define ITrace(...) {}
+#endif
+
+#if REGAL_LOG_HTTP
+#define HTrace(...) { \
+  if (::REGAL_NAMESPACE_INTERNAL::Logging::enableHttp) \
+    ::REGAL_NAMESPACE_INTERNAL::Logging::Output( "http    ", " | ", ::boost::print::print_string( __VA_ARGS__) ); }
+#else
+#define HTrace(...) {}
 #endif
 
 REGAL_NAMESPACE_END
