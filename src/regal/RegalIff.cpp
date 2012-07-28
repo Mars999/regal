@@ -40,10 +40,15 @@ using std::string;
 typedef boost::print::string_list<string> string_list;
 
 #include "RegalIff.h"
+#include "RegalLog.h"
+#include "RegalToken.h"
 
 REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
+
+using namespace ::REGAL_NAMESPACE_INTERNAL::Logging;
+using namespace ::REGAL_NAMESPACE_INTERNAL::Token;
 
 namespace {
     static int progcount = -1;
@@ -1257,6 +1262,8 @@ void State::GetMaterial( RFF * ffn, GLenum face, GLenum pname, GLfloat * params 
 
 void State::SetTexgen( RegalIff * ffn, int coord, GLenum space, const GLfloat * params )
 {
+    ITrace("State::SetTexgen ",ffn,coord,toString(space),boost::print::array(params,4));
+
     r3::Matrix4f ident;
     Texgen & tg = raw.tex[ ffn->activeTextureIndex ].texgen[ coord ];
     GLuint64 *tgver = NULL;
@@ -1270,6 +1277,8 @@ void State::SetTexgen( RegalIff * ffn, int coord, GLenum space, const GLfloat * 
 
 void State::GetTexgen( RegalIff * ffn, int coord, GLenum space, GLfloat * params )
 {
+    ITrace("State::GetTexgen ",ffn,coord,toString(space));
+
     Texgen & tg = raw.tex[ ffn->activeTextureIndex ].texgen[ coord ];
     switch( space ) {
         case GL_OBJECT_PLANE:
@@ -1479,7 +1488,9 @@ void RFF::InitFixedFunction( RegalContext * ctx ) {
 	fmtmap[ GL_RGBA16F ] = GL_RGBA16F;
 	fmtmap[ GL_SRGB8_ALPHA8 ] = GL_SRGB8_ALPHA8;
 
-
+  fmtmap[ GL_RGB16F_ARB ]       = GL_RGB;
+  fmtmap[ GL_RGBA32F_ARB ]      = GL_RGB;
+  fmtmap[ GL_INTENSITY16F_ARB ] = GL_INTENSITY;
 }
 
 void RFF::ShadowMultiTexBinding( GLenum texunit, GLenum target, GLuint obj ) {

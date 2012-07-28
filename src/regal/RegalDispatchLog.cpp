@@ -46,7 +46,7 @@ REGAL_GLOBAL_BEGIN
 
 using namespace REGAL_NAMESPACE_INTERNAL;
 using namespace ::REGAL_NAMESPACE_INTERNAL::Logging;
-using ::REGAL_NAMESPACE_INTERNAL::Token::toString;
+using namespace ::REGAL_NAMESPACE_INTERNAL::Token;
 
 #ifdef __cplusplus
 extern "C" {
@@ -2059,7 +2059,7 @@ static void REGAL_CALL log_glTexParameteriv(GLenum target, GLenum pname, const G
 
 static void REGAL_CALL log_glTexImage1D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTexImage1D(", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", reinterpret_cast<const GLubyte *>(pixels), ")");;
+    GTrace("glTexImage1D(", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", reinterpret_cast<const GLubyte *>(pixels), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2070,7 +2070,7 @@ static void REGAL_CALL log_glTexImage1D(GLenum target, GLint level, GLint intern
 
 static void REGAL_CALL log_glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTexImage2D(", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ", ", reinterpret_cast<const GLubyte *>(pixels), ")");;
+    GTrace("glTexImage2D(", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ", ", reinterpret_cast<const GLubyte *>(pixels), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -2169,7 +2169,7 @@ static void REGAL_CALL log_glTexGenfv(GLenum coord, GLenum pname, const GLfloat 
 
 static void REGAL_CALL log_glTexGeni(GLenum coord, GLenum pname, GLint param)
 {
-    GTrace("glTexGeni(", toString(coord), ", ", toString(pname), ", ", param, ")");;
+    GTrace("glTexGeni(", toString(coord), ", ", toString(pname), ", ", GLenumToString(static_cast<GLenum>(param)), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -3797,7 +3797,7 @@ static void REGAL_CALL log_glDrawRangeElements(GLenum mode, GLuint start, GLuint
 
 static void REGAL_CALL log_glTexImage3D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTexImage3D(", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ", ", toString(type), ")");;
+    GTrace("glTexImage3D(", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -12784,7 +12784,7 @@ static void REGAL_CALL log_glPolygonOffsetEXT(GLfloat factor, GLfloat bias)
 
 static void REGAL_CALL log_glTexImage3DEXT(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTexImage3DEXT(", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ", ", toString(type), ")");;
+    GTrace("glTexImage3DEXT(", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -13330,7 +13330,7 @@ static void REGAL_CALL log_glGetPixelTexGenParameterfvSGIS(GLenum pname, GLfloat
 
 static void REGAL_CALL log_glTexImage4DSGIS(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTexImage4DSGIS(", toString(target), ", ", level, ", ", toString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", size4d, ", ", border, ", ", toString(format), ")");;
+    GTrace("glTexImage4DSGIS(", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", size4d, ", ", border, ", ", toString(format), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21663,7 +21663,7 @@ static void REGAL_CALL log_glTextureParameterivEXT(GLuint texture, GLenum target
 
 static void REGAL_CALL log_glTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTextureImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");;
+    GTrace("glTextureImage1DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", border, ", ", toString(format), ", ", toString(type), ", ", pixels, ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21674,7 +21674,7 @@ static void REGAL_CALL log_glTextureImage1DEXT(GLuint texture, GLenum target, GL
 
 static void REGAL_CALL log_glTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTextureImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ")");;
+    GTrace("glTextureImage2DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", height, ", ", border, ", ", toString(format), ", ", toString(type), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);
@@ -21806,7 +21806,7 @@ static void REGAL_CALL log_glGetTextureLevelParameterivEXT(GLuint texture, GLenu
 
 static void REGAL_CALL log_glTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
 {
-    GTrace("glTextureImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalformat, ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ")");;
+    GTrace("glTextureImage3DEXT(", texture, ", ", toString(target), ", ", level, ", ", internalFormatToString(internalformat), ", ", width, ", ", height, ", ", depth, ", ", border, ", ", toString(format), ")");;
     RegalContext * rCtx = GET_REGAL_CONTEXT();
     RegalAssert(rCtx);
     RegalAssert(rCtx->dsp);

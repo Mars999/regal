@@ -61,8 +61,8 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-using namespace Logging;
-using Token::toString;
+using namespace ::REGAL_NAMESPACE_INTERNAL::Logging;
+using namespace ::REGAL_NAMESPACE_INTERNAL::Token;
 
 // GL_VERSION_1_0
 

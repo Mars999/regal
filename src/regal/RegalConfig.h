@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 NVIDIA Corporation
+  Copyright (c) 2011-2012 NVIDIA Corporation
   Copyright (c) 2011-2012 Cass Everitt
   Copyright (c) 2012 Scott Nations
   Copyright (c) 2012 Mathias Schott
@@ -39,24 +39,22 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-struct Config
+namespace Config
 {
-  Config();
+  void Init();
 
-  bool forceCoreProfile;
-  bool forceEmulation;
-  bool enableEmulation;
-  bool enableDebug;
-  bool enableError;
+  extern bool forceCoreProfile;
+  extern bool forceEmulation;
+  extern bool enableEmulation;
+  extern bool enableDebug;
+  extern bool enableError;
 
-  bool enableEmuPpa;
-  bool enableEmuObj;
-  bool enableEmuBin;
-  bool enableEmuDsa;
-  bool enableEmuIff;
-  bool enableEmuVao;
-
-  static Config config;
+  extern bool enableEmuPpa;
+  extern bool enableEmuObj;
+  extern bool enableEmuBin;
+  extern bool enableEmuDsa;
+  extern bool enableEmuIff;
+  extern bool enableEmuVao;
 };
 
 REGAL_NAMESPACE_END

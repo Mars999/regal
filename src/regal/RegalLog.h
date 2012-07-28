@@ -129,9 +129,9 @@ namespace Logging
 
   // Buffering for HTTP query purposes
 
-  extern std::list<std::string> buffer;
-  extern std::size_t            bufferSize;
-  extern std::size_t            bufferLimit;
+  extern std::list<std::string> *buffer;
+  extern std::size_t             bufferSize;
+  extern std::size_t             bufferLimit;
 }
 
 #if REGAL_LOG_ERROR

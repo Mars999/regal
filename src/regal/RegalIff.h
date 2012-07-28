@@ -1538,6 +1538,7 @@ struct RegalIff : public RegalEmu {
     }
 
     template <typename T> void TexGen( GLenum coord, GLenum pname, const T param ) {
+        RegalAssert(activeTextureIndex < REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS);
         if( activeTextureIndex >= REGAL_FIXED_FUNCTION_MAX_TEXTURE_UNITS ) {
             return;
         }
@@ -1545,7 +1546,9 @@ struct RegalIff : public RegalEmu {
         int idx = 0;
         switch( coord ) {
             case GL_S: case GL_T: case GL_R: case GL_Q: idx = coord - GL_S; break;
-            default: return;
+            default: 
+              RegalAssert(coord==GL_S || coord==GL_T || coord==GL_R || coord==GL_Q || coord==GL_S);
+              return;
         }
         switch( pname ) {
             case GL_TEXTURE_GEN_MODE: {
@@ -1556,13 +1559,19 @@ struct RegalIff : public RegalEmu {
                     case GL_SPHERE_MAP: mode = TG_SphereMap; break;
                     case GL_NORMAL_MAP: mode = TG_NormalMap; break;
                     case GL_REFLECTION_MAP: mode = TG_ReflectionMap; break;
-                    default: return;
+                    default: 
+                        RegalAssert(0);
+                        return;
                 }
                 break;
             }
             case GL_EYE_PLANE:
             case GL_OBJECT_PLANE: {
-                if (!RFFIsVector( param )) return;
+                if (!RFFIsVector( param ))
+                {
+                    RegalAssert(0);
+                    return;
+                }
                 Float4 plane;
                 plane.x = RFFToFloat( 0, param );
                 plane.y = RFFToFloat( 1, param );
@@ -1571,7 +1580,9 @@ struct RegalIff : public RegalEmu {
                 ffstate.SetTexgen( this, idx, pname, & plane.x );
                 return;
             }
-            default: return;
+            default:
+                RegalAssert(0);
+                return;
 
         }
         st.ver = ver.Update();

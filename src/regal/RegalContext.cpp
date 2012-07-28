@@ -73,7 +73,7 @@ RegalContext::RegalContext()
 {
   ITrace("RegalContext::RegalContext");
   dsp->Init();
-  if (Config::config.enableDebug) {
+  if (Config::enableDebug) {
      dbg = new DebugInfo();
      dbg->Init(this);
   }
@@ -93,8 +93,8 @@ RegalContext::Init()
 #if !REGAL_FORCE_EMULATION
   if
   (
-    Config::config.forceEmulation  ||
-    Config::config.enableEmulation &&
+    Config::forceEmulation  ||
+    Config::enableEmulation &&
     (
       info->core ||
       info->gles ||
@@ -105,7 +105,7 @@ RegalContext::Init()
   {
     emuLevel = 8;
     #if REGAL_EMU_VAO
-    if (Config::config.enableEmuVao)
+    if (Config::enableEmuVao)
     {
       vao = new RegalVao;
       vao->emuLevel = 1;
@@ -113,7 +113,7 @@ RegalContext::Init()
     }
     #endif /* REGAL_EMU_VAO */
     #if REGAL_EMU_IFF
-    if (Config::config.enableEmuIff)
+    if (Config::enableEmuIff)
     {
       iff = new RegalIff;
       iff->emuLevel = 2;
@@ -121,7 +121,7 @@ RegalContext::Init()
     }
     #endif /* REGAL_EMU_IFF */
     #if REGAL_EMU_DSA
-    if (Config::config.enableEmuDsa)
+    if (Config::enableEmuDsa)
     {
       dsa = new RegalDsa;
       dsa->emuLevel = 3;
@@ -129,7 +129,7 @@ RegalContext::Init()
     }
     #endif /* REGAL_EMU_DSA */
     #if REGAL_EMU_BIN
-    if (Config::config.enableEmuBin)
+    if (Config::enableEmuBin)
     {
       bin = new RegalBin;
       bin->emuLevel = 4;
@@ -137,7 +137,7 @@ RegalContext::Init()
     }
     #endif /* REGAL_EMU_BIN */
     #if REGAL_EMU_PPA
-    if (Config::config.enableEmuPpa)
+    if (Config::enableEmuPpa)
     {
       ppa = new RegalPpa;
       ppa->emuLevel = 5;
@@ -148,7 +148,7 @@ RegalContext::Init()
     marker->emuLevel = 6;
     marker->Init( this );
     #if REGAL_EMU_OBJ
-    if (Config::config.enableEmuObj)
+    if (Config::enableEmuObj)
     {
       obj = new RegalObj;
       obj->emuLevel = 8;

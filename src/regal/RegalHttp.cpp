@@ -135,8 +135,9 @@ namespace Http
 
         if (!strcmp("/log",request_info->uri))
         {
-          for (list<string>::const_iterator i = Logging::buffer.begin(); i!=Logging::buffer.end(); ++i)
-            body += print_string(*i,br);
+          if (Logging::buffer)
+            for (list<string>::const_iterator i = Logging::buffer->begin(); i!=Logging::buffer->end(); ++i)
+              body += print_string(*i,br);
         }
         else if (!strcmp("/glEnable",request_info->uri))
         {

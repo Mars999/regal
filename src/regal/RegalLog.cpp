@@ -80,9 +80,9 @@ namespace Logging {
 
   int maxLines = (REGAL_LOG_MAX_LINES);
 
-  std::list<std::string> buffer;
-  std::size_t            bufferSize  = 0;
-  std::size_t            bufferLimit = 500;
+  std::list<std::string> *buffer = NULL;
+  std::size_t             bufferSize  = 0;
+  std::size_t             bufferLimit = 500;
 
   void Init()
   {
@@ -121,8 +121,15 @@ namespace Logging {
 #endif
 
 #ifdef REGAL_HTTP_LOG_LIMIT
-  bufferLimit = REGAL_HTTP_LOG_LIMIT;
+    bufferLimit = REGAL_HTTP_LOG_LIMIT;
 #endif
+
+    // TODO - clean this up at shutdown...
+
+    if (bufferLimit)
+      buffer = new list<string>();
+
+    ITrace("Logging::Init");
 
 #if REGAL_LOG_ERROR
     Info("REGAL_LOG_ERROR    ", enableError    ? "enabled" : "disabled");
@@ -181,16 +188,19 @@ namespace Logging {
 
   inline void append(string &str)
   {
-    buffer.push_back(string());
-    buffer.back().swap(str);
-    bufferSize++;
-
-    // Prune the buffer list, as necessary
-
-    while (bufferSize>bufferLimit)
+    if (buffer)
     {
-      buffer.pop_front();
-      --bufferSize;
+      buffer->push_back(string());
+      buffer->back().swap(str);
+      bufferSize++;
+  
+      // Prune the buffer list, as necessary
+  
+      while (bufferSize>bufferLimit)
+      {
+        buffer->pop_front();
+        --bufferSize;
+      }
     }
   }
 

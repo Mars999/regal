@@ -71,9 +71,9 @@ struct DispatchState {
       InitDispatchTableEmu( emuTbl );        // overrides emulated functions only
       InitDispatchTableLog( logTbl );
       InitDispatchTableLoader( driverTbl );
-      if (Config::config.enableDebug)
+      if (Config::enableDebug)
         Insert(0, RDT_Debug);
-      if (Config::config.enableError)
+      if (Config::enableError)
         Insert(0, RDT_Error);
       Insert( 0, RDT_Emu );
       Insert( 0, RDT_Log );

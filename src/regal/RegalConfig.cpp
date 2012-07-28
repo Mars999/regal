@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2011 NVIDIA Corporation
+  Copyright (c) 2011-2012 NVIDIA Corporation
   Copyright (c) 2011-2012 Cass Everitt
   Copyright (c) 2012 Scott Nations
   Copyright (c) 2012 Mathias Schott
@@ -44,21 +44,24 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-Config Config::config;
+namespace Config {
 
-Config::Config()
-: forceCoreProfile(false),
-  forceEmulation(REGAL_FORCE_EMULATION),
-  enableEmulation(true),
-  enableDebug(false),
-  enableError(false),
-  enableEmuPpa(REGAL_EMU_PPA),
-  enableEmuObj(REGAL_EMU_OBJ),
-  enableEmuBin(REGAL_EMU_BIN),
-  enableEmuDsa(REGAL_EMU_DSA),
-  enableEmuIff(REGAL_EMU_IFF),
-  enableEmuVao(REGAL_EMU_VAO)
+bool forceCoreProfile = false;
+bool forceEmulation   = REGAL_FORCE_EMULATION;
+bool enableEmulation  = true;
+bool enableDebug      = false;
+bool enableError      = false;
+bool enableEmuPpa     = REGAL_EMU_PPA;
+bool enableEmuObj     = REGAL_EMU_OBJ;
+bool enableEmuBin     = REGAL_EMU_BIN;
+bool enableEmuDsa     = REGAL_EMU_DSA;
+bool enableEmuIff     = REGAL_EMU_IFF;
+bool enableEmuVao     = REGAL_EMU_VAO;
+
+void Init()
 {
+  ITrace("Config::Init");
+
 #ifndef REGAL_NO_GETENV
   const char *tmp;
 
@@ -138,6 +141,8 @@ Config::Config()
   Info("REGAL_EMU_DSA            ", enableEmuDsa     ? "enabled" : "disabled");
   Info("REGAL_EMU_IFF            ", enableEmuIff     ? "enabled" : "disabled");
   Info("REGAL_EMU_VAO            ", enableEmuVao     ? "enabled" : "disabled");
+}
+
 }
 
 REGAL_NAMESPACE_END

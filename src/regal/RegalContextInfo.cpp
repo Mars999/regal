@@ -47,6 +47,7 @@ using namespace std;
 #include <boost/print/string_list.hpp>
 using namespace boost::print;
 
+#include "RegalToken.h"
 #include "RegalContext.h"
 #include "RegalContextInfo.h"
 #include "RegalIff.h"             // For REGAL_MAX_VERTEX_ATTRIBS
@@ -55,7 +56,8 @@ REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-using namespace Logging;
+using namespace ::REGAL_NAMESPACE_INTERNAL::Logging;
+using namespace ::REGAL_NAMESPACE_INTERNAL::Token;
 
 ContextInfo::ContextInfo()
 :
@@ -372,17 +374,17 @@ ContextInfo::ContextInfo()
 
   maxVertexAttribs(0)
 {
-   ITrace("ContextInfo::ContextInfo()");
+   ITrace("ContextInfo::ContextInfo");
 }
 
 ContextInfo::~ContextInfo()
 {
-   ITrace("ContextInfo::~ContextInfo()");
+   ITrace("ContextInfo::~ContextInfo");
 }
 
 inline string getString(const RegalContext &context, const GLenum e)
 {
-  ITrace("getString ",e);
+  ITrace("getString ",toString(e));
   RegalAssert(context.dsp->driverTbl.glGetString);
   const GLubyte *str = context.dsp->driverTbl.glGetString(e);
   return str ? string(reinterpret_cast<const char *>(str)) : string();
