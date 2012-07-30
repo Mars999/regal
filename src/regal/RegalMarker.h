@@ -44,15 +44,15 @@ REGAL_GLOBAL_BEGIN
 #include <list>
 #include <string>
 
-#include "RegalPrivate.h"
-#include "RegalEmu.h"
+#include <GL/Regal.h>
+
 #include "RegalLog.h"
 
 REGAL_GLOBAL_END
 
 REGAL_NAMESPACE_BEGIN
 
-struct RegalMarker : public RegalEmu {
+struct Marker {
 
   void Init(RegalContext *ctx)
   {
@@ -106,11 +106,4 @@ struct RegalMarker : public RegalEmu {
 
 REGAL_NAMESPACE_END
 
-#endif // ! __REGAL_MARKER_H__
-
-
-
-
-
-
-
+#endif

@@ -2998,6 +2998,19 @@ static void _glewInfo_GL_EXT_cull_vertex (void)
 
 #endif /* GL_EXT_cull_vertex */
 
+#ifdef GL_EXT_debug_marker
+
+static void _glewInfo_GL_EXT_debug_marker (void)
+{
+  glewPrintExt("GL_EXT_debug_marker", GLEW_EXT_debug_marker, glewIsSupported("GL_EXT_debug_marker"), glewGetExtension("GL_EXT_debug_marker"));
+
+  glewInfoFunc("glInsertEventMarkerEXT", glInsertEventMarkerEXT == NULL);
+  glewInfoFunc("glPopGroupMarkerEXT", glPopGroupMarkerEXT == NULL);
+  glewInfoFunc("glPushGroupMarkerEXT", glPushGroupMarkerEXT == NULL);
+}
+
+#endif /* GL_EXT_debug_marker */
+
 #ifdef GL_EXT_depth_bounds_test
 
 static void _glewInfo_GL_EXT_depth_bounds_test (void)
@@ -8189,6 +8202,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_cull_vertex
   _glewInfo_GL_EXT_cull_vertex();
 #endif /* GL_EXT_cull_vertex */
+#ifdef GL_EXT_debug_marker
+  _glewInfo_GL_EXT_debug_marker();
+#endif /* GL_EXT_debug_marker */
 #ifdef GL_EXT_depth_bounds_test
   _glewInfo_GL_EXT_depth_bounds_test();
 #endif /* GL_EXT_depth_bounds_test */

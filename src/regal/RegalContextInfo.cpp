@@ -478,13 +478,14 @@ ContextInfo::init(const RegalContext &context)
 #ifdef REGAL_GL_EXTENSIONS
   regalExtensions = REGAL_EQUOTE(REGAL_GL_EXTENSIONS);
 #else
-  static const char *ourExtensions[3] = {
+  static const char *ourExtensions[4] = {
     "GL_REGAL_error_string",
     "GL_REGAL_extension_query",
-    "GL_REGAL_log"
+    "GL_REGAL_log",
+    "GL_EXT_debug_marker"
   };
   e.insert(extList.begin(),extList.end());
-  e.insert(&ourExtensions[0],&ourExtensions[3]);
+  e.insert(&ourExtensions[0],&ourExtensions[4]);
   regalExtensions = ::boost::print::detail::join(e,string(" "));
   e.clear();
 #endif
@@ -931,7 +932,7 @@ ContextInfo::getExtension(const char *ext) const
   if (!strcmp(ext,"GL_EXT_coordinate_frame")) return gl_ext_coordinate_frame;
   if (!strcmp(ext,"GL_EXT_copy_texture")) return gl_ext_copy_texture;
   if (!strcmp(ext,"GL_EXT_cull_vertex")) return gl_ext_cull_vertex;
-  if (!strcmp(ext,"GL_EXT_debug_marker")) return gl_ext_debug_marker;
+  if (!strcmp(ext,"GL_EXT_debug_marker")) return true;
   if (!strcmp(ext,"GL_EXT_depth_bounds_test")) return gl_ext_depth_bounds_test;
   if (!strcmp(ext,"GL_EXT_direct_state_access")) return gl_ext_direct_state_access;
   if (!strcmp(ext,"GL_EXT_draw_buffers2")) return gl_ext_draw_buffers2;

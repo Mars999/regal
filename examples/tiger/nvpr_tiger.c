@@ -246,13 +246,18 @@ int main(int argc, char **argv)
   }
 
   glutCreateWindow("Classic PostScript tiger NV_path_rendering example");
-  
+
   // Regal workaround for OSX GLUT
 
   #ifdef __APPLE__
   extern void *CGLGetCurrentContext(void);
   RegalMakeCurrent(CGLGetCurrentContext());
   #endif
+
+  status = glewInit();
+  if (status != GLEW_OK) {
+    fatalError("OpenGL Extension Wrangler (GLEW) failed to initialize");
+  }
 
   printf("vendor: %s\n", glGetString(GL_VENDOR));
   printf("version: %s\n", glGetString(GL_VERSION));
@@ -282,10 +287,12 @@ int main(int argc, char **argv)
   glutAddMenuEntry("[Esc] Quit", 27);
   glutAttachMenu(GLUT_RIGHT_BUTTON);
 
-  status = glewInit();
-  if (status != GLEW_OK) {
-    fatalError("OpenGL Extension Wrangler (GLEW) failed to initialize");
-  }
+  if (!glewIsSupported("GL_REGAL_extension_query"))
+    printf("GL_REGAL_extension_query is not supported.\n");
+
+  if (!glewIsSupported("GL_EXT_debug_marker"))
+    printf("GL_EXT_debug_marker is not supported.\n");
+
   hasDSA = glewIsSupported("GL_EXT_direct_state_access");
   if (!hasDSA) {
     fatalError("OpenGL implementation doesn't support GL_EXT_direct_state_access (you should be using NVIDIA GPUs...)");

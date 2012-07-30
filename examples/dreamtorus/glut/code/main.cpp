@@ -64,16 +64,32 @@ int main(int argc, const char *argv[])
 
   RegalSetErrorCallback(myError);
 
-  // Exercise REGAL_extension_query extension, just 'coz
+  // Exercise REGAL_extension_query extension
 
-  if (!glIsSupportedREGAL("GL_EXT_framebuffer_object"))
-    printf("GL_EXT_framebuffer_object is not supported.\n");
+  if (glIsSupportedREGAL("GL_REGAL_extension_query"))
+  {
+    printf("GL_REGAL_extension_query is supported.\n");
 
-  if (!glIsSupportedREGAL("GL_EXT_direct_state_access"))
-    printf("GL_EXT_direct_state_access is not supported.\n");
+    if (glIsSupportedREGAL("GL_EXT_debug_marker"))
+      printf("GL_EXT_debug_marker is supported.\n");
+    else
+      printf("GL_EXT_debug_marker is not supported.\n");
 
-  if (!glIsSupportedREGAL("GL_NV_path_rendering"))
-    printf("GL_NV_path_rendering is not supported.\n");
+    if (glIsSupportedREGAL("GL_EXT_framebuffer_object"))
+      printf("GL_EXT_framebuffer_object is supported.\n");
+    else
+      printf("GL_EXT_framebuffer_object is not supported.\n");
+
+    if (glIsSupportedREGAL("GL_EXT_direct_state_access"))
+      printf("GL_EXT_direct_state_access is supported.\n");
+    else
+      printf("GL_EXT_direct_state_access is not supported.\n");
+
+    if (glIsSupportedREGAL("GL_NV_path_rendering"))
+      printf("GL_NV_path_rendering is supported.\n");
+    else
+      printf("GL_NV_path_rendering is not supported.\n");
+  }
 
   glutTimerFunc(16, myTick, 0);
   glutDisplayFunc(myDisplay);

@@ -44,6 +44,8 @@ REGAL_GLOBAL_BEGIN
 #include "RegalState.h"
 #include "RegalHelper.h"
 
+#include "RegalMarker.h"
+
 void RegalMakeCurrent( RegalSystemContext ctx )
 {
   ::REGAL_NAMESPACE_INTERNAL::RegalPrivateMakeCurrent( ctx );
@@ -31463,6 +31465,11 @@ REGAL_DECL void REGAL_CALL glInsertEventMarkerEXT(GLsizei length, const GLchar *
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glInsertEventMarkerEXT);
   RegalAssert(rCtx->dsp->curr->glInsertEventMarkerEXT != glInsertEventMarkerEXT);
+  if (rCtx->marker) {
+    rCtx->marker->InsertEventMarker( rCtx, length, marker );
+    RegalAssert(rCtx->info);
+    if (!rCtx->info->gl_ext_debug_marker) return;
+  }
   rCtx->dsp->curr->glInsertEventMarkerEXT(length, marker);
 }
 
@@ -31476,6 +31483,11 @@ REGAL_DECL void REGAL_CALL glPushGroupMarkerEXT(GLsizei length, const GLchar *ma
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glPushGroupMarkerEXT);
   RegalAssert(rCtx->dsp->curr->glPushGroupMarkerEXT != glPushGroupMarkerEXT);
+  if (rCtx->marker) {
+    rCtx->marker->PushGroupMarker( rCtx, length, marker );
+    RegalAssert(rCtx->info);
+    if (!rCtx->info->gl_ext_debug_marker) return;
+  }
   rCtx->dsp->curr->glPushGroupMarkerEXT(length, marker);
 }
 
@@ -31489,6 +31501,11 @@ REGAL_DECL void REGAL_CALL glPopGroupMarkerEXT(void)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glPopGroupMarkerEXT);
   RegalAssert(rCtx->dsp->curr->glPopGroupMarkerEXT != glPopGroupMarkerEXT);
+  if (rCtx->marker) {
+    rCtx->marker->PopGroupMarker( rCtx );
+    RegalAssert(rCtx->info);
+    if (!rCtx->info->gl_ext_debug_marker) return;
+  }
   rCtx->dsp->curr->glPopGroupMarkerEXT();
 }
 

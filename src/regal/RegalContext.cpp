@@ -43,8 +43,8 @@ REGAL_GLOBAL_BEGIN
 #include "RegalDispatchState.h"
 #include "RegalDebugInfo.h"
 #include "RegalContextInfo.h"
-#include "RegalObj.h"
 #include "RegalMarker.h"
+#include "RegalObj.h"
 #include "RegalPpa.h"
 #include "RegalBin.h"
 #include "RegalDsa.h"
@@ -61,8 +61,8 @@ RegalContext::RegalContext()
 : dsp(new DispatchState()),
   dbg(NULL),
   info(NULL),
-  obj(NULL),
   marker(NULL),
+  obj(NULL),
   ppa(NULL),
   bin(NULL),
   dsa(NULL),
@@ -94,16 +94,20 @@ RegalContext::Init()
   if
   (
     Config::forceEmulation  ||
-    Config::enableEmulation &&
     (
-      info->core ||
-      info->gles ||
-      info->compat && !info->gl_ext_direct_state_access
+      Config::enableEmulation &&
+      (
+        info->core ||
+        info->gles ||
+        ( info->compat && !info->gl_ext_direct_state_access )
+      )
     )
   )
 #endif
   {
-    emuLevel = 8;
+    marker = new Marker;
+   // emu
+    emuLevel = 7;
     #if REGAL_EMU_VAO
     if (Config::enableEmuVao)
     {
@@ -144,14 +148,11 @@ RegalContext::Init()
       ppa->Init( this );
     }
     #endif /* REGAL_EMU_PPA */
-    marker = new RegalMarker;
-    marker->emuLevel = 6;
-    marker->Init( this );
     #if REGAL_EMU_OBJ
     if (Config::enableEmuObj)
     {
       obj = new RegalObj;
-      obj->emuLevel = 8;
+      obj->emuLevel = 7;
       obj->Init( this );
     }
     #endif /* REGAL_EMU_OBJ */
@@ -164,9 +165,9 @@ RegalContext::~RegalContext()
   ITrace("RegalContext::~RegalContext");
   delete dsp;
   delete info;
+  delete marker;
   // emu
   delete obj;
-  delete marker;
   delete ppa;
   delete bin;
   delete dsa;
