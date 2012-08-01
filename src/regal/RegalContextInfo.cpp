@@ -60,7 +60,7 @@ using namespace ::REGAL_NAMESPACE_INTERNAL::Logging;
 using namespace ::REGAL_NAMESPACE_INTERNAL::Token;
 
 ContextInfo::ContextInfo()
-:
+: regal_ext_direct_state_access(false),
   compat(false),
   core(false),
   gles(false),
@@ -473,8 +473,6 @@ ContextInfo::init(const RegalContext &context)
   regalVersion = version;
 #endif
 
-  set<string> e;
-
 #ifdef REGAL_GL_EXTENSIONS
   regalExtensions = REGAL_EQUOTE(REGAL_GL_EXTENSIONS);
 #else
@@ -484,10 +482,9 @@ ContextInfo::init(const RegalContext &context)
     "GL_REGAL_log",
     "GL_EXT_debug_marker"
   };
-  e.insert(extList.begin(),extList.end());
-  e.insert(&ourExtensions[0],&ourExtensions[4]);
-  regalExtensions = ::boost::print::detail::join(e,string(" "));
-  e.clear();
+  regalExtensionsSet.insert(extList.begin(),extList.end());
+  regalExtensionsSet.insert(&ourExtensions[0],&ourExtensions[4]);
+  regalExtensions = ::boost::print::detail::join(regalExtensionsSet,string(" "));
 #endif
 
 #ifndef REGAL_NO_GETENV
@@ -538,6 +535,7 @@ ContextInfo::init(const RegalContext &context)
 
   // Vendor, rendering, version, extensions reported by Regal to application
 
+  set<string> e;
   e.insert(extList.begin(),extList.end());
 
   gl_3dfx_tbuffer = e.find("GL_3DFX_tbuffer")!=e.end();
@@ -934,7 +932,7 @@ ContextInfo::getExtension(const char *ext) const
   if (!strcmp(ext,"GL_EXT_cull_vertex")) return gl_ext_cull_vertex;
   if (!strcmp(ext,"GL_EXT_debug_marker")) return true;
   if (!strcmp(ext,"GL_EXT_depth_bounds_test")) return gl_ext_depth_bounds_test;
-  if (!strcmp(ext,"GL_EXT_direct_state_access")) return gl_ext_direct_state_access;
+  if (!strcmp(ext,"GL_EXT_direct_state_access")) return regal_ext_direct_state_access || gl_ext_direct_state_access;
   if (!strcmp(ext,"GL_EXT_draw_buffers2")) return gl_ext_draw_buffers2;
   if (!strcmp(ext,"GL_EXT_draw_instanced")) return gl_ext_draw_instanced;
   if (!strcmp(ext,"GL_EXT_draw_range_elements")) return gl_ext_draw_range_elements;

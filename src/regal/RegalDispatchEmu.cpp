@@ -72,7 +72,6 @@ static void REGAL_CALL emu_glBegin(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -100,7 +99,6 @@ static void REGAL_CALL emu_glBegin(GLenum mode)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -129,7 +127,6 @@ static void REGAL_CALL emu_glColor3b(GLbyte red, GLbyte green, GLbyte blue)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -144,7 +141,6 @@ static void REGAL_CALL emu_glColor3b(GLbyte red, GLbyte green, GLbyte blue)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -173,7 +169,6 @@ static void REGAL_CALL emu_glColor3bv(const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -188,7 +183,6 @@ static void REGAL_CALL emu_glColor3bv(const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -217,7 +211,6 @@ static void REGAL_CALL emu_glColor3d(GLdouble red, GLdouble green, GLdouble blue
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -232,7 +225,6 @@ static void REGAL_CALL emu_glColor3d(GLdouble red, GLdouble green, GLdouble blue
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -261,7 +253,6 @@ static void REGAL_CALL emu_glColor3dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -276,7 +267,6 @@ static void REGAL_CALL emu_glColor3dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -305,7 +295,6 @@ static void REGAL_CALL emu_glColor3f(GLfloat red, GLfloat green, GLfloat blue)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -320,7 +309,6 @@ static void REGAL_CALL emu_glColor3f(GLfloat red, GLfloat green, GLfloat blue)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -349,7 +337,6 @@ static void REGAL_CALL emu_glColor3fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -364,7 +351,6 @@ static void REGAL_CALL emu_glColor3fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -393,7 +379,6 @@ static void REGAL_CALL emu_glColor3i(GLint red, GLint green, GLint blue)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -408,7 +393,6 @@ static void REGAL_CALL emu_glColor3i(GLint red, GLint green, GLint blue)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -437,7 +421,6 @@ static void REGAL_CALL emu_glColor3iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -452,7 +435,6 @@ static void REGAL_CALL emu_glColor3iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -481,7 +463,6 @@ static void REGAL_CALL emu_glColor3s(GLshort red, GLshort green, GLshort blue)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -496,7 +477,6 @@ static void REGAL_CALL emu_glColor3s(GLshort red, GLshort green, GLshort blue)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -525,7 +505,6 @@ static void REGAL_CALL emu_glColor3sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -540,7 +519,6 @@ static void REGAL_CALL emu_glColor3sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -569,7 +547,6 @@ static void REGAL_CALL emu_glColor3ub(GLubyte red, GLubyte green, GLubyte blue)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -584,7 +561,6 @@ static void REGAL_CALL emu_glColor3ub(GLubyte red, GLubyte green, GLubyte blue)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -613,7 +589,6 @@ static void REGAL_CALL emu_glColor3ubv(const GLubyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -628,7 +603,6 @@ static void REGAL_CALL emu_glColor3ubv(const GLubyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -657,7 +631,6 @@ static void REGAL_CALL emu_glColor3ui(GLuint red, GLuint green, GLuint blue)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -672,7 +645,6 @@ static void REGAL_CALL emu_glColor3ui(GLuint red, GLuint green, GLuint blue)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -701,7 +673,6 @@ static void REGAL_CALL emu_glColor3uiv(const GLuint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -716,7 +687,6 @@ static void REGAL_CALL emu_glColor3uiv(const GLuint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -745,7 +715,6 @@ static void REGAL_CALL emu_glColor3us(GLushort red, GLushort green, GLushort blu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -760,7 +729,6 @@ static void REGAL_CALL emu_glColor3us(GLushort red, GLushort green, GLushort blu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -789,7 +757,6 @@ static void REGAL_CALL emu_glColor3usv(const GLushort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -804,7 +771,6 @@ static void REGAL_CALL emu_glColor3usv(const GLushort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -833,7 +799,6 @@ static void REGAL_CALL emu_glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLby
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -848,7 +813,6 @@ static void REGAL_CALL emu_glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLby
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -877,7 +841,6 @@ static void REGAL_CALL emu_glColor4bv(const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -892,7 +855,6 @@ static void REGAL_CALL emu_glColor4bv(const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -921,7 +883,6 @@ static void REGAL_CALL emu_glColor4d(GLdouble red, GLdouble green, GLdouble blue
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -936,7 +897,6 @@ static void REGAL_CALL emu_glColor4d(GLdouble red, GLdouble green, GLdouble blue
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -965,7 +925,6 @@ static void REGAL_CALL emu_glColor4dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -980,7 +939,6 @@ static void REGAL_CALL emu_glColor4dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1009,7 +967,6 @@ static void REGAL_CALL emu_glColor4f(GLfloat red, GLfloat green, GLfloat blue, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1024,7 +981,6 @@ static void REGAL_CALL emu_glColor4f(GLfloat red, GLfloat green, GLfloat blue, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1053,7 +1009,6 @@ static void REGAL_CALL emu_glColor4fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1068,7 +1023,6 @@ static void REGAL_CALL emu_glColor4fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1097,7 +1051,6 @@ static void REGAL_CALL emu_glColor4i(GLint red, GLint green, GLint blue, GLint a
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1112,7 +1065,6 @@ static void REGAL_CALL emu_glColor4i(GLint red, GLint green, GLint blue, GLint a
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1141,7 +1093,6 @@ static void REGAL_CALL emu_glColor4iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1156,7 +1107,6 @@ static void REGAL_CALL emu_glColor4iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1185,7 +1135,6 @@ static void REGAL_CALL emu_glColor4s(GLshort red, GLshort green, GLshort blue, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1200,7 +1149,6 @@ static void REGAL_CALL emu_glColor4s(GLshort red, GLshort green, GLshort blue, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1229,7 +1177,6 @@ static void REGAL_CALL emu_glColor4sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1244,7 +1191,6 @@ static void REGAL_CALL emu_glColor4sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1273,7 +1219,6 @@ static void REGAL_CALL emu_glColor4ub(GLubyte red, GLubyte green, GLubyte blue, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1288,7 +1233,6 @@ static void REGAL_CALL emu_glColor4ub(GLubyte red, GLubyte green, GLubyte blue, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1317,7 +1261,6 @@ static void REGAL_CALL emu_glColor4ubv(const GLubyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1332,7 +1275,6 @@ static void REGAL_CALL emu_glColor4ubv(const GLubyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1361,7 +1303,6 @@ static void REGAL_CALL emu_glColor4ui(GLuint red, GLuint green, GLuint blue, GLu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1376,7 +1317,6 @@ static void REGAL_CALL emu_glColor4ui(GLuint red, GLuint green, GLuint blue, GLu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1405,7 +1345,6 @@ static void REGAL_CALL emu_glColor4uiv(const GLuint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1420,7 +1359,6 @@ static void REGAL_CALL emu_glColor4uiv(const GLuint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1449,7 +1387,6 @@ static void REGAL_CALL emu_glColor4us(GLushort red, GLushort green, GLushort blu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1464,7 +1401,6 @@ static void REGAL_CALL emu_glColor4us(GLushort red, GLushort green, GLushort blu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1493,7 +1429,6 @@ static void REGAL_CALL emu_glColor4usv(const GLushort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1508,7 +1443,6 @@ static void REGAL_CALL emu_glColor4usv(const GLushort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1537,7 +1471,6 @@ static void REGAL_CALL emu_glEnd(void)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1559,7 +1492,6 @@ static void REGAL_CALL emu_glEnd(void)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1588,7 +1520,6 @@ static void REGAL_CALL emu_glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1603,7 +1534,6 @@ static void REGAL_CALL emu_glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1632,7 +1562,6 @@ static void REGAL_CALL emu_glNormal3bv(const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1647,7 +1576,6 @@ static void REGAL_CALL emu_glNormal3bv(const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1676,7 +1604,6 @@ static void REGAL_CALL emu_glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1691,7 +1618,6 @@ static void REGAL_CALL emu_glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1720,7 +1646,6 @@ static void REGAL_CALL emu_glNormal3dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1735,7 +1660,6 @@ static void REGAL_CALL emu_glNormal3dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1764,7 +1688,6 @@ static void REGAL_CALL emu_glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1779,7 +1702,6 @@ static void REGAL_CALL emu_glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1808,7 +1730,6 @@ static void REGAL_CALL emu_glNormal3fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1823,7 +1744,6 @@ static void REGAL_CALL emu_glNormal3fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1852,7 +1772,6 @@ static void REGAL_CALL emu_glNormal3i(GLint nx, GLint ny, GLint nz)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1867,7 +1786,6 @@ static void REGAL_CALL emu_glNormal3i(GLint nx, GLint ny, GLint nz)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1896,7 +1814,6 @@ static void REGAL_CALL emu_glNormal3iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1911,7 +1828,6 @@ static void REGAL_CALL emu_glNormal3iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1940,7 +1856,6 @@ static void REGAL_CALL emu_glNormal3s(GLshort nx, GLshort ny, GLshort nz)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1955,7 +1870,6 @@ static void REGAL_CALL emu_glNormal3s(GLshort nx, GLshort ny, GLshort nz)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1984,7 +1898,6 @@ static void REGAL_CALL emu_glNormal3sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -1999,7 +1912,6 @@ static void REGAL_CALL emu_glNormal3sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2028,7 +1940,6 @@ static void REGAL_CALL emu_glTexCoord1d(GLdouble s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2043,7 +1954,6 @@ static void REGAL_CALL emu_glTexCoord1d(GLdouble s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2072,7 +1982,6 @@ static void REGAL_CALL emu_glTexCoord1dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2087,7 +1996,6 @@ static void REGAL_CALL emu_glTexCoord1dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2116,7 +2024,6 @@ static void REGAL_CALL emu_glTexCoord1f(GLfloat s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2131,7 +2038,6 @@ static void REGAL_CALL emu_glTexCoord1f(GLfloat s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2160,7 +2066,6 @@ static void REGAL_CALL emu_glTexCoord1fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2175,7 +2080,6 @@ static void REGAL_CALL emu_glTexCoord1fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2204,7 +2108,6 @@ static void REGAL_CALL emu_glTexCoord1i(GLint s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2219,7 +2122,6 @@ static void REGAL_CALL emu_glTexCoord1i(GLint s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2248,7 +2150,6 @@ static void REGAL_CALL emu_glTexCoord1iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2263,7 +2164,6 @@ static void REGAL_CALL emu_glTexCoord1iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2292,7 +2192,6 @@ static void REGAL_CALL emu_glTexCoord1s(GLshort s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2307,7 +2206,6 @@ static void REGAL_CALL emu_glTexCoord1s(GLshort s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2336,7 +2234,6 @@ static void REGAL_CALL emu_glTexCoord1sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2351,7 +2248,6 @@ static void REGAL_CALL emu_glTexCoord1sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2380,7 +2276,6 @@ static void REGAL_CALL emu_glTexCoord2d(GLdouble s, GLdouble t)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2395,7 +2290,6 @@ static void REGAL_CALL emu_glTexCoord2d(GLdouble s, GLdouble t)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2424,7 +2318,6 @@ static void REGAL_CALL emu_glTexCoord2dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2439,7 +2332,6 @@ static void REGAL_CALL emu_glTexCoord2dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2468,7 +2360,6 @@ static void REGAL_CALL emu_glTexCoord2f(GLfloat s, GLfloat t)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2483,7 +2374,6 @@ static void REGAL_CALL emu_glTexCoord2f(GLfloat s, GLfloat t)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2512,7 +2402,6 @@ static void REGAL_CALL emu_glTexCoord2fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2527,7 +2416,6 @@ static void REGAL_CALL emu_glTexCoord2fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2556,7 +2444,6 @@ static void REGAL_CALL emu_glTexCoord2i(GLint s, GLint t)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2571,7 +2458,6 @@ static void REGAL_CALL emu_glTexCoord2i(GLint s, GLint t)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2600,7 +2486,6 @@ static void REGAL_CALL emu_glTexCoord2iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2615,7 +2500,6 @@ static void REGAL_CALL emu_glTexCoord2iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2644,7 +2528,6 @@ static void REGAL_CALL emu_glTexCoord2s(GLshort s, GLshort t)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2659,7 +2542,6 @@ static void REGAL_CALL emu_glTexCoord2s(GLshort s, GLshort t)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2688,7 +2570,6 @@ static void REGAL_CALL emu_glTexCoord2sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2703,7 +2584,6 @@ static void REGAL_CALL emu_glTexCoord2sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2732,7 +2612,6 @@ static void REGAL_CALL emu_glTexCoord3d(GLdouble s, GLdouble t, GLdouble r)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2747,7 +2626,6 @@ static void REGAL_CALL emu_glTexCoord3d(GLdouble s, GLdouble t, GLdouble r)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2776,7 +2654,6 @@ static void REGAL_CALL emu_glTexCoord3dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2791,7 +2668,6 @@ static void REGAL_CALL emu_glTexCoord3dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2820,7 +2696,6 @@ static void REGAL_CALL emu_glTexCoord3f(GLfloat s, GLfloat t, GLfloat r)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2835,7 +2710,6 @@ static void REGAL_CALL emu_glTexCoord3f(GLfloat s, GLfloat t, GLfloat r)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2864,7 +2738,6 @@ static void REGAL_CALL emu_glTexCoord3fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2879,7 +2752,6 @@ static void REGAL_CALL emu_glTexCoord3fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2908,7 +2780,6 @@ static void REGAL_CALL emu_glTexCoord3i(GLint s, GLint t, GLint r)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2923,7 +2794,6 @@ static void REGAL_CALL emu_glTexCoord3i(GLint s, GLint t, GLint r)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2952,7 +2822,6 @@ static void REGAL_CALL emu_glTexCoord3iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2967,7 +2836,6 @@ static void REGAL_CALL emu_glTexCoord3iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -2996,7 +2864,6 @@ static void REGAL_CALL emu_glTexCoord3s(GLshort s, GLshort t, GLshort r)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3011,7 +2878,6 @@ static void REGAL_CALL emu_glTexCoord3s(GLshort s, GLshort t, GLshort r)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3040,7 +2906,6 @@ static void REGAL_CALL emu_glTexCoord3sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3055,7 +2920,6 @@ static void REGAL_CALL emu_glTexCoord3sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3084,7 +2948,6 @@ static void REGAL_CALL emu_glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3099,7 +2962,6 @@ static void REGAL_CALL emu_glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3128,7 +2990,6 @@ static void REGAL_CALL emu_glTexCoord4dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3143,7 +3004,6 @@ static void REGAL_CALL emu_glTexCoord4dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3172,7 +3032,6 @@ static void REGAL_CALL emu_glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3187,7 +3046,6 @@ static void REGAL_CALL emu_glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3216,7 +3074,6 @@ static void REGAL_CALL emu_glTexCoord4fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3231,7 +3088,6 @@ static void REGAL_CALL emu_glTexCoord4fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3260,7 +3116,6 @@ static void REGAL_CALL emu_glTexCoord4i(GLint s, GLint t, GLint r, GLint q)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3275,7 +3130,6 @@ static void REGAL_CALL emu_glTexCoord4i(GLint s, GLint t, GLint r, GLint q)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3304,7 +3158,6 @@ static void REGAL_CALL emu_glTexCoord4iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3319,7 +3172,6 @@ static void REGAL_CALL emu_glTexCoord4iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3348,7 +3200,6 @@ static void REGAL_CALL emu_glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3363,7 +3214,6 @@ static void REGAL_CALL emu_glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3392,7 +3242,6 @@ static void REGAL_CALL emu_glTexCoord4sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3407,7 +3256,6 @@ static void REGAL_CALL emu_glTexCoord4sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3436,7 +3284,6 @@ static void REGAL_CALL emu_glVertex2d(GLdouble x, GLdouble y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3451,7 +3298,6 @@ static void REGAL_CALL emu_glVertex2d(GLdouble x, GLdouble y)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3480,7 +3326,6 @@ static void REGAL_CALL emu_glVertex2dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3495,7 +3340,6 @@ static void REGAL_CALL emu_glVertex2dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3524,7 +3368,6 @@ static void REGAL_CALL emu_glVertex2f(GLfloat x, GLfloat y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3539,7 +3382,6 @@ static void REGAL_CALL emu_glVertex2f(GLfloat x, GLfloat y)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3568,7 +3410,6 @@ static void REGAL_CALL emu_glVertex2fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3583,7 +3424,6 @@ static void REGAL_CALL emu_glVertex2fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3612,7 +3452,6 @@ static void REGAL_CALL emu_glVertex2i(GLint x, GLint y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3627,7 +3466,6 @@ static void REGAL_CALL emu_glVertex2i(GLint x, GLint y)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3656,7 +3494,6 @@ static void REGAL_CALL emu_glVertex2iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3671,7 +3508,6 @@ static void REGAL_CALL emu_glVertex2iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3700,7 +3536,6 @@ static void REGAL_CALL emu_glVertex2s(GLshort x, GLshort y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3715,7 +3550,6 @@ static void REGAL_CALL emu_glVertex2s(GLshort x, GLshort y)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3744,7 +3578,6 @@ static void REGAL_CALL emu_glVertex2sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3759,7 +3592,6 @@ static void REGAL_CALL emu_glVertex2sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3788,7 +3620,6 @@ static void REGAL_CALL emu_glVertex3d(GLdouble x, GLdouble y, GLdouble z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3803,7 +3634,6 @@ static void REGAL_CALL emu_glVertex3d(GLdouble x, GLdouble y, GLdouble z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3832,7 +3662,6 @@ static void REGAL_CALL emu_glVertex3dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3847,7 +3676,6 @@ static void REGAL_CALL emu_glVertex3dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3876,7 +3704,6 @@ static void REGAL_CALL emu_glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3891,7 +3718,6 @@ static void REGAL_CALL emu_glVertex3f(GLfloat x, GLfloat y, GLfloat z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3920,7 +3746,6 @@ static void REGAL_CALL emu_glVertex3fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3935,7 +3760,6 @@ static void REGAL_CALL emu_glVertex3fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3964,7 +3788,6 @@ static void REGAL_CALL emu_glVertex3i(GLint x, GLint y, GLint z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -3979,7 +3802,6 @@ static void REGAL_CALL emu_glVertex3i(GLint x, GLint y, GLint z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4008,7 +3830,6 @@ static void REGAL_CALL emu_glVertex3iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4023,7 +3844,6 @@ static void REGAL_CALL emu_glVertex3iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4052,7 +3872,6 @@ static void REGAL_CALL emu_glVertex3s(GLshort x, GLshort y, GLshort z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4067,7 +3886,6 @@ static void REGAL_CALL emu_glVertex3s(GLshort x, GLshort y, GLshort z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4096,7 +3914,6 @@ static void REGAL_CALL emu_glVertex3sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4111,7 +3928,6 @@ static void REGAL_CALL emu_glVertex3sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4140,7 +3956,6 @@ static void REGAL_CALL emu_glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdoub
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4155,7 +3970,6 @@ static void REGAL_CALL emu_glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdoub
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4184,7 +3998,6 @@ static void REGAL_CALL emu_glVertex4dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4199,7 +4012,6 @@ static void REGAL_CALL emu_glVertex4dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4228,7 +4040,6 @@ static void REGAL_CALL emu_glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4243,7 +4054,6 @@ static void REGAL_CALL emu_glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4272,7 +4082,6 @@ static void REGAL_CALL emu_glVertex4fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4287,7 +4096,6 @@ static void REGAL_CALL emu_glVertex4fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4316,7 +4124,6 @@ static void REGAL_CALL emu_glVertex4i(GLint x, GLint y, GLint z, GLint w)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4331,7 +4138,6 @@ static void REGAL_CALL emu_glVertex4i(GLint x, GLint y, GLint z, GLint w)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4360,7 +4166,6 @@ static void REGAL_CALL emu_glVertex4iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4375,7 +4180,6 @@ static void REGAL_CALL emu_glVertex4iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4404,7 +4208,6 @@ static void REGAL_CALL emu_glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4419,7 +4222,6 @@ static void REGAL_CALL emu_glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4448,7 +4250,6 @@ static void REGAL_CALL emu_glVertex4sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4463,7 +4264,6 @@ static void REGAL_CALL emu_glVertex4sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4492,7 +4292,6 @@ static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4507,7 +4306,6 @@ static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4536,7 +4334,6 @@ static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4551,7 +4348,6 @@ static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4580,7 +4376,6 @@ static void REGAL_CALL emu_glCullFace(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -4603,7 +4398,6 @@ static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4618,7 +4412,6 @@ static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4647,7 +4440,6 @@ static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4662,7 +4454,6 @@ static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4691,7 +4482,6 @@ static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4706,7 +4496,6 @@ static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4735,7 +4524,6 @@ static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4750,7 +4538,6 @@ static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4779,7 +4566,6 @@ static void REGAL_CALL emu_glFrontFace(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -4802,7 +4588,6 @@ static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4817,7 +4602,6 @@ static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4846,7 +4630,6 @@ static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4861,7 +4644,6 @@ static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4890,7 +4672,6 @@ static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4905,7 +4686,6 @@ static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4934,7 +4714,6 @@ static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *pa
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4949,7 +4728,6 @@ static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *pa
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4978,7 +4756,6 @@ static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -4993,7 +4770,6 @@ static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5022,7 +4798,6 @@ static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5037,7 +4812,6 @@ static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5066,7 +4840,6 @@ static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5081,7 +4854,6 @@ static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5110,7 +4882,6 @@ static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5125,7 +4896,6 @@ static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5154,7 +4924,6 @@ static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5169,7 +4938,6 @@ static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5198,7 +4966,6 @@ static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5213,7 +4980,6 @@ static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5242,7 +5008,6 @@ static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5257,7 +5022,6 @@ static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5286,7 +5050,6 @@ static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5301,7 +5064,6 @@ static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5330,7 +5092,6 @@ static void REGAL_CALL emu_glPolygonMode(GLenum face, GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -5353,7 +5114,6 @@ static void REGAL_CALL emu_glShadeModel(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5379,7 +5139,6 @@ static void REGAL_CALL emu_glTexParameterf(GLenum target, GLenum pname, GLfloat 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5405,7 +5164,6 @@ static void REGAL_CALL emu_glTexParameterfv(GLenum target, GLenum pname, const G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5431,7 +5189,6 @@ static void REGAL_CALL emu_glTexParameteri(GLenum target, GLenum pname, GLint pa
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5457,7 +5214,6 @@ static void REGAL_CALL emu_glTexParameteriv(GLenum target, GLenum pname, const G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5483,7 +5239,6 @@ static void REGAL_CALL emu_glTexImage1D(GLenum target, GLint level, GLint intern
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5509,7 +5264,6 @@ static void REGAL_CALL emu_glTexImage2D(GLenum target, GLint level, GLint intern
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5535,7 +5289,6 @@ static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5557,7 +5310,6 @@ static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5586,7 +5338,6 @@ static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5608,7 +5359,6 @@ static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5637,7 +5387,6 @@ static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5659,7 +5408,6 @@ static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5688,7 +5436,6 @@ static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5710,7 +5457,6 @@ static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5739,7 +5485,6 @@ static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5754,7 +5499,6 @@ static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5783,7 +5527,6 @@ static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5798,7 +5541,6 @@ static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5827,7 +5569,6 @@ static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5848,7 +5589,6 @@ static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5877,7 +5617,6 @@ static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5898,7 +5637,6 @@ static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5927,7 +5665,6 @@ static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5948,7 +5685,6 @@ static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5977,7 +5713,6 @@ static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *p
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -5998,7 +5733,6 @@ static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *p
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6027,7 +5761,6 @@ static void REGAL_CALL emu_glClearDepth(GLclampd depth)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6050,7 +5783,6 @@ static void REGAL_CALL emu_glClearStencil(GLint s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6073,7 +5805,6 @@ static void REGAL_CALL emu_glDepthMask(GLboolean flag)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6096,7 +5827,6 @@ static void REGAL_CALL emu_glStencilMask(GLuint mask)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6119,7 +5849,6 @@ static void REGAL_CALL emu_glDisable(GLenum cap)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6146,18 +5875,7 @@ static void REGAL_CALL emu_glDisable(GLenum cap)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
-             switch(cap)
-             {
-               case GL_LOG_ERROR_REGAL:    Logging::enableError    = false; return;
-               case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = false; return;
-               case GL_LOG_INFO_REGAL:     Logging::enableInfo     = false; return;
-               case GL_LOG_APP_REGAL:      Logging::enableApp      = false; return;
-               case GL_LOG_DRIVER_REGAL:   Logging::enableDriver   = false; return;
-               case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = false; return;
-               default: break;
-             }
        case 5 :
        case 4 :
        case 3 :
@@ -6187,7 +5905,6 @@ static void REGAL_CALL emu_glEnable(GLenum cap)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6214,18 +5931,7 @@ static void REGAL_CALL emu_glEnable(GLenum cap)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
-             switch(cap)
-             {
-               case GL_LOG_ERROR_REGAL:    Logging::enableError    = true; return;
-               case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = true; return;
-               case GL_LOG_INFO_REGAL:     Logging::enableInfo     = true; return;
-               case GL_LOG_APP_REGAL:      Logging::enableApp      = true; return;
-               case GL_LOG_DRIVER_REGAL:   Logging::enableDriver   = true; return;
-               case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = true; return;
-               default: break;
-             }
        case 5 :
        case 4 :
        case 3 :
@@ -6255,7 +5961,6 @@ static void REGAL_CALL emu_glPopAttrib(void)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6267,7 +5972,6 @@ static void REGAL_CALL emu_glPopAttrib(void)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6293,7 +5997,6 @@ static void REGAL_CALL emu_glPushAttrib(GLbitfield mask)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6305,7 +6008,6 @@ static void REGAL_CALL emu_glPushAttrib(GLbitfield mask)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6331,7 +6033,6 @@ static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6346,7 +6047,6 @@ static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6375,7 +6075,6 @@ static void REGAL_CALL emu_glDepthFunc(GLenum func)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6398,7 +6097,6 @@ static void REGAL_CALL emu_glStencilFunc(GLenum func, GLint ref, GLuint mask)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6421,7 +6119,6 @@ static void REGAL_CALL emu_glStencilOp(GLenum fail, GLenum zfail, GLenum zpass)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -6444,7 +6141,6 @@ static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6466,7 +6162,6 @@ static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6498,7 +6193,6 @@ static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6523,7 +6217,6 @@ static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6565,7 +6258,6 @@ static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6590,7 +6282,6 @@ static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6632,7 +6323,6 @@ static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6657,7 +6347,6 @@ static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6699,7 +6388,6 @@ static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *p
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6714,7 +6402,6 @@ static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *p
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6743,7 +6430,6 @@ static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *par
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6758,7 +6444,6 @@ static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *par
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6787,7 +6472,6 @@ static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *p
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6809,7 +6493,6 @@ static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *p
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6838,7 +6521,6 @@ static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *par
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6860,7 +6542,6 @@ static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *par
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6889,7 +6570,6 @@ static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *p
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6904,7 +6584,6 @@ static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *p
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6936,7 +6615,6 @@ static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *pa
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6951,7 +6629,6 @@ static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *pa
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6983,7 +6660,6 @@ static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *para
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -6998,7 +6674,6 @@ static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *para
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7030,7 +6705,6 @@ static void REGAL_CALL emu_glGetTexParameterfv(GLenum target, GLenum pname, GLfl
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7056,7 +6730,6 @@ static void REGAL_CALL emu_glGetTexParameteriv(GLenum target, GLenum pname, GLin
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7082,7 +6755,6 @@ static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7103,18 +6775,7 @@ static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
-             switch(cap)
-             {
-               case GL_LOG_ERROR_REGAL:    return Logging::enableError    ? GL_TRUE : GL_FALSE;
-               case GL_LOG_WARNING_REGAL:  return Logging::enableWarning  ? GL_TRUE : GL_FALSE;
-               case GL_LOG_INFO_REGAL:     return Logging::enableInfo     ? GL_TRUE : GL_FALSE;
-               case GL_LOG_APP_REGAL:      return Logging::enableApp      ? GL_TRUE : GL_FALSE;
-               case GL_LOG_DRIVER_REGAL:   return Logging::enableDriver   ? GL_TRUE : GL_FALSE;
-               case GL_LOG_INTERNAL_REGAL: return Logging::enableInternal ? GL_TRUE : GL_FALSE;
-               default: break;
-             }
        case 5 :
        case 4 :
        case 3 :
@@ -7145,7 +6806,6 @@ static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bot
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7160,7 +6820,6 @@ static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bot
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7189,7 +6848,6 @@ static void REGAL_CALL emu_glLoadIdentity(void)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7210,7 +6868,6 @@ static void REGAL_CALL emu_glLoadIdentity(void)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7239,7 +6896,6 @@ static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7260,7 +6916,6 @@ static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7289,7 +6944,6 @@ static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7310,7 +6964,6 @@ static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7339,7 +6992,6 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7357,7 +7009,6 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7397,7 +7048,6 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7418,7 +7068,6 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7447,7 +7096,6 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7468,7 +7116,6 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7497,7 +7144,6 @@ static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble botto
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7512,7 +7158,6 @@ static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble botto
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7541,7 +7186,6 @@ static void REGAL_CALL emu_glPopMatrix(void)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7562,7 +7206,6 @@ static void REGAL_CALL emu_glPopMatrix(void)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7591,7 +7234,6 @@ static void REGAL_CALL emu_glPushMatrix(void)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7612,7 +7254,6 @@ static void REGAL_CALL emu_glPushMatrix(void)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7641,7 +7282,6 @@ static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLd
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7662,7 +7302,6 @@ static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLd
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7691,7 +7330,6 @@ static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloa
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7712,7 +7350,6 @@ static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloa
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7741,7 +7378,6 @@ static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7762,7 +7398,6 @@ static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7791,7 +7426,6 @@ static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7812,7 +7446,6 @@ static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7841,7 +7474,6 @@ static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7862,7 +7494,6 @@ static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7891,7 +7522,6 @@ static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7912,7 +7542,6 @@ static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7943,7 +7572,6 @@ static void REGAL_CALL emu_glDrawArrays(GLenum mode, GLint first, GLsizei count)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -7982,7 +7610,6 @@ static void REGAL_CALL emu_glDrawElements(GLenum mode, GLsizei count, GLenum typ
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8021,7 +7648,6 @@ static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, co
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8037,7 +7663,6 @@ static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, co
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8067,7 +7692,6 @@ static void REGAL_CALL emu_glDisableClientState(GLenum cap)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8093,7 +7717,6 @@ static void REGAL_CALL emu_glDisableClientState(GLenum cap)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8130,7 +7753,6 @@ static void REGAL_CALL emu_glEnableClientState(GLenum cap)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8156,7 +7778,6 @@ static void REGAL_CALL emu_glEnableClientState(GLenum cap)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8193,7 +7814,6 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8218,7 +7838,6 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8255,7 +7874,6 @@ static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *point
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8270,7 +7888,6 @@ static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *point
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8299,7 +7916,6 @@ static void REGAL_CALL emu_glNormalPointer(GLenum type, GLsizei stride, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8324,7 +7940,6 @@ static void REGAL_CALL emu_glNormalPointer(GLenum type, GLsizei stride, const GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8361,7 +7976,6 @@ static void REGAL_CALL emu_glTexCoordPointer(GLint size, GLenum type, GLsizei st
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8387,7 +8001,6 @@ static void REGAL_CALL emu_glTexCoordPointer(GLint size, GLenum type, GLsizei st
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8424,7 +8037,6 @@ static void REGAL_CALL emu_glVertexPointer(GLint size, GLenum type, GLsizei stri
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8449,7 +8061,6 @@ static void REGAL_CALL emu_glVertexPointer(GLint size, GLenum type, GLsizei stri
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8486,7 +8097,6 @@ static void REGAL_CALL emu_glPolygonOffset(GLfloat factor, GLfloat units)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -8509,7 +8119,6 @@ static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8530,7 +8139,6 @@ static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8562,7 +8170,6 @@ static void REGAL_CALL emu_glTexImage3D(GLenum target, GLint level, GLint intern
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8592,7 +8199,6 @@ static void REGAL_CALL emu_glActiveTexture(GLenum texture)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8610,7 +8216,6 @@ static void REGAL_CALL emu_glActiveTexture(GLenum texture)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8650,7 +8255,6 @@ static void REGAL_CALL emu_glClientActiveTexture(GLenum texture)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8678,7 +8282,6 @@ static void REGAL_CALL emu_glClientActiveTexture(GLenum texture)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8708,7 +8311,6 @@ static void REGAL_CALL emu_glMultiTexCoord1d(GLenum target, GLdouble s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8723,7 +8325,6 @@ static void REGAL_CALL emu_glMultiTexCoord1d(GLenum target, GLdouble s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8752,7 +8353,6 @@ static void REGAL_CALL emu_glMultiTexCoord1dv(GLenum target, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8767,7 +8367,6 @@ static void REGAL_CALL emu_glMultiTexCoord1dv(GLenum target, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8796,7 +8395,6 @@ static void REGAL_CALL emu_glMultiTexCoord1f(GLenum target, GLfloat s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8811,7 +8409,6 @@ static void REGAL_CALL emu_glMultiTexCoord1f(GLenum target, GLfloat s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8840,7 +8437,6 @@ static void REGAL_CALL emu_glMultiTexCoord1fv(GLenum target, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8855,7 +8451,6 @@ static void REGAL_CALL emu_glMultiTexCoord1fv(GLenum target, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8884,7 +8479,6 @@ static void REGAL_CALL emu_glMultiTexCoord1i(GLenum target, GLint s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8899,7 +8493,6 @@ static void REGAL_CALL emu_glMultiTexCoord1i(GLenum target, GLint s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8928,7 +8521,6 @@ static void REGAL_CALL emu_glMultiTexCoord1iv(GLenum target, const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8943,7 +8535,6 @@ static void REGAL_CALL emu_glMultiTexCoord1iv(GLenum target, const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8972,7 +8563,6 @@ static void REGAL_CALL emu_glMultiTexCoord1s(GLenum target, GLshort s)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -8987,7 +8577,6 @@ static void REGAL_CALL emu_glMultiTexCoord1s(GLenum target, GLshort s)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9016,7 +8605,6 @@ static void REGAL_CALL emu_glMultiTexCoord1sv(GLenum target, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9031,7 +8619,6 @@ static void REGAL_CALL emu_glMultiTexCoord1sv(GLenum target, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9060,7 +8647,6 @@ static void REGAL_CALL emu_glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9075,7 +8661,6 @@ static void REGAL_CALL emu_glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9104,7 +8689,6 @@ static void REGAL_CALL emu_glMultiTexCoord2dv(GLenum target, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9119,7 +8703,6 @@ static void REGAL_CALL emu_glMultiTexCoord2dv(GLenum target, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9148,7 +8731,6 @@ static void REGAL_CALL emu_glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9163,7 +8745,6 @@ static void REGAL_CALL emu_glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9192,7 +8773,6 @@ static void REGAL_CALL emu_glMultiTexCoord2fv(GLenum target, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9207,7 +8787,6 @@ static void REGAL_CALL emu_glMultiTexCoord2fv(GLenum target, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9236,7 +8815,6 @@ static void REGAL_CALL emu_glMultiTexCoord2i(GLenum target, GLint s, GLint t)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9251,7 +8829,6 @@ static void REGAL_CALL emu_glMultiTexCoord2i(GLenum target, GLint s, GLint t)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9280,7 +8857,6 @@ static void REGAL_CALL emu_glMultiTexCoord2iv(GLenum target, const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9295,7 +8871,6 @@ static void REGAL_CALL emu_glMultiTexCoord2iv(GLenum target, const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9324,7 +8899,6 @@ static void REGAL_CALL emu_glMultiTexCoord2s(GLenum target, GLshort s, GLshort t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9339,7 +8913,6 @@ static void REGAL_CALL emu_glMultiTexCoord2s(GLenum target, GLshort s, GLshort t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9368,7 +8941,6 @@ static void REGAL_CALL emu_glMultiTexCoord2sv(GLenum target, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9383,7 +8955,6 @@ static void REGAL_CALL emu_glMultiTexCoord2sv(GLenum target, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9412,7 +8983,6 @@ static void REGAL_CALL emu_glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9427,7 +8997,6 @@ static void REGAL_CALL emu_glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9456,7 +9025,6 @@ static void REGAL_CALL emu_glMultiTexCoord3dv(GLenum target, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9471,7 +9039,6 @@ static void REGAL_CALL emu_glMultiTexCoord3dv(GLenum target, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9500,7 +9067,6 @@ static void REGAL_CALL emu_glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9515,7 +9081,6 @@ static void REGAL_CALL emu_glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9544,7 +9109,6 @@ static void REGAL_CALL emu_glMultiTexCoord3fv(GLenum target, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9559,7 +9123,6 @@ static void REGAL_CALL emu_glMultiTexCoord3fv(GLenum target, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9588,7 +9151,6 @@ static void REGAL_CALL emu_glMultiTexCoord3i(GLenum target, GLint s, GLint t, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9603,7 +9165,6 @@ static void REGAL_CALL emu_glMultiTexCoord3i(GLenum target, GLint s, GLint t, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9632,7 +9193,6 @@ static void REGAL_CALL emu_glMultiTexCoord3iv(GLenum target, const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9647,7 +9207,6 @@ static void REGAL_CALL emu_glMultiTexCoord3iv(GLenum target, const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9676,7 +9235,6 @@ static void REGAL_CALL emu_glMultiTexCoord3s(GLenum target, GLshort s, GLshort t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9691,7 +9249,6 @@ static void REGAL_CALL emu_glMultiTexCoord3s(GLenum target, GLshort s, GLshort t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9720,7 +9277,6 @@ static void REGAL_CALL emu_glMultiTexCoord3sv(GLenum target, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9735,7 +9291,6 @@ static void REGAL_CALL emu_glMultiTexCoord3sv(GLenum target, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9764,7 +9319,6 @@ static void REGAL_CALL emu_glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9779,7 +9333,6 @@ static void REGAL_CALL emu_glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9808,7 +9361,6 @@ static void REGAL_CALL emu_glMultiTexCoord4dv(GLenum target, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9823,7 +9375,6 @@ static void REGAL_CALL emu_glMultiTexCoord4dv(GLenum target, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9852,7 +9403,6 @@ static void REGAL_CALL emu_glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9867,7 +9417,6 @@ static void REGAL_CALL emu_glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9896,7 +9445,6 @@ static void REGAL_CALL emu_glMultiTexCoord4fv(GLenum target, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9911,7 +9459,6 @@ static void REGAL_CALL emu_glMultiTexCoord4fv(GLenum target, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9940,7 +9487,6 @@ static void REGAL_CALL emu_glMultiTexCoord4i(GLenum target, GLint s, GLint t, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9955,7 +9501,6 @@ static void REGAL_CALL emu_glMultiTexCoord4i(GLenum target, GLint s, GLint t, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9984,7 +9529,6 @@ static void REGAL_CALL emu_glMultiTexCoord4iv(GLenum target, const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -9999,7 +9543,6 @@ static void REGAL_CALL emu_glMultiTexCoord4iv(GLenum target, const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10028,7 +9571,6 @@ static void REGAL_CALL emu_glMultiTexCoord4s(GLenum target, GLshort s, GLshort t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10043,7 +9585,6 @@ static void REGAL_CALL emu_glMultiTexCoord4s(GLenum target, GLshort s, GLshort t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10072,7 +9613,6 @@ static void REGAL_CALL emu_glMultiTexCoord4sv(GLenum target, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10087,7 +9627,6 @@ static void REGAL_CALL emu_glMultiTexCoord4sv(GLenum target, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10116,7 +9655,6 @@ static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10137,7 +9675,6 @@ static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10166,7 +9703,6 @@ static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10187,7 +9723,6 @@ static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10216,7 +9751,6 @@ static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10237,7 +9771,6 @@ static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10266,7 +9799,6 @@ static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10287,7 +9819,6 @@ static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10318,7 +9849,6 @@ static void REGAL_CALL emu_glMultiDrawArrays(GLenum mode, const GLint *first, co
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10357,7 +9887,6 @@ static void REGAL_CALL emu_glMultiDrawElements(GLenum mode, const GLsizei *count
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10396,7 +9925,6 @@ static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10415,7 +9943,6 @@ static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10452,7 +9979,6 @@ static void REGAL_CALL emu_glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte b
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10467,7 +9993,6 @@ static void REGAL_CALL emu_glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte b
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10496,7 +10021,6 @@ static void REGAL_CALL emu_glSecondaryColor3bv(const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10511,7 +10035,6 @@ static void REGAL_CALL emu_glSecondaryColor3bv(const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10540,7 +10063,6 @@ static void REGAL_CALL emu_glSecondaryColor3d(GLdouble red, GLdouble green, GLdo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10555,7 +10077,6 @@ static void REGAL_CALL emu_glSecondaryColor3d(GLdouble red, GLdouble green, GLdo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10584,7 +10105,6 @@ static void REGAL_CALL emu_glSecondaryColor3dv(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10599,7 +10119,6 @@ static void REGAL_CALL emu_glSecondaryColor3dv(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10628,7 +10147,6 @@ static void REGAL_CALL emu_glSecondaryColor3f(GLfloat red, GLfloat green, GLfloa
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10643,7 +10161,6 @@ static void REGAL_CALL emu_glSecondaryColor3f(GLfloat red, GLfloat green, GLfloa
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10672,7 +10189,6 @@ static void REGAL_CALL emu_glSecondaryColor3fv(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10687,7 +10203,6 @@ static void REGAL_CALL emu_glSecondaryColor3fv(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10716,7 +10231,6 @@ static void REGAL_CALL emu_glSecondaryColor3i(GLint red, GLint green, GLint blue
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10731,7 +10245,6 @@ static void REGAL_CALL emu_glSecondaryColor3i(GLint red, GLint green, GLint blue
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10760,7 +10273,6 @@ static void REGAL_CALL emu_glSecondaryColor3iv(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10775,7 +10287,6 @@ static void REGAL_CALL emu_glSecondaryColor3iv(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10804,7 +10315,6 @@ static void REGAL_CALL emu_glSecondaryColor3s(GLshort red, GLshort green, GLshor
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10819,7 +10329,6 @@ static void REGAL_CALL emu_glSecondaryColor3s(GLshort red, GLshort green, GLshor
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10848,7 +10357,6 @@ static void REGAL_CALL emu_glSecondaryColor3sv(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10863,7 +10371,6 @@ static void REGAL_CALL emu_glSecondaryColor3sv(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10892,7 +10399,6 @@ static void REGAL_CALL emu_glSecondaryColor3ub(GLubyte red, GLubyte green, GLuby
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10907,7 +10413,6 @@ static void REGAL_CALL emu_glSecondaryColor3ub(GLubyte red, GLubyte green, GLuby
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10936,7 +10441,6 @@ static void REGAL_CALL emu_glSecondaryColor3ubv(const GLubyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10951,7 +10455,6 @@ static void REGAL_CALL emu_glSecondaryColor3ubv(const GLubyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10980,7 +10483,6 @@ static void REGAL_CALL emu_glSecondaryColor3ui(GLuint red, GLuint green, GLuint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -10995,7 +10497,6 @@ static void REGAL_CALL emu_glSecondaryColor3ui(GLuint red, GLuint green, GLuint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11024,7 +10525,6 @@ static void REGAL_CALL emu_glSecondaryColor3uiv(const GLuint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11039,7 +10539,6 @@ static void REGAL_CALL emu_glSecondaryColor3uiv(const GLuint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11068,7 +10567,6 @@ static void REGAL_CALL emu_glSecondaryColor3us(GLushort red, GLushort green, GLu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11083,7 +10581,6 @@ static void REGAL_CALL emu_glSecondaryColor3us(GLushort red, GLushort green, GLu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11112,7 +10609,6 @@ static void REGAL_CALL emu_glSecondaryColor3usv(const GLushort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11127,7 +10623,6 @@ static void REGAL_CALL emu_glSecondaryColor3usv(const GLushort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11156,7 +10651,6 @@ static void REGAL_CALL emu_glSecondaryColorPointer(GLint size, GLenum type, GLsi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11181,7 +10675,6 @@ static void REGAL_CALL emu_glSecondaryColorPointer(GLint size, GLenum type, GLsi
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11220,11 +10713,10 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -11251,7 +10743,7 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -11259,7 +10751,6 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
              return;
          }
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -11288,7 +10779,7 @@ static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
@@ -11298,7 +10789,7 @@ static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -11322,7 +10813,7 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
@@ -11332,7 +10823,7 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -11356,7 +10847,7 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
@@ -11366,7 +10857,7 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -11388,7 +10879,6 @@ static void REGAL_CALL emu_glBufferData(GLenum target, GLsizeiptr size, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11413,7 +10903,6 @@ static void REGAL_CALL emu_glBufferSubData(GLenum target, GLintptr offset, GLsiz
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11438,7 +10927,6 @@ static void REGAL_CALL emu_glGetBufferSubData(GLenum target, GLintptr offset, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11463,7 +10951,6 @@ static GLvoid *REGAL_CALL emu_glMapBuffer(GLenum target, GLenum access)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11488,7 +10975,6 @@ static GLboolean REGAL_CALL emu_glUnmapBuffer(GLenum target)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11513,7 +10999,6 @@ static void REGAL_CALL emu_glGetBufferParameteriv(GLenum target, GLenum pname, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11538,7 +11023,6 @@ static void REGAL_CALL emu_glGetBufferPointerv(GLenum target, GLenum pname, GLvo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11565,7 +11049,6 @@ static void REGAL_CALL emu_glStencilOpSeparate(GLenum face, GLenum fail, GLenum 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -11588,7 +11071,6 @@ static void REGAL_CALL emu_glStencilFuncSeparate(GLenum face, GLenum func, GLint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -11611,7 +11093,6 @@ static void REGAL_CALL emu_glStencilMaskSeparate(GLenum face, GLuint mask)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
          #if REGAL_EMU_PPA
@@ -11634,7 +11115,6 @@ static GLuint REGAL_CALL emu_glCreateShader(GLenum type)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11649,7 +11129,6 @@ static GLuint REGAL_CALL emu_glCreateShader(GLenum type)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11676,7 +11155,6 @@ static void REGAL_CALL emu_glDisableVertexAttribArray(GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11699,7 +11177,6 @@ static void REGAL_CALL emu_glDisableVertexAttribArray(GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11728,7 +11205,6 @@ static void REGAL_CALL emu_glEnableVertexAttribArray(GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11751,7 +11227,6 @@ static void REGAL_CALL emu_glEnableVertexAttribArray(GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11780,7 +11255,6 @@ static void REGAL_CALL emu_glGetVertexAttribdv(GLuint index, GLenum pname, GLdou
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11802,7 +11276,6 @@ static void REGAL_CALL emu_glGetVertexAttribdv(GLuint index, GLenum pname, GLdou
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11832,7 +11305,6 @@ static void REGAL_CALL emu_glGetVertexAttribfv(GLuint index, GLenum pname, GLflo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11854,7 +11326,6 @@ static void REGAL_CALL emu_glGetVertexAttribfv(GLuint index, GLenum pname, GLflo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11884,7 +11355,6 @@ static void REGAL_CALL emu_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11906,7 +11376,6 @@ static void REGAL_CALL emu_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11936,7 +11405,6 @@ static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11958,7 +11426,6 @@ static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -11988,7 +11455,6 @@ static void REGAL_CALL emu_glLinkProgram(GLuint program)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12003,7 +11469,6 @@ static void REGAL_CALL emu_glLinkProgram(GLuint program)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12032,7 +11497,6 @@ static void REGAL_CALL emu_glShaderSource(GLuint shader, GLsizei count, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12047,7 +11511,6 @@ static void REGAL_CALL emu_glShaderSource(GLuint shader, GLsizei count, const GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12076,7 +11539,6 @@ static void REGAL_CALL emu_glUseProgram(GLuint program)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12094,7 +11556,6 @@ static void REGAL_CALL emu_glUseProgram(GLuint program)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12134,7 +11595,6 @@ static void REGAL_CALL emu_glUniform1f(GLint location, GLfloat v0)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12159,7 +11619,6 @@ static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12184,7 +11643,6 @@ static void REGAL_CALL emu_glUniform3f(GLint location, GLfloat v0, GLfloat v1, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12209,7 +11667,6 @@ static void REGAL_CALL emu_glUniform4f(GLint location, GLfloat v0, GLfloat v1, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12234,7 +11691,6 @@ static void REGAL_CALL emu_glUniform1i(GLint location, GLint v0)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12259,7 +11715,6 @@ static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12284,7 +11739,6 @@ static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12309,7 +11763,6 @@ static void REGAL_CALL emu_glUniform4i(GLint location, GLint v0, GLint v1, GLint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12334,7 +11787,6 @@ static void REGAL_CALL emu_glUniform1fv(GLint location, GLsizei count, const GLf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12359,7 +11811,6 @@ static void REGAL_CALL emu_glUniform2fv(GLint location, GLsizei count, const GLf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12384,7 +11835,6 @@ static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12409,7 +11859,6 @@ static void REGAL_CALL emu_glUniform4fv(GLint location, GLsizei count, const GLf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12434,7 +11883,6 @@ static void REGAL_CALL emu_glUniform1iv(GLint location, GLsizei count, const GLi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12459,7 +11907,6 @@ static void REGAL_CALL emu_glUniform2iv(GLint location, GLsizei count, const GLi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12484,7 +11931,6 @@ static void REGAL_CALL emu_glUniform3iv(GLint location, GLsizei count, const GLi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12509,7 +11955,6 @@ static void REGAL_CALL emu_glUniform4iv(GLint location, GLsizei count, const GLi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12534,7 +11979,6 @@ static void REGAL_CALL emu_glUniformMatrix2fv(GLint location, GLsizei count, GLb
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12559,7 +12003,6 @@ static void REGAL_CALL emu_glUniformMatrix3fv(GLint location, GLsizei count, GLb
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12584,7 +12027,6 @@ static void REGAL_CALL emu_glUniformMatrix4fv(GLint location, GLsizei count, GLb
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12609,7 +12051,6 @@ static void REGAL_CALL emu_glVertexAttrib1d(GLuint index, GLdouble x)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12624,7 +12065,6 @@ static void REGAL_CALL emu_glVertexAttrib1d(GLuint index, GLdouble x)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12653,7 +12093,6 @@ static void REGAL_CALL emu_glVertexAttrib1dv(GLuint index, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12668,7 +12107,6 @@ static void REGAL_CALL emu_glVertexAttrib1dv(GLuint index, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12697,7 +12135,6 @@ static void REGAL_CALL emu_glVertexAttrib1f(GLuint index, GLfloat x)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12712,7 +12149,6 @@ static void REGAL_CALL emu_glVertexAttrib1f(GLuint index, GLfloat x)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12741,7 +12177,6 @@ static void REGAL_CALL emu_glVertexAttrib1fv(GLuint index, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12756,7 +12191,6 @@ static void REGAL_CALL emu_glVertexAttrib1fv(GLuint index, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12785,7 +12219,6 @@ static void REGAL_CALL emu_glVertexAttrib1s(GLuint index, GLshort x)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12800,7 +12233,6 @@ static void REGAL_CALL emu_glVertexAttrib1s(GLuint index, GLshort x)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12829,7 +12261,6 @@ static void REGAL_CALL emu_glVertexAttrib1sv(GLuint index, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12844,7 +12275,6 @@ static void REGAL_CALL emu_glVertexAttrib1sv(GLuint index, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12873,7 +12303,6 @@ static void REGAL_CALL emu_glVertexAttrib2d(GLuint index, GLdouble x, GLdouble y
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12888,7 +12317,6 @@ static void REGAL_CALL emu_glVertexAttrib2d(GLuint index, GLdouble x, GLdouble y
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12917,7 +12345,6 @@ static void REGAL_CALL emu_glVertexAttrib2dv(GLuint index, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12932,7 +12359,6 @@ static void REGAL_CALL emu_glVertexAttrib2dv(GLuint index, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12961,7 +12387,6 @@ static void REGAL_CALL emu_glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -12976,7 +12401,6 @@ static void REGAL_CALL emu_glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13005,7 +12429,6 @@ static void REGAL_CALL emu_glVertexAttrib2fv(GLuint index, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13020,7 +12443,6 @@ static void REGAL_CALL emu_glVertexAttrib2fv(GLuint index, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13049,7 +12471,6 @@ static void REGAL_CALL emu_glVertexAttrib2s(GLuint index, GLshort x, GLshort y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13064,7 +12485,6 @@ static void REGAL_CALL emu_glVertexAttrib2s(GLuint index, GLshort x, GLshort y)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13093,7 +12513,6 @@ static void REGAL_CALL emu_glVertexAttrib2sv(GLuint index, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13108,7 +12527,6 @@ static void REGAL_CALL emu_glVertexAttrib2sv(GLuint index, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13137,7 +12555,6 @@ static void REGAL_CALL emu_glVertexAttrib3d(GLuint index, GLdouble x, GLdouble y
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13152,7 +12569,6 @@ static void REGAL_CALL emu_glVertexAttrib3d(GLuint index, GLdouble x, GLdouble y
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13181,7 +12597,6 @@ static void REGAL_CALL emu_glVertexAttrib3dv(GLuint index, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13196,7 +12611,6 @@ static void REGAL_CALL emu_glVertexAttrib3dv(GLuint index, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13225,7 +12639,6 @@ static void REGAL_CALL emu_glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13240,7 +12653,6 @@ static void REGAL_CALL emu_glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13269,7 +12681,6 @@ static void REGAL_CALL emu_glVertexAttrib3fv(GLuint index, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13284,7 +12695,6 @@ static void REGAL_CALL emu_glVertexAttrib3fv(GLuint index, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13313,7 +12723,6 @@ static void REGAL_CALL emu_glVertexAttrib3s(GLuint index, GLshort x, GLshort y, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13328,7 +12737,6 @@ static void REGAL_CALL emu_glVertexAttrib3s(GLuint index, GLshort x, GLshort y, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13357,7 +12765,6 @@ static void REGAL_CALL emu_glVertexAttrib3sv(GLuint index, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13372,7 +12779,6 @@ static void REGAL_CALL emu_glVertexAttrib3sv(GLuint index, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13401,7 +12807,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nbv(GLuint index, const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13416,7 +12821,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nbv(GLuint index, const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13445,7 +12849,6 @@ static void REGAL_CALL emu_glVertexAttrib4Niv(GLuint index, const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13460,7 +12863,6 @@ static void REGAL_CALL emu_glVertexAttrib4Niv(GLuint index, const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13489,7 +12891,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nsv(GLuint index, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13504,7 +12905,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nsv(GLuint index, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13533,7 +12933,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nub(GLuint index, GLubyte x, GLubyte y
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13548,7 +12947,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nub(GLuint index, GLubyte x, GLubyte y
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13577,7 +12975,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nubv(GLuint index, const GLubyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13592,7 +12989,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nubv(GLuint index, const GLubyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13621,7 +13017,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nusv(GLuint index, const GLushort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13636,7 +13031,6 @@ static void REGAL_CALL emu_glVertexAttrib4Nusv(GLuint index, const GLushort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13665,7 +13059,6 @@ static void REGAL_CALL emu_glVertexAttrib4bv(GLuint index, const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13680,7 +13073,6 @@ static void REGAL_CALL emu_glVertexAttrib4bv(GLuint index, const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13709,7 +13101,6 @@ static void REGAL_CALL emu_glVertexAttrib4d(GLuint index, GLdouble x, GLdouble y
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13724,7 +13115,6 @@ static void REGAL_CALL emu_glVertexAttrib4d(GLuint index, GLdouble x, GLdouble y
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13753,7 +13143,6 @@ static void REGAL_CALL emu_glVertexAttrib4dv(GLuint index, const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13768,7 +13157,6 @@ static void REGAL_CALL emu_glVertexAttrib4dv(GLuint index, const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13797,7 +13185,6 @@ static void REGAL_CALL emu_glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13812,7 +13199,6 @@ static void REGAL_CALL emu_glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13841,7 +13227,6 @@ static void REGAL_CALL emu_glVertexAttrib4fv(GLuint index, const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13856,7 +13241,6 @@ static void REGAL_CALL emu_glVertexAttrib4fv(GLuint index, const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13885,7 +13269,6 @@ static void REGAL_CALL emu_glVertexAttrib4iv(GLuint index, const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13900,7 +13283,6 @@ static void REGAL_CALL emu_glVertexAttrib4iv(GLuint index, const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13929,7 +13311,6 @@ static void REGAL_CALL emu_glVertexAttrib4s(GLuint index, GLshort x, GLshort y, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13944,7 +13325,6 @@ static void REGAL_CALL emu_glVertexAttrib4s(GLuint index, GLshort x, GLshort y, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13973,7 +13353,6 @@ static void REGAL_CALL emu_glVertexAttrib4sv(GLuint index, const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -13988,7 +13367,6 @@ static void REGAL_CALL emu_glVertexAttrib4sv(GLuint index, const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14017,7 +13395,6 @@ static void REGAL_CALL emu_glVertexAttrib4ubv(GLuint index, const GLubyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14032,7 +13409,6 @@ static void REGAL_CALL emu_glVertexAttrib4ubv(GLuint index, const GLubyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14061,7 +13437,6 @@ static void REGAL_CALL emu_glVertexAttrib4usv(GLuint index, const GLushort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14076,7 +13451,6 @@ static void REGAL_CALL emu_glVertexAttrib4usv(GLuint index, const GLushort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14105,7 +13479,6 @@ static void REGAL_CALL emu_glVertexAttribPointer(GLuint index, GLint size, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14127,7 +13500,6 @@ static void REGAL_CALL emu_glVertexAttribPointer(GLuint index, GLint size, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14158,7 +13530,6 @@ static void REGAL_CALL emu_glUniformMatrix2x3fv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14183,7 +13554,6 @@ static void REGAL_CALL emu_glUniformMatrix3x2fv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14208,7 +13578,6 @@ static void REGAL_CALL emu_glUniformMatrix2x4fv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14233,7 +13602,6 @@ static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14258,7 +13626,6 @@ static void REGAL_CALL emu_glUniformMatrix3x4fv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14283,7 +13650,6 @@ static void REGAL_CALL emu_glUniformMatrix4x3fv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14314,7 +13680,6 @@ static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14329,7 +13694,6 @@ static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14358,7 +13722,6 @@ static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14373,7 +13736,6 @@ static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14406,7 +13768,6 @@ static void REGAL_CALL emu_glUniform1ui(GLint location, GLuint v0)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14431,7 +13792,6 @@ static void REGAL_CALL emu_glUniform2ui(GLint location, GLuint v0, GLuint v1)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14456,7 +13816,6 @@ static void REGAL_CALL emu_glUniform3ui(GLint location, GLuint v0, GLuint v1, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14481,7 +13840,6 @@ static void REGAL_CALL emu_glUniform4ui(GLint location, GLuint v0, GLuint v1, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14506,7 +13864,6 @@ static void REGAL_CALL emu_glUniform1uiv(GLint location, GLsizei count, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14531,7 +13888,6 @@ static void REGAL_CALL emu_glUniform2uiv(GLint location, GLsizei count, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14556,7 +13912,6 @@ static void REGAL_CALL emu_glUniform3uiv(GLint location, GLsizei count, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14581,7 +13936,6 @@ static void REGAL_CALL emu_glUniform4uiv(GLint location, GLsizei count, const GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14608,7 +13962,6 @@ static void REGAL_CALL emu_glDrawArraysInstanced(GLenum mode, GLint start, GLsiz
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14647,7 +14000,6 @@ static void REGAL_CALL emu_glDrawElementsInstanced(GLenum mode, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14686,7 +14038,6 @@ static void REGAL_CALL emu_glTexBuffer(GLenum target, GLenum internalformat, GLu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14714,7 +14065,6 @@ static void REGAL_CALL emu_glFramebufferTexture(GLenum target, GLenum attachment
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14739,7 +14089,6 @@ static void REGAL_CALL emu_glFramebufferTextureFace(GLenum target, GLenum attach
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14778,7 +14127,6 @@ static void REGAL_CALL emu_glDrawArraysIndirect(GLenum mode, const GLvoid *indir
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14817,7 +14165,6 @@ static void REGAL_CALL emu_glDrawElementsIndirect(GLenum mode, GLenum type, cons
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14858,7 +14205,6 @@ static void REGAL_CALL emu_glUniform1d(GLint location, GLdouble x)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14883,7 +14229,6 @@ static void REGAL_CALL emu_glUniform2d(GLint location, GLdouble x, GLdouble y)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14908,7 +14253,6 @@ static void REGAL_CALL emu_glUniform3d(GLint location, GLdouble x, GLdouble y, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14933,7 +14277,6 @@ static void REGAL_CALL emu_glUniform4d(GLint location, GLdouble x, GLdouble y, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14958,7 +14301,6 @@ static void REGAL_CALL emu_glUniform1dv(GLint location, GLsizei count, const GLd
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -14983,7 +14325,6 @@ static void REGAL_CALL emu_glUniform2dv(GLint location, GLsizei count, const GLd
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15008,7 +14349,6 @@ static void REGAL_CALL emu_glUniform3dv(GLint location, GLsizei count, const GLd
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15033,7 +14373,6 @@ static void REGAL_CALL emu_glUniform4dv(GLint location, GLsizei count, const GLd
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15058,7 +14397,6 @@ static void REGAL_CALL emu_glUniformMatrix2dv(GLint location, GLsizei count, GLb
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15083,7 +14421,6 @@ static void REGAL_CALL emu_glUniformMatrix3dv(GLint location, GLsizei count, GLb
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15108,7 +14445,6 @@ static void REGAL_CALL emu_glUniformMatrix4dv(GLint location, GLsizei count, GLb
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15133,7 +14469,6 @@ static void REGAL_CALL emu_glUniformMatrix2x3dv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15158,7 +14493,6 @@ static void REGAL_CALL emu_glUniformMatrix2x4dv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15183,7 +14517,6 @@ static void REGAL_CALL emu_glUniformMatrix3x2dv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15208,7 +14541,6 @@ static void REGAL_CALL emu_glUniformMatrix3x4dv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15233,7 +14565,6 @@ static void REGAL_CALL emu_glUniformMatrix4x2dv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15258,7 +14589,6 @@ static void REGAL_CALL emu_glUniformMatrix4x3dv(GLint location, GLsizei count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15297,7 +14627,6 @@ static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15310,7 +14639,6 @@ static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15341,7 +14669,6 @@ static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15355,7 +14682,6 @@ static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15385,7 +14711,6 @@ static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15399,7 +14724,6 @@ static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15433,7 +14757,6 @@ static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15448,7 +14771,6 @@ static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15479,7 +14801,6 @@ static void REGAL_CALL emu_glClientActiveTextureARB(GLenum texture)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15521,7 +14842,6 @@ static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15543,7 +14863,6 @@ static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15572,7 +14891,6 @@ static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15595,7 +14913,6 @@ static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15624,7 +14941,6 @@ static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15647,7 +14963,6 @@ static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15676,7 +14991,6 @@ static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15690,7 +15004,6 @@ static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15720,7 +15033,6 @@ static void REGAL_CALL emu_glProgramEnvParameter4dARB(GLenum target, GLuint inde
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15745,7 +15057,6 @@ static void REGAL_CALL emu_glProgramEnvParameter4dvARB(GLenum target, GLuint ind
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15770,7 +15081,6 @@ static void REGAL_CALL emu_glProgramEnvParameter4fARB(GLenum target, GLuint inde
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15795,7 +15105,6 @@ static void REGAL_CALL emu_glProgramEnvParameter4fvARB(GLenum target, GLuint ind
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15820,7 +15129,6 @@ static void REGAL_CALL emu_glProgramLocalParameter4dARB(GLenum target, GLuint in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15845,7 +15153,6 @@ static void REGAL_CALL emu_glProgramLocalParameter4dvARB(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15870,7 +15177,6 @@ static void REGAL_CALL emu_glProgramLocalParameter4fARB(GLenum target, GLuint in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15895,7 +15201,6 @@ static void REGAL_CALL emu_glProgramLocalParameter4fvARB(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15920,7 +15225,6 @@ static void REGAL_CALL emu_glGetProgramEnvParameterdvARB(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15945,7 +15249,6 @@ static void REGAL_CALL emu_glGetProgramEnvParameterfvARB(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15970,7 +15273,6 @@ static void REGAL_CALL emu_glGetProgramLocalParameterdvARB(GLenum target, GLuint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -15995,7 +15297,6 @@ static void REGAL_CALL emu_glGetProgramLocalParameterfvARB(GLenum target, GLuint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16020,7 +15321,6 @@ static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16042,7 +15342,6 @@ static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16072,7 +15371,6 @@ static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16094,7 +15392,6 @@ static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16124,7 +15421,6 @@ static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16146,7 +15442,6 @@ static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16176,7 +15471,6 @@ static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pna
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16198,7 +15492,6 @@ static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pna
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16230,11 +15523,10 @@ static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -16252,7 +15544,7 @@ static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -16276,7 +15568,7 @@ static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
@@ -16286,7 +15578,7 @@ static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -16310,7 +15602,7 @@ static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
@@ -16320,7 +15612,7 @@ static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -16344,7 +15636,7 @@ static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
@@ -16354,7 +15646,7 @@ static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -16376,7 +15668,6 @@ static GLvoid *REGAL_CALL emu_glMapBufferARB(GLenum target, GLenum access)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16401,7 +15692,6 @@ static GLboolean REGAL_CALL emu_glUnmapBufferARB(GLenum target)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16438,7 +15728,6 @@ static void REGAL_CALL emu_glDrawArraysInstancedARB(GLenum mode, GLint start, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16477,7 +15766,6 @@ static void REGAL_CALL emu_glDrawElementsInstancedARB(GLenum mode, GLsizei count
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16518,7 +15806,6 @@ static void REGAL_CALL emu_glRenderbufferStorage(GLenum target, GLenum internalf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16543,7 +15830,6 @@ static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16557,7 +15843,6 @@ static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16587,7 +15872,6 @@ static void REGAL_CALL emu_glFramebufferTexture1D(GLenum target, GLenum attachme
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16612,7 +15896,6 @@ static void REGAL_CALL emu_glFramebufferTexture2D(GLenum target, GLenum attachme
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16637,7 +15920,6 @@ static void REGAL_CALL emu_glFramebufferTexture3D(GLenum target, GLenum attachme
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16662,7 +15944,6 @@ static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attac
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16687,7 +15968,6 @@ static void REGAL_CALL emu_glGenerateMipmap(GLenum target)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16713,7 +15993,6 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisample(GLenum target, GLsiz
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16738,7 +16017,6 @@ static void REGAL_CALL emu_glFramebufferTextureLayer(GLenum target, GLenum attac
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16765,7 +16043,6 @@ static void REGAL_CALL emu_glFramebufferTextureARB(GLenum target, GLenum attachm
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16790,7 +16067,6 @@ static void REGAL_CALL emu_glFramebufferTextureLayerARB(GLenum target, GLenum at
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16815,7 +16091,6 @@ static void REGAL_CALL emu_glFramebufferTextureFaceARB(GLenum target, GLenum att
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16844,7 +16119,6 @@ static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16869,7 +16143,6 @@ static void REGAL_CALL emu_glFlushMappedBufferRange(GLenum target, GLintptr offs
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -16898,11 +16171,10 @@ static void REGAL_CALL emu_glBindVertexArray(GLuint array)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -16926,7 +16198,7 @@ static void REGAL_CALL emu_glBindVertexArray(GLuint array)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -16934,7 +16206,6 @@ static void REGAL_CALL emu_glBindVertexArray(GLuint array)
              return;
          }
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -16972,11 +16243,10 @@ static void REGAL_CALL emu_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -16994,7 +16264,7 @@ static void REGAL_CALL emu_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -17002,7 +16272,6 @@ static void REGAL_CALL emu_glDeleteVertexArrays(GLsizei n, const GLuint *arrays)
              return;
          }
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -17038,11 +16307,10 @@ static void REGAL_CALL emu_glGenVertexArrays(GLsizei n, GLuint *arrays)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -17057,7 +16325,7 @@ static void REGAL_CALL emu_glGenVertexArrays(GLsizei n, GLuint *arrays)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
@@ -17065,7 +16333,6 @@ static void REGAL_CALL emu_glGenVertexArrays(GLsizei n, GLuint *arrays)
              return;
          }
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -17094,11 +16361,10 @@ static GLboolean REGAL_CALL emu_glIsVertexArray(GLuint array)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) break;
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -17116,14 +16382,13 @@ static GLboolean REGAL_CALL emu_glIsVertexArray(GLuint array)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
+       case 6 :
          #if REGAL_EMU_OBJ
          if (rCtx->obj) {
              RegalEmuScopedActivate activate( rCtx, rCtx->obj );
              return rCtx->obj->IsVertexArray( rCtx, array );
          }
          #endif
-       case 6 :
        case 5 :
        case 4 :
        case 3 :
@@ -17160,7 +16425,6 @@ static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writeta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17187,7 +16451,6 @@ static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17226,7 +16489,6 @@ static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsize
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17265,7 +16527,6 @@ static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *c
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17308,7 +16569,6 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17324,7 +16584,6 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17358,7 +16617,6 @@ static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei sample
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17384,7 +16642,6 @@ static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei sample
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17426,7 +16683,6 @@ static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17470,7 +16726,6 @@ static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17498,7 +16753,6 @@ static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17532,7 +16786,6 @@ static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei cou
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17627,7 +16880,6 @@ static void REGAL_CALL emu_glSecondaryColor3bEXT(GLbyte red, GLbyte green, GLbyt
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17642,7 +16894,6 @@ static void REGAL_CALL emu_glSecondaryColor3bEXT(GLbyte red, GLbyte green, GLbyt
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17671,7 +16922,6 @@ static void REGAL_CALL emu_glSecondaryColor3bvEXT(const GLbyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17686,7 +16936,6 @@ static void REGAL_CALL emu_glSecondaryColor3bvEXT(const GLbyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17715,7 +16964,6 @@ static void REGAL_CALL emu_glSecondaryColor3dEXT(GLdouble red, GLdouble green, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17730,7 +16978,6 @@ static void REGAL_CALL emu_glSecondaryColor3dEXT(GLdouble red, GLdouble green, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17759,7 +17006,6 @@ static void REGAL_CALL emu_glSecondaryColor3dvEXT(const GLdouble *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17774,7 +17020,6 @@ static void REGAL_CALL emu_glSecondaryColor3dvEXT(const GLdouble *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17803,7 +17048,6 @@ static void REGAL_CALL emu_glSecondaryColor3fEXT(GLfloat red, GLfloat green, GLf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17818,7 +17062,6 @@ static void REGAL_CALL emu_glSecondaryColor3fEXT(GLfloat red, GLfloat green, GLf
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17847,7 +17090,6 @@ static void REGAL_CALL emu_glSecondaryColor3fvEXT(const GLfloat *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17862,7 +17104,6 @@ static void REGAL_CALL emu_glSecondaryColor3fvEXT(const GLfloat *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17891,7 +17132,6 @@ static void REGAL_CALL emu_glSecondaryColor3iEXT(GLint red, GLint green, GLint b
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17906,7 +17146,6 @@ static void REGAL_CALL emu_glSecondaryColor3iEXT(GLint red, GLint green, GLint b
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17935,7 +17174,6 @@ static void REGAL_CALL emu_glSecondaryColor3ivEXT(const GLint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17950,7 +17188,6 @@ static void REGAL_CALL emu_glSecondaryColor3ivEXT(const GLint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17979,7 +17216,6 @@ static void REGAL_CALL emu_glSecondaryColor3sEXT(GLshort red, GLshort green, GLs
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -17994,7 +17230,6 @@ static void REGAL_CALL emu_glSecondaryColor3sEXT(GLshort red, GLshort green, GLs
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18023,7 +17258,6 @@ static void REGAL_CALL emu_glSecondaryColor3svEXT(const GLshort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18038,7 +17272,6 @@ static void REGAL_CALL emu_glSecondaryColor3svEXT(const GLshort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18067,7 +17300,6 @@ static void REGAL_CALL emu_glSecondaryColor3ubEXT(GLubyte red, GLubyte green, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18082,7 +17314,6 @@ static void REGAL_CALL emu_glSecondaryColor3ubEXT(GLubyte red, GLubyte green, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18111,7 +17342,6 @@ static void REGAL_CALL emu_glSecondaryColor3ubvEXT(const GLubyte *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18126,7 +17356,6 @@ static void REGAL_CALL emu_glSecondaryColor3ubvEXT(const GLubyte *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18155,7 +17384,6 @@ static void REGAL_CALL emu_glSecondaryColor3uiEXT(GLuint red, GLuint green, GLui
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18170,7 +17398,6 @@ static void REGAL_CALL emu_glSecondaryColor3uiEXT(GLuint red, GLuint green, GLui
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18199,7 +17426,6 @@ static void REGAL_CALL emu_glSecondaryColor3uivEXT(const GLuint *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18214,7 +17440,6 @@ static void REGAL_CALL emu_glSecondaryColor3uivEXT(const GLuint *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18243,7 +17468,6 @@ static void REGAL_CALL emu_glSecondaryColor3usEXT(GLushort red, GLushort green, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18258,7 +17482,6 @@ static void REGAL_CALL emu_glSecondaryColor3usEXT(GLushort red, GLushort green, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18287,7 +17510,6 @@ static void REGAL_CALL emu_glSecondaryColor3usvEXT(const GLushort *v)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18302,7 +17524,6 @@ static void REGAL_CALL emu_glSecondaryColor3usvEXT(const GLushort *v)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18335,7 +17556,6 @@ static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18374,7 +17594,6 @@ static void REGAL_CALL emu_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18473,7 +17692,6 @@ static void REGAL_CALL emu_glDrawElementArrayATI(GLenum mode, GLsizei count)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18522,7 +17740,6 @@ static void REGAL_CALL emu_glDrawElementArrayAPPLE(GLenum mode, GLint first, GLs
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18561,7 +17778,6 @@ static void REGAL_CALL emu_glMultiDrawElementArrayAPPLE(GLenum mode, const GLint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18604,7 +17820,6 @@ static void REGAL_CALL emu_glBindVertexArrayAPPLE(GLuint array)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18654,7 +17869,6 @@ static void REGAL_CALL emu_glRenderbufferStorageEXT(GLenum target, GLenum intern
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18679,7 +17893,6 @@ static void REGAL_CALL emu_glFramebufferTexture1DEXT(GLenum target, GLenum attac
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18704,7 +17917,6 @@ static void REGAL_CALL emu_glFramebufferTexture2DEXT(GLenum target, GLenum attac
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18729,7 +17941,6 @@ static void REGAL_CALL emu_glFramebufferTexture3DEXT(GLenum target, GLenum attac
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18754,7 +17965,6 @@ static void REGAL_CALL emu_glFramebufferRenderbufferEXT(GLenum target, GLenum at
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18779,7 +17989,6 @@ static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18813,7 +18022,6 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18846,7 +18054,6 @@ static void REGAL_CALL emu_glProgramLocalParameterI4iNV(GLenum target, GLuint in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18871,7 +18078,6 @@ static void REGAL_CALL emu_glProgramLocalParameterI4ivNV(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18896,7 +18102,6 @@ static void REGAL_CALL emu_glProgramLocalParametersI4ivNV(GLenum target, GLuint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18921,7 +18126,6 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uiNV(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18946,7 +18150,6 @@ static void REGAL_CALL emu_glProgramLocalParameterI4uivNV(GLenum target, GLuint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18971,7 +18174,6 @@ static void REGAL_CALL emu_glProgramLocalParametersI4uivNV(GLenum target, GLuint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -18996,7 +18198,6 @@ static void REGAL_CALL emu_glProgramEnvParameterI4iNV(GLenum target, GLuint inde
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19021,7 +18222,6 @@ static void REGAL_CALL emu_glProgramEnvParameterI4ivNV(GLenum target, GLuint ind
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19046,7 +18246,6 @@ static void REGAL_CALL emu_glProgramEnvParametersI4ivNV(GLenum target, GLuint in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19071,7 +18270,6 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uiNV(GLenum target, GLuint ind
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19096,7 +18294,6 @@ static void REGAL_CALL emu_glProgramEnvParameterI4uivNV(GLenum target, GLuint in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19121,7 +18318,6 @@ static void REGAL_CALL emu_glProgramEnvParametersI4uivNV(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19146,7 +18342,6 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIivNV(GLenum target, GLuint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19171,7 +18366,6 @@ static void REGAL_CALL emu_glGetProgramLocalParameterIuivNV(GLenum target, GLuin
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19196,7 +18390,6 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIivNV(GLenum target, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19221,7 +18414,6 @@ static void REGAL_CALL emu_glGetProgramEnvParameterIuivNV(GLenum target, GLuint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19248,7 +18440,6 @@ static void REGAL_CALL emu_glFramebufferTextureEXT(GLenum target, GLenum attachm
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19273,7 +18464,6 @@ static void REGAL_CALL emu_glFramebufferTextureFaceEXT(GLenum target, GLenum att
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19306,7 +18496,6 @@ static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19345,7 +18534,6 @@ static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19386,7 +18574,6 @@ static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum at
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19417,7 +18604,6 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19446,7 +18632,6 @@ static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19464,7 +18649,6 @@ static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19501,7 +18685,6 @@ static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19519,7 +18702,6 @@ static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19556,7 +18738,6 @@ static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint inde
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19570,7 +18751,6 @@ static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint inde
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19614,7 +18794,6 @@ static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19628,7 +18807,6 @@ static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19656,7 +18834,6 @@ static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19670,7 +18847,6 @@ static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19699,7 +18875,6 @@ static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19717,7 +18892,6 @@ static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19754,7 +18928,6 @@ static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19772,7 +18945,6 @@ static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19809,7 +18981,6 @@ static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19827,7 +18998,6 @@ static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19864,7 +19034,6 @@ static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19882,7 +19051,6 @@ static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19919,7 +19087,6 @@ static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19937,7 +19104,6 @@ static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19974,7 +19140,6 @@ static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloa
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -19992,7 +19157,6 @@ static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloa
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20029,7 +19193,6 @@ static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdou
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20047,7 +19210,6 @@ static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdou
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20084,7 +19246,6 @@ static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20102,7 +19263,6 @@ static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20139,7 +19299,6 @@ static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20157,7 +19316,6 @@ static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20194,7 +19352,6 @@ static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20212,7 +19369,6 @@ static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20249,7 +19405,6 @@ static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdoub
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20267,7 +19422,6 @@ static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdoub
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20304,7 +19458,6 @@ static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdoub
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20322,7 +19475,6 @@ static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdoub
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20359,7 +19511,6 @@ static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20377,7 +19528,6 @@ static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20414,7 +19564,6 @@ static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20432,7 +19581,6 @@ static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20469,7 +19617,6 @@ static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20487,7 +19634,6 @@ static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20524,7 +19670,6 @@ static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20542,7 +19687,6 @@ static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20579,7 +19723,6 @@ static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20597,7 +19740,6 @@ static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20634,7 +19776,6 @@ static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20652,7 +19793,6 @@ static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20689,7 +19829,6 @@ static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20707,7 +19846,6 @@ static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20744,7 +19882,6 @@ static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20758,7 +19895,6 @@ static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20787,7 +19923,6 @@ static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20801,7 +19936,6 @@ static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20830,7 +19964,6 @@ static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20844,7 +19977,6 @@ static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20873,7 +20005,6 @@ static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20887,7 +20018,6 @@ static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20916,7 +20046,6 @@ static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20937,7 +20066,6 @@ static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20966,7 +20094,6 @@ static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -20987,7 +20114,6 @@ static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21016,7 +20142,6 @@ static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21030,7 +20155,6 @@ static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21059,7 +20183,6 @@ static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21073,7 +20196,6 @@ static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21102,7 +20224,6 @@ static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21116,7 +20237,6 @@ static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21145,7 +20265,6 @@ static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21159,7 +20278,6 @@ static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21188,7 +20306,6 @@ static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21202,7 +20319,6 @@ static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21231,7 +20347,6 @@ static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21245,7 +20360,6 @@ static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21274,7 +20388,6 @@ static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21288,7 +20401,6 @@ static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21317,7 +20429,6 @@ static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21331,7 +20442,6 @@ static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21360,7 +20470,6 @@ static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21374,7 +20483,6 @@ static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21403,7 +20511,6 @@ static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21417,7 +20524,6 @@ static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21446,7 +20552,6 @@ static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21460,7 +20565,6 @@ static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21489,7 +20593,6 @@ static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21510,7 +20613,6 @@ static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21539,7 +20641,6 @@ static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21553,7 +20654,6 @@ static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21582,7 +20682,6 @@ static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21596,7 +20695,6 @@ static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21625,7 +20723,6 @@ static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21639,7 +20736,6 @@ static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21668,7 +20764,6 @@ static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum targe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21682,7 +20777,6 @@ static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum targe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21711,7 +20805,6 @@ static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21725,7 +20818,6 @@ static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21754,7 +20846,6 @@ static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum targe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21768,7 +20859,6 @@ static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum targe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21797,7 +20887,6 @@ static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21818,7 +20907,6 @@ static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21847,7 +20935,6 @@ static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21868,7 +20955,6 @@ static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21897,7 +20983,6 @@ static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21911,7 +20996,6 @@ static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21940,7 +21024,6 @@ static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21954,7 +21037,6 @@ static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21983,7 +21065,6 @@ static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum targe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -21997,7 +21078,6 @@ static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum targe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22026,7 +21106,6 @@ static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum targe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22040,7 +21119,6 @@ static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum targe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22069,7 +21147,6 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22083,7 +21160,6 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22112,7 +21188,6 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22126,7 +21201,6 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22155,7 +21229,6 @@ static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22169,7 +21242,6 @@ static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22198,7 +21270,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22212,7 +21283,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22241,7 +21311,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22255,7 +21324,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22284,7 +21352,6 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22298,7 +21365,6 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22327,7 +21393,6 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22341,7 +21406,6 @@ static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22370,7 +21434,6 @@ static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22391,7 +21454,6 @@ static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22420,7 +21482,6 @@ static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22434,7 +21495,6 @@ static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22463,7 +21523,6 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22477,7 +21536,6 @@ static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22506,7 +21564,6 @@ static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22527,7 +21584,6 @@ static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22557,7 +21613,6 @@ static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint in
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22571,7 +21626,6 @@ static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint in
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22600,7 +21654,6 @@ static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint i
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22614,7 +21667,6 @@ static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint i
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22643,7 +21695,6 @@ static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22657,7 +21708,6 @@ static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22686,7 +21736,6 @@ static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22704,7 +21753,6 @@ static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22741,7 +21789,6 @@ static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22759,7 +21806,6 @@ static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22796,7 +21842,6 @@ static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22814,7 +21859,6 @@ static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22851,7 +21895,6 @@ static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22869,7 +21912,6 @@ static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22906,7 +21948,6 @@ static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22920,7 +21961,6 @@ static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22949,7 +21989,6 @@ static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22963,7 +22002,6 @@ static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -22992,7 +22030,6 @@ static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23006,7 +22043,6 @@ static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23035,7 +22071,6 @@ static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23049,7 +22084,6 @@ static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23078,7 +22112,6 @@ static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23092,7 +22125,6 @@ static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23121,7 +22153,6 @@ static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23135,7 +22166,6 @@ static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23164,7 +22194,6 @@ static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23178,7 +22207,6 @@ static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23207,7 +22235,6 @@ static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23221,7 +22248,6 @@ static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23250,7 +22276,6 @@ static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23268,7 +22293,6 @@ static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23308,7 +22332,6 @@ static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23326,7 +22349,6 @@ static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23366,7 +22388,6 @@ static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23384,7 +22405,6 @@ static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23424,7 +22444,6 @@ static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23438,7 +22457,6 @@ static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23468,7 +22486,6 @@ static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23482,7 +22499,6 @@ static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23512,7 +22528,6 @@ static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23526,7 +22541,6 @@ static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23556,7 +22570,6 @@ static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23570,7 +22583,6 @@ static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23599,7 +22611,6 @@ static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23613,7 +22624,6 @@ static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23642,7 +22652,6 @@ static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23656,7 +22665,6 @@ static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23685,7 +22693,6 @@ static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23699,7 +22706,6 @@ static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23728,7 +22734,6 @@ static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23742,7 +22747,6 @@ static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23771,7 +22775,6 @@ static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23785,7 +22788,6 @@ static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23814,7 +22816,6 @@ static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23828,7 +22829,6 @@ static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23857,7 +22857,6 @@ static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23871,7 +22870,6 @@ static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23900,7 +22898,6 @@ static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23914,7 +22911,6 @@ static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23943,7 +22939,6 @@ static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23957,7 +22952,6 @@ static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -23986,7 +22980,6 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24000,7 +22993,6 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24029,7 +23021,6 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24043,7 +23034,6 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24072,7 +23062,6 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24086,7 +23075,6 @@ static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24115,7 +23103,6 @@ static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenu
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24129,7 +23116,6 @@ static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenu
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24158,7 +23144,6 @@ static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24172,7 +23157,6 @@ static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24201,7 +23185,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24215,7 +23198,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24244,7 +23226,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24258,7 +23239,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24287,7 +23267,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24301,7 +23280,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24330,7 +23308,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24344,7 +23321,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24373,7 +23349,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24387,7 +23362,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24416,7 +23390,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24430,7 +23403,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24459,7 +23431,6 @@ static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24473,7 +23444,6 @@ static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24502,7 +23472,6 @@ static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24516,7 +23485,6 @@ static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24545,7 +23513,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24559,7 +23526,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24588,7 +23554,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24602,7 +23567,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24631,7 +23595,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24645,7 +23608,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24674,7 +23636,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24688,7 +23649,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24717,7 +23677,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, G
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24731,7 +23690,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, G
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24760,7 +23718,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24774,7 +23731,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24803,7 +23759,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24817,7 +23772,6 @@ static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24846,7 +23800,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24860,7 +23813,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24889,7 +23841,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24903,7 +23854,6 @@ static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24932,7 +23882,6 @@ static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum targe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24946,7 +23895,6 @@ static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum targe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24975,7 +23923,6 @@ static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum targ
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -24989,7 +23936,6 @@ static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum targ
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25018,7 +23964,6 @@ static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25032,7 +23977,6 @@ static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25061,7 +24005,6 @@ static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25075,7 +24018,6 @@ static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25104,7 +24046,6 @@ static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum targ
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25118,7 +24059,6 @@ static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum targ
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25147,7 +24087,6 @@ static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25161,7 +24100,6 @@ static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25190,7 +24128,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum t
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25204,7 +24141,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum t
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25233,7 +24169,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25247,7 +24182,6 @@ static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25276,7 +24210,6 @@ static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25290,7 +24223,6 @@ static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25319,7 +24251,6 @@ static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25333,7 +24264,6 @@ static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25362,7 +24292,6 @@ static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25376,7 +24305,6 @@ static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25405,7 +24333,6 @@ static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25419,7 +24346,6 @@ static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25448,7 +24374,6 @@ static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25462,7 +24387,6 @@ static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25491,7 +24415,6 @@ static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25505,7 +24428,6 @@ static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25534,7 +24456,6 @@ static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25548,7 +24469,6 @@ static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25577,7 +24497,6 @@ static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25591,7 +24510,6 @@ static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25620,7 +24538,6 @@ static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25634,7 +24551,6 @@ static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25663,7 +24579,6 @@ static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25677,7 +24592,6 @@ static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25706,7 +24620,6 @@ static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25720,7 +24633,6 @@ static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25749,7 +24661,6 @@ static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25763,7 +24674,6 @@ static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25792,7 +24702,6 @@ static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25806,7 +24715,6 @@ static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25835,7 +24743,6 @@ static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25849,7 +24756,6 @@ static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25878,7 +24784,6 @@ static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25892,7 +24797,6 @@ static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25921,7 +24825,6 @@ static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25935,7 +24838,6 @@ static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25964,7 +24866,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint lo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -25978,7 +24879,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint lo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26007,7 +24907,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint lo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26021,7 +24920,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint lo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26050,7 +24948,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint lo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26064,7 +24961,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint lo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26093,7 +24989,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26107,7 +25002,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26136,7 +25030,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26150,7 +25043,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26179,7 +25071,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26193,7 +25084,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26222,7 +25112,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26236,7 +25125,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26265,7 +25153,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26279,7 +25166,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26308,7 +25194,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26322,7 +25207,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26351,7 +25235,6 @@ static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26365,7 +25248,6 @@ static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26394,7 +25276,6 @@ static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26408,7 +25289,6 @@ static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26437,7 +25317,6 @@ static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26451,7 +25330,6 @@ static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26480,7 +25358,6 @@ static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26494,7 +25371,6 @@ static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26523,7 +25399,6 @@ static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint locatio
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26537,7 +25412,6 @@ static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint locatio
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26566,7 +25440,6 @@ static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint locatio
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26580,7 +25453,6 @@ static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint locatio
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26609,7 +25481,6 @@ static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint locatio
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26623,7 +25494,6 @@ static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint locatio
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26652,7 +25522,6 @@ static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint locatio
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26666,7 +25535,6 @@ static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint locatio
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26695,7 +25563,6 @@ static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26709,7 +25576,6 @@ static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26738,7 +25604,6 @@ static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offse
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26752,7 +25617,6 @@ static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offse
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26781,7 +25645,6 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26795,7 +25658,6 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26822,7 +25684,6 @@ static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26836,7 +25697,6 @@ static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26863,7 +25723,6 @@ static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26877,7 +25736,6 @@ static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26906,7 +25764,6 @@ static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pna
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26920,7 +25777,6 @@ static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pna
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26949,7 +25805,6 @@ static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr of
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26963,7 +25818,6 @@ static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr of
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -26992,7 +25846,6 @@ static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27006,7 +25859,6 @@ static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27035,7 +25887,6 @@ static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27049,7 +25900,6 @@ static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27078,7 +25928,6 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27092,7 +25941,6 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27121,7 +25969,6 @@ static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuf
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27135,7 +25982,6 @@ static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuf
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27164,7 +26010,6 @@ static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27178,7 +26023,6 @@ static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27205,7 +26049,6 @@ static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27219,7 +26062,6 @@ static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27248,7 +26090,6 @@ static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27262,7 +26103,6 @@ static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27291,7 +26131,6 @@ static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27305,7 +26144,6 @@ static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27334,7 +26172,6 @@ static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27348,7 +26185,6 @@ static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27377,7 +26213,6 @@ static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27391,7 +26226,6 @@ static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27420,7 +26254,6 @@ static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum tar
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27434,7 +26267,6 @@ static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum tar
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27463,7 +26295,6 @@ static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum ta
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27477,7 +26308,6 @@ static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum ta
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27506,7 +26336,6 @@ static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27520,7 +26349,6 @@ static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27549,7 +26377,6 @@ static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsiz
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27563,7 +26390,6 @@ static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsiz
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27592,7 +26418,6 @@ static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27606,7 +26431,6 @@ static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27635,7 +26459,6 @@ static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GL
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27649,7 +26472,6 @@ static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GL
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27678,7 +26500,6 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint rende
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27692,7 +26513,6 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint rende
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27721,7 +26541,6 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLui
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27735,7 +26554,6 @@ static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLui
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27764,7 +26582,6 @@ static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLen
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27778,7 +26595,6 @@ static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLen
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27807,7 +26623,6 @@ static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27821,7 +26636,6 @@ static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27850,7 +26664,6 @@ static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27864,7 +26677,6 @@ static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27893,7 +26705,6 @@ static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum targe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27907,7 +26718,6 @@ static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum targe
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27936,7 +26746,6 @@ static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum targ
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27950,7 +26759,6 @@ static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum targ
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27979,7 +26787,6 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr o
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -27993,7 +26800,6 @@ static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr o
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28020,7 +26826,6 @@ static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28034,7 +26839,6 @@ static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLint
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28063,7 +26867,6 @@ static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28077,7 +26880,6 @@ static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28106,7 +26908,6 @@ static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28120,7 +26921,6 @@ static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28149,7 +26949,6 @@ static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28163,7 +26962,6 @@ static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28192,7 +26990,6 @@ static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28206,7 +27003,6 @@ static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28235,7 +27031,6 @@ static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location,
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28249,7 +27044,6 @@ static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location,
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28278,7 +27072,6 @@ static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28292,7 +27085,6 @@ static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28321,7 +27113,6 @@ static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28335,7 +27126,6 @@ static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28364,7 +27154,6 @@ static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28378,7 +27167,6 @@ static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28407,7 +27195,6 @@ static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28421,7 +27208,6 @@ static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28450,7 +27236,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint lo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28464,7 +27249,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint lo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28493,7 +27277,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint lo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28507,7 +27290,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint lo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28536,7 +27318,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint lo
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28550,7 +27331,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint lo
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28579,7 +27359,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28593,7 +27372,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28622,7 +27400,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28636,7 +27413,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28665,7 +27441,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28679,7 +27454,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28708,7 +27482,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28722,7 +27495,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28751,7 +27523,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28765,7 +27536,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28794,7 +27564,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint 
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28808,7 +27577,6 @@ static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint 
 
    // impl
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28839,7 +27607,6 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28913,7 +27680,6 @@ static void REGAL_CALL emu_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -28952,7 +27718,6 @@ static void REGAL_CALL emu_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum ty
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -29015,7 +27780,6 @@ static void REGAL_CALL emu_glTexImage2DMultisampleCoverageNV(GLenum target, GLsi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :
@@ -29041,7 +27805,6 @@ static void REGAL_CALL emu_glTexImage3DMultisampleCoverageNV(GLenum target, GLsi
 
    // prefix
    switch( rCtx->emuLevel ) {
-       case 7 :
        case 6 :
        case 5 :
        case 4 :

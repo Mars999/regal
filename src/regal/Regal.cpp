@@ -2853,6 +2853,17 @@ REGAL_DECL void REGAL_CALL glDisable(GLenum cap)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glDisable);
   RegalAssert(rCtx->dsp->curr->glDisable != glDisable);
+  switch(cap)
+  {
+    case GL_LOG_ERROR_REGAL:    Logging::enableError    = false; return;
+    case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = false; return;
+    case GL_LOG_INFO_REGAL:     Logging::enableInfo     = false; return;
+    case GL_LOG_APP_REGAL:      Logging::enableApp      = false; return;
+    case GL_LOG_DRIVER_REGAL:   Logging::enableDriver   = false; return;
+    case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = false; return;
+    case GL_LOG_HTTP_REGAL:     Logging::enableHttp     = false; return;
+    default: break;
+  }
   rCtx->dsp->curr->glDisable(cap);
 }
 
@@ -2866,6 +2877,17 @@ REGAL_DECL void REGAL_CALL glEnable(GLenum cap)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glEnable);
   RegalAssert(rCtx->dsp->curr->glEnable != glEnable);
+  switch(cap)
+  {
+    case GL_LOG_ERROR_REGAL:    Logging::enableError    = true; return;
+    case GL_LOG_WARNING_REGAL:  Logging::enableWarning  = true; return;
+    case GL_LOG_INFO_REGAL:     Logging::enableInfo     = true; return;
+    case GL_LOG_APP_REGAL:      Logging::enableApp      = true; return;
+    case GL_LOG_DRIVER_REGAL:   Logging::enableDriver   = true; return;
+    case GL_LOG_INTERNAL_REGAL: Logging::enableInternal = true; return;
+    case GL_LOG_HTTP_REGAL:     Logging::enableHttp     = true; return;
+    default: break;
+  }
   rCtx->dsp->curr->glEnable(cap);
 }
 
@@ -3647,6 +3669,7 @@ REGAL_DECL const GLubyte *REGAL_CALL glGetString(GLenum name)
   RegalAssert(rCtx->dsp->curr->glGetString);
   RegalAssert(rCtx->dsp->curr->glGetString != glGetString);
   RegalAssert(rCtx->info);
+  // Regal interceptions
   switch (name) {
     case GL_VENDOR:     return reinterpret_cast<const GLubyte *>(rCtx->info->regalVendor.c_str());
     case GL_RENDERER:   return reinterpret_cast<const GLubyte *>(rCtx->info->regalRenderer.c_str());
@@ -3655,7 +3678,6 @@ REGAL_DECL const GLubyte *REGAL_CALL glGetString(GLenum name)
     default:
       break;
   }
-
   return rCtx->dsp->curr->glGetString(name);
 }
 
@@ -3799,6 +3821,17 @@ REGAL_DECL GLboolean REGAL_CALL glIsEnabled(GLenum cap)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glIsEnabled);
   RegalAssert(rCtx->dsp->curr->glIsEnabled != glIsEnabled);
+  switch(cap)
+  {
+    case GL_LOG_ERROR_REGAL:    return Logging::enableError    ? GL_TRUE : GL_FALSE;
+    case GL_LOG_WARNING_REGAL:  return Logging::enableWarning  ? GL_TRUE : GL_FALSE;
+    case GL_LOG_INFO_REGAL:     return Logging::enableInfo     ? GL_TRUE : GL_FALSE;
+    case GL_LOG_APP_REGAL:      return Logging::enableApp      ? GL_TRUE : GL_FALSE;
+    case GL_LOG_DRIVER_REGAL:   return Logging::enableDriver   ? GL_TRUE : GL_FALSE;
+    case GL_LOG_INTERNAL_REGAL: return Logging::enableInternal ? GL_TRUE : GL_FALSE;
+    case GL_LOG_HTTP_REGAL:     return Logging::enableHttp     ? GL_TRUE : GL_FALSE;
+    default: break;
+  }
   return rCtx->dsp->curr->glIsEnabled(cap);
 }
 
@@ -30533,7 +30566,7 @@ REGAL_DECL GLboolean REGAL_CALL glGetExtensionREGAL(const GLchar *ext)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glGetExtensionREGAL);
   RegalAssert(rCtx->dsp->curr->glGetExtensionREGAL != glGetExtensionREGAL);
-  RegalAssert(rCtx);
+  RegalAssert(rCtx->info);
   // Emulate GL_REGAL_extension_query, if necessary.
   if (!rCtx->info->gl_regal_extension_query)
     return rCtx->info->getExtension(ext) ? GL_TRUE : GL_FALSE;
@@ -30550,7 +30583,7 @@ REGAL_DECL GLboolean REGAL_CALL glIsSupportedREGAL(const GLchar *ext)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glIsSupportedREGAL);
   RegalAssert(rCtx->dsp->curr->glIsSupportedREGAL != glIsSupportedREGAL);
-  RegalAssert(rCtx);
+  RegalAssert(rCtx->info);
   // Emulate GL_REGAL_extension_query, if necessary.
   if (!rCtx->info->gl_regal_extension_query)
     return rCtx->info->isSupported(ext) ? GL_TRUE : GL_FALSE;
@@ -30569,7 +30602,7 @@ REGAL_DECL const GLchar *REGAL_CALL glErrorStringREGAL(GLenum error)
   RegalAssert(rCtx->dsp->curr);
   RegalAssert(rCtx->dsp->curr->glErrorStringREGAL);
   RegalAssert(rCtx->dsp->curr->glErrorStringREGAL != glErrorStringREGAL);
-  RegalAssert(rCtx);
+  RegalAssert(rCtx->info);
   // Emulate GL_REGAL_error_string, if necessary.
   if (!rCtx->info->gl_regal_error_string)
     return Token::GLerrorToString(error);
@@ -31865,8 +31898,9 @@ REGAL_DECL PROC REGAL_CALL wglGetProcAddress(LPCSTR lpszProc)
     RegalAssert(dispatchTableGlobal.wglGetProcAddress!=wglGetProcAddress);
   }
   PROC  ret = (PROC )0;
-  PROC drvproc = ret = dispatchTableGlobal.wglGetProcAddress( lpszProc );
-  if (ret == NULL)
+  RegalAssert(dispatchTableGlobal.wglGetProcAddress);
+  PROC drvproc = ret = dispatchTableGlobal.wglGetProcAddress(lpszProc);
+  if (!ret)
     return NULL;
   ret = Lookup::gl_Lookup<PROC>(lpszProc);
   if (ret)
@@ -35844,15 +35878,14 @@ REGAL_DECL CGLError REGAL_CALL CGLChoosePixelFormat(const CGLPixelFormatAttribut
     GetProcAddress( dispatchTableGlobal.CGLChoosePixelFormat, "CGLChoosePixelFormat" );
     RegalAssert(dispatchTableGlobal.CGLChoosePixelFormat!=CGLChoosePixelFormat);
   }
-
-  CGLPixelFormatAttribute nattribs[] = {
+  CGLError  ret = (CGLError )0;
+  static const CGLPixelFormatAttribute nattribs[] = {
     kCGLPFAOpenGLProfile,
     (CGLPixelFormatAttribute)0x3200,
     (CGLPixelFormatAttribute)0
   };
-  if( Config::forceCoreProfile )
+  if (Config::forceCoreProfile)
     attribs = nattribs;
-  CGLError  ret = (CGLError )0;
   if (dispatchTableGlobal.CGLChoosePixelFormat) {
     GTrace("CGLChoosePixelFormat(", attribs, ")");
     ret = dispatchTableGlobal.CGLChoosePixelFormat(attribs, pix, npix);

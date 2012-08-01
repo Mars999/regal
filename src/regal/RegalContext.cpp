@@ -90,6 +90,8 @@ RegalContext::Init()
   RegalAssert(info);
   info->init(*this);
 
+  marker = new Marker;
+
 #if !REGAL_FORCE_EMULATION
   if
   (
@@ -105,9 +107,9 @@ RegalContext::Init()
   )
 #endif
   {
-    marker = new Marker;
-   // emu
-    emuLevel = 7;
+    RegalAssert(info);
+    // emu
+    emuLevel = 6;
     #if REGAL_EMU_VAO
     if (Config::enableEmuVao)
     {
@@ -127,6 +129,10 @@ RegalContext::Init()
     #if REGAL_EMU_DSA
     if (Config::enableEmuDsa)
     {
+      ITrace("RegalContext::Init GL_EXT_direct_state_access");
+      info->regal_ext_direct_state_access = true;
+      info->regalExtensionsSet.insert("GL_EXT_direct_state_access");
+      info->regalExtensions = ::boost::print::detail::join(info->regalExtensionsSet,std::string(" "));
       dsa = new RegalDsa;
       dsa->emuLevel = 3;
       dsa->Init( this );
@@ -152,7 +158,7 @@ RegalContext::Init()
     if (Config::enableEmuObj)
     {
       obj = new RegalObj;
-      obj->emuLevel = 7;
+      obj->emuLevel = 6;
       obj->Init( this );
     }
     #endif /* REGAL_EMU_OBJ */

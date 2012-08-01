@@ -41,6 +41,7 @@ REGAL_GLOBAL_BEGIN
 
 #include <GL/Regal.h>
 
+#include <set>
 #include <string>
 
 REGAL_GLOBAL_END
@@ -74,6 +75,12 @@ struct ContextInfo
   std::string regalRenderer;
   std::string regalVersion;
   std::string regalExtensions;
+
+  bool        regal_ext_direct_state_access;
+
+  std::set<std::string> regalExtensionsSet;
+
+  // As supported by the OpenGL implementation
 
   GLboolean compat : 1;
   GLboolean core   : 1;

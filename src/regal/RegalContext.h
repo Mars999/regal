@@ -60,27 +60,27 @@ struct RegalVao;
 
 struct RegalContext
 {
-   RegalContext();
-   ~RegalContext();
+  RegalContext();
+  ~RegalContext();
 
-   void Init();
+  void Init();
 
-   DispatchState      *dsp;
-   DispatchErrorState  err;
-   DebugInfo          *dbg;
-   ContextInfo        *info;
-   Marker             *marker;
-// Fixed function emulation
-   int emuLevel;
-   RegalObj           *obj;
-   RegalPpa           *ppa;
-   RegalBin           *bin;
-   RegalDsa           *dsa;
-   RegalIff           *iff;
-   RegalVao           *vao;
+  DispatchState      *dsp;
+  DispatchErrorState  err;
+  DebugInfo          *dbg;
+  ContextInfo        *info;
+  Marker             *marker;
+  // Fixed function emulation
+  int emuLevel;
+  RegalObj           *obj;
+  RegalPpa           *ppa;
+  RegalBin           *bin;
+  RegalDsa           *dsa;
+  RegalIff           *iff;
+  RegalVao           *vao;
 
-   RegalSystemContext  sysCtx;
-   Thread              thread;
+  RegalSystemContext  sysCtx;
+  Thread              thread;
 };
 
 REGAL_NAMESPACE_END
