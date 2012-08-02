@@ -1,4 +1,4 @@
-.. image::  https://github.com/p3/regal/blob/master/doc/regal.jpg
+.. image::  https://raw.github.com/p3/regal/master/doc/regal.jpg
    :height: 128 px
    :width:  128 px
    :align: right
