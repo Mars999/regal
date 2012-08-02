@@ -49,6 +49,7 @@ REGAL_GLOBAL_BEGIN
 CALL( gll_noop )
 CALL( CGLAreContextsShared )
 CALL( CGLSetPBufferVolatileState )
+CALL( CGLOpenCLMuxLockDown )
 
 #endif // __APPLE__
 

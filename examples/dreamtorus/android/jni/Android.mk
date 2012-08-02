@@ -21,11 +21,12 @@ LOCAL_MODULE    := libminimalAndroid
 LOCAL_CFLAGS    := -Werror
 LOCAL_ARM_MODE  := arm
 
-SHARED_DIR      := ../../src
+SHARED_DIR      := $(LOCAL_PATH)/../../src
 
-LOCAL_C_INCLUDES += $(patsubst %, $(LOCAL_PATH)/%, $(SHARED_DIR) )
-LOCAL_SRC_FILES := gl_code.cpp $(SHARED_DIR)/render.cpp
-LOCAL_STATIC_LIBRARIES += Regal
+LOCAL_C_INCLUDES += $(SHARED_DIR)
+MY_SRC_FILES := gl_code.cpp $(SHARED_DIR)/render.cpp
+LOCAL_SRC_FILES := $(patsubst $(LOCAL_PATH)/%,%,$(MY_SRC_FILES))
+LOCAL_STATIC_LIBRARIES += Regal_static
 LOCAL_CFLAGS    := -DANDROID=1
 LOCAL_LDLIBS    := -llog 
 
@@ -33,6 +34,6 @@ LOCAL_LDLIBS    := -llog
 
 include $(BUILD_SHARED_LIBRARY)
 
-$(call import-add-path, ../../../../build/android)
+$(call import-add-path, $(LOCAL_PATH)/../../../../build/android)
 $(call import-module, Regal)
 

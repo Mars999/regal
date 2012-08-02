@@ -7986,7 +7986,7 @@ const size_t glx_Offset[107] = {
 #endif
 
 #ifdef REGAL_SYS_OSX
-const char * const cgl_Name[54] = {
+const char * const cgl_Name[53] = {
   "CGLChoosePixelFormat",
   "CGLClearDrawable",
   "CGLCopyContext",
@@ -8019,7 +8019,6 @@ const char * const cgl_Name[54] = {
   "CGLGetVirtualScreen",
   "CGLIsEnabled",
   "CGLLockContext",
-  "CGLOpenCLMuxLockDown",
   "CGLQueryRendererInfo",
   "CGLReleaseContext",
   "CGLReleasePBuffer",
@@ -8043,7 +8042,7 @@ const char * const cgl_Name[54] = {
   NULL
 };
 
-const void *cgl_Value[54] = {
+const void *cgl_Value[53] = {
   (void *)(CGLChoosePixelFormat),
   (void *)(CGLClearDrawable),
   (void *)(CGLCopyContext),
@@ -8076,7 +8075,6 @@ const void *cgl_Value[54] = {
   (void *)(CGLGetVirtualScreen),
   (void *)(CGLIsEnabled),
   (void *)(CGLLockContext),
-  (void *)(CGLOpenCLMuxLockDown),
   (void *)(CGLQueryRendererInfo),
   (void *)(CGLReleaseContext),
   (void *)(CGLReleasePBuffer),
@@ -8100,7 +8098,7 @@ const void *cgl_Value[54] = {
   NULL
 };
 
-const size_t cgl_Offset[54] = {
+const size_t cgl_Offset[53] = {
   offsetof(DispatchTableGlobal,CGLChoosePixelFormat)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLClearDrawable)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLCopyContext)/sizeof(void *),
@@ -8133,7 +8131,6 @@ const size_t cgl_Offset[54] = {
   offsetof(DispatchTableGlobal,CGLGetVirtualScreen)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLIsEnabled)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLLockContext)/sizeof(void *),
-  offsetof(DispatchTableGlobal,CGLOpenCLMuxLockDown)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLQueryRendererInfo)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLReleaseContext)/sizeof(void *),
   offsetof(DispatchTableGlobal,CGLReleasePBuffer)/sizeof(void *),

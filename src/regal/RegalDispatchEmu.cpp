@@ -66,6 +66,48 @@ using namespace ::REGAL_NAMESPACE_INTERNAL::Token;
 
 // GL_VERSION_1_0
 
+static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->AlphaFunc( func, ref );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glAlphaFunc(func, ref);
+         break;
+       }
+
+   }
+
+}
+
 static void REGAL_CALL emu_glBegin(GLenum mode)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -114,6 +156,92 @@ static void REGAL_CALL emu_glBegin(GLenum mode)
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
          rCtx->dsp->curr->glBegin(mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glClearDepth(GLclampd depth)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glClearDepth( depth );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glClearDepth(depth);
+}
+
+static void REGAL_CALL emu_glClearStencil(GLint s)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glClearStencil( s );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glClearStencil(s);
+}
+
+static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ClipPlane( plane, equation );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glClipPlane(plane, equation);
          break;
        }
 
@@ -1465,6 +1593,226 @@ static void REGAL_CALL emu_glColor4usv(const GLushort *v)
 
 }
 
+static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ColorMaterial( face, mode );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glColorMaterial(face, mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCullFace(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glCullFace( mode );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glCullFace(mode);
+}
+
+static void REGAL_CALL emu_glDepthFunc(GLenum func)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glDepthFunc( func );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDepthFunc(func);
+}
+
+static void REGAL_CALL emu_glDepthMask(GLboolean flag)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glDepthMask( flag );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDepthMask(flag);
+}
+
+static void REGAL_CALL emu_glDisable(GLenum cap)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->Disable( cap );
+         }
+         #endif
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowDisable( cap ) ) {
+                 rCtx->dsp->emuTbl.glDisable( cap );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisable(cap);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glEnable(GLenum cap)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->Enable( cap );
+         }
+         #endif
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowEnable( cap ) ) {
+                 rCtx->dsp->emuTbl.glEnable( cap );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnable(cap);
+         break;
+       }
+
+   }
+
+}
+
 static void REGAL_CALL emu_glEnd(void)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -1507,6 +1855,1703 @@ static void REGAL_CALL emu_glEnd(void)
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
          rCtx->dsp->curr->glEnd();
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogf(pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogfv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogi(pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Fog( pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogiv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFrontFace(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glFrontFace( mode );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFrontFace(mode);
+}
+
+static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Frustum( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFrustum(left, right, bottom, top, zNear, zFar);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetBooleanv( pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetBooleanv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetDoublev( pname, params );
+             }
+             return;
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetDoublev( pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetDoublev(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetFloatv( pname, params );
+             }
+             return;
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetFloatv( pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFloatv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGet( rCtx, pname );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
+             }
+             return;
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetIntegerv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetMaterial( face, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMaterialfv(face, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetMaterial( face, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMaterialiv(face, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetTexEnv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexEnvfv(target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->GetTexEnv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexEnviv(target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexGendv(coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexGenfv(coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTexGeniv(coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTexParameterfv(GLenum target, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetTexParameterfv(target, pname, params);
+}
+
+static void REGAL_CALL emu_glGetTexParameteriv(GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetTexParameteriv(target, pname, params);
+}
+
+static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreIsEnabled( rCtx, cap );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             {
+                 GLboolean enabled;
+                 if ( !rCtx->iff->IsEnabled( rCtx, cap, enabled ) )
+                     return rCtx->dsp->emuTbl.glIsEnabled( cap );
+                 return enabled;
+             }
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsEnabled(cap);
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModelf(pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModelfv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModeli(pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LightModel( pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightModeliv(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightf(light, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightfv(light, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLighti(light, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Light( light, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLightiv(light, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLoadIdentity(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadIdentity(  );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadIdentity();
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadMatrixd(m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadMatrixf(m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMaterialf(face, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMaterialfv(face, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMateriali(face, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Material( face, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMaterialiv(face, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixMode(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowMatrixMode( mode ) ) {
+                 rCtx->dsp->emuTbl.glMatrixMode( mode );
+             }
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowMatrixMode( mode ) ) {
+                 rCtx->dsp->emuTbl.glMatrixMode( mode );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMode(mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultMatrixd(m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultMatrixf(m);
          break;
        }
 
@@ -1932,6 +3977,521 @@ static void REGAL_CALL emu_glNormal3sv(const GLshort *v)
 
    }
 
+}
+
+static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Ortho( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glOrtho(left, right, bottom, top, zNear, zFar);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glPolygonMode(GLenum face, GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glPolygonMode( face, mode );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glPolygonMode(face, mode);
+}
+
+static void REGAL_CALL emu_glPopAttrib(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->PopAttrib( rCtx );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPopAttrib();
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glPopMatrix(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PopMatrix(  );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPopMatrix();
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glPushAttrib(GLbitfield mask)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->PushAttrib( rCtx, mask );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPushAttrib(mask);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glPushMatrix(void)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PushMatrix(  );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPushMatrix();
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Rotate( angle, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRotated(angle, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Rotate( angle, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glRotatef(angle, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Scale( x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glScaled(x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Scale( x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glScalef(x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glShadeModel(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadeModel( mode );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glShadeModel(mode);
+}
+
+static void REGAL_CALL emu_glStencilFunc(GLenum func, GLint ref, GLuint mask)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glStencilFunc( func, ref, mask );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glStencilFunc(func, ref, mask);
+}
+
+static void REGAL_CALL emu_glStencilMask(GLuint mask)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glStencilMask( mask );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glStencilMask(mask);
+}
+
+static void REGAL_CALL emu_glStencilOp(GLenum fail, GLenum zfail, GLenum zpass)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glStencilOp( fail, zfail, zpass );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glStencilOp(fail, zfail, zpass);
 }
 
 static void REGAL_CALL emu_glTexCoord1d(GLdouble s)
@@ -3278,6 +5838,724 @@ static void REGAL_CALL emu_glTexCoord4sv(const GLshort *v)
 
 }
 
+static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnvf(target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnvfv(target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnvi(target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexEnviv(target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGend(coord, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGendv(coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGenf(coord, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGenfv(coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGeni(coord, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexGen( coord, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTexGeniv(coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTexImage1D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+}
+
+static void REGAL_CALL emu_glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+}
+
+static void REGAL_CALL emu_glTexParameterf(GLenum target, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexParameterf(target, pname, param);
+}
+
+static void REGAL_CALL emu_glTexParameterfv(GLenum target, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexParameterfv(target, pname, params);
+}
+
+static void REGAL_CALL emu_glTexParameteri(GLenum target, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexParameteri(target, pname, param);
+}
+
+static void REGAL_CALL emu_glTexParameteriv(GLenum target, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexParameteriv(target, pname, params);
+}
+
+static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Translate( x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTranslated(x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->Translate( x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTranslatef(x, y, z);
+         break;
+       }
+
+   }
+
+}
+
 static void REGAL_CALL emu_glVertex2d(GLdouble x, GLdouble y)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -4286,2707 +7564,9 @@ static void REGAL_CALL emu_glVertex4sv(const GLshort *v)
 
 }
 
-static void REGAL_CALL emu_glClipPlane(GLenum plane, const GLdouble *equation)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
+// GL_VERSION_1_1
 
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ClipPlane( plane, equation );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glClipPlane(plane, equation);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glColorMaterial(GLenum face, GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ColorMaterial( face, mode );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glColorMaterial(face, mode);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCullFace(GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glCullFace( mode );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glCullFace(mode);
-}
-
-static void REGAL_CALL emu_glFogf(GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Fog( pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFogf(pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFogfv(GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Fog( pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFogfv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFogi(GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Fog( pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFogi(pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFogiv(GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Fog( pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFogiv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFrontFace(GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glFrontFace( mode );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFrontFace(mode);
-}
-
-static void REGAL_CALL emu_glLightf(GLenum light, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Light( light, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightf(light, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLightfv(GLenum light, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Light( light, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightfv(light, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLighti(GLenum light, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Light( light, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLighti(light, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLightiv(GLenum light, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Light( light, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightiv(light, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLightModelf(GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LightModel( pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightModelf(pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLightModelfv(GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LightModel( pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightModelfv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLightModeli(GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LightModel( pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightModeli(pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLightModeliv(GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LightModel( pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLightModeliv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMaterialf(GLenum face, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Material( face, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMaterialf(face, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Material( face, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMaterialfv(face, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMateriali(GLenum face, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Material( face, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMateriali(face, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMaterialiv(GLenum face, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Material( face, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMaterialiv(face, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glPolygonMode(GLenum face, GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glPolygonMode( face, mode );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glPolygonMode(face, mode);
-}
-
-static void REGAL_CALL emu_glShadeModel(GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadeModel( mode );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glShadeModel(mode);
-}
-
-static void REGAL_CALL emu_glTexParameterf(GLenum target, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexParameterf(target, pname, param);
-}
-
-static void REGAL_CALL emu_glTexParameterfv(GLenum target, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexParameterfv(target, pname, params);
-}
-
-static void REGAL_CALL emu_glTexParameteri(GLenum target, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexParameteri(target, pname, param);
-}
-
-static void REGAL_CALL emu_glTexParameteriv(GLenum target, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexParameteriv(target, pname, params);
-}
-
-static void REGAL_CALL emu_glTexImage1D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexInfo( target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
-}
-
-static void REGAL_CALL emu_glTexImage2D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexInfo( target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
-}
-
-static void REGAL_CALL emu_glTexEnvf(GLenum target, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexEnvf(target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexEnvfv(GLenum target, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexEnvfv(target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexEnvi(GLenum target, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexEnvi(target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexEnviv(GLenum target, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexEnviv(target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexGend(GLenum coord, GLenum pname, GLdouble param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexGen( coord, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexGend(coord, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexGendv(GLenum coord, GLenum pname, const GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexGen( coord, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexGendv(coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexGenf(GLenum coord, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexGen( coord, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexGenf(coord, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexGenfv(GLenum coord, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexGen( coord, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexGenfv(coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexGeni(GLenum coord, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexGen( coord, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexGeni(coord, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTexGeniv(GLenum coord, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexGen( coord, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTexGeniv(coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glClearDepth(GLclampd depth)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glClearDepth( depth );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glClearDepth(depth);
-}
-
-static void REGAL_CALL emu_glClearStencil(GLint s)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glClearStencil( s );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glClearStencil(s);
-}
-
-static void REGAL_CALL emu_glDepthMask(GLboolean flag)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glDepthMask( flag );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDepthMask(flag);
-}
-
-static void REGAL_CALL emu_glStencilMask(GLuint mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glStencilMask( mask );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glStencilMask(mask);
-}
-
-static void REGAL_CALL emu_glDisable(GLenum cap)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->Disable( cap );
-         }
-         #endif
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             if( ! rCtx->iff->ShadowDisable( cap ) ) {
-                 rCtx->dsp->emuTbl.glDisable( cap );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glDisable(cap);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glEnable(GLenum cap)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->Enable( cap );
-         }
-         #endif
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             if( ! rCtx->iff->ShadowEnable( cap ) ) {
-                 rCtx->dsp->emuTbl.glEnable( cap );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glEnable(cap);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glPopAttrib(void)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->PopAttrib( rCtx );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glPopAttrib();
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glPushAttrib(GLbitfield mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->PushAttrib( rCtx, mask );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glPushAttrib(mask);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glAlphaFunc(GLenum func, GLclampf ref)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->AlphaFunc( func, ref );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glAlphaFunc(func, ref);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glDepthFunc(GLenum func)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glDepthFunc( func );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDepthFunc(func);
-}
-
-static void REGAL_CALL emu_glStencilFunc(GLenum func, GLint ref, GLuint mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glStencilFunc( func, ref, mask );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glStencilFunc(func, ref, mask);
-}
-
-static void REGAL_CALL emu_glStencilOp(GLenum fail, GLenum zfail, GLenum zpass)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glStencilOp( fail, zfail, zpass );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glStencilOp(fail, zfail, zpass);
-}
-
-static void REGAL_CALL emu_glGetBooleanv(GLenum pname, GLboolean *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGet( rCtx, pname );
-         }
-         #endif
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             if( !rCtx->vao->Get( pname, params ) ) {
-                rCtx->dsp->emuTbl.glGetBooleanv( pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetBooleanv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetDoublev(GLenum pname, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGet( rCtx, pname );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetDoublev( pname, params );
-             }
-             return;
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             if( !rCtx->vao->Get( pname, params ) ) {
-                rCtx->dsp->emuTbl.glGetDoublev( pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetDoublev(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetFloatv(GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGet( rCtx, pname );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetFloatv( pname, params );
-             }
-             return;
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             if( !rCtx->vao->Get( pname, params ) ) {
-                rCtx->dsp->emuTbl.glGetFloatv( pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetFloatv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetIntegerv(GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGet( rCtx, pname );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->Get( rCtx, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
-             }
-             return;
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             if( !rCtx->vao->Get( pname, params ) ) {
-                rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetIntegerv(pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMaterialfv(GLenum face, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->GetMaterial( face, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMaterialfv(face, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMaterialiv(GLenum face, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->GetMaterial( face, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMaterialiv(face, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTexEnvfv(GLenum target, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->GetTexEnv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTexEnvfv(target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTexEnviv(GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->GetTexEnv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTexEnviv(target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTexGendv(GLenum coord, GLenum pname, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTexGendv(coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTexGenfv(GLenum coord, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTexGenfv(coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTexGeniv(GLenum coord, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->GetTexGenv( rCtx, coord, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTexGeniv(coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTexParameterfv(GLenum target, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetTexParameterfv(target, pname, params);
-}
-
-static void REGAL_CALL emu_glGetTexParameteriv(GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetTexParameteriv(target, pname, params);
-}
-
-static GLboolean REGAL_CALL emu_glIsEnabled(GLenum cap)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreIsEnabled( rCtx, cap );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             {
-                 GLboolean enabled;
-                 if ( !rCtx->iff->IsEnabled( rCtx, cap, enabled ) )
-                     return rCtx->dsp->emuTbl.glIsEnabled( cap );
-                 return enabled;
-             }
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glIsEnabled(cap);
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Frustum( left, right, bottom, top, zNear, zFar );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFrustum(left, right, bottom, top, zNear, zFar);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLoadIdentity(void)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LoadIdentity(  );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLoadIdentity();
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLoadMatrixd(const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LoadMatrix( m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLoadMatrixd(m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLoadMatrixf(const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LoadMatrix( m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLoadMatrixf(m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixMode(GLenum mode)
+static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -7001,7 +7581,10 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
          #endif
        case 2 :
          #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexBinding( target, texture );
+         }
          #endif
        default:
            break;
@@ -7016,25 +7599,15 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if( false == rCtx->dsa->ShadowMatrixMode( mode ) ) {
-                 rCtx->dsp->emuTbl.glMatrixMode( mode );
-             }
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             if( ! rCtx->iff->ShadowMatrixMode( mode ) ) {
-                 rCtx->dsp->emuTbl.glMatrixMode( mode );
+             if( false == rCtx->dsa->ShadowTexture( target, texture ) ) {
+                 rCtx->dsp->emuTbl.glBindTexture( target, texture );
              }
              return;
          }
          #endif
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixMode(mode);
+         rCtx->dsp->curr->glBindTexture(target, texture);
          break;
        }
 
@@ -7042,7 +7615,7 @@ static void REGAL_CALL emu_glMatrixMode(GLenum mode)
 
 }
 
-static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
+static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -7055,12 +7628,16 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
+             rCtx->dsa->RestoreBuffer( rCtx );
          }
          #endif
        case 2 :
          #if REGAL_EMU_IFF
          if (rCtx->iff) break;
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
          #endif
        default:
            break;
@@ -7076,13 +7653,21 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MultMatrix( m );
+             rCtx->iff->ColorPointer( rCtx, size, type, stride, pointer );
+             return;
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->ColorPointer( rCtx, size, type, stride, pointer );
              return;
          }
          #endif
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultMatrixd(m);
+         rCtx->dsp->curr->glColorPointer(size, type, stride, pointer);
          break;
        }
 
@@ -7090,7 +7675,7 @@ static void REGAL_CALL emu_glMultMatrixd(const GLdouble *m)
 
 }
 
-static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
+static void REGAL_CALL emu_glDisableClientState(GLenum cap)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -7103,12 +7688,17 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
+             rCtx->dsa->RestoreClientActiveTexture( rCtx );
+             rCtx->dsa->RestoreBuffer( rCtx );
          }
          #endif
        case 2 :
          #if REGAL_EMU_IFF
          if (rCtx->iff) break;
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
          #endif
        default:
            break;
@@ -7124,447 +7714,27 @@ static void REGAL_CALL emu_glMultMatrixf(const GLfloat *m)
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MultMatrix( m );
+             rCtx->iff->DisableClientState( rCtx, cap );
+             return;
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->DisableClientState( rCtx, cap );
              return;
          }
          #endif
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultMatrixf(m);
+         rCtx->dsp->curr->glDisableClientState(cap);
          break;
        }
 
    }
 
 }
-
-static void REGAL_CALL emu_glOrtho(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Ortho( left, right, bottom, top, zNear, zFar );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glOrtho(left, right, bottom, top, zNear, zFar);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glPopMatrix(void)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PopMatrix(  );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glPopMatrix();
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glPushMatrix(void)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PushMatrix(  );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glPushMatrix();
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glRotated(GLdouble angle, GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Rotate( angle, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glRotated(angle, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Rotate( angle, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glRotatef(angle, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glScaled(GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Scale( x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glScaled(x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glScalef(GLfloat x, GLfloat y, GLfloat z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Scale( x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glScalef(x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTranslated(GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Translate( x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTranslated(x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTranslatef(GLfloat x, GLfloat y, GLfloat z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->Translate( x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTranslatef(x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-// GL_VERSION_1_1
 
 static void REGAL_CALL emu_glDrawArrays(GLenum mode, GLint first, GLsizei count)
 {
@@ -7642,7 +7812,7 @@ static void REGAL_CALL emu_glDrawElements(GLenum mode, GLsizei count, GLenum typ
    rCtx->dsp->curr->glDrawElements(mode, count, type, indices);
 }
 
-static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, const GLvoid *pointer)
+static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *pointer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -7652,64 +7822,9 @@ static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, co
        case 5 :
        case 4 :
        case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->InterleavedArrays( rCtx, format, stride, pointer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glInterleavedArrays(format, stride, pointer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glDisableClientState(GLenum cap)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreClientActiveTexture( rCtx );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
        case 2 :
          #if REGAL_EMU_IFF
          if (rCtx->iff) break;
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
          #endif
        default:
            break;
@@ -7725,21 +7840,13 @@ static void REGAL_CALL emu_glDisableClientState(GLenum cap)
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->DisableClientState( rCtx, cap );
-             return;
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->DisableClientState( rCtx, cap );
+             rCtx->iff->EdgeFlagPointer( rCtx, stride, pointer );
              return;
          }
          #endif
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glDisableClientState(cap);
+         rCtx->dsp->curr->glEdgeFlagPointer(stride, pointer);
          break;
        }
 
@@ -7808,7 +7915,7 @@ static void REGAL_CALL emu_glEnableClientState(GLenum cap)
 
 }
 
-static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+static void REGAL_CALL emu_glInterleavedArrays(GLenum format, GLsizei stride, const GLvoid *pointer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -7818,16 +7925,7 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
        case 5 :
        case 4 :
        case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
        case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
        case 1 :
          #if REGAL_EMU_VAO
          if (rCtx->vao) break;
@@ -7843,66 +7941,17 @@ static void REGAL_CALL emu_glColorPointer(GLint size, GLenum type, GLsizei strid
        case 4 :
        case 3 :
        case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ColorPointer( rCtx, size, type, stride, pointer );
-             return;
-         }
-         #endif
        case 1 :
          #if REGAL_EMU_VAO
          if (rCtx->vao) {
              RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->ColorPointer( rCtx, size, type, stride, pointer );
+             rCtx->vao->InterleavedArrays( rCtx, format, stride, pointer );
              return;
          }
          #endif
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glColorPointer(size, type, stride, pointer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glEdgeFlagPointer(GLsizei stride, const GLvoid *pointer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->EdgeFlagPointer( rCtx, stride, pointer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glEdgeFlagPointer(stride, pointer);
+         rCtx->dsp->curr->glInterleavedArrays(format, stride, pointer);
          break;
        }
 
@@ -7968,6 +8017,28 @@ static void REGAL_CALL emu_glNormalPointer(GLenum type, GLsizei stride, const GL
 
    }
 
+}
+
+static void REGAL_CALL emu_glPolygonOffset(GLfloat factor, GLfloat units)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glPolygonOffset( factor, units );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glPolygonOffset(factor, units);
 }
 
 static void REGAL_CALL emu_glTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
@@ -8091,77 +8162,6 @@ static void REGAL_CALL emu_glVertexPointer(GLint size, GLenum type, GLsizei stri
 
 }
 
-static void REGAL_CALL emu_glPolygonOffset(GLfloat factor, GLfloat units)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glPolygonOffset( factor, units );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glPolygonOffset(factor, units);
-}
-
-static void REGAL_CALL emu_glBindTexture(GLenum target, GLuint texture)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexBinding( target, texture );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if( false == rCtx->dsa->ShadowTexture( target, texture ) ) {
-                 rCtx->dsp->emuTbl.glBindTexture( target, texture );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glBindTexture(target, texture);
-         break;
-       }
-
-   }
-
-}
-
 // GL_VERSION_1_2
 
 static void REGAL_CALL emu_glTexImage3D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
@@ -8188,8 +8188,6 @@ static void REGAL_CALL emu_glTexImage3D(GLenum target, GLint level, GLint intern
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
 }
-
-// GL_ARB_imaging
 
 // GL_VERSION_1_3
 
@@ -8298,6 +8296,198 @@ static void REGAL_CALL emu_glClientActiveTexture(GLenum texture)
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
          rCtx->dsp->curr->glClientActiveTexture(texture);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadTransposeMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadTransposeMatrixd(m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->LoadTransposeMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glLoadTransposeMatrixf(m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultTransposeMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultTransposeMatrixd(m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreMatrixMode( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MultTransposeMatrix( m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultTransposeMatrixf(m);
          break;
        }
 
@@ -9649,199 +9839,61 @@ static void REGAL_CALL emu_glMultiTexCoord4sv(GLenum target, const GLshort *v)
 
 }
 
-static void REGAL_CALL emu_glLoadTransposeMatrixf(const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LoadTransposeMatrix( m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLoadTransposeMatrixf(m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glLoadTransposeMatrixd(const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->LoadTransposeMatrix( m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glLoadTransposeMatrixd(m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultTransposeMatrixf(const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MultTransposeMatrix( m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultTransposeMatrixf(m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultTransposeMatrixd(const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreMatrixMode( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MultTransposeMatrix( m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultTransposeMatrixd(m);
-         break;
-       }
-
-   }
-
-}
-
 // GL_VERSION_1_4
+
+static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const GLvoid *pointer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->FogCoordPointer( rCtx, type, stride, pointer );
+             return;
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->FogCoordPointer( rCtx, type, stride, pointer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFogCoordPointer(type, stride, pointer);
+         break;
+       }
+
+   }
+
+}
 
 static void REGAL_CALL emu_glMultiDrawArrays(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount)
 {
@@ -9917,60 +9969,6 @@ static void REGAL_CALL emu_glMultiDrawElements(GLenum mode, const GLsizei *count
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glMultiDrawElements(mode, count, type, indices, primcount);
-}
-
-static void REGAL_CALL emu_glFogCoordPointer(GLenum type, GLsizei stride, const GLvoid *pointer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->FogCoordPointer( rCtx, type, stride, pointer );
-             return;
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->FogCoordPointer( rCtx, type, stride, pointer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFogCoordPointer(type, stride, pointer);
-         break;
-       }
-
-   }
-
 }
 
 static void REGAL_CALL emu_glSecondaryColor3b(GLbyte red, GLbyte green, GLbyte blue)
@@ -10773,6 +10771,54 @@ static void REGAL_CALL emu_glBindBuffer(GLenum target, GLuint buffer)
 
 }
 
+static void REGAL_CALL emu_glBufferData(GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glBufferData(target, size, data, usage);
+}
+
+static void REGAL_CALL emu_glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glBufferSubData(target, offset, size, data);
+}
+
 static void REGAL_CALL emu_glDeleteBuffers(GLsizei n, const GLuint *buffers)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -10841,6 +10887,78 @@ static void REGAL_CALL emu_glGenBuffers(GLsizei n, GLuint *buffers)
 
 }
 
+static void REGAL_CALL emu_glGetBufferParameteriv(GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetBufferParameteriv(target, pname, params);
+}
+
+static void REGAL_CALL emu_glGetBufferPointerv(GLenum target, GLenum pname, GLvoid **params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetBufferPointerv(target, pname, params);
+}
+
+static void REGAL_CALL emu_glGetBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetBufferSubData(target, offset, size, data);
+}
+
 static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -10871,78 +10989,6 @@ static GLboolean REGAL_CALL emu_glIsBuffer(GLuint buffer)
 
    }
 
-}
-
-static void REGAL_CALL emu_glBufferData(GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glBufferData(target, size, data, usage);
-}
-
-static void REGAL_CALL emu_glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glBufferSubData(target, offset, size, data);
-}
-
-static void REGAL_CALL emu_glGetBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetBufferSubData(target, offset, size, data);
 }
 
 static GLvoid *REGAL_CALL emu_glMapBuffer(GLenum target, GLenum access)
@@ -10993,121 +11039,7 @@ static GLboolean REGAL_CALL emu_glUnmapBuffer(GLenum target)
    return rCtx->dsp->curr->glUnmapBuffer(target);
 }
 
-static void REGAL_CALL emu_glGetBufferParameteriv(GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetBufferParameteriv(target, pname, params);
-}
-
-static void REGAL_CALL emu_glGetBufferPointerv(GLenum target, GLenum pname, GLvoid **params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetBufferPointerv(target, pname, params);
-}
-
 // GL_VERSION_2_0
-
-static void REGAL_CALL emu_glStencilOpSeparate(GLenum face, GLenum fail, GLenum zfail, GLenum zpass)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glStencilOpSeparate( face, fail, zfail, zpass );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glStencilOpSeparate(face, fail, zfail, zpass);
-}
-
-static void REGAL_CALL emu_glStencilFuncSeparate(GLenum face, GLenum func, GLint ref, GLuint mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glStencilFuncSeparate( face, func, ref, mask );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glStencilFuncSeparate(face, func, ref, mask);
-}
-
-static void REGAL_CALL emu_glStencilMaskSeparate(GLenum face, GLuint mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-         #if REGAL_EMU_PPA
-         if (rCtx->ppa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
-             rCtx->ppa->glStencilMaskSeparate( face, mask );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glStencilMaskSeparate(face, mask);
-}
 
 static GLuint REGAL_CALL emu_glCreateShader(GLenum type)
 {
@@ -11242,6 +11174,56 @@ static void REGAL_CALL emu_glEnableVertexAttribArray(GLuint index)
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
          rCtx->dsp->curr->glEnableVertexAttribArray(index);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname, GLvoid **pointer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, pointer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribPointerv(index, pname, pointer);
          break;
        }
 
@@ -11399,56 +11381,6 @@ static void REGAL_CALL emu_glGetVertexAttribiv(GLuint index, GLenum pname, GLint
 
 }
 
-static void REGAL_CALL emu_glGetVertexAttribPointerv(GLuint index, GLenum pname, GLvoid **pointer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->GetAttrib( index, pname, pointer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetVertexAttribPointerv(index, pname, pointer);
-         break;
-       }
-
-   }
-
-}
-
 static void REGAL_CALL emu_glLinkProgram(GLuint program)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -11533,7 +11465,7 @@ static void REGAL_CALL emu_glShaderSource(GLuint shader, GLsizei count, const GL
 
 }
 
-static void REGAL_CALL emu_glUseProgram(GLuint program)
+static void REGAL_CALL emu_glStencilFuncSeparate(GLenum face, GLenum func, GLint ref, GLuint mask)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -11541,52 +11473,62 @@ static void REGAL_CALL emu_glUseProgram(GLuint program)
    switch( rCtx->emuLevel ) {
        case 6 :
        case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glStencilFuncSeparate( face, func, ref, mask );
+         }
          #endif
        default:
            break;
    }
 
-   // impl
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glStencilFuncSeparate(face, func, ref, mask);
+}
+
+static void REGAL_CALL emu_glStencilMaskSeparate(GLenum face, GLuint mask)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
    switch( rCtx->emuLevel ) {
        case 6 :
        case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if( false == rCtx->dsa->ShadowGlslProgram( program ) ) {
-                 rCtx->dsp->emuTbl.glUseProgram( program );
-             }
-             return;
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glStencilMaskSeparate( face, mask );
          }
          #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             if( ! rCtx->iff->ShadowUseProgram( program ) ) {
-                 rCtx->dsp->emuTbl.glUseProgram( program );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glUseProgram(program);
-         break;
-       }
-
+       default:
+           break;
    }
 
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glStencilMaskSeparate(face, mask);
+}
+
+static void REGAL_CALL emu_glStencilOpSeparate(GLenum face, GLenum fail, GLenum zfail, GLenum zpass)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+         #if REGAL_EMU_PPA
+         if (rCtx->ppa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->ppa );
+             rCtx->ppa->glStencilOpSeparate( face, fail, zfail, zpass );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glStencilOpSeparate(face, fail, zfail, zpass);
 }
 
 static void REGAL_CALL emu_glUniform1f(GLint location, GLfloat v0)
@@ -11613,7 +11555,7 @@ static void REGAL_CALL emu_glUniform1f(GLint location, GLfloat v0)
    rCtx->dsp->curr->glUniform1f(location, v0);
 }
 
-static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
+static void REGAL_CALL emu_glUniform1fv(GLint location, GLsizei count, const GLfloat *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -11634,55 +11576,7 @@ static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform2f(location, v0, v1);
-}
-
-static void REGAL_CALL emu_glUniform3f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform3f(location, v0, v1, v2);
-}
-
-static void REGAL_CALL emu_glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform4f(location, v0, v1, v2, v3);
+   rCtx->dsp->curr->glUniform1fv(location, count, value);
 }
 
 static void REGAL_CALL emu_glUniform1i(GLint location, GLint v0)
@@ -11709,7 +11603,7 @@ static void REGAL_CALL emu_glUniform1i(GLint location, GLint v0)
    rCtx->dsp->curr->glUniform1i(location, v0);
 }
 
-static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
+static void REGAL_CALL emu_glUniform1iv(GLint location, GLsizei count, const GLint *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -11730,10 +11624,10 @@ static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform2i(location, v0, v1);
+   rCtx->dsp->curr->glUniform1iv(location, count, value);
 }
 
-static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint v2)
+static void REGAL_CALL emu_glUniform2f(GLint location, GLfloat v0, GLfloat v1)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -11754,55 +11648,7 @@ static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform3i(location, v0, v1, v2);
-}
-
-static void REGAL_CALL emu_glUniform4i(GLint location, GLint v0, GLint v1, GLint v2, GLint v3)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform4i(location, v0, v1, v2, v3);
-}
-
-static void REGAL_CALL emu_glUniform1fv(GLint location, GLsizei count, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform1fv(location, count, value);
+   rCtx->dsp->curr->glUniform2f(location, v0, v1);
 }
 
 static void REGAL_CALL emu_glUniform2fv(GLint location, GLsizei count, const GLfloat *value)
@@ -11829,7 +11675,7 @@ static void REGAL_CALL emu_glUniform2fv(GLint location, GLsizei count, const GLf
    rCtx->dsp->curr->glUniform2fv(location, count, value);
 }
 
-static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLfloat *value)
+static void REGAL_CALL emu_glUniform2i(GLint location, GLint v0, GLint v1)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -11850,55 +11696,7 @@ static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLf
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform3fv(location, count, value);
-}
-
-static void REGAL_CALL emu_glUniform4fv(GLint location, GLsizei count, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform4fv(location, count, value);
-}
-
-static void REGAL_CALL emu_glUniform1iv(GLint location, GLsizei count, const GLint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform1iv(location, count, value);
+   rCtx->dsp->curr->glUniform2i(location, v0, v1);
 }
 
 static void REGAL_CALL emu_glUniform2iv(GLint location, GLsizei count, const GLint *value)
@@ -11925,6 +11723,78 @@ static void REGAL_CALL emu_glUniform2iv(GLint location, GLsizei count, const GLi
    rCtx->dsp->curr->glUniform2iv(location, count, value);
 }
 
+static void REGAL_CALL emu_glUniform3f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform3f(location, v0, v1, v2);
+}
+
+static void REGAL_CALL emu_glUniform3fv(GLint location, GLsizei count, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform3fv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform3i(GLint location, GLint v0, GLint v1, GLint v2)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform3i(location, v0, v1, v2);
+}
+
 static void REGAL_CALL emu_glUniform3iv(GLint location, GLsizei count, const GLint *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -11947,6 +11817,78 @@ static void REGAL_CALL emu_glUniform3iv(GLint location, GLsizei count, const GLi
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glUniform3iv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform4f(location, v0, v1, v2, v3);
+}
+
+static void REGAL_CALL emu_glUniform4fv(GLint location, GLsizei count, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform4fv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform4i(GLint location, GLint v0, GLint v1, GLint v2, GLint v3)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform4i(location, v0, v1, v2, v3);
 }
 
 static void REGAL_CALL emu_glUniform4iv(GLint location, GLsizei count, const GLint *value)
@@ -12043,6 +11985,62 @@ static void REGAL_CALL emu_glUniformMatrix4fv(GLint location, GLsizei count, GLb
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glUniformMatrix4fv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUseProgram(GLuint program)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if( false == rCtx->dsa->ShadowGlslProgram( program ) ) {
+                 rCtx->dsp->emuTbl.glUseProgram( program );
+             }
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowUseProgram( program ) ) {
+                 rCtx->dsp->emuTbl.glUseProgram( program );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glUseProgram(program);
+         break;
+       }
+
+   }
+
 }
 
 static void REGAL_CALL emu_glVertexAttrib1d(GLuint index, GLdouble x)
@@ -13548,30 +13546,6 @@ static void REGAL_CALL emu_glUniformMatrix2x3fv(GLint location, GLsizei count, G
    rCtx->dsp->curr->glUniformMatrix2x3fv(location, count, transpose, value);
 }
 
-static void REGAL_CALL emu_glUniformMatrix3x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix3x2fv(location, count, transpose, value);
-}
-
 static void REGAL_CALL emu_glUniformMatrix2x4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -13596,7 +13570,7 @@ static void REGAL_CALL emu_glUniformMatrix2x4fv(GLint location, GLsizei count, G
    rCtx->dsp->curr->glUniformMatrix2x4fv(location, count, transpose, value);
 }
 
-static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+static void REGAL_CALL emu_glUniformMatrix3x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -13617,7 +13591,7 @@ static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, G
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix4x2fv(location, count, transpose, value);
+   rCtx->dsp->curr->glUniformMatrix3x2fv(location, count, transpose, value);
 }
 
 static void REGAL_CALL emu_glUniformMatrix3x4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
@@ -13642,6 +13616,30 @@ static void REGAL_CALL emu_glUniformMatrix3x4fv(GLint location, GLsizei count, G
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glUniformMatrix3x4fv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix4x2fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix4x2fv(location, count, transpose, value);
 }
 
 static void REGAL_CALL emu_glUniformMatrix4x3fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
@@ -13669,52 +13667,6 @@ static void REGAL_CALL emu_glUniformMatrix4x3fv(GLint location, GLsizei count, G
 }
 
 // GL_VERSION_3_0
-
-// GL_ARB_uniform_buffer_object
-
-// GL_VERSION_3_0
-
-static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->EnableIndexed( cap, index );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glEnablei(cap, index);
-         break;
-       }
-
-   }
-
-}
 
 static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
 {
@@ -13758,9 +13710,47 @@ static void REGAL_CALL emu_glDisablei(GLenum cap, GLuint index)
 
 }
 
-// GL_ARB_uniform_buffer_object
+static void REGAL_CALL emu_glEnablei(GLenum cap, GLuint index)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_VERSION_3_0
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->EnableIndexed( cap, index );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnablei(cap, index);
+         break;
+       }
+
+   }
+
+}
 
 static void REGAL_CALL emu_glUniform1ui(GLint location, GLuint v0)
 {
@@ -13784,78 +13774,6 @@ static void REGAL_CALL emu_glUniform1ui(GLint location, GLuint v0)
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glUniform1ui(location, v0);
-}
-
-static void REGAL_CALL emu_glUniform2ui(GLint location, GLuint v0, GLuint v1)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform2ui(location, v0, v1);
-}
-
-static void REGAL_CALL emu_glUniform3ui(GLint location, GLuint v0, GLuint v1, GLuint v2)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform3ui(location, v0, v1, v2);
-}
-
-static void REGAL_CALL emu_glUniform4ui(GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform4ui(location, v0, v1, v2, v3);
 }
 
 static void REGAL_CALL emu_glUniform1uiv(GLint location, GLsizei count, const GLuint *value)
@@ -13882,6 +13800,30 @@ static void REGAL_CALL emu_glUniform1uiv(GLint location, GLsizei count, const GL
    rCtx->dsp->curr->glUniform1uiv(location, count, value);
 }
 
+static void REGAL_CALL emu_glUniform2ui(GLint location, GLuint v0, GLuint v1)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform2ui(location, v0, v1);
+}
+
 static void REGAL_CALL emu_glUniform2uiv(GLint location, GLsizei count, const GLuint *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -13906,6 +13848,30 @@ static void REGAL_CALL emu_glUniform2uiv(GLint location, GLsizei count, const GL
    rCtx->dsp->curr->glUniform2uiv(location, count, value);
 }
 
+static void REGAL_CALL emu_glUniform3ui(GLint location, GLuint v0, GLuint v1, GLuint v2)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform3ui(location, v0, v1, v2);
+}
+
 static void REGAL_CALL emu_glUniform3uiv(GLint location, GLsizei count, const GLuint *value)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -13928,6 +13894,30 @@ static void REGAL_CALL emu_glUniform3uiv(GLint location, GLsizei count, const GL
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glUniform3uiv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform4ui(GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform4ui(location, v0, v1, v2, v3);
 }
 
 static void REGAL_CALL emu_glUniform4uiv(GLint location, GLsizei count, const GLuint *value)
@@ -14107,17 +14097,418 @@ static void REGAL_CALL emu_glFramebufferTextureFace(GLenum target, GLenum attach
    rCtx->dsp->curr->glFramebufferTextureFace(target, attachment, texture, level, face);
 }
 
-// GL_ARB_sampler_objects
+// GL_VERSION_3_3
+
+// GL_VERSION_4_0
+
+// GL_3DFX_tbuffer
+
+// GL_AMD_debug_output
+
+// GL_AMD_draw_buffers_blend
+
+// GL_AMD_multi_draw_indirect
+
+static void REGAL_CALL emu_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoid *indirect, GLsizei primcount, GLsizei stride)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
+}
+
+static void REGAL_CALL emu_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum type, const GLvoid *indirect, GLsizei primcount, GLsizei stride)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
+}
+
+// GL_AMD_name_gen_delete
+
+// GL_AMD_performance_monitor
+
+// GL_AMD_sample_positions
+
+// GL_AMD_stencil_operation_extended
+
+// GL_AMD_vertex_shader_tessellator
+
+// GL_APPLE_element_array
+
+static void REGAL_CALL emu_glDrawElementArrayAPPLE(GLenum mode, GLint first, GLsizei count)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDrawElementArrayAPPLE(mode, first, count);
+}
+
+static void REGAL_CALL emu_glMultiDrawElementArrayAPPLE(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
+}
+
+// GL_APPLE_fence
+
+// GL_APPLE_flush_buffer_range
+
+// GL_APPLE_flush_render
+
+// GL_APPLE_object_purgeable
+
+// GL_APPLE_texture_range
+
+// GL_APPLE_vertex_array_object
+
+static void REGAL_CALL emu_glBindVertexArrayAPPLE(GLuint array)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowVao( rCtx, array );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glBindVertexArrayAPPLE(array);
+}
+
+// GL_APPLE_vertex_array_range
+
+// GL_APPLE_vertex_program_evaluators
+
+// GL_ARB_ES2_compatibility
+
+static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, GLenum binaryformat, const GLvoid *binary, GLsizei length)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+         #if REGAL_EMU_BIN
+         if (rCtx->bin) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+         #if REGAL_EMU_BIN
+         if (rCtx->bin) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->bin );
+             rCtx->bin->ShaderBinary( rCtx, count, shaders, binaryformat, binary, length );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glShaderBinary(count, shaders, binaryformat, binary, length);
+         break;
+       }
+
+   }
+
+}
+
+// GL_ARB_base_instance
 
 // GL_ARB_blend_func_extended
 
-// GL_ARB_timer_query
+// GL_ARB_cl_event
 
-// GL_VERSION_3_3
+// GL_ARB_color_buffer_float
 
-// GL_ARB_vertex_type_2_10_10_10_rev
+// GL_ARB_copy_buffer
 
-// GL_VERSION_4_0
+static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writetarget, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
+}
+
+// GL_ARB_debug_output
+
+// GL_ARB_draw_buffers
+
+// GL_ARB_draw_buffers_blend
+
+// GL_ARB_draw_elements_base_vertex
+
+static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, GLenum type, GLvoid *indices, GLint basevertex)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
+}
+
+static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount, GLint basevertex)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
+}
+
+static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *count, GLenum type, GLvoid **indices, GLsizei primcount, GLint *basevertex)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
+}
 
 // GL_ARB_draw_indirect
 
@@ -14196,1529 +14587,6 @@ static void REGAL_CALL emu_glDrawElementsIndirect(GLenum mode, GLenum type, cons
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glDrawElementsIndirect(mode, type, indirect);
 }
-
-// GL_ARB_gpu_shader_fp64
-
-static void REGAL_CALL emu_glUniform1d(GLint location, GLdouble x)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform1d(location, x);
-}
-
-static void REGAL_CALL emu_glUniform2d(GLint location, GLdouble x, GLdouble y)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform2d(location, x, y);
-}
-
-static void REGAL_CALL emu_glUniform3d(GLint location, GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform3d(location, x, y, z);
-}
-
-static void REGAL_CALL emu_glUniform4d(GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform4d(location, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glUniform1dv(GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform1dv(location, count, value);
-}
-
-static void REGAL_CALL emu_glUniform2dv(GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform2dv(location, count, value);
-}
-
-static void REGAL_CALL emu_glUniform3dv(GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform3dv(location, count, value);
-}
-
-static void REGAL_CALL emu_glUniform4dv(GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniform4dv(location, count, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix2dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix3dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix4dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix2x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix2x3dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix2x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix2x4dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix3x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix3x2dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix3x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix3x4dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix4x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix4x2dv(location, count, transpose, value);
-}
-
-static void REGAL_CALL emu_glUniformMatrix4x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreGlslProgram( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glUniformMatrix4x3dv(location, count, transpose, value);
-}
-
-// GL_ARB_sample_shading
-
-// GL_ARB_tessellation_shader
-
-// GL_ARB_transform_feedback2
-
-// GL_ARB_transform_feedback3
-
-// GL_ARB_shader_subroutine
-
-// GL_ARB_vertex_attrib_64bit
-
-// GL_ARB_ES2_compatibility
-
-static void REGAL_CALL emu_glShaderBinary(GLsizei count, const GLuint *shaders, GLenum binaryformat, const GLvoid *binary, GLsizei length)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-         #if REGAL_EMU_BIN
-         if (rCtx->bin) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-         #if REGAL_EMU_BIN
-         if (rCtx->bin) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->bin );
-             rCtx->bin->ShaderBinary( rCtx, count, shaders, binaryformat, binary, length );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glShaderBinary(count, shaders, binaryformat, binary, length);
-         break;
-       }
-
-   }
-
-}
-
-// GL_ARB_get_program_binary
-
-// GL_ARB_viewport_array
-
-static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
-                 rCtx->dsp->emuTbl.glGetFloati_v( target, index, v );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetFloati_v(target, index, v);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble *v)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
-                 rCtx->dsp->emuTbl.glGetDoublei_v( target, index, v );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetDoublei_v(target, index, v);
-         break;
-       }
-
-   }
-
-}
-
-// GL_ARB_separate_shader_objects
-
-// GL_ARB_multitexture
-
-static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             if( ! rCtx->iff->ShadowActiveTexture( texture ) ) {
-                 rCtx->dsp->emuTbl.glActiveTextureARB( texture );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glActiveTextureARB(texture);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glClientActiveTextureARB(GLenum texture)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowClientActiveTexture( texture );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glClientActiveTextureARB(texture);
-}
-
-// GL_ARB_transpose_matrix
-
-// GL_ARB_multisample
-
-// GL_ARB_texture_compression
-
-// GL_ARB_point_parameters
-
-// GL_ARB_vertex_blend
-
-// GL_ARB_matrix_palette
-
-// GL_ARB_window_pos
-
-// GL_ARB_vertex_program
-
-static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             return rCtx->vao->AttribPointer( rCtx, index, size, type, normalized, stride, pointer );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             rCtx->iff->EnableArray( rCtx, index );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             return rCtx->vao->EnableVertexAttribArray( rCtx, index );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glEnableVertexAttribArrayARB(index);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             rCtx->iff->DisableArray( rCtx, index );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             return rCtx->vao->DisableVertexAttribArray( rCtx, index );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glDisableVertexAttribArrayARB(index);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if( false == rCtx->dsa->ShadowAsmProgram( target, program ) ) {
-                 rCtx->dsp->emuTbl.glBindProgramARB( target, program );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glBindProgramARB(target, program);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramEnvParameter4dARB(GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameter4dARB(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameter4dvARB(GLenum target, GLuint index, const GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameter4dvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameter4fARB(GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameter4fARB(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameter4fvARB(GLenum target, GLuint index, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameter4fvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameter4dARB(GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameter4dARB(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameter4dvARB(GLenum target, GLuint index, const GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameter4dvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameter4fARB(GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameter4fARB(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameter4fvARB(GLenum target, GLuint index, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameter4fvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramEnvParameterdvARB(GLenum target, GLuint index, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramEnvParameterdvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramEnvParameterfvARB(GLenum target, GLuint index, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramEnvParameterfvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramLocalParameterdvARB(GLenum target, GLuint index, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramLocalParameterdvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramLocalParameterfvARB(GLenum target, GLuint index, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramLocalParameterfvARB(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->GetAttrib( index, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetVertexAttribdvARB(index, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->GetAttrib( index, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetVertexAttribfvARB(index, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->GetAttrib( index, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetVertexAttribivARB(index, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pname, GLvoid **pointer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->GetAttrib( index, pname, pointer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetVertexAttribPointervARB(index, pname, pointer);
-         break;
-       }
-
-   }
-
-}
-
-// GL_ARB_vertex_buffer_object
-
-static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) break;
-         #endif
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             rCtx->vao->ShadowBufferBinding( target, buffer );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-             rCtx->obj->BindBuffer( rCtx, target, buffer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glBindBufferARB(target, buffer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-             rCtx->obj->DeleteBuffers( rCtx, n, buffers );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glDeleteBuffersARB(n, buffers);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-             rCtx->obj->GenBuffers( rCtx, n, buffers );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGenBuffersARB(n, buffers);
-         break;
-       }
-
-   }
-
-}
-
-static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-         #if REGAL_EMU_OBJ
-         if (rCtx->obj) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
-             return rCtx->obj->IsBuffer( rCtx, buffer );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glIsBufferARB(buffer);
-       }
-
-   }
-
-}
-
-static GLvoid *REGAL_CALL emu_glMapBufferARB(GLenum target, GLenum access)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   return rCtx->dsp->curr->glMapBufferARB(target, access);
-}
-
-static GLboolean REGAL_CALL emu_glUnmapBufferARB(GLenum target)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   return rCtx->dsp->curr->glUnmapBufferARB(target);
-}
-
-// GL_ARB_occlusion_query
-
-// GL_ARB_shader_objects
-
-// GL_ARB_vertex_shader
-
-// GL_ARB_draw_buffers
-
-// GL_ARB_color_buffer_float
 
 // GL_ARB_draw_instanced
 
@@ -15800,30 +14668,6 @@ static void REGAL_CALL emu_glDrawElementsInstancedARB(GLenum mode, GLsizei count
 
 // GL_ARB_framebuffer_object
 
-static void REGAL_CALL emu_glRenderbufferStorage(GLenum target, GLenum internalformat, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glRenderbufferStorage(target, internalformat, width, height);
-}
-
 static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -15864,6 +14708,30 @@ static void REGAL_CALL emu_glBindFramebuffer(GLenum target, GLuint framebuffer)
 
    }
 
+}
+
+static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
 }
 
 static void REGAL_CALL emu_glFramebufferTexture1D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
@@ -15938,7 +14806,7 @@ static void REGAL_CALL emu_glFramebufferTexture3D(GLenum target, GLenum attachme
    rCtx->dsp->curr->glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
 }
 
-static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
+static void REGAL_CALL emu_glFramebufferTextureLayer(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -15959,7 +14827,7 @@ static void REGAL_CALL emu_glFramebufferRenderbuffer(GLenum target, GLenum attac
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
+   rCtx->dsp->curr->glFramebufferTextureLayer(target, attachment, texture, level, layer);
 }
 
 static void REGAL_CALL emu_glGenerateMipmap(GLenum target)
@@ -15987,6 +14855,30 @@ static void REGAL_CALL emu_glGenerateMipmap(GLenum target)
    rCtx->dsp->curr->glGenerateMipmap(target);
 }
 
+static void REGAL_CALL emu_glRenderbufferStorage(GLenum target, GLenum internalformat, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glRenderbufferStorage(target, internalformat, width, height);
+}
+
 static void REGAL_CALL emu_glRenderbufferStorageMultisample(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -16009,30 +14901,6 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisample(GLenum target, GLsiz
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
    rCtx->dsp->curr->glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
-}
-
-static void REGAL_CALL emu_glFramebufferTextureLayer(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferTextureLayer(target, attachment, texture, level, layer);
 }
 
 // GL_ARB_geometry_shader4
@@ -16061,30 +14929,6 @@ static void REGAL_CALL emu_glFramebufferTextureARB(GLenum target, GLenum attachm
    rCtx->dsp->curr->glFramebufferTextureARB(target, attachment, texture, level);
 }
 
-static void REGAL_CALL emu_glFramebufferTextureLayerARB(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
-}
-
 static void REGAL_CALL emu_glFramebufferTextureFaceARB(GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
@@ -16109,11 +14953,7 @@ static void REGAL_CALL emu_glFramebufferTextureFaceARB(GLenum target, GLenum att
    rCtx->dsp->curr->glFramebufferTextureFaceARB(target, attachment, texture, level, face);
 }
 
-// GL_ARB_instanced_arrays
-
-// GL_ARB_map_buffer_range
-
-static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
+static void REGAL_CALL emu_glFramebufferTextureLayerARB(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16126,7 +14966,7 @@ static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, G
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreBuffer( rCtx );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
          }
          #endif
        default:
@@ -16134,8 +14974,428 @@ static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, G
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   return rCtx->dsp->curr->glMapBufferRange(target, offset, length, access);
+   rCtx->dsp->curr->glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
 }
+
+// GL_ARB_get_program_binary
+
+// GL_ARB_gpu_shader_fp64
+
+static void REGAL_CALL emu_glUniform1d(GLint location, GLdouble x)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform1d(location, x);
+}
+
+static void REGAL_CALL emu_glUniform1dv(GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform1dv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform2d(GLint location, GLdouble x, GLdouble y)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform2d(location, x, y);
+}
+
+static void REGAL_CALL emu_glUniform2dv(GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform2dv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform3d(GLint location, GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform3d(location, x, y, z);
+}
+
+static void REGAL_CALL emu_glUniform3dv(GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform3dv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniform4d(GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform4d(location, x, y, z, w);
+}
+
+static void REGAL_CALL emu_glUniform4dv(GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniform4dv(location, count, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix2dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix2x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix2x3dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix2x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix2x4dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix3dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix3x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix3x2dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix3x4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix3x4dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix4dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix4dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix4x2dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix4x2dv(location, count, transpose, value);
+}
+
+static void REGAL_CALL emu_glUniformMatrix4x3dv(GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreGlslProgram( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glUniformMatrix4x3dv(location, count, transpose, value);
+}
+
+// GL_ARB_imaging
+
+// GL_ARB_instanced_arrays
+
+// GL_ARB_internalformat_query
+
+// GL_ARB_map_buffer_range
 
 static void REGAL_CALL emu_glFlushMappedBufferRange(GLenum target, GLintptr offset, GLsizeiptr length)
 {
@@ -16161,7 +15421,244 @@ static void REGAL_CALL emu_glFlushMappedBufferRange(GLenum target, GLintptr offs
    rCtx->dsp->curr->glFlushMappedBufferRange(target, offset, length);
 }
 
+static GLvoid *REGAL_CALL emu_glMapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreBuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   return rCtx->dsp->curr->glMapBufferRange(target, offset, length, access);
+}
+
+// GL_ARB_matrix_palette
+
+// GL_ARB_multisample
+
+// GL_ARB_multitexture
+
+static void REGAL_CALL emu_glActiveTextureARB(GLenum texture)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             if( ! rCtx->iff->ShadowActiveTexture( texture ) ) {
+                 rCtx->dsp->emuTbl.glActiveTextureARB( texture );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glActiveTextureARB(texture);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glClientActiveTextureARB(GLenum texture)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowClientActiveTexture( texture );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glClientActiveTextureARB(texture);
+}
+
+// GL_ARB_occlusion_query
+
+// GL_ARB_point_parameters
+
+// GL_ARB_provoking_vertex
+
+// GL_ARB_robustness
+
+// GL_ARB_sample_shading
+
+// GL_ARB_sampler_objects
+
+// GL_ARB_separate_shader_objects
+
+// GL_ARB_shader_objects
+
+// GL_ARB_shader_subroutine
+
+// GL_ARB_shading_language_include
+
+// GL_ARB_sync
+
+static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             if( !rCtx->vao->Get( pname, params ) ) {
+                rCtx->dsp->emuTbl.glGetInteger64v( pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetInteger64v(pname, params);
+         break;
+       }
+
+   }
+
+}
+
+// GL_ARB_tessellation_shader
+
 // GL_ARB_texture_buffer_object
+
+// GL_ARB_texture_compression
+
+// GL_ARB_texture_multisample
+
+static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei samples, GLint internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
+}
+
+static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei samples, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
+}
+
+// GL_ARB_texture_storage
+
+// GL_ARB_timer_query
+
+// GL_ARB_transform_feedback2
+
+// GL_ARB_transform_feedback3
+
+// GL_ARB_transform_feedback_instanced
+
+// GL_ARB_transpose_matrix
+
+// GL_ARB_uniform_buffer_object
 
 // GL_ARB_vertex_array_object
 
@@ -16415,11 +15912,158 @@ static GLboolean REGAL_CALL emu_glIsVertexArray(GLuint array)
 
 }
 
-// GL_ARB_uniform_buffer_object
+// GL_ARB_vertex_attrib_64bit
 
-// GL_ARB_copy_buffer
+// GL_ARB_vertex_blend
 
-static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writetarget, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size)
+// GL_ARB_vertex_buffer_object
+
+static void REGAL_CALL emu_glBindBufferARB(GLenum target, GLuint buffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->ShadowBufferBinding( target, buffer );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->BindBuffer( rCtx, target, buffer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindBufferARB(target, buffer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glDeleteBuffersARB(GLsizei n, const GLuint *buffers)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->DeleteBuffers( rCtx, n, buffers );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDeleteBuffersARB(n, buffers);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGenBuffersARB(GLsizei n, GLuint *buffers)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             rCtx->obj->GenBuffers( rCtx, n, buffers );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenBuffersARB(n, buffers);
+         break;
+       }
+
+   }
+
+}
+
+static GLboolean REGAL_CALL emu_glIsBufferARB(GLuint buffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+         #if REGAL_EMU_OBJ
+         if (rCtx->obj) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->obj );
+             return rCtx->obj->IsBuffer( rCtx, buffer );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsBufferARB(buffer);
+       }
+
+   }
+
+}
+
+static GLvoid *REGAL_CALL emu_glMapBufferARB(GLenum target, GLenum access)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16440,12 +16084,10 @@ static void REGAL_CALL emu_glCopyBufferSubData(GLenum readtarget, GLenum writeta
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
+   return rCtx->dsp->curr->glMapBufferARB(target, access);
 }
 
-// GL_ARB_draw_elements_base_vertex
-
-static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, GLenum type, GLvoid *indices, GLint basevertex)
+static GLboolean REGAL_CALL emu_glUnmapBufferARB(GLenum target)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16458,21 +16100,7 @@ static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, 
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
+             rCtx->dsa->RestoreBuffer( rCtx );
          }
          #endif
        default:
@@ -16480,10 +16108,12 @@ static void REGAL_CALL emu_glDrawElementsBaseVertex(GLenum mode, GLsizei count, 
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
+   return rCtx->dsp->curr->glUnmapBufferARB(target);
 }
 
-static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount, GLint basevertex)
+// GL_ARB_vertex_program
+
+static void REGAL_CALL emu_glBindProgramARB(GLenum target, GLuint program)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16494,38 +16124,13 @@ static void REGAL_CALL emu_glDrawElementsInstancedBaseVertex(GLenum mode, GLsize
        case 4 :
        case 3 :
          #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
+         if (rCtx->dsa) break;
          #endif
        default:
            break;
    }
 
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
-}
-
-static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *count, GLenum type, GLvoid **indices, GLsizei primcount, GLint *basevertex)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
+   // impl
    switch( rCtx->emuLevel ) {
        case 6 :
        case 5 :
@@ -16534,36 +16139,23 @@ static void REGAL_CALL emu_glMultiDrawElementsBaseVertex(GLenum mode, GLsizei *c
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
+             if( false == rCtx->dsa->ShadowAsmProgram( target, program ) ) {
+                 rCtx->dsp->emuTbl.glBindProgramARB( target, program );
+             }
+             return;
          }
          #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindProgramARB(target, program);
+         break;
+       }
+
    }
 
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
 }
 
-// GL_ARB_provoking_vertex
-
-// GL_ARB_sync
-
-static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
+static void REGAL_CALL emu_glDisableVertexAttribArrayARB(GLuint index)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16574,6 +16166,13 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
        case 4 :
        case 3 :
        case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             rCtx->iff->DisableArray( rCtx, index );
+         }
+         #endif
        case 1 :
          #if REGAL_EMU_VAO
          if (rCtx->vao) break;
@@ -16593,15 +16192,12 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
          #if REGAL_EMU_VAO
          if (rCtx->vao) {
              RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             if( !rCtx->vao->Get( pname, params ) ) {
-                rCtx->dsp->emuTbl.glGetInteger64v( pname, params );
-             }
-             return;
+             return rCtx->vao->DisableVertexAttribArray( rCtx, index );
          }
          #endif
        default: {
          DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetInteger64v(pname, params);
+         rCtx->dsp->curr->glDisableVertexAttribArrayARB(index);
          break;
        }
 
@@ -16609,9 +16205,7 @@ static void REGAL_CALL emu_glGetInteger64v(GLenum pname, GLint64 *params)
 
 }
 
-// GL_ARB_texture_multisample
-
-static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei samples, GLint internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations)
+static void REGAL_CALL emu_glEnableVertexAttribArrayARB(GLuint index)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16625,7 +16219,56 @@ static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei sample
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexInfo( target, internalformat );
+             rCtx->iff->RestoreVao( rCtx );
+             rCtx->iff->EnableArray( rCtx, index );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->EnableVertexAttribArray( rCtx, index );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableVertexAttribArrayARB(index);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetProgramEnvParameterdvARB(GLenum target, GLuint index, GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -16633,10 +16276,82 @@ static void REGAL_CALL emu_glTexImage2DMultisample(GLenum target, GLsizei sample
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
+   rCtx->dsp->curr->glGetProgramEnvParameterdvARB(target, index, params);
 }
 
-static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei samples, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations)
+static void REGAL_CALL emu_glGetProgramEnvParameterfvARB(GLenum target, GLuint index, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetProgramEnvParameterfvARB(target, index, params);
+}
+
+static void REGAL_CALL emu_glGetProgramLocalParameterdvARB(GLenum target, GLuint index, GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetProgramLocalParameterdvARB(target, index, params);
+}
+
+static void REGAL_CALL emu_glGetProgramLocalParameterfvARB(GLenum target, GLuint index, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGetProgramLocalParameterfvARB(target, index, params);
+}
+
+static void REGAL_CALL emu_glGetVertexAttribPointervARB(GLuint index, GLenum pname, GLvoid **pointer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16650,34 +16365,43 @@ static void REGAL_CALL emu_glTexImage3DMultisample(GLenum target, GLsizei sample
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexInfo( target, internalformat );
+             rCtx->iff->RestoreVao( rCtx );
          }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
          #endif
        default:
            break;
    }
 
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, pointer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribPointervARB(index, pname, pointer);
+         break;
+       }
+
+   }
+
 }
 
-// GL_ARB_draw_buffers_blend
-
-// GL_ARB_sample_shading
-
-// GL_ARB_shading_language_include
-
-// GL_ARB_debug_output
-
-// GL_ARB_robustness
-
-// GL_EXT_blend_color
-
-// GL_EXT_polygon_offset
-
-// GL_EXT_texture3D
-
-static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL emu_glGetVertexAttribdvARB(GLuint index, GLenum pname, GLdouble *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16691,36 +16415,43 @@ static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum in
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexInfo( target, internalformat );
+             rCtx->iff->RestoreVao( rCtx );
          }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
          #endif
        default:
            break;
    }
 
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribdvARB(index, pname, params);
+         break;
+       }
+
+   }
+
 }
 
-// GL_SGIS_texture_filter4
-
-// GL_EXT_subtexture
-
-// GL_EXT_copy_texture
-
-// GL_EXT_histogram
-
-// GL_EXT_convolution
-
-// GL_SGI_color_table
-
-// GL_SGIX_pixel_texture
-
-// GL_SGIS_pixel_texture
-
-// GL_SGIS_texture4D
-
-static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+static void REGAL_CALL emu_glGetVertexAttribfvARB(GLuint index, GLenum pname, GLfloat *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16734,20 +16465,43 @@ static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum i
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexInfo( target, internalformat );
+             rCtx->iff->RestoreVao( rCtx );
          }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
          #endif
        default:
            break;
    }
 
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, border, format, type, pixels);
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribfvARB(index, pname, params);
+         break;
+       }
+
+   }
+
 }
 
-// GL_EXT_texture_object
-
-static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
+static void REGAL_CALL emu_glGetVertexAttribivARB(GLuint index, GLenum pname, GLint *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16761,7 +16515,56 @@ static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
          #if REGAL_EMU_IFF
          if (rCtx->iff) {
              RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTexBinding( target, texture );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             rCtx->vao->GetAttrib( index, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetVertexAttribivARB(index, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramEnvParameter4dARB(GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -16769,18 +16572,323 @@ static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glBindTextureEXT(target, texture);
+   rCtx->dsp->curr->glProgramEnvParameter4dARB(target, index, x, y, z, w);
 }
 
-// GL_SGIS_detail_texture
+static void REGAL_CALL emu_glProgramEnvParameter4dvARB(GLenum target, GLuint index, const GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_SGIS_sharpen_texture
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
 
-// GL_SGIS_multisample
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParameter4dvARB(target, index, params);
+}
 
-// GL_EXT_vertex_array
+static void REGAL_CALL emu_glProgramEnvParameter4fARB(GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei count)
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParameter4fARB(target, index, x, y, z, w);
+}
+
+static void REGAL_CALL emu_glProgramEnvParameter4fvARB(GLenum target, GLuint index, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParameter4fvARB(target, index, params);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameter4dARB(GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameter4dARB(target, index, x, y, z, w);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameter4dvARB(GLenum target, GLuint index, const GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameter4dvARB(target, index, params);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameter4fARB(GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameter4fARB(target, index, x, y, z, w);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameter4fvARB(GLenum target, GLuint index, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameter4fvARB(target, index, params);
+}
+
+static void REGAL_CALL emu_glVertexAttribPointerARB(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             return rCtx->vao->AttribPointer( rCtx, index, size, type, normalized, stride, pointer );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
+         break;
+       }
+
+   }
+
+}
+
+// GL_ARB_vertex_shader
+
+// GL_ARB_vertex_type_2_10_10_10_rev
+
+// GL_ARB_viewport_array
+
+static void REGAL_CALL emu_glGetDoublei_v(GLenum target, GLuint index, GLdouble *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
+                 rCtx->dsp->emuTbl.glGetDoublei_v( target, index, v );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetDoublei_v(target, index, v);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetFloati_v(GLenum target, GLuint index, GLfloat *v)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, v ) ) {
+                 rCtx->dsp->emuTbl.glGetFloati_v( target, index, v );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFloati_v(target, index, v);
+         break;
+       }
+
+   }
+
+}
+
+// GL_ARB_window_pos
+
+// GL_ATI_draw_buffers
+
+// GL_ATI_element_array
+
+static void REGAL_CALL emu_glDrawElementArrayATI(GLenum mode, GLsizei count)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -16815,62 +16923,9376 @@ static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei cou
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawArraysEXT(mode, first, count);
+   rCtx->dsp->curr->glDrawElementArrayATI(mode, count);
 }
+
+// GL_ATI_envmap_bumpmap
+
+// GL_ATI_fragment_shader
+
+// GL_ATI_map_object_buffer
+
+// GL_ATI_pn_triangles
+
+// GL_ATI_separate_stencil
+
+// GL_ATI_vertex_array_object
+
+// GL_ATI_vertex_attrib_array_object
+
+// GL_ATI_vertex_streams
+
+// GL_EXT_bindable_uniform
+
+// GL_EXT_blend_color
+
+// GL_EXT_blend_equation_separate
+
+// GL_EXT_blend_func_separate
 
 // GL_EXT_blend_minmax
 
-// GL_SGIX_sprite
-
-// GL_EXT_point_parameters
-
-// GL_SGIS_point_parameters
-
-// GL_SGIX_instruments
-
-// GL_SGIX_framezoom
-
-// GL_SGIX_tag_sample_buffer
-
-// GL_SGIX_polynomial_ffd
-
-// GL_SGIX_reference_plane
-
-// GL_SGIX_flush_raster
-
-// GL_SGIS_fog_function
-
-// GL_HP_image_transform
-
 // GL_EXT_color_subtable
-
-// GL_PGI_misc_hints
-
-// GL_EXT_paletted_texture
-
-// GL_SGIX_list_priority
-
-// GL_EXT_index_material
-
-// GL_EXT_index_func
 
 // GL_EXT_compiled_vertex_array
 
+// GL_EXT_convolution
+
+// GL_EXT_coordinate_frame
+
+// GL_EXT_copy_texture
+
 // GL_EXT_cull_vertex
 
-// GL_SGIX_fragment_lighting
+// GL_EXT_debug_marker
+
+// GL_EXT_depth_bounds_test
+
+// GL_EXT_direct_state_access
+
+static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, GLuint texture)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexBinding( texunit, target, texture );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsa->ShadowDsaTexture( target, texture );
+             rCtx->dsp->emuTbl.glBindTexture( target, texture );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glBindMultiTextureEXT(texunit, target, texture);
+         break;
+       }
+
+   }
+
+}
+
+static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer, GLenum target)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             return rCtx->dsp->emuTbl.glCheckFramebufferStatus( target );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glCheckNamedFramebufferStatusEXT(framebuffer, target);
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->ClientAttribDefault( rCtx, mask );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glClientAttribDefaultEXT(mask);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, data );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, data );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, data );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *bits)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint index)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glDisableClientState( array );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableClientStateIndexedEXT(array, index);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint index)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glEnableClientState( array );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableClientStateIndexedEXT(array, index);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLintptr offset, GLsizeiptr length)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glFlushMappedBufferRange( GL_ARRAY_BUFFER, offset, length );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glDrawBuffer( mode );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferDrawBufferEXT(framebuffer, mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsizei n, const GLenum *bufs)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glDrawBuffers( n, bufs );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glReadBuffer( mode );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glFramebufferReadBufferEXT(framebuffer, mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum target)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGenerateMipmap( target );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenerateMultiTexMipmapEXT(texunit, target);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum target)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGenerateMipmap( target );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGenerateTextureMipmapEXT(texture, target);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenum target, GLint lod, GLvoid *img)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum target, GLint lod, GLvoid *img)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetCompressedTextureImageEXT(texture, target, lod, img);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, GLdouble *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
+                 rCtx->dsp->emuTbl.glGetDoubleIndexedvEXT( target, index, data );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetDoubleIndexedvEXT(target, index, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GLfloat *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
+                 rCtx->dsp->emuTbl.glGetFloatIndexedvEXT( target, index, data );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFloatIndexedvEXT(target, index, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer );
+             rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetFramebufferParameterivEXT(framebuffer, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexEnvfv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexEnvfvEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexEnviv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexEnvivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, GLenum pname, GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetMultiTexGendvEXT( texunit, coord, pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexGendvEXT(texunit, coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetMultiTexGenfvEXT( texunit, coord, pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexGenfvEXT(texunit, coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->RestoreVao( rCtx );
+             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
+                 rCtx->dsp->emuTbl.glGetMultiTexGenivEXT( texunit, coord, pname, params );
+             }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexGenivEXT(texunit, coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLenum target, GLint level, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLenum target, GLint level, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterIivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum target, GLenum pname, GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterfvEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetMultiTexParameterivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glGetBufferParameteriv( GL_ARRAY_BUFFER, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedBufferParameterivEXT(buffer, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pname, GLvoid **params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glGetBufferPointerv( GL_ARRAY_BUFFER, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedBufferPointervEXT(buffer, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr offset, GLsizeiptr size, GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glGetBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedBufferSubDataEXT(buffer, offset, size, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint framebuffer, GLenum attachment, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glGetFramebufferAttachmentParameteriv( GL_FRAMEBUFFER, attachment, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program, GLenum target, GLuint index, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterIivNV( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program, GLenum target, GLuint index, GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterIuivNV( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, GLenum target, GLuint index, GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterdvARB( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, GLenum target, GLuint index, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramLocalParameterfvARB( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum target, GLenum pname, GLvoid *string)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramStringARB( target, pname, string );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramStringEXT(program, target, pname, string);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glGetProgramivARB( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedProgramivEXT(program, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuffer, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glGetRenderbufferParameteriv( GL_FRAMEBUFFER, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, GLvoid **data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             // if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
+             //     rCtx->dsp->emuTbl.glGetPointerIndexedvEXT( target, index, data );
+             // }
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetPointerIndexedvEXT(target, index, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureImageEXT(texture, target, level, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenum target, GLint level, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenum target, GLint level, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterIivEXT(texture, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum target, GLenum pname, GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterIuivEXT(texture, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterfvEXT(texture, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glGetTextureParameterivEXT(texture, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             return rCtx->dsp->emuTbl.glMapBuffer( GL_ARRAY_BUFFER, access );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapNamedBufferEXT(buffer, access);
+       }
+
+   }
+
+}
+
+static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             return rCtx->dsp->emuTbl.glMapBufferRange( GL_ARRAY_BUFFER, offset, length, access );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glMapNamedBufferRangeEXT(buffer, offset, length, access);
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glFrustum( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixFrustum( mode, left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadIdentity(  );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoadIdentity( mode );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadIdentityEXT(mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadTransposeMatrixd( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoadTranspose( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadTransposedEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadTransposeMatrixf( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoadTranspose( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadTransposefEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadMatrixd( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoad( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoaddEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glLoadMatrixf( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixLoad( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixLoadfEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultTransposeMatrixd( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMultTranspose( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultTransposedEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultTransposeMatrixf( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMultTranspose( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultTransposefEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultMatrixd( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMult( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultdEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glMultMatrixf( m );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixMult( mode, m );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixMultfEXT(mode, m);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glOrtho( left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixOrtho( mode, left, right, bottom, top, zNear, zFar );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glPopMatrix(  );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixPop( mode );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixPopEXT(mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glPushMatrix(  );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixPush( mode );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixPushEXT(mode);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glRotated( angle, x, y, z );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixRotate( mode, angle, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixRotatedEXT(mode, angle, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glRotatef( angle, x, y, z );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixRotate( mode, angle, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixRotatefEXT(mode, angle, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glScaled( x, y, z );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixScale( mode, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixScaledEXT(mode, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, GLfloat z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glScalef( x, y, z );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixScale( mode, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixScalefEXT(mode, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glTranslated( x, y, z );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixTranslate( mode, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixTranslatedEXT(mode, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat y, GLfloat z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaMatrixMode( rCtx, mode );
+             rCtx->dsp->emuTbl.glTranslatef( x, y, z );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->MatrixTranslate( mode, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMatrixTranslatefEXT(mode, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GLenum internalformat, GLuint buffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexBufferEXT(texunit, target, internalformat, buffer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaClientActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexCoordPointer( size, type, stride, pointer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnvf( target, pname, param );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnvfEXT(texunit, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnvfv( target, pname, params );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnvfvEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnvi( target, pname, param );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnviEXT(texunit, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexEnviv( target, pname, params );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->TexEnv( texunit, target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexEnvivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenum pname, GLdouble param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGend( coord, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGendEXT(texunit, coord, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLenum pname, const GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGendv( coord, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGendvEXT(texunit, coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGenf( coord, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGenfEXT(texunit, coord, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLenum pname, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGenfv( coord, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGenfvEXT(texunit, coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGeni( coord, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGeniEXT(texunit, coord, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexGeniv( coord, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexGenivEXT(texunit, coord, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterIivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum target, GLenum pname, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterIuivEXT(texunit, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterfEXT(texunit, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, const GLfloat *param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterfvEXT(texunit, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameteriEXT(texunit, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexParameterivEXT(texunit, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum target, GLuint renderbuffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
+             rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, const GLvoid *data, GLenum usage)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glBufferData( GL_ARRAY_BUFFER, size, data, usage );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedBufferDataEXT(buffer, size, data, usage);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offset, GLsizeiptr size, const GLvoid *data)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             rCtx->dsp->emuTbl.glBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedBufferSubDataEXT(buffer, offset, size, data);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, readBuffer);
+             rCtx->dsp->emuTbl.glCopyBufferSubData( GL_ARRAY_BUFFER, writeBuffer, readOffset, writeOffset, size );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferRenderbuffer( GL_FRAMEBUFFER, attachment, renderbuffertarget, renderbuffer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, textarget, texture, level, zoffset );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTexture( GL_FRAMEBUFFER, attachment, texture, level );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLenum face)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTextureFace( GL_FRAMEBUFFER, attachment, texture, level, face );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
+             rCtx->dsp->emuTbl.glFramebufferTextureLayer( GL_FRAMEBUFFER, attachment, texture, level, layer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4dARB( target, index, x, y, z, w );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GLenum target, GLuint index, const GLdouble *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4dvARB( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4dvEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4fARB( target, index, x, y, z, w );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GLenum target, GLuint index, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameter4fvARB( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameter4fvEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4iNV( target, index, x, y, z, w );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, GLenum target, GLuint index, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4ivNV( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4uiNV( target, index, x, y, z, w );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, GLenum target, GLuint index, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameterI4uivNV( target, index, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, GLenum target, GLuint index, GLsizei count, const GLfloat *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParameters4fvEXT( target, index, count, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, GLenum target, GLuint index, GLsizei count, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParametersI4ivNV( target, index, count, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program, GLenum target, GLuint index, GLsizei count, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramLocalParametersI4uivNV( target, index, count, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target, GLenum format, GLsizei len, const GLvoid *string)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
+             rCtx->dsp->emuTbl.glProgramStringARB( target, format, len, string );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedProgramStringEXT(program, target, format, len, string);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glRenderbufferStorage( GL_FRAMEBUFFER, internalformat, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLuint renderbuffer, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleCoverageNV( GL_FRAMEBUFFER, coverageSamples, colorSamples, internalformat, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
+             rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleEXT( GL_FRAMEBUFFER, samples, internalformat, width, height );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location, GLdouble x)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1d( location, x );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1dEXT(program, location, x);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1dv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1dvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location, GLfloat v0)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1f( location, v0 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1fEXT(program, location, v0);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1fv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1fvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location, GLint v0)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1i( location, v0 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1iEXT(program, location, v0);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1iv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1ivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location, GLuint v0)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1ui( location, v0 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1uiEXT(program, location, v0);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform1uiv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform1uivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location, GLdouble x, GLdouble y)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2d( location, x, y );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2dEXT(program, location, x, y);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2dv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2dvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location, GLfloat v0, GLfloat v1)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2f( location, v0, v1 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2fEXT(program, location, v0, v1);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2fv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2fvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location, GLint v0, GLint v1)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2i( location, v0, v1 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2iEXT(program, location, v0, v1);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2iv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2ivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location, GLuint v0, GLuint v1)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2ui( location, v0, v1 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2uiEXT(program, location, v0, v1);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform2uiv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform2uivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3d( location, x, y, z );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3dEXT(program, location, x, y, z);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3dv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3dvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3f( location, v0, v1, v2 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3fEXT(program, location, v0, v1, v2);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3fv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3fvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location, GLint v0, GLint v1, GLint v2)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3i( location, v0, v1, v2 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3iEXT(program, location, v0, v1, v2);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3iv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3ivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3ui( location, v0, v1, v2 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3uiEXT(program, location, v0, v1, v2);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform3uiv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform3uivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4d( location, x, y, z, w );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4dEXT(program, location, x, y, z, w);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4dv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4dvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4f( location, v0, v1, v2, v3 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4fv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4fvEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4i( location, v0, v1, v2, v3 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4iv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4ivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4ui( location, v0, v1, v2, v3 );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniform4uiv( location, count, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniform4uivEXT(program, location, count, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x3dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x3fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x4dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix2x4fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x2dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x2fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x4dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix3x4fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x2dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x2fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x3dv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaGlslProgram( rCtx, program);
+             rCtx->dsp->emuTbl.glUniformMatrix4x3fv( location, count, transpose, value );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsp->emuTbl.glPushClientAttrib( mask );
+             rCtx->dsa->ClientAttribDefault( rCtx, mask );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glPushClientAttribDefaultEXT(mask);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLenum internalformat, GLuint buffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureBufferEXT(texture, target, internalformat, buffer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum target, GLenum pname, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterIivEXT(texture, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum target, GLenum pname, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterIuivEXT(texture, target, pname, params);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target, GLenum pname, GLfloat param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterfEXT(texture, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, const GLfloat *param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterfvEXT(texture, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target, GLenum pname, GLint param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameteriEXT(texture, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, const GLint *param)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureParameterivEXT(texture, target, pname, param);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum target, GLuint renderbuffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureRenderbufferEXT(texture, target, renderbuffer);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaTexture( rCtx, target, texture );
+             rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+         break;
+       }
+
+   }
+
+}
+
+static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaBuffer( rCtx, buffer);
+             return rCtx->dsp->emuTbl.glUnmapBuffer( GL_ARRAY_BUFFER );
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glUnmapNamedBufferEXT(buffer);
+       }
+
+   }
+
+}
+
+// GL_EXT_draw_buffers2
+
+static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glDisable( target );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->DisableIndexed( target, index );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glDisableIndexedEXT(target, index);
+         break;
+       }
+
+   }
+
+}
+
+static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
+             rCtx->dsp->emuTbl.glEnable( target );
+             return;
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->EnableIndexed( target, index );
+             return;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         rCtx->dsp->curr->glEnableIndexedEXT(target, index);
+         break;
+       }
+
+   }
+
+}
+
+static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint index)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) break;
+         #endif
+       default:
+           break;
+   }
+
+   // impl
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             GLboolean ret;
+             ret = rCtx->dsa->IsEnabledIndexed( rCtx, target, index );
+             return ret;
+         }
+         #endif
+       default: {
+         DispatchStateScopedStepDown stepDown(rCtx->dsp);
+         return rCtx->dsp->curr->glIsEnabledIndexedEXT(target, index);
+       }
+
+   }
+
+}
+
+// GL_EXT_draw_instanced
+
+static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GLsizei count, GLsizei primcount)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDrawArraysInstancedEXT(mode, start, count, primcount);
+}
+
+static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
+}
 
 // GL_EXT_draw_range_elements
 
+// GL_EXT_fog_coord
+
+// GL_EXT_fragment_lighting
+
+// GL_EXT_framebuffer_blit
+
+// GL_EXT_framebuffer_multisample
+
+static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
+}
+
+// GL_EXT_framebuffer_object
+
+static void REGAL_CALL emu_glFramebufferRenderbufferEXT(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
+}
+
+static void REGAL_CALL emu_glFramebufferTexture1DEXT(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
+}
+
+static void REGAL_CALL emu_glFramebufferTexture2DEXT(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
+}
+
+static void REGAL_CALL emu_glFramebufferTexture3DEXT(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
+}
+
+static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreTexture( rCtx );
+             rCtx->dsa->RestoreActiveTexture( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glGenerateMipmapEXT(target);
+}
+
+static void REGAL_CALL emu_glRenderbufferStorageEXT(GLenum target, GLenum internalformat, GLsizei width, GLsizei height)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glRenderbufferStorageEXT(target, internalformat, width, height);
+}
+
+// GL_EXT_geometry_shader4
+
+// GL_EXT_gpu_program_parameters
+
+// GL_EXT_gpu_shader4
+
+// GL_EXT_histogram
+
+// GL_EXT_index_func
+
+// GL_EXT_index_material
+
 // GL_EXT_light_texture
 
-// GL_EXT_scene_marker
+// GL_EXT_multi_draw_arrays
 
-// GL_SGIX_async
+static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_INTEL_parallel_arrays
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glMultiDrawArraysEXT(mode, first, count, primcount);
+}
+
+static void REGAL_CALL emu_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->Restore( rCtx );
+         }
+         #endif
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->PreDraw( rCtx );
+         }
+         #endif
+       case 1 :
+         #if REGAL_EMU_VAO
+         if (rCtx->vao) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
+             // rCtx->vao->Validate( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glMultiDrawElementsEXT(mode, count, type, indices, primcount);
+}
+
+// GL_EXT_multisample
+
+// GL_EXT_paletted_texture
 
 // GL_EXT_pixel_transform
+
+// GL_EXT_point_parameters
+
+// GL_EXT_polygon_offset
+
+// GL_EXT_provoking_vertex
+
+// GL_EXT_scene_marker
 
 // GL_EXT_secondary_color
 
@@ -17546,11 +26968,109 @@ static void REGAL_CALL emu_glSecondaryColor3usvEXT(const GLushort *v)
 
 }
 
+// GL_EXT_separate_shader_objects
+
+// GL_EXT_shader_image_load_store
+
+// GL_EXT_stencil_clear_tag
+
+// GL_EXT_stencil_two_side
+
+// GL_EXT_subtexture
+
+// GL_EXT_texture3D
+
+static void REGAL_CALL emu_glTexImage3DEXT(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
+}
+
+// GL_EXT_texture_array
+
+static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreFramebuffer( rCtx );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
+}
+
+// GL_EXT_texture_buffer_object
+
+// GL_EXT_texture_integer
+
+// GL_EXT_texture_object
+
+static void REGAL_CALL emu_glBindTextureEXT(GLenum target, GLuint texture)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexBinding( target, texture );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glBindTextureEXT(target, texture);
+}
+
 // GL_EXT_texture_perturb_normal
 
-// GL_EXT_multi_draw_arrays
+// GL_EXT_timer_query
 
-static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount)
+// GL_EXT_transform_feedback
+
+// GL_EXT_vertex_array
+
+static void REGAL_CALL emu_glDrawArraysEXT(GLenum mode, GLint first, GLsizei count)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -17585,405 +27105,52 @@ static void REGAL_CALL emu_glMultiDrawArraysEXT(GLenum mode, const GLint *first,
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glMultiDrawArraysEXT(mode, first, count, primcount);
+   rCtx->dsp->curr->glDrawArraysEXT(mode, first, count);
 }
 
-static void REGAL_CALL emu_glMultiDrawElementsEXT(GLenum mode, GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
+// GL_EXT_vertex_attrib_64bit
 
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glMultiDrawElementsEXT(mode, count, type, indices, primcount);
-}
-
-// GL_EXT_fog_coord
-
-// GL_EXT_coordinate_frame
-
-// GL_SUNX_constant_data
-
-// GL_SUN_global_alpha
-
-// GL_SUN_triangle_list
-
-// GL_SUN_vertex
-
-// GL_EXT_blend_func_separate
-
-// GL_INGR_blend_func_separate
+// GL_EXT_vertex_shader
 
 // GL_EXT_vertex_weighting
 
-// GL_NV_vertex_array_range
+// GL_EXT_x11_sync_object
 
-// GL_NV_register_combiners
+// GL_GREMEDY_frame_terminator
 
-// GL_MESA_resize_buffers
+// GL_GREMEDY_string_marker
 
-// GL_MESA_window_pos
+// GL_HP_image_transform
 
 // GL_IBM_multimode_draw_arrays
 
 // GL_IBM_vertex_array_lists
 
-// GL_3DFX_tbuffer
+// GL_INGR_blend_func_separate
 
-// GL_EXT_multisample
+// GL_INTEL_parallel_arrays
 
-// GL_SGIS_texture_color_mask
+// GL_INTEL_texture_scissor
 
-// GL_SGIX_igloo_interface
+// GL_KTX_buffer_region
 
-// GL_NV_fence
+// GL_MESA_resize_buffers
+
+// GL_MESA_window_pos
+
+// GL_NV_bindless_texture
+
+// GL_NV_conditional_render
+
+// GL_NV_copy_image
+
+// GL_NV_depth_buffer_float
 
 // GL_NV_evaluators
 
-// GL_NV_register_combiners2
+// GL_NV_explicit_multisample
 
-// GL_NV_vertex_program
-
-// GL_ATI_envmap_bumpmap
-
-// GL_ATI_fragment_shader
-
-// GL_ATI_pn_triangles
-
-// GL_ATI_vertex_array_object
-
-// GL_EXT_vertex_shader
-
-// GL_ATI_vertex_streams
-
-// GL_ATI_element_array
-
-static void REGAL_CALL emu_glDrawElementArrayATI(GLenum mode, GLsizei count)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawElementArrayATI(mode, count);
-}
-
-// GL_SUN_mesh_array
-
-// GL_NV_occlusion_query
-
-// GL_NV_point_sprite
-
-// GL_EXT_stencil_two_side
-
-// GL_APPLE_element_array
-
-static void REGAL_CALL emu_glDrawElementArrayAPPLE(GLenum mode, GLint first, GLsizei count)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawElementArrayAPPLE(mode, first, count);
-}
-
-static void REGAL_CALL emu_glMultiDrawElementArrayAPPLE(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
-}
-
-// GL_APPLE_fence
-
-// GL_APPLE_vertex_array_object
-
-static void REGAL_CALL emu_glBindVertexArrayAPPLE(GLuint array)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowVao( rCtx, array );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glBindVertexArrayAPPLE(array);
-}
-
-// GL_APPLE_vertex_array_range
-
-// GL_ATI_draw_buffers
-
-// GL_NV_fragment_program
-
-// GL_NV_half_float
-
-// GL_NV_pixel_data_range
-
-// GL_NV_primitive_restart
-
-// GL_ATI_map_object_buffer
-
-// GL_ATI_separate_stencil
-
-// GL_ATI_vertex_attrib_array_object
-
-// GL_EXT_depth_bounds_test
-
-// GL_EXT_blend_equation_separate
-
-// GL_EXT_framebuffer_object
-
-static void REGAL_CALL emu_glRenderbufferStorageEXT(GLenum target, GLenum internalformat, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glRenderbufferStorageEXT(target, internalformat, width, height);
-}
-
-static void REGAL_CALL emu_glFramebufferTexture1DEXT(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
-}
-
-static void REGAL_CALL emu_glFramebufferTexture2DEXT(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
-}
-
-static void REGAL_CALL emu_glFramebufferTexture3DEXT(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
-}
-
-static void REGAL_CALL emu_glFramebufferRenderbufferEXT(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
-}
-
-static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
+static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffer)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -18005,18 +27172,16 @@ static void REGAL_CALL emu_glGenerateMipmapEXT(GLenum target)
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGenerateMipmapEXT(target);
+   rCtx->dsp->curr->glTexRenderbufferNV(target, renderbuffer);
 }
 
-// GL_GREMEDY_string_marker
+// GL_NV_fence
 
-// GL_EXT_stencil_clear_tag
+// GL_NV_fragment_program
 
-// GL_EXT_framebuffer_blit
+// GL_NV_framebuffer_multisample_coverage
 
-// GL_EXT_framebuffer_multisample
-
-static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height)
+static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -18037,399 +27202,7 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleEXT(GLenum target, GL
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
-}
-
-// GL_EXT_timer_query
-
-// GL_EXT_gpu_program_parameters
-
-// GL_APPLE_flush_buffer_range
-
-// GL_NV_gpu_program4
-
-static void REGAL_CALL emu_glProgramLocalParameterI4iNV(GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameterI4iNV(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameterI4ivNV(GLenum target, GLuint index, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameterI4ivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramLocalParametersI4ivNV(GLenum target, GLuint index, GLsizei count, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParametersI4ivNV(target, index, count, params);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameterI4uiNV(GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramLocalParameterI4uivNV(GLenum target, GLuint index, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParameterI4uivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramLocalParametersI4uivNV(GLenum target, GLuint index, GLsizei count, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramLocalParametersI4uivNV(target, index, count, params);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameterI4iNV(GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameterI4iNV(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameterI4ivNV(GLenum target, GLuint index, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameterI4ivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramEnvParametersI4ivNV(GLenum target, GLuint index, GLsizei count, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParametersI4ivNV(target, index, count, params);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameterI4uiNV(GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
-}
-
-static void REGAL_CALL emu_glProgramEnvParameterI4uivNV(GLenum target, GLuint index, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParameterI4uivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glProgramEnvParametersI4uivNV(GLenum target, GLuint index, GLsizei count, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glProgramEnvParametersI4uivNV(target, index, count, params);
-}
-
-static void REGAL_CALL emu_glGetProgramLocalParameterIivNV(GLenum target, GLuint index, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramLocalParameterIivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramLocalParameterIuivNV(GLenum target, GLuint index, GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramLocalParameterIuivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramEnvParameterIivNV(GLenum target, GLuint index, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramEnvParameterIivNV(target, index, params);
-}
-
-static void REGAL_CALL emu_glGetProgramEnvParameterIuivNV(GLenum target, GLuint index, GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreAsmProgram( rCtx, target );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glGetProgramEnvParameterIuivNV(target, index, params);
+   rCtx->dsp->curr->glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
 }
 
 // GL_NV_geometry_program4
@@ -18482,15 +27255,9 @@ static void REGAL_CALL emu_glFramebufferTextureFaceEXT(GLenum target, GLenum att
    rCtx->dsp->curr->glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
 }
 
-// GL_EXT_geometry_shader4
+// GL_NV_gpu_program4
 
-// GL_NV_vertex_program4
-
-// GL_EXT_gpu_shader4
-
-// GL_EXT_draw_instanced
-
-static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GLsizei count, GLsizei primcount)
+static void REGAL_CALL emu_glGetProgramEnvParameterIivNV(GLenum target, GLuint index, GLint *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -18503,21 +27270,7 @@ static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GL
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -18525,10 +27278,10 @@ static void REGAL_CALL emu_glDrawArraysInstancedEXT(GLenum mode, GLint start, GL
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawArraysInstancedEXT(mode, start, count, primcount);
+   rCtx->dsp->curr->glGetProgramEnvParameterIivNV(target, index, params);
 }
 
-static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei primcount)
+static void REGAL_CALL emu_glGetProgramEnvParameterIuivNV(GLenum target, GLuint index, GLuint *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -18541,21 +27294,7 @@ static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -18563,12 +27302,10 @@ static void REGAL_CALL emu_glDrawElementsInstancedEXT(GLenum mode, GLsizei count
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
+   rCtx->dsp->curr->glGetProgramEnvParameterIuivNV(target, index, params);
 }
 
-// GL_EXT_texture_array
-
-static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
+static void REGAL_CALL emu_glGetProgramLocalParameterIivNV(GLenum target, GLuint index, GLint *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -18581,7 +27318,7 @@ static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum at
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -18589,16 +27326,10 @@ static void REGAL_CALL emu_glFramebufferTextureLayerEXT(GLenum target, GLenum at
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
+   rCtx->dsp->curr->glGetProgramLocalParameterIivNV(target, index, params);
 }
 
-// GL_EXT_texture_buffer_object
-
-// GL_NV_depth_buffer_float
-
-// GL_NV_framebuffer_multisample_coverage
-
-static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height)
+static void REGAL_CALL emu_glGetProgramLocalParameterIuivNV(GLenum target, GLuint index, GLuint *params)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -18611,7 +27342,7 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum tar
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreFramebuffer( rCtx );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -18619,8989 +27350,10 @@ static void REGAL_CALL emu_glRenderbufferStorageMultisampleCoverageNV(GLenum tar
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
+   rCtx->dsp->curr->glGetProgramLocalParameterIuivNV(target, index, params);
 }
 
-// GL_NV_parameter_buffer_object
-
-// GL_EXT_draw_buffers2
-
-static void REGAL_CALL emu_glEnableIndexedEXT(GLenum target, GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
-             rCtx->dsp->emuTbl.glEnable( target );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->EnableIndexed( target, index );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glEnableIndexedEXT(target, index);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glDisableIndexedEXT(GLenum target, GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, index + GL_TEXTURE0 );
-             rCtx->dsp->emuTbl.glDisable( target );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->DisableIndexed( target, index );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glDisableIndexedEXT(target, index);
-         break;
-       }
-
-   }
-
-}
-
-static GLboolean REGAL_CALL emu_glIsEnabledIndexedEXT(GLenum target, GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             GLboolean ret;
-             ret = rCtx->dsa->IsEnabledIndexed( rCtx, target, index );
-             return ret;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glIsEnabledIndexedEXT(target, index);
-       }
-
-   }
-
-}
-
-// GL_NV_transform_feedback
-
-// GL_EXT_bindable_uniform
-
-// GL_EXT_texture_integer
-
-// GL_GREMEDY_frame_terminator
-
-// GL_NV_conditional_render
-
-// GL_NV_present_video
-
-// GL_EXT_transform_feedback
-
-// GL_EXT_direct_state_access
-
-static void REGAL_CALL emu_glClientAttribDefaultEXT(GLbitfield mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->ClientAttribDefault( rCtx, mask );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glClientAttribDefaultEXT(mask);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glPushClientAttribDefaultEXT(GLbitfield mask)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsp->emuTbl.glPushClientAttrib( mask );
-             rCtx->dsa->ClientAttribDefault( rCtx, mask );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glPushClientAttribDefaultEXT(mask);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixLoadfEXT(GLenum mode, const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glLoadMatrixf( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixLoad( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixLoadfEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixLoaddEXT(GLenum mode, const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glLoadMatrixd( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixLoad( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixLoaddEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixMultfEXT(GLenum mode, const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glMultMatrixf( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixMult( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixMultfEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixMultdEXT(GLenum mode, const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glMultMatrixd( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixMult( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixMultdEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixLoadIdentityEXT(GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glLoadIdentity(  );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixLoadIdentity( mode );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixLoadIdentityEXT(mode);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixRotatefEXT(GLenum mode, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glRotatef( angle, x, y, z );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixRotate( mode, angle, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixRotatefEXT(mode, angle, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixRotatedEXT(GLenum mode, GLdouble angle, GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glRotated( angle, x, y, z );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixRotate( mode, angle, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixRotatedEXT(mode, angle, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixScalefEXT(GLenum mode, GLfloat x, GLfloat y, GLfloat z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glScalef( x, y, z );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixScale( mode, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixScalefEXT(mode, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixScaledEXT(GLenum mode, GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glScaled( x, y, z );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixScale( mode, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixScaledEXT(mode, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixTranslatefEXT(GLenum mode, GLfloat x, GLfloat y, GLfloat z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glTranslatef( x, y, z );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixTranslate( mode, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixTranslatefEXT(mode, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixTranslatedEXT(GLenum mode, GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glTranslated( x, y, z );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixTranslate( mode, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixTranslatedEXT(mode, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixFrustumEXT(GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glFrustum( left, right, bottom, top, zNear, zFar );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixFrustum( mode, left, right, bottom, top, zNear, zFar );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixOrthoEXT(GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glOrtho( left, right, bottom, top, zNear, zFar );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixOrtho( mode, left, right, bottom, top, zNear, zFar );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixPopEXT(GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glPopMatrix(  );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixPop( mode );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixPopEXT(mode);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixPushEXT(GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glPushMatrix(  );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixPush( mode );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixPushEXT(mode);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixLoadTransposefEXT(GLenum mode, const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glLoadTransposeMatrixf( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixLoadTranspose( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixLoadTransposefEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixLoadTransposedEXT(GLenum mode, const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glLoadTransposeMatrixd( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixLoadTranspose( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixLoadTransposedEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixMultTransposefEXT(GLenum mode, const GLfloat *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glMultTransposeMatrixf( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixMultTranspose( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixMultTransposefEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMatrixMultTransposedEXT(GLenum mode, const GLdouble *m)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaMatrixMode( rCtx, mode );
-             rCtx->dsp->emuTbl.glMultTransposeMatrixd( m );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->MatrixMultTranspose( mode, m );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMatrixMultTransposedEXT(mode, m);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureParameterfEXT(GLuint texture, GLenum target, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureParameterfEXT(texture, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, const GLfloat *param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureParameterfvEXT(texture, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureParameteriEXT(GLuint texture, GLenum target, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureParameteriEXT(texture, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, const GLint *param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureParameterivEXT(texture, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureSubImage1DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureSubImage2DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyTextureSubImage1DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyTextureSubImage2DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureImageEXT(GLuint texture, GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureImageEXT(texture, target, level, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureParameterfvEXT(GLuint texture, GLenum target, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureParameterfvEXT(texture, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureParameterivEXT(GLuint texture, GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureParameterivEXT(texture, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureLevelParameterfvEXT(GLuint texture, GLenum target, GLint level, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureLevelParameterivEXT(GLuint texture, GLenum target, GLint level, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowTextureInfo( texture, target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureSubImage3DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyTextureSubImage3DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexParameterfEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexParameterf( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexParameterfEXT(texunit, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, const GLfloat *param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexParameterfv( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexParameterfvEXT(texunit, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexParameteriEXT(GLenum texunit, GLenum target, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexParameteri( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexParameteriEXT(texunit, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexParameteriv( target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexParameterivEXT(texunit, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexImage1D( target, level, internalformat, width, border, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexImage2D( target, level, internalformat, width, height, border, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexSubImage1D( target, level, xoffset, width, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexSubImage2D( target, level, xoffset, yoffset, width, height, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCopyTexImage1D( target, level, internalformat, x, y, width, border );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCopyTexImage2D( target, level, internalformat, x, y, width, height, border );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCopyTexSubImage1D( target, level, xoffset, x, y, width );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCopyTexSubImage2D( target, level, xoffset, yoffset, x, y, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexImageEXT(GLenum texunit, GLenum target, GLint level, GLenum format, GLenum type, GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexImage( target, level, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexParameterfvEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexParameterfv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexParameterfvEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexParameterivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexParameteriv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexParameterivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexLevelParameterfvEXT(GLenum texunit, GLenum target, GLint level, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexLevelParameterfv( target, level, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexLevelParameterivEXT(GLenum texunit, GLenum target, GLint level, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexLevelParameteriv( target, level, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowMultiTexInfo( texunit, target, internalformat );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexImage3D( target, level, internalformat, width, height, depth, border, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCopyMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCopyTexSubImage3D( target, level, xoffset, yoffset, zoffset, x, y, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glBindMultiTextureEXT(GLenum texunit, GLenum target, GLuint texture)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->ShadowMultiTexBinding( texunit, target, texture );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsa->ShadowDsaTexture( target, texture );
-             rCtx->dsp->emuTbl.glBindTexture( target, texture );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glBindMultiTextureEXT(texunit, target, texture);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glEnableClientStateIndexedEXT(GLenum array, GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
-             rCtx->dsp->emuTbl.glEnableClientState( array );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glEnableClientStateIndexedEXT(array, index);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glDisableClientStateIndexedEXT(GLenum array, GLuint index)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaClientActiveTexture( rCtx, index + GL_TEXTURE0 );
-             rCtx->dsp->emuTbl.glDisableClientState( array );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glDisableClientStateIndexedEXT(array, index);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexCoordPointerEXT(GLenum texunit, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaClientActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexCoordPointer( size, type, stride, pointer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexEnvfEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexEnvf( target, pname, param );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( texunit, target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexEnvfEXT(texunit, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexEnvfv( target, pname, params );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( texunit, target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexEnvfvEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexEnviEXT(GLenum texunit, GLenum target, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexEnvi( target, pname, param );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( texunit, target, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexEnviEXT(texunit, target, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexEnvivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexEnviv( target, pname, params );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->TexEnv( texunit, target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexEnvivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexGendEXT(GLenum texunit, GLenum coord, GLenum pname, GLdouble param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexGend( coord, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexGendEXT(texunit, coord, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexGendvEXT(GLenum texunit, GLenum coord, GLenum pname, const GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexGendv( coord, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexGendvEXT(texunit, coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexGenfEXT(GLenum texunit, GLenum coord, GLenum pname, GLfloat param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexGenf( coord, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexGenfEXT(texunit, coord, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLenum pname, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexGenfv( coord, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexGenfvEXT(texunit, coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexGeniEXT(GLenum texunit, GLenum coord, GLenum pname, GLint param)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexGeni( coord, pname, param );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexGeniEXT(texunit, coord, pname, param);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexGenivEXT(GLenum texunit, GLenum coord, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexGeniv( coord, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexGenivEXT(texunit, coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexEnvfvEXT(GLenum texunit, GLenum target, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexEnvfv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexEnvfvEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexEnvivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexEnviv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexEnvivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexGendvEXT(GLenum texunit, GLenum coord, GLenum pname, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexGendv( coord, pname, params );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetMultiTexGendvEXT( texunit, coord, pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexGendvEXT(texunit, coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexGenfvEXT(GLenum texunit, GLenum coord, GLenum pname, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexGenfv( coord, pname, params );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetMultiTexGenfvEXT( texunit, coord, pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexGenfvEXT(texunit, coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexGenivEXT(GLenum texunit, GLenum coord, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexGeniv( coord, pname, params );
-             return;
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->RestoreVao( rCtx );
-             if ( ! rCtx->iff->GetMultiTexGenv( rCtx, texunit, coord, pname, params ) ) {
-                 rCtx->dsp->emuTbl.glGetMultiTexGenivEXT( texunit, coord, pname, params );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexGenivEXT(texunit, coord, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetFloatIndexedvEXT(GLenum target, GLuint index, GLfloat *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
-                 rCtx->dsp->emuTbl.glGetFloatIndexedvEXT( target, index, data );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetFloatIndexedvEXT(target, index, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetDoubleIndexedvEXT(GLenum target, GLuint index, GLdouble *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
-                 rCtx->dsp->emuTbl.glGetDoubleIndexedvEXT( target, index, data );
-             }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetDoubleIndexedvEXT(target, index, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetPointerIndexedvEXT(GLenum target, GLuint index, GLvoid **data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             // if ( ! rCtx->dsa->GetIndexedv( rCtx, target, index, data ) ) {
-             //     rCtx->dsp->emuTbl.glGetPointerIndexedvEXT( target, index, data );
-             // }
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetPointerIndexedvEXT(target, index, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedTextureImage3DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedTextureImage2DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedTextureImage1DEXT(GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedTextureSubImage3DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedTextureSubImage2DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedTextureSubImage1DEXT(GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetCompressedTextureImageEXT(GLuint texture, GLenum target, GLint lod, GLvoid *img)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetCompressedTextureImageEXT(texture, target, lod, img);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedMultiTexImage3DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCompressedTexImage3D( target, level, internalformat, width, height, depth, border, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedMultiTexImage2DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *bits)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCompressedTexImage2D( target, level, internalformat, width, height, border, imageSize, bits );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedMultiTexImage1DEXT(GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCompressedTexImage1D( target, level, internalformat, width, border, imageSize, data );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedMultiTexSubImage3DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCompressedTexSubImage3D( target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedMultiTexSubImage2DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCompressedTexSubImage2D( target, level, xoffset, yoffset, width, height, format, imageSize, data );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glCompressedMultiTexSubImage1DEXT(GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glCompressedTexSubImage1D( target, level, xoffset, width, format, imageSize, data );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetCompressedMultiTexImageEXT(GLenum texunit, GLenum target, GLint lod, GLvoid *img)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetCompressedTexImage( target, lod, img );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetCompressedMultiTexImageEXT(texunit, target, lod, img);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramStringEXT(GLuint program, GLenum target, GLenum format, GLsizei len, const GLvoid *string)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramStringARB( target, format, len, string );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramStringEXT(program, target, format, len, string);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameter4dEXT(GLuint program, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameter4dARB( target, index, x, y, z, w );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameter4dvEXT(GLuint program, GLenum target, GLuint index, const GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameter4dvARB( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameter4dvEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameter4fEXT(GLuint program, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameter4fARB( target, index, x, y, z, w );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameter4fvEXT(GLuint program, GLenum target, GLuint index, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameter4fvARB( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameter4fvEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedProgramLocalParameterdvEXT(GLuint program, GLenum target, GLuint index, GLdouble *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glGetProgramLocalParameterdvARB( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedProgramLocalParameterfvEXT(GLuint program, GLenum target, GLuint index, GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glGetProgramLocalParameterfvARB( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedProgramivEXT(GLuint program, GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glGetProgramivARB( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedProgramivEXT(program, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedProgramStringEXT(GLuint program, GLenum target, GLenum pname, GLvoid *string)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glGetProgramStringARB( target, pname, string );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedProgramStringEXT(program, target, pname, string);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameters4fvEXT(GLuint program, GLenum target, GLuint index, GLsizei count, const GLfloat *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameters4fvEXT( target, index, count, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameterI4iEXT(GLuint program, GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameterI4iNV( target, index, x, y, z, w );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameterI4ivEXT(GLuint program, GLenum target, GLuint index, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameterI4ivNV( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParametersI4ivEXT(GLuint program, GLenum target, GLuint index, GLsizei count, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParametersI4ivNV( target, index, count, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameterI4uiEXT(GLuint program, GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameterI4uiNV( target, index, x, y, z, w );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParameterI4uivEXT(GLuint program, GLenum target, GLuint index, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParameterI4uivNV( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedProgramLocalParametersI4uivEXT(GLuint program, GLenum target, GLuint index, GLsizei count, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glProgramLocalParametersI4uivNV( target, index, count, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedProgramLocalParameterIivEXT(GLuint program, GLenum target, GLuint index, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glGetProgramLocalParameterIivNV( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedProgramLocalParameterIuivEXT(GLuint program, GLenum target, GLuint index, GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaAsmProgram( rCtx, target, program);
-             rCtx->dsp->emuTbl.glGetProgramLocalParameterIuivNV( target, index, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureParameterIivEXT(GLuint texture, GLenum target, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureParameterIivEXT(texture, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureParameterIuivEXT(GLuint texture, GLenum target, GLenum pname, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureParameterIuivEXT(texture, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureParameterIivEXT(GLuint texture, GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureParameterIivEXT(texture, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetTextureParameterIuivEXT(GLuint texture, GLenum target, GLenum pname, GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetTextureParameterIuivEXT(texture, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexParameterIivEXT(GLenum texunit, GLenum target, GLenum pname, const GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexParameterIiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexParameterIivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexParameterIuivEXT(GLenum texunit, GLenum target, GLenum pname, const GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexParameterIuiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexParameterIuivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexParameterIivEXT(GLenum texunit, GLenum target, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexParameterIiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexParameterIivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetMultiTexParameterIuivEXT(GLenum texunit, GLenum target, GLenum pname, GLuint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGetTexParameterIuiv( target, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1fEXT(GLuint program, GLint location, GLfloat v0)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1f( location, v0 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1fEXT(program, location, v0);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2fEXT(GLuint program, GLint location, GLfloat v0, GLfloat v1)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2f( location, v0, v1 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2fEXT(program, location, v0, v1);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3fEXT(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3f( location, v0, v1, v2 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3fEXT(program, location, v0, v1, v2);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4fEXT(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4f( location, v0, v1, v2, v3 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1iEXT(GLuint program, GLint location, GLint v0)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1i( location, v0 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1iEXT(program, location, v0);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2iEXT(GLuint program, GLint location, GLint v0, GLint v1)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2i( location, v0, v1 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2iEXT(program, location, v0, v1);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3iEXT(GLuint program, GLint location, GLint v0, GLint v1, GLint v2)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3i( location, v0, v1, v2 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3iEXT(program, location, v0, v1, v2);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4iEXT(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4i( location, v0, v1, v2, v3 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1fv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1fvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2fv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2fvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3fv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3fvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4fvEXT(GLuint program, GLint location, GLsizei count, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4fv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4fvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1iv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1ivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2iv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2ivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3iv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3ivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4ivEXT(GLuint program, GLint location, GLsizei count, const GLint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4iv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4ivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix2fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix3fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix4fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix2x3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix2x3fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix3x2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix3x2fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix2x4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix2x4fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix4x2fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix4x2fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix3x4fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix3x4fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix4x3fvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix4x3fv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1uiEXT(GLuint program, GLint location, GLuint v0)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1ui( location, v0 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1uiEXT(program, location, v0);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2uiEXT(GLuint program, GLint location, GLuint v0, GLuint v1)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2ui( location, v0, v1 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2uiEXT(program, location, v0, v1);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3uiEXT(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3ui( location, v0, v1, v2 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3uiEXT(program, location, v0, v1, v2);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4uiEXT(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4ui( location, v0, v1, v2, v3 );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1uiv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1uivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2uiv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2uivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3uiv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3uivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4uivEXT(GLuint program, GLint location, GLsizei count, const GLuint *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4uiv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4uivEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedBufferDataEXT(GLuint buffer, GLsizeiptr size, const GLvoid *data, GLenum usage)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             rCtx->dsp->emuTbl.glBufferData( GL_ARRAY_BUFFER, size, data, usage );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedBufferDataEXT(buffer, size, data, usage);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedBufferSubDataEXT(GLuint buffer, GLintptr offset, GLsizeiptr size, const GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             rCtx->dsp->emuTbl.glBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedBufferSubDataEXT(buffer, offset, size, data);
-         break;
-       }
-
-   }
-
-}
-
-static GLvoid *REGAL_CALL emu_glMapNamedBufferEXT(GLuint buffer, GLenum access)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             return rCtx->dsp->emuTbl.glMapBuffer( GL_ARRAY_BUFFER, access );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glMapNamedBufferEXT(buffer, access);
-       }
-
-   }
-
-}
-
-static GLboolean REGAL_CALL emu_glUnmapNamedBufferEXT(GLuint buffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             return rCtx->dsp->emuTbl.glUnmapBuffer( GL_ARRAY_BUFFER );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glUnmapNamedBufferEXT(buffer);
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedBufferParameterivEXT(GLuint buffer, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             rCtx->dsp->emuTbl.glGetBufferParameteriv( GL_ARRAY_BUFFER, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedBufferParameterivEXT(buffer, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedBufferPointervEXT(GLuint buffer, GLenum pname, GLvoid **params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             rCtx->dsp->emuTbl.glGetBufferPointerv( GL_ARRAY_BUFFER, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedBufferPointervEXT(buffer, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedBufferSubDataEXT(GLuint buffer, GLintptr offset, GLsizeiptr size, GLvoid *data)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             rCtx->dsp->emuTbl.glGetBufferSubData( GL_ARRAY_BUFFER, offset, size, data );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedBufferSubDataEXT(buffer, offset, size, data);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureBufferEXT(GLuint texture, GLenum target, GLenum internalformat, GLuint buffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureBufferEXT(texture, target, internalformat, buffer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexBufferEXT(GLenum texunit, GLenum target, GLenum internalformat, GLuint buffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexBuffer( target, internalformat, buffer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexBufferEXT(texunit, target, internalformat, buffer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedRenderbufferStorageEXT(GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-             rCtx->dsp->emuTbl.glRenderbufferStorage( GL_FRAMEBUFFER, internalformat, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedRenderbufferParameterivEXT(GLuint renderbuffer, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-             rCtx->dsp->emuTbl.glGetRenderbufferParameteriv( GL_FRAMEBUFFER, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static GLenum REGAL_CALL emu_glCheckNamedFramebufferStatusEXT(GLuint framebuffer, GLenum target)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             return rCtx->dsp->emuTbl.glCheckFramebufferStatus( target );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glCheckNamedFramebufferStatusEXT(framebuffer, target);
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferTexture1DEXT(GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferTexture1D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferTexture2DEXT(GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferTexture2D( GL_FRAMEBUFFER, attachment, textarget, texture, level );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferTexture3DEXT(GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferTexture3D( GL_FRAMEBUFFER, attachment, textarget, texture, level, zoffset );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferRenderbufferEXT(GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferRenderbuffer( GL_FRAMEBUFFER, attachment, renderbuffertarget, renderbuffer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetNamedFramebufferAttachmentParameterivEXT(GLuint framebuffer, GLenum attachment, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glGetFramebufferAttachmentParameteriv( GL_FRAMEBUFFER, attachment, pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGenerateTextureMipmapEXT(GLuint texture, GLenum target)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glGenerateMipmap( target );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGenerateTextureMipmapEXT(texture, target);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGenerateMultiTexMipmapEXT(GLenum texunit, GLenum target)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glGenerateMipmap( target );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGenerateMultiTexMipmapEXT(texunit, target);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFramebufferDrawBufferEXT(GLuint framebuffer, GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glDrawBuffer( mode );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFramebufferDrawBufferEXT(framebuffer, mode);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFramebufferDrawBuffersEXT(GLuint framebuffer, GLsizei n, const GLenum *bufs)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glDrawBuffers( n, bufs );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFramebufferReadBufferEXT(GLuint framebuffer, GLenum mode)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glReadBuffer( mode );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFramebufferReadBufferEXT(framebuffer, mode);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glGetFramebufferParameterivEXT(GLuint framebuffer, GLenum pname, GLint *params)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer );
-             rCtx->dsp->emuTbl.glGetIntegerv( pname, params );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glGetFramebufferParameterivEXT(framebuffer, pname, params);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleEXT(GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-             rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleEXT( GL_FRAMEBUFFER, samples, internalformat, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedRenderbufferStorageMultisampleCoverageEXT(GLuint renderbuffer, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, renderbuffer);
-             rCtx->dsp->emuTbl.glRenderbufferStorageMultisampleCoverageNV( GL_FRAMEBUFFER, coverageSamples, colorSamples, internalformat, width, height );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferTextureEXT(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferTexture( GL_FRAMEBUFFER, attachment, texture, level );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferTextureLayerEXT(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferTextureLayer( GL_FRAMEBUFFER, attachment, texture, level, layer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedFramebufferTextureFaceEXT(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLenum face)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaFramebuffer( rCtx, GL_FRAMEBUFFER, framebuffer);
-             rCtx->dsp->emuTbl.glFramebufferTextureFace( GL_FRAMEBUFFER, attachment, texture, level, face );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glTextureRenderbufferEXT(GLuint texture, GLenum target, GLuint renderbuffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaTexture( rCtx, target, texture );
-             rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glTextureRenderbufferEXT(texture, target, renderbuffer);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glMultiTexRenderbufferEXT(GLenum texunit, GLenum target, GLuint renderbuffer)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaActiveTexture( rCtx, texunit );
-             rCtx->dsp->emuTbl.glTexRenderbufferNV( target, renderbuffer );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
-         break;
-       }
-
-   }
-
-}
-
-static GLvoid *REGAL_CALL emu_glMapNamedBufferRangeEXT(GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             return rCtx->dsp->emuTbl.glMapBufferRange( GL_ARRAY_BUFFER, offset, length, access );
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         return rCtx->dsp->curr->glMapNamedBufferRangeEXT(buffer, offset, length, access);
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glFlushMappedNamedBufferRangeEXT(GLuint buffer, GLintptr offset, GLsizeiptr length)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, buffer);
-             rCtx->dsp->emuTbl.glFlushMappedBufferRange( GL_ARRAY_BUFFER, offset, length );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glNamedCopyBufferSubDataEXT(GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaBuffer( rCtx, readBuffer);
-             rCtx->dsp->emuTbl.glCopyBufferSubData( GL_ARRAY_BUFFER, writeBuffer, readOffset, writeOffset, size );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1dEXT(GLuint program, GLint location, GLdouble x)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1d( location, x );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1dEXT(program, location, x);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2dEXT(GLuint program, GLint location, GLdouble x, GLdouble y)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2d( location, x, y );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2dEXT(program, location, x, y);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3dEXT(GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3d( location, x, y, z );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3dEXT(program, location, x, y, z);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4dEXT(GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4d( location, x, y, z, w );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4dEXT(program, location, x, y, z, w);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform1dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform1dv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform1dvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform2dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform2dv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform2dvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform3dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform3dv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform3dvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniform4dvEXT(GLuint program, GLint location, GLsizei count, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniform4dv( location, count, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniform4dvEXT(program, location, count, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix2dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix2dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix3dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix3dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix4dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix4dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix2x3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix2x3dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix2x3dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix2x4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix2x4dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix2x4dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix3x2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix3x2dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix3x2dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix3x4dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix3x4dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix3x4dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix4x2dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix4x2dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix4x2dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-static void REGAL_CALL emu_glProgramUniformMatrix4x3dvEXT(GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) break;
-         #endif
-       default:
-           break;
-   }
-
-   // impl
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->DsaGlslProgram( rCtx, program);
-             rCtx->dsp->emuTbl.glUniformMatrix4x3dv( location, count, transpose, value );
-             return;
-         }
-         #endif
-       default: {
-         DispatchStateScopedStepDown stepDown(rCtx->dsp);
-         rCtx->dsp->curr->glProgramUniformMatrix4x3dvEXT(program, location, count, transpose, value);
-         break;
-       }
-
-   }
-
-}
-
-// GL_NV_explicit_multisample
-
-static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffer)
+static void REGAL_CALL emu_glProgramEnvParameterI4iNV(GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w)
 {
    RegalContext * rCtx = GET_REGAL_CONTEXT();
 
@@ -27614,8 +27366,7 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
          #if REGAL_EMU_DSA
          if (rCtx->dsa) {
              RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->RestoreTexture( rCtx );
-             rCtx->dsa->RestoreActiveTexture( rCtx );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
          }
          #endif
        default:
@@ -27623,154 +27374,298 @@ static void REGAL_CALL emu_glTexRenderbufferNV(GLenum target, GLuint renderbuffe
    }
 
    DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glTexRenderbufferNV(target, renderbuffer);
+   rCtx->dsp->curr->glProgramEnvParameterI4iNV(target, index, x, y, z, w);
 }
 
-// GL_NV_transform_feedback2
+static void REGAL_CALL emu_glProgramEnvParameterI4ivNV(GLenum target, GLuint index, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_AMD_performance_monitor
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
 
-// GL_AMD_vertex_shader_tessellator
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParameterI4ivNV(target, index, params);
+}
 
-// GL_EXT_provoking_vertex
+static void REGAL_CALL emu_glProgramEnvParameterI4uiNV(GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_AMD_draw_buffers_blend
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
 
-// GL_APPLE_texture_range
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
+}
 
-// GL_APPLE_vertex_program_evaluators
+static void REGAL_CALL emu_glProgramEnvParameterI4uivNV(GLenum target, GLuint index, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_APPLE_object_purgeable
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
 
-// GL_NV_video_capture
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParameterI4uivNV(target, index, params);
+}
 
-// GL_NV_copy_image
+static void REGAL_CALL emu_glProgramEnvParametersI4ivNV(GLenum target, GLuint index, GLsizei count, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_EXT_separate_shader_objects
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
 
-// GL_NV_shader_buffer_load
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParametersI4ivNV(target, index, count, params);
+}
 
-// GL_NV_vertex_buffer_unified_memory
+static void REGAL_CALL emu_glProgramEnvParametersI4uivNV(GLenum target, GLuint index, GLsizei count, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
 
-// GL_NV_texture_barrier
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
 
-// GL_EXT_shader_image_load_store
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramEnvParametersI4uivNV(target, index, count, params);
+}
 
-// GL_EXT_vertex_attrib_64bit
+static void REGAL_CALL emu_glProgramLocalParameterI4iNV(GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameterI4iNV(target, index, x, y, z, w);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameterI4ivNV(GLenum target, GLuint index, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameterI4ivNV(target, index, params);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameterI4uiNV(GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
+}
+
+static void REGAL_CALL emu_glProgramLocalParameterI4uivNV(GLenum target, GLuint index, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParameterI4uivNV(target, index, params);
+}
+
+static void REGAL_CALL emu_glProgramLocalParametersI4ivNV(GLenum target, GLuint index, GLsizei count, const GLint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParametersI4ivNV(target, index, count, params);
+}
+
+static void REGAL_CALL emu_glProgramLocalParametersI4uivNV(GLenum target, GLuint index, GLsizei count, const GLuint *params)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+         #if REGAL_EMU_DSA
+         if (rCtx->dsa) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
+             rCtx->dsa->RestoreAsmProgram( rCtx, target );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glProgramLocalParametersI4uivNV(target, index, count, params);
+}
 
 // GL_NV_gpu_shader5
 
-// GL_NV_vertex_attrib_integer_64bit
+// GL_NV_half_float
 
-// GL_NV_vdpau_interop
+// GL_NV_occlusion_query
+
+// GL_NV_parameter_buffer_object
 
 // GL_NV_path_rendering
 
-// GL_REGAL_extension_query
+// GL_NV_pixel_data_range
 
-// GL_REGAL_error_string
+// GL_NV_point_sprite
 
-// GL_AMD_debug_output
+// GL_NV_present_video
 
-// GL_AMD_multi_draw_indirect
+// GL_NV_primitive_restart
 
-static void REGAL_CALL emu_glMultiDrawArraysIndirectAMD(GLenum mode, const GLvoid *indirect, GLsizei primcount, GLsizei stride)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
+// GL_NV_register_combiners
 
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
+// GL_NV_register_combiners2
 
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
-}
+// GL_NV_shader_buffer_load
 
-static void REGAL_CALL emu_glMultiDrawElementsIndirectAMD(GLenum mode, GLenum type, const GLvoid *indirect, GLsizei primcount, GLsizei stride)
-{
-   RegalContext * rCtx = GET_REGAL_CONTEXT();
-
-   // prefix
-   switch( rCtx->emuLevel ) {
-       case 6 :
-       case 5 :
-       case 4 :
-       case 3 :
-         #if REGAL_EMU_DSA
-         if (rCtx->dsa) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->dsa );
-             rCtx->dsa->Restore( rCtx );
-         }
-         #endif
-       case 2 :
-         #if REGAL_EMU_IFF
-         if (rCtx->iff) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
-             rCtx->iff->PreDraw( rCtx );
-         }
-         #endif
-       case 1 :
-         #if REGAL_EMU_VAO
-         if (rCtx->vao) {
-             RegalEmuScopedActivate activate( rCtx, rCtx->vao );
-             // rCtx->vao->Validate( rCtx );
-         }
-         #endif
-       default:
-           break;
-   }
-
-   DispatchStateScopedStepDown stepDown(rCtx->dsp);
-   rCtx->dsp->curr->glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
-}
-
-// GL_AMD_name_gen_delete
-
-// GL_AMD_sample_positions
-
-// GL_AMD_stencil_operation_extended
-
-// GL_ARB_base_instance
-
-// GL_ARB_cl_event
-
-// GL_ARB_internalformat_query
-
-// GL_ARB_texture_storage
-
-// GL_ARB_transform_feedback_instanced
-
-// GL_EXT_x11_sync_object
-
-// GL_INTEL_texture_scissor
-
-// GL_NV_bindless_texture
+// GL_NV_texture_barrier
 
 // GL_NV_texture_multisample
 
@@ -27824,17 +27719,112 @@ static void REGAL_CALL emu_glTexImage3DMultisampleCoverageNV(GLenum target, GLsi
    rCtx->dsp->curr->glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
 }
 
-// GL_SUN_read_video_pixels
+// GL_NV_transform_feedback
 
-// GL_EXT_fragment_lighting
+// GL_NV_transform_feedback2
 
-// GL_EXT_debug_marker
+// GL_NV_vdpau_interop
 
-// GL_KTX_buffer_region
+// GL_NV_vertex_array_range
+
+// GL_NV_vertex_attrib_integer_64bit
+
+// GL_NV_vertex_buffer_unified_memory
+
+// GL_NV_vertex_program
+
+// GL_NV_vertex_program4
+
+// GL_NV_video_capture
+
+// GL_PGI_misc_hints
+
+// GL_REGAL_error_string
+
+// GL_REGAL_extension_query
+
+// GL_SGIS_detail_texture
+
+// GL_SGIS_fog_function
+
+// GL_SGIS_multisample
+
+// GL_SGIS_pixel_texture
+
+// GL_SGIS_point_parameters
+
+// GL_SGIS_sharpen_texture
+
+// GL_SGIS_texture4D
+
+static void REGAL_CALL emu_glTexImage4DSGIS(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLint border, GLenum format, GLenum type, const GLvoid *pixels)
+{
+   RegalContext * rCtx = GET_REGAL_CONTEXT();
+
+   // prefix
+   switch( rCtx->emuLevel ) {
+       case 6 :
+       case 5 :
+       case 4 :
+       case 3 :
+       case 2 :
+         #if REGAL_EMU_IFF
+         if (rCtx->iff) {
+             RegalEmuScopedActivate activate( rCtx, rCtx->iff );
+             rCtx->iff->ShadowTexInfo( target, internalformat );
+         }
+         #endif
+       default:
+           break;
+   }
+
+   DispatchStateScopedStepDown stepDown(rCtx->dsp);
+   rCtx->dsp->curr->glTexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, border, format, type, pixels);
+}
+
+// GL_SGIS_texture_color_mask
+
+// GL_SGIS_texture_filter4
+
+// GL_SGIX_async
+
+// GL_SGIX_flush_raster
 
 // GL_SGIX_fog_texture
 
-// GL_APPLE_flush_render
+// GL_SGIX_fragment_lighting
+
+// GL_SGIX_framezoom
+
+// GL_SGIX_igloo_interface
+
+// GL_SGIX_instruments
+
+// GL_SGIX_list_priority
+
+// GL_SGIX_pixel_texture
+
+// GL_SGIX_polynomial_ffd
+
+// GL_SGIX_reference_plane
+
+// GL_SGIX_sprite
+
+// GL_SGIX_tag_sample_buffer
+
+// GL_SGI_color_table
+
+// GL_SUNX_constant_data
+
+// GL_SUN_global_alpha
+
+// GL_SUN_mesh_array
+
+// GL_SUN_read_video_pixels
+
+// GL_SUN_triangle_list
+
+// GL_SUN_vertex
 
 // GL_WIN_swap_hint
 
@@ -27843,7 +27833,11 @@ void InitDispatchTableEmu(DispatchTable &tbl)
 
 // GL_VERSION_1_0
 
+   tbl.glAlphaFunc = emu_glAlphaFunc;
    tbl.glBegin = emu_glBegin;
+   tbl.glClearDepth = emu_glClearDepth;
+   tbl.glClearStencil = emu_glClearStencil;
+   tbl.glClipPlane = emu_glClipPlane;
    tbl.glColor3b = emu_glColor3b;
    tbl.glColor3bv = emu_glColor3bv;
    tbl.glColor3d = emu_glColor3d;
@@ -27876,7 +27870,51 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glColor4uiv = emu_glColor4uiv;
    tbl.glColor4us = emu_glColor4us;
    tbl.glColor4usv = emu_glColor4usv;
+   tbl.glColorMaterial = emu_glColorMaterial;
+   tbl.glCullFace = emu_glCullFace;
+   tbl.glDepthFunc = emu_glDepthFunc;
+   tbl.glDepthMask = emu_glDepthMask;
+   tbl.glDisable = emu_glDisable;
+   tbl.glEnable = emu_glEnable;
    tbl.glEnd = emu_glEnd;
+   tbl.glFogf = emu_glFogf;
+   tbl.glFogfv = emu_glFogfv;
+   tbl.glFogi = emu_glFogi;
+   tbl.glFogiv = emu_glFogiv;
+   tbl.glFrontFace = emu_glFrontFace;
+   tbl.glFrustum = emu_glFrustum;
+   tbl.glGetBooleanv = emu_glGetBooleanv;
+   tbl.glGetDoublev = emu_glGetDoublev;
+   tbl.glGetFloatv = emu_glGetFloatv;
+   tbl.glGetIntegerv = emu_glGetIntegerv;
+   tbl.glGetMaterialfv = emu_glGetMaterialfv;
+   tbl.glGetMaterialiv = emu_glGetMaterialiv;
+   tbl.glGetTexEnvfv = emu_glGetTexEnvfv;
+   tbl.glGetTexEnviv = emu_glGetTexEnviv;
+   tbl.glGetTexGendv = emu_glGetTexGendv;
+   tbl.glGetTexGenfv = emu_glGetTexGenfv;
+   tbl.glGetTexGeniv = emu_glGetTexGeniv;
+   tbl.glGetTexParameterfv = emu_glGetTexParameterfv;
+   tbl.glGetTexParameteriv = emu_glGetTexParameteriv;
+   tbl.glIsEnabled = emu_glIsEnabled;
+   tbl.glLightModelf = emu_glLightModelf;
+   tbl.glLightModelfv = emu_glLightModelfv;
+   tbl.glLightModeli = emu_glLightModeli;
+   tbl.glLightModeliv = emu_glLightModeliv;
+   tbl.glLightf = emu_glLightf;
+   tbl.glLightfv = emu_glLightfv;
+   tbl.glLighti = emu_glLighti;
+   tbl.glLightiv = emu_glLightiv;
+   tbl.glLoadIdentity = emu_glLoadIdentity;
+   tbl.glLoadMatrixd = emu_glLoadMatrixd;
+   tbl.glLoadMatrixf = emu_glLoadMatrixf;
+   tbl.glMaterialf = emu_glMaterialf;
+   tbl.glMaterialfv = emu_glMaterialfv;
+   tbl.glMateriali = emu_glMateriali;
+   tbl.glMaterialiv = emu_glMaterialiv;
+   tbl.glMatrixMode = emu_glMatrixMode;
+   tbl.glMultMatrixd = emu_glMultMatrixd;
+   tbl.glMultMatrixf = emu_glMultMatrixf;
    tbl.glNormal3b = emu_glNormal3b;
    tbl.glNormal3bv = emu_glNormal3bv;
    tbl.glNormal3d = emu_glNormal3d;
@@ -27887,6 +27925,20 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glNormal3iv = emu_glNormal3iv;
    tbl.glNormal3s = emu_glNormal3s;
    tbl.glNormal3sv = emu_glNormal3sv;
+   tbl.glOrtho = emu_glOrtho;
+   tbl.glPolygonMode = emu_glPolygonMode;
+   tbl.glPopAttrib = emu_glPopAttrib;
+   tbl.glPopMatrix = emu_glPopMatrix;
+   tbl.glPushAttrib = emu_glPushAttrib;
+   tbl.glPushMatrix = emu_glPushMatrix;
+   tbl.glRotated = emu_glRotated;
+   tbl.glRotatef = emu_glRotatef;
+   tbl.glScaled = emu_glScaled;
+   tbl.glScalef = emu_glScalef;
+   tbl.glShadeModel = emu_glShadeModel;
+   tbl.glStencilFunc = emu_glStencilFunc;
+   tbl.glStencilMask = emu_glStencilMask;
+   tbl.glStencilOp = emu_glStencilOp;
    tbl.glTexCoord1d = emu_glTexCoord1d;
    tbl.glTexCoord1dv = emu_glTexCoord1dv;
    tbl.glTexCoord1f = emu_glTexCoord1f;
@@ -27919,6 +27971,24 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glTexCoord4iv = emu_glTexCoord4iv;
    tbl.glTexCoord4s = emu_glTexCoord4s;
    tbl.glTexCoord4sv = emu_glTexCoord4sv;
+   tbl.glTexEnvf = emu_glTexEnvf;
+   tbl.glTexEnvfv = emu_glTexEnvfv;
+   tbl.glTexEnvi = emu_glTexEnvi;
+   tbl.glTexEnviv = emu_glTexEnviv;
+   tbl.glTexGend = emu_glTexGend;
+   tbl.glTexGendv = emu_glTexGendv;
+   tbl.glTexGenf = emu_glTexGenf;
+   tbl.glTexGenfv = emu_glTexGenfv;
+   tbl.glTexGeni = emu_glTexGeni;
+   tbl.glTexGeniv = emu_glTexGeniv;
+   tbl.glTexImage1D = emu_glTexImage1D;
+   tbl.glTexImage2D = emu_glTexImage2D;
+   tbl.glTexParameterf = emu_glTexParameterf;
+   tbl.glTexParameterfv = emu_glTexParameterfv;
+   tbl.glTexParameteri = emu_glTexParameteri;
+   tbl.glTexParameteriv = emu_glTexParameteriv;
+   tbl.glTranslated = emu_glTranslated;
+   tbl.glTranslatef = emu_glTranslatef;
    tbl.glVertex2d = emu_glVertex2d;
    tbl.glVertex2dv = emu_glVertex2dv;
    tbl.glVertex2f = emu_glVertex2f;
@@ -27943,101 +28013,21 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glVertex4iv = emu_glVertex4iv;
    tbl.glVertex4s = emu_glVertex4s;
    tbl.glVertex4sv = emu_glVertex4sv;
-   tbl.glClipPlane = emu_glClipPlane;
-   tbl.glColorMaterial = emu_glColorMaterial;
-   tbl.glCullFace = emu_glCullFace;
-   tbl.glFogf = emu_glFogf;
-   tbl.glFogfv = emu_glFogfv;
-   tbl.glFogi = emu_glFogi;
-   tbl.glFogiv = emu_glFogiv;
-   tbl.glFrontFace = emu_glFrontFace;
-   tbl.glLightf = emu_glLightf;
-   tbl.glLightfv = emu_glLightfv;
-   tbl.glLighti = emu_glLighti;
-   tbl.glLightiv = emu_glLightiv;
-   tbl.glLightModelf = emu_glLightModelf;
-   tbl.glLightModelfv = emu_glLightModelfv;
-   tbl.glLightModeli = emu_glLightModeli;
-   tbl.glLightModeliv = emu_glLightModeliv;
-   tbl.glMaterialf = emu_glMaterialf;
-   tbl.glMaterialfv = emu_glMaterialfv;
-   tbl.glMateriali = emu_glMateriali;
-   tbl.glMaterialiv = emu_glMaterialiv;
-   tbl.glPolygonMode = emu_glPolygonMode;
-   tbl.glShadeModel = emu_glShadeModel;
-   tbl.glTexParameterf = emu_glTexParameterf;
-   tbl.glTexParameterfv = emu_glTexParameterfv;
-   tbl.glTexParameteri = emu_glTexParameteri;
-   tbl.glTexParameteriv = emu_glTexParameteriv;
-   tbl.glTexImage1D = emu_glTexImage1D;
-   tbl.glTexImage2D = emu_glTexImage2D;
-   tbl.glTexEnvf = emu_glTexEnvf;
-   tbl.glTexEnvfv = emu_glTexEnvfv;
-   tbl.glTexEnvi = emu_glTexEnvi;
-   tbl.glTexEnviv = emu_glTexEnviv;
-   tbl.glTexGend = emu_glTexGend;
-   tbl.glTexGendv = emu_glTexGendv;
-   tbl.glTexGenf = emu_glTexGenf;
-   tbl.glTexGenfv = emu_glTexGenfv;
-   tbl.glTexGeni = emu_glTexGeni;
-   tbl.glTexGeniv = emu_glTexGeniv;
-   tbl.glClearDepth = emu_glClearDepth;
-   tbl.glClearStencil = emu_glClearStencil;
-   tbl.glDepthMask = emu_glDepthMask;
-   tbl.glStencilMask = emu_glStencilMask;
-   tbl.glDisable = emu_glDisable;
-   tbl.glEnable = emu_glEnable;
-   tbl.glPopAttrib = emu_glPopAttrib;
-   tbl.glPushAttrib = emu_glPushAttrib;
-   tbl.glAlphaFunc = emu_glAlphaFunc;
-   tbl.glDepthFunc = emu_glDepthFunc;
-   tbl.glStencilFunc = emu_glStencilFunc;
-   tbl.glStencilOp = emu_glStencilOp;
-   tbl.glGetBooleanv = emu_glGetBooleanv;
-   tbl.glGetDoublev = emu_glGetDoublev;
-   tbl.glGetFloatv = emu_glGetFloatv;
-   tbl.glGetIntegerv = emu_glGetIntegerv;
-   tbl.glGetMaterialfv = emu_glGetMaterialfv;
-   tbl.glGetMaterialiv = emu_glGetMaterialiv;
-   tbl.glGetTexEnvfv = emu_glGetTexEnvfv;
-   tbl.glGetTexEnviv = emu_glGetTexEnviv;
-   tbl.glGetTexGendv = emu_glGetTexGendv;
-   tbl.glGetTexGenfv = emu_glGetTexGenfv;
-   tbl.glGetTexGeniv = emu_glGetTexGeniv;
-   tbl.glGetTexParameterfv = emu_glGetTexParameterfv;
-   tbl.glGetTexParameteriv = emu_glGetTexParameteriv;
-   tbl.glIsEnabled = emu_glIsEnabled;
-   tbl.glFrustum = emu_glFrustum;
-   tbl.glLoadIdentity = emu_glLoadIdentity;
-   tbl.glLoadMatrixd = emu_glLoadMatrixd;
-   tbl.glLoadMatrixf = emu_glLoadMatrixf;
-   tbl.glMatrixMode = emu_glMatrixMode;
-   tbl.glMultMatrixd = emu_glMultMatrixd;
-   tbl.glMultMatrixf = emu_glMultMatrixf;
-   tbl.glOrtho = emu_glOrtho;
-   tbl.glPopMatrix = emu_glPopMatrix;
-   tbl.glPushMatrix = emu_glPushMatrix;
-   tbl.glRotated = emu_glRotated;
-   tbl.glRotatef = emu_glRotatef;
-   tbl.glScaled = emu_glScaled;
-   tbl.glScalef = emu_glScalef;
-   tbl.glTranslated = emu_glTranslated;
-   tbl.glTranslatef = emu_glTranslatef;
 
 // GL_VERSION_1_1
 
+   tbl.glBindTexture = emu_glBindTexture;
+   tbl.glColorPointer = emu_glColorPointer;
+   tbl.glDisableClientState = emu_glDisableClientState;
    tbl.glDrawArrays = emu_glDrawArrays;
    tbl.glDrawElements = emu_glDrawElements;
-   tbl.glInterleavedArrays = emu_glInterleavedArrays;
-   tbl.glDisableClientState = emu_glDisableClientState;
-   tbl.glEnableClientState = emu_glEnableClientState;
-   tbl.glColorPointer = emu_glColorPointer;
    tbl.glEdgeFlagPointer = emu_glEdgeFlagPointer;
+   tbl.glEnableClientState = emu_glEnableClientState;
+   tbl.glInterleavedArrays = emu_glInterleavedArrays;
    tbl.glNormalPointer = emu_glNormalPointer;
+   tbl.glPolygonOffset = emu_glPolygonOffset;
    tbl.glTexCoordPointer = emu_glTexCoordPointer;
    tbl.glVertexPointer = emu_glVertexPointer;
-   tbl.glPolygonOffset = emu_glPolygonOffset;
-   tbl.glBindTexture = emu_glBindTexture;
 
 // GL_VERSION_1_2
 
@@ -28047,6 +28037,10 @@ void InitDispatchTableEmu(DispatchTable &tbl)
 
    tbl.glActiveTexture = emu_glActiveTexture;
    tbl.glClientActiveTexture = emu_glClientActiveTexture;
+   tbl.glLoadTransposeMatrixd = emu_glLoadTransposeMatrixd;
+   tbl.glLoadTransposeMatrixf = emu_glLoadTransposeMatrixf;
+   tbl.glMultTransposeMatrixd = emu_glMultTransposeMatrixd;
+   tbl.glMultTransposeMatrixf = emu_glMultTransposeMatrixf;
    tbl.glMultiTexCoord1d = emu_glMultiTexCoord1d;
    tbl.glMultiTexCoord1dv = emu_glMultiTexCoord1dv;
    tbl.glMultiTexCoord1f = emu_glMultiTexCoord1f;
@@ -28079,16 +28073,12 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glMultiTexCoord4iv = emu_glMultiTexCoord4iv;
    tbl.glMultiTexCoord4s = emu_glMultiTexCoord4s;
    tbl.glMultiTexCoord4sv = emu_glMultiTexCoord4sv;
-   tbl.glLoadTransposeMatrixf = emu_glLoadTransposeMatrixf;
-   tbl.glLoadTransposeMatrixd = emu_glLoadTransposeMatrixd;
-   tbl.glMultTransposeMatrixf = emu_glMultTransposeMatrixf;
-   tbl.glMultTransposeMatrixd = emu_glMultTransposeMatrixd;
 
 // GL_VERSION_1_4
 
+   tbl.glFogCoordPointer = emu_glFogCoordPointer;
    tbl.glMultiDrawArrays = emu_glMultiDrawArrays;
    tbl.glMultiDrawElements = emu_glMultiDrawElements;
-   tbl.glFogCoordPointer = emu_glFogCoordPointer;
    tbl.glSecondaryColor3b = emu_glSecondaryColor3b;
    tbl.glSecondaryColor3bv = emu_glSecondaryColor3bv;
    tbl.glSecondaryColor3d = emu_glSecondaryColor3d;
@@ -28110,51 +28100,51 @@ void InitDispatchTableEmu(DispatchTable &tbl)
 // GL_VERSION_1_5
 
    tbl.glBindBuffer = emu_glBindBuffer;
-   tbl.glDeleteBuffers = emu_glDeleteBuffers;
-   tbl.glGenBuffers = emu_glGenBuffers;
-   tbl.glIsBuffer = emu_glIsBuffer;
    tbl.glBufferData = emu_glBufferData;
    tbl.glBufferSubData = emu_glBufferSubData;
-   tbl.glGetBufferSubData = emu_glGetBufferSubData;
-   tbl.glMapBuffer = emu_glMapBuffer;
-   tbl.glUnmapBuffer = emu_glUnmapBuffer;
+   tbl.glDeleteBuffers = emu_glDeleteBuffers;
+   tbl.glGenBuffers = emu_glGenBuffers;
    tbl.glGetBufferParameteriv = emu_glGetBufferParameteriv;
    tbl.glGetBufferPointerv = emu_glGetBufferPointerv;
+   tbl.glGetBufferSubData = emu_glGetBufferSubData;
+   tbl.glIsBuffer = emu_glIsBuffer;
+   tbl.glMapBuffer = emu_glMapBuffer;
+   tbl.glUnmapBuffer = emu_glUnmapBuffer;
 
 // GL_VERSION_2_0
 
-   tbl.glStencilOpSeparate = emu_glStencilOpSeparate;
-   tbl.glStencilFuncSeparate = emu_glStencilFuncSeparate;
-   tbl.glStencilMaskSeparate = emu_glStencilMaskSeparate;
    tbl.glCreateShader = emu_glCreateShader;
    tbl.glDisableVertexAttribArray = emu_glDisableVertexAttribArray;
    tbl.glEnableVertexAttribArray = emu_glEnableVertexAttribArray;
+   tbl.glGetVertexAttribPointerv = emu_glGetVertexAttribPointerv;
    tbl.glGetVertexAttribdv = emu_glGetVertexAttribdv;
    tbl.glGetVertexAttribfv = emu_glGetVertexAttribfv;
    tbl.glGetVertexAttribiv = emu_glGetVertexAttribiv;
-   tbl.glGetVertexAttribPointerv = emu_glGetVertexAttribPointerv;
    tbl.glLinkProgram = emu_glLinkProgram;
    tbl.glShaderSource = emu_glShaderSource;
-   tbl.glUseProgram = emu_glUseProgram;
+   tbl.glStencilFuncSeparate = emu_glStencilFuncSeparate;
+   tbl.glStencilMaskSeparate = emu_glStencilMaskSeparate;
+   tbl.glStencilOpSeparate = emu_glStencilOpSeparate;
    tbl.glUniform1f = emu_glUniform1f;
-   tbl.glUniform2f = emu_glUniform2f;
-   tbl.glUniform3f = emu_glUniform3f;
-   tbl.glUniform4f = emu_glUniform4f;
-   tbl.glUniform1i = emu_glUniform1i;
-   tbl.glUniform2i = emu_glUniform2i;
-   tbl.glUniform3i = emu_glUniform3i;
-   tbl.glUniform4i = emu_glUniform4i;
    tbl.glUniform1fv = emu_glUniform1fv;
-   tbl.glUniform2fv = emu_glUniform2fv;
-   tbl.glUniform3fv = emu_glUniform3fv;
-   tbl.glUniform4fv = emu_glUniform4fv;
+   tbl.glUniform1i = emu_glUniform1i;
    tbl.glUniform1iv = emu_glUniform1iv;
+   tbl.glUniform2f = emu_glUniform2f;
+   tbl.glUniform2fv = emu_glUniform2fv;
+   tbl.glUniform2i = emu_glUniform2i;
    tbl.glUniform2iv = emu_glUniform2iv;
+   tbl.glUniform3f = emu_glUniform3f;
+   tbl.glUniform3fv = emu_glUniform3fv;
+   tbl.glUniform3i = emu_glUniform3i;
    tbl.glUniform3iv = emu_glUniform3iv;
+   tbl.glUniform4f = emu_glUniform4f;
+   tbl.glUniform4fv = emu_glUniform4fv;
+   tbl.glUniform4i = emu_glUniform4i;
    tbl.glUniform4iv = emu_glUniform4iv;
    tbl.glUniformMatrix2fv = emu_glUniformMatrix2fv;
    tbl.glUniformMatrix3fv = emu_glUniformMatrix3fv;
    tbl.glUniformMatrix4fv = emu_glUniformMatrix4fv;
+   tbl.glUseProgram = emu_glUseProgram;
    tbl.glVertexAttrib1d = emu_glVertexAttrib1d;
    tbl.glVertexAttrib1dv = emu_glVertexAttrib1dv;
    tbl.glVertexAttrib1f = emu_glVertexAttrib1f;
@@ -28194,23 +28184,23 @@ void InitDispatchTableEmu(DispatchTable &tbl)
 // GL_VERSION_2_1
 
    tbl.glUniformMatrix2x3fv = emu_glUniformMatrix2x3fv;
-   tbl.glUniformMatrix3x2fv = emu_glUniformMatrix3x2fv;
    tbl.glUniformMatrix2x4fv = emu_glUniformMatrix2x4fv;
-   tbl.glUniformMatrix4x2fv = emu_glUniformMatrix4x2fv;
+   tbl.glUniformMatrix3x2fv = emu_glUniformMatrix3x2fv;
    tbl.glUniformMatrix3x4fv = emu_glUniformMatrix3x4fv;
+   tbl.glUniformMatrix4x2fv = emu_glUniformMatrix4x2fv;
    tbl.glUniformMatrix4x3fv = emu_glUniformMatrix4x3fv;
 
 // GL_VERSION_3_0
 
-   tbl.glEnablei = emu_glEnablei;
    tbl.glDisablei = emu_glDisablei;
+   tbl.glEnablei = emu_glEnablei;
    tbl.glUniform1ui = emu_glUniform1ui;
-   tbl.glUniform2ui = emu_glUniform2ui;
-   tbl.glUniform3ui = emu_glUniform3ui;
-   tbl.glUniform4ui = emu_glUniform4ui;
    tbl.glUniform1uiv = emu_glUniform1uiv;
+   tbl.glUniform2ui = emu_glUniform2ui;
    tbl.glUniform2uiv = emu_glUniform2uiv;
+   tbl.glUniform3ui = emu_glUniform3ui;
    tbl.glUniform3uiv = emu_glUniform3uiv;
+   tbl.glUniform4ui = emu_glUniform4ui;
    tbl.glUniform4uiv = emu_glUniform4uiv;
 
 // GL_VERSION_3_1
@@ -28224,111 +28214,23 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glFramebufferTexture = emu_glFramebufferTexture;
    tbl.glFramebufferTextureFace = emu_glFramebufferTextureFace;
 
-// GL_ARB_draw_indirect
+// GL_AMD_multi_draw_indirect
 
-   tbl.glDrawArraysIndirect = emu_glDrawArraysIndirect;
-   tbl.glDrawElementsIndirect = emu_glDrawElementsIndirect;
+   tbl.glMultiDrawArraysIndirectAMD = emu_glMultiDrawArraysIndirectAMD;
+   tbl.glMultiDrawElementsIndirectAMD = emu_glMultiDrawElementsIndirectAMD;
 
-// GL_ARB_gpu_shader_fp64
+// GL_APPLE_element_array
 
-   tbl.glUniform1d = emu_glUniform1d;
-   tbl.glUniform2d = emu_glUniform2d;
-   tbl.glUniform3d = emu_glUniform3d;
-   tbl.glUniform4d = emu_glUniform4d;
-   tbl.glUniform1dv = emu_glUniform1dv;
-   tbl.glUniform2dv = emu_glUniform2dv;
-   tbl.glUniform3dv = emu_glUniform3dv;
-   tbl.glUniform4dv = emu_glUniform4dv;
-   tbl.glUniformMatrix2dv = emu_glUniformMatrix2dv;
-   tbl.glUniformMatrix3dv = emu_glUniformMatrix3dv;
-   tbl.glUniformMatrix4dv = emu_glUniformMatrix4dv;
-   tbl.glUniformMatrix2x3dv = emu_glUniformMatrix2x3dv;
-   tbl.glUniformMatrix2x4dv = emu_glUniformMatrix2x4dv;
-   tbl.glUniformMatrix3x2dv = emu_glUniformMatrix3x2dv;
-   tbl.glUniformMatrix3x4dv = emu_glUniformMatrix3x4dv;
-   tbl.glUniformMatrix4x2dv = emu_glUniformMatrix4x2dv;
-   tbl.glUniformMatrix4x3dv = emu_glUniformMatrix4x3dv;
+   tbl.glDrawElementArrayAPPLE = emu_glDrawElementArrayAPPLE;
+   tbl.glMultiDrawElementArrayAPPLE = emu_glMultiDrawElementArrayAPPLE;
+
+// GL_APPLE_vertex_array_object
+
+   tbl.glBindVertexArrayAPPLE = emu_glBindVertexArrayAPPLE;
 
 // GL_ARB_ES2_compatibility
 
    tbl.glShaderBinary = emu_glShaderBinary;
-
-// GL_ARB_viewport_array
-
-   tbl.glGetFloati_v = emu_glGetFloati_v;
-   tbl.glGetDoublei_v = emu_glGetDoublei_v;
-
-// GL_ARB_multitexture
-
-   tbl.glActiveTextureARB = emu_glActiveTextureARB;
-   tbl.glClientActiveTextureARB = emu_glClientActiveTextureARB;
-
-// GL_ARB_vertex_program
-
-   tbl.glVertexAttribPointerARB = emu_glVertexAttribPointerARB;
-   tbl.glEnableVertexAttribArrayARB = emu_glEnableVertexAttribArrayARB;
-   tbl.glDisableVertexAttribArrayARB = emu_glDisableVertexAttribArrayARB;
-   tbl.glBindProgramARB = emu_glBindProgramARB;
-   tbl.glProgramEnvParameter4dARB = emu_glProgramEnvParameter4dARB;
-   tbl.glProgramEnvParameter4dvARB = emu_glProgramEnvParameter4dvARB;
-   tbl.glProgramEnvParameter4fARB = emu_glProgramEnvParameter4fARB;
-   tbl.glProgramEnvParameter4fvARB = emu_glProgramEnvParameter4fvARB;
-   tbl.glProgramLocalParameter4dARB = emu_glProgramLocalParameter4dARB;
-   tbl.glProgramLocalParameter4dvARB = emu_glProgramLocalParameter4dvARB;
-   tbl.glProgramLocalParameter4fARB = emu_glProgramLocalParameter4fARB;
-   tbl.glProgramLocalParameter4fvARB = emu_glProgramLocalParameter4fvARB;
-   tbl.glGetProgramEnvParameterdvARB = emu_glGetProgramEnvParameterdvARB;
-   tbl.glGetProgramEnvParameterfvARB = emu_glGetProgramEnvParameterfvARB;
-   tbl.glGetProgramLocalParameterdvARB = emu_glGetProgramLocalParameterdvARB;
-   tbl.glGetProgramLocalParameterfvARB = emu_glGetProgramLocalParameterfvARB;
-   tbl.glGetVertexAttribdvARB = emu_glGetVertexAttribdvARB;
-   tbl.glGetVertexAttribfvARB = emu_glGetVertexAttribfvARB;
-   tbl.glGetVertexAttribivARB = emu_glGetVertexAttribivARB;
-   tbl.glGetVertexAttribPointervARB = emu_glGetVertexAttribPointervARB;
-
-// GL_ARB_vertex_buffer_object
-
-   tbl.glBindBufferARB = emu_glBindBufferARB;
-   tbl.glDeleteBuffersARB = emu_glDeleteBuffersARB;
-   tbl.glGenBuffersARB = emu_glGenBuffersARB;
-   tbl.glIsBufferARB = emu_glIsBufferARB;
-   tbl.glMapBufferARB = emu_glMapBufferARB;
-   tbl.glUnmapBufferARB = emu_glUnmapBufferARB;
-
-// GL_ARB_draw_instanced
-
-   tbl.glDrawArraysInstancedARB = emu_glDrawArraysInstancedARB;
-   tbl.glDrawElementsInstancedARB = emu_glDrawElementsInstancedARB;
-
-// GL_ARB_framebuffer_object
-
-   tbl.glRenderbufferStorage = emu_glRenderbufferStorage;
-   tbl.glBindFramebuffer = emu_glBindFramebuffer;
-   tbl.glFramebufferTexture1D = emu_glFramebufferTexture1D;
-   tbl.glFramebufferTexture2D = emu_glFramebufferTexture2D;
-   tbl.glFramebufferTexture3D = emu_glFramebufferTexture3D;
-   tbl.glFramebufferRenderbuffer = emu_glFramebufferRenderbuffer;
-   tbl.glGenerateMipmap = emu_glGenerateMipmap;
-   tbl.glRenderbufferStorageMultisample = emu_glRenderbufferStorageMultisample;
-   tbl.glFramebufferTextureLayer = emu_glFramebufferTextureLayer;
-
-// GL_ARB_geometry_shader4
-
-   tbl.glFramebufferTextureARB = emu_glFramebufferTextureARB;
-   tbl.glFramebufferTextureLayerARB = emu_glFramebufferTextureLayerARB;
-   tbl.glFramebufferTextureFaceARB = emu_glFramebufferTextureFaceARB;
-
-// GL_ARB_map_buffer_range
-
-   tbl.glMapBufferRange = emu_glMapBufferRange;
-   tbl.glFlushMappedBufferRange = emu_glFlushMappedBufferRange;
-
-// GL_ARB_vertex_array_object
-
-   tbl.glBindVertexArray = emu_glBindVertexArray;
-   tbl.glDeleteVertexArrays = emu_glDeleteVertexArrays;
-   tbl.glGenVertexArrays = emu_glGenVertexArrays;
-   tbl.glIsVertexArray = emu_glIsVertexArray;
 
 // GL_ARB_copy_buffer
 
@@ -28340,6 +28242,64 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glDrawElementsInstancedBaseVertex = emu_glDrawElementsInstancedBaseVertex;
    tbl.glMultiDrawElementsBaseVertex = emu_glMultiDrawElementsBaseVertex;
 
+// GL_ARB_draw_indirect
+
+   tbl.glDrawArraysIndirect = emu_glDrawArraysIndirect;
+   tbl.glDrawElementsIndirect = emu_glDrawElementsIndirect;
+
+// GL_ARB_draw_instanced
+
+   tbl.glDrawArraysInstancedARB = emu_glDrawArraysInstancedARB;
+   tbl.glDrawElementsInstancedARB = emu_glDrawElementsInstancedARB;
+
+// GL_ARB_framebuffer_object
+
+   tbl.glBindFramebuffer = emu_glBindFramebuffer;
+   tbl.glFramebufferRenderbuffer = emu_glFramebufferRenderbuffer;
+   tbl.glFramebufferTexture1D = emu_glFramebufferTexture1D;
+   tbl.glFramebufferTexture2D = emu_glFramebufferTexture2D;
+   tbl.glFramebufferTexture3D = emu_glFramebufferTexture3D;
+   tbl.glFramebufferTextureLayer = emu_glFramebufferTextureLayer;
+   tbl.glGenerateMipmap = emu_glGenerateMipmap;
+   tbl.glRenderbufferStorage = emu_glRenderbufferStorage;
+   tbl.glRenderbufferStorageMultisample = emu_glRenderbufferStorageMultisample;
+
+// GL_ARB_geometry_shader4
+
+   tbl.glFramebufferTextureARB = emu_glFramebufferTextureARB;
+   tbl.glFramebufferTextureFaceARB = emu_glFramebufferTextureFaceARB;
+   tbl.glFramebufferTextureLayerARB = emu_glFramebufferTextureLayerARB;
+
+// GL_ARB_gpu_shader_fp64
+
+   tbl.glUniform1d = emu_glUniform1d;
+   tbl.glUniform1dv = emu_glUniform1dv;
+   tbl.glUniform2d = emu_glUniform2d;
+   tbl.glUniform2dv = emu_glUniform2dv;
+   tbl.glUniform3d = emu_glUniform3d;
+   tbl.glUniform3dv = emu_glUniform3dv;
+   tbl.glUniform4d = emu_glUniform4d;
+   tbl.glUniform4dv = emu_glUniform4dv;
+   tbl.glUniformMatrix2dv = emu_glUniformMatrix2dv;
+   tbl.glUniformMatrix2x3dv = emu_glUniformMatrix2x3dv;
+   tbl.glUniformMatrix2x4dv = emu_glUniformMatrix2x4dv;
+   tbl.glUniformMatrix3dv = emu_glUniformMatrix3dv;
+   tbl.glUniformMatrix3x2dv = emu_glUniformMatrix3x2dv;
+   tbl.glUniformMatrix3x4dv = emu_glUniformMatrix3x4dv;
+   tbl.glUniformMatrix4dv = emu_glUniformMatrix4dv;
+   tbl.glUniformMatrix4x2dv = emu_glUniformMatrix4x2dv;
+   tbl.glUniformMatrix4x3dv = emu_glUniformMatrix4x3dv;
+
+// GL_ARB_map_buffer_range
+
+   tbl.glFlushMappedBufferRange = emu_glFlushMappedBufferRange;
+   tbl.glMapBufferRange = emu_glMapBufferRange;
+
+// GL_ARB_multitexture
+
+   tbl.glActiveTextureARB = emu_glActiveTextureARB;
+   tbl.glClientActiveTextureARB = emu_glClientActiveTextureARB;
+
 // GL_ARB_sync
 
    tbl.glGetInteger64v = emu_glGetInteger64v;
@@ -28349,21 +28309,291 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glTexImage2DMultisample = emu_glTexImage2DMultisample;
    tbl.glTexImage3DMultisample = emu_glTexImage3DMultisample;
 
-// GL_EXT_texture3D
+// GL_ARB_vertex_array_object
 
-   tbl.glTexImage3DEXT = emu_glTexImage3DEXT;
+   tbl.glBindVertexArray = emu_glBindVertexArray;
+   tbl.glDeleteVertexArrays = emu_glDeleteVertexArrays;
+   tbl.glGenVertexArrays = emu_glGenVertexArrays;
+   tbl.glIsVertexArray = emu_glIsVertexArray;
 
-// GL_SGIS_texture4D
+// GL_ARB_vertex_buffer_object
 
-   tbl.glTexImage4DSGIS = emu_glTexImage4DSGIS;
+   tbl.glBindBufferARB = emu_glBindBufferARB;
+   tbl.glDeleteBuffersARB = emu_glDeleteBuffersARB;
+   tbl.glGenBuffersARB = emu_glGenBuffersARB;
+   tbl.glIsBufferARB = emu_glIsBufferARB;
+   tbl.glMapBufferARB = emu_glMapBufferARB;
+   tbl.glUnmapBufferARB = emu_glUnmapBufferARB;
 
-// GL_EXT_texture_object
+// GL_ARB_vertex_program
 
-   tbl.glBindTextureEXT = emu_glBindTextureEXT;
+   tbl.glBindProgramARB = emu_glBindProgramARB;
+   tbl.glDisableVertexAttribArrayARB = emu_glDisableVertexAttribArrayARB;
+   tbl.glEnableVertexAttribArrayARB = emu_glEnableVertexAttribArrayARB;
+   tbl.glGetProgramEnvParameterdvARB = emu_glGetProgramEnvParameterdvARB;
+   tbl.glGetProgramEnvParameterfvARB = emu_glGetProgramEnvParameterfvARB;
+   tbl.glGetProgramLocalParameterdvARB = emu_glGetProgramLocalParameterdvARB;
+   tbl.glGetProgramLocalParameterfvARB = emu_glGetProgramLocalParameterfvARB;
+   tbl.glGetVertexAttribPointervARB = emu_glGetVertexAttribPointervARB;
+   tbl.glGetVertexAttribdvARB = emu_glGetVertexAttribdvARB;
+   tbl.glGetVertexAttribfvARB = emu_glGetVertexAttribfvARB;
+   tbl.glGetVertexAttribivARB = emu_glGetVertexAttribivARB;
+   tbl.glProgramEnvParameter4dARB = emu_glProgramEnvParameter4dARB;
+   tbl.glProgramEnvParameter4dvARB = emu_glProgramEnvParameter4dvARB;
+   tbl.glProgramEnvParameter4fARB = emu_glProgramEnvParameter4fARB;
+   tbl.glProgramEnvParameter4fvARB = emu_glProgramEnvParameter4fvARB;
+   tbl.glProgramLocalParameter4dARB = emu_glProgramLocalParameter4dARB;
+   tbl.glProgramLocalParameter4dvARB = emu_glProgramLocalParameter4dvARB;
+   tbl.glProgramLocalParameter4fARB = emu_glProgramLocalParameter4fARB;
+   tbl.glProgramLocalParameter4fvARB = emu_glProgramLocalParameter4fvARB;
+   tbl.glVertexAttribPointerARB = emu_glVertexAttribPointerARB;
 
-// GL_EXT_vertex_array
+// GL_ARB_viewport_array
 
-   tbl.glDrawArraysEXT = emu_glDrawArraysEXT;
+   tbl.glGetDoublei_v = emu_glGetDoublei_v;
+   tbl.glGetFloati_v = emu_glGetFloati_v;
+
+// GL_ATI_element_array
+
+   tbl.glDrawElementArrayATI = emu_glDrawElementArrayATI;
+
+// GL_EXT_direct_state_access
+
+   tbl.glBindMultiTextureEXT = emu_glBindMultiTextureEXT;
+   tbl.glCheckNamedFramebufferStatusEXT = emu_glCheckNamedFramebufferStatusEXT;
+   tbl.glClientAttribDefaultEXT = emu_glClientAttribDefaultEXT;
+   tbl.glCompressedMultiTexImage1DEXT = emu_glCompressedMultiTexImage1DEXT;
+   tbl.glCompressedMultiTexImage2DEXT = emu_glCompressedMultiTexImage2DEXT;
+   tbl.glCompressedMultiTexImage3DEXT = emu_glCompressedMultiTexImage3DEXT;
+   tbl.glCompressedMultiTexSubImage1DEXT = emu_glCompressedMultiTexSubImage1DEXT;
+   tbl.glCompressedMultiTexSubImage2DEXT = emu_glCompressedMultiTexSubImage2DEXT;
+   tbl.glCompressedMultiTexSubImage3DEXT = emu_glCompressedMultiTexSubImage3DEXT;
+   tbl.glCompressedTextureImage1DEXT = emu_glCompressedTextureImage1DEXT;
+   tbl.glCompressedTextureImage2DEXT = emu_glCompressedTextureImage2DEXT;
+   tbl.glCompressedTextureImage3DEXT = emu_glCompressedTextureImage3DEXT;
+   tbl.glCompressedTextureSubImage1DEXT = emu_glCompressedTextureSubImage1DEXT;
+   tbl.glCompressedTextureSubImage2DEXT = emu_glCompressedTextureSubImage2DEXT;
+   tbl.glCompressedTextureSubImage3DEXT = emu_glCompressedTextureSubImage3DEXT;
+   tbl.glCopyMultiTexImage1DEXT = emu_glCopyMultiTexImage1DEXT;
+   tbl.glCopyMultiTexImage2DEXT = emu_glCopyMultiTexImage2DEXT;
+   tbl.glCopyMultiTexSubImage1DEXT = emu_glCopyMultiTexSubImage1DEXT;
+   tbl.glCopyMultiTexSubImage2DEXT = emu_glCopyMultiTexSubImage2DEXT;
+   tbl.glCopyMultiTexSubImage3DEXT = emu_glCopyMultiTexSubImage3DEXT;
+   tbl.glCopyTextureImage1DEXT = emu_glCopyTextureImage1DEXT;
+   tbl.glCopyTextureImage2DEXT = emu_glCopyTextureImage2DEXT;
+   tbl.glCopyTextureSubImage1DEXT = emu_glCopyTextureSubImage1DEXT;
+   tbl.glCopyTextureSubImage2DEXT = emu_glCopyTextureSubImage2DEXT;
+   tbl.glCopyTextureSubImage3DEXT = emu_glCopyTextureSubImage3DEXT;
+   tbl.glDisableClientStateIndexedEXT = emu_glDisableClientStateIndexedEXT;
+   tbl.glEnableClientStateIndexedEXT = emu_glEnableClientStateIndexedEXT;
+   tbl.glFlushMappedNamedBufferRangeEXT = emu_glFlushMappedNamedBufferRangeEXT;
+   tbl.glFramebufferDrawBufferEXT = emu_glFramebufferDrawBufferEXT;
+   tbl.glFramebufferDrawBuffersEXT = emu_glFramebufferDrawBuffersEXT;
+   tbl.glFramebufferReadBufferEXT = emu_glFramebufferReadBufferEXT;
+   tbl.glGenerateMultiTexMipmapEXT = emu_glGenerateMultiTexMipmapEXT;
+   tbl.glGenerateTextureMipmapEXT = emu_glGenerateTextureMipmapEXT;
+   tbl.glGetCompressedMultiTexImageEXT = emu_glGetCompressedMultiTexImageEXT;
+   tbl.glGetCompressedTextureImageEXT = emu_glGetCompressedTextureImageEXT;
+   tbl.glGetDoubleIndexedvEXT = emu_glGetDoubleIndexedvEXT;
+   tbl.glGetFloatIndexedvEXT = emu_glGetFloatIndexedvEXT;
+   tbl.glGetFramebufferParameterivEXT = emu_glGetFramebufferParameterivEXT;
+   tbl.glGetMultiTexEnvfvEXT = emu_glGetMultiTexEnvfvEXT;
+   tbl.glGetMultiTexEnvivEXT = emu_glGetMultiTexEnvivEXT;
+   tbl.glGetMultiTexGendvEXT = emu_glGetMultiTexGendvEXT;
+   tbl.glGetMultiTexGenfvEXT = emu_glGetMultiTexGenfvEXT;
+   tbl.glGetMultiTexGenivEXT = emu_glGetMultiTexGenivEXT;
+   tbl.glGetMultiTexImageEXT = emu_glGetMultiTexImageEXT;
+   tbl.glGetMultiTexLevelParameterfvEXT = emu_glGetMultiTexLevelParameterfvEXT;
+   tbl.glGetMultiTexLevelParameterivEXT = emu_glGetMultiTexLevelParameterivEXT;
+   tbl.glGetMultiTexParameterIivEXT = emu_glGetMultiTexParameterIivEXT;
+   tbl.glGetMultiTexParameterIuivEXT = emu_glGetMultiTexParameterIuivEXT;
+   tbl.glGetMultiTexParameterfvEXT = emu_glGetMultiTexParameterfvEXT;
+   tbl.glGetMultiTexParameterivEXT = emu_glGetMultiTexParameterivEXT;
+   tbl.glGetNamedBufferParameterivEXT = emu_glGetNamedBufferParameterivEXT;
+   tbl.glGetNamedBufferPointervEXT = emu_glGetNamedBufferPointervEXT;
+   tbl.glGetNamedBufferSubDataEXT = emu_glGetNamedBufferSubDataEXT;
+   tbl.glGetNamedFramebufferAttachmentParameterivEXT = emu_glGetNamedFramebufferAttachmentParameterivEXT;
+   tbl.glGetNamedProgramLocalParameterIivEXT = emu_glGetNamedProgramLocalParameterIivEXT;
+   tbl.glGetNamedProgramLocalParameterIuivEXT = emu_glGetNamedProgramLocalParameterIuivEXT;
+   tbl.glGetNamedProgramLocalParameterdvEXT = emu_glGetNamedProgramLocalParameterdvEXT;
+   tbl.glGetNamedProgramLocalParameterfvEXT = emu_glGetNamedProgramLocalParameterfvEXT;
+   tbl.glGetNamedProgramStringEXT = emu_glGetNamedProgramStringEXT;
+   tbl.glGetNamedProgramivEXT = emu_glGetNamedProgramivEXT;
+   tbl.glGetNamedRenderbufferParameterivEXT = emu_glGetNamedRenderbufferParameterivEXT;
+   tbl.glGetPointerIndexedvEXT = emu_glGetPointerIndexedvEXT;
+   tbl.glGetTextureImageEXT = emu_glGetTextureImageEXT;
+   tbl.glGetTextureLevelParameterfvEXT = emu_glGetTextureLevelParameterfvEXT;
+   tbl.glGetTextureLevelParameterivEXT = emu_glGetTextureLevelParameterivEXT;
+   tbl.glGetTextureParameterIivEXT = emu_glGetTextureParameterIivEXT;
+   tbl.glGetTextureParameterIuivEXT = emu_glGetTextureParameterIuivEXT;
+   tbl.glGetTextureParameterfvEXT = emu_glGetTextureParameterfvEXT;
+   tbl.glGetTextureParameterivEXT = emu_glGetTextureParameterivEXT;
+   tbl.glMapNamedBufferEXT = emu_glMapNamedBufferEXT;
+   tbl.glMapNamedBufferRangeEXT = emu_glMapNamedBufferRangeEXT;
+   tbl.glMatrixFrustumEXT = emu_glMatrixFrustumEXT;
+   tbl.glMatrixLoadIdentityEXT = emu_glMatrixLoadIdentityEXT;
+   tbl.glMatrixLoadTransposedEXT = emu_glMatrixLoadTransposedEXT;
+   tbl.glMatrixLoadTransposefEXT = emu_glMatrixLoadTransposefEXT;
+   tbl.glMatrixLoaddEXT = emu_glMatrixLoaddEXT;
+   tbl.glMatrixLoadfEXT = emu_glMatrixLoadfEXT;
+   tbl.glMatrixMultTransposedEXT = emu_glMatrixMultTransposedEXT;
+   tbl.glMatrixMultTransposefEXT = emu_glMatrixMultTransposefEXT;
+   tbl.glMatrixMultdEXT = emu_glMatrixMultdEXT;
+   tbl.glMatrixMultfEXT = emu_glMatrixMultfEXT;
+   tbl.glMatrixOrthoEXT = emu_glMatrixOrthoEXT;
+   tbl.glMatrixPopEXT = emu_glMatrixPopEXT;
+   tbl.glMatrixPushEXT = emu_glMatrixPushEXT;
+   tbl.glMatrixRotatedEXT = emu_glMatrixRotatedEXT;
+   tbl.glMatrixRotatefEXT = emu_glMatrixRotatefEXT;
+   tbl.glMatrixScaledEXT = emu_glMatrixScaledEXT;
+   tbl.glMatrixScalefEXT = emu_glMatrixScalefEXT;
+   tbl.glMatrixTranslatedEXT = emu_glMatrixTranslatedEXT;
+   tbl.glMatrixTranslatefEXT = emu_glMatrixTranslatefEXT;
+   tbl.glMultiTexBufferEXT = emu_glMultiTexBufferEXT;
+   tbl.glMultiTexCoordPointerEXT = emu_glMultiTexCoordPointerEXT;
+   tbl.glMultiTexEnvfEXT = emu_glMultiTexEnvfEXT;
+   tbl.glMultiTexEnvfvEXT = emu_glMultiTexEnvfvEXT;
+   tbl.glMultiTexEnviEXT = emu_glMultiTexEnviEXT;
+   tbl.glMultiTexEnvivEXT = emu_glMultiTexEnvivEXT;
+   tbl.glMultiTexGendEXT = emu_glMultiTexGendEXT;
+   tbl.glMultiTexGendvEXT = emu_glMultiTexGendvEXT;
+   tbl.glMultiTexGenfEXT = emu_glMultiTexGenfEXT;
+   tbl.glMultiTexGenfvEXT = emu_glMultiTexGenfvEXT;
+   tbl.glMultiTexGeniEXT = emu_glMultiTexGeniEXT;
+   tbl.glMultiTexGenivEXT = emu_glMultiTexGenivEXT;
+   tbl.glMultiTexImage1DEXT = emu_glMultiTexImage1DEXT;
+   tbl.glMultiTexImage2DEXT = emu_glMultiTexImage2DEXT;
+   tbl.glMultiTexImage3DEXT = emu_glMultiTexImage3DEXT;
+   tbl.glMultiTexParameterIivEXT = emu_glMultiTexParameterIivEXT;
+   tbl.glMultiTexParameterIuivEXT = emu_glMultiTexParameterIuivEXT;
+   tbl.glMultiTexParameterfEXT = emu_glMultiTexParameterfEXT;
+   tbl.glMultiTexParameterfvEXT = emu_glMultiTexParameterfvEXT;
+   tbl.glMultiTexParameteriEXT = emu_glMultiTexParameteriEXT;
+   tbl.glMultiTexParameterivEXT = emu_glMultiTexParameterivEXT;
+   tbl.glMultiTexRenderbufferEXT = emu_glMultiTexRenderbufferEXT;
+   tbl.glMultiTexSubImage1DEXT = emu_glMultiTexSubImage1DEXT;
+   tbl.glMultiTexSubImage2DEXT = emu_glMultiTexSubImage2DEXT;
+   tbl.glMultiTexSubImage3DEXT = emu_glMultiTexSubImage3DEXT;
+   tbl.glNamedBufferDataEXT = emu_glNamedBufferDataEXT;
+   tbl.glNamedBufferSubDataEXT = emu_glNamedBufferSubDataEXT;
+   tbl.glNamedCopyBufferSubDataEXT = emu_glNamedCopyBufferSubDataEXT;
+   tbl.glNamedFramebufferRenderbufferEXT = emu_glNamedFramebufferRenderbufferEXT;
+   tbl.glNamedFramebufferTexture1DEXT = emu_glNamedFramebufferTexture1DEXT;
+   tbl.glNamedFramebufferTexture2DEXT = emu_glNamedFramebufferTexture2DEXT;
+   tbl.glNamedFramebufferTexture3DEXT = emu_glNamedFramebufferTexture3DEXT;
+   tbl.glNamedFramebufferTextureEXT = emu_glNamedFramebufferTextureEXT;
+   tbl.glNamedFramebufferTextureFaceEXT = emu_glNamedFramebufferTextureFaceEXT;
+   tbl.glNamedFramebufferTextureLayerEXT = emu_glNamedFramebufferTextureLayerEXT;
+   tbl.glNamedProgramLocalParameter4dEXT = emu_glNamedProgramLocalParameter4dEXT;
+   tbl.glNamedProgramLocalParameter4dvEXT = emu_glNamedProgramLocalParameter4dvEXT;
+   tbl.glNamedProgramLocalParameter4fEXT = emu_glNamedProgramLocalParameter4fEXT;
+   tbl.glNamedProgramLocalParameter4fvEXT = emu_glNamedProgramLocalParameter4fvEXT;
+   tbl.glNamedProgramLocalParameterI4iEXT = emu_glNamedProgramLocalParameterI4iEXT;
+   tbl.glNamedProgramLocalParameterI4ivEXT = emu_glNamedProgramLocalParameterI4ivEXT;
+   tbl.glNamedProgramLocalParameterI4uiEXT = emu_glNamedProgramLocalParameterI4uiEXT;
+   tbl.glNamedProgramLocalParameterI4uivEXT = emu_glNamedProgramLocalParameterI4uivEXT;
+   tbl.glNamedProgramLocalParameters4fvEXT = emu_glNamedProgramLocalParameters4fvEXT;
+   tbl.glNamedProgramLocalParametersI4ivEXT = emu_glNamedProgramLocalParametersI4ivEXT;
+   tbl.glNamedProgramLocalParametersI4uivEXT = emu_glNamedProgramLocalParametersI4uivEXT;
+   tbl.glNamedProgramStringEXT = emu_glNamedProgramStringEXT;
+   tbl.glNamedRenderbufferStorageEXT = emu_glNamedRenderbufferStorageEXT;
+   tbl.glNamedRenderbufferStorageMultisampleCoverageEXT = emu_glNamedRenderbufferStorageMultisampleCoverageEXT;
+   tbl.glNamedRenderbufferStorageMultisampleEXT = emu_glNamedRenderbufferStorageMultisampleEXT;
+   tbl.glProgramUniform1dEXT = emu_glProgramUniform1dEXT;
+   tbl.glProgramUniform1dvEXT = emu_glProgramUniform1dvEXT;
+   tbl.glProgramUniform1fEXT = emu_glProgramUniform1fEXT;
+   tbl.glProgramUniform1fvEXT = emu_glProgramUniform1fvEXT;
+   tbl.glProgramUniform1iEXT = emu_glProgramUniform1iEXT;
+   tbl.glProgramUniform1ivEXT = emu_glProgramUniform1ivEXT;
+   tbl.glProgramUniform1uiEXT = emu_glProgramUniform1uiEXT;
+   tbl.glProgramUniform1uivEXT = emu_glProgramUniform1uivEXT;
+   tbl.glProgramUniform2dEXT = emu_glProgramUniform2dEXT;
+   tbl.glProgramUniform2dvEXT = emu_glProgramUniform2dvEXT;
+   tbl.glProgramUniform2fEXT = emu_glProgramUniform2fEXT;
+   tbl.glProgramUniform2fvEXT = emu_glProgramUniform2fvEXT;
+   tbl.glProgramUniform2iEXT = emu_glProgramUniform2iEXT;
+   tbl.glProgramUniform2ivEXT = emu_glProgramUniform2ivEXT;
+   tbl.glProgramUniform2uiEXT = emu_glProgramUniform2uiEXT;
+   tbl.glProgramUniform2uivEXT = emu_glProgramUniform2uivEXT;
+   tbl.glProgramUniform3dEXT = emu_glProgramUniform3dEXT;
+   tbl.glProgramUniform3dvEXT = emu_glProgramUniform3dvEXT;
+   tbl.glProgramUniform3fEXT = emu_glProgramUniform3fEXT;
+   tbl.glProgramUniform3fvEXT = emu_glProgramUniform3fvEXT;
+   tbl.glProgramUniform3iEXT = emu_glProgramUniform3iEXT;
+   tbl.glProgramUniform3ivEXT = emu_glProgramUniform3ivEXT;
+   tbl.glProgramUniform3uiEXT = emu_glProgramUniform3uiEXT;
+   tbl.glProgramUniform3uivEXT = emu_glProgramUniform3uivEXT;
+   tbl.glProgramUniform4dEXT = emu_glProgramUniform4dEXT;
+   tbl.glProgramUniform4dvEXT = emu_glProgramUniform4dvEXT;
+   tbl.glProgramUniform4fEXT = emu_glProgramUniform4fEXT;
+   tbl.glProgramUniform4fvEXT = emu_glProgramUniform4fvEXT;
+   tbl.glProgramUniform4iEXT = emu_glProgramUniform4iEXT;
+   tbl.glProgramUniform4ivEXT = emu_glProgramUniform4ivEXT;
+   tbl.glProgramUniform4uiEXT = emu_glProgramUniform4uiEXT;
+   tbl.glProgramUniform4uivEXT = emu_glProgramUniform4uivEXT;
+   tbl.glProgramUniformMatrix2dvEXT = emu_glProgramUniformMatrix2dvEXT;
+   tbl.glProgramUniformMatrix2fvEXT = emu_glProgramUniformMatrix2fvEXT;
+   tbl.glProgramUniformMatrix2x3dvEXT = emu_glProgramUniformMatrix2x3dvEXT;
+   tbl.glProgramUniformMatrix2x3fvEXT = emu_glProgramUniformMatrix2x3fvEXT;
+   tbl.glProgramUniformMatrix2x4dvEXT = emu_glProgramUniformMatrix2x4dvEXT;
+   tbl.glProgramUniformMatrix2x4fvEXT = emu_glProgramUniformMatrix2x4fvEXT;
+   tbl.glProgramUniformMatrix3dvEXT = emu_glProgramUniformMatrix3dvEXT;
+   tbl.glProgramUniformMatrix3fvEXT = emu_glProgramUniformMatrix3fvEXT;
+   tbl.glProgramUniformMatrix3x2dvEXT = emu_glProgramUniformMatrix3x2dvEXT;
+   tbl.glProgramUniformMatrix3x2fvEXT = emu_glProgramUniformMatrix3x2fvEXT;
+   tbl.glProgramUniformMatrix3x4dvEXT = emu_glProgramUniformMatrix3x4dvEXT;
+   tbl.glProgramUniformMatrix3x4fvEXT = emu_glProgramUniformMatrix3x4fvEXT;
+   tbl.glProgramUniformMatrix4dvEXT = emu_glProgramUniformMatrix4dvEXT;
+   tbl.glProgramUniformMatrix4fvEXT = emu_glProgramUniformMatrix4fvEXT;
+   tbl.glProgramUniformMatrix4x2dvEXT = emu_glProgramUniformMatrix4x2dvEXT;
+   tbl.glProgramUniformMatrix4x2fvEXT = emu_glProgramUniformMatrix4x2fvEXT;
+   tbl.glProgramUniformMatrix4x3dvEXT = emu_glProgramUniformMatrix4x3dvEXT;
+   tbl.glProgramUniformMatrix4x3fvEXT = emu_glProgramUniformMatrix4x3fvEXT;
+   tbl.glPushClientAttribDefaultEXT = emu_glPushClientAttribDefaultEXT;
+   tbl.glTextureBufferEXT = emu_glTextureBufferEXT;
+   tbl.glTextureImage1DEXT = emu_glTextureImage1DEXT;
+   tbl.glTextureImage2DEXT = emu_glTextureImage2DEXT;
+   tbl.glTextureImage3DEXT = emu_glTextureImage3DEXT;
+   tbl.glTextureParameterIivEXT = emu_glTextureParameterIivEXT;
+   tbl.glTextureParameterIuivEXT = emu_glTextureParameterIuivEXT;
+   tbl.glTextureParameterfEXT = emu_glTextureParameterfEXT;
+   tbl.glTextureParameterfvEXT = emu_glTextureParameterfvEXT;
+   tbl.glTextureParameteriEXT = emu_glTextureParameteriEXT;
+   tbl.glTextureParameterivEXT = emu_glTextureParameterivEXT;
+   tbl.glTextureRenderbufferEXT = emu_glTextureRenderbufferEXT;
+   tbl.glTextureSubImage1DEXT = emu_glTextureSubImage1DEXT;
+   tbl.glTextureSubImage2DEXT = emu_glTextureSubImage2DEXT;
+   tbl.glTextureSubImage3DEXT = emu_glTextureSubImage3DEXT;
+   tbl.glUnmapNamedBufferEXT = emu_glUnmapNamedBufferEXT;
+
+// GL_EXT_draw_buffers2
+
+   tbl.glDisableIndexedEXT = emu_glDisableIndexedEXT;
+   tbl.glEnableIndexedEXT = emu_glEnableIndexedEXT;
+   tbl.glIsEnabledIndexedEXT = emu_glIsEnabledIndexedEXT;
+
+// GL_EXT_draw_instanced
+
+   tbl.glDrawArraysInstancedEXT = emu_glDrawArraysInstancedEXT;
+   tbl.glDrawElementsInstancedEXT = emu_glDrawElementsInstancedEXT;
+
+// GL_EXT_framebuffer_multisample
+
+   tbl.glRenderbufferStorageMultisampleEXT = emu_glRenderbufferStorageMultisampleEXT;
+
+// GL_EXT_framebuffer_object
+
+   tbl.glFramebufferRenderbufferEXT = emu_glFramebufferRenderbufferEXT;
+   tbl.glFramebufferTexture1DEXT = emu_glFramebufferTexture1DEXT;
+   tbl.glFramebufferTexture2DEXT = emu_glFramebufferTexture2DEXT;
+   tbl.glFramebufferTexture3DEXT = emu_glFramebufferTexture3DEXT;
+   tbl.glGenerateMipmapEXT = emu_glGenerateMipmapEXT;
+   tbl.glRenderbufferStorageEXT = emu_glRenderbufferStorageEXT;
+
+// GL_EXT_multi_draw_arrays
+
+   tbl.glMultiDrawArraysEXT = emu_glMultiDrawArraysEXT;
+   tbl.glMultiDrawElementsEXT = emu_glMultiDrawElementsEXT;
 
 // GL_EXT_secondary_color
 
@@ -28384,302 +28614,62 @@ void InitDispatchTableEmu(DispatchTable &tbl)
    tbl.glSecondaryColor3usEXT = emu_glSecondaryColor3usEXT;
    tbl.glSecondaryColor3usvEXT = emu_glSecondaryColor3usvEXT;
 
-// GL_EXT_multi_draw_arrays
+// GL_EXT_texture3D
 
-   tbl.glMultiDrawArraysEXT = emu_glMultiDrawArraysEXT;
-   tbl.glMultiDrawElementsEXT = emu_glMultiDrawElementsEXT;
+   tbl.glTexImage3DEXT = emu_glTexImage3DEXT;
 
-// GL_ATI_element_array
+// GL_EXT_texture_array
 
-   tbl.glDrawElementArrayATI = emu_glDrawElementArrayATI;
+   tbl.glFramebufferTextureLayerEXT = emu_glFramebufferTextureLayerEXT;
 
-// GL_APPLE_element_array
+// GL_EXT_texture_object
 
-   tbl.glDrawElementArrayAPPLE = emu_glDrawElementArrayAPPLE;
-   tbl.glMultiDrawElementArrayAPPLE = emu_glMultiDrawElementArrayAPPLE;
+   tbl.glBindTextureEXT = emu_glBindTextureEXT;
 
-// GL_APPLE_vertex_array_object
+// GL_EXT_vertex_array
 
-   tbl.glBindVertexArrayAPPLE = emu_glBindVertexArrayAPPLE;
+   tbl.glDrawArraysEXT = emu_glDrawArraysEXT;
 
-// GL_EXT_framebuffer_object
+// GL_NV_explicit_multisample
 
-   tbl.glRenderbufferStorageEXT = emu_glRenderbufferStorageEXT;
-   tbl.glFramebufferTexture1DEXT = emu_glFramebufferTexture1DEXT;
-   tbl.glFramebufferTexture2DEXT = emu_glFramebufferTexture2DEXT;
-   tbl.glFramebufferTexture3DEXT = emu_glFramebufferTexture3DEXT;
-   tbl.glFramebufferRenderbufferEXT = emu_glFramebufferRenderbufferEXT;
-   tbl.glGenerateMipmapEXT = emu_glGenerateMipmapEXT;
+   tbl.glTexRenderbufferNV = emu_glTexRenderbufferNV;
 
-// GL_EXT_framebuffer_multisample
+// GL_NV_framebuffer_multisample_coverage
 
-   tbl.glRenderbufferStorageMultisampleEXT = emu_glRenderbufferStorageMultisampleEXT;
-
-// GL_NV_gpu_program4
-
-   tbl.glProgramLocalParameterI4iNV = emu_glProgramLocalParameterI4iNV;
-   tbl.glProgramLocalParameterI4ivNV = emu_glProgramLocalParameterI4ivNV;
-   tbl.glProgramLocalParametersI4ivNV = emu_glProgramLocalParametersI4ivNV;
-   tbl.glProgramLocalParameterI4uiNV = emu_glProgramLocalParameterI4uiNV;
-   tbl.glProgramLocalParameterI4uivNV = emu_glProgramLocalParameterI4uivNV;
-   tbl.glProgramLocalParametersI4uivNV = emu_glProgramLocalParametersI4uivNV;
-   tbl.glProgramEnvParameterI4iNV = emu_glProgramEnvParameterI4iNV;
-   tbl.glProgramEnvParameterI4ivNV = emu_glProgramEnvParameterI4ivNV;
-   tbl.glProgramEnvParametersI4ivNV = emu_glProgramEnvParametersI4ivNV;
-   tbl.glProgramEnvParameterI4uiNV = emu_glProgramEnvParameterI4uiNV;
-   tbl.glProgramEnvParameterI4uivNV = emu_glProgramEnvParameterI4uivNV;
-   tbl.glProgramEnvParametersI4uivNV = emu_glProgramEnvParametersI4uivNV;
-   tbl.glGetProgramLocalParameterIivNV = emu_glGetProgramLocalParameterIivNV;
-   tbl.glGetProgramLocalParameterIuivNV = emu_glGetProgramLocalParameterIuivNV;
-   tbl.glGetProgramEnvParameterIivNV = emu_glGetProgramEnvParameterIivNV;
-   tbl.glGetProgramEnvParameterIuivNV = emu_glGetProgramEnvParameterIuivNV;
+   tbl.glRenderbufferStorageMultisampleCoverageNV = emu_glRenderbufferStorageMultisampleCoverageNV;
 
 // GL_NV_geometry_program4
 
    tbl.glFramebufferTextureEXT = emu_glFramebufferTextureEXT;
    tbl.glFramebufferTextureFaceEXT = emu_glFramebufferTextureFaceEXT;
 
-// GL_EXT_draw_instanced
+// GL_NV_gpu_program4
 
-   tbl.glDrawArraysInstancedEXT = emu_glDrawArraysInstancedEXT;
-   tbl.glDrawElementsInstancedEXT = emu_glDrawElementsInstancedEXT;
-
-// GL_EXT_texture_array
-
-   tbl.glFramebufferTextureLayerEXT = emu_glFramebufferTextureLayerEXT;
-
-// GL_NV_framebuffer_multisample_coverage
-
-   tbl.glRenderbufferStorageMultisampleCoverageNV = emu_glRenderbufferStorageMultisampleCoverageNV;
-
-// GL_EXT_draw_buffers2
-
-   tbl.glEnableIndexedEXT = emu_glEnableIndexedEXT;
-   tbl.glDisableIndexedEXT = emu_glDisableIndexedEXT;
-   tbl.glIsEnabledIndexedEXT = emu_glIsEnabledIndexedEXT;
-
-// GL_EXT_direct_state_access
-
-   tbl.glClientAttribDefaultEXT = emu_glClientAttribDefaultEXT;
-   tbl.glPushClientAttribDefaultEXT = emu_glPushClientAttribDefaultEXT;
-   tbl.glMatrixLoadfEXT = emu_glMatrixLoadfEXT;
-   tbl.glMatrixLoaddEXT = emu_glMatrixLoaddEXT;
-   tbl.glMatrixMultfEXT = emu_glMatrixMultfEXT;
-   tbl.glMatrixMultdEXT = emu_glMatrixMultdEXT;
-   tbl.glMatrixLoadIdentityEXT = emu_glMatrixLoadIdentityEXT;
-   tbl.glMatrixRotatefEXT = emu_glMatrixRotatefEXT;
-   tbl.glMatrixRotatedEXT = emu_glMatrixRotatedEXT;
-   tbl.glMatrixScalefEXT = emu_glMatrixScalefEXT;
-   tbl.glMatrixScaledEXT = emu_glMatrixScaledEXT;
-   tbl.glMatrixTranslatefEXT = emu_glMatrixTranslatefEXT;
-   tbl.glMatrixTranslatedEXT = emu_glMatrixTranslatedEXT;
-   tbl.glMatrixFrustumEXT = emu_glMatrixFrustumEXT;
-   tbl.glMatrixOrthoEXT = emu_glMatrixOrthoEXT;
-   tbl.glMatrixPopEXT = emu_glMatrixPopEXT;
-   tbl.glMatrixPushEXT = emu_glMatrixPushEXT;
-   tbl.glMatrixLoadTransposefEXT = emu_glMatrixLoadTransposefEXT;
-   tbl.glMatrixLoadTransposedEXT = emu_glMatrixLoadTransposedEXT;
-   tbl.glMatrixMultTransposefEXT = emu_glMatrixMultTransposefEXT;
-   tbl.glMatrixMultTransposedEXT = emu_glMatrixMultTransposedEXT;
-   tbl.glTextureParameterfEXT = emu_glTextureParameterfEXT;
-   tbl.glTextureParameterfvEXT = emu_glTextureParameterfvEXT;
-   tbl.glTextureParameteriEXT = emu_glTextureParameteriEXT;
-   tbl.glTextureParameterivEXT = emu_glTextureParameterivEXT;
-   tbl.glTextureImage1DEXT = emu_glTextureImage1DEXT;
-   tbl.glTextureImage2DEXT = emu_glTextureImage2DEXT;
-   tbl.glTextureSubImage1DEXT = emu_glTextureSubImage1DEXT;
-   tbl.glTextureSubImage2DEXT = emu_glTextureSubImage2DEXT;
-   tbl.glCopyTextureImage1DEXT = emu_glCopyTextureImage1DEXT;
-   tbl.glCopyTextureImage2DEXT = emu_glCopyTextureImage2DEXT;
-   tbl.glCopyTextureSubImage1DEXT = emu_glCopyTextureSubImage1DEXT;
-   tbl.glCopyTextureSubImage2DEXT = emu_glCopyTextureSubImage2DEXT;
-   tbl.glGetTextureImageEXT = emu_glGetTextureImageEXT;
-   tbl.glGetTextureParameterfvEXT = emu_glGetTextureParameterfvEXT;
-   tbl.glGetTextureParameterivEXT = emu_glGetTextureParameterivEXT;
-   tbl.glGetTextureLevelParameterfvEXT = emu_glGetTextureLevelParameterfvEXT;
-   tbl.glGetTextureLevelParameterivEXT = emu_glGetTextureLevelParameterivEXT;
-   tbl.glTextureImage3DEXT = emu_glTextureImage3DEXT;
-   tbl.glTextureSubImage3DEXT = emu_glTextureSubImage3DEXT;
-   tbl.glCopyTextureSubImage3DEXT = emu_glCopyTextureSubImage3DEXT;
-   tbl.glMultiTexParameterfEXT = emu_glMultiTexParameterfEXT;
-   tbl.glMultiTexParameterfvEXT = emu_glMultiTexParameterfvEXT;
-   tbl.glMultiTexParameteriEXT = emu_glMultiTexParameteriEXT;
-   tbl.glMultiTexParameterivEXT = emu_glMultiTexParameterivEXT;
-   tbl.glMultiTexImage1DEXT = emu_glMultiTexImage1DEXT;
-   tbl.glMultiTexImage2DEXT = emu_glMultiTexImage2DEXT;
-   tbl.glMultiTexSubImage1DEXT = emu_glMultiTexSubImage1DEXT;
-   tbl.glMultiTexSubImage2DEXT = emu_glMultiTexSubImage2DEXT;
-   tbl.glCopyMultiTexImage1DEXT = emu_glCopyMultiTexImage1DEXT;
-   tbl.glCopyMultiTexImage2DEXT = emu_glCopyMultiTexImage2DEXT;
-   tbl.glCopyMultiTexSubImage1DEXT = emu_glCopyMultiTexSubImage1DEXT;
-   tbl.glCopyMultiTexSubImage2DEXT = emu_glCopyMultiTexSubImage2DEXT;
-   tbl.glGetMultiTexImageEXT = emu_glGetMultiTexImageEXT;
-   tbl.glGetMultiTexParameterfvEXT = emu_glGetMultiTexParameterfvEXT;
-   tbl.glGetMultiTexParameterivEXT = emu_glGetMultiTexParameterivEXT;
-   tbl.glGetMultiTexLevelParameterfvEXT = emu_glGetMultiTexLevelParameterfvEXT;
-   tbl.glGetMultiTexLevelParameterivEXT = emu_glGetMultiTexLevelParameterivEXT;
-   tbl.glMultiTexImage3DEXT = emu_glMultiTexImage3DEXT;
-   tbl.glMultiTexSubImage3DEXT = emu_glMultiTexSubImage3DEXT;
-   tbl.glCopyMultiTexSubImage3DEXT = emu_glCopyMultiTexSubImage3DEXT;
-   tbl.glBindMultiTextureEXT = emu_glBindMultiTextureEXT;
-   tbl.glEnableClientStateIndexedEXT = emu_glEnableClientStateIndexedEXT;
-   tbl.glDisableClientStateIndexedEXT = emu_glDisableClientStateIndexedEXT;
-   tbl.glMultiTexCoordPointerEXT = emu_glMultiTexCoordPointerEXT;
-   tbl.glMultiTexEnvfEXT = emu_glMultiTexEnvfEXT;
-   tbl.glMultiTexEnvfvEXT = emu_glMultiTexEnvfvEXT;
-   tbl.glMultiTexEnviEXT = emu_glMultiTexEnviEXT;
-   tbl.glMultiTexEnvivEXT = emu_glMultiTexEnvivEXT;
-   tbl.glMultiTexGendEXT = emu_glMultiTexGendEXT;
-   tbl.glMultiTexGendvEXT = emu_glMultiTexGendvEXT;
-   tbl.glMultiTexGenfEXT = emu_glMultiTexGenfEXT;
-   tbl.glMultiTexGenfvEXT = emu_glMultiTexGenfvEXT;
-   tbl.glMultiTexGeniEXT = emu_glMultiTexGeniEXT;
-   tbl.glMultiTexGenivEXT = emu_glMultiTexGenivEXT;
-   tbl.glGetMultiTexEnvfvEXT = emu_glGetMultiTexEnvfvEXT;
-   tbl.glGetMultiTexEnvivEXT = emu_glGetMultiTexEnvivEXT;
-   tbl.glGetMultiTexGendvEXT = emu_glGetMultiTexGendvEXT;
-   tbl.glGetMultiTexGenfvEXT = emu_glGetMultiTexGenfvEXT;
-   tbl.glGetMultiTexGenivEXT = emu_glGetMultiTexGenivEXT;
-   tbl.glGetFloatIndexedvEXT = emu_glGetFloatIndexedvEXT;
-   tbl.glGetDoubleIndexedvEXT = emu_glGetDoubleIndexedvEXT;
-   tbl.glGetPointerIndexedvEXT = emu_glGetPointerIndexedvEXT;
-   tbl.glCompressedTextureImage3DEXT = emu_glCompressedTextureImage3DEXT;
-   tbl.glCompressedTextureImage2DEXT = emu_glCompressedTextureImage2DEXT;
-   tbl.glCompressedTextureImage1DEXT = emu_glCompressedTextureImage1DEXT;
-   tbl.glCompressedTextureSubImage3DEXT = emu_glCompressedTextureSubImage3DEXT;
-   tbl.glCompressedTextureSubImage2DEXT = emu_glCompressedTextureSubImage2DEXT;
-   tbl.glCompressedTextureSubImage1DEXT = emu_glCompressedTextureSubImage1DEXT;
-   tbl.glGetCompressedTextureImageEXT = emu_glGetCompressedTextureImageEXT;
-   tbl.glCompressedMultiTexImage3DEXT = emu_glCompressedMultiTexImage3DEXT;
-   tbl.glCompressedMultiTexImage2DEXT = emu_glCompressedMultiTexImage2DEXT;
-   tbl.glCompressedMultiTexImage1DEXT = emu_glCompressedMultiTexImage1DEXT;
-   tbl.glCompressedMultiTexSubImage3DEXT = emu_glCompressedMultiTexSubImage3DEXT;
-   tbl.glCompressedMultiTexSubImage2DEXT = emu_glCompressedMultiTexSubImage2DEXT;
-   tbl.glCompressedMultiTexSubImage1DEXT = emu_glCompressedMultiTexSubImage1DEXT;
-   tbl.glGetCompressedMultiTexImageEXT = emu_glGetCompressedMultiTexImageEXT;
-   tbl.glNamedProgramStringEXT = emu_glNamedProgramStringEXT;
-   tbl.glNamedProgramLocalParameter4dEXT = emu_glNamedProgramLocalParameter4dEXT;
-   tbl.glNamedProgramLocalParameter4dvEXT = emu_glNamedProgramLocalParameter4dvEXT;
-   tbl.glNamedProgramLocalParameter4fEXT = emu_glNamedProgramLocalParameter4fEXT;
-   tbl.glNamedProgramLocalParameter4fvEXT = emu_glNamedProgramLocalParameter4fvEXT;
-   tbl.glGetNamedProgramLocalParameterdvEXT = emu_glGetNamedProgramLocalParameterdvEXT;
-   tbl.glGetNamedProgramLocalParameterfvEXT = emu_glGetNamedProgramLocalParameterfvEXT;
-   tbl.glGetNamedProgramivEXT = emu_glGetNamedProgramivEXT;
-   tbl.glGetNamedProgramStringEXT = emu_glGetNamedProgramStringEXT;
-   tbl.glNamedProgramLocalParameters4fvEXT = emu_glNamedProgramLocalParameters4fvEXT;
-   tbl.glNamedProgramLocalParameterI4iEXT = emu_glNamedProgramLocalParameterI4iEXT;
-   tbl.glNamedProgramLocalParameterI4ivEXT = emu_glNamedProgramLocalParameterI4ivEXT;
-   tbl.glNamedProgramLocalParametersI4ivEXT = emu_glNamedProgramLocalParametersI4ivEXT;
-   tbl.glNamedProgramLocalParameterI4uiEXT = emu_glNamedProgramLocalParameterI4uiEXT;
-   tbl.glNamedProgramLocalParameterI4uivEXT = emu_glNamedProgramLocalParameterI4uivEXT;
-   tbl.glNamedProgramLocalParametersI4uivEXT = emu_glNamedProgramLocalParametersI4uivEXT;
-   tbl.glGetNamedProgramLocalParameterIivEXT = emu_glGetNamedProgramLocalParameterIivEXT;
-   tbl.glGetNamedProgramLocalParameterIuivEXT = emu_glGetNamedProgramLocalParameterIuivEXT;
-   tbl.glTextureParameterIivEXT = emu_glTextureParameterIivEXT;
-   tbl.glTextureParameterIuivEXT = emu_glTextureParameterIuivEXT;
-   tbl.glGetTextureParameterIivEXT = emu_glGetTextureParameterIivEXT;
-   tbl.glGetTextureParameterIuivEXT = emu_glGetTextureParameterIuivEXT;
-   tbl.glMultiTexParameterIivEXT = emu_glMultiTexParameterIivEXT;
-   tbl.glMultiTexParameterIuivEXT = emu_glMultiTexParameterIuivEXT;
-   tbl.glGetMultiTexParameterIivEXT = emu_glGetMultiTexParameterIivEXT;
-   tbl.glGetMultiTexParameterIuivEXT = emu_glGetMultiTexParameterIuivEXT;
-   tbl.glProgramUniform1fEXT = emu_glProgramUniform1fEXT;
-   tbl.glProgramUniform2fEXT = emu_glProgramUniform2fEXT;
-   tbl.glProgramUniform3fEXT = emu_glProgramUniform3fEXT;
-   tbl.glProgramUniform4fEXT = emu_glProgramUniform4fEXT;
-   tbl.glProgramUniform1iEXT = emu_glProgramUniform1iEXT;
-   tbl.glProgramUniform2iEXT = emu_glProgramUniform2iEXT;
-   tbl.glProgramUniform3iEXT = emu_glProgramUniform3iEXT;
-   tbl.glProgramUniform4iEXT = emu_glProgramUniform4iEXT;
-   tbl.glProgramUniform1fvEXT = emu_glProgramUniform1fvEXT;
-   tbl.glProgramUniform2fvEXT = emu_glProgramUniform2fvEXT;
-   tbl.glProgramUniform3fvEXT = emu_glProgramUniform3fvEXT;
-   tbl.glProgramUniform4fvEXT = emu_glProgramUniform4fvEXT;
-   tbl.glProgramUniform1ivEXT = emu_glProgramUniform1ivEXT;
-   tbl.glProgramUniform2ivEXT = emu_glProgramUniform2ivEXT;
-   tbl.glProgramUniform3ivEXT = emu_glProgramUniform3ivEXT;
-   tbl.glProgramUniform4ivEXT = emu_glProgramUniform4ivEXT;
-   tbl.glProgramUniformMatrix2fvEXT = emu_glProgramUniformMatrix2fvEXT;
-   tbl.glProgramUniformMatrix3fvEXT = emu_glProgramUniformMatrix3fvEXT;
-   tbl.glProgramUniformMatrix4fvEXT = emu_glProgramUniformMatrix4fvEXT;
-   tbl.glProgramUniformMatrix2x3fvEXT = emu_glProgramUniformMatrix2x3fvEXT;
-   tbl.glProgramUniformMatrix3x2fvEXT = emu_glProgramUniformMatrix3x2fvEXT;
-   tbl.glProgramUniformMatrix2x4fvEXT = emu_glProgramUniformMatrix2x4fvEXT;
-   tbl.glProgramUniformMatrix4x2fvEXT = emu_glProgramUniformMatrix4x2fvEXT;
-   tbl.glProgramUniformMatrix3x4fvEXT = emu_glProgramUniformMatrix3x4fvEXT;
-   tbl.glProgramUniformMatrix4x3fvEXT = emu_glProgramUniformMatrix4x3fvEXT;
-   tbl.glProgramUniform1uiEXT = emu_glProgramUniform1uiEXT;
-   tbl.glProgramUniform2uiEXT = emu_glProgramUniform2uiEXT;
-   tbl.glProgramUniform3uiEXT = emu_glProgramUniform3uiEXT;
-   tbl.glProgramUniform4uiEXT = emu_glProgramUniform4uiEXT;
-   tbl.glProgramUniform1uivEXT = emu_glProgramUniform1uivEXT;
-   tbl.glProgramUniform2uivEXT = emu_glProgramUniform2uivEXT;
-   tbl.glProgramUniform3uivEXT = emu_glProgramUniform3uivEXT;
-   tbl.glProgramUniform4uivEXT = emu_glProgramUniform4uivEXT;
-   tbl.glNamedBufferDataEXT = emu_glNamedBufferDataEXT;
-   tbl.glNamedBufferSubDataEXT = emu_glNamedBufferSubDataEXT;
-   tbl.glMapNamedBufferEXT = emu_glMapNamedBufferEXT;
-   tbl.glUnmapNamedBufferEXT = emu_glUnmapNamedBufferEXT;
-   tbl.glGetNamedBufferParameterivEXT = emu_glGetNamedBufferParameterivEXT;
-   tbl.glGetNamedBufferPointervEXT = emu_glGetNamedBufferPointervEXT;
-   tbl.glGetNamedBufferSubDataEXT = emu_glGetNamedBufferSubDataEXT;
-   tbl.glTextureBufferEXT = emu_glTextureBufferEXT;
-   tbl.glMultiTexBufferEXT = emu_glMultiTexBufferEXT;
-   tbl.glNamedRenderbufferStorageEXT = emu_glNamedRenderbufferStorageEXT;
-   tbl.glGetNamedRenderbufferParameterivEXT = emu_glGetNamedRenderbufferParameterivEXT;
-   tbl.glCheckNamedFramebufferStatusEXT = emu_glCheckNamedFramebufferStatusEXT;
-   tbl.glNamedFramebufferTexture1DEXT = emu_glNamedFramebufferTexture1DEXT;
-   tbl.glNamedFramebufferTexture2DEXT = emu_glNamedFramebufferTexture2DEXT;
-   tbl.glNamedFramebufferTexture3DEXT = emu_glNamedFramebufferTexture3DEXT;
-   tbl.glNamedFramebufferRenderbufferEXT = emu_glNamedFramebufferRenderbufferEXT;
-   tbl.glGetNamedFramebufferAttachmentParameterivEXT = emu_glGetNamedFramebufferAttachmentParameterivEXT;
-   tbl.glGenerateTextureMipmapEXT = emu_glGenerateTextureMipmapEXT;
-   tbl.glGenerateMultiTexMipmapEXT = emu_glGenerateMultiTexMipmapEXT;
-   tbl.glFramebufferDrawBufferEXT = emu_glFramebufferDrawBufferEXT;
-   tbl.glFramebufferDrawBuffersEXT = emu_glFramebufferDrawBuffersEXT;
-   tbl.glFramebufferReadBufferEXT = emu_glFramebufferReadBufferEXT;
-   tbl.glGetFramebufferParameterivEXT = emu_glGetFramebufferParameterivEXT;
-   tbl.glNamedRenderbufferStorageMultisampleEXT = emu_glNamedRenderbufferStorageMultisampleEXT;
-   tbl.glNamedRenderbufferStorageMultisampleCoverageEXT = emu_glNamedRenderbufferStorageMultisampleCoverageEXT;
-   tbl.glNamedFramebufferTextureEXT = emu_glNamedFramebufferTextureEXT;
-   tbl.glNamedFramebufferTextureLayerEXT = emu_glNamedFramebufferTextureLayerEXT;
-   tbl.glNamedFramebufferTextureFaceEXT = emu_glNamedFramebufferTextureFaceEXT;
-   tbl.glTextureRenderbufferEXT = emu_glTextureRenderbufferEXT;
-   tbl.glMultiTexRenderbufferEXT = emu_glMultiTexRenderbufferEXT;
-   tbl.glMapNamedBufferRangeEXT = emu_glMapNamedBufferRangeEXT;
-   tbl.glFlushMappedNamedBufferRangeEXT = emu_glFlushMappedNamedBufferRangeEXT;
-   tbl.glNamedCopyBufferSubDataEXT = emu_glNamedCopyBufferSubDataEXT;
-   tbl.glProgramUniform1dEXT = emu_glProgramUniform1dEXT;
-   tbl.glProgramUniform2dEXT = emu_glProgramUniform2dEXT;
-   tbl.glProgramUniform3dEXT = emu_glProgramUniform3dEXT;
-   tbl.glProgramUniform4dEXT = emu_glProgramUniform4dEXT;
-   tbl.glProgramUniform1dvEXT = emu_glProgramUniform1dvEXT;
-   tbl.glProgramUniform2dvEXT = emu_glProgramUniform2dvEXT;
-   tbl.glProgramUniform3dvEXT = emu_glProgramUniform3dvEXT;
-   tbl.glProgramUniform4dvEXT = emu_glProgramUniform4dvEXT;
-   tbl.glProgramUniformMatrix2dvEXT = emu_glProgramUniformMatrix2dvEXT;
-   tbl.glProgramUniformMatrix3dvEXT = emu_glProgramUniformMatrix3dvEXT;
-   tbl.glProgramUniformMatrix4dvEXT = emu_glProgramUniformMatrix4dvEXT;
-   tbl.glProgramUniformMatrix2x3dvEXT = emu_glProgramUniformMatrix2x3dvEXT;
-   tbl.glProgramUniformMatrix2x4dvEXT = emu_glProgramUniformMatrix2x4dvEXT;
-   tbl.glProgramUniformMatrix3x2dvEXT = emu_glProgramUniformMatrix3x2dvEXT;
-   tbl.glProgramUniformMatrix3x4dvEXT = emu_glProgramUniformMatrix3x4dvEXT;
-   tbl.glProgramUniformMatrix4x2dvEXT = emu_glProgramUniformMatrix4x2dvEXT;
-   tbl.glProgramUniformMatrix4x3dvEXT = emu_glProgramUniformMatrix4x3dvEXT;
-
-// GL_NV_explicit_multisample
-
-   tbl.glTexRenderbufferNV = emu_glTexRenderbufferNV;
-
-// GL_AMD_multi_draw_indirect
-
-   tbl.glMultiDrawArraysIndirectAMD = emu_glMultiDrawArraysIndirectAMD;
-   tbl.glMultiDrawElementsIndirectAMD = emu_glMultiDrawElementsIndirectAMD;
+   tbl.glGetProgramEnvParameterIivNV = emu_glGetProgramEnvParameterIivNV;
+   tbl.glGetProgramEnvParameterIuivNV = emu_glGetProgramEnvParameterIuivNV;
+   tbl.glGetProgramLocalParameterIivNV = emu_glGetProgramLocalParameterIivNV;
+   tbl.glGetProgramLocalParameterIuivNV = emu_glGetProgramLocalParameterIuivNV;
+   tbl.glProgramEnvParameterI4iNV = emu_glProgramEnvParameterI4iNV;
+   tbl.glProgramEnvParameterI4ivNV = emu_glProgramEnvParameterI4ivNV;
+   tbl.glProgramEnvParameterI4uiNV = emu_glProgramEnvParameterI4uiNV;
+   tbl.glProgramEnvParameterI4uivNV = emu_glProgramEnvParameterI4uivNV;
+   tbl.glProgramEnvParametersI4ivNV = emu_glProgramEnvParametersI4ivNV;
+   tbl.glProgramEnvParametersI4uivNV = emu_glProgramEnvParametersI4uivNV;
+   tbl.glProgramLocalParameterI4iNV = emu_glProgramLocalParameterI4iNV;
+   tbl.glProgramLocalParameterI4ivNV = emu_glProgramLocalParameterI4ivNV;
+   tbl.glProgramLocalParameterI4uiNV = emu_glProgramLocalParameterI4uiNV;
+   tbl.glProgramLocalParameterI4uivNV = emu_glProgramLocalParameterI4uivNV;
+   tbl.glProgramLocalParametersI4ivNV = emu_glProgramLocalParametersI4ivNV;
+   tbl.glProgramLocalParametersI4uivNV = emu_glProgramLocalParametersI4uivNV;
 
 // GL_NV_texture_multisample
 
    tbl.glTexImage2DMultisampleCoverageNV = emu_glTexImage2DMultisampleCoverageNV;
    tbl.glTexImage3DMultisampleCoverageNV = emu_glTexImage3DMultisampleCoverageNV;
+
+// GL_SGIS_texture4D
+
+   tbl.glTexImage4DSGIS = emu_glTexImage4DSGIS;
 
 }
 

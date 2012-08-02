@@ -7147,15 +7147,15 @@ REGAL_DECL void REGAL_CALL glTexBumpParameterivATI(GLenum pname, GLint *param);
 #endif
 
 #ifndef REGAL_NO_ENUM_GL_ATI_FRAGMENT_SHADER
-#define GL_RED_BIT_ATI                           0x1
 #define GL_2X_BIT_ATI                            0x1
+#define GL_RED_BIT_ATI                           0x1
 #define GL_QUARTER_BIT_ATI                       0x10       /* 16 */
 #define GL_4X_BIT_ATI                            0x2
-#define GL_GREEN_BIT_ATI                         0x2
 #define GL_COMP_BIT_ATI                          0x2
+#define GL_GREEN_BIT_ATI                         0x2
 #define GL_EIGHTH_BIT_ATI                        0x20       /* 32 */
-#define GL_BLUE_BIT_ATI                          0x4
 #define GL_8X_BIT_ATI                            0x4
+#define GL_BLUE_BIT_ATI                          0x4
 #define GL_NEGATE_BIT_ATI                        0x4
 #define GL_SATURATE_BIT_ATI                      0x40       /* 64 */
 #define GL_BIAS_BIT_ATI                          0x8
@@ -11797,17 +11797,17 @@ REGAL_DECL void REGAL_CALL glTexBufferEXT(GLenum target, GLenum internalformat, 
 #endif
 
 #ifndef REGAL_NO_ENUM_GL_EXT_TEXTURE_ENV
-#define GL_TEXTURE_ENV0_EXT           0x0
-#define GL_TEXTURE_ENV_SHIFT_EXT      0x0
-#define GL_ENV_BLEND_EXT              0x0
 #define GL_ENV_ADD_EXT                0x0
-#define GL_ENV_REPLACE_EXT            0x0
-#define GL_ENV_SUBTRACT_EXT           0x0
-#define GL_TEXTURE_ENV_MODE_ALPHA_EXT 0x0
-#define GL_ENV_REVERSE_BLEND_EXT      0x0
-#define GL_ENV_REVERSE_SUBTRACT_EXT   0x0
+#define GL_ENV_BLEND_EXT              0x0
 #define GL_ENV_COPY_EXT               0x0
 #define GL_ENV_MODULATE_EXT           0x0
+#define GL_ENV_REPLACE_EXT            0x0
+#define GL_ENV_REVERSE_BLEND_EXT      0x0
+#define GL_ENV_REVERSE_SUBTRACT_EXT   0x0
+#define GL_ENV_SUBTRACT_EXT           0x0
+#define GL_TEXTURE_ENV0_EXT           0x0
+#define GL_TEXTURE_ENV_MODE_ALPHA_EXT 0x0
+#define GL_TEXTURE_ENV_SHIFT_EXT      0x0
 #endif
 
 /**
@@ -15444,8 +15444,8 @@ REGAL_DECL void REGAL_CALL glProgramBufferParametersfvNV(GLenum target, GLuint b
 #define GL_FONT_ASCENDER_NV                        0x200000       /* 2097152 */
 #define GL_FONT_MAX_ADVANCE_HEIGHT_NV              0x2000000      /* 33554432 */
 #define GL_RELATIVE_MOVE_TO_NV                     0x3
-#define GL_LINE_TO_NV                              0x4
 #define GL_GLYPH_HORIZONTAL_BEARING_X_BIT_NV       0x4
+#define GL_LINE_TO_NV                              0x4
 #define GL_GLYPH_VERTICAL_BEARING_Y_BIT_NV         0x40           /* 64 */
 #define GL_FONT_X_MAX_BOUNDS_NV                    0x40000        /* 262144 */
 #define GL_FONT_DESCENDER_NV                       0x400000       /* 4194304 */
@@ -15550,7 +15550,7 @@ REGAL_DECL void REGAL_CALL glProgramBufferParametersfvNV(GLenum target, GLuint b
 typedef GLboolean (REGAL_CALL *PFNGLISPATHNVPROC)(GLuint path);
 typedef GLboolean (REGAL_CALL *PFNGLISPOINTINFILLPATHNVPROC)(GLuint path, GLuint mask, GLfloat x, GLfloat y);
 typedef GLboolean (REGAL_CALL *PFNGLISPOINTINSTROKEPATHNVPROC)(GLuint path, GLfloat x, GLfloat y);
-typedef GLboolean (REGAL_CALL *PFNGLPOINTALONGPATHNVPROC)(GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat distance, GLfloat*x, GLfloat *y, GLfloat *tangentX, GLfloat *tangentY);
+typedef GLboolean (REGAL_CALL *PFNGLPOINTALONGPATHNVPROC)(GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat distance, GLfloat *x, GLfloat *y, GLfloat *tangentX, GLfloat *tangentY);
 typedef GLfloat (REGAL_CALL *PFNGLGETPATHLENGTHNVPROC)(GLuint path, GLsizei startSegment, GLsizei numSegments);
 typedef GLuint (REGAL_CALL *PFNGLGENPATHSNVPROC)(GLsizei range);
 typedef void (REGAL_CALL *PFNGLCOPYPATHNVPROC)(GLuint resultPath, GLuint srcPath);
@@ -15559,35 +15559,35 @@ typedef void (REGAL_CALL *PFNGLCOVERFILLPATHNVPROC)(GLuint path, GLenum coverMod
 typedef void (REGAL_CALL *PFNGLCOVERSTROKEPATHINSTANCEDNVPROC)(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat *transformValues);
 typedef void (REGAL_CALL *PFNGLCOVERSTROKEPATHNVPROC)(GLuint name, GLenum coverMode);
 typedef void (REGAL_CALL *PFNGLDELETEPATHSNVPROC)(GLuint path, GLsizei range);
-typedef void (REGAL_CALL *PFNGLGETPATHCOLORGENFVNVPROC)(GLenum color, GLenum pname, GLfloat*value);
+typedef void (REGAL_CALL *PFNGLGETPATHCOLORGENFVNVPROC)(GLenum color, GLenum pname, GLfloat *value);
 typedef void (REGAL_CALL *PFNGLGETPATHCOLORGENIVNVPROC)(GLenum color, GLenum pname, GLint *value);
 typedef void (REGAL_CALL *PFNGLGETPATHCOMMANDSNVPROC)(GLuint name, GLubyte *commands);
-typedef void (REGAL_CALL *PFNGLGETPATHCOORDSNVPROC)(GLuint name, GLfloat*coords);
+typedef void (REGAL_CALL *PFNGLGETPATHCOORDSNVPROC)(GLuint name, GLfloat *coords);
 typedef void (REGAL_CALL *PFNGLGETPATHDASHARRAYNVPROC)(GLuint name, GLfloat *dashArray);
-typedef void (REGAL_CALL *PFNGLGETPATHMETRICRANGENVPROC)(GLbitfield metricQueryMask, GLuint fistPathName, GLsizei numPaths, GLsizei stride, GLfloat*metrics);
+typedef void (REGAL_CALL *PFNGLGETPATHMETRICRANGENVPROC)(GLbitfield metricQueryMask, GLuint fistPathName, GLsizei numPaths, GLsizei stride, GLfloat *metrics);
 typedef void (REGAL_CALL *PFNGLGETPATHMETRICSNVPROC)(GLbitfield metricQueryMask, GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLsizei stride, GLfloat *metrics);
-typedef void (REGAL_CALL *PFNGLGETPATHPARAMETERFVNVPROC)(GLuint name, GLenum param, GLfloat*value);
-typedef void (REGAL_CALL *PFNGLGETPATHPARAMETERIVNVPROC)(GLuint name, GLenum param, GLint*value);
+typedef void (REGAL_CALL *PFNGLGETPATHPARAMETERFVNVPROC)(GLuint name, GLenum param, GLfloat *value);
+typedef void (REGAL_CALL *PFNGLGETPATHPARAMETERIVNVPROC)(GLuint name, GLenum param, GLint *value);
 typedef void (REGAL_CALL *PFNGLGETPATHSPACINGNVPROC)(GLenum pathListMode, GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLfloat advanceScale, GLfloat kerningScale, GLenum transformType, GLfloat *returnedSpacing);
-typedef void (REGAL_CALL *PFNGLGETPATHTEXGENFVNVPROC)(GLenum texCoordSet, GLenum pname, GLfloat*value);
-typedef void (REGAL_CALL *PFNGLGETPATHTEXGENIVNVPROC)(GLenum texCoordSet, GLenum pname, GLint*value);
+typedef void (REGAL_CALL *PFNGLGETPATHTEXGENFVNVPROC)(GLenum texCoordSet, GLenum pname, GLfloat *value);
+typedef void (REGAL_CALL *PFNGLGETPATHTEXGENIVNVPROC)(GLenum texCoordSet, GLenum pname, GLint *value);
 typedef void (REGAL_CALL *PFNGLINTERPOLATEPATHSNVPROC)(GLuint resultPath, GLuint pathA, GLuint pathB, GLfloat weight);
 typedef void (REGAL_CALL *PFNGLPATHCOLORGENNVPROC)(GLenum color, GLenum genMode, GLenum colorFormat, const GLfloat *coeffs);
-typedef void (REGAL_CALL *PFNGLPATHCOMMANDSNVPROC)(GLuint path, GLsizei numCommands, const GLubyte*commands, GLsizei numCoords, GLenum coordType, const GLvoid*coords);
+typedef void (REGAL_CALL *PFNGLPATHCOMMANDSNVPROC)(GLuint path, GLsizei numCommands, const GLubyte *commands, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 typedef void (REGAL_CALL *PFNGLPATHCOORDSNVPROC)(GLuint path, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 typedef void (REGAL_CALL *PFNGLPATHCOVERDEPTHFUNCNVPROC)(GLenum zfunc);
 typedef void (REGAL_CALL *PFNGLPATHDASHARRAYNVPROC)(GLuint path, GLsizei dashCount, const GLfloat *dashArray);
 typedef void (REGAL_CALL *PFNGLPATHFOGGENNVPROC)(GLenum genMode);
 typedef void (REGAL_CALL *PFNGLPATHGLYPHRANGENVPROC)(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLuint firstGlyph, GLsizei numGlyphs, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
-typedef void (REGAL_CALL *PFNGLPATHGLYPHSNVPROC)(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const GLvoid*charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
+typedef void (REGAL_CALL *PFNGLPATHGLYPHSNVPROC)(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const GLvoid *charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
 typedef void (REGAL_CALL *PFNGLPATHPARAMETERFNVPROC)(GLuint path, GLenum pname, GLfloat value);
 typedef void (REGAL_CALL *PFNGLPATHPARAMETERFVNVPROC)(GLuint path, GLenum pname, const GLfloat *value);
 typedef void (REGAL_CALL *PFNGLPATHPARAMETERINVPROC)(GLuint path, GLenum pname, GLint value);
 typedef void (REGAL_CALL *PFNGLPATHPARAMETERIVNVPROC)(GLuint path, GLenum pname, const GLint *value);
-typedef void (REGAL_CALL *PFNGLPATHSTENCILDEPTHOFFSETNVPROC)(GLfloat factor, GLint units);
+typedef void (REGAL_CALL *PFNGLPATHSTENCILDEPTHOFFSETNVPROC)(GLfloat factor, GLfloat units);
 typedef void (REGAL_CALL *PFNGLPATHSTENCILFUNCNVPROC)(GLenum func, GLint ref, GLuint mask);
 typedef void (REGAL_CALL *PFNGLPATHSTRINGNVPROC)(GLuint path, GLenum format, GLsizei length, const GLvoid *pathString);
-typedef void (REGAL_CALL *PFNGLPATHSUBCOMMANDSNVPROC)(GLuint path, GLsizei commandStart, GLsizei commandsToDelete, GLsizei numCommands, const GLubyte*commands, GLsizei numCoords, GLenum coordType, const GLvoid*coords);
+typedef void (REGAL_CALL *PFNGLPATHSUBCOMMANDSNVPROC)(GLuint path, GLsizei commandStart, GLsizei commandsToDelete, GLsizei numCommands, const GLubyte *commands, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 typedef void (REGAL_CALL *PFNGLPATHSUBCOORDSNVPROC)(GLuint path, GLsizei coordStart, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 typedef void (REGAL_CALL *PFNGLPATHTEXGENNVPROC)(GLenum texCoordSet, GLenum genMode, GLint components, const GLfloat *coeffs);
 typedef void (REGAL_CALL *PFNGLSTENCILFILLPATHINSTANCEDNVPROC)(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum transformType, const GLfloat *transformValues);
@@ -15654,7 +15654,7 @@ typedef void (REGAL_CALL *PFNGLWEIGHTPATHSNVPROC)(GLuint resultPath, GLsizei num
 REGAL_DECL GLboolean REGAL_CALL glIsPathNV(GLuint path);
 REGAL_DECL GLboolean REGAL_CALL glIsPointInFillPathNV(GLuint path, GLuint mask, GLfloat x, GLfloat y);
 REGAL_DECL GLboolean REGAL_CALL glIsPointInStrokePathNV(GLuint path, GLfloat x, GLfloat y);
-REGAL_DECL GLboolean REGAL_CALL glPointAlongPathNV(GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat distance, GLfloat*x, GLfloat *y, GLfloat *tangentX, GLfloat *tangentY);
+REGAL_DECL GLboolean REGAL_CALL glPointAlongPathNV(GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat distance, GLfloat *x, GLfloat *y, GLfloat *tangentX, GLfloat *tangentY);
 REGAL_DECL GLfloat REGAL_CALL glGetPathLengthNV(GLuint path, GLsizei startSegment, GLsizei numSegments);
 REGAL_DECL GLuint REGAL_CALL glGenPathsNV(GLsizei range);
 REGAL_DECL void REGAL_CALL glCopyPathNV(GLuint resultPath, GLuint srcPath);
@@ -15663,35 +15663,35 @@ REGAL_DECL void REGAL_CALL glCoverFillPathNV(GLuint path, GLenum coverMode);
 REGAL_DECL void REGAL_CALL glCoverStrokePathInstancedNV(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum coverMode, GLenum transformType, const GLfloat *transformValues);
 REGAL_DECL void REGAL_CALL glCoverStrokePathNV(GLuint name, GLenum coverMode);
 REGAL_DECL void REGAL_CALL glDeletePathsNV(GLuint path, GLsizei range);
-REGAL_DECL void REGAL_CALL glGetPathColorGenfvNV(GLenum color, GLenum pname, GLfloat*value);
+REGAL_DECL void REGAL_CALL glGetPathColorGenfvNV(GLenum color, GLenum pname, GLfloat *value);
 REGAL_DECL void REGAL_CALL glGetPathColorGenivNV(GLenum color, GLenum pname, GLint *value);
 REGAL_DECL void REGAL_CALL glGetPathCommandsNV(GLuint name, GLubyte *commands);
-REGAL_DECL void REGAL_CALL glGetPathCoordsNV(GLuint name, GLfloat*coords);
+REGAL_DECL void REGAL_CALL glGetPathCoordsNV(GLuint name, GLfloat *coords);
 REGAL_DECL void REGAL_CALL glGetPathDashArrayNV(GLuint name, GLfloat *dashArray);
-REGAL_DECL void REGAL_CALL glGetPathMetricRangeNV(GLbitfield metricQueryMask, GLuint fistPathName, GLsizei numPaths, GLsizei stride, GLfloat*metrics);
+REGAL_DECL void REGAL_CALL glGetPathMetricRangeNV(GLbitfield metricQueryMask, GLuint fistPathName, GLsizei numPaths, GLsizei stride, GLfloat *metrics);
 REGAL_DECL void REGAL_CALL glGetPathMetricsNV(GLbitfield metricQueryMask, GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLsizei stride, GLfloat *metrics);
-REGAL_DECL void REGAL_CALL glGetPathParameterfvNV(GLuint name, GLenum param, GLfloat*value);
-REGAL_DECL void REGAL_CALL glGetPathParameterivNV(GLuint name, GLenum param, GLint*value);
+REGAL_DECL void REGAL_CALL glGetPathParameterfvNV(GLuint name, GLenum param, GLfloat *value);
+REGAL_DECL void REGAL_CALL glGetPathParameterivNV(GLuint name, GLenum param, GLint *value);
 REGAL_DECL void REGAL_CALL glGetPathSpacingNV(GLenum pathListMode, GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLfloat advanceScale, GLfloat kerningScale, GLenum transformType, GLfloat *returnedSpacing);
-REGAL_DECL void REGAL_CALL glGetPathTexGenfvNV(GLenum texCoordSet, GLenum pname, GLfloat*value);
-REGAL_DECL void REGAL_CALL glGetPathTexGenivNV(GLenum texCoordSet, GLenum pname, GLint*value);
+REGAL_DECL void REGAL_CALL glGetPathTexGenfvNV(GLenum texCoordSet, GLenum pname, GLfloat *value);
+REGAL_DECL void REGAL_CALL glGetPathTexGenivNV(GLenum texCoordSet, GLenum pname, GLint *value);
 REGAL_DECL void REGAL_CALL glInterpolatePathsNV(GLuint resultPath, GLuint pathA, GLuint pathB, GLfloat weight);
 REGAL_DECL void REGAL_CALL glPathColorGenNV(GLenum color, GLenum genMode, GLenum colorFormat, const GLfloat *coeffs);
-REGAL_DECL void REGAL_CALL glPathCommandsNV(GLuint path, GLsizei numCommands, const GLubyte*commands, GLsizei numCoords, GLenum coordType, const GLvoid*coords);
+REGAL_DECL void REGAL_CALL glPathCommandsNV(GLuint path, GLsizei numCommands, const GLubyte *commands, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 REGAL_DECL void REGAL_CALL glPathCoordsNV(GLuint path, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 REGAL_DECL void REGAL_CALL glPathCoverDepthFuncNV(GLenum zfunc);
 REGAL_DECL void REGAL_CALL glPathDashArrayNV(GLuint path, GLsizei dashCount, const GLfloat *dashArray);
 REGAL_DECL void REGAL_CALL glPathFogGenNV(GLenum genMode);
 REGAL_DECL void REGAL_CALL glPathGlyphRangeNV(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLuint firstGlyph, GLsizei numGlyphs, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
-REGAL_DECL void REGAL_CALL glPathGlyphsNV(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const GLvoid*charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
+REGAL_DECL void REGAL_CALL glPathGlyphsNV(GLuint firstPathName, GLenum fontTarget, const GLvoid *fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type, const GLvoid *charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale);
 REGAL_DECL void REGAL_CALL glPathParameterfNV(GLuint path, GLenum pname, GLfloat value);
 REGAL_DECL void REGAL_CALL glPathParameterfvNV(GLuint path, GLenum pname, const GLfloat *value);
 REGAL_DECL void REGAL_CALL glPathParameteriNV(GLuint path, GLenum pname, GLint value);
 REGAL_DECL void REGAL_CALL glPathParameterivNV(GLuint path, GLenum pname, const GLint *value);
-REGAL_DECL void REGAL_CALL glPathStencilDepthOffsetNV(GLfloat factor, GLint units);
+REGAL_DECL void REGAL_CALL glPathStencilDepthOffsetNV(GLfloat factor, GLfloat units);
 REGAL_DECL void REGAL_CALL glPathStencilFuncNV(GLenum func, GLint ref, GLuint mask);
 REGAL_DECL void REGAL_CALL glPathStringNV(GLuint path, GLenum format, GLsizei length, const GLvoid *pathString);
-REGAL_DECL void REGAL_CALL glPathSubCommandsNV(GLuint path, GLsizei commandStart, GLsizei commandsToDelete, GLsizei numCommands, const GLubyte*commands, GLsizei numCoords, GLenum coordType, const GLvoid*coords);
+REGAL_DECL void REGAL_CALL glPathSubCommandsNV(GLuint path, GLsizei commandStart, GLsizei commandsToDelete, GLsizei numCommands, const GLubyte *commands, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 REGAL_DECL void REGAL_CALL glPathSubCoordsNV(GLuint path, GLsizei coordStart, GLsizei numCoords, GLenum coordType, const GLvoid *coords);
 REGAL_DECL void REGAL_CALL glPathTexGenNV(GLenum texCoordSet, GLenum genMode, GLint components, const GLfloat *coeffs);
 REGAL_DECL void REGAL_CALL glStencilFillPathInstancedNV(GLsizei numPaths, GLenum pathNameType, const GLvoid *paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum transformType, const GLfloat *transformValues);
@@ -16456,12 +16456,12 @@ REGAL_DECL void REGAL_CALL glTextureImage3DMultisampleNV(GLuint texture, GLenum 
 #define GL_TEXTURE_SHADER_NV                         0x86de     /* 34526 */
 #define GL_SHADER_OPERATION_NV                       0x86df     /* 34527 */
 #define GL_CULL_MODES_NV                             0x86e0     /* 34528 */
-#define GL_OFFSET_TEXTURE_MATRIX_NV                  0x86e1     /* 34529 */
 #define GL_OFFSET_TEXTURE_2D_MATRIX_NV               0x86e1     /* 34529 */
-#define GL_OFFSET_TEXTURE_SCALE_NV                   0x86e2     /* 34530 */
+#define GL_OFFSET_TEXTURE_MATRIX_NV                  0x86e1     /* 34529 */
 #define GL_OFFSET_TEXTURE_2D_SCALE_NV                0x86e2     /* 34530 */
-#define GL_OFFSET_TEXTURE_BIAS_NV                    0x86e3     /* 34531 */
+#define GL_OFFSET_TEXTURE_SCALE_NV                   0x86e2     /* 34530 */
 #define GL_OFFSET_TEXTURE_2D_BIAS_NV                 0x86e3     /* 34531 */
+#define GL_OFFSET_TEXTURE_BIAS_NV                    0x86e3     /* 34531 */
 #define GL_PREVIOUS_TEXTURE_INPUT_NV                 0x86e4     /* 34532 */
 #define GL_CONST_EYE_NV                              0x86e5     /* 34533 */
 #define GL_PASS_THROUGH_NV                           0x86e6     /* 34534 */
@@ -18984,9 +18984,9 @@ REGAL_DECL void REGAL_CALL glFlushRasterSGIX(void);
 #endif
 
 #ifndef REGAL_NO_ENUM_GL_SGIX_FOG_TEXTURE
-#define GL_TEXTURE_FOG_SGIX       0x0
 #define GL_FOG_PATCHY_FACTOR_SGIX 0x0
 #define GL_FRAGMENT_FOG_SGIX      0x0
+#define GL_TEXTURE_FOG_SGIX       0x0
 #endif
 
 #ifndef REGAL_NO_TYPEDEF_GL_SGIX_FOG_TEXTURE
@@ -21333,21 +21333,21 @@ REGAL_DECL void REGAL_CALL glViewport(GLint x, GLint y, GLsizei width, GLsizei h
 #endif
 
 #ifndef REGAL_NO_ENUM_GL_VERSION_1_1
-#define GL_POINTS                        0x0
-#define GL_ZERO                          0x0
 #define GL_FALSE                         0x0
 #define GL_NONE                          0x0
 #define GL_NO_ERROR                      0x0
+#define GL_POINTS                        0x0
+#define GL_ZERO                          0x0
+#define GL_CLIENT_PIXEL_STORE_BIT        0x1
 #define GL_CURRENT_BIT                   0x1
 #define GL_LINES                         0x1
 #define GL_ONE                           0x1
 #define GL_TRUE                          0x1
-#define GL_CLIENT_PIXEL_STORE_BIT        0x1
 #define GL_POLYGON_STIPPLE_BIT           0x10                           /* 16 */
 #define GL_ACCUM                         0x100                          /* 256 */
 #define GL_DEPTH_BUFFER_BIT              0x100                          /* 256 */
-#define GL_TRANSFORM_BIT                 0x1000                         /* 4096 */
 #define GL_TEXTURE_WIDTH                 0x1000                         /* 4096 */
+#define GL_TRANSFORM_BIT                 0x1000                         /* 4096 */
 #define GL_EVAL_BIT                      0x10000                        /* 65536 */
 #define GL_TEXTURE_HEIGHT                0x1001                         /* 4097 */
 #define GL_TEXTURE_INTERNAL_FORMAT       0x1003                         /* 4099 */
@@ -21437,12 +21437,12 @@ REGAL_DECL void REGAL_CALL glViewport(GLint x, GLint y, GLsizei width, GLsizei h
 #define GL_RENDERER                      0x1f01                         /* 7937 */
 #define GL_VERSION                       0x1f02                         /* 7938 */
 #define GL_EXTENSIONS                    0x1f03                         /* 7939 */
-#define GL_POINT_BIT                     0x2
-#define GL_LINE_LOOP                     0x2
 #define GL_CLIENT_VERTEX_ARRAY_BIT       0x2
+#define GL_LINE_LOOP                     0x2
+#define GL_POINT_BIT                     0x2
 #define GL_PIXEL_MODE_BIT                0x20                           /* 32 */
-#define GL_NEVER                         0x200                          /* 512 */
 #define GL_ACCUM_BUFFER_BIT              0x200                          /* 512 */
+#define GL_NEVER                         0x200                          /* 512 */
 #define GL_ENABLE_BIT                    0x2000                         /* 8192 */
 #define GL_S                             0x2000                         /* 8192 */
 #define GL_LIST_BIT                      0x20000                        /* 131072 */
@@ -21516,8 +21516,8 @@ REGAL_DECL void REGAL_CALL glViewport(GLint x, GLint y, GLsizei width, GLsizei h
 #define GL_LINE_BIT                      0x4
 #define GL_TRIANGLES                     0x4
 #define GL_LIGHTING_BIT                  0x40                           /* 64 */
-#define GL_STENCIL_BUFFER_BIT            0x400                          /* 1024 */
 #define GL_FRONT_LEFT                    0x400                          /* 1024 */
+#define GL_STENCIL_BUFFER_BIT            0x400                          /* 1024 */
 #define GL_COLOR_BUFFER_BIT              0x4000                         /* 16384 */
 #define GL_LIGHT0                        0x4000                         /* 16384 */
 #define GL_TEXTURE_BIT                   0x40000                        /* 262144 */
@@ -21565,8 +21565,8 @@ REGAL_DECL void REGAL_CALL glViewport(GLint x, GLint y, GLsizei width, GLsizei h
 #define GL_POLYGON_BIT                   0x8
 #define GL_QUAD_STRIP                    0x8
 #define GL_FOG_BIT                       0x80                           /* 128 */
-#define GL_VIEWPORT_BIT                  0x800                          /* 2048 */
 #define GL_EXP                           0x800                          /* 2048 */
+#define GL_VIEWPORT_BIT                  0x800                          /* 2048 */
 #define GL_HINT_BIT                      0x8000                         /* 32768 */
 #define GL_SCISSOR_BIT                   0x80000                        /* 524288 */
 #define GL_EXP2                          0x801                          /* 2049 */
@@ -27172,15 +27172,15 @@ REGAL_DECL int64_t REGAL_CALL glXSwapBuffersMscOML(Display *dpy, GLXDrawable dra
 #endif
 
 #ifndef REGAL_NO_ENUM_GLX_SGIS_COLOR_RANGE
-#define GLX_MAX_GREEN_SGIS      0x0
-#define GLX_MIN_RED_SGIS        0x0
-#define GLX_MIN_BLUE_SGIS       0x0
-#define GLX_MAX_RED_SGIS        0x0
-#define GLX_MAX_ALPHA_SGIS      0x0
-#define GLX_MIN_GREEN_SGIS      0x0
-#define GLX_MIN_ALPHA_SGIS      0x0
 #define GLX_EXTENDED_RANGE_SGIS 0x0
+#define GLX_MAX_ALPHA_SGIS      0x0
 #define GLX_MAX_BLUE_SGIS       0x0
+#define GLX_MAX_GREEN_SGIS      0x0
+#define GLX_MAX_RED_SGIS        0x0
+#define GLX_MIN_ALPHA_SGIS      0x0
+#define GLX_MIN_BLUE_SGIS       0x0
+#define GLX_MIN_GREEN_SGIS      0x0
+#define GLX_MIN_RED_SGIS        0x0
 #endif
 
 /**
@@ -27266,10 +27266,10 @@ REGAL_DECL int64_t REGAL_CALL glXSwapBuffersMscOML(Display *dpy, GLXDrawable dra
 #endif
 
 #ifndef REGAL_NO_ENUM_GLX_SGIX_FBCONFIG
-#define GLX_WINDOW_BIT_SGIX       0x1
 #define GLX_RGBA_BIT_SGIX         0x1
-#define GLX_PIXMAP_BIT_SGIX       0x2
+#define GLX_WINDOW_BIT_SGIX       0x1
 #define GLX_COLOR_INDEX_BIT_SGIX  0x2
+#define GLX_PIXMAP_BIT_SGIX       0x2
 #define GLX_SCREEN_EXT            0x800c     /* 32780 */
 #define GLX_SCREEN_EXT            0x800c     /* 32780 */
 #define GLX_DRAWABLE_TYPE_SGIX    0x8010     /* 32784 */
@@ -27374,8 +27374,8 @@ REGAL_DECL int REGAL_CALL glXGetFBConfigAttribSGIX(Display *dpy, GLXFBConfigSGIX
 #define GLX_SAMPLE_BUFFERS_BIT_SGIX     0x100         /* 256 */
 #define GLX_FRONT_RIGHT_BUFFER_BIT_SGIX 0x2
 #define GLX_DEPTH_BUFFER_BIT_SGIX       0x20          /* 32 */
-#define GLX_PBUFFER_BIT_SGIX            0x4
 #define GLX_BACK_LEFT_BUFFER_BIT_SGIX   0x4
+#define GLX_PBUFFER_BIT_SGIX            0x4
 #define GLX_STENCIL_BUFFER_BIT_SGIX     0x40          /* 64 */
 #define GLX_BACK_RIGHT_BUFFER_BIT_SGIX  0x8
 #define GLX_ACCUM_BUFFER_BIT_SGIX       0x80          /* 128 */
@@ -27831,20 +27831,20 @@ REGAL_DECL int REGAL_CALL glXVideoResizeSUN(Display *display, GLXDrawable window
 #endif
 
 #ifndef REGAL_NO_ENUM_GLX_VERSION_1_0
-#define GLX_USE_GL           0x1
 #define GLX_BAD_SCREEN       0x1
+#define GLX_USE_GL           0x1
 #define GLX_ACCUM_BLUE_SIZE  0x10     /* 16 */
 #define GLX_ACCUM_ALPHA_SIZE 0x11     /* 17 */
-#define GLX_BUFFER_SIZE      0x2
 #define GLX_BAD_ATTRIBUTE    0x2
+#define GLX_BUFFER_SIZE      0x2
 #define GLX_LEVEL            0x3
 #define GLX_NO_EXTENSION     0x3
-#define GLX_RGBA             0x4
 #define GLX_BAD_VISUAL       0x4
-#define GLX_DOUBLEBUFFER     0x5
+#define GLX_RGBA             0x4
 #define GLX_BAD_CONTEXT      0x5
-#define GLX_STEREO           0x6
+#define GLX_DOUBLEBUFFER     0x5
 #define GLX_BAD_VALUE        0x6
+#define GLX_STEREO           0x6
 #define GLX_AUX_BUFFERS      0x7
 #define GLX_BAD_ENUM         0x7
 #define GLX_RED_SIZE         0x8
@@ -28026,15 +28026,15 @@ REGAL_DECL Display *REGAL_CALL glXGetCurrentDisplay(void);
 #endif
 
 #ifndef REGAL_NO_ENUM_GLX_VERSION_1_3
-#define GLX_WINDOW_BIT              0x1
-#define GLX_RGBA_BIT                0x1
 #define GLX_FRONT_LEFT_BUFFER_BIT   0x1
+#define GLX_RGBA_BIT                0x1
+#define GLX_WINDOW_BIT              0x1
 #define GLX_AUX_BUFFERS_BIT         0x10           /* 16 */
-#define GLX_PIXMAP_BIT              0x2
 #define GLX_COLOR_INDEX_BIT         0x2
 #define GLX_FRONT_RIGHT_BUFFER_BIT  0x2
-#define GLX_DEPTH_BUFFER_BIT        0x20           /* 32 */
+#define GLX_PIXMAP_BIT              0x2
 #define GLX_CONFIG_CAVEAT           0x20           /* 32 */
+#define GLX_DEPTH_BUFFER_BIT        0x20           /* 32 */
 #define GLX_X_VISUAL_TYPE           0x22           /* 34 */
 #define GLX_TRANSPARENT_TYPE        0x23           /* 35 */
 #define GLX_TRANSPARENT_INDEX_VALUE 0x24           /* 36 */
@@ -28042,8 +28042,8 @@ REGAL_DECL Display *REGAL_CALL glXGetCurrentDisplay(void);
 #define GLX_TRANSPARENT_GREEN_VALUE 0x26           /* 38 */
 #define GLX_TRANSPARENT_BLUE_VALUE  0x27           /* 39 */
 #define GLX_TRANSPARENT_ALPHA_VALUE 0x28           /* 40 */
-#define GLX_PBUFFER_BIT             0x4
 #define GLX_BACK_LEFT_BUFFER_BIT    0x4
+#define GLX_PBUFFER_BIT             0x4
 #define GLX_STENCIL_BUFFER_BIT      0x40           /* 64 */
 #define GLX_BACK_RIGHT_BUFFER_BIT   0x8
 #define GLX_ACCUM_BUFFER_BIT        0x80           /* 128 */
@@ -28188,11 +28188,11 @@ REGAL_DECL void *REGAL_CALL glXGetProcAddress(const GLubyte *procName);
 #endif /* REGAL_SYS_GLX */
 
 #if REGAL_SYS_OSX
-#define kCGLMonoscopicBit   0x1
 #define kCGL0Bit            0x1
+#define kCGLMonoscopicBit   0x1
 #define kCGLSupersampleBit  0x1
-#define kCGLTripleBufferBit 0x10           /* 16 */
 #define kCGL4Bit            0x10           /* 16 */
+#define kCGLTripleBufferBit 0x10           /* 16 */
 #define kCGL10Bit           0x100          /* 256 */
 #define kCGLRGB444A8Bit     0x100          /* 256 */
 #define kCGL32Bit           0x1000         /* 4096 */
@@ -28202,9 +28202,9 @@ REGAL_DECL void *REGAL_CALL glXGetProcAddress(const GLubyte *procName);
 #define kCGLRGB121212Bit    0x100000       /* 1048576 */
 #define kCGLRGBFloat64Bit   0x1000000      /* 16777216 */
 #define kCGLRGBFloat256Bit  0x10000000     /* 268435456 */
-#define kCGLStereoscopicBit 0x2
 #define kCGL1Bit            0x2
 #define kCGLMultisampleBit  0x2
+#define kCGLStereoscopicBit 0x2
 #define kCGL5Bit            0x20           /* 32 */
 #define kCGL12Bit           0x200          /* 512 */
 #define kCGLRGB555Bit       0x200          /* 512 */
@@ -28214,8 +28214,8 @@ REGAL_DECL void *REGAL_CALL glXGetProcAddress(const GLubyte *procName);
 #define kCGLARGB12121212Bit 0x200000       /* 2097152 */
 #define kCGLRGBAFloat64Bit  0x2000000      /* 33554432 */
 #define kCGLRGBAFloat256Bit 0x20000000     /* 536870912 */
-#define kCGLSingleBufferBit 0x4
 #define kCGL2Bit            0x4
+#define kCGLSingleBufferBit 0x4
 #define kCGL6Bit            0x40           /* 64 */
 #define kCGLRGB444Bit       0x40           /* 64 */
 #define kCGL16Bit           0x400          /* 1024 */
@@ -28225,8 +28225,8 @@ REGAL_DECL void *REGAL_CALL glXGetProcAddress(const GLubyte *procName);
 #define kCGLARGB2101010Bit  0x40000        /* 262144 */
 #define kCGLRGB161616Bit    0x400000       /* 4194304 */
 #define kCGLRGBFloat128Bit  0x4000000      /* 67108864 */
-#define kCGLDoubleBufferBit 0x8
 #define kCGL3Bit            0x8
+#define kCGLDoubleBufferBit 0x8
 #define kCGL8Bit            0x80           /* 128 */
 #define kCGLARGB4444Bit     0x80           /* 128 */
 #define kCGL24Bit           0x800          /* 2048 */
@@ -28525,42 +28525,6 @@ REGAL_DECL CGLError REGAL_CALL CGLUpdateContext(CGLContextObj ctx);
 REGAL_DECL CGLShareGroupObj REGAL_CALL CGLGetShareGroup(CGLContextObj ctx);
 #endif
 
-/**
- ** CGL_VERSION_UNKNOWN
- **/
-
-#if (defined(CGL_VERSION_UNKNOWN) || defined(REGAL_NO_ENUM) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_ENUM_CGL_VERSION_UNKNOWN)
-#define REGAL_NO_ENUM_CGL_VERSION_UNKNOWN
-#endif
-
-#if (defined(CGL_VERSION_UNKNOWN) || defined(REGAL_NO_TYPEDEF) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_TYPEDEF_CGL_VERSION_UNKNOWN)
-#define REGAL_NO_TYPEDEF_CGL_VERSION_UNKNOWN
-#endif
-
-#if (defined(CGL_VERSION_UNKNOWN) || !defined(REGAL_NAMESPACE) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_NAMESPACE_CGL_VERSION_UNKNOWN)
-#define REGAL_NO_NAMESPACE_CGL_VERSION_UNKNOWN
-#endif
-
-#if (defined(CGL_VERSION_UNKNOWN) || defined(REGAL_NO_DECLARATION) || defined(REGAL_NO_CGL_VERSION_UNKNOWN)) && !defined(REGAL_NO_DECLARATION_CGL_VERSION_UNKNOWN)
-#define REGAL_NO_DECLARATION_CGL_VERSION_UNKNOWN
-#endif
-
-#ifndef CGL_VERSION_UNKNOWN
-#define CGL_VERSION_UNKNOWN 1
-#endif
-
-#ifndef REGAL_NO_TYPEDEF_CGL_VERSION_UNKNOWN
-typedef void (REGAL_CALL *PFNCGLOPENCLMUXLOCKDOWNPROC)(void);
-#endif
-
-#ifndef REGAL_NO_NAMESPACE_CGL_VERSION_UNKNOWN
-#define CGLOpenCLMuxLockDown                rCGLOpenCLMuxLockDown
-#endif
-
-#ifndef REGAL_NO_DECLARATION_CGL_VERSION_UNKNOWN
-REGAL_DECL void REGAL_CALL CGLOpenCLMuxLockDown(void);
-#endif
-
 #endif /* REGAL_SYS_OSX */
 
 #if REGAL_SYS_ANDROID
@@ -28571,13 +28535,13 @@ REGAL_DECL void REGAL_CALL CGLOpenCLMuxLockDown(void);
 #define EGL_DONT_CARE                   ((EGLint)-1)
 #define EGL_UNKNOWN                     ((EGLint)-1)
 #define EGL_FALSE                       0x0
+#define EGL_OPENGL_ES_BIT               0x1
+#define EGL_PBUFFER_BIT                 0x1
+#define EGL_TRUE                        0x1
 #define EGL_VERSION_1_3                 0x1
 #define EGL_VERSION_1_4                 0x1
-#define EGL_TRUE                        0x1
-#define EGL_PBUFFER_BIT                 0x1
-#define EGL_OPENGL_ES_BIT               0x1
-#define EGL_PIXMAP_BIT                  0x2
 #define EGL_OPENVG_BIT                  0x2
+#define EGL_PIXMAP_BIT                  0x2
 #define EGL_VG_COLORSPACE_LINEAR_BIT    0x20                           /* 32 */
 #define EGL_MULTISAMPLE_RESOLVE_BOX_BIT 0x200                          /* 512 */
 #define EGL_DISPLAY_SCALING             0x2710                         /* 10000 */
@@ -28677,8 +28641,8 @@ REGAL_DECL void REGAL_CALL CGLOpenCLMuxLockDown(void);
 #define EGL_OPENGL_ES_API               0x30a0                         /* 12448 */
 #define EGL_OPENVG_API                  0x30a1                         /* 12449 */
 #define EGL_OPENGL_API                  0x30a2                         /* 12450 */
-#define EGL_WINDOW_BIT                  0x4
 #define EGL_OPENGL_ES2_BIT              0x4
+#define EGL_WINDOW_BIT                  0x4
 #define EGL_VG_ALPHA_FORMAT_PRE_BIT     0x40                           /* 64 */
 #define EGL_SWAP_BEHAVIOR_PRESERVED_BIT 0x400                          /* 1024 */
 #define EGL_OPENGL_BIT                  0x8

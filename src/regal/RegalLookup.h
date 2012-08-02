@@ -117,21 +117,21 @@ inline size_t glx_LookupOffset(const char *name)
 
 #ifdef REGAL_SYS_OSX
 
-extern const char * const cgl_Name[54];
-extern const void *cgl_Value[54];
-extern const size_t cgl_Offset[54];
+extern const char * const cgl_Name[53];
+extern const void *cgl_Value[53];
+extern const size_t cgl_Offset[53];
 
 template<typename T>
 T
 cgl_Lookup(const char *name, T def = NULL)
 {
-  const char **res = (const char **) std::bsearch(&name, cgl_Name, 53, sizeof(const char *), NameCmp);
+  const char **res = (const char **) std::bsearch(&name, cgl_Name, 52, sizeof(const char *), NameCmp);
   return res ? reinterpret_cast<T>(const_cast<void *>(cgl_Value[(size_t) (res - cgl_Name)])) : def;
 }
 
 inline size_t cgl_LookupOffset(const char *name)
 {
-  const char **res = (const char **) std::bsearch(&name, cgl_Name, 53, sizeof(const char *), NameCmp);
+  const char **res = (const char **) std::bsearch(&name, cgl_Name, 52, sizeof(const char *), NameCmp);
   return res ? cgl_Offset[(size_t) (res - cgl_Name)] : 0;
 }
 
