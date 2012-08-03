@@ -132,8 +132,8 @@ def traverse(apis, args):
         api.functions.sort(cmpCategoryName)
         if api.name=='gl':
           for i in api.enums:
-          	if i.name=='defines':
-          		i.enumerants.sort(cmpCategoryName)
+            if i.name=='defines':
+              i.enumerants.sort(cmpCategoryName)
 
         apiHasCtx = api.name == 'gl';
         toRemove = set()
