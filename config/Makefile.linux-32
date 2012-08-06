@@ -13,7 +13,8 @@ LIBDIR = $(REGAL_DEST)/lib
 endif
 CFLAGS.EXTRA  += -m32
 LDFLAGS.EXTRA += -m32
-LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11
+LDFLAGS.GLU = -lRegalGLU
 LDFLAGS.GLUT = -lRegalGLUT
 LDFLAGS.STATIC =
 LDFLAGS.DYNAMIC = -shared

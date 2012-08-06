@@ -15,7 +15,7 @@
 #endif
 
 #include <GL/Regal.h>
-#include <GL/glu.h>
+#include <GL/RegalGLU.h>
 
 #ifdef __cplusplus
 extern "C" {

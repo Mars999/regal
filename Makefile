@@ -36,7 +36,11 @@ endif
 INCLUDE = -Iinclude
 CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
 
-all debug: regal.lib glew.lib glut.lib regal.bin
+all: regal.lib glew.lib glut.lib regal.bin
+
+# Debug target implies Regal targets, only
+
+debug: regal.lib
 
 # REGAL shared and static libraries
 
@@ -92,13 +96,13 @@ lib:
 	mkdir lib
 
 lib/$(LIB.STATIC): $(LIB.OBJS)
-	$(AR) cr $@ $^
+	$(CCACHE) $(AR) cr $@ $^
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
 
 lib/$(LIB.SHARED): $(LIB.SOBJS)
-	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
 ifneq ($(LN),)
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
@@ -112,19 +116,19 @@ endif
 
 tmp/$(SYSTEM)/regal/static/%.o: src/regal/%.cpp $(LIB.DEPS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 tmp/$(SYSTEM)/regal/shared/%.o: src/regal/%.cpp $(LIB.DEPS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 tmp/$(SYSTEM)/regal/static/%.o: src/mongoose/%.c $(LIB.DEPS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 tmp/$(SYSTEM)/regal/shared/%.o: src/mongoose/%.c $(LIB.DEPS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) $(LIB.INCLUDE) -o $@ -c $<
 
 #
 # RegalGLEW
@@ -143,10 +147,10 @@ glew.lib: lib lib/$(GLEW.SHARED)
 
 tmp/$(SYSTEM)/glew/shared/%.o: src/glew/src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(PICFLAG) $(GLEW.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLEW.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 lib/$(GLEW.SHARED): $(GLEW.OBJS) lib/$(LIB.SHARED)
-	$(LD) $(LDFLAGS.DYNAMIC) -o $@ $^ $(LIB.LDFLAGS) $(GLEW.LIBS)  -lpthread
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) $(LDFLAGS.DYNAMIC) -o $@ $^ $(LIB.LDFLAGS) $(GLEW.LIBS)  -lpthread
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -159,8 +163,8 @@ GLEWINFO.SRCS       += src/glew/src/glewinfo.c
 GLEWINFO.SRCS.NAMES := $(notdir $(GLEWINFO.SRCS))
 GLEWINFO.OBJS       := $(addprefix tmp/$(SYSTEM)/glewinfo/static/,$(GLEWINFO.SRCS.NAMES))
 GLEWINFO.OBJS       := $(GLEWINFO.OBJS:.c=.o)
-GLEWINFO.CFLAGS     := -Iinclude -Isrc/glew/include -DGLEW_REGAL
-GLEWINFO.LIBS       += -Llib -lRegal -lRegalGLEW $(LDFLAGS.GLUT) $(LDFLAGS.AGL)
+GLEWINFO.CFLAGS     := -Iinclude -Isrc/glew/include -DGLEW_REGAL -DGLEW_NO_GLU
+GLEWINFO.LIBS       += -Llib -lRegal -lRegalGLEW $(LDFLAGS.GLUT) $(LDFLAGS.GLU) $(LDFLAGS.AGL)
 
 ifneq ($(filter linux%,$(SYSTEM)),)
 GLEWINFO.LIBS       += -lX11
@@ -168,19 +172,156 @@ endif
 
 tmp/$(SYSTEM)/glewinfo/static/%.o: src/glew/src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(GLEWINFO.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(GLEWINFO.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 bin/glewinfo: $(GLEWINFO.OBJS) lib/$(LIB.SHARED) lib/$(GLEW.SHARED)
-	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(GLEWINFO.LIBS)
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) -o $@ $^ $(LIB.LDFLAGS) $(GLEWINFO.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
 
 
 ifneq ($(filter darwin%,$(SYSTEM)),)
+glu.lib:
 glut.lib:
 
 else
+
+#
+# RegalGLU
+#
+
+GLU.SRCS        += src/glu/libtess/dict.c
+GLU.SRCS        += src/glu/libtess/geom.c
+GLU.SRCS        += src/glu/libtess/memalloc.c
+GLU.SRCS        += src/glu/libtess/mesh.c
+GLU.SRCS        += src/glu/libtess/normal.c
+#GLU.SRCS        += src/glu/libtess/priorityq-heap.c
+GLU.SRCS        += src/glu/libtess/priorityq.c
+GLU.SRCS        += src/glu/libtess/render.c
+GLU.SRCS        += src/glu/libtess/sweep.c
+GLU.SRCS        += src/glu/libtess/tess.c
+GLU.SRCS        += src/glu/libtess/tessmono.c
+GLU.SRCS        += src/glu/libutil/error.c
+GLU.SRCS        += src/glu/libutil/glue.c
+GLU.SRCS        += src/glu/libutil/mipmap.c
+GLU.SRCS        += src/glu/libutil/project.c
+GLU.SRCS        += src/glu/libutil/quad.c
+GLU.SRCS        += src/glu/libutil/registry.c
+
+GLU.SRCS        += src/glu/libnurbs/interface/bezierEval.cc
+GLU.SRCS        += src/glu/libnurbs/interface/bezierPatch.cc
+GLU.SRCS        += src/glu/libnurbs/interface/bezierPatchMesh.cc
+GLU.SRCS        += src/glu/libnurbs/interface/glcurveval.cc
+GLU.SRCS        += src/glu/libnurbs/interface/glinterface.cc
+GLU.SRCS        += src/glu/libnurbs/interface/glrenderer.cc
+GLU.SRCS        += src/glu/libnurbs/interface/glsurfeval.cc
+GLU.SRCS        += src/glu/libnurbs/interface/incurveeval.cc
+GLU.SRCS        += src/glu/libnurbs/interface/insurfeval.cc
+GLU.SRCS        += src/glu/libnurbs/internals/arc.cc
+GLU.SRCS        += src/glu/libnurbs/internals/arcsorter.cc
+GLU.SRCS        += src/glu/libnurbs/internals/arctess.cc
+GLU.SRCS        += src/glu/libnurbs/internals/backend.cc
+GLU.SRCS        += src/glu/libnurbs/internals/basiccrveval.cc
+GLU.SRCS        += src/glu/libnurbs/internals/basicsurfeval.cc
+GLU.SRCS        += src/glu/libnurbs/internals/bin.cc
+GLU.SRCS        += src/glu/libnurbs/internals/bufpool.cc
+GLU.SRCS        += src/glu/libnurbs/internals/cachingeval.cc
+GLU.SRCS        += src/glu/libnurbs/internals/ccw.cc
+GLU.SRCS        += src/glu/libnurbs/internals/coveandtiler.cc
+GLU.SRCS        += src/glu/libnurbs/internals/curve.cc
+GLU.SRCS        += src/glu/libnurbs/internals/curvelist.cc
+GLU.SRCS        += src/glu/libnurbs/internals/curvesub.cc
+GLU.SRCS        += src/glu/libnurbs/internals/dataTransform.cc
+GLU.SRCS        += src/glu/libnurbs/internals/displaylist.cc
+GLU.SRCS        += src/glu/libnurbs/internals/flist.cc
+GLU.SRCS        += src/glu/libnurbs/internals/flistsorter.cc
+GLU.SRCS        += src/glu/libnurbs/internals/hull.cc
+GLU.SRCS        += src/glu/libnurbs/internals/intersect.cc
+GLU.SRCS        += src/glu/libnurbs/internals/knotvector.cc
+GLU.SRCS        += src/glu/libnurbs/internals/mapdesc.cc
+GLU.SRCS        += src/glu/libnurbs/internals/mapdescv.cc
+GLU.SRCS        += src/glu/libnurbs/internals/maplist.cc
+GLU.SRCS        += src/glu/libnurbs/internals/mesher.cc
+GLU.SRCS        += src/glu/libnurbs/internals/monotonizer.cc
+GLU.SRCS        += src/glu/libnurbs/internals/monoTriangulationBackend.cc
+GLU.SRCS        += src/glu/libnurbs/internals/mycode.cc
+GLU.SRCS        += src/glu/libnurbs/internals/nurbsinterfac.cc
+GLU.SRCS        += src/glu/libnurbs/internals/nurbstess.cc
+GLU.SRCS        += src/glu/libnurbs/internals/patch.cc
+GLU.SRCS        += src/glu/libnurbs/internals/patchlist.cc
+GLU.SRCS        += src/glu/libnurbs/internals/quilt.cc
+GLU.SRCS        += src/glu/libnurbs/internals/reader.cc
+GLU.SRCS        += src/glu/libnurbs/internals/renderhints.cc
+GLU.SRCS        += src/glu/libnurbs/internals/slicer.cc
+GLU.SRCS        += src/glu/libnurbs/internals/sorter.cc
+GLU.SRCS        += src/glu/libnurbs/internals/splitarcs.cc
+GLU.SRCS        += src/glu/libnurbs/internals/subdivider.cc
+GLU.SRCS        += src/glu/libnurbs/internals/tobezier.cc
+GLU.SRCS        += src/glu/libnurbs/internals/trimline.cc
+GLU.SRCS        += src/glu/libnurbs/internals/trimregion.cc
+GLU.SRCS        += src/glu/libnurbs/internals/trimvertpool.cc
+GLU.SRCS        += src/glu/libnurbs/internals/uarray.cc
+GLU.SRCS        += src/glu/libnurbs/internals/varray.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/directedLine.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/gridWrap.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/monoChain.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/monoPolyPart.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/monoTriangulation.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/partitionX.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/partitionY.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/polyDBG.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/polyUtil.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/primitiveStream.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/quicksort.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/rectBlock.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/sampleComp.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/sampleCompBot.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/sampleCompRight.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/sampleCompTop.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/sampledLine.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/sampleMonoPoly.cc
+GLU.SRCS        += src/glu/libnurbs/nurbtess/searchTree.cc
+
+GLU.SRCS.NAMES := $(notdir $(GLU.SRCS))
+GLU.OBJS       := $(addprefix tmp/$(SYSTEM)/glu/shared/,$(GLU.SRCS.NAMES))
+GLU.OBJS       := $(GLU.OBJS:.c=.o) $(GLU.OBJS:.cc=.o)
+GLU.OBJS       := $(filter %.o,$(GLU.OBJS)) 
+GLU.CFLAGS     := -Isrc/glu/include -Isrc/glu/libnurbs/interface -Isrc/glu/libnurbs/internals -Isrc/glu/libnurbs/nurbtess
+GLU.CFLAGS     += -DLIBRARYBUILD
+GLU.LIBS       := -Llib 
+GLU.LIBS       += -lpthread -lm
+GLU.SHARED     := libRegalGLU.$(EXT.DYNAMIC)
+GLU.STATIC     := libRegalGLU.a
+
+glu.lib: lib lib/$(GLU.SHARED)
+
+tmp/$(SYSTEM)/glu/shared/%.o: src/glu/libtess/%.c
+	@mkdir -p $(dir $@)
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLU.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+tmp/$(SYSTEM)/glu/shared/%.o: src/glu/libutil/%.c
+	@mkdir -p $(dir $@)
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLU.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+tmp/$(SYSTEM)/glu/shared/%.o: src/glu/libnurbs/interface/%.cc
+	@mkdir -p $(dir $@)
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLU.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+tmp/$(SYSTEM)/glu/shared/%.o: src/glu/libnurbs/internals/%.cc
+	@mkdir -p $(dir $@)
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLU.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+tmp/$(SYSTEM)/glu/shared/%.o: src/glu/libnurbs/nurbtess/%.cc
+	@mkdir -p $(dir $@)
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLU.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+lib/$(GLU.SHARED): $(GLU.OBJS)
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) $(LDFLAGS.DYNAMIC) -o $@ $^
+ifneq ($(STRIP),)
+	$(STRIP) -x $@
+endif
+
 
 #
 # RegalGLUT
@@ -243,9 +384,10 @@ GLUT.SRCS        += src/glut/src/glut_ppm.c
 GLUT.SRCS.NAMES := $(notdir $(GLUT.SRCS))
 GLUT.OBJS       := $(addprefix tmp/$(SYSTEM)/glut/shared/,$(GLUT.SRCS.NAMES))
 GLUT.OBJS       := $(GLUT.OBJS:.c=.o)
-GLUT.CFLAGS     := -Isrc/glut/include -DBUILD_GLUT32 -DGLUT_BUILDING_LIB -DGLUT_STATIC
-GLUT.LIBS       := -Llib -lRegal
-GLUT.LIBS       += -lGLU -lX11 -lXmu -lXi 
+GLUT.CFLAGS     := -Isrc/glut/include -Isrc/glu/include -DBUILD_GLUT32 -DGLUT_BUILDING_LIB -DGLUT_STATIC
+#GLUT.CFLAGS     += -DCDECL=
+GLUT.LIBS       := -Llib -lRegal -lRegalGLU
+GLUT.LIBS       += -lX11 -lXmu -lXi 
 GLUT.LIBS       += -lpthread -lm
 GLUT.SHARED     := libRegalGLUT.$(EXT.DYNAMIC)
 GLUT.STATIC     := libRegalGLUT.a
@@ -254,10 +396,10 @@ glut.lib: lib lib/$(GLUT.SHARED)
 
 tmp/$(SYSTEM)/glut/shared/%.o: src/glut/src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(PICFLAG) $(GLUT.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(PICFLAG) $(GLUT.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
-lib/$(GLUT.SHARED): $(GLUT.OBJS) lib/$(LIB.SHARED)
-	$(LD) $(LDFLAGS.DYNAMIC) -o $@ $^ $(GLUT.LIBS) 
+lib/$(GLUT.SHARED): $(GLUT.OBJS) lib/$(GLU.SHARED) lib/$(LIB.SHARED)
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) $(LDFLAGS.DYNAMIC) -o $@ $^ $(GLUT.LIBS) 
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -281,19 +423,19 @@ DREAMTORUS.SRCS.NAMES := $(notdir $(DREAMTORUS.SRCS))
 DREAMTORUS.OBJS       := $(addprefix tmp/$(SYSTEM)/dreamtorus/static/,$(DREAMTORUS.SRCS.NAMES))
 DREAMTORUS.OBJS       := $(DREAMTORUS.OBJS:.cpp=.o)
 DREAMTORUS.CFLAGS     := -Iinclude -Iexamples/dreamtorus/src
-DREAMTORUS.LIBS       += -Llib -lRegal $(LDFLAGS.GLUT)
+DREAMTORUS.LIBS       += -Llib $(LDFLAGS.GLUT) $(LDFLAGS.GLU) -lRegal 
 DREAMTORUS.LIBS       += -lm -lpthread
 
 tmp/$(SYSTEM)/dreamtorus/static/%.o: examples/dreamtorus/src/%.cpp
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DREAMTORUS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(DREAMTORUS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 tmp/$(SYSTEM)/dreamtorus/static/%.o: examples/dreamtorus/glut/code/%.cpp
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(DREAMTORUS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(DREAMTORUS.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 bin/dreamtorus: $(DREAMTORUS.OBJS) lib/$(LIB.SHARED) 
-	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(DREAMTORUS.LIBS)
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) -o $@ $^ $(LIB.LDFLAGS) $(DREAMTORUS.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -308,16 +450,16 @@ TIGER.SRCS       += examples/tiger/xform.c
 TIGER.SRCS.NAMES := $(notdir $(TIGER.SRCS))
 TIGER.OBJS       := $(addprefix tmp/$(SYSTEM)/tiger/static/,$(TIGER.SRCS.NAMES))
 TIGER.OBJS       := $(TIGER.OBJS:.c=.o)
-TIGER.CFLAGS     := -Iinclude
-TIGER.LIBS       += -Llib -lRegalGLEW $(LDFLAGS.GLUT) -lRegal
+TIGER.CFLAGS     := -Iinclude -DGLEW_NO_GLU
+TIGER.LIBS       += -Llib -lRegalGLEW $(LDFLAGS.GLUT) $(LDFLAGS.GLU) -lRegal
 TIGER.LIBS       += -lm -lpthread
 
 tmp/$(SYSTEM)/tiger/static/%.o: examples/tiger/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(TIGER.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CCACHE) $(CC) $(CFLAGS) $(TIGER.CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 bin/tiger: $(TIGER.OBJS) lib/$(GLEW.SHARED) lib/$(LIB.SHARED)
-	$(LD) -o $@ $^ $(TIGER.LIBS)
+	$(CCACHE) $(LD) $(LDFLAGS.EXTRA) -o $@ $^ $(TIGER.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -327,8 +469,8 @@ endif
 #
 
 ifeq ($(filter darwin%,$(SYSTEM)),)
-bin/tiger:      lib/$(GLUT.SHARED)
-bin/dreamtorus: lib/$(GLUT.SHARED)
+bin/tiger:      lib/$(GLUT.SHARED) lib/$(GLU.SHARED)
+bin/dreamtorus: lib/$(GLUT.SHARED) lib/$(GLU.SHARED)
 endif
 
 clean:

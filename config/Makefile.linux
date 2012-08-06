@@ -11,7 +11,8 @@ else
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LIBDIR = $(REGAL_DEST)/lib
 endif
-LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11
+LDFLAGS.GLU = -lRegalGLU
 LDFLAGS.GLUT = -lRegalGLUT
 LDFLAGS.STATIC =
 LDFLAGS.DYNAMIC = -shared

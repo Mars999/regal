@@ -1,0 +1,31 @@
+NAME = $(REGAL_NAME)
+CC = cc
+LD = cc
+EXT.DYNAMIC = dylib
+CFLAGS.EXTRA = -arch i386 -no-cpp-precomp -dynamic -fno-common
+PICFLAG = -fPIC
+LDFLAGS.EXTRA = -arch i386
+ifneq (undefined, $(origin REGAL_APPLE_GLX))
+CFLAGS.EXTRA += -I/usr/X11R6/include -D'REGAL_APPLE_GLX'
+LDFLAGS.GL = -L/usr/X11R6/lib -lXmu -lXi -lGLU -lGL -lXext -lX11
+else
+LDFLAGS.AGL  = -framework AGL
+LDFLAGS.GL   = $(LDFLAGS.AGL) -framework OpenGL
+LDFLAGS.GLUT = -framework GLUT
+endif
+LDFLAGS.STATIC =
+LDFLAGS.DYNAMIC = -dynamiclib 
+WARN = -Wall -W -Wno-unused-parameter
+POPT = -O2
+BIN.SUFFIX =
+LIB.SONAME    = lib$(NAME).$(SO_MAJOR).dylib
+LIB.DEVLNK    = lib$(NAME).dylib
+LIB.SHARED    = lib$(NAME).$(SO_VERSION).dylib
+LIB.STATIC    = lib$(NAME).a
+LIB.FRAMEWORK = $(NAME)
+LDFLAGS.SO    = $(LDFLAGS.DYNAMIC) -install_name $(REGAL_DEST)/lib/$(LIB.SHARED) -current_version $(SO_VERSION) -compatibility_version $(SO_MAJOR)
+LIB.SONAME.MX = lib$(NAME)mx.$(SO_MAJOR).dylib
+LIB.DEVLNK.MX = lib$(NAME)mx.dylib
+LIB.SHARED.MX = lib$(NAME)mx.$(SO_VERSION).dylib
+LIB.STATIC.MX = lib$(NAME)mx.a
+LDFLAGS.SO.MX = -dynamiclib -install_name $(REGAL_DEST)/lib/$(LIB.SHARED.MX) -current_version $(SO_VERSION) -compatibility_version $(SO_MAJOR)
